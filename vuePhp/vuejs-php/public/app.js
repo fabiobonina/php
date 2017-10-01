@@ -28,13 +28,9 @@ var app = new Vue({
 
             let users = this.users;
             response.body.dados.map(function(value, key) {
-              var res = value.dado.split(";");
-              //console.log(res.key[0].value);
-              //users.push({id: value.id, dado: value.dado.split(";")});
-              users.push({id: value.id, dado: value.dado});
-              
+              users.push({id: value.id, data: value.data, local: value.local, EA1: value.EA_1});
             });
-            console.log(this.users.dado);
+
           }
 
         })
@@ -60,7 +56,6 @@ var app = new Vue({
           if (response.body.status == 'ok') {
             this.users.push(response.body.dados);
           }
-
           this.name = '';
           this.surname = '';
 
