@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 4.5.1
+- https://www.phpmyadmin.net
+-
+- Host: 127.0.0.1
+- Generation Time: 17-Ago-2017 às 21:41
+- Versão do servidor: 10.1.16-MariaDB
+- PHP Version: 7.0.9
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="http://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="system_tec" collation="latin1_swedish_ci" charset="latin1">
+            <pma:table name="tb_tipo">
+                CREATE TABLE `tb_tipo` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `name` varchar(50) NOT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Database: 'system_tec'
+    -->
+    <database name="system_tec">
+        <!-- Tabela tb_tipo -->
+        <table name="tb_tipo">
+            <column name="id">1</column>
+            <column name="name">ETA</column>
+        </table>
+        <table name="tb_tipo">
+            <column name="id">2</column>
+            <column name="name">ETE</column>
+        </table>
+        <table name="tb_tipo">
+            <column name="id">3</column>
+            <column name="name">EEA</column>
+        </table>
+        <table name="tb_tipo">
+            <column name="id">4</column>
+            <column name="name">IND</column>
+        </table>
+        <table name="tb_tipo">
+            <column name="id">5</column>
+            <column name="name">OUTROS</column>
+        </table>
+    </database>
+</pma_xml_export>
