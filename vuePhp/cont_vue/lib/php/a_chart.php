@@ -4,7 +4,7 @@ header('Content-Type:application/json;charset=utf-8');
 
 $tname = $_REQUEST['tname'];
 
-//ÅÐ¶Ï²éÑ¯ÄÄ¸ö±í
+//ï¿½Ð¶Ï²ï¿½Ñ¯ï¿½Ä¸ï¿½ï¿½ï¿½
 if($tname == 'xueduan'){
   $xname = 'xdname';
   $id = 'xdid';
@@ -18,14 +18,14 @@ $conn = mysqli_connect($host,$name,$pwd,$dbname,$port);
 $sql = "SET NAMES UTF8";
 mysqli_query($conn,$sql);
 
-//TODO ×ÜÊý
+//TODO ï¿½ï¿½ï¿½ï¿½
 $sql = "SELECT COUNT(*) FROM $tname";
 $result = mysqli_query($conn,$sql);
 $row = mysqli_fetch_assoc($result);
 $total = $row['COUNT(*)'];
 //echo $total;
 
-//Êä³öµÄÊý¾Ý
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 /*
 $output = [
     'label'=>[],

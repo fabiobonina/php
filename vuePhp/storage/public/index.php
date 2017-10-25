@@ -7,7 +7,7 @@ if (empty($_SESSION['_token'])) {
 }
 
 
-require __DIR__.'/../vendor/autoload.php';
+//require __DIR__.'/../vendor/autoload.php';
 
 
 $root = realpath(__DIR__.'/../');
@@ -30,10 +30,10 @@ defined('STORE_DATA') or define('STORE_DATA', $root.DS.'storage'.DS.'data'.DS);
  * DATABASE
  * */
 defined('DB_HOST')          or define('DB_HOST','127.0.0.1');
-defined('DB_PORT')          or define('DB_PORT',3306);
+defined('DB_PORT')          or define('DB_PORT','');
 defined('DB_NAME')          or define('DB_NAME','storage');
-defined('DB_USER')          or define('DB_USER','codenathan');
-defined('DB_PASS')          or define('DB_PASS','F3!+6p13%q)w$:t');
+defined('DB_USER')          or define('DB_USER','root');
+defined('DB_PASS')          or define('DB_PASS','');
 
 date_default_timezone_set('Europe/London');
 

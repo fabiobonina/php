@@ -1,6 +1,6 @@
 <?php
 $host = "localhost";
 $name = "root";
-$pwd = "123";
+$pwd = "";
 $dbname = "conteducation";
-$port = 3306;
+$port;
