@@ -17,6 +17,6 @@
   <!-- /page content -->
         
   <!-- footer content -->
-  <?php include("admin/includes/footer.php");?>
+  <?php include("src/components/index/footer.php");?>
   <!-- /footer content -->
 

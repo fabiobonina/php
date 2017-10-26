@@ -11,109 +11,125 @@
   <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
 </head>
 <body>
-  <div id="app">
-    <v-app>
-      <v-navigation-drawer
-        persistent
-        :mini-variant="miniVariant"
-        :clipped="clipped"
-        clipped-left
-        v-model="drawer"
-        app
-      >
-        <v-list>
-          <v-list-tile :value="true" v-for="(item, i) in items" :key="item.title">
-            <v-list-tile-action>
-              <v-icon light v-html="item.icon"></v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title v-text="item.title"></v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-      </v-navigation-drawer>
-      <v-toolbar fixed app>
-        <v-toolbar-side-icon @click.native.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <v-btn 
-          icon
-          @click.stop="miniVariant = !miniVariant"
-        >
-          <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
-        </v-btn>
-        <v-btn
-          icon
-          @click.stop="clipped = !clipped"
-        >
-          <v-icon>web</v-icon>
-        </v-btn>
-        <v-btn
-          icon
-          @click.native.stop="fixed = !fixed"
-        >
-          <v-icon>remove</v-icon>
-        </v-btn>
-        <v-toolbar-title v-text="title"></v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn
-          icon
-          @click.native.stop="rightDrawer = !rightDrawer"
-        >
-          <v-icon>menu</v-icon>
-        </v-btn>
-      </v-toolbar>
-      <main>
-        <v-content>
-          <v-container fluid>
-            <page></page>
-          </v-container>
-        </v-content>
-      </main>
-      <v-footer :fixed="fixed" app>
-        <span>&copy; 2017</span>
-      </v-footer>
+    <div id="app">
+        <v-app>
+
+    <script type="text/x-template" id="grid-template">
+      <table>
+        <thead>
+          <tr>
+            <th v-for="key in columns"
+              @click="sortBy(key)"
+              :class="{ active: sortKey == key }">
+              {{ key | capitalize }}
+              <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+              </span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="entry in filteredData">
+            <td v-for="key in columns">
+              {{entry[key]}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </script>
+    
+    <!-- demo root element -->
+    <div id="demo">
+      <form id="search">
+        Search <input name="query" v-model="searchQuery">
+      </form>
+      <demo-grid
+        :data="gridData"
+        :columns="gridColumns"
+        :filter-key="searchQuery">
+      </demo-grid>
+    </div>
+
+
     </v-app>
   </div>
 
-  <script type="text/x-template" id="page">
-    <v-layout column align-center>
-      <div>
-        <img src="./v.png" alt="Vuetify.js" class="mb-5" height="100px" />
-      </div>
-      <blockquote>
-        &#8220;First, solve the problem. Then, write the code.&#8221;
-        <footer>
-          <small>
-            <em>&mdash;Fabio Bonina{{title}}</em>
-            <p v-text="title"></p>
-            <v-list-tile-title v-text="title"></v-list-tile-title>
-          </small>
-        </footer>
-      </blockquote>
-    </v-layout>
-  </script>
+
+
+
+
+
 
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/vuetify/dist/vuetify.js"></script>
   <script>
-    Vue.component('page', {
-      template: '#page'
-    })
-    new Vue({
-      el: '#app',
-      data: {
-        clipped: false,
-        drawer: true,
-        fixed: false,
-        items: [
-          { icon: 'bubble_chart', title: 'Inspire' },
-          { icon: 'bubble_chart', title: 'Teste' }
-        ],
-        miniVariant: false,
-        right: true,
-        rightDrawer: false,
-        title: 'Fabio'
-      }
-    })
+   // register the grid component
+   Vue.component('demo-grid', {
+     template: '#grid-template',
+     props: {
+       data: Array,
+       columns: Array,
+       filterKey: String
+     },
+     data: function () {
+       var sortOrders = {}
+       this.columns.forEach(function (key) {
+         sortOrders[key] = 1
+       })
+       return {
+         sortKey: '',
+         sortOrders: sortOrders
+       }
+     },
+     computed: {
+       filteredData: function () {
+         var sortKey = this.sortKey
+         var filterKey = this.filterKey && this.filterKey.toLowerCase()
+         var order = this.sortOrders[sortKey] || 1
+         var data = this.data
+         if (filterKey) {
+           data = data.filter(function (row) {
+             return Object.keys(row).some(function (key) {
+               return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+             })
+           })
+         }
+         if (sortKey) {
+           data = data.slice().sort(function (a, b) {
+             a = a[sortKey]
+             b = b[sortKey]
+             return (a === b ? 0 : a > b ? 1 : -1) * order
+           })
+         }
+         return data
+       }
+     },
+     filters: {
+       capitalize: function (str) {
+         return str.charAt(0).toUpperCase() + str.slice(1)
+       }
+     },
+     methods: {
+       sortBy: function (key) {
+         this.sortKey = key
+         this.sortOrders[key] = this.sortOrders[key] * -1
+       }
+     }
+   })
+   
+   // bootstrap the demo
+   var demo = new Vue({
+     el: '#demo',
+     data: {
+       searchQuery: '',
+       gridColumns: ['name', 'power'],
+       gridData: [
+         { name: 'Chuck Norris', power: Infinity },
+         { name: 'Bruce Lee', power: 9000 },
+         { name: 'Jackie Chan', power: 7000 },
+         { name: 'Jet Li', power: 8000 }
+       ]
+     }
+   })
   </script>
 </body>
 </html>

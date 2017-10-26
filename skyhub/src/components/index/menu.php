@@ -29,10 +29,10 @@
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="index.php">Home</a></li>
-                      <li><a href="lojaList.php">LojaList</a></li>
-                    <?php if($userNivel > 1){ ?>
+                      <li><a href="lojaList.php">Loja</a></li>
+                      <?php if($userNivel > 0){ ?>
                       <li><a href="index.php">Dashboard</a></li>
-                    <?php } ?>
+                      <?php } ?>
                     </ul>
                   </li>
                   <?php if($userNivel > 1){ ?>

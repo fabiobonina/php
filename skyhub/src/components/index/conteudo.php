@@ -18,7 +18,7 @@
       foreach($localidades->findAll() as $key => $value):if($value->ativo == 0 ) {
 
         $cont_local++;
-        if( $value->latitude <> 0){
+        if( $value->latitude <> 0.00000){
           $cont_localLat++;
         }
 
@@ -45,6 +45,7 @@
       }endforeach; ?>
       <?php
       $cont_oatLat = 0;
+      
       $out = "{";
 
          foreach($localidades->findAll() as $key => $value):{
@@ -52,14 +53,16 @@
             $localidade = $value->loja . " | " . $value->nome;
             $localLat = $value->latitude;
             $localLong = $value->longitude;
+            
             $cont_oatTt = 0;
-
             foreach($oats->findAll() as $key => $value):if($value->ativo == 0 && $value->localidade == $localId && $value->status < 5 ) {
               $cont_oatTt++;
             }endforeach;
-
-            if( $cont_oatTt > 0 && $localLat <> 0){
-              $cont_oatLat++;
+            
+            if( $cont_oatTt > 0 && $localLat <> 0.000000){
+              foreach($oats->findAll() as $key => $value):if($value->ativo == 0 && $value->localidade == $localId && $value->status < 5 ) {
+                $cont_oatLat++;
+              }endforeach;
           		if ($out != "{") {
           			$out .= ",";
           		}
@@ -67,7 +70,6 @@
           		$out .= 'center: {lat: '.$localLat.', ';
           		$out .= 'lng: '.$localLong.'},';
               $out .= 'atendimento: '.$cont_oatTt.'}';
-
 
             }
           }endforeach;
@@ -188,12 +190,35 @@
                 <?php foreach($lojas->findAll() as $key => $value):if($value->ativo == 0 ) { ?>
                 <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                   <div class="tile-stats">
-                    <div class="icon"><i class="fa fa-caret-square-o-right"></i>
+                  
+                    <div class="icon"><i class="fa fa fa-building-o"></i>
                     </div>
-                    <div class="count"><?php echo $value->id; ?></div>
-
+                    <?php $lojaID = $value->id; ?>
                     <h4><a href="lojaList.php"><?php echo $value->displayName; ?></a></h4>
-                    <p><?php echo $value->name; ?></p>
+
+                    <?php 
+                    $i = 0;
+                    $i1 = 0;
+                    $locais = 0;
+                    $localizado = 0;
+                    
+                    foreach($localidades->findAll() as $key => $value):if($value->ativo == 0 && $value->loja == $lojaID ) {
+                      $i++;
+                      $locais = $i;
+                      if($value->latitude <> 0.00000 && $value->longitude <> 0.00000 ){
+                        $i1++;
+                        $localizado = $i1;
+                      }
+                     }endforeach;
+                     if($locais > 0){
+                      $status = ($localizado/$locais)*100;
+                     }else{
+                       $status = 0;
+                     }
+                     
+                     
+                     ?>
+                    <h5>Locais:  <i class="fa fa-building-o"></i><?php echo $locais;?>/  <i class="green"><i class="fa fa-map-marker"></i><?php echo round($status, 1)."% (".$localizado.")"; ?></i></h5>
                   </div>
                 </div>
                 <?php }endforeach; ?>
@@ -333,7 +358,7 @@
                  fillOpacity: 0.35,
                  map: map,
                  center: citymap[city].center,
-                 radius: Math.sqrt(citymap[city].atendimento) * 5000
+                 radius: Math.sqrt(citymap[city].atendimento) * 3000
                });
              }
            }
