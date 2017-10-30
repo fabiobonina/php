@@ -1,0 +1,15 @@
+let Home = {template: '<div class="well"><h1>Home</h1></div>'}
+let About = {template: '<div class="well"><h1>About</h1></div>'}
+let Contact = {template: '<div class="well"><h1>Contact</h1></div>'}
+Vue.use(VueRouter)
+let routes = [
+  {path: '/', component: Home},
+  {path: '/about', component: About},
+  {path: '/contact', component: Contact},
+]
+const router = new VueRouter({
+  routes
+})
+new Vue({
+  router
+}).$mount('#app')
