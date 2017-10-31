@@ -21,7 +21,7 @@ var app = new Vue({
     // Bu metot http get ile api üzerinden kayıtları users dizisine push eder
     fetchData: function() {
 
-      this.$http.get('api/apiIotList.php')
+      this.$http.get('./api/apiIotList.php')
         .then(function(response) {
 
           if (response.body.status == 'ok') {
