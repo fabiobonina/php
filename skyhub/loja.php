@@ -10,11 +10,10 @@
     <!--link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css"></link>
     <link href="styles.css" rel="stylesheet" type="text/css"-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-
   </head>
   <body>
     <div class="container">
-      <h1>Vue JS CRUD (Based on Vue JS version 2)</h1>
+      <h1>Usuarios</h1>
       <main id="app">
         <router-view></router-view>
       </main>
@@ -37,62 +36,61 @@
       <div>
         <div class="actions">
           <a class="btn btn-default" >
-          <router-link :to="{path: '/add-product'}">
+          <router-link :to="{path: '/add-user'}">
             <span class="glyphicon glyphicon-plus"></span>
-            Add product
+            Add
           </router-link>
           </a>
         </div>
-        <div class="filters row">
-          <div class="form-group col-sm-3">
-            <label for="search-element">Product name</label>
-            <input v-model="searchKey" class="form-control" id="search-element" requred/>
-          </div>
-        </div>
-        <!--table class="table">
-          <thead>
-            <tr>
-              <th>Usuario</th>
-              <th>Email</th>
-              <th>Nome</th>
-              <th class="col-sm-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="product in users">
-              <!-- tr v-for="product in products">
-              <!-- tr v-for="product in products | filterBy searchKey in 'name'">
-              <td>
-                <a><router-link :to="{name: 'product', params: {product_id: product.id}}">{{ product.user }}</router-link></a>
-              </td>
-              <td>{{ product.email }}</td>
-              <td>
-                {{ product.nome }}
-                <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
-              </td>
-              <td>
-                <a class="btn btn-warning btn-xs"><router-link :to="{name: 'product-edit', params: {product_id: product.id}}">Edit</router-link></a>
-                <a class="btn btn-danger btn-xs"><router-link :to="{name: 'product-delete', params: {product_id: product.id}}">Delete</router-link></a>
-              </td>
-            </tr>
-          </tbody>
-        </table-->
         <div>
+          <p class="successMessage" v-if="successMessage">{{successMessage}}</p>
+          <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
           <div class="filters row">
             <div class="form-group col-sm-3">
               <label for="search-element">Search</label>
               <input v-model="searchQuery" class="form-control" id="search-element" requred/>
             </div>
           </div>
-          <demo-grid
-          :data="gridData"
-          :columns="gridColumns"
-          :filter-key="searchQuery">
-        </demo-grid>
+          <tabela-grid
+            :data="message"
+            :columns="gridColumns"
+            :filter-key="searchQuery">
+          </tabela-grid>
         </div>
       </div>
     </template>
 
+    <template id="grid-tabela">
+      <div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th v-for="key in columns"
+                @click="sortBy(key)"
+                :class="{ active: sortKey == key }">
+                {{ key | capitalize }}
+                <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+                </span>
+              </th>
+              <th class="col-sm-2">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="entry in filteredData">
+              <td v-for="key in columns">
+                {{entry[key]}}
+              </td>
+              <td>
+                <a class="btn btn-default btn-xs"><router-link :to="{name: 'user', params: {_id: entry.id}}"><span class="glyphicon glyphicon-eye-open"></span> View</router-link></a>
+                <a class="btn btn-warning btn-xs"><router-link :to="{name: 'edit', params: {_id: entry.id}}"><span class="glyphicon glyphicon-pencil"></span> Edit</router-link></a>
+                <a class="btn btn-danger btn-xs"><router-link :to="{name: 'delete', params: {_id: entry.id}}"><span class="glyphicon glyphicon-trash"></span> Delete</router-link></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </template>
+    
     <template id="grid-template">
       <div>
         <table>
@@ -118,7 +116,7 @@
       </div>
     </template>
         
-    <template id="add-product">
+    <template id="add-user">
       <div>
       <h2>Add new product</h2>
       <form v-on:submit="createProduct">
@@ -140,7 +138,7 @@
       </div>
     </template>
         
-    <template id="product-edit">
+    <template id="user-edit">
       <div>
       <h2>Edit product</h2>
       <form v-on:submit="updateProduct">
@@ -162,7 +160,7 @@
       </div>
     </template>
         
-    <template id="product-delete">
+    <template id="user-delete">
       <div>
       <h2>Delete product {{ product.name }}</h2>
       <form v-on:submit="deleteProduct">
@@ -173,6 +171,7 @@
       </div>
     </template>
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/2.0.0-rc.4/vuex.js"></script>
     <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
     <script src="lib/vue-resource.min.js"></script>
     <script src="app.js"></script>

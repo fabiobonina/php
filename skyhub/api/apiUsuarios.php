@@ -7,7 +7,7 @@ $table = 'login';
 
 try {
       
-      $conn = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
+      $conn = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=".DB_CHARSET, DB_USER, DB_PASS);
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 	if(!$conn){
@@ -189,5 +189,8 @@ try {
 	
 
 } catch (Exception $e) {
-	echo "Erro: ". $e->getMessage();
+      $res['error'] = true;
+      $res['message'] = "Erro: ". $e->getMessage();
+	header("Content-Type: application/json");
+      echo json_encode($res);
 };
