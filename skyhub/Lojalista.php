@@ -19,7 +19,7 @@
       </main>
     </div>
 
-    <template id="product">
+    <template id="item">
       <div>
         <h2>{{ product.name }}</h2>
         <b>Description: </b>
@@ -32,11 +32,11 @@
       </div>
     </template>
         
-    <template id="product-list">
+    <template id="list">
       <div>
         <div class="actions">
           <a class="btn btn-default" >
-          <router-link :to="{path: '/add-user'}">
+          <router-link :to="{path: '/add'}">
             <span class="glyphicon glyphicon-plus"></span>
             Add
           </router-link>
@@ -62,61 +62,15 @@
 
     <template id="grid-tabela">
       <div>
-        <table class="table">
-          <thead>
-            <tr>
-              <th v-for="key in columns"
-                @click="sortBy(key)"
-                :class="{ active: sortKey == key }">
-                {{ key | capitalize }}
-                <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
-                </span>
-              </th>
-              <th class="col-sm-2">Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="entry in filteredData">
-              <td v-for="key in columns">
-                {{entry[key]}}
-              </td>
-              <td>
-                <a class="btn btn-default btn-xs"><router-link :to="{name: 'user', params: {_id: entry.id}}"><span class="glyphicon glyphicon-eye-open"></span> View</router-link></a>
-                <a class="btn btn-warning btn-xs"><router-link :to="{name: 'edit', params: {_id: entry.id}}"><span class="glyphicon glyphicon-pencil"></span> Edit</router-link></a>
-                <a class="btn btn-danger btn-xs"><router-link :to="{name: 'delete', params: {_id: entry.id}}"><span class="glyphicon glyphicon-trash"></span> Delete</router-link></a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </template>
-    
-    <template id="grid-template">
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th v-for="key in columns"
-                @click="sortBy(key)"
-                :class="{ active: sortKey == key }">
-                {{ key | capitalize }}
-                <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
-                </span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="entry in filteredData">
-              <td v-for="key in columns">
-                {{entry[key]}}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="list-group" v-for="entry in filteredData">
+          <a :href="'#/loja/' + entry.id" class="list-group-item"><h4 class="list-group-item-heading">{{entry.displayName}}</h4>
+            <p class="list-group-item-text">{{entry.name}}</p><span class="glyphicon glyphicon-eye-open"></span> View <span class="glyphicon glyphicon-eye-open"></span>
+          </a>
+        </div>
       </div>
     </template>
         
-    <template id="add-user">
+    <template id="add">
       <div>
       <h2>Add new product</h2>
       <form v-on:submit="createProduct">
@@ -138,7 +92,7 @@
       </div>
     </template>
         
-    <template id="user-edit">
+    <template id="edit">
       <div>
       <h2>Edit product</h2>
       <form v-on:submit="updateProduct">
@@ -160,7 +114,7 @@
       </div>
     </template>
         
-    <template id="user-delete">
+    <template id="delete">
       <div>
       <h2>Delete product {{ product.name }}</h2>
       <form v-on:submit="deleteProduct">

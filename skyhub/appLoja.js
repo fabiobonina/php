@@ -1,10 +1,9 @@
 /**
  * Vue.js with PHP Api
- * @author Gökhan Kaya <0x90kh4n@gmail.com>
- */
-
-// Tüm post dataları json olarak gönderiliyor
-// Form data olarak göndermek için true yapılır
+ * @author Fabio Bonina <fabio.bonina@gmail.com>
+*/
+//Todos os postdados são enviados como json
+//True para enviar como dados do formulário
 Vue.http.options.emulateJSON = true;
 
 const state = {
@@ -91,7 +90,7 @@ function findProductKey (productId) {
 
 
 var List = Vue.extend({
-  template: '#product-list',
+  template: '#list',
   data: function () {
     return {
       errorMessage: '',
@@ -112,7 +111,7 @@ var List = Vue.extend({
   methods: {
     // Bu metot http get ile api üzerinden kayıtları users dizisine push eder
     fetchData: function() {
-      this.$http.get('./api/apiUsuarios.php?action=read')
+      this.$http.get('./api/apiLoja.php?action=read')
         .then(function(response) {
           /*if (response.body.status == 'ok') {
             let users = this.users;
@@ -153,68 +152,6 @@ var List = Vue.extend({
         .catch(function(error) {
           console.log(error);
         });
-    }
-  }
-});
-
-var Product = Vue.extend({
-  template: '#product',
-  data: function () {
-    return {product: findProduct(this.$route.params.product_id)};
-  }
-});
-
-
-var ProductEdit = Vue.extend({
-  template: '#product-edit',
-  data: function () {
-    return {product: findProduct(this.$route.params._id)};
-  },
-  methods: {
-    updateProduct: function () {
-      //Obsolete, product is available directly from data...
-      let product = this.product; //var product = this.$get('product');
-      products[findProductKey(product.id)] = {
-        id: product.id,
-        name: product.name,
-        description: product.description,
-        price: product.price
-      };
-      router.push('/');
-    }
-  }
-});
-
-var ProductDelete = Vue.extend({
-  template: '#product-delete',
-  data: function () {
-    return {product: findProduct(this.$route.params._id)};
-  },
-  methods: {
-    deleteProduct: function () {
-      products.splice(findProductKey(this.$route.params._id), 1);
-      router.push('/');
-    }
-  }
-});
-
-var AddProduct = Vue.extend({
-  template: '#add-product',
-  data: function () {
-    return {product: {name: '', description: '', price: ''}
-    }
-  },
-  methods: {
-    createProduct: function() {
-      //Obsolete, product is available directly from data...
-      let product = this.product; //var product = this.$get('product');
-      products.push({
-        id: Math.random().toString().split('.')[1],
-        name: product.name,
-        description: product.description,
-        price: product.price
-      });
-      router.push('/');
     }
   }
 });
@@ -325,16 +262,15 @@ Vue.component('demo-grid', {
   }
 });
 
-
-var User = Vue.extend({
+var Item = Vue.extend({
   template: '#product',
   data: function () {
     return {product: findProduct(this.$route.params._id)};
   }
 });
 
-var UserEdit = Vue.extend({
-  template: '#product-edit',
+var Edit = Vue.extend({
+  template: '#edit',
   data: function () {
     return {product: findProduct(this.$route.params._id)};
   },
@@ -353,8 +289,8 @@ var UserEdit = Vue.extend({
   }
 });
 
-var AddUser = Vue.extend({
-  template: '#add-product',
+var Add = Vue.extend({
+  template: '#add',
   data: function () {
     return {product: {name: '', description: '', price: ''}
     }
@@ -373,10 +309,10 @@ var AddUser = Vue.extend({
     }
   }
 });
-var UserDelete = Vue.extend({
+var Delete = Vue.extend({
   template: '#delete',
   data: function () {
-    return {product: findProduct(this.$route.params._id)};
+    return {item: findProduct(this.$route.params._id)};
   },
   methods: {
     deleteProduct: function () {
@@ -389,14 +325,10 @@ var UserDelete = Vue.extend({
 var router = new VueRouter({
   routes: [
     {path: '/', component: List},
-    {path: '/product/:_id', component: Product, name: 'product'},
-    {path: '/add-product', component: AddProduct},
-    {path: '/product/:_id/edit', component: ProductEdit, name: 'product-edit'},
-    {path: '/product/:_id/delete', component: ProductDelete, name: 'product-delete'},
-    {path: '/product/:_id', component: User, name: 'user'},
-    {path: '/add', component: AddUser},
-    {path: '/user/:_id/edit', component: UserEdit, name: 'user-edit'},
-    {path: '/user/:_id/delete', component: UserDelete, name: 'user-delete'}
+    {path: '/loja/:_id', component: Item, name: 'loja'},
+    {path: '/add', component: Add},
+    {path: '/loja/:_id/edit', component: Edit, name: 'edit'},
+    {path: '/loja/:_id/delete', component: Delete, name: 'delete'}
   ]
 });
 
