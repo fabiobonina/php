@@ -23,19 +23,18 @@ SET time_zone = "-03:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `login`
+-- Estrutura da tabela `users`
 --
 
-CREATE TABLE `login` (
+CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `nome` varchar(150) NOT NULL,
+  `name` varchar(150) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `nickuser` varchar(30) NOT NULL,
   `user` varchar(50) NOT NULL,
-  `senha` varchar(32) NOT NULL,
+  `password` varchar(32) NOT NULL,
   `avatar` varchar(350) DEFAULT NULL,
   `proprietario` int(11) DEFAULT NULL,
-  `grupoLoja` int(11) DEFAULT NULL,
+  `grupoLoja` int(2) DEFAULT NULL,
   `loja` int(11) DEFAULT NULL,
   `nivel` enum('0','1','2','3','4') NOT NULL DEFAULT '0',
   `ativo` enum('0','1') NOT NULL DEFAULT '0',
@@ -44,10 +43,10 @@ CREATE TABLE `login` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `login`
+-- Extraindo dados da tabela `users`
 --
 
-INSERT INTO `login` (`id`, `nome`, `email`, `nickuser`, `user`, `senha`, `avatar`, `proprietario`, `grupoLoja`, `loja`, `nivel`, `ativo`, `data_cadastro`, `data_ultimo_login`) VALUES
+INSERT INTO `users` (`id`, `nome`, `email`, `nickuser`, `user`, `password`, `avatar`, `proprietario`, `grupoLoja`, `loja`, `nivel`, `ativo`, `data_cadastro`, `data_ultimo_login`) VALUES
 (1, 'Fabio Bonina', 'fabiobonina@gmail.com', 'fabio.bonina', 'Fabio Bonina', '123abc', '', 1, 1, 24, '4', '0', '2016-10-03', '2017-08-18 17:08:41'),
 (2, 'Alexandre Melo', 'alexandre.melo@gruposabara.com', 'alexandre.melo', 'Alexandre Melo', '123abc', '', 1, 1, 24, '3', '0', '2016-11-01', '2016-11-01 10:45:16'),
 (3, 'Rafael Carlos', 'rafael.carlos@gruposabara.com', 'rafael.carlos', 'Rafael Carlos', 'rafael', '', 1, 1, 24, '3', '0', '2016-11-01', '2016-11-01 11:03:17'),
@@ -396,18 +395,17 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 --
 
 CREATE TABLE `tb_grupoloja` (
-  `id` int(11) NOT NULL,
-  `decricao` varchar(150) NOT NULL,
-  `codigo` varchar(10) NOT NULL
+  `id` varchar(2) NOT NULL,
+  `decricao` varchar(150) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `tb_grupoloja`
 --
 
-INSERT INTO `tb_grupoloja` (`id`, `decricao`, `codigo`) VALUES
-(1, 'Proprietario', 'P'),
-(2, 'Cliente', 'C');
+INSERT INTO `tb_grupoloja` (`id`, `decricao`) VALUES
+('P', 'Proprietario'),
+('C', 'Cliente');
 
 -- --------------------------------------------------------
 
@@ -1480,7 +1478,7 @@ CREATE TABLE `tb_postagens` (
 CREATE TABLE `tb_proprietario` (
   `id` int(11) NOT NULL,
   `name` varchar(150) NOT NULL,
-  `displayName` varchar(50) NOT NULL,
+  `nick` varchar(50) NOT NULL,
   `ativo` tinyint(1) NOT NULL,
   `cadastro` date NOT NULL DEFAULT '0000-00-00'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -1489,7 +1487,7 @@ CREATE TABLE `tb_proprietario` (
 -- Extraindo dados da tabela `tb_proprietario`
 --
 
-INSERT INTO `tb_proprietario` (`id`, `name`, `displayName`, `ativo`, `cadastro`) VALUES
+INSERT INTO `tb_proprietario` (`id`, `name`, `nick`, `ativo`, `cadastro`) VALUES
 (1, 'Sabará Químicos Ingredientes S/A', 'Sabará', 0, '2017-08-17');
 
 -- --------------------------------------------------------
@@ -1499,7 +1497,7 @@ INSERT INTO `tb_proprietario` (`id`, `name`, `displayName`, `ativo`, `cadastro`)
 --
 
 CREATE TABLE `tb_seguimento` (
-  `id` int(11) NOT NULL,
+  `id` varchar(4) NOT NULL,
   `name` varchar(50) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -1508,11 +1506,11 @@ CREATE TABLE `tb_seguimento` (
 --
 
 INSERT INTO `tb_seguimento` (`id`, `name`) VALUES
-(1, 'SANEAMENTO'),
-(2, 'INDUSTRIA'),
-(3, 'BEBIDA'),
-(4, 'USINA'),
-(5, 'OUTRO');
+('SAN', 'SANEAMENTO'),
+('IND', 'INDUSTRIA'),
+('BEB', 'BEBIDA'),
+('USI', 'USINA'),
+('OUT', 'OUTRO');
 
 -- --------------------------------------------------------
 
@@ -1522,7 +1520,7 @@ INSERT INTO `tb_seguimento` (`id`, `name`) VALUES
 
 CREATE TABLE `tb_servicos` (
   `id` varchar(6) NOT NULL,
-  `descricao` varchar(30) CHARACTER SET utf8 NOT NULL,
+  `name` varchar(30) CHARACTER SET utf8 NOT NULL,
   `tipo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0',
   `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -1531,7 +1529,7 @@ CREATE TABLE `tb_servicos` (
 -- Extraindo dados da tabela `tb_servicos`
 --
 
-INSERT INTO `tb_servicos` (`id`, `descricao`, `tipo`, `ativo`) VALUES
+INSERT INTO `tb_servicos` (`id`, `name`, `tipo`, `ativo`) VALUES
 ('NV0001', 'NOVA INSTALACAO', '0', '0'),
 ('PV0001', 'PREVENTIVO', '1', '0'),
 ('OP0002', 'ACOPLAR CILINDRO', '0', '0'),
@@ -1583,7 +1581,7 @@ CREATE TABLE `tb_tecnicos` (
 --
 
 CREATE TABLE `tb_tipo` (
-  `id` int(11) NOT NULL,
+  `id` varchar(11) NOT NULL,
   `name` varchar(50) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -1592,12 +1590,13 @@ CREATE TABLE `tb_tipo` (
 --
 
 INSERT INTO `tb_tipo` (`id`, `name`) VALUES
-(1, 'ETA'),
-(2, 'ETE'),
-(3, 'EEA'),
-(4, 'IND'),
-(5, 'OUTROS'),
-(6, 'POÇO');
+('ETA', 'ETA'),
+('ETE', 'ETE'),
+('EEA', 'EEA'),
+('IND', 'INDUSTRIA'),
+('POC', 'POÇO'),
+('OUT', 'OUTROS');
+
 
 -- --------------------------------------------------------
 
@@ -1618,9 +1617,8 @@ CREATE TABLE `tipo_despesa` (
 --
 -- Indexes for table `login`
 --
-ALTER TABLE `login`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `niciuser_UNIQUE` (`nickuser`),
   ADD UNIQUE KEY `email_UNIQUE` (`email`);
 
 --
@@ -1648,8 +1646,6 @@ ALTER TABLE `tb_descricao`
 --
 -- Indexes for table `tb_grupoloja`
 --
-ALTER TABLE `tb_grupoloja`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tb_insumos`
