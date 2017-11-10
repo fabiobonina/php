@@ -10,13 +10,14 @@
 	//include("admin/conexao/conecta.php");
 	include("admin/includes/logout.php");
 
-	$userUsuario = $_SESSION['loginUser'];
+	$userUser = $_SESSION['loginUser'];
   $userEmail = $_SESSION['loginEmail'];
-	$userSenha = $_SESSION['loginProprietario'];
+	$userProprietario = $_SESSION['loginProprietario'];
 	$userNivel = $_SESSION['loginNivel'];
 	$userGrupo = $_SESSION['loginGrupo'];
   $userLoja = $_SESSION['loginLoja'];
-  $userNome = $_SESSION['loginNome'];
+  $userName = $_SESSION['loginName'];
+  $userAvatar = $_SESSION['loginAvatar'];
 
   function __autoload($class_name){
 		require_once 'admin/classes/' . $class_name . '.php';
@@ -48,4 +49,7 @@
     <link href="config/css/maps/jquery-jvectormap-2.0.3.css" rel="stylesheet"/>
     <!-- Custom Theme Style -->
     <link href="config/build/css/custom.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  
   </head>

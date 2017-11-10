@@ -3,12 +3,13 @@ require_once 'Crud.php';
 
 class Usuarios extends Crud{
 	
-	protected $table = 'login';
+	protected $table = 'users';
 	private $nome;
 	private $email;
 	private $nickuser;
 	private $senha;
 	private $nivel;
+	private $avatar;
 	private $proprientario;
 	private $grupoLoja;
 	private $loja;
@@ -33,6 +34,9 @@ class Usuarios extends Crud{
 	}
 	public function setSenha($senha){
 		$this->senha = $senha;
+	}
+	public function setAvatar($avatar){
+		$this->avatar = $avatar;
 	}
 	public function setProprietario($proprietario){
 		$this->proprietario = $proprietario;
@@ -59,14 +63,13 @@ class Usuarios extends Crud{
 
 	public function insert(){
 		try{
-		$sql  = "INSERT INTO $this->table (nome, email, nickuser, senha, phone, avatar, nivel, ativo, data_cadastro, data_ultimo_login) ";
-		$sql .= "VALUES (:nome, :email, :nickuser, :senha, :phone, :avatar, :nivel, :ativo, :data_cadastro, :data_ultimo_login)";
+		$sql  = "INSERT INTO $this->table (name, email, user, password, avatar, nivel, ativo, data_cadastro, data_ultimo_login) ";
+		$sql .= "VALUES (:name, :email, :user, :password, :avatar, :nivel, :ativo, :data_cadastro, :data_ultimo_login)";
 		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':nome',$this->nome);
+		$stmt->bindParam(':name',$this->nome);
 		$stmt->bindParam(':email',$this->email);
-		$stmt->bindParam(':nickuser',$this->nickuser);
-		$stmt->bindParam(':senha',$this->senha);
-		$stmt->bindParam(':phone', $this->phone);
+		$stmt->bindParam(':user',$this->nickuser);
+		$stmt->bindParam(':password',$this->senha);
 		$stmt->bindParam(':avatar', $this->avatar);
 		$stmt->bindParam(':nivel',$this->nivel);
 		$stmt->bindParam(':ativo',$this->ativo);
@@ -97,23 +100,22 @@ class Usuarios extends Crud{
 	}
 
 	public function logar(){
-
 		// SELECIONAR BANCO DE DADOS
-		
-		$sql = "SELECT * from $this->table WHERE BINARY email=:email AND BINARY senha=:senha ";
+		$sql = "SELECT * from $this->table WHERE BINARY email=:email AND BINARY password=:password ";
 			try{
 				$stmt = DB::prepare($sql);
 				$stmt->bindParam(':email', $this->email);
-				$stmt->bindParam(':senha', $this->senha);
+				$stmt->bindParam(':password', $this->senha);
 				$stmt->execute();
 				$contar = $stmt->rowCount();
 				if($contar>0){
 					$loop = $stmt->fetchAll();
 					foreach ($loop as $show){
 						$loginId = $show->id;
-						$loginNome = $show->nome;
+						$loginName = $show->name;
 						$loginEmail = $show->email;
-						$loginUser = $show->nickuser;
+						$loginUser = $show->user;
+						$loginAvatar = $show->avatar;
 						$loginProprietario = $show->proprietario;
 						$loginGrupo = $show->grupoLoja;
 						$loginLoja = $show->loja;
@@ -131,9 +133,10 @@ class Usuarios extends Crud{
 							echo 'ERROR: ' . $e->getMessage();
 						}
 					$_SESSION['loginId'] = $loginId;
-					$_SESSION['loginNome'] = $loginNome;
+					$_SESSION['loginName'] = $loginName;
 					$_SESSION['loginEmail'] = $loginEmail;
 					$_SESSION['loginUser'] = $loginUser;
+					$_SESSION['loginAvatar'] = $loginAvatar;
 					$_SESSION['loginProprietario'] = $loginProprietario;
 					$_SESSION['loginGrupo'] = $loginGrupo;
 					$_SESSION['loginLoja'] = $loginLoja;

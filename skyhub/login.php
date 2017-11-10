@@ -18,9 +18,10 @@ if(isset($_POST['logar'])):
   $email=$_POST["email"];
   $senha=$_POST["senha"];
   $datalogin = date("Y-m-d H:i:s");
+  $password = md5($senha);
 
   $usuario->setEmail($email);
-  $usuario->setSenha($senha);
+  $usuario->setSenha($password);
   $usuario->setDatalogin($datalogin);
 
   # Logar
@@ -53,7 +54,9 @@ if(isset($_POST['cadastrar'])):
 			$senha=$_POST["senha"];
       $senhaR=$_POST["senhaR"];
 			$nivel = "0";
-			$ativo = "0";
+      $ativo = "0";
+      $password = md5($senha);
+      $avatar = "http://www.gravatar.com/avatar/".md5($email)."?d=identicon";
 			$datacadastro = date("Y-m-d");
 			$datalogin = date("Y-m-d H:i:s");
 
@@ -62,7 +65,8 @@ if(isset($_POST['cadastrar'])):
 			$usuario->setNome($nome);
 			$usuario->setEmail($email);
 			$usuario->setNickuser($nickuser);
-			$usuario->setSenha($senha);
+      $usuario->setSenha($password);
+      $usuario->setAvatar($avatar);
 			$usuario->setDataCadastro($datacadastro);
 			$usuario->setDatalogin($datalogin);
 			$usuario->setNivel($nivel);

@@ -13,10 +13,10 @@
   <!-- /top navigation -->
 
   <!-- page content -->
-  <?php include("src/components/index/conteudoTest.php");?>
+  <?php include("src/components/iot/lojalist.php");?>
   <!-- /page content -->
         
   <!-- footer content -->
-  <?php include("src/components/index/footer.php");?>
+  <?php include("admin/includes/footer.php");?>
   <!-- /footer content -->
 
