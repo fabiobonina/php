@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>BitLLOC</title>
+    <title>BitLOUC</title>
     <link href="./img/bit-llouc.jpg" rel="icon" type="image/jpg" />
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -23,7 +23,7 @@
   <body class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo">
-        <a href="./index.php"><b>Bit</b>LLOC</a>
+        <a href="./index.php"><b>Bit</b>LOUC</a>
       </div>
       <main id="app">
         <router-view></router-view>
@@ -75,25 +75,29 @@
       <div class="register-box-body">
         <p class="login-box-msg">Registre-se</p>
 
-        <form action="../../index.html" method="post">
+        <form action="#" method="post">
           <div class="form-group has-feedback">
-            <input type="text" class="form-control" placeholder="Full name">
+            <input type="text" name="name" class="form-control" placeholder="Full name">
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="text" class="form-control" placeholder="User">
+            <input type="text" name="user" class="form-control" placeholder="User">
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="email" class="form-control" placeholder="Email">
+            <input type="email" name="email" class="form-control" placeholder="Email">
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="password" class="form-control" placeholder="Password">
+            <input type="email" name="emailR" class="form-control" placeholder="Retype email">
+            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+          </div>
+          <div class="form-group has-feedback">
+            <input type="password" name="password" class="form-control" placeholder="Password">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="password" class="form-control" placeholder="Retype password">
+            <input type="password" name="password" class="form-control" placeholder="Retype password">
             <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
           </div>
           <div class="row">
@@ -111,13 +115,11 @@
             <!-- /.col -->
           </div>
         </form>
-        <a href="login.php" class="text-center">Eu já sou cadastrado</a>
+        <a class="text-center"><router-link to="/">Eu já sou cadastrado</router-link></a>
       </div>
       <!-- /.form-box -->
     </template>
-        
-
-        
+    
     </template>
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/2.0.0-rc.4/vuex.js"></script>

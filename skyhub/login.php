@@ -84,7 +84,7 @@ if(isset($_POST['cadastrar'])):
     }
   endif;
 
-		?>
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">

@@ -1,3 +1,87 @@
+<?php
+date_default_timezone_set('America/Recife');
+ob_start();
+session_start();
+if(isset($_SESSION['loginEmail']) && (isset($_SESSION['loginSenha']))){
+	header("Location: index.php");exit;
+}
+
+function __autoload($class_name){
+  require_once 'admin/classes/' . $class_name . '.php';
+}
+
+$usuario = new Usuarios();
+
+if(isset($_POST['logar'])):
+
+  $email=$_POST["email"];
+  $senha=$_POST["senha"];
+  $datalogin = date("Y-m-d H:i:s");
+  $password = md5($senha);
+
+  $usuario->setEmail($email);
+  $usuario->setSenha($password);
+  $usuario->setDatalogin($datalogin);
+
+  # Logar
+  if($usuario->logar()){
+    echo "Logado com sucesso!";
+  }
+
+endif;
+
+if(isset($_GET['acao'])){
+	
+	if(!isset($_POST['logar'])){
+	
+		$acao = $_GET['acao'];
+		if($acao=='negado'){
+			echo '<div class="alert alert-danger">
+						  <button type="button" class="close" data-dismiss="alert">×</button>
+						  <strong>Erro ao acessar!</strong> Você precisa estar logado p/ acessar o Sistema.
+					</div>';	
+		}
+	}
+}
+if(isset($_POST['cadastrar'])):
+  #Novo Usuario
+  $nome  = $_POST['nome'];
+  $email = $_POST['email'];
+  $emailR = $_POST['emailR'];
+  $nickuser=$_POST["nickuser"];
+  $senha=$_POST["senha"];
+  $senhaR=$_POST["senhaR"];
+  $nivel = "0";
+  $ativo = "0";
+  $password = md5($senha);
+  $avatar = "http://www.gravatar.com/avatar/".md5($email)."?d=identicon";
+  $datacadastro = date("Y-m-d");
+  $datalogin = date("Y-m-d H:i:s");
+
+  if($email == $emailR && $senha == $senhaR){
+    $usuario->setNome($nome);
+    $usuario->setEmail($email);
+    $usuario->setNickuser($nickuser);
+    $usuario->setSenha($password);
+    $usuario->setAvatar($avatar);
+    $usuario->setDataCadastro($datacadastro);
+    $usuario->setDatalogin($datalogin);
+    $usuario->setNivel($nivel);
+    $usuario->setAtivo($ativo);
+    # Insert
+    if($usuario->insert()){
+      echo "Inserido com sucesso!";
+    }
+
+  }else{
+    echo '<div class="alert alert-danger">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <strong>Erro nos dados!</strong> Verefique email ou senha.
+      </div>';
+  }
+  endif;
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
