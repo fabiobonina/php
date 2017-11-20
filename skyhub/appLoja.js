@@ -209,7 +209,7 @@ Vue.component('tabela-grid', {
   }
 });
 
-Vue.component('demo-grid', {
+/*Vue.component('demo-grid', {
   template: '#grid-template',
   props: {
     data: Array,
@@ -260,7 +260,7 @@ Vue.component('demo-grid', {
       this.sortOrders[key] = this.sortOrders[key] * -1
     }
   }
-});
+});*/
 
 var Item = Vue.extend({
   template: '#product',

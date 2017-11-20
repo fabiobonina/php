@@ -175,12 +175,9 @@
       }
 
     </script>
-
-
-       <body class="nav-md">
-       <div class="container body">
+  <body class="nav-md">
+    <div class="container body">
       <div class="main_container">
-
         <!-- page content -->
         <div class="right_col" role="main">
           <!-- top tiles -->
@@ -188,7 +185,7 @@
             <div class="col-md-12">
               <div class="row">
                 <?php /* foreach($lojas->findAll() as $key => $value):if($value->ativo == 0 ) { ?>
-                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                  <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                   <div class="tile-stats">
                   
                     <div class="icon"><i class="fa fa fa-building-o"></i>
@@ -220,7 +217,7 @@
                      ?>
                     <h5>Locais:  <i class="fa fa-building-o"></i><?php echo $locais;?>/  <i class="green"><i class="fa fa-map-marker"></i><?php echo round($status, 1)."% (".$localizado.")"; ?></i></h5>
                   </div>
-                </div>
+                  </div>
                 <?php }endforeach; */?>
               </div>
             </div>
@@ -263,7 +260,6 @@
           <!--div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="dashboard_graph">
-
                 <div class="row x_title">
                   <div class="col-md-6">
                     <h3>OAT <small>Status</small></h3>
@@ -278,15 +274,11 @@
                     <div id="barchart_div" style="width: 100%; height:400px;"></div>
                   </div>
                 </div>
-
-
                 <div class="clearfix"></div>
               </div>
             </div>
-
           </div-->
-          <br />
-
+          <br/>
           <!--div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="dashboard_graph">
@@ -314,137 +306,140 @@
               <div class="dashboard_graph">
                 <div class="row x_title">
                   <div class="col-md-6">
-                    <h3>ETAs <small>Geolocalização</small></h3>
+                    <h3>Lojas <small></small></h3>
                   </div>
                 </div>
                 <div class="col-md-12 col-sm-9 col-xs-12">
                   <div id="placeholder33" style="height: 460px; display: none" class="demo-placeholder"></div>
                   <div style="width: 100%;">
-                  <div class="container">
-      <h1>Usuarios</h1>
-      <main id="app">
-        <router-view></router-view>
-      </main>
-    </div>
-
-    <template id="item">
-      <div>
-        <h2>{{ product.name }}</h2>
-        <b>Description: </b>
-        <div>{{ product.description }}</div>
-        <b>Price:</b>
-        <div>{{ product.price }}<span class="glyphicon glyphicon-euro"></span></div>
-        <br/>
-        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-        <a><router-link to="/">Back to product list</router-link></a>
-      </div>
-    </template>
-        
-    <template id="list">
-      <div>
-        <div class="actions">
-          <a class="btn btn-default" >
-          <router-link :to="{path: '/add'}">
-            <span class="glyphicon glyphicon-plus"></span>
-            Add
-          </router-link>
-          </a>
-        </div>
-        <div>
-          <p class="successMessage" v-if="successMessage">{{successMessage}}</p>
-          <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
-          <div class="filters row">
-            <div class="form-group col-sm-3">
-              <label for="search-element">Search</label>
-              <input v-model="searchQuery" class="form-control" id="search-element" requred/>
-            </div>
-          </div>
-          <tabela-grid
-            :data="message"
-            :columns="gridColumns"
-            :filter-key="searchQuery">
-          </tabela-grid>
-        </div>
-      </div>
-    </template>
-
-    <template id="grid-tabela">
-      <div>
-        <div class="" v-for="entry in filteredData">
-          <a :href="'#/loja/' + entry.id" class=""><h4 class="">{{entry.displayName}}</h4>
-            <p class="">{{entry.name}}</p><span class=""></span> View <span class="glyphicon glyphicon-eye-open"></span>
-          </a>
-        </div>
-      </div>
-    </template>
-        
-    <template id="add">
-      <div>
-      <h2>Add new product</h2>
-      <form v-on:submit="createProduct">
-        <div class="form-group">
-          <label for="add-name">Name</label>
-          <input class="form-control" id="add-name" v-model="product.name" required/>
-        </div>
-        <div class="form-group">
-          <label for="add-description">Description</label>
-          <textarea class="form-control" id="add-description" rows="10" v-model="product.description"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="add-price">Price, <span class="glyphicon glyphicon-euro"></span></label>
-          <input type="number" class="form-control" id="add-price" v-model="product.price"/>
-        </div>
-        <button type="submit" class="btn btn-primary">Create</button>
-        <a class="btn btn-default"><router-link to="/">Cancel</router-link></a>
-      </form>
-      </div>
-    </template>
-        
-    <template id="edit">
-      <div>
-      <h2>Edit product</h2>
-      <form v-on:submit="updateProduct">
-        <div class="form-group">
-          <label for="edit-name">Name</label>
-          <input class="form-control" id="edit-name" v-model="product.name" required/>
-        </div>
-        <div class="form-group">
-          <label for="edit-description">Description</label>
-          <textarea class="form-control" id="edit-description" rows="3" v-model="product.description"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="edit-price">Price, <span class="glyphicon glyphicon-euro"></span></label>
-          <input type="number" class="form-control" id="edit-price" v-model="product.price"/>
-        </div>
-        <button type="submit" class="btn btn-primary">Save</button>
-        <a class="btn btn-default"><router-link to="/">Cancel</router-link></a>
-      </form>
-      </div>
-    </template>
-        
-    <template id="delete">
-      <div>
-      <h2>Delete product {{ product.name }}</h2>
-      <form v-on:submit="deleteProduct">
-        <p>The action cannot be undone.</p>
-        <button type="submit" class="btn btn-danger">Delete</button>
-        <a class="btn btn-default"><router-link to="/">Cancel</router-link></a>
-      </form>
-      </div>
-    </template>
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/2.0.0-rc.4/vuex.js"></script>
-    <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
-    <script src="lib/vue-resource.min.js"></script>
-    <script src="appLoja.js"></script>
-
-                    <div style="width: 100%; height: 600px">
-                    
-                    
-                    
-                    
-                    
+                  <div class="">
+                    <main id="app">
+                      <router-view></router-view>
+                    </main>
+                  </div>
+                  <template id="item">
+                    <div>
+                      <h2>{{ product.name }}</h2>
+                      <b>Description: </b>
+                      <div>{{ product.description }}</div>
+                      <b>Price:</b>
+                      <div>{{ product.price }}<span class="glyphicon glyphicon-euro"></span></div>
+                      <br/>
+                      <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                      <a><router-link to="/">Back to product list</router-link></a>
                     </div>
+                  </template>
+                  <template id="list">
+                    <div>
+                      <div class="actions">
+                        <a class="btn btn-default" >
+                        <router-link :to="{path: '/add'}">
+                          <span class="glyphicon glyphicon-plus"></span>
+                          Add
+                        </router-link>
+                        </a>
+                      </div>
+                      <div>
+                        <p class="successMessage" v-if="successMessage">{{successMessage}}</p>
+                        <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
+                        <div class="filters row">
+                          <div class="form-group col-sm-3">
+                            <label for="search-element">Search</label>
+                            <input v-model="searchQuery" class="form-control" id="search-element" requred/>
+                          </div>
+                        </div>
+                        <tabela-grid
+                          :data="message"
+                          :columns="gridColumns"
+                          :filter-key="searchQuery">
+                        </tabela-grid>
+                      </div>
+                    </div>
+                  </template>
+                  <template id="grid-tabela">
+                    <div class="x_content">
+                      <ul class="list-unstyled msg_list">
+                        <li>
+                          <a>
+                            <span class="image">
+                              <img src="images/img.jpg" alt="img" />
+                            </span>
+                            <span>
+                              <span>John Smith</span>
+                              <span class="time">3 mins ago</span>
+                            </span>
+                            <span class="message">
+                              Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that
+                            </span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div>
+                      <div class="" v-for="entry in filteredData">
+                        <a :href="'#/loja/' + entry.id" class=""><h4 class="">{{entry.displayName}}</h4>
+                          <p class="">{{entry.name}}</p><span class=""></span> View <span class="glyphicon glyphicon-eye-open"></span>
+                        </a>
+                      </div>
+                    </div>
+                  </template>
+                  <template id="add">
+                    <div>
+                    <h2>Add new product</h2>
+                    <form v-on:submit="createProduct">
+                      <div class="form-group">
+                        <label for="add-name">Name</label>
+                        <input class="form-control" id="add-name" v-model="product.name" required/>
+                      </div>
+                      <div class="form-group">
+                        <label for="add-description">Description</label>
+                        <textarea class="form-control" id="add-description" rows="10" v-model="product.description"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="add-price">Price, <span class="glyphicon glyphicon-euro"></span></label>
+                        <input type="number" class="form-control" id="add-price" v-model="product.price"/>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Create</button>
+                      <a class="btn btn-default"><router-link to="/">Cancel</router-link></a>
+                    </form>
+                    </div>
+                  </template>
+                  <template id="edit">
+                    <div>
+                    <h2>Edit product</h2>
+                    <form v-on:submit="updateProduct">
+                      <div class="form-group">
+                        <label for="edit-name">Name</label>
+                        <input class="form-control" id="edit-name" v-model="product.name" required/>
+                      </div>
+                      <div class="form-group">
+                        <label for="edit-description">Description</label>
+                        <textarea class="form-control" id="edit-description" rows="3" v-model="product.description"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="edit-price">Price, <span class="glyphicon glyphicon-euro"></span></label>
+                        <input type="number" class="form-control" id="edit-price" v-model="product.price"/>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Save</button>
+                      <a class="btn btn-default"><router-link to="/">Cancel</router-link></a>
+                    </form>
+                    </div>
+                  </template>
+                  <template id="delete">
+                    <div>
+                    <h2>Delete product {{ product.name }}</h2>
+                    <form v-on:submit="deleteProduct">
+                      <p>The action cannot be undone.</p>
+                      <button type="submit" class="btn btn-danger">Delete</button>
+                      <a class="btn btn-default"><router-link to="/">Cancel</router-link></a>
+                    </form>
+                    </div>
+                  </template>
+                  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+                  <script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/2.0.0-rc.4/vuex.js"></script>
+                  <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
+                  <script src="lib/vue-resource.min.js"></script>
+                  <script src="appLoja.js"></script>
                   </div>
                 </div>
                 <div class="clearfix"></div>
