@@ -51,8 +51,8 @@ if(isset($_POST['cadastrar'])):
 			$email = $_POST['email'];
       $emailR = $_POST['emailR'];
 			$nickuser=$_POST["nickuser"];
-			$senha=$_POST["senha"];
-      $senhaR=$_POST["senhaR"];
+			$senha=$_POST["password"];
+      $senhaR=$_POST["passwordR"];
 			$nivel = "0";
       $ativo = "0";
       $password = md5($senha);
@@ -77,10 +77,10 @@ if(isset($_POST['cadastrar'])):
 			}
 
     }else{
-            echo '<div class="alert alert-danger">
-                  <button type="button" class="close" data-dismiss="alert">×</button>
-                  <strong>Erro nos dados!</strong> Verefique email ou senha.
-              </div>';
+      echo '<div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>Erro nos dados!</strong> Verefique email ou senha.
+        </div>';
     }
   endif;
 

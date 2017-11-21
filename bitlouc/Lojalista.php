@@ -1,10 +1,95 @@
+<?php
+date_default_timezone_set('America/Recife');
+ob_start();
+session_start();
+if(isset($_SESSION['loginEmail']) && (isset($_SESSION['loginNivel']))){
+	header("Location: index.php");exit;
+}
+
+function __autoload($class_name){
+  require_once 'config/api/' . $class_name . '.php';
+}
+	
+$usuario = new Usuarios();
+
+if(isset($_POST['logar'])):
+
+  $email=$_POST["email"];
+  $senha=$_POST["password"];
+  $datalogin = date("Y-m-d H:i:s");
+  $password = md5($senha);
+
+  $usuario->setEmail($email);
+  $usuario->setSenha($password);
+  $usuario->setDatalogin($datalogin);
+
+  # Logar
+  if($usuario->logar()){
+    echo "Logado com sucesso!";
+  }
+
+endif;
+
+if(isset($_GET['acao'])){
+	
+	if(!isset($_POST['logar'])){
+	
+		$acao = $_GET['acao'];
+		if($acao=='negado'){
+			echo '<div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h4><i class="icon fa fa-ban"></i> Erro ao acessar!</h4>
+        Você precisa estar logado p/ acessar o Sistema.
+        </div>';	
+		}
+	}
+}
+if(isset($_POST['cadastrar'])):
+  #Novo Usuario
+  $nome  = $_POST['nome'];
+  $email = $_POST['email'];
+  $emailR = $_POST['emailR'];
+  $nickuser=$_POST["nickuser"];
+  $senha=$_POST["password"];
+  $senhaR=$_POST["passwordR"];
+  $nivel = "0";
+  $ativo = "0";
+  $password = md5($senha);
+  $avatar = "http://www.gravatar.com/avatar/".md5($email)."?d=identicon";
+  $datacadastro = date("Y-m-d");
+  $datalogin = date("Y-m-d H:i:s");
+
+  if($email == $emailR && $senha == $senhaR){
+    $usuario->setNome($nome);
+    $usuario->setEmail($email);
+    $usuario->setNickuser($nickuser);
+    $usuario->setSenha($password);
+    $usuario->setAvatar($avatar);
+    $usuario->setDataCadastro($datacadastro);
+    $usuario->setDatalogin($datalogin);
+    $usuario->setNivel($nivel);
+    $usuario->setAtivo($ativo);
+    # Insert
+    if($usuario->insert()){
+      echo "Inserido com sucesso!";
+    }
+
+  }else{
+    echo '<div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <h4><i class="icon fa fa-ban"></i> Erro nos dados!</h4>
+    Verefique email ou senha.
+    </div>';
+  }
+endif;
+?>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>BitLOUC</title>
-    <link href="./img/bit-llouc.jpg" rel="icon" type="image/jpg" />
+    <link href="./img/bit-louc.jpg" rel="icon" type="image/jpg" />
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -35,13 +120,13 @@
       <div class="login-box-body">
         <p class="login-box-msg">Faça login para iniciar sua sessão</p>
 
-        <form action="../../index2.html" method="post">
+        <form action="#" method="post">
           <div class="form-group has-feedback">
-            <input type="email" class="form-control" placeholder="Email">
+            <input type="email" name="email" class="form-control" placeholder="Email">
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="password" class="form-control" placeholder="Password">
+            <input type="password" name="password" class="form-control" placeholder="Password">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
           <div class="row">
@@ -54,7 +139,7 @@
             </div>
             <!-- /.col -->
             <div class="col-xs-4">
-              <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+              <button type="submit" name="logar" class="btn btn-primary btn-block btn-flat">Sign In</button>
             </div>
             <!-- /.col -->
           </div>
@@ -97,7 +182,7 @@
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="password" name="password" class="form-control" placeholder="Retype password">
+            <input type="password" name="passwordR" class="form-control" placeholder="Retype password">
             <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
           </div>
           <div class="row">
