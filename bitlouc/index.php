@@ -1,9 +1,37 @@
+<?php
+  ob_start();
+  session_start();
+
+  // login
+  if(!isset($_SESSION['loginUser']) && (!isset($_SESSION['loginNivel']))){
+    header("Location: login.php");exit;
+  }
+
+	//include("admin/conexao/conecta.php");
+	include("src/includes/logout.php");
+
+	$userUser = $_SESSION['loginUser'];
+  $userEmail = $_SESSION['loginEmail'];
+	$userProprietario = $_SESSION['loginProprietario'];
+	$userNivel = $_SESSION['loginNivel'];
+	$userGrupo = $_SESSION['loginGrupo'];
+  $userLoja = $_SESSION['loginLoja'];
+  $userName = $_SESSION['loginName'];
+  $userAvatar = $_SESSION['loginAvatar'];
+
+  function __autoload($class_name){
+		require_once 'admin/classes/' . $class_name . '.php';
+	}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <title>BitLOUC</title>
+  <link href="./img/bit-louc.jpg" rel="icon" type="image/jpg" />
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -37,11 +65,11 @@
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="index.php" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <span class="logo-mini"><b>B</b>LC</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span class="logo-lg"><b>Bit</b>LOUC</span>
     </a>
 
     <!-- Header Navbar: style can be found in header.less -->
@@ -67,7 +95,7 @@
                   <li><!-- start message -->
                     <a href="#">
                       <div class="pull-left">
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="<?php echo $userAvatar;?>" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Support Team
@@ -253,16 +281,16 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <img src="<?php echo $userAvatar;?>" class="user-image" alt="User Image">
+              <span class="hidden-xs"><?php echo $userUser;?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="<?php echo $userAvatar;?>" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - Web Developer
+                  <?php echo $userUser;?> - Web Developer
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
@@ -308,10 +336,10 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="<?php echo $userAvatar;?>" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p><?php echo $userUser;?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -339,7 +367,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-            <li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+            <li class="active"><a href="#"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -368,13 +396,13 @@
         <li class="treeview">
           <a href="#">
             <i class="fa fa-pie-chart"></i>
-            <span>Charts</span>
+            <span>Config</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
+            <li><a href="config.php"><i class="fa fa-circle-o"></i> Loja</a></li>
             <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
             <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
             <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
@@ -792,7 +820,7 @@
                     <!-- Message. Default to the left -->
                     <div class="direct-chat-msg">
                       <div class="direct-chat-info clearfix">
-                        <span class="direct-chat-name pull-left">Alexander Pierce</span>
+                        <span class="direct-chat-name pull-left"><?php echo $userUser;?></span>
                         <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
                       </div>
                       <!-- /.direct-chat-info -->
@@ -824,7 +852,7 @@
                     <!-- Message. Default to the left -->
                     <div class="direct-chat-msg">
                       <div class="direct-chat-info clearfix">
-                        <span class="direct-chat-name pull-left">Alexander Pierce</span>
+                        <span class="direct-chat-name pull-left"><?php echo $userUser;?></span>
                         <span class="direct-chat-timestamp pull-right">23 Jan 5:37 pm</span>
                       </div>
                       <!-- /.direct-chat-info -->
@@ -990,7 +1018,7 @@
                   <ul class="users-list clearfix">
                     <li>
                       <img src="dist/img/user1-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Alexander Pierce</a>
+                      <a class="users-list-name" href="#"><?php echo $userUser;?></a>
                       <span class="users-list-date">Today</span>
                     </li>
                     <li>
@@ -1009,7 +1037,7 @@
                       <span class="users-list-date">12 Jan</span>
                     </li>
                     <li>
-                      <img src="dist/img/user2-160x160.jpg" alt="User Image">
+                      <img src="<?php echo $userAvatar;?>" alt="User Image">
                       <a class="users-list-name" href="#">Alexander</a>
                       <span class="users-list-date">13 Jan</span>
                     </li>
