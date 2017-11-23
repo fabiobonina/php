@@ -147,8 +147,8 @@
               <img src="<?php echo $userAvatar;?>" class="img-circle" alt="User Image">
 
               <p>
-                <?php echo $userUser;?> - Web Developer
-                <small>Member since Nov. 2012</small>
+                <?php echo $userUser;?>
+                <small>Membro desde <?php echo $userDtCadastro;?></small>
               </p>
             </li>
             <!-- Menu Body -->

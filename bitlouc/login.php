@@ -44,12 +44,12 @@ if(isset($_GET['acao'])){
 		}
 	}
 }
-if(isset($_POST['cadastrar'])):
+if(isset($_POST['registrar'])):
   #Novo Usuario
-  $nome  = $_POST['nome'];
+  $name  = $_POST['name'];
   $email = $_POST['email'];
   $emailR = $_POST['emailR'];
-  $nickuser=$_POST["nickuser"];
+  $user=$_POST["user"];
   $senha=$_POST["password"];
   $senhaR=$_POST["passwordR"];
   $nivel = "0";
@@ -60,9 +60,9 @@ if(isset($_POST['cadastrar'])):
   $datalogin = date("Y-m-d H:i:s");
 
   if($email == $emailR && $senha == $senhaR){
-    $usuario->setNome($nome);
+    $usuario->setName($name);
     $usuario->setEmail($email);
-    $usuario->setNickuser($nickuser);
+    $usuario->setNickuser($user);
     $usuario->setSenha($password);
     $usuario->setAvatar($avatar);
     $usuario->setDataCadastro($datacadastro);
@@ -71,7 +71,11 @@ if(isset($_POST['cadastrar'])):
     $usuario->setAtivo($ativo);
     # Insert
     if($usuario->insert()){
-      echo "Inserido com sucesso!";
+      echo '<div class="alert alert-success alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <h4><i class="icon fa fa-check"></i> Registrado!</h4>
+      Agora digite seu email e password.
+      </div>';
     }
 
   }else{
@@ -195,7 +199,7 @@ endif;
             </div>
             <!-- /.col -->
             <div class="col-xs-4">
-              <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+              <button type="submit" name="registrar" class="btn btn-primary btn-block btn-flat">Register</button>
             </div>
             <!-- /.col -->
           </div>
@@ -210,7 +214,7 @@ endif;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/2.0.0-rc.4/vuex.js"></script>
     <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
     <script src="lib/vue-resource.min.js"></script>
-    <script src="appLoja.js"></script>
+    <script src="appLogin.js"></script>
 
   </body>
 </html>

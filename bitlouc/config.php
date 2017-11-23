@@ -21,7 +21,6 @@ $userGrupo = $_SESSION['loginGrupo'];
 $userLoja = $_SESSION['loginLoja'];
 $userName = $_SESSION['loginName'];
 $userAvatar = $_SESSION['loginAvatar'];
-$userDtCadastro = $_SESSION['loginDtCadastro'];
 
 function __autoload($class_name){
   require_once 'admin/classes/' . $class_name . '.php';
@@ -66,7 +65,7 @@ function __autoload($class_name){
   <!-- /top navigation -->
 
   <!-- page content -->
-  <?php include("src/conteudoIndex.php");?>
+  <?php include("src/conteudoConfig.php");?>
   <!-- /page content -->
         
   <!-- footer content -->

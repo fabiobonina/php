@@ -4,7 +4,7 @@ require_once 'Crud.php';
 class Usuarios extends Crud{
 	
 	protected $table = 'users';
-	private $nome;
+	private $name;
 	private $email;
 	private $nickuser;
 	private $senha;
@@ -19,12 +19,12 @@ class Usuarios extends Crud{
 
 
 
-	public function setNome($nome){
-		$nome = iconv('UTF-8', 'ASCII//TRANSLIT', $nome);
-		$this->nome = strtoupper ($nome);
+	public function setName($name){
+		$name = iconv('UTF-8', 'ASCII//TRANSLIT', $name);
+		$this->name = strtoupper ($name);
 	}
-	public function getNome(){
-		return $this->nome;
+	public function getName(){
+		return $this->name;
 	}
 	public function setEmail($email){
 		$this->email = $email;
@@ -66,7 +66,7 @@ class Usuarios extends Crud{
 		$sql  = "INSERT INTO $this->table (name, email, user, password, avatar, nivel, ativo, data_cadastro, data_ultimo_login) ";
 		$sql .= "VALUES (:name, :email, :user, :password, :avatar, :nivel, :ativo, :data_cadastro, :data_ultimo_login)";
 		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':name',$this->nome);
+		$stmt->bindParam(':name',$this->name);
 		$stmt->bindParam(':email',$this->email);
 		$stmt->bindParam(':user',$this->nickuser);
 		$stmt->bindParam(':password',$this->senha);
@@ -85,9 +85,9 @@ class Usuarios extends Crud{
 
 	public function update($id){
 		try{
-			$sql  = "UPDATE $this->table SET nome = :nome, email = :email, nickuser = :nickuser, senha = :senha, WHERE id = :id";
+			$sql  = "UPDATE $this->table SET name = :name, email = :email, nickuser = :nickuser, senha = :senha, WHERE id = :id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':nome', $this->nome);
+			$stmt->bindParam(':name', $this->name);
 			$stmt->bindParam(':email', $this->email);
 			$stmt->bindParam(':nickuser',$this->nickuser);
 			$stmt->bindParam(':senha',$this->senha);
@@ -121,6 +121,7 @@ class Usuarios extends Crud{
 						$loginLoja = $show->loja;
 						$loginNivel = $show->nivel;
 						$loginAtivo = $show->ativo;
+						$loginDtCadastro = $show->data_cadastro;
 					}
 					if($loginAtivo == 0){
 						try{
@@ -141,6 +142,7 @@ class Usuarios extends Crud{
 						$_SESSION['loginGrupo'] = $loginGrupo;
 						$_SESSION['loginLoja'] = $loginLoja;
 						$_SESSION['loginNivel'] = $loginNivel;
+						$_SESSION['loginDtCadastro'] = $loginDtCadastro;
 
 						echo '<div class="alert alert-success alert-dismissible">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
