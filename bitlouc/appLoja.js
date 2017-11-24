@@ -70,8 +70,27 @@ const store = new Vuex.Store({
   getters
 })
 
-var Login = Vue.extend({
-  template: '#login',
+var products = [
+  {id: 1, name: 'Angular', description: 'Superheroic JavaScript MVW Framework.', price: 100},
+  {id: 2, name: 'Ember', description: 'A framework for creating ambitious web applications.', price: 100},
+  {id: 3, name: 'React', description: 'A JavaScript Library for building user interfaces.', price: 100}
+];
+
+function findProduct (productId) {
+  return products[findProductKey(productId)];
+};
+
+function findProductKey (productId) {
+  for (var key = 0; key < products.length; key++) {
+    if (products[key].id == productId) {
+      return key;
+    }
+  }
+};
+
+
+var List = Vue.extend({
+  template: '#list',
   data: function () {
     return {
       errorMessage: '',
@@ -137,8 +156,141 @@ var Login = Vue.extend({
   }
 });
 
-var Register = Vue.extend({
-  template: '#register',
+Vue.component('tabela-grid', {
+  template: '#grid-tabela',
+  props: {
+    data: Array,
+    columns: Array,
+    filterKey: String
+  },
+  data: function () {
+    var sortOrders = {}
+    this.columns.forEach(function (key) {
+      sortOrders[key] = 1
+    })
+    return {
+      sortKey: '',
+      sortOrders: sortOrders
+    }
+  },
+  computed: {
+    filteredData: function () {
+      var sortKey = this.sortKey
+      var filterKey = this.filterKey && this.filterKey.toLowerCase()
+      var order = this.sortOrders[sortKey] || 1
+      var data = this.data
+      if (filterKey) {
+        data = data.filter(function (row) {
+          return Object.keys(row).some(function (key) {
+            return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+          })
+        })
+      }
+      if (sortKey) {
+        data = data.slice().sort(function (a, b) {
+          a = a[sortKey]
+          b = b[sortKey]
+          return (a === b ? 0 : a > b ? 1 : -1) * order
+        })
+      }
+      return data
+    }
+  },
+  filters: {
+    capitalize: function (str) {
+      return str.charAt(0).toUpperCase() + str.slice(1)
+    }
+  },
+  methods: {
+    sortBy: function (key) {
+      this.sortKey = key
+      this.sortOrders[key] = this.sortOrders[key] * -1
+    }
+  }
+});
+
+/*Vue.component('demo-grid', {
+  template: '#grid-template',
+  props: {
+    data: Array,
+    columns: Array,
+    filterKey: String
+  },
+  data: function () {
+    var sortOrders = {}
+    this.columns.forEach(function (key) {
+      sortOrders[key] = 1
+    })
+    return {
+      sortKey: '',
+      sortOrders: sortOrders
+    }
+  },
+  computed: {
+    filteredData: function () {
+      var sortKey = this.sortKey
+      var filterKey = this.filterKey && this.filterKey.toLowerCase()
+      var order = this.sortOrders[sortKey] || 1
+      var data = this.data
+      if (filterKey) {
+        data = data.filter(function (row) {
+          return Object.keys(row).some(function (key) {
+            return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+          })
+        })
+      }
+      if (sortKey) {
+        data = data.slice().sort(function (a, b) {
+          a = a[sortKey]
+          b = b[sortKey]
+          return (a === b ? 0 : a > b ? 1 : -1) * order
+        })
+      }
+      return data
+    }
+  },
+  filters: {
+    capitalize: function (str) {
+      return str.charAt(0).toUpperCase() + str.slice(1)
+    }
+  },
+  methods: {
+    sortBy: function (key) {
+      this.sortKey = key
+      this.sortOrders[key] = this.sortOrders[key] * -1
+    }
+  }
+});*/
+
+var Item = Vue.extend({
+  template: '#product',
+  data: function () {
+    return {product: findProduct(this.$route.params._id)};
+  }
+});
+
+var Edit = Vue.extend({
+  template: '#edit',
+  data: function () {
+    return {product: findProduct(this.$route.params._id)};
+  },
+  methods: {
+    updateProduct: function () {
+      //Obsolete, product is available directly from data...
+      let product = this.product; //var product = this.$get('product');
+      products[findProductKey(product.id)] = {
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        price: product.price
+      };
+      router.push('/');
+    }
+  }
+});
+
+var Add = Vue.extend({
+  template: '#add',
   data: function () {
     return {product: {name: '', description: '', price: ''}
     }
@@ -157,11 +309,26 @@ var Register = Vue.extend({
     }
   }
 });
+var Delete = Vue.extend({
+  template: '#delete',
+  data: function () {
+    return {item: findProduct(this.$route.params._id)};
+  },
+  methods: {
+    deleteProduct: function () {
+      products.splice(findProductKey(this.$route.params._id), 1);
+      router.push('/');
+    }
+  }
+});
 
 var router = new VueRouter({
   routes: [
-    {path: '/', component: Login},
-    {path: '/register', component: Register}
+    {path: '/', component: List},
+    {path: '/loja/:_id', component: Item, name: 'loja'},
+    {path: '/add', component: Add},
+    {path: '/loja/:_id/edit', component: Edit, name: 'edit'},
+    {path: '/loja/:_id/delete', component: Delete, name: 'delete'}
   ]
 });
 
