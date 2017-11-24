@@ -92,7 +92,7 @@ var Login = Vue.extend({
   methods: {
     // Bu metot http get ile api üzerinden kayıtları users dizisine push eder
     fetchData: function() {
-      this.$http.get('./api/apiLoja.php?action=read')
+      this.$http.get('./config/api/apiLoja.php?action=read')
         .then(function(response) {
           /*if (response.body.status == 'ok') {
             let users = this.users;
