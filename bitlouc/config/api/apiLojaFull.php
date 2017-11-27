@@ -30,16 +30,21 @@ header('Content-Type: text/html; charset=utf-8');
       array_push($resultado, $result);
     }*/
     foreach($lojas->findAll() as $key => $value): {
-      $ar1 = array();
-      $ar1['loja'] = $value; 
+      
+      $array = (array) $value;
       $lojaId = $value->id;
-      $ar2 = array();
+      $resultado2 = array();
       foreach($localidades->findAll() as $key => $value):if($value->loja == $lojaId) {
-        array_push($ar2, $value);        
+        //array_push($ar2, $value);
+        $array2 = (array) $value;
+        array_push($resultado2, $array2 );
       }endforeach;
-      $ar2['locais'] = $ar2;
-      $ar = array_merge($ar1, $ar2);
-      array_push($resultado, $ar);
+      $dado2['locais'] = $resultado2;
+      //var_dump($array2);
+      //$ar = array_merge($ar1, $ar2);
+      //$ar2 = array('teste' => 'outros');
+      array_push($array, $dado2);
+      array_push($resultado, $array);
           
     }endforeach;
 

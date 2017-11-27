@@ -88,7 +88,7 @@
         <!-- PRODUCT LIST -->
         <div class="box box-primary">
           <div class="box-header with-border">
-            <h3 class="box-title">Recently Added Products</h3>
+            <h3 class="box-title">Lista</h3>
 
             <div class="box-tools pull-right">
               <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -104,11 +104,9 @@
                   <img src="dist/img/default-50x50.gif" alt="Product Image">
                 </div>
                 <div class="product-info">
-                  <a :href="'#/loja/' + entry.loja.id" class="product-title">{{entry.loja.displayName}}
-                    <span class="label label-warning pull-right">$1800</span></a>
-                  <span class="product-description">
-                    Samsung 32" 1080p 60Hz LED Smart HDTV.
-                  </span>
+                  <a :href="'#/loja/' + entry.id" class="product-title">{{entry.displayName}}
+                    <span class="label label-warning pull-right">Lacalidades:{{ }}</span></a>
+                  <span class="product-description">{{entry.name}}</span>
                 </div>
               </li>
               <!-- /.item -->
@@ -117,11 +115,11 @@
           <!-- /.box-body -->
           <!-- /.box-footer -->
         </div>
-        <div class="list-group" v-for="entry in filteredData">
+        <!--div class="list-group" v-for="entry in filteredData">
           <a :href="'#/loja/' + entry.loja.id" class="list-group-item"><h4 class="list-group-item-heading">{{entry.loja.displayName}}</h4>
             <p class="list-group-item-text">{{entry.loja.name}}</p><span class="glyphicon glyphicon-eye-open"></span>{{entry.locais.length}} View <span class="glyphicon glyphicon-eye-open"></span>
           </a>
-        </div>
+        </div-->
         
       </div>
     </template>

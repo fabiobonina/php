@@ -136,6 +136,7 @@ var List = Vue.extend({
           if(response.data.error){
             this.errorMessage = response.data.message;
           } else{
+              //console.log(response.data.dados);
               this.$store.dispatch('setLojas', response.data.dados);
               //this.$router.push('/')
               //this.users = response.data.users;
