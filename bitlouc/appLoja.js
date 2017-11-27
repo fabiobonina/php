@@ -10,6 +10,7 @@ const state = {
   todos:[{body: 'Learn vuex', completed: false}],
   todo: {},
   lojas: [],
+  localidades: [],
   users:[]
 }
 
@@ -28,12 +29,21 @@ const mutations = {
   COMPLETE(state, todo){
     todo.completed = true
   },
+  LOJAS_LOCALIADES(state, localidades){
+    localidades.id = true
+  },
   EDIT_TODO(state, todo){
     state.todo.text = todo.body
     console.log(state.todo.text)
   },
   SET_USERS(state, users) {
     state.users = users
+  },
+  SET_LOJAS(state, lojas) {
+    state.lojas = lojas
+  },
+  SET_LOCALIDADES(state, localidades) {
+    state.localidades = localidades
   },
 }
 
@@ -56,10 +66,17 @@ const actions = {
   setUsers({ commit }, users) {
     commit("SET_USERS", users)
   },
+  setLojas({ commit }, lojas) {
+    commit("SET_LOJAS", lojas)
+  },
+  setLocalidades({ commit }, localidades) {
+    commit("SET_LOCALIDADES", localidades)
+  },
 }
 
 const getters = {
-  getUsers: state => state.users
+  getUsers: state => state.users,
+  getLojas: state => state.lojas
 }
 
 
@@ -96,36 +113,48 @@ var List = Vue.extend({
       errorMessage: '',
       successMessage: '',
       searchQuery: '',
-      gridColumns: ['nome', 'email'],
-      users: []
+      gridColumns: ['displayName', 'name']
     };
   },
   created: function() {
-    this.fetchData(); // Başlangıçta kayıtları al
+    this.fetchData();
+    this.fetchData2(); // Başlangıçta kayıtları al
   },
   computed: {
-    message() {
-      return store.state.users;
-    }
+    dados() {
+      return store.state.lojas;
+    },
+    dados2() {
+      return store.state.localidades;
+    },
   },
   methods: {
     // Bu metot http get ile api üzerinden kayıtları users dizisine push eder
     fetchData: function() {
-      this.$http.get('./config/api/apiLoja.php?action=read')
+      this.$http.get('./config/api/apiLojaFull.php?action=read')
         .then(function(response) {
-          /*if (response.body.status == 'ok') {
-            let users = this.users;
-            //console.log(response.body.users);
-            response.body.dados.map(function(value, key) {
-              users.push({id: value.id, name: value.name, surname: value.surname });
-            });
-          }*/
           if(response.data.error){
             this.errorMessage = response.data.message;
           } else{
-              this.$store.dispatch('setUsers', response.data.users);
+              this.$store.dispatch('setLojas', response.data.dados);
               //this.$router.push('/')
               //this.users = response.data.users;
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+
+    },
+    fetchData2: function() {
+      this.$http.get('./config/api/apiLocalidades.php?action=read')
+        .then(function(response) {
+          if(response.data.error){
+            this.errorMessage = response.data.message;
+          } else{
+              this.$store.dispatch('setLocalidades', response.data.dados);
+              //this.$router.push('/')
+              //console.log(response.data.dados);
           }
         })
         .catch(function(error) {

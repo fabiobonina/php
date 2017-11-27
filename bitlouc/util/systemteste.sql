@@ -185,7 +185,18 @@ INSERT INTO `tb_tipo` (`id`, `name`) VALUES
 ('OUT', 'OUTROS');
 
 -- --------------------------------------------------------
-
+CREATE TABLE `tb_localidades` (
+  `id` int(11) NOT NULL,
+  `loja` int(11) NOT NULL,
+  `tipo` varchar(11) DEFAULT NULL,
+  `regional` varchar(100) DEFAULT NULL,
+  `nome` varchar(50) NOT NULL,
+  `municipio` varchar(100) NOT NULL,
+  `uf` varchar(2) NOT NULL,
+  `latitude` float(10,6) DEFAULT NULL,
+  `longitude` float(10,6) DEFAULT NULL,
+  `ativo` enum('0','1') NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 --
 -- Estrutura da tabela `users`
 --
@@ -212,6 +223,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `user`, `password`, `avatar`, `proprietario`, `grupoLoja`, `loja`, `nivel`, `ativo`, `data_cadastro`, `data_ultimo_login`) VALUES
 (0, 'FABIO VITORINO BONINA MORAIS', 'fabiobonina@gmail.com', 'Fabio Bonina', 'a906449d5769fa7361d7ecc6aa3f6d28', 'http://www.gravatar.com/avatar/5f3781a40c3fde1b4ac568a97692aa70?d=identicon', NULL, NULL, NULL, '0', '0', '2017-11-08', '2017-11-08 20:18:04');
+
 
 --
 -- Indexes for dumped tables

@@ -431,7 +431,7 @@ CREATE TABLE `tb_insumos` (
 CREATE TABLE `tb_localidades` (
   `id` int(11) NOT NULL,
   `loja` int(11) NOT NULL,
-  `tipo` int(11) DEFAULT NULL,
+  `tipo` varchar(11) DEFAULT NULL,
   `regional` varchar(100) DEFAULT NULL,
   `nome` varchar(50) NOT NULL,
   `municipio` varchar(100) NOT NULL,
