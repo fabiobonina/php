@@ -39,11 +39,11 @@ header('Content-Type: text/html; charset=utf-8');
         $array2 = (array) $value;
         array_push($resultado2, $array2 );
       }endforeach;
-      $dado2['locais'] = $resultado2;
+      //$dado2['locais'] = $resultado2;
       //var_dump($array2);
       //$ar = array_merge($ar1, $ar2);
       //$ar2 = array('teste' => 'outros');
-      array_push($array, $dado2);
+      $array['locais']= $resultado2;
       array_push($resultado, $array);
           
     }endforeach;

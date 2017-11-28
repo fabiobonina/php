@@ -42,7 +42,7 @@
       <!-- /.box-body -->
     </div>
     <!-- /.box -->
-    <template id="item">
+    <template id="loja">
       <div>
         <h2>{{ product.name }}</h2>
         <b>Description: </b>
@@ -105,7 +105,7 @@
                 </div>
                 <div class="product-info">
                   <a :href="'#/loja/' + entry.id" class="product-title">{{entry.displayName}}
-                    <span class="label label-warning pull-right">Lacalidades:{{ }}</span></a>
+                    <span class="label label-warning pull-right">Lacalidades: {{ entry.locais.length}}</span></a>
                   <span class="product-description">{{entry.name}}</span>
                 </div>
               </li>

@@ -292,11 +292,23 @@ Vue.component('tabela-grid', {
   }
 });*/
 
-var Item = Vue.extend({
-  template: '#product',
+var Loja = Vue.extend({
+  template: '#loja',
   data: function () {
-    return {product: findProduct(this.$route.params._id)};
-  }
+    return {loja: findProduct(this.$route.params._id)};
+  },
+  computed: {
+    dados() {
+      
+    },
+    filteredItems() {
+      return store.state.lojas.filter(item => {
+          return this.loja.includes(item.id);
+      });
+      } // else
+
+  } // filteredItems
+   // computed
 });
 
 var Edit = Vue.extend({
@@ -355,7 +367,7 @@ var Delete = Vue.extend({
 var router = new VueRouter({
   routes: [
     {path: '/', component: List},
-    {path: '/loja/:_id', component: Item, name: 'loja'},
+    {path: '/loja/:_id', component: Loja, name: 'loja'},
     {path: '/add', component: Add},
     {path: '/loja/:_id/edit', component: Edit, name: 'edit'},
     {path: '/loja/:_id/delete', component: Delete, name: 'delete'}
