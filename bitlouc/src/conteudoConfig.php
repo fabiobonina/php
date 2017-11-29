@@ -44,14 +44,24 @@
     <!-- /.box -->
     <template id="loja">
       <div>
-        <h2>{{ loja }}</h2>
+        <h2>{{ dados.displayName }}</h2>
         <b>Description: </b>
-        <div>{{ }}</div>
+        <div>{{ dados.name }}</div>
         <b>Price:</b>
-        <div>{{ }}<span class="glyphicon glyphicon-euro"></span></div>
+        <div>{{ dados.Seguimento }}<span class="glyphicon glyphicon-euro"></span></div>
         <br/>
         <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
         <a><router-link to="/">Back to product list</router-link></a>
+        <ul class="products-list product-list-in-box">
+          <li class="item"  v-for="entry in dados.locais">
+            <div class="product-info">
+              <a :href="'#/loja/' + entry.id" class="product-title">{{entry.nome}}
+                <span class="label label-warning pull-right">Lacalidades: {{}}</span></a>
+              <span class="product-description">{{entry.name}}</span>
+            </div>
+          </li>
+          <!-- /.item -->
+        </ul>
       </div>
     </template>
         
@@ -178,6 +188,10 @@
       </form>
       </div>
     </template>
+
+    <template id="naoEncrontrado">
+      <h2>No encuentro: 404</h2>
+    </template>
   </section>
   <!-- /.content -->
 </div>
@@ -186,8 +200,8 @@
 <!-- /.content-wrapper -->
 
     
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/2.0.0-rc.4/vuex.js"></script>
-    <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
-    <script src="lib/vue-resource.min.js"></script>
+    <script src="lib/vue.js"></script>
+    <script src="lib/vuex.js"></script>
+    <script src="lib/vue-router.js"></script>
+    <script src="lib/vue-resource.js"></script>
     <script src="appLoja.js"></script>

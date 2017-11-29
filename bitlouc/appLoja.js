@@ -79,6 +79,13 @@ const getters = {
   getLojas: state => state.lojas,
   getTodoById: state => (id) => {
     return state.lojas.filter(loja => loja.id === id)
+  },
+  getLojaId: (state) => (id) => {
+    return state.lojas.find(loja => loja.id === id)
+    //return state.lojas.filter(loja => loja.id === id)
+  },
+  getTodoBy: (state) => (id) => {
+    return state.lojas.find(todo => todo.id === id)
   }
 }
 
@@ -298,38 +305,25 @@ Vue.component('tabela-grid', {
 var Loja = Vue.extend({
   template: '#loja',
   data: function () {
-    return {loja: findProduct(this.$route.params._id)};
+    return {
+      loja: ''
+    };
   },
   computed: {
     dados(id) {
-      return store.getters.getTodoById(this.$route.params._id);
-    },
-    filteredItems() {
-      return store.state.lojas.filter(item => {
-          return this.loja.includes(item.id);
-      });
+      return store.getters.getTodoBy(this.$route.params._id);
     } // filteredItems
   }, // computed
   methods: {
-    findProductKey: function (lojaId) {
-      for (var key = 0; key < products.length; key++) {
-        if (products[key].id == productId) {
-          return key;
-        }
-      }
-    },
-    updateProduct: function () {
-      //Obsolete, product is available directly from data...
-      let product = this.product; //var product = this.$get('product');
-      products[findProductKey(product.id)] = {
-        id: product.id,
-        name: product.name,
-        description: product.description,
-        price: product.price
-      };
-      router.push('/');
+    dados2()  {
+          this.loja = state.lojas.find(todo => todo.id === this.$route.params._id);
     }
-  }
+  },
+  beforeCreate: {
+    store.getters.getTodoBy(this.$route.params._id).then(loja => {
+        this.loja = loja
+    })
+  },
 });
 
 var Edit = Vue.extend({
@@ -384,6 +378,18 @@ var Delete = Vue.extend({
     }
   }
 });
+var NoEncontrado = Vue.extend({
+  template: '#naoEncontrado',
+  data: function () {
+    return {item: '' };
+  },
+  methods: {
+    deleteProduct: function () {
+      products.splice(findProductKey(this.$route.params._id), 1);
+      router.push('/');
+    }
+  }
+});
 
 var router = new VueRouter({
   routes: [
@@ -391,7 +397,8 @@ var router = new VueRouter({
     {path: '/loja/:_id', component: Loja, name: 'loja'},
     {path: '/add', component: Add},
     {path: '/loja/:_id/edit', component: Edit, name: 'edit'},
-    {path: '/loja/:_id/delete', component: Delete, name: 'delete'}
+    {path: '/loja/:_id/delete', component: Delete, name: 'delete'},
+    {path: '*', component: NoEncontrado}
   ]
 });
 
