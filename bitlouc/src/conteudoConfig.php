@@ -44,11 +44,11 @@
     <!-- /.box -->
     <template id="loja">
       <div>
-        <h2>{{ product.name }}</h2>
+        <h2>{{ loja }}</h2>
         <b>Description: </b>
-        <div>{{ product.description }}</div>
+        <div>{{ }}</div>
         <b>Price:</b>
-        <div>{{ product.price }}<span class="glyphicon glyphicon-euro"></span></div>
+        <div>{{ }}<span class="glyphicon glyphicon-euro"></span></div>
         <br/>
         <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
         <a><router-link to="/">Back to product list</router-link></a>

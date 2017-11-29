@@ -76,7 +76,10 @@ const actions = {
 
 const getters = {
   getUsers: state => state.users,
-  getLojas: state => state.lojas
+  getLojas: state => state.lojas,
+  getTodoById: state => (id) => {
+    return state.lojas.filter(loja => loja.id === id)
+  }
 }
 
 
@@ -298,17 +301,35 @@ var Loja = Vue.extend({
     return {loja: findProduct(this.$route.params._id)};
   },
   computed: {
-    dados() {
-      
+    dados(id) {
+      return store.getters.getTodoById(this.$route.params._id);
     },
     filteredItems() {
       return store.state.lojas.filter(item => {
           return this.loja.includes(item.id);
       });
-      } // else
-
-  } // filteredItems
-   // computed
+    } // filteredItems
+  }, // computed
+  methods: {
+    findProductKey: function (lojaId) {
+      for (var key = 0; key < products.length; key++) {
+        if (products[key].id == productId) {
+          return key;
+        }
+      }
+    },
+    updateProduct: function () {
+      //Obsolete, product is available directly from data...
+      let product = this.product; //var product = this.$get('product');
+      products[findProductKey(product.id)] = {
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        price: product.price
+      };
+      router.push('/');
+    }
+  }
 });
 
 var Edit = Vue.extend({
