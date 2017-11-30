@@ -88,7 +88,7 @@ const getters = {
     return state.lojas.filter(loja => loja.id === id)
   },
   getLojaId: (state) => (id) => {
-    return state.lojas.find(loja => loja.id === id)
+    return state.lojas.find(todo => todo.id === id)
     //return state.lojas.filter(loja => loja.id === id)
   },
   getTodoBy: (state) => (id) => {
@@ -134,8 +134,8 @@ var List = Vue.extend({
     };
   },
   created: function() {
-    this.fetchData();
-    this.fetchData2(); // Başlangıçta kayıtları al
+    this.dadosLojas();
+    this.dadosLojas2(); // Başlangıçta kayıtları al
   },
   computed: {
     dados() {
@@ -147,7 +147,7 @@ var List = Vue.extend({
   },
   methods: {
     // Bu metot http get ile api üzerinden kayıtları users dizisine push eder
-    fetchData: function() {
+    dadosLojas: function() {
       this.$http.get('./config/api/apiLojaFull.php?action=read')
         .then(function(response) {
           if(response.data.error){
@@ -162,9 +162,8 @@ var List = Vue.extend({
         .catch(function(error) {
           console.log(error);
         });
-
     },
-    fetchData2: function() {
+    dadosLojas2: function() {
       this.$http.get('./config/api/apiLocalidades.php?action=read')
         .then(function(response) {
           if(response.data.error){
@@ -178,7 +177,6 @@ var List = Vue.extend({
         .catch(function(error) {
           console.log(error);
         });
-
     },
     // Bu metot http post ile formdan alınan verileri apiye iletir
     // Apiden dönen cevap users dizisine push edilir
@@ -317,16 +315,17 @@ var Loja = Vue.extend({
     };
   },
   created: function() {
-    this.dados();
+    //this.dados2();
+    this.dadosLojas();
   },
   computed: {
-    dados2()  {
-      return store.state.lojas.find(todo => todo.id === this.$route.params._id);
+    dados()  {
+      return store.getters.getTodoBy(this.$route.params._id);
     },
     //store.state.lojas // filteredItems
   }, // computed
   methods: {
-    dados: function() {
+    dados2: function() {
       if (!this.$route.params._id) {
         alert('Por favor, preencha todos os campos!');
         return false;
@@ -340,6 +339,22 @@ var Loja = Vue.extend({
               this.$store.dispatch('setLoja', response.data.dados);
               //this.$router.push('/')
               //console.log(response.data.dados);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    dadosLojas: function() {
+      this.$http.get('./config/api/apiLojaFull.php?action=read')
+        .then(function(response) {
+          if(response.data.error){
+            this.errorMessage = response.data.message;
+          } else{
+              //console.log(response.data.dados);
+              this.$store.dispatch('setLojas', response.data.dados);
+              //this.$router.push('/')
+              //this.users = response.data.users;
           }
         })
         .catch(function(error) {
@@ -412,8 +427,8 @@ var NoEncontrado = Vue.extend({
   },
   methods: {
     deleteProduct: function () {
-      products.splice(findProductKey(this.$route.params._id), 1);
-      router.push('/');
+      //products.splice(findProductKey(this.$route.params._id), 1);
+      //router.push('/');
     }
   }
 });

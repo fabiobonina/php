@@ -210,10 +210,10 @@ endif;
     </template>
     
     </template>
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/2.0.0-rc.4/vuex.js"></script>
-    <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
-    <script src="lib/vue-resource.min.js"></script>
+    <script src="lib/vue.js"></script>
+    <script src="lib/vuex.js"></script>
+    <script src="lib/vue-router.js"></script>
+    <script src="lib/vue-resource.js"></script>
     <script src="appLogin.js"></script>
 
   </body>

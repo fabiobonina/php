@@ -17,7 +17,7 @@ header('Content-Type: text/html; charset=utf-8');
   $descricoes = new Descricoes();
   $ativos = new Ativos();
   $res = array('error' => false);
-  $action = 'loja';
+  //$action = 'loja';
 
   if(isset($_GET['action'])){
 		$action = $_GET['action'];
@@ -35,7 +35,7 @@ header('Content-Type: text/html; charset=utf-8');
         $array2 = (array) $value;
         array_push($resultado2, $array2 );
       }endforeach;
-
+      $array['locais']= $resultado2;
       array_push($resultado, $array);
           
     }endforeach;
