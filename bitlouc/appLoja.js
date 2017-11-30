@@ -10,6 +10,7 @@ const state = {
   todos:[{body: 'Learn vuex', completed: false}],
   todo: {},
   lojas: [],
+  loja: {},
   localidades: [],
   users:[]
 }
@@ -42,6 +43,9 @@ const mutations = {
   SET_LOJAS(state, lojas) {
     state.lojas = lojas
   },
+  SET_LOJA(state, loja) {
+    state.loja = loja
+  },
   SET_LOCALIDADES(state, localidades) {
     state.localidades = localidades
   },
@@ -68,6 +72,9 @@ const actions = {
   },
   setLojas({ commit }, lojas) {
     commit("SET_LOJAS", lojas)
+  },
+  setLoja({ commit }, loja) {
+    commit("SET_LOJA", loja)
   },
   setLocalidades({ commit }, localidades) {
     commit("SET_LOCALIDADES", localidades)
@@ -309,20 +316,40 @@ var Loja = Vue.extend({
       loja: ''
     };
   },
+  created: function() {
+    this.dados();
+  },
   computed: {
-    dados(id) {
-      return store.getters.getTodoBy(this.$route.params._id);
-    } // filteredItems
+    dados2()  {
+      return store.state.lojas.find(todo => todo.id === this.$route.params._id);
+    },
+    //store.state.lojas // filteredItems
   }, // computed
   methods: {
-    dados2()  {
-          this.loja = state.lojas.find(todo => todo.id === this.$route.params._id);
+    dados: function() {
+      if (!this.$route.params._id) {
+        alert('Por favor, preencha todos os campos!');
+        return false;
+      }
+      var postData = {lojaId: this.$route.params._id};
+      this.$http.post('./config/api/apiLojaFull.php?action=loja', postData)
+        .then(function(response) {
+          if(response.data.error){
+            this.errorMessage = response.data.message;
+          } else{
+              this.$store.dispatch('setLoja', response.data.dados);
+              //this.$router.push('/')
+              //console.log(response.data.dados);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
+
   },
-  beforeCreate: {
-    store.getters.getTodoBy(this.$route.params._id).then(loja => {
-        this.loja = loja
-    })
+  beforeCreate () {
+    this.loja = this.$route.params._id
   },
 });
 

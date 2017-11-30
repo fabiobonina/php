@@ -43,7 +43,7 @@
     </div>
     <!-- /.box -->
     <template id="loja">
-      <div>
+      <!--div>
         <h2>{{ dados.displayName }}</h2>
         <b>Description: </b>
         <div>{{ dados.name }}</div>
@@ -60,9 +60,9 @@
               <span class="product-description">{{entry.name}}</span>
             </div>
           </li>
-          <!-- /.item -->
+          <!-- /.item - ->
         </ul>
-      </div>
+      </div-->
     </template>
         
     <template id="list">
