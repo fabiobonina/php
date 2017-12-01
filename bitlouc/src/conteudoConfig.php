@@ -60,16 +60,17 @@
           <div class="box box-widget widget-user">
           <!-- Add the bg color to the header using any of the bg-* classes -->
           <div class="widget-user-header bg-aqua-active">
-            <h3 class="widget-user-username">{{ dados.displayName }}</h3>
+            <h3 class="widget-user-username">{{ dados.displayName }}<span class="label label-warning pull-right">Lacalidades: {{}}</span></h3>
             <h5 class="widget-user-desc">Nome: {{ dados.name }}</h5>
-            <h5 class="widget-user-desc">Senguimento: {{ dados.seguimento }}</h5>
+            <h5 class="widget-user-desc">Seguimento: {{ dados.seguimento }}</h5>
+            
           </div>
           <!--div class="widget-user-image">
             <img class="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Avatar">
           </div-->
           <div class="box-footer">
             <div class="row">
-              <div class="col-sm-4 border-right">
+              <div class="col-sm-3 border-right">
                 <div class="description-block">
                   <h5 class="description-header">3,200</h5>
                   <span class="description-text">SALES</span>
@@ -77,7 +78,7 @@
                 <!-- /.description-block -->
               </div>
               <!-- /.col -->
-              <div class="col-sm-4 border-right">
+              <div class="col-sm-3 border-right">
                 <div class="description-block">
                   <h5 class="description-header">13,000</h5>
                   <span class="description-text">FOLLOWERS</span>
@@ -85,7 +86,15 @@
                 <!-- /.description-block -->
               </div>
               <!-- /.col -->
-              <div class="col-sm-4">
+              <div class="col-sm-3 border-right">
+                <div class="description-block">
+                  <h5 class="description-header">13,000</h5>
+                  <span class="description-text">FOLLOWERS</span>
+                </div>
+                <!-- /.description-block -->
+              </div>
+              <!-- /.col -->
+              <div class="col-sm-3">
                 <div class="description-block">
                   <h5 class="description-header">35</h5>
                   <span class="description-text">PRODUCTS</span>
@@ -97,7 +106,7 @@
             <!-- /.row -->
             <div class="box-footer no-padding">
               <ul class="nav nav-stacked">
-                <li><a href="#">Projects <span class="pull-right badge bg-blue">31</span><span class="pull-right badge bg-blue">31</span></a></li>
+                <li><a href="#">Projects <span class="pull-right badge bg-blue">31</span> <span class="pull-right badge bg-blue">31</span></a></li>
                 <li><a href="#">Tasks <span class="pull-right badge bg-aqua">5</span></a></li>
                 <li><a href="#">Completed Projects <span class="pull-right badge bg-green">12</span></a></li>
                 <li><a href="#">Followers <span class="pull-right badge bg-red">842</span></a></li>
