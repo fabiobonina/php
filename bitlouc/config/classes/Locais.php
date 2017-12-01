@@ -1,9 +1,9 @@
 <?php
-require_once 'Crud.php';
+require_once '_crud.php';
 
-class Localidades extends Crud{
+class Locais extends Crud{
 	
-	protected $table = 'tb_localidades';
+	protected $table = 'tb_locais';
 	private $cliente;
 	private $regional;
 	private $nome;

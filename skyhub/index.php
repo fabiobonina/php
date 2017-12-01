@@ -13,7 +13,7 @@
   <!-- /top navigation -->
 
   <!-- page content -->
-  <?php include("src/components/index/conteudoTest.php");?>
+  <?php include("src/components/index/conteudo.php");?>
   <!-- /page content -->
         
   <!-- footer content -->

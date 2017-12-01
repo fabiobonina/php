@@ -42,10 +42,10 @@ INSERT INTO `tb_grupoloja` (`id`, `decricao`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_localidades`
+-- Estrutura da tabela `tb_locais`
 --
 
-CREATE TABLE `tb_localidades` (
+CREATE TABLE `tb_locais` (
   `id` int(11) NOT NULL,
   `loja` int(11) NOT NULL,
   `tipo` varchar(11) DEFAULT NULL,
@@ -59,10 +59,10 @@ CREATE TABLE `tb_localidades` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `tb_localidades`
+-- Extraindo dados da tabela `tb_locais`
 --
 
-INSERT INTO `tb_localidades` (`id`, `loja`, `tipo`, `regional`, `nome`, `municipio`, `uf`, `latitude`, `longitude`, `ativo`) VALUES
+INSERT INTO `tb_locais` (`id`, `loja`, `tipo`, `regional`, `nome`, `municipio`, `uf`, `latitude`, `longitude`, `ativo`) VALUES
 (2, 1, 'ETA', 'FLORIANO', 'FLORIANO', 'FLORIANO', 'PI', -6.784000, -43.020000, '0'),
 (3, 1, 'ETA', 'PARNAIBA', 'PARNAIBA', 'PARNAIBA', 'PI', -2.922000, -41.758999, '0'),
 (4, 2, 'ETA', '', 'BARCARENA', 'BARCARENA', 'PA', -1.550000, -48.738998, '0'),
@@ -646,7 +646,7 @@ INSERT INTO `tb_localidades` (`id`, `loja`, `tipo`, `regional`, `nome`, `municip
 (587, 16, 'ETA', 'MATA SUL', 'RIBEIRAO', 'RIBEIRAO', 'PE', -8.507000, -35.384998, '0'),
 (588, 16, 'ETA', 'MATA SUL', 'ESCADA', 'ESCADA', 'PE', 0.000000, 0.000000, '0'),
 (589, 16, 'ETA', 'MATA SUL', 'FREXEIRAS', 'ESCADA', 'PE', 0.000000, 0.000000, '0');
-INSERT INTO `tb_localidades` (`id`, `loja`, `tipo`, `regional`, `nome`, `municipio`, `uf`, `latitude`, `longitude`, `ativo`) VALUES
+INSERT INTO `tb_locais` (`id`, `loja`, `tipo`, `regional`, `nome`, `municipio`, `uf`, `latitude`, `longitude`, `ativo`) VALUES
 (590, 16, 'ETA', 'MATA SUL', 'SAUE', 'TAMANDARE', 'PE', -8.768000, -35.318001, '0'),
 (591, 16, 'ETA', 'MATA NORTE', 'PAUDALHO', 'PAUDALHO', 'PE', -7.882000, -35.179001, '0'),
 (592, 16, 'ETA', 'MATA NORTE', 'BIZARRA', 'BOM JARDIM', 'PE', -7.756000, -35.484001, '0'),
@@ -725,6 +725,26 @@ CREATE TABLE `tb_loja_produto` (
 
 INSERT INTO `tb_loja_produto` (`id`, `idLoja`, `idProduto`, `ativo`) VALUES
 (1, 1, 1, '0');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_loja_produto`
+--
+
+CREATE TABLE `tb_local_produto` (
+  `id` int(11) NOT NULL,
+  `idLocal` int(11) NOT NULL,
+  `idProduto` int(11) NOT NULL,
+  `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `tb_loja_produto`
+--
+
+INSERT INTO `tb_local_produto` (`id`, `idLocal`, `idProduto`, `ativo`) VALUES
+(1, 2, 1, '0');
 
 -- --------------------------------------------------------
 
@@ -877,9 +897,9 @@ ALTER TABLE `tb_grupoloja`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tb_localidades`
+-- Indexes for table `tb_locais`
 --
-ALTER TABLE `tb_localidades`
+ALTER TABLE `tb_locais`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -936,9 +956,9 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `tb_localidades`
+-- AUTO_INCREMENT for table `tb_locais`
 --
-ALTER TABLE `tb_localidades`
+ALTER TABLE `tb_locais`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=594;
 --
 -- AUTO_INCREMENT for table `tb_loja`
@@ -951,10 +971,15 @@ ALTER TABLE `tb_loja`
 ALTER TABLE `tb_loja_produto`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `tb_local_produto`
+--
+ALTER TABLE `tb_local_produto`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+--
 -- AUTO_INCREMENT for table `tb_produto`
 --
 ALTER TABLE `tb_produto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -1,7 +1,7 @@
 <?php
-require_once 'Crud.php';
+require_once '_crud.php';
 
-class Descricoes extends Crud{
+class Descricao extends Crud{
 	
 	protected $table = 'tb_descricao';
 	private $oat;

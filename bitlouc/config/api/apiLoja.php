@@ -4,7 +4,7 @@
 * @author Fabio Bonina <faiobonina@gmail.com>
 */
 
-require_once 'config.php';
+require_once '_config.php';
 $table = 'tb_loja';
 
 try {

@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+require_once '_crud.php';
 
 if (isset($_GET['term'])){
 	$return_arr = array();

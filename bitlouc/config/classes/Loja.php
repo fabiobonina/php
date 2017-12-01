@@ -1,7 +1,7 @@
 <?php
-require_once 'Crud.php';
+require_once '_crud.php';
 
-class Lojas extends Crud{
+class Loja extends Crud{
 	
 	protected $table = 'tb_loja';
 	private $nome;

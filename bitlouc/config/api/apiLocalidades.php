@@ -4,8 +4,8 @@
 * @author Fabio Bonina <faiobonina@gmail.com>
 */
 
-require_once 'config.php';
-$table = 'tb_localidades';
+require_once '_config.php';
+$table = 'tb_locais';
 
 try {
   $conn = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=".DB_CHARSET, DB_USER, DB_PASS);

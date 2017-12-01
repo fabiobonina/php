@@ -1,9 +1,9 @@
 <?php
-require_once 'Crud.php';
+require_once '_crud.php';
 
-class Sistemas extends Crud{
+class Tipo extends Crud{
 	
-	protected $table = 'tb_sistema';
+	protected $table = 'tb_tipo';
 	private $cod;
 	private $descricao;
 	private $ativo;
