@@ -35,18 +35,25 @@ header('Content-Type: text/html; charset=utf-8');
 
       //Montar Array locais-------------------------------------------------------
       $arrayLocais = array();
-      $cont_localLat = 0;
+      $cont_localGeo = 0;
       foreach($locais->findAll() as $key => $value):if($value->loja == $lojaId) {
         $arLocal = (array) $value;
         if( $value->latitude <> 0.00000 && $value->longitude <> 0.00000){
-          $cont_localLat++;
+          $cont_localGeo++;
         }
         array_push($arrayLocais, $arLocal );
       }endforeach;
       $locaisTt = count($arrayLocais);
+      if($locaisTt > 0){
+        $geoStatus = round(($cont_localGeo/$locaisTt)*100, 1);
+       }else{
+         $geoStatus = 0;
+       }
+      
       $arLoja['locais']= $arrayLocais;
-      $arLoja['locaisTt']= $locaisTt;
-      $arLoja['locaisGeoTt']= $cont_localLat;
+      $arLoja['locaisQt']= $locaisTt;
+      $arLoja['locaisGeoQt']= $cont_localGeo;
+      $arLoja['locaisGeoStatus']= $geoStatus;
       //Montar Array locais------------------------------------------------------
 
       //Montar Array produtos----------------------------------------------------

@@ -714,8 +714,8 @@ INSERT INTO `tb_loja` (`id`, `displayName`, `name`, `proprietario`, `grupoLoja`,
 
 CREATE TABLE `tb_loja_produto` (
   `id` int(11) NOT NULL,
-  `idLoja` int(11) NOT NULL,
-  `idProduto` int(11) NOT NULL,
+  `loja` int(11) NOT NULL,
+  `produto` int(11) NOT NULL,
   `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -723,7 +723,7 @@ CREATE TABLE `tb_loja_produto` (
 -- Extraindo dados da tabela `tb_loja_produto`
 --
 
-INSERT INTO `tb_loja_produto` (`id`, `idLoja`, `idProduto`, `ativo`) VALUES
+INSERT INTO `tb_loja_produto` (`id`, `loja`, `produto`, `ativo`) VALUES
 (1, 1, 1, '0');
 
 -- --------------------------------------------------------
@@ -734,8 +734,8 @@ INSERT INTO `tb_loja_produto` (`id`, `idLoja`, `idProduto`, `ativo`) VALUES
 
 CREATE TABLE `tb_local_produto` (
   `id` int(11) NOT NULL,
-  `idLocal` int(11) NOT NULL,
-  `idProduto` int(11) NOT NULL,
+  `local` int(11) NOT NULL,
+  `produto` int(11) NOT NULL,
   `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -743,7 +743,7 @@ CREATE TABLE `tb_local_produto` (
 -- Extraindo dados da tabela `tb_loja_produto`
 --
 
-INSERT INTO `tb_local_produto` (`id`, `idLocal`, `idProduto`, `ativo`) VALUES
+INSERT INTO `tb_local_produto` (`id`, `local`, `produto`, `ativo`) VALUES
 (1, 2, 1, '0');
 
 -- --------------------------------------------------------
@@ -974,7 +974,7 @@ ALTER TABLE `tb_loja_produto`
 -- AUTO_INCREMENT for table `tb_local_produto`
 --
 ALTER TABLE `tb_local_produto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tb_produto`
 --
