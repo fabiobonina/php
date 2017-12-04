@@ -1,14 +1,16 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 01-Dez-2017 às 09:23
--- Versão do servidor: 10.1.13-MariaDB
--- PHP Version: 7.0.8
+-- Generation Time: 04-Dez-2017 às 21:05
+-- Versão do servidor: 10.1.26-MariaDB
+-- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+03:00";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -19,6 +21,130 @@ SET time_zone = "+03:00";
 --
 -- Database: `systemteste`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_bem`
+--
+
+CREATE TABLE `tb_bem` (
+  `id` int(11) NOT NULL,
+  `familia` int(11) NOT NULL,
+  `tag` varchar(50) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `capacidade` varchar(20) NOT NULL,
+  `unidade` varchar(4) NOT NULL,
+  `modelo` varchar(20) NOT NULL,
+  `frabicante` int(11) NOT NULL,
+  `codProprietario` int(11) NOT NULL,
+  `descProprietario` varchar(30) NOT NULL,
+  `loja` int(11) NOT NULL,
+  `local` int(11) NOT NULL,
+  `plaqueta` varchar(11) NOT NULL,
+  `data` date NOT NULL DEFAULT '0000-00-00'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `tb_bem`
+--
+
+INSERT INTO `tb_bem` (`id`, `familia`, `tag`, `name`, `capacidade`, `unidade`, `modelo`, `frabicante`, `codProprietario`, `descProprietario`, `loja`, `local`, `plaqueta`, `data`) VALUES
+(1, 1, 'MSA', 'MASCARA AUTONOMA', '240', 'KG', '1', 24, 0, '1', 1, 1, '101010', '2017-12-04');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_bens_familia`
+--
+
+CREATE TABLE `tb_bens_familia` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `tag` varchar(50) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `tb_bens_familia`
+--
+
+INSERT INTO `tb_bens_familia` (`id`, `name`, `tag`) VALUES
+(1, 'MASCARA AUTONOMA', 'MSA'),
+(2, 'Sistema Cloração', 'SCL');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_bens_frabricante`
+--
+
+CREATE TABLE `tb_bens_frabricante` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `nick` varchar(30) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `tb_bens_frabricante`
+--
+
+INSERT INTO `tb_bens_frabricante` (`id`, `name`, `nick`) VALUES
+(1, 'MSA', 'MSA');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_bens_grupo`
+--
+
+CREATE TABLE `tb_bens_grupo` (
+  `id` int(11) NOT NULL,
+  `bem` int(11) NOT NULL,
+  `grupo` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_bens_nivel`
+--
+
+CREATE TABLE `tb_bens_nivel` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `tag` int(11) NOT NULL,
+  `segmento` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `tb_bens_nivel`
+--
+
+INSERT INTO `tb_bens_nivel` (`id`, `name`, `tag`, `segmento`) VALUES
+(1, 'PRIMERIO', 1, 1),
+(2, 'SECUNDARIO', 2, 1),
+(3, 'TERCERARIO', 3, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_grupo`
+--
+
+CREATE TABLE `tb_grupo` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `tag` varchar(30) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `tb_grupo`
+--
+
+INSERT INTO `tb_grupo` (`id`, `name`, `tag`) VALUES
+(1, 'GAS CLORO', 'GCL'),
+(2, 'SEGURAÇA', 'SEG'),
+(3, 'POLICLORETO ALUMINIO', 'PAC');
 
 -- --------------------------------------------------------
 
@@ -50,7 +176,7 @@ CREATE TABLE `tb_locais` (
   `loja` int(11) NOT NULL,
   `tipo` varchar(11) DEFAULT NULL,
   `regional` varchar(100) DEFAULT NULL,
-  `nome` varchar(50) NOT NULL,
+  `name` varchar(50) NOT NULL,
   `municipio` varchar(100) NOT NULL,
   `uf` varchar(2) NOT NULL,
   `latitude` float(10,6) DEFAULT NULL,
@@ -62,7 +188,7 @@ CREATE TABLE `tb_locais` (
 -- Extraindo dados da tabela `tb_locais`
 --
 
-INSERT INTO `tb_locais` (`id`, `loja`, `tipo`, `regional`, `nome`, `municipio`, `uf`, `latitude`, `longitude`, `ativo`) VALUES
+INSERT INTO `tb_locais` (`id`, `loja`, `tipo`, `regional`, `name`, `municipio`, `uf`, `latitude`, `longitude`, `ativo`) VALUES
 (2, 1, 'ETA', 'FLORIANO', 'FLORIANO', 'FLORIANO', 'PI', -6.784000, -43.020000, '0'),
 (3, 1, 'ETA', 'PARNAIBA', 'PARNAIBA', 'PARNAIBA', 'PI', -2.922000, -41.758999, '0'),
 (4, 2, 'ETA', '', 'BARCARENA', 'BARCARENA', 'PA', -1.550000, -48.738998, '0'),
@@ -646,11 +772,31 @@ INSERT INTO `tb_locais` (`id`, `loja`, `tipo`, `regional`, `nome`, `municipio`, 
 (587, 16, 'ETA', 'MATA SUL', 'RIBEIRAO', 'RIBEIRAO', 'PE', -8.507000, -35.384998, '0'),
 (588, 16, 'ETA', 'MATA SUL', 'ESCADA', 'ESCADA', 'PE', 0.000000, 0.000000, '0'),
 (589, 16, 'ETA', 'MATA SUL', 'FREXEIRAS', 'ESCADA', 'PE', 0.000000, 0.000000, '0');
-INSERT INTO `tb_locais` (`id`, `loja`, `tipo`, `regional`, `nome`, `municipio`, `uf`, `latitude`, `longitude`, `ativo`) VALUES
+INSERT INTO `tb_locais` (`id`, `loja`, `tipo`, `regional`, `name`, `municipio`, `uf`, `latitude`, `longitude`, `ativo`) VALUES
 (590, 16, 'ETA', 'MATA SUL', 'SAUE', 'TAMANDARE', 'PE', -8.768000, -35.318001, '0'),
 (591, 16, 'ETA', 'MATA NORTE', 'PAUDALHO', 'PAUDALHO', 'PE', -7.882000, -35.179001, '0'),
 (592, 16, 'ETA', 'MATA NORTE', 'BIZARRA', 'BOM JARDIM', 'PE', -7.756000, -35.484001, '0'),
 (593, 16, 'ETA', 'MATA NORTE', 'BUENOS AIRES', 'BUENOS AIRES', 'PE', 0.000000, 0.000000, '0');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_local_grupo`
+--
+
+CREATE TABLE `tb_local_grupo` (
+  `id` int(11) NOT NULL,
+  `local` int(11) NOT NULL,
+  `produto` int(11) NOT NULL,
+  `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `tb_local_grupo`
+--
+
+INSERT INTO `tb_local_grupo` (`id`, `local`, `produto`, `ativo`) VALUES
+(1, 2, 1, '0');
 
 -- --------------------------------------------------------
 
@@ -729,48 +875,6 @@ INSERT INTO `tb_loja_grupo` (`id`, `loja`, `produto`, `ativo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_local_grupo`
---
-
-CREATE TABLE `tb_local_grupo` (
-  `id` int(11) NOT NULL,
-  `local` int(11) NOT NULL,
-  `produto` int(11) NOT NULL,
-  `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `tb_local_grupo`
---
-
-INSERT INTO `tb_local_grupo` (`id`, `local`, `produto`, `ativo`) VALUES
-(1, 2, 1, '0');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_produto`
---
-
-CREATE TABLE IF NOT EXISTS `tb_grupo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  `tag` varchar(30) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2;
-
---
--- Extraindo dados da tabela `tb_produto`
---
-
-INSERT INTO `tb_grupo` (`id`, `name`, `tag`) VALUES
-(1, 'GAS CLORO', 'GCL'),
-(2, 'SEGURAÇA', 'SEG'),
-(3, 'POLICLORETO ALUMINIO', 'PAC');
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `tb_proprietario`
 --
 
@@ -787,7 +891,7 @@ CREATE TABLE `tb_proprietario` (
 --
 
 INSERT INTO `tb_proprietario` (`id`, `name`, `nick`, `ativo`, `cadastro`) VALUES
-(1, 'Sabará Químicos Ingredientes S/A', 'Sabará', 0, '2017-08-17');
+(1, 'Sabará Químicos Ingredientes S/A', 'Sabará', '', '2017-08-17');
 
 -- --------------------------------------------------------
 
@@ -893,6 +997,45 @@ INSERT INTO `users` (`id`, `name`, `email`, `user`, `password`, `avatar`, `propr
 --
 
 --
+-- Indexes for table `tb_bem`
+--
+ALTER TABLE `tb_bem`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `loja` (`loja`),
+  ADD KEY `local` (`local`);
+
+--
+-- Indexes for table `tb_bens_familia`
+--
+ALTER TABLE `tb_bens_familia`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_bens_frabricante`
+--
+ALTER TABLE `tb_bens_frabricante`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_bens_grupo`
+--
+ALTER TABLE `tb_bens_grupo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_bens_nivel`
+--
+ALTER TABLE `tb_bens_nivel`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `segmento` (`segmento`);
+
+--
+-- Indexes for table `tb_grupo`
+--
+ALTER TABLE `tb_grupo`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tb_grupoloja`
 --
 ALTER TABLE `tb_grupoloja`
@@ -908,18 +1051,6 @@ ALTER TABLE `tb_locais`
 -- Indexes for table `tb_loja`
 --
 ALTER TABLE `tb_loja`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tb_loja_produto`
---
-ALTER TABLE `tb_loja_produto`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tb_produto`
---
-ALTER TABLE `tb_produto`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -958,30 +1089,54 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `tb_bem`
+--
+ALTER TABLE `tb_bem`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tb_bens_familia`
+--
+ALTER TABLE `tb_bens_familia`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tb_bens_frabricante`
+--
+ALTER TABLE `tb_bens_frabricante`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tb_bens_grupo`
+--
+ALTER TABLE `tb_bens_grupo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tb_bens_nivel`
+--
+ALTER TABLE `tb_bens_nivel`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tb_grupo`
+--
+ALTER TABLE `tb_grupo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `tb_locais`
 --
 ALTER TABLE `tb_locais`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=594;
+
 --
 -- AUTO_INCREMENT for table `tb_loja`
 --
 ALTER TABLE `tb_loja`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
---
--- AUTO_INCREMENT for table `tb_loja_produto`
---
-ALTER TABLE `tb_loja_produto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `tb_local_produto`
---
-ALTER TABLE `tb_local_produto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `tb_produto`
---
-ALTER TABLE `tb_produto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
