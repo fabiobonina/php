@@ -58,7 +58,8 @@
             <div class="box box-widget widget-user">
             <!-- Add the bg color to the header using any of the bg-* classes -->
             <div class="widget-user-header bg-aqua-active">
-              <h3 class="widget-user-username">{{ dados.displayName }}<span class="label label-warning pull-right">Lacalidades: {{}}</span></h3>
+              <h3 class="widget-user-username">{{ dados.displayName }}<span class="pull-right badge bg-blue">
+                    Locais: <i class="fa fa-fw fa-building-o"></i> {{ dados.locaisQt }} /<i class="fa fa-fw fa-map-marker"></i> {{ dados.locaisGeoStatus }}% ({{ dados.locaisGeoQt }})</span><span class="label label-warning pull-right">Lacalidades: {{}}</span></h3>
               <h5 class="widget-user-desc">Nome: {{ dados.name }}</h5>
               <h5 class="widget-user-desc">Seguimento: {{ dados.seguimento }}</h5>
               
@@ -182,8 +183,8 @@
                 <div class="product-info">
                   <a :href="'#/loja/' + entry.id" class="product-title">{{entry.displayName}}
                   <span class="pull-right badge bg-blue">
-                    Locais: <i class="fa fa-fw fa-building-o"></i> {{ entry.locaisQt }} /<i class="fa fa-fw fa-map-marker"></i> {{ entry.locaisGeoStatus }}% ({{ entry.locaisGeoQt }})</span> <span class="label label-warning pull-right">Lacais: {{ entry.locais.length}}</span></a>
-                  <span class="product-description">{{entry.name}}</span>
+                    Locais: <i class="fa fa-fw fa-building-o"></i> {{ entry.locaisQt }} /<i class="fa fa-fw fa-map-marker"></i> {{ entry.locaisGeoStatus }}% ({{ entry.locaisGeoQt }})</span></a>
+                  <span class="product-description">{{entry.name}} <span class="pull-right badge" v-for="produto in entry.produtos">{{ produto.name }}</span></span> 
                 </div>
               </li>
               <!-- /.item -->
