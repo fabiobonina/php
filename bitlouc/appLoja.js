@@ -306,7 +306,7 @@ Vue.component('tabela-grid', {
     }
   }
 });*/
-
+//--LOJA:id----------------------------------------------------------------------------
 var Loja = Vue.extend({
   template: '#loja',
   data: function () {
@@ -368,6 +368,66 @@ var Loja = Vue.extend({
   },
 });
 
+//--LOCAL:id ----------------------------------------------------------------------------
+var Local = Vue.extend({
+  template: '#local',
+  data: function () {
+    return {product: this.$route.params._local };
+  },
+  created: function() {
+    //this.dados2();
+    this.dadosLojas();
+  },
+  computed: {
+    dados()  {
+      return store.getters.getTodoBy(this.$route.params._id);
+    },
+    //store.state.lojas // filteredItems
+  }, // computed
+  methods: {
+    dados2: function() {
+      if (!this.$route.params._id) {
+        alert('Por favor, preencha todos os campos!');
+        return false;
+      }
+      var postData = {lojaId: this.$route.params._id};
+      this.$http.post('./config/api/apiLojaFull.php?action=loja', postData)
+        .then(function(response) {
+          if(response.data.error){
+            this.errorMessage = response.data.message;
+          } else{
+              this.$store.dispatch('setLoja', response.data.dados);
+              //this.$router.push('/')
+              //console.log(response.data.dados);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    dadosLojas: function() {
+      this.$http.get('./config/api/apiLojaFull.php?action=read')
+        .then(function(response) {
+          if(response.data.error){
+            this.errorMessage = response.data.message;
+          } else{
+              //console.log(response.data.dados);
+              this.$store.dispatch('setLojas', response.data.dados);
+              //this.$router.push('/')
+              //this.users = response.data.users;
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
+
+  },
+  beforeCreate () {
+    this.loja = this.$route.params._id
+  },
+});
+//-- ----------------------------------------------------------------------------
 var Edit = Vue.extend({
   template: '#edit',
   data: function () {
@@ -387,7 +447,7 @@ var Edit = Vue.extend({
     }
   }
 });
-
+//-- ----------------------------------------------------------------------------
 var Add = Vue.extend({
   template: '#add',
   data: function () {
@@ -437,6 +497,18 @@ var router = new VueRouter({
   routes: [
     {path: '/', component: List},
     {path: '/loja/:_id', component: Loja, name: 'loja'},
+    /*{path: '/config', component: Loja,
+    children: [
+        {path: '', components: { 
+            default: SegList,
+            ordem: OrdemList,
+            grupo: GrupoList,
+            fab: FabList
+            }, name:'Configuração'},
+      ]
+    },*/
+    {path: '/loja/:_id/edit', component: Edit, name: 'edit'},
+    {path: '/loja/:_id/local/:_local', component: Local, name: 'edit'},
     {path: '/add', component: Add},
     {path: '/loja/:_id/edit', component: Edit, name: 'edit'},
     {path: '/loja/:_id/delete', component: Delete, name: 'delete'},

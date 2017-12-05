@@ -2,11 +2,11 @@
 require_once '_crud.php';
 
 try {
-class LocalProduto extends Crud{
+class LojaGrupo extends Crud{
 	
 
 	
-	protected $table = 'tb_local_produto';
+	protected $table = 'tb_loja_grupo';
 	private $cliente;
 	private $localida;
 	private $plaqueta;

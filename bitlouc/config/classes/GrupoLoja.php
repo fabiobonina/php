@@ -2,7 +2,7 @@
 require_once '_crud.php';
 
 try {
-class GrupoLoja extends Crud{
+class LojaNivel extends Crud{
 	
 
 	

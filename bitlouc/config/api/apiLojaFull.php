@@ -12,8 +12,8 @@ header('Content-Type: text/html; charset=utf-8');
   $loja = new Loja();
   $locais = new Locais();
   $sistemas = new Sistema();
-  $produto = new Produto();
-  $lojaProduto = new LojaProduto();
+  $grupo = new Grupo();
+  $lojaGrupo = new LojaGrupo();
   $descricao = new Descricao();
   $ativos = new Ativos();
 
@@ -58,9 +58,9 @@ header('Content-Type: text/html; charset=utf-8');
 
       //Montar Array produtos----------------------------------------------------
       $arProdutos = array();
-      foreach($lojaProduto->findAll() as $key => $value):if($value->loja == $lojaId) {
-        $produtoId = $value->produto;
-        foreach($produto->findAll() as $key => $value):if($value->id == $produtoId) {
+      foreach($lojaGrupo->findAll() as $key => $value):if($value->loja == $lojaId) {
+        $grupoId = $value->produto;
+        foreach($grupo->findAll() as $key => $value):if($value->id == $grupoId) {
           $arProduto = (array) $value;
           array_push($arProdutos, $arProduto );
         }endforeach;

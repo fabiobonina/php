@@ -59,7 +59,7 @@
             <!-- Add the bg color to the header using any of the bg-* classes -->
             <div class="widget-user-header bg-aqua-active">
               <h3 class="widget-user-username">{{ dados.displayName }}<span class="pull-right badge bg-blue">
-                    Locais: <i class="fa fa-fw fa-building-o"></i> {{ dados.locaisQt }} /<i class="fa fa-fw fa-map-marker"></i> {{ dados.locaisGeoStatus }}% ({{ dados.locaisGeoQt }})</span><span class="label label-warning pull-right">Lacalidades: {{}}</span></h3>
+                    Locais: <i class="fa fa-fw fa-building-o"></i> {{ dados.locaisQt }} /<i class="fa fa-fw fa-map-marker"></i> {{ dados.locaisGeoStatus }}% ({{ dados.locaisGeoQt }})</span></h3>
               <h5 class="widget-user-desc">Nome: {{ dados.name }}</h5>
               <h5 class="widget-user-desc">Seguimento: {{ dados.seguimento }}</h5>
               
@@ -122,7 +122,7 @@
         <ul class="products-list product-list-in-box">
           <li class="item"  v-for="entry in dados.locais">
             <div class="product-info">
-              <a :href="'#/loja/' + entry.id" class="product-title">{{entry.nome}}
+              <a :href="'#/loja/' + dados.id + '/local/'+ entry.id" class="product-title">{{entry.nome}}
                 <span class="label label-warning pull-right">Lacalidades: {{}}</span></a>
               <span class="product-description">{{entry.name}}</span>
             </div>
@@ -243,6 +243,29 @@
         <button type="submit" class="btn btn-primary">Save</button>
         <a class="btn btn-default"><router-link to="/">Cancel</router-link></a>
       </form>
+      </div>
+    </template>
+
+    <template id="local">
+      <div>
+      <h2>Local product</h2>
+      <h2>{{ product}}</h2>
+      <!--form v-on:submit="updateProduct">
+        <div class="form-group">
+          <label for="edit-name">Name</label>
+          <input class="form-control" id="edit-name" v-model="product.name" required/>
+        </div>
+        <div class="form-group">
+          <label for="edit-description">Description</label>
+          <textarea class="form-control" id="edit-description" rows="3" v-model="product.description"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="edit-price">Price, <span class="glyphicon glyphicon-euro"></span></label>
+          <input type="number" class="form-control" id="edit-price" v-model="product.price"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a class="btn btn-default"><router-link to="/">Cancel</router-link></a>
+      </form-->
       </div>
     </template>
         
