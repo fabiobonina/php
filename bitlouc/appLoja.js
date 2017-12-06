@@ -122,7 +122,6 @@ function findProductKey (productId) {
   }
 };
 
-
 var List = Vue.extend({
   template: '#list',
   data: function () {
@@ -254,6 +253,25 @@ Vue.component('tabela-grid', {
   }
 });
 
+Vue.component('modal-component', {
+  name: 'modalComponent',
+  template: '#modal-component',
+  data() {
+    return {
+      
+    };
+  },
+  props: {
+    title: { type: String, default: '' },
+    message: { type: String, default: 'Confirm' }
+  },
+  methods: {
+    beforeLeave: function() {
+      this.$emit('unsupportedBrowser')
+    }
+  },
+});
+
 /*Vue.component('demo-grid', {
   template: '#grid-template',
   props: {
@@ -311,12 +329,17 @@ var Loja = Vue.extend({
   template: '#loja',
   data: function () {
     return {
-      loja: ''
+      loja: '',
+      unsupportedBrowser: false,
+      showModal: false
     };
   },
   created: function() {
     //this.dados2();
     this.dadosLojas();
+  },
+  mounted: function() {
+    this.showModal = true;
   },
   computed: {
     dados()  {
@@ -360,7 +383,13 @@ var Loja = Vue.extend({
         .catch(function(error) {
           console.log(error);
         });
+    },
+    onClose: function(){
+      this.showModal = false;
+      this.unsupportedBrowser = true;
+      console.log("Unsupported!");
     }
+    
 
   },
   beforeCreate () {
@@ -372,7 +401,11 @@ var Loja = Vue.extend({
 var Local = Vue.extend({
   template: '#local',
   data: function () {
-    return {product: this.$route.params._local };
+    return {
+      product: this.$route.params._local,
+      unsupportedBrowser: false,
+      showModal: false
+    };
   },
   created: function() {
     //this.dados2();

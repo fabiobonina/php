@@ -41,7 +41,12 @@
       <!-- /.box-body -->
     </div>
     <!-- /.box -->
-    
+    <!-- footer content -->
+    <?php include("src/components/geolocalizacao.php");?>
+    <!-- /footer content -->
+    <!-- footer content -->
+    <?php include("src/components/tabela-grid.php");?>
+    <!-- /footer content -->
         
     <template id="list">
       <div>
@@ -81,6 +86,10 @@
         <a href="#/" class="btn btn-app">
           <i class="fa fa-long-arrow-left"></i> VOLTAR
         </a>
+        <div class="container">
+      <button id="show-modal" v-on:click="showModal = true" class="btn btn-primary">Show Modal</button>
+      </div>
+        <modal-component v-if="showModal" v-on:close="onClose" :acivated="modalVisible"></modal-component>
 
         <div class="row">
           <div class="col-md-12">
@@ -135,9 +144,27 @@
               <!-- /.row -->
               <div class="box-footer no-padding">
                 <ul class="nav nav-stacked">
-                  <li><a href="#">Projects <span class="pull-right badge bg-blue">31</span> <span class="pull-right badge bg-blue">31</span></a></li>
-                  <li><a href="#">Tasks <span class="pull-right badge bg-aqua">5</span></a></li>
-                  <li><a href="#">Completed Projects <span class="pull-right badge bg-green">12</span></a></li>
+                  <li><a href="#">Projects <span class="pull-right badge bg-blue">31</span> </a></li>
+                  <li class="item"  >
+                  <div class="row">
+                    <div class="col-xs-10">
+                      <a href="#">Tasks <span class="pull-right badge bg-blue">33</span></a>
+                    </div>
+
+                    <div class="pull-right col-xs-2">
+                      <a href="#" class="btn btn-default btn-flat">Profile <span class="pull-right badge bg-aqua">5</span></a>
+                    </div>
+                    </div>
+                  </li>
+                  <li v-for="entry in dados.locais">
+                    <a :href="'#/loja/' + dados.id + '/local/'+ entry.id">{{entry.name}}
+                      <a v-if=" 1 < entry.latitude.length" :href="'https://maps.google.com/maps?q='+ entry.latitude + '%2C' + entry.longitude" target="_blank">
+                        <span class="blue--text text--lighten-1">near_me</span>
+                      </a>
+                      <p class="grey--text text--lighten-1" v-if=" 1 > entry.latitude.length" >location_off</p><span class="pull-right badge bg-green">12</span>
+                      <br><span class="product-description">{{}}</span>
+                    </a>
+                  </li>
                   <li><a href="#">Followers <span class="pull-right badge bg-red">842</span><br><span class="product-description">{{}}</span></a></li>
                 </ul>
               </div>
@@ -160,22 +187,23 @@
           <!-- /.item -->
         </ul>
         <ul class="products-list product-list-in-box">
-              <li class="item"  v-for="entry in dados.locais">
-                <div class="product-img">
-                  <img src="dist/img/default-50x50.gif" alt="Product Image">
-                </div>
-                <div class="product-info">
-                  <a :href="'#/loja/' + entry.id" class="product-title">{{entry.name}}
-                  <span class="pull-right badge bg-blue">
-                    Locais: <i class="fa fa-fw fa-building-o"></i> {{ }} /<i class="fa fa-fw fa-map-marker"></i> {{  }}% ({{ }})</span></a>
-                  <span class="product-description">{{entry.name}} <span class="pull-right badge" v-for="produto in entry.produtos">{{ }}</span></span> 
-                </div>
-              </li>
-              <!-- /.item -->
-            </ul>
+          <li class="item"  v-for="entry in dados.locais">
+            <div class="product-img">
+              <img src="dist/img/default-50x50.gif" alt="Product Image">
+            </div>
+            <div class="product-info">
+              <a :href="'#/loja/' + entry.id" class="product-title">{{entry.name}}
+              <span class="pull-right badge bg-blue">
+                Locais: <i class="fa fa-fw fa-building-o"></i> {{ }} /<i class="fa fa-fw fa-map-marker"></i> {{  }}% ({{ }})</span></a>
+              <span class="product-description">{{entry.name}} <span class="pull-right badge" v-for="produto in entry.produtos">{{ }}</span></span> 
+            </div>
+          </li>
+          <!-- /.item -->
+        </ul>
+        
       </div>
     </template>
-
+              
     <template id="local">
       <div>
         <h2>Local product</h2>
@@ -199,47 +227,9 @@
       </div>
     </template>
 
-    <template id="grid-tabela">
-      <div>
-        <!-- PRODUCT LIST -->
-        <div class="box box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title">Lista</h3>
+    
 
-            <div class="box-tools pull-right">
-              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-              </button>
-              <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-            </div>
-          </div>
-          <!-- /.box-header -->
-          <div class="box-body">
-            <ul class="products-list product-list-in-box">
-              <li class="item"  v-for="entry in filteredData">
-                <div class="product-img">
-                  <img src="dist/img/default-50x50.gif" alt="Product Image">
-                </div>
-                <div class="product-info">
-                  <a :href="'#/loja/' + entry.id" class="product-title">{{entry.displayName}}
-                  <span class="pull-right badge bg-blue">
-                    Locais: <i class="fa fa-fw fa-building-o"></i> {{ entry.locaisQt }} /<i class="fa fa-fw fa-map-marker"></i> {{ entry.locaisGeoStatus }}% ({{ entry.locaisGeoQt }})</span></a>
-                  <span class="product-description">{{entry.name}} <span class="pull-right badge" v-for="produto in entry.produtos">{{ produto.name }}</span></span> 
-                </div>
-              </li>
-              <!-- /.item -->
-            </ul>
-          </div>
-          <!-- /.box-body -->
-          <!-- /.box-footer -->
-        </div>
-        <!--div class="list-group" v-for="entry in filteredData">
-          <a :href="'#/loja/' + entry.loja.id" class="list-group-item"><h4 class="list-group-item-heading">{{entry.loja.displayName}}</h4>
-            <p class="list-group-item-text">{{entry.loja.name}}</p><span class="glyphicon glyphicon-eye-open"></span>{{entry.locais.length}} View <span class="glyphicon glyphicon-eye-open"></span>
-          </a>
-        </div-->
-        
-      </div>
-    </template>
+    
         
     <template id="add">
       <div>
