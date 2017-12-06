@@ -480,7 +480,7 @@ var Delete = Vue.extend({
     }
   }
 });
-var NoEncontrado = Vue.extend({
+var NaoEncontrado = Vue.extend({
   template: '#naoEncontrado',
   data: function () {
     return {item: '' };
@@ -507,12 +507,11 @@ var router = new VueRouter({
             }, name:'Configuração'},
       ]
     },*/
-    {path: '/loja/:_id/edit', component: Edit, name: 'edit'},
-    {path: '/loja/:_id/local/:_local', component: Local, name: 'edit'},
+    {path: '/loja/:_id/local/:_local', component: Local, name: 'local'},
     {path: '/add', component: Add},
     {path: '/loja/:_id/edit', component: Edit, name: 'edit'},
     {path: '/loja/:_id/delete', component: Delete, name: 'delete'},
-    {path: '*', component: NoEncontrado}
+    {path: '*', component: NaoEncontrado}
   ]
 });
 

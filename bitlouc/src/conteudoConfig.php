@@ -41,6 +41,36 @@
       <!-- /.box-body -->
     </div>
     <!-- /.box -->
+    
+        
+    <template id="list">
+      <div>
+        <div class="actions">
+          <a class="btn btn-default" >
+          <router-link :to="{path: '/add'}">
+            <span class="glyphicon glyphicon-plus"></span>
+            Add
+          </router-link>
+          </a>
+        </div>
+        <div>
+          <p class="successMessage" v-if="successMessage">{{successMessage}}</p>
+          <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
+          <div class="filters row">
+            <div class="form-group col-sm-3">
+              <label for="search-element">Search</label>
+              <input v-model="searchQuery" class="form-control" id="search-element" requred/>
+            </div>
+          </div>
+          <tabela-grid
+            :data="dados"
+            :columns="gridColumns"
+            :filter-key="searchQuery">
+          </tabela-grid>
+        </div>
+      </div>
+    </template>
+
     <template id="loja">
       <div>
         <!-- /.row -->
@@ -108,7 +138,7 @@
                   <li><a href="#">Projects <span class="pull-right badge bg-blue">31</span> <span class="pull-right badge bg-blue">31</span></a></li>
                   <li><a href="#">Tasks <span class="pull-right badge bg-aqua">5</span></a></li>
                   <li><a href="#">Completed Projects <span class="pull-right badge bg-green">12</span></a></li>
-                  <li><a href="#">Followers <span class="pull-right badge bg-red">842</span></a></li>
+                  <li><a href="#">Followers <span class="pull-right badge bg-red">842</span><br><span class="product-description">{{}}</span></a></li>
                 </ul>
               </div>
             </div>
@@ -122,41 +152,50 @@
         <ul class="products-list product-list-in-box">
           <li class="item"  v-for="entry in dados.locais">
             <div class="product-info">
-              <a :href="'#/loja/' + dados.id + '/local/'+ entry.id" class="product-title">{{entry.nome}}
+              <a :href="'#/loja/' + dados.id + '/local/'+ entry.id" class="product-title">{{entry.name}}
                 <span class="label label-warning pull-right">Lacalidades: {{}}</span></a>
               <span class="product-description">{{entry.name}}</span>
             </div>
           </li>
           <!-- /.item -->
         </ul>
+        <ul class="products-list product-list-in-box">
+              <li class="item"  v-for="entry in dados.locais">
+                <div class="product-img">
+                  <img src="dist/img/default-50x50.gif" alt="Product Image">
+                </div>
+                <div class="product-info">
+                  <a :href="'#/loja/' + entry.id" class="product-title">{{entry.name}}
+                  <span class="pull-right badge bg-blue">
+                    Locais: <i class="fa fa-fw fa-building-o"></i> {{ }} /<i class="fa fa-fw fa-map-marker"></i> {{  }}% ({{ }})</span></a>
+                  <span class="product-description">{{entry.name}} <span class="pull-right badge" v-for="produto in entry.produtos">{{ }}</span></span> 
+                </div>
+              </li>
+              <!-- /.item -->
+            </ul>
       </div>
     </template>
-        
-    <template id="list">
+
+    <template id="local">
       <div>
-        <div class="actions">
-          <a class="btn btn-default" >
-          <router-link :to="{path: '/add'}">
-            <span class="glyphicon glyphicon-plus"></span>
-            Add
-          </router-link>
-          </a>
-        </div>
-        <div>
-          <p class="successMessage" v-if="successMessage">{{successMessage}}</p>
-          <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
-          <div class="filters row">
-            <div class="form-group col-sm-3">
-              <label for="search-element">Search</label>
-              <input v-model="searchQuery" class="form-control" id="search-element" requred/>
-            </div>
+        <h2>Local product</h2>
+        <h2>{{ product}}</h2>
+        <!--form v-on:submit="updateProduct">
+          <div class="form-group">
+            <label for="edit-name">Name</label>
+            <input class="form-control" id="edit-name" v-model="product.name" required/>
           </div>
-          <tabela-grid
-            :data="dados"
-            :columns="gridColumns"
-            :filter-key="searchQuery">
-          </tabela-grid>
-        </div>
+          <div class="form-group">
+            <label for="edit-description">Description</label>
+            <textarea class="form-control" id="edit-description" rows="3" v-model="product.description"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="edit-price">Price, <span class="glyphicon glyphicon-euro"></span></label>
+            <input type="number" class="form-control" id="edit-price" v-model="product.price"/>
+          </div>
+          <button type="submit" class="btn btn-primary">Save</button>
+          <a class="btn btn-default"><router-link to="/">Cancel</router-link></a>
+        </form-->
       </div>
     </template>
 
@@ -246,29 +285,6 @@
       </div>
     </template>
 
-    <template id="local">
-      <div>
-      <h2>Local product</h2>
-      <h2>{{ product}}</h2>
-      <!--form v-on:submit="updateProduct">
-        <div class="form-group">
-          <label for="edit-name">Name</label>
-          <input class="form-control" id="edit-name" v-model="product.name" required/>
-        </div>
-        <div class="form-group">
-          <label for="edit-description">Description</label>
-          <textarea class="form-control" id="edit-description" rows="3" v-model="product.description"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="edit-price">Price, <span class="glyphicon glyphicon-euro"></span></label>
-          <input type="number" class="form-control" id="edit-price" v-model="product.price"/>
-        </div>
-        <button type="submit" class="btn btn-primary">Save</button>
-        <a class="btn btn-default"><router-link to="/">Cancel</router-link></a>
-      </form-->
-      </div>
-    </template>
-        
     <template id="delete">
       <div>
       <h2>Delete product {{ product.name }}</h2>
