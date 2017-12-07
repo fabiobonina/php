@@ -252,7 +252,70 @@ Vue.component('tabela-grid', {
     }
   }
 });
-
+Vue.component('grid-local', {
+  template: '#grid-local',
+  props: {
+    data: Array,
+    columns: Array,
+    filterKey: String
+  },
+  data: function () {
+    var sortOrders = {}
+    this.columns.forEach(function (key) {
+      sortOrders[key] = 1
+    })
+    return {
+      sortKey: '',
+      sortOrders: sortOrders,
+      unsupportedBrowser: false,
+      showModal: false,
+      modalItem: {},
+      geolocalizacao: ''
+    }
+  },
+  computed: {
+    filteredData: function () {
+      var sortKey = this.sortKey
+      var filterKey = this.filterKey && this.filterKey.toLowerCase()
+      var order = this.sortOrders[sortKey] || 1
+      var data = this.data
+      if (filterKey) {
+        data = data.filter(function (row) {
+          return Object.keys(row).some(function (key) {
+            return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+          })
+        })
+      }
+      if (sortKey) {
+        data = data.slice().sort(function (a, b) {
+          a = a[sortKey]
+          b = b[sortKey]
+          return (a === b ? 0 : a > b ? 1 : -1) * order
+        })
+      }
+      return data
+    }
+  },
+  filters: {
+    capitalize: function (str) {
+      return str.charAt(0).toUpperCase() + str.slice(1)
+    }
+  },
+  methods: {
+    sortBy: function (key) {
+      this.sortKey = key
+      this.sortOrders[key] = this.sortOrders[key] * -1
+    },
+    onClose: function(){
+      this.showModal = false;
+      this.unsupportedBrowser = true;
+      console.log("Unsupported!");
+    },
+    selecItem: function(data){
+      this.modalItem = data;
+    },
+  }
+});
 Vue.component('modal-component', {
   name: 'modalComponent',
   template: '#modal-component',
@@ -263,7 +326,8 @@ Vue.component('modal-component', {
   },
   props: {
     title: { type: String, default: '' },
-    message: { type: String, default: 'Confirm' }
+    message: { type: String, default: 'Confirm' },
+    data: {}
   },
   methods: {
     beforeLeave: function() {
@@ -330,8 +394,10 @@ var Loja = Vue.extend({
   data: function () {
     return {
       loja: '',
-      unsupportedBrowser: false,
-      showModal: false
+      errorMessage: '',
+      successMessage: '',
+      searchQuery: '',
+      gridColumns: ['displayName', 'name']      
     };
   },
   created: function() {
@@ -339,7 +405,7 @@ var Loja = Vue.extend({
     this.dadosLojas();
   },
   mounted: function() {
-    this.showModal = true;
+    //this.showModal = true;
   },
   computed: {
     dados()  {

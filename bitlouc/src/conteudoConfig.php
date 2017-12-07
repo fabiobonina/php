@@ -1,3 +1,97 @@
+<style>
+    .vue-modal-mask {
+      position: fixed;
+      z-index: 9998;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, .5);
+      display: table;
+      transition: opacity .3s ease;
+    }
+    
+    .vue-modal-wrapper {
+      display: table-cell;
+      vertical-align: middle;
+    }
+    
+    .vue-modal-container {
+      width: auto;
+      max-width: 45%;
+      margin: 0px auto;
+      padding: 20px 30px;
+      background-color: #fff;
+      border-radius: 2px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+      transition: all .3s ease;
+      font-family: Helvetica, Arial, sans-serif;
+    }
+    
+    .vue-modal-header h3 {
+      margin-top: 0;
+      color: #3270ad;
+    }
+    
+    .vue-modal-body {
+      margin: 25px 0;
+      h4 {
+        color: #52575d;
+      }
+    }
+    
+    .vue-modal-footer {
+      min-height: 20px;
+    }
+    
+    .vue-modal-default-button {
+      float: right;
+    }
+    
+    #unsupported-banner {
+      z-index: 999999;
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      background: #ea3030;
+      width: 100%;
+      border-bottom: 1px solid #EEEEEE;
+      padding: 10px;
+      box-sizing: border-box;
+      transform: translateY(-150%);
+      color: #FFFFFF;
+      font-family: "Open Sans", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-align: center;
+      animation: vue-banner-slide-in 0.8s ease forwards;
+    }
+    
+    .modal-enter {
+      opacity: 0;
+    }
+    
+    .modal-leave-active {
+      opacity: 0;
+    }
+    
+    .modal-enter .modal-container,
+    .modal-leave-active .modal-container {
+      -webkit-transform: scale(1.1);
+      transform: scale(1.1);
+    }
+    
+    @keyframes vue-banner-slide-in {
+      0% {
+        transform: translateY(-150%);
+      }
+      
+      100% {
+        transform: translateY(0%);
+      }
+    }
+  </style>
 <!-- Full Width Column -->
 <div class="content-wrapper">
 <div class="container">
@@ -46,6 +140,7 @@
     <!-- /footer content -->
     <!-- footer content -->
     <?php include("src/components/tabela-grid.php");?>
+    <?php include("src/components/grid-local.php");?>
     <!-- /footer content -->
         
     <template id="list">
@@ -86,10 +181,8 @@
         <a href="#/" class="btn btn-app">
           <i class="fa fa-long-arrow-left"></i> VOLTAR
         </a>
-        <div class="container">
-      <button id="show-modal" v-on:click="showModal = true" class="btn btn-primary">Show Modal</button>
-      </div>
-        <modal-component v-if="showModal" v-on:close="onClose" :acivated="modalVisible"></modal-component>
+        
+        
 
         <div class="row">
           <div class="col-md-12">
@@ -100,7 +193,16 @@
               <h3 class="widget-user-username">{{ dados.displayName }}<span class="pull-right badge bg-blue">
                     Locais: <i class="fa fa-fw fa-building-o"></i> {{ dados.locaisQt }} /<i class="fa fa-fw fa-map-marker"></i> {{ dados.locaisGeoStatus }}% ({{ dados.locaisGeoQt }})</span></h3>
               <h5 class="widget-user-desc">Nome: {{ dados.name }}</h5>
-              <h5 class="widget-user-desc">Seguimento: {{ dados.seguimento }}</h5>
+              <h5 class="widget-user-desc">Seguimento: {{ dados.seguimento }}
+              <div class="pull-right box-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                  <input v-model="searchQuery" name="table_search" class="form-control pull-right" placeholder="Search">
+                  <span class="input-group-btn">
+                      <button class="btn btn-teal btn-flat"> <i class="fa fa-building"></i></button>
+                    </span>
+                </div>
+                
+              </div></h5>
               
             </div>
             <!--div class="widget-user-image">
@@ -142,32 +244,6 @@
                 <!-- /.col -->
               </div>
               <!-- /.row -->
-              <div class="box-footer no-padding">
-                <ul class="nav nav-stacked">
-                  <li><a href="#">Projects <span class="pull-right badge bg-blue">31</span> </a></li>
-                  <li class="item"  >
-                  <div class="row">
-                    <div class="col-xs-10">
-                      <a href="#">Tasks <span class="pull-right badge bg-blue">33</span></a>
-                    </div>
-
-                    <div class="pull-right col-xs-2">
-                      <a href="#" class="btn btn-default btn-flat">Profile <span class="pull-right badge bg-aqua">5</span></a>
-                    </div>
-                    </div>
-                  </li>
-                  <li v-for="entry in dados.locais">
-                    <a :href="'#/loja/' + dados.id + '/local/'+ entry.id">{{entry.name}}
-                      <a v-if=" 1 < entry.latitude.length" :href="'https://maps.google.com/maps?q='+ entry.latitude + '%2C' + entry.longitude" target="_blank">
-                        <span class="blue--text text--lighten-1">near_me</span>
-                      </a>
-                      <p class="grey--text text--lighten-1" v-if=" 1 > entry.latitude.length" >location_off</p><span class="pull-right badge bg-green">12</span>
-                      <br><span class="product-description">{{}}</span>
-                    </a>
-                  </li>
-                  <li><a href="#">Followers <span class="pull-right badge bg-red">842</span><br><span class="product-description">{{}}</span></a></li>
-                </ul>
-              </div>
             </div>
           </div>
           <!-- /.widget-user -->
@@ -175,32 +251,11 @@
           <!-- /.col -->
         </div>
         <!-- /.row -->
-        <br/>
-        <ul class="products-list product-list-in-box">
-          <li class="item"  v-for="entry in dados.locais">
-            <div class="product-info">
-              <a :href="'#/loja/' + dados.id + '/local/'+ entry.id" class="product-title">{{entry.name}}
-                <span class="label label-warning pull-right">Lacalidades: {{}}</span></a>
-              <span class="product-description">{{entry.name}}</span>
-            </div>
-          </li>
-          <!-- /.item -->
-        </ul>
-        <ul class="products-list product-list-in-box">
-          <li class="item"  v-for="entry in dados.locais">
-            <div class="product-img">
-              <img src="dist/img/default-50x50.gif" alt="Product Image">
-            </div>
-            <div class="product-info">
-              <a :href="'#/loja/' + entry.id" class="product-title">{{entry.name}}
-              <span class="pull-right badge bg-blue">
-                Locais: <i class="fa fa-fw fa-building-o"></i> {{ }} /<i class="fa fa-fw fa-map-marker"></i> {{  }}% ({{ }})</span></a>
-              <span class="product-description">{{entry.name}} <span class="pull-right badge" v-for="produto in entry.produtos">{{ }}</span></span> 
-            </div>
-          </li>
-          <!-- /.item -->
-        </ul>
-        
+        <grid-local
+          :data="dados.locais"
+          :columns="gridColumns"
+          :filter-key="searchQuery">
+        </grid-local>        
       </div>
     </template>
               
