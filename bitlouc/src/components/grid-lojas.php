@@ -1,4 +1,4 @@
-<template id="grid-tabela">
+<template id="grid-lojas">
 <div>
   <!-- PRODUCT LIST -->
   <div class="box box-primary">

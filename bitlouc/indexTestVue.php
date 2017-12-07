@@ -25,8 +25,9 @@
     <script src="lib/vuex.js"></script>
     <script src="lib/vue-router.js"></script>
     <script src="lib/vue-resource.js"></script>
+    <script src="indexTestVue.js"></script>
     <script>
-      const modalComponent = Vue.component('modal-component', {
+      /*const modalComponent = Vue.component('modal-component', {
         name: 'modalComponent',
         template: '#modal-component',
         data() {
@@ -44,7 +45,7 @@
             this.$emit('unsupportedBrowser')
           }
         },
-      });
+      });*/
 
       const page = new Vue({
         name: 'page',
