@@ -18,7 +18,7 @@ header('Content-Type: text/html; charset=utf-8');
   $ativos = new Ativos();
 
   $res = array('error' => false);
-  $action = 'read';
+  $action = 'cadastrar';
 
   if(isset($_GET['action'])){
 		$action = $_GET['action'];
@@ -105,26 +105,22 @@ header('Content-Type: text/html; charset=utf-8');
     $lat = $array[0];
     $long =$array[1];
     
-    $localidades->setLat($lat);
-    $localidades->setLong($long);
+    $locais->setLat($lat);
+    $locais->setLong($long);
 
-    if($localidades->geolocal($id)){
+    if($locais->geolocal($id)){
       $item['status']= 'OK';
-      $dados = $item;
+      $arDados = $item;
     }else{
       $res['error'] = true; 
       $res['message'] = "Error, não foi possivel salvar os dados";      
     }
   }
-  $localidades = new Localidades();
-  $clientes = new Clientes();
-
-  $redirecionar_1 = 'oat-system.php?acao=localidades';
-  $includ_1 = 'admin/pages/oat/system/localidade/';
 
     #CADASTRAR
-    if($action == 'read'):
+    if($action == 'cadastrar'):
       $loja = $_POST['loja'];
+      $tipo = $_POST['tipo'];
       $regional = $_POST['regional'];
       $name = $_POST['name'];
       $municipio = $_POST['municipio'];
@@ -134,23 +130,24 @@ header('Content-Type: text/html; charset=utf-8');
       $array=explode(",",$coordenadas); 
       $lat = $array[0];
       $long =$array[1];
-      $ativo = $_POST["ativo"];
+      $ativo = $_POST['ativo'];
 
-      $localidades->setLoja($loja);
-      $localidades->setRegional($regional);
-      $localidades->setName($name);
-      $localidades->setMunicipio($municipio);
-      $localidades->setUf($uf);
-      $localidades->setLat($lat);
-      $localidades->setLong($long);
-      $localidades->setAtivo($ativo);
+      $locais->setLoja($loja);
+      $locais->setTipo($tipo);
+      $locais->setRegional($regional);
+      $locais->setName($name);
+      $locais->setMunicipio($municipio);
+      $locais->setUf($uf);
+      $locais->setLat($lat);
+      $locais->setLong($long);
+      $locais->setAtivo($ativo);
       # Insert
-      if($localidades->insert()){
-        echo '<div class="alert alert-success">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>Inserido com sucesso!</strong> Redirecionando ...
-            </div>';
-        header("Refresh: 1, ".$redirecionar_1);	
+      if($locais->insert()){
+        $item['status']= 'OK, dados salvo com sucesso';
+        $arDados = $item;
+      }else{
+        $res['error'] = true; 
+        $res['message'] = "Error, não foi possivel salvar os dados";      
       }
     endif;
     #ATUALIZAR
@@ -166,16 +163,16 @@ header('Content-Type: text/html; charset=utf-8');
       $long =$_POST["long"];
       $ativo =$_POST["ativo"];
 
-      $localidades->setCliente($cliente);
-      $localidades->setRegional($regional);
-      $localidades->setNome($nome);
-      $localidades->setMunicipio($municipio);
-      $localidades->setUf($uf);
-      $localidades->setLat($lat);
-      $localidades->setLong($long);
-      $localidades->setAtivo($ativo);
+      $locais->setCliente($cliente);
+      $locais->setRegional($regional);
+      $locais->setNome($nome);
+      $locais->setMunicipio($municipio);
+      $locais->setUf($uf);
+      $locais->setLat($lat);
+      $locais->setLong($long);
+      $locais->setAtivo($ativo);
 
-      if($localidades->update($id)){
+      if($locais->update($id)){
         echo '<div class="alert alert-success">
           <button type="button" class="close" data-dismiss="alert">×</button>
             <strong>Atualizado com sucesso!</strong> Redirecionando ...
@@ -193,10 +190,10 @@ header('Content-Type: text/html; charset=utf-8');
       $lat = $array[0];
       $long =$array[1];
       
-      $localidades->setLat($lat);
-      $localidades->setLong($long);
+      $locais->setLat($lat);
+      $locais->setLong($long);
 
-      if($localidades->geolocal($id)){
+      if($locais->geolocal($id)){
         echo '<div class="alert alert-success">
           <button type="button" class="close" data-dismiss="alert">×</button>
             <strong>Inserido com sucesso!</strong> Redirecionando ...
@@ -207,7 +204,7 @@ header('Content-Type: text/html; charset=utf-8');
     #DELETAR
     if(isset($_GET['acao1']) && $_GET['acao1'] == 'deletar'):
       $id = (int)$_GET['id'];
-      if($localidades->delete($id)){
+      if($locais->delete($id)){
         echo '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">×</button>
             <strong>Deletado com sucesso!</strong> Redirecionando ...

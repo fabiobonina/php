@@ -4,6 +4,7 @@ Vue.component('local-add', {
   data() {
     return {
       errors: [],
+      sucessos: [],
       tipo: '', regional: '', name: '', municipio: '', uf: '', coordenadas:'', ativa: '', 
       isLoading: false,
       tipos: []
@@ -17,6 +18,9 @@ Vue.component('local-add', {
   computed: {
     temErros () {
         return this.errors.length > 0
+    },
+    concluido () {
+      return this.sucessos.length > 0
     }
   },
   created: function() {
@@ -39,13 +43,17 @@ Vue.component('local-add', {
           coordenadas: this.coordenadas,
           ativa: 0
         };
-        this.$http.post('./config/api/apiConfigFull.php?action=tipo', postData)
+        this.$http.post('./config/api/apiConfigFull.php?action=cadastrar', postData)
           .then(function(response) {
             if(response.data.error){
               this.errors.push(response.data.error);
               this.isLoading = false;
             } else{
+              this.sucessos.push(response.data.status);
+              setTimeout(() => {
                 this.$emit('close');
+            }, 2000);
+                
             }
           })
           .catch(function(error) {

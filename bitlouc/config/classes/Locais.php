@@ -4,24 +4,28 @@ require_once '_crud.php';
 class Locais extends Crud{
 	
 	protected $table = 'tb_locais';
-	private $cliente;
+	private $loja;
+	private $tipo;
 	private $regional;
-	private $nome;
+	private $name;
 	private $municipio;
 	private $uf;
 	private $latitude;
 	private $longitude;
 	private $ativo;
 
-	public function setNome($nome){
-		$nome = iconv('UTF-8', 'ASCII//TRANSLIT', $nome);
-		$this->nome = strtoupper ($nome);
+	public function setName($name){
+		$name = iconv('UTF-8', 'ASCII//TRANSLIT', $name);
+		$this->name = strtoupper ($name);
 	}
-	public function getNome(){
-		return $this->nome;
+	public function getName(){
+		return $this->name;
 	}
-	public function setCliente($cliente){
-		$this->cliente = $cliente;
+	public function setLoja($loja){
+		$this->loja = $loja;
+	}
+	public function setTipo($tipo){
+		$this->tipo = $tipo;
 	}
 	public function setRegional($regional){
 		$regional = iconv('UTF-8', 'ASCII//TRANSLIT', $regional);
@@ -48,12 +52,13 @@ class Locais extends Crud{
 	public function insert(){
 		try{
 
-		$sql  = "INSERT INTO $this->table (cliente, regional, nome, municipio, uf, latitude, longitude, ativo) ";
-		$sql .= "VALUES (:cliente, :regional, :nome, :municipio, :uf, :latitude, :longitude, :ativo)";
+		$sql  = "INSERT INTO $this->table (loja, tipo, regional, name, municipio, uf, latitude, longitude, ativo) ";
+		$sql .= "VALUES (:loja, :tipo, :regional, :name, :municipio, :uf, :latitude, :longitude, :ativo)";
 		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':cliente',$this->cliente);
+		$stmt->bindParam(':loja',$this->loja);
+		$stmt->bindParam(':tipo',$this->tipo);
 		$stmt->bindParam(':regional',$this->regional);
-		$stmt->bindParam(':nome',$this->nome);
+		$stmt->bindParam(':name',$this->name);
 		$stmt->bindParam(':municipio',$this->municipio);
 		$stmt->bindParam(':uf',$this->uf);
 		$stmt->bindParam(':latitude',$this->latitude);
@@ -69,11 +74,11 @@ class Locais extends Crud{
 
 	public function update($id){
 		try{
-		$sql  = "UPDATE $this->table SET cliente = :cliente, regional = :regional, nome = :nome, municipio = :municipio, uf = :uf, 	latitude = :latitude, longitude = :longitude, ativo = :ativo WHERE id = :id ";
+		$sql  = "UPDATE $this->table SET loja = :loja, tipo = :tipo, regional = :regional, name = :name, municipio = :municipio, uf = :uf, 	latitude = :latitude, longitude = :longitude, ativo = :ativo WHERE id = :id ";
 		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':cliente',$this->cliente);
+		$stmt->bindParam(':loja',$this->loja);
 		$stmt->bindParam(':regional',$this->regional);
-		$stmt->bindParam(':nome',$this->nome);
+		$stmt->bindParam(':name',$this->name);
 		$stmt->bindParam(':municipio',$this->municipio);
 		$stmt->bindParam(':uf',$this->uf);
 		$stmt->bindParam(':latitude',$this->latitude);
@@ -87,11 +92,11 @@ class Locais extends Crud{
 		
 	}
 
-	public function search($cliente){
+	public function search($loja){
 		try{
-		$sql = "SELECT * from $this->table WHERE BINARY cliente=:cliente ";
+		$sql = "SELECT * from $this->table WHERE BINARY loja=:loja ";
 		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':cliente',$this->cliente);
+		$stmt->bindParam(':loja',$this->loja);
 
 		return $stmt->execute();
 		} catch(PDOException $e) {
