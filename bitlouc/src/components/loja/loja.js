@@ -6,7 +6,9 @@ var Loja = Vue.extend({
       errorMessage: '',
       successMessage: '',
       searchQuery: '',
-      gridColumns: ['displayName', 'name']      
+      gridColumns: ['displayName', 'name'],
+      modalLocalAdd: false,
+      modalItem: {},
     };
   },
   created: function() {
@@ -60,10 +62,11 @@ var Loja = Vue.extend({
         });
     },
     onClose: function(){
-      this.showModal = false;
-      this.unsupportedBrowser = true;
-      console.log("Unsupported!");
-    }
+      this.modalLocalAdd = false;
+    },
+    selecItem: function(data){
+      this.modalItem = data;
+    },
     
 
   },

@@ -2,13 +2,7 @@
     <template id="loja">
     <div>
       <!-- /.row -->
-      <h2 class="page-header">Loja</h2>
-      <!--div class="pull-left">
-        <a href="#/" class="btn btn-default btn-flat"> <i class="fa fa-long-arrow-left"></i> VOLTAR</a>
-      </div-->
-      <a href="#/" class="btn btn-app">
-        <i class="fa fa-long-arrow-left"></i> VOLTAR
-      </a>
+      <h2 class="page-header"><a href="#/" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i></a> Loja</h2>      
       <div class="row">
         <div class="col-md-12">
           <!-- Widget: user widget style 1 -->
@@ -70,6 +64,12 @@
             </div>
             <!-- /.row -->
           </div>
+          <div class="box-footer">
+            <a v-on:click="modalLocalAdd = true; selecItem(dados)" class="btn btn-app">
+              <i class="fa fa-plus"></i> LOCAL
+            </a>
+            <!-- /.row -->
+          </div>
         </div>
         <!-- /.widget-user -->
         </div>
@@ -80,6 +80,7 @@
         :data="dados.locais"
         :columns="gridColumns"
         :filter-key="searchQuery">
-      </grid-local>        
+      </grid-local>
+      <local-add v-if="modalLocalAdd" v-on:close="onClose"  :data="modalItem"></local-add>
     </div>
   </template>

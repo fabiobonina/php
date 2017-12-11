@@ -116,6 +116,107 @@ header('Content-Type: text/html; charset=utf-8');
       $res['message'] = "Error, não foi possivel salvar os dados";      
     }
   }
+  $localidades = new Localidades();
+  $clientes = new Clientes();
+
+  $redirecionar_1 = 'oat-system.php?acao=localidades';
+  $includ_1 = 'admin/pages/oat/system/localidade/';
+
+    #CADASTRAR
+    if($action == 'read'):
+      $loja = $_POST['loja'];
+      $regional = $_POST['regional'];
+      $name = $_POST['name'];
+      $municipio = $_POST['municipio'];
+      $uf = $_POST['uf'];
+
+      $coordenadas = $_POST['coordenadas'];
+      $array=explode(",",$coordenadas); 
+      $lat = $array[0];
+      $long =$array[1];
+      $ativo = $_POST["ativo"];
+
+      $localidades->setLoja($loja);
+      $localidades->setRegional($regional);
+      $localidades->setName($name);
+      $localidades->setMunicipio($municipio);
+      $localidades->setUf($uf);
+      $localidades->setLat($lat);
+      $localidades->setLong($long);
+      $localidades->setAtivo($ativo);
+      # Insert
+      if($localidades->insert()){
+        echo '<div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>Inserido com sucesso!</strong> Redirecionando ...
+            </div>';
+        header("Refresh: 1, ".$redirecionar_1);	
+      }
+    endif;
+    #ATUALIZAR
+    if(isset($_POST['atualizar'])):
+
+      $id = $_POST['id'];
+      $cliente = $_POST['cliente'];
+      $regional = $_POST['regional'];
+      $nome = $_POST['nome'];
+      $municipio = $_POST['municipio'];
+      $uf = $_POST['uf'];
+      $lat = $_POST['lat'];
+      $long =$_POST["long"];
+      $ativo =$_POST["ativo"];
+
+      $localidades->setCliente($cliente);
+      $localidades->setRegional($regional);
+      $localidades->setNome($nome);
+      $localidades->setMunicipio($municipio);
+      $localidades->setUf($uf);
+      $localidades->setLat($lat);
+      $localidades->setLong($long);
+      $localidades->setAtivo($ativo);
+
+      if($localidades->update($id)){
+        echo '<div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>Atualizado com sucesso!</strong> Redirecionando ...
+          </div>';
+        header("Refresh: 1, ".$redirecionar_1);
+      }
+    endif;
+    #GEOLOCALIZAÇÃO
+    if(isset($_POST['geolocal'])):
+
+      $id = $_POST['localId'];
+      $geolocalizacao = $_POST['geolocalizacao'];
+      $array=explode(",",$geolocalizacao); 
+   
+      $lat = $array[0];
+      $long =$array[1];
+      
+      $localidades->setLat($lat);
+      $localidades->setLong($long);
+
+      if($localidades->geolocal($id)){
+        echo '<div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>Inserido com sucesso!</strong> Redirecionando ...
+          </div>';
+        header("Refresh: 1, ".$redirecionar_1);	
+      }
+    endif;
+    #DELETAR
+    if(isset($_GET['acao1']) && $_GET['acao1'] == 'deletar'):
+      $id = (int)$_GET['id'];
+      if($localidades->delete($id)){
+        echo '<div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>Deletado com sucesso!</strong> Redirecionando ...
+            </div>';
+        header("Refresh: 1, ".$redirecionar_1);
+      }
+    endif;
+
+    
   $res['dados'] = $arDados;
   header("Content-Type: application/json");
   echo json_encode($res);

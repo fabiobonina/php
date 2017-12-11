@@ -18,7 +18,7 @@
     
     .vue-modal-container {
       width: auto;
-      max-width: 45%;
+      max-width: 70%;
       margin: 0px auto;
       padding: 20px 30px;
       background-color: #fff;
@@ -122,16 +122,17 @@
       <!-- /.box-body -->
     </div>
     <!-- /.box -->
-    <!-- footer content -->
-    <?php include("src/components/geolocalizacao.php");?>
-    <!-- /footer content -->
-    <!-- footer content -->
-    <?php include("src/components/grid-lojas.php");?>
-    <?php include("src/components/loja.php");?>
-    <?php include("src/components/grid-local.php");?>
-    <?php include("src/components/local.php");?>
+    <!-- components local -->
+    <?php include("src/components/local/geolocalizacao.php");?>
+    <?php include("src/components/local/locais-grid.php");?>
+    <?php include("src/components/local/local.php");?>
+    <?php include("src/components/local/localAdd.php");?>
+    <!-- /components local-->
+    <!-- components loja -->
     <?php include("src/pages/lojas.php");?>
-    <!-- /footer content -->
+    <?php include("src/components/loja/lojas-grid.php");?>
+    <?php include("src/components/loja/loja.php");?>
+    <!-- /components loja -->
 
 
     <template id="add">
@@ -199,15 +200,19 @@
 </div>
 <!-- /.content-wrapper -->
 
-    
-    <script src="lib/vue.js"></script>
-    <script src="lib/vuex.js"></script>
-    <script src="lib/vue-router.js"></script>
-    <script src="lib/vue-resource.js"></script>
-    <script src="src/components/grid-local.js"></script>
-    <script src="src/components/grid-lojas.js"></script>
-    <script src="src/components/loja.js"></script>
-    <script src="src/components/local.js"></script>
-    <script src="src/components/geolocalizacao.js"></script>
-    <script src="src/pages/lojas.js"></script>
-    <script src="appLoja.js"></script>
+<script src="lib/vue.js"></script>
+<script src="lib/vuex.js"></script>
+<script src="lib/vue-router.js"></script>
+<script src="lib/vue-resource.js"></script>
+<!-- components local-->
+<script src="src/components/local/geolocalizacao.js"></script>
+<script src="src/components/local/locais-grid.js"></script>
+<script src="src/components/local/local.js"></script>
+<script src="src/components/local/localAdd.js"></script>
+<!-- /components local-->
+<!-- components loja -->
+<script src="src/components/loja/lojas-grid.js"></script>
+<script src="src/components/loja/loja.js"></script>
+<script src="src/pages/lojas.js"></script>
+<!-- /components loja -->
+<script src="appLoja.js"></script>

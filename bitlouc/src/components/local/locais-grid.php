@@ -3,6 +3,7 @@
     <!-- PRODUCT LIST -->
     <!-- /.box-header -->
     <div class="box-body">
+    
       <ul class="products-list product-list-in-box">
         <li class="item"  v-for="entry in filteredData">
           <div class="product-img">
@@ -19,14 +20,14 @@
                 <span class="pull-right blue--text text--lighten-1"><i class="fa fa-fw fa-map"></i> Como chegar</span>
               </a>
               <div>
-                <button v-on:click="showModal = true; selecItem(entry)"class=" pull-right btn btn-default btn-xs">Geoposição</button>
+                <button v-on:click="showModal = true; selecItem(entry)" class=" pull-right btn btn-default btn-xs">Geoposição</button>
               </div>
             </span>
           </div>
         </li>
         <!-- /.item -->
       </ul>
-      <geolocalizacao v-if="showModal" v-on:close="onClose"  :data="modalItem"  :acivated="modalVisible"></geolocalizacao>
+      <geolocalizacao v-if="showModal" v-on:close="onClose"  :data="modalItem"></geolocalizacao>
     </div>
     <!-- /.box-body -->
     <!-- /.box-footer -->

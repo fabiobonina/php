@@ -16,14 +16,15 @@
           </slot>
         </div>
           <div class="vue-modal-body">
+         
             <slot name="body">
-              Cordenadas atual: {{ data.latitude }}, {{ data.longitude }}
-              <div class="box-body">
-                  <label for="inputEmail3" class="col-sm-3 control-label">Cordenadas:</label>
-                  <div class="col-sm-9">
-                    <input  v-model="geolocalizacao" type="text" name="geolocalizacao" class="form-control" placeholder="Geolocalização">
-                    <span class="form-control-feedback"><i class="fa fa-map-marker"></i></span>
-                  </div>
+              Coordenadas atual: {{ data.latitude }}, {{ data.longitude }}
+              <div>    
+                <label for="inputEmail3" class="control-label">Novas coordenadas:</label>
+                <div class="input-group">  
+                  <input v-model="geolocalizacao" type="text" placeholder="Geolocalização" class="form-control">
+                  <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                </div>
               </div>
             </slot>
           </div>
@@ -33,8 +34,6 @@
               <button class="btn btn-danger" v-on:click="$emit('close')">Cancel</button>
             </slot>
           </div>
-
-        
       </div>
       
     </div>

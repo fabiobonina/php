@@ -1,7 +1,7 @@
 <?php
 require_once '_crud.php';
 
-class Tipo extends Crud{
+class Tipos extends Crud{
 	
 	protected $table = 'tb_tipo';
 	private $cod;
