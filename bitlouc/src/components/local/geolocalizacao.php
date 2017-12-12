@@ -1,5 +1,5 @@
 <template id="geolocalizacao">
-<transition name="modal" v-on:before-leave="beforeLeave">
+<transition name="modal">
   <div class="vue-modal-mask">
     <div class="vue-modal-wrapper">
       <div class="vue-modal-container">

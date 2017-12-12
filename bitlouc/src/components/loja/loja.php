@@ -79,7 +79,8 @@
       <grid-local
         :data="dados.locais"
         :columns="gridColumns"
-        :filter-key="searchQuery">
+        :filter-key="searchQuery"
+        v-on:atualizar="onAtualizar" >
       </grid-local>
       <local-add v-if="modalLocalAdd" v-on:close="onClose"  :data="modalItem"></local-add>
     </div>

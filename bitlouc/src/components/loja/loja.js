@@ -64,6 +64,9 @@ var Loja = Vue.extend({
     onClose: function(){
       this.modalLocalAdd = false;
     },
+    onAtualizar: function(){
+      this.dadosLojas();
+    },
     selecItem: function(data){
       this.modalItem = data;
     },

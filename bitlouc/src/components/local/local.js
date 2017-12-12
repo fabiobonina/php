@@ -53,7 +53,10 @@ var Local = Vue.extend({
         .catch(function(error) {
           console.log(error);
         });
-    }
+    },
+    onAtualizar: function(){
+      this.dadosLojas();
+    },
 
   },
   beforeCreate () {

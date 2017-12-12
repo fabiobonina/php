@@ -53,6 +53,7 @@ Vue.component('grid-local', {
     },
     onClose: function(){
       this.showModal = false;
+      this.$emit('atualizar');
     },
     selecItem: function(data){
       this.modalItem = data;

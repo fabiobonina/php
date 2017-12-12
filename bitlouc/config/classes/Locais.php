@@ -112,7 +112,7 @@ class Locais extends Crud{
 		echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
 	}
 
-	public function geolocal($id){
+	public function geolocalizacso($id){
 		try{
 		$sql  = "UPDATE $this->table SET latitude = :latitude, longitude = :longitude WHERE id = :id ";
 		$stmt = DB::prepare($sql);

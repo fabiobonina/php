@@ -35,9 +35,9 @@ Vue.component('geolocalizacao', {
           latitude: geoposicao[0],
           longitude: geoposicao[1]
         };        
-        this.$http.post('./config/api/apiLojaFull.php?action=coordenadas', postData)
+        this.$http.post('./config/api/apiLocalFull.php?action=coordenadas', postData)
           .then(function(response) {
-            //console.log(response);
+            console.log(response);
             if(response.data.error){
               this.errorMessage.push(response.data.message);
               this.isLoading = false;

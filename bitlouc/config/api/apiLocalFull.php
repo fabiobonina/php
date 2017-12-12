@@ -94,26 +94,22 @@ header('Content-Type: text/html; charset=utf-8');
     
   }
   #GEOLOCALIZAÇÃO
-  if($action == 'geolocalizacao'){
+  if($action == 'coordenadas'):
     $id = $_POST['id'];
-    $geolocalizacao = $_POST['geolocalizacao'];
-    $array=explode(",",$geolocalizacao); 
-  
-    $lat = $array[0];
-    $long =$array[1];
-    
+    $lat = $_POST['latitude'];
+    $long = $_POST['longitude'];
+
     $locais->setLat($lat);
     $locais->setLong($long);
 
-    if($locais->geolocal($id)){
-      $item['status']= 'OK';
-      $res['error'] = false; 
-      $arDados = $item;
+    if($locais->geolocalizacso($id)){
+      $res['error'] = false;
+      $res['message']= "OK, dados salvo com sucesso";
     }else{
       $res['error'] = true; 
-      $res['message'] = "Error, não foi possivel salvar os dados";      
+      $res['message'] = "Error, nao foi possivel salvar os dados";      
     }
-  }
+  endif;
 
   #CADASTRAR
   if($action == 'cadastrar'):
