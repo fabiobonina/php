@@ -7,12 +7,12 @@
           <div v-if="temErros" class="alert alert-danger alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-            <p v-for="error in errors">{{ error }}</p>
+            <p v-for="message in errorMessage">{{ message }}</p>
           </div>
-          <div v-if="concluido"class="alert alert-success alert-dismissible">
+          <div v-if="temMessage"class="alert alert-success alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <h4><i class="icon fa fa-check"></i> Alert!</h4>
-            <p v-for="error in errors">{{ sucessos }}</p>
+            <h4><i class="icon fa fa-check"></i> OK!</h4>
+            <p v-for="message in successMessage">{{ message }}</p>
           </div>
         </div>
         <div class="vue-modal-header">

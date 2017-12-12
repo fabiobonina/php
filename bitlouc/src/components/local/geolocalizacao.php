@@ -7,7 +7,12 @@
           <div v-if="temErros" class="alert alert-danger alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-               <p v-for="error in errors">{{ error }}</p>
+            <p v-for="message in errorMessage">{{ message }}</p>
+          </div>
+          <div v-if="temMessage"class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-check"></i> OK!</h4>
+            <p v-for="message in successMessage">{{ message }}</p>
           </div>
         </div>
         <div class="vue-modal-header">
@@ -22,7 +27,7 @@
               <div>    
                 <label for="inputEmail3" class="control-label">Novas coordenadas:</label>
                 <div class="input-group">  
-                  <input v-model="geolocalizacao" type="text" placeholder="Geolocalização" class="form-control">
+                  <input v-model="coordenadas" type="text" placeholder="Coordenadas" class="form-control">
                   <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                 </div>
               </div>

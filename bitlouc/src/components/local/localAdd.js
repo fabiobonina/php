@@ -3,8 +3,8 @@ Vue.component('local-add', {
   template: '#local-add',
   data() {
     return {
-      errors: [],
-      sucessos: [],
+      errorMessage: [],
+      successMessage: [],
       tipo: '', regional: '', name: '', municipio: '', uf: '', coordenadas:'', ativa: '', 
       isLoading: false,
       tipos: []
@@ -17,10 +17,10 @@ Vue.component('local-add', {
   },
   computed: {
     temErros () {
-        return this.errors.length > 0
+      return this.errorMessage.length > 0
     },
-    concluido () {
-      return this.sucessos.length > 0
+    temMessage () {
+      return this.successMessage.length > 0
     }
   },
   created: function() {
@@ -28,11 +28,16 @@ Vue.component('local-add', {
   },
   methods: {
     saveItem: function(){
-      this.errors = []
+      this.errorMessage = []
       if(this.formValido()){
         this.isLoading = true
         //const data = {'id': this.data.id, 'coordenadas': this.coordenadas
-            //'cadastro': new Date().toJSON() }
+        //'cadastro': new Date().toJSON() }
+        if(this.coordenadas.length < 16){
+          this.coordenadas = '0.000000,0.000000'
+        };
+        var geoposicao = this.coordenadas .split(",");
+        //console.log(geoposicao[0]);
         var postData = {
           loja: this.$route.params._id,
           tipo: this.tipo,
@@ -40,20 +45,24 @@ Vue.component('local-add', {
           name: this.name,
           municipio: this.municipio,
           uf: this.uf,
-          coordenadas: this.coordenadas,
-          ativa: 0
+          latitude: geoposicao[0],
+          longitude: geoposicao[1],
+          ativo: '0'
         };
-        this.$http.post('./config/api/apiConfigFull.php?action=cadastrar', postData)
+        //var formData = this.toFormData(postData);
+        //console.log(postData);
+        this.$http.post('./config/api/apiLocalFull.php?action=cadastrar', postData)
           .then(function(response) {
+            //console.log(response);
             if(response.data.error){
-              this.errors.push(response.data.error);
+              this.errorMessage.push(response.data.message);
               this.isLoading = false;
             } else{
-              this.sucessos.push(response.data.status);
+              this.successMessage.push(response.data.message);
+              this.isLoading = false;
               setTimeout(() => {
                 this.$emit('close');
-            }, 2000);
-                
+              }, 2000);  
             }
           })
           .catch(function(error) {
@@ -81,7 +90,7 @@ Vue.component('local-add', {
     },*/
     ehVazia () {
       if(this.tipo.length == 0 || this.name.length == 0 || this.municipio.length == 0 || this.uf.length == 0){
-          this.errors.push('Por favor, preencha os campos obrigatorio *')
+          this.errorMessage.push('Por favor, preencha os campos obrigatorio *')
           return true
       }
       return false

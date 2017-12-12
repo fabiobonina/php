@@ -17,20 +17,18 @@ header('Content-Type: text/html; charset=utf-8');
   $descricao = new Descricao();
   $ativos = new Ativos();
 
-  $res = array('error' => false);
+  $res = array('error' => true);
+  $arDados = array();
   $action = 'cadastrar';
 
   if(isset($_GET['action'])){
 		$action = $_GET['action'];
 	}
-
-
+  
   if($action == 'read'){
 
     //Montar Array lojas------------------------------------------------------------
-    $arDados = array();
     foreach($loja->findAll() as $key => $value): {
-      
       $arLoja = (array) $value; //Loja
       $lojaId = $value->id;
 
@@ -70,12 +68,11 @@ header('Content-Type: text/html; charset=utf-8');
       $arLoja['produtos']= $arProdutos;
       //Montar Array produtos----------------------------------------------------
 
-
       array_push($arDados, $arLoja);
           
     }endforeach;
     //Montar Array lojas------------------------------------------------------------
-
+    $res['error'] = false;
   }
 
 
@@ -110,6 +107,7 @@ header('Content-Type: text/html; charset=utf-8');
 
     if($locais->geolocal($id)){
       $item['status']= 'OK';
+      $res['error'] = false; 
       $arDados = $item;
     }else{
       $res['error'] = true; 
@@ -117,39 +115,36 @@ header('Content-Type: text/html; charset=utf-8');
     }
   }
 
-    #CADASTRAR
-    if($action == 'cadastrar'):
-      $loja = $_POST['loja'];
-      $tipo = $_POST['tipo'];
-      $regional = $_POST['regional'];
-      $name = $_POST['name'];
-      $municipio = $_POST['municipio'];
-      $uf = $_POST['uf'];
+  #CADASTRAR
+  if($action == 'cadastrar'):
+    $loja = $_POST['loja'];
+    $tipo = $_POST['tipo'];
+    $regional = $_POST['regional'];
+    $name = $_POST['name'];
+    $municipio = $_POST['municipio'];
+    $uf = $_POST['uf'];
+    $lat = $_POST['latitude'];
+    $long = $_POST['longitude'];
+    $ativo = $_POST['ativo'];
 
-      $coordenadas = $_POST['coordenadas'];
-      $array=explode(",",$coordenadas); 
-      $lat = $array[0];
-      $long =$array[1];
-      $ativo = $_POST['ativo'];
-
-      $locais->setLoja($loja);
-      $locais->setTipo($tipo);
-      $locais->setRegional($regional);
-      $locais->setName($name);
-      $locais->setMunicipio($municipio);
-      $locais->setUf($uf);
-      $locais->setLat($lat);
-      $locais->setLong($long);
-      $locais->setAtivo($ativo);
-      # Insert
-      if($locais->insert()){
-        $item['status']= 'OK, dados salvo com sucesso';
-        $arDados = $item;
-      }else{
-        $res['error'] = true; 
-        $res['message'] = "Error, não foi possivel salvar os dados";      
-      }
-    endif;
+    $locais->setLoja($loja);
+    $locais->setTipo($tipo);
+    $locais->setRegional($regional);
+    $locais->setName($name);
+    $locais->setMunicipio($municipio);
+    $locais->setUf($uf);
+    $locais->setLat($lat);
+    $locais->setLong($long);
+    $locais->setAtivo($ativo);
+    # Insert
+    if($locais->insert()){
+      $res['error'] = false;
+      $res['message']= "OK, dados salvo com sucesso";
+    }else{
+      $res['error'] = true; 
+      $res['message'] = "Error, nao foi possivel salvar os dados";      
+    }
+  endif;
     #ATUALIZAR
     if(isset($_POST['atualizar'])):
 
@@ -213,7 +208,6 @@ header('Content-Type: text/html; charset=utf-8');
       }
     endif;
 
-    
   $res['dados'] = $arDados;
   header("Content-Type: application/json");
   echo json_encode($res);
