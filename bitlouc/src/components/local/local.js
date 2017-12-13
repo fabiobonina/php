@@ -18,26 +18,6 @@ var Local = Vue.extend({
     //store.state.lojas // filteredItems
   }, // computed
   methods: {
-    dados2: function() {
-      if (!this.$route.params._id) {
-        alert('Por favor, preencha todos os campos!');
-        return false;
-      }
-      var postData = {lojaId: this.$route.params._id};
-      this.$http.post('./config/api/apiLojaFull.php?action=loja', postData)
-        .then(function(response) {
-          if(response.data.error){
-            this.errorMessage = response.data.message;
-          } else{
-              this.$store.dispatch('setLoja', response.data.dados);
-              //this.$router.push('/')
-              //console.log(response.data.dados);
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
     dadosLojas: function() {
       this.$http.get('./config/api/apiLojaFull.php?action=read')
         .then(function(response) {

@@ -22,7 +22,7 @@
             <a :href="'#/loja/' + entry.id" class="product-title">{{entry.displayName}}
             <span class="pull-right badge bg-blue">
               Locais: <i class="fa fa-fw fa-building-o"></i> {{ entry.locaisQt }} /<i class="fa fa-fw fa-map-marker"></i> {{ entry.locaisGeoStatus }}% ({{ entry.locaisGeoQt }})</span></a>
-            <span class="product-description">{{entry.name}} <span class="pull-right badge" v-for="produto in entry.produtos">{{ produto.name }}</span></span> 
+            <span class="product-description">{{entry.name}} <span class="pull-right badge" v-for="grupo in entry.grupos">{{ grupo.tag }}</span></span> 
           </div>
         </li>
         <!-- /.item -->

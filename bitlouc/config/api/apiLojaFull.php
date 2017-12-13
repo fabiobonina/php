@@ -38,13 +38,14 @@ header('Content-Type: text/html; charset=utf-8');
       $cont_localGeo = 0;
       $arLocalGrupo = array();
       foreach($locais->findAll() as $key => $value):if($value->loja == $lojaId) {
+        
         $arLocal = (array) $value;
         $localId = $value->id;
 
         if( $value->latitude <> 0.00000 && $value->longitude <> 0.00000){
           $cont_localGeo++;
         }
-        
+
         //Montar Array grupos----------------------------------------------------
         $arGrupos = array();
         foreach($locaisGrupos->findAll() as $key => $value):if($value->local == $localId) {
@@ -55,7 +56,7 @@ header('Content-Type: text/html; charset=utf-8');
           }endforeach;
         }endforeach;
 
-        $arlocal['grupos']= $arGrupos;
+        $arLocal['grupos']= $arGrupos;
         //Montar Array grupos----------------------------------------------------
 
 
