@@ -10,14 +10,14 @@ header('Content-Type: text/html; charset=utf-8');
 
   $usuarios = new Usuarios();
   $loja = new Loja();
-  $lojaGrupo = new LojaGrupo();
+  $lojaGrupos = new LojaGrupos();
   $sistemas = new Sistema();
-  $grupo = new Grupo();
+  $grupos = new Grupos();
   
   $descricao = new Descricao();
   $ativos = new Ativos();
   $locais = new Locais();
-  $localGrupo = new LocalGrupo();
+  $locaisGrupos = new LocaisGrupos();
 
   $res = array('error' => false);
   $action = 'local';
@@ -98,7 +98,6 @@ header('Content-Type: text/html; charset=utf-8');
 
   }
 
-
   if($action == 'loja'){
     $dados = array();
     $lojaId = $_POST['lojaId'];
@@ -117,11 +116,8 @@ header('Content-Type: text/html; charset=utf-8');
     
   }
   if($action == 'local'){
-   
+    
           //Montar Array locais-------------------------------------------------------
-          $arrayLocais = array();
-          $cont_localGeo = 0;
-          $arLocal = array();
          /*foreach($locais->findAll() as $key => $value): {
             $arLocal = (array) $value;
             $localId = $value->id;
@@ -133,23 +129,20 @@ header('Content-Type: text/html; charset=utf-8');
             //Montar Array grupos----------------------------------------------------
             */
             $arGrupos = array();
-            foreach($localGrupo->findAll() as $key => $value): {
-              $grupoId = $value->grupo;
-              foreach($grupo->findAll() as $key => $value):if($value->id == $grupoId) {
+            $arLocalGrupos = array();
+            foreach($locaisGrupos->findAll() as $key => $value): {
+              $gruposId = $value->grupo;
+              foreach($grupos->findAll() as $key => $value):if($value->id == $gruposId) {
                 $arGrupo = (array) $value;
                 array_push($arGrupos, $arGrupo );
               }endforeach;
+              
             }endforeach;
-            
-            foreach($grupo->findAll() as $key => $value): {
-              $arGrupo = (array) $value;
-              array_push($arGrupos, $arGrupo );
-            }endforeach;
-            $arlocal['grupos']= $arGrupos;
+            echo json_encode($arLocalGrupos);
+
+
             //Montar Array grupos----------------------------------------------------
-    
-    
-            array_push($arrayLocais, $arLocal );
+  
             
           /*}endforeach;
           $locaisTt = count($arrayLocais);
@@ -169,6 +162,6 @@ header('Content-Type: text/html; charset=utf-8');
     
       }
 
-  $res['dados'] = $arLocal;
+  $res['dados'] = $arGrupos;
   header("Content-Type: application/json");
   echo json_encode($res);

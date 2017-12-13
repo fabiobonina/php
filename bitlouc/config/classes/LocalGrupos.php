@@ -2,7 +2,7 @@
 require_once '_crud.php';
 
 try {
-class LocalGrupo extends Crud{
+class LocalGrupos extends Crud{
 
 	protected $table = 'tb_local_grupo';
 	private $cliente;

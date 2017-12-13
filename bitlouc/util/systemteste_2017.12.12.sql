@@ -790,7 +790,7 @@ CREATE TABLE `tb_local_grupo` (
   `local` int(11) NOT NULL,
   `grupo` int(11) NOT NULL,
   `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `tb_local_grupo`
@@ -866,7 +866,7 @@ CREATE TABLE `tb_loja_grupo` (
   `loja` int(11) NOT NULL,
   `grupo` int(11) NOT NULL,
   `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `tb_loja_grupo`

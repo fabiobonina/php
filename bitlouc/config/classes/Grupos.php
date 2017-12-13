@@ -2,7 +2,7 @@
 require_once '_crud.php';
 
 try {
-class Grupo extends Crud{
+class Grupos extends Crud{
 	
 
 	

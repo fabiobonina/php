@@ -8,17 +8,15 @@ header('Content-Type: text/html; charset=utf-8');
 		require_once '../classes/' . $class_name . '.php';
 	}
 
-  $usuarios = new Usuarios();
   $loja = new Loja();
-  $lojaGrupo = new LojaGrupo();
-  $sistemas = new Sistema();
-  $grupo = new Grupo();
-  
-  $descricao = new Descricao();
-  $ativos = new Ativos();
-  $locais = new Locais();
-  $localGrupo = new LocalGrupo();
+  $lojaGrupos = new LojaGrupos();
 
+  $locais = new Locais();
+  $locaisGrupos = new LocaisGrupos();
+
+  $grupos = new Grupos();
+
+  
   $res = array('error' => false);
   $action = 'read';
 
@@ -49,9 +47,9 @@ header('Content-Type: text/html; charset=utf-8');
         
         //Montar Array grupos----------------------------------------------------
         $arGrupos = array();
-        foreach($localGrupo->findAll() as $key => $value):if($value->local == $localId) {
+        foreach($locaisGrupos->findAll() as $key => $value):if($value->local == $localId) {
           $grupoId = $value->grupo;
-          foreach($grupo->findAll() as $key => $value):if($value->id == $grupoId) {
+          foreach($grupos->findAll() as $key => $value):if($value->id == $grupoId) {
             $arGrupo = (array) $value;
             array_push($arGrupos, $arGrupo );
           }endforeach;
@@ -79,9 +77,9 @@ header('Content-Type: text/html; charset=utf-8');
 
       //Montar Array grupos----------------------------------------------------
       $arGrupos = array();
-      foreach($lojaGrupo->findAll() as $key => $value):if($value->loja == $lojaId) {
-        $grupoId = $value->grupo;
-        foreach($grupo->findAll() as $key => $value):if($value->id == $grupoId) {
+      foreach($lojaGrupos->findAll() as $key => $value):if($value->loja == $lojaId) {
+        $gruposId = $value->grupo;
+        foreach($grupos->findAll() as $key => $value):if($value->id == $gruposId) {
           $arGrupo = (array) $value;
           array_push($arGrupos, $arGrupo );
         }endforeach;
