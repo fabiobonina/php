@@ -2,32 +2,36 @@ var Local = Vue.extend({
   template: '#local',
   data: function () {
     return {
-      product: this.$route.params._local,
       unsupportedBrowser: false,
       showModal: false
     };
   },
   created: function() {
     //this.dados2();
-    this.dadosLojas();
+    this.dadosLocal();
   },
   computed: {
     dados()  {
-      return store.getters.getTodoBy(this.$route.params._id);
+      return store.state.local;;
     },
     //store.state.lojas // filteredItems
   }, // computed
   methods: {
-    dadosLojas: function() {
-      this.$http.get('./config/api/apiLojaFull.php?action=read')
+    dadosLocal: function() {
+      var postData = {
+        idLocal: this.$route.params._local,
+      };
+      //var formData = this.toFormData(postData);
+      //console.log(postData);
+      this.$http.post('./config/api/apiLocalFull.php?action=read', postData)
         .then(function(response) {
+          //console.log(response.data.dados);
           if(response.data.error){
             this.errorMessage = response.data.message;
           } else{
               //console.log(response.data.dados);
-              this.$store.dispatch('setLojas', response.data.dados);
+              this.$store.dispatch('setLocal', response.data.dados);
               //this.$router.push('/')
-              //this.users = response.data.users;
           }
         })
         .catch(function(error) {
@@ -35,7 +39,7 @@ var Local = Vue.extend({
         });
     },
     onAtualizar: function(){
-      this.dadosLojas();
+      this.dadosLocal();
     },
 
   },

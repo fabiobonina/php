@@ -11,7 +11,8 @@ const state = {
   todo: {},
   lojas: [],
   loja: {},
-  localidades: [],
+  locais: [],
+  local: {},
   users:[]
 }
 
@@ -30,8 +31,8 @@ const mutations = {
   COMPLETE(state, todo){
     todo.completed = true
   },
-  LOJAS_LOCALIADES(state, localidades){
-    localidades.id = true
+  LOJAS_LOCALIADES(state, locais){
+    locais.id = true
   },
   EDIT_TODO(state, todo){
     state.todo.text = todo.body
@@ -46,9 +47,12 @@ const mutations = {
   SET_LOJA(state, loja) {
     state.loja = loja
   },
-  SET_LOCALIDADES(state, localidades) {
-    state.localidades = localidades
+  SET_LOCAIS(state, locais) {
+    state.locais = locais
   },
+  SET_LOCAL(state, local) {
+    state.local = local
+  }
 }
 
 const actions = {
@@ -76,8 +80,11 @@ const actions = {
   setLoja({ commit }, loja) {
     commit("SET_LOJA", loja)
   },
-  setLocalidades({ commit }, localidades) {
-    commit("SET_LOCALIDADES", localidades)
+  setLocais({ commit }, locais) {
+    commit("SET_LOCAIS", locais)
+  },
+  setLocal({ commit }, local) {
+    commit("SET_LOCAL", local)
   },
 }
 
@@ -93,7 +100,8 @@ const getters = {
   },
   getTodoBy: (state) => (id) => {
     return state.lojas.find(todo => todo.id === id)
-  }
+  },
+  getLocal: state => state.loja,
 }
 
 
