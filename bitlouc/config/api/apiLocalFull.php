@@ -25,8 +25,8 @@ if(isset($_GET['action'])){
 }
   
 if($action == 'read'):
-  //$localId = $_POST['idLocal'];
-  $localId = '2';
+  $localId = $_POST['idLocal'];
+  //$localId = '2';
 
   $arLojas = array();
   foreach($locais->findAll() as $key => $value):if($value->id == $localId) {
@@ -37,10 +37,13 @@ if($action == 'read'):
       $arLoja = (array) $value; //Loja
     }endforeach;
     $arLocal['loja']= $arLoja;
+
+    $arBens = array();
     foreach($bens->findAll() as $key => $value):if($value->local == $localId) {
       $arBem = (array) $value; //Bem
+      array_push($arBens, $arBem );
     }endforeach;
-    $arLocal['bem']= $arBem;
+    $arLocal['bem']= $arBens;
 
     //Montar Array grupos----------------------------------------------------
     $arGrupos = array();

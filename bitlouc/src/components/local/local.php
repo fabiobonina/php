@@ -78,10 +78,10 @@
         :columns="gridColumns"
         :filter-key="searchQuery"
         v-on:atualizar="onAtualizar" >
-      </grid-local!-->
+      </grid-local!- ->
       <local-add v-if="modalLocalAdd" v-on:close="onClose"  :data="modalItem"></local-add>
       <div class="col-md-6">
-          <!-- Custom Tabs -->
+          <!-- Custom Tabs - ->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li v-for=" grupo in dados.grupos"><a :href="'#tab_'+ grupo.tag" data-toggle="tab">{{ grupo.name}}</a></li>
@@ -96,7 +96,7 @@
                   <li role="presentation" class="divider"></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
                 </ul>
-              </li-->
+              </li- ->
               <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
             </ul>
             <div class="tab-content">
@@ -112,13 +112,18 @@
                 that I neglect my talents. I should be incapable of drawing a single stroke
                 at the present moment; and yet I feel that I never was a greater artist than now.
               </div>
-              <!-- /.tab-pane -->
+              <!-- /.tab-pane - ->
             </div>
-            <!-- /.tab-content -->
+            <!-- /.tab-content - ->
           </div>
-          <!-- nav-tabs-custom -->
+          <!-- nav-tabs-custom - ->
         </div>
         <!-- /.col -->
 
       </div>
+      <bens-grid
+      :data="dados.bem"
+      :columns="dados.grupos"
+      :filter-key="searchQuery">
+    </bens-grid>
     </template>

@@ -785,7 +785,7 @@ INSERT INTO `tb_locais` (`id`, `loja`, `tipo`, `regional`, `name`, `municipio`, 
 -- Estrutura da tabela `tb_local_grupo`
 --
 
-CREATE TABLE `tb_local_grupo` (
+CREATE TABLE `tb_locais_grupos` (
   `id` int(11) NOT NULL,
   `local` int(11) NOT NULL,
   `grupo` int(11) NOT NULL,
@@ -796,10 +796,11 @@ CREATE TABLE `tb_local_grupo` (
 -- Extraindo dados da tabela `tb_local_grupo`
 --
 
-INSERT INTO `tb_local_grupo` (`id`, `local`, `grupo`, `ativo`) VALUES
+INSERT INTO `tb_locais_grupos` (`id`, `local`, `grupo`, `ativo`) VALUES
 (1, 2, 1, '0'),
 (2, 2, 3, '0'),
-(3, 3, 1, '0');
+(3, 3, 1, '0'),
+(4, 2, 2, '0');
 
 -- --------------------------------------------------------
 

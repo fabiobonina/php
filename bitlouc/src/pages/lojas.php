@@ -20,8 +20,7 @@
     <grid-lojas
       :data="dados"
       :columns="gridColumns"
-      :filter-key="searchQuery"
-      v-on:atualizar="onAtualizar">
+      :filter-key="searchQuery">
     </grid-lojas>
   </div>
 </div>

@@ -10,14 +10,10 @@ var List = Vue.extend({
     },
     created: function() {
       this.dadosLojas();
-      this.dadosLojas2(); // Başlangıçta kayıtları al
     },
     computed: {
       dados() {
         return store.state.lojas;
-      },
-      dados2() {
-        return store.state.localidades;
       },
     },
     methods: {
@@ -30,21 +26,6 @@ var List = Vue.extend({
             } else{
               //console.log(response.data.dados);
               this.$store.dispatch('setLojas', response.data.dados);
-            }
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
-      },
-      dadosLojas2: function() {
-        this.$http.get('./config/api/apiLocalidades.php?action=read')
-          .then(function(response) {
-            if(response.data.error){
-              this.errorMessage = response.data.message;
-            } else{
-                this.$store.dispatch('setLocalidades', response.data.dados);
-                //this.$router.push('/')
-                //console.log(response.data.dados);
             }
           })
           .catch(function(error) {
