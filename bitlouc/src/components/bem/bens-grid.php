@@ -3,12 +3,16 @@
     <!-- PRODUCT LIST -->
     <!-- /.box-header -->
     <div class="box-body">
+          <div>
+            <label><input type="radio" v-model="selectedGrupo" value="All" /> All </label>
+            <label v-for=" grupo in grupos"><input type="radio" v-model="selectedGrupo" v-bind:value="grupo.id" />{{ grupo.name }} </label>
+          </div>
     
       <ul class="products-list product-list-in-box">
-        <!--li class="item"  v-for="entry in filteredData">
-          <!- -div class="product-img">
+        <li class="item"  v-for="entry in filteredData">
+          <!--div class="product-img">
             <img src="dist/img/default-50x50.gif" alt="Product Image">
-          </div- ->
+          </div-->
           <div class="product-info">
             <a :href="'#/loja/' + $route.params._id + '/local/' + entry.id" class="product-title">{{entry.name}}
             <span class="pull-right badge" v-for="grupo in entry.grupos">{{ grupo.tag }}</span>
@@ -22,10 +26,10 @@
               </div>
             </span>
           </div>
-        </li-->
+        </li>
         <!-- /.item -->
       </ul>
-      <geolocalizacao v-if="showModal" v-on:close="onClose"  :data="modalItem"></geolocalizacao>
+      <!--geolocalizacao v-if="showModal" v-on:close="onClose"  :data="modalItem"></geolocalizacao-->
     </div>
     <!-- /.box-body -->
     <!-- /.box-footer -->

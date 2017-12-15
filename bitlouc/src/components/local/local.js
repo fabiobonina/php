@@ -3,7 +3,8 @@ var Local = Vue.extend({
   data: function () {
     return {
       unsupportedBrowser: false,
-      showModal: false
+      showModal: false,
+      searchQuery: '',
     };
   },
   created: function() {

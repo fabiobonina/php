@@ -1,44 +1,31 @@
-Vue.component('bem-grid', {
-  template: '#bem-grid',
+Vue.component('bens-grid', {
+  template: '#bens-grid',
   props: {
     data: Array,
-    columns: Array,
+    grupos: Array,
     filterKey: String
   },
   data: function () {
-    var sortOrders = {}
-    this.columns.forEach(function (key) {
-      sortOrders[key] = 1
-    })
     return {
       sortKey: '',
-      sortOrders: sortOrders,
+      sortOrders: '',
       showModal: false,
       modalItem: {},
-      geolocalizacao: ''
+      geolocalizacao: '',
+      selectedGrupo: 'All'
     }
   },
   computed: {
     filteredData: function () {
-      var sortKey = this.sortKey
-      var filterKey = this.filterKey && this.filterKey.toLowerCase()
-      var order = this.sortOrders[sortKey] || 1
-      var data = this.data
-      if (filterKey) {
-        data = data.filter(function (row) {
-          return Object.keys(row).some(function (key) {
-            return String(row[key]).toLowerCase().indexOf(filterKey) > -1
-          })
-        })
+      var vm = this;
+      var grupo = vm.selectedGrupo;
+      if(grupo === "All") {
+          return vm.data;
+      } else {
+          return vm.data.filter(function(person) {
+              return person.grupo === grupo;
+          });
       }
-      if (sortKey) {
-        data = data.slice().sort(function (a, b) {
-          a = a[sortKey]
-          b = b[sortKey]
-          return (a === b ? 0 : a > b ? 1 : -1) * order
-        })
-      }
-      return data
     }
   },
   filters: {
@@ -47,10 +34,6 @@ Vue.component('bem-grid', {
     }
   },
   methods: {
-    sortBy: function (key) {
-      this.sortKey = key
-      this.sortOrders[key] = this.sortOrders[key] * -1
-    },
     onClose: function(){
       this.showModal = false;
       this.$emit('atualizar');
