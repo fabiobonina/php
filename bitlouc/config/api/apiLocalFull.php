@@ -40,9 +40,10 @@ if($action == 'read'):
     $arLocal['loja']= $arLoja;
 
     $arBens = array();
-    foreach($eqLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status == '1') {
-
-      foreach($equipamentos->findAll() as $key => $value):if($value->local == $localId) {
+    $Status = '1';
+    foreach($eqLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status == $Status) {
+      $equipId = $value->loja;
+      foreach($equipamentos->findAll() as $key => $value):if($value->id == $equipId) {
         $arBem = (array) $value; //Bem
         array_push($arBens, $arBem );
       }endforeach;
