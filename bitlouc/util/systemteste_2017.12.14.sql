@@ -25,33 +25,34 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_bem`
+-- Estrutura da tabela `tb_equipamentos`
 --
 
-CREATE TABLE `tb_bem` (
+CREATE TABLE `tb_equipamentos` (
   `id` int(11) NOT NULL,
-  `familia` int(11) NOT NULL,
+  `produto` int(11) NOT NULL,
   `tag` varchar(50) NOT NULL,
   `name` varchar(100) NOT NULL,
   `capacidade` varchar(20) NOT NULL,
   `unidade` varchar(4) NOT NULL,
-  `modelo` varchar(20) NOT NULL,
+  `numeracao` varchar(20) NOT NULL,
   `frabicante` int(11) NOT NULL,
-  `codProprietario` int(11) NOT NULL,
-  `descProprietario` varchar(30) NOT NULL,
-  `loja` int(11) NOT NULL,
+  `frabicanteNick` varchar(30) NOT NULL,
+  `proprietario` int(11) NOT NULL,
+  `proprietarioNick` varchar(30) NOT NULL,
   `local` int(11) NOT NULL,
-  `grupo` int(11) NOT NULL,
+  `categoria` int(11) NOT NULL,
   `plaqueta` varchar(11) NOT NULL,
-  `data` date NOT NULL DEFAULT '0000-00-00'
+  `dataFrabricacao` date NOT NULL DEFAULT '0000-00-00'
+  `dataCompra` date NOT NULL DEFAULT '0000-00-00'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `tb_bem`
+-- Extraindo dados da tabela `tb_equipamentos`
 --
 
-INSERT INTO `tb_bem` (`id`, `familia`, `tag`, `name`, `capacidade`, `unidade`, `modelo`, `frabicante`, `codProprietario`, `descProprietario`, `loja`, `local`, `grupo`, `plaqueta`, `data`) VALUES
-(1, 1, 'MSA', 'MASCARA AUTONOMA', '240', 'KG', '1', 1, 24, 'SABARA', 1, 2, 1, '101010', '2017-12-04');
+INSERT INTO `tb_equipamentos` (`id`, `produto`, `tag`, `name`, `capaclidade`, `unidade`, `numeracao`, `frabicante`, `proprietario`, `proprietarioNick`, `local`, `grupo`, `plaqueta`, `data`) VALUES
+(1, 1, 'MSA', 'MASCARA AUTONOMA', '240', 'KG', '1', '12345', 1,'MSA', 24, 'SABARA', 1, 2, 1, '101010', '2017-12-04', '2017-12-04');
 
 -- --------------------------------------------------------
 
@@ -65,35 +66,73 @@ CREATE TABLE `tb_bens_familia` (
   `tag` varchar(50) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+
+
+-- --------------------------------------------------------
 --
--- Extraindo dados da tabela `tb_bens_familia`
+-- Estrutura da tabela `tb_produtos`
 --
+
+CREATE TABLE `tb_produtos` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `tag` varchar(20) NOT NULL,
+  `tipo` varchar(5) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `tb_produtos`
+--
+--
+-- Extraindo dados da tabela `tb_produtos`
+--
+
+INSERT INTO `tb_produtos` (`id`, `name`, `tag`, `tipo`) VALUES
+(1, 'MASCARA AUTONOMA', 'MSA', 'PROD'),
+(2, 'SISTEMA CLORACAO', 'SCL', 'PROD');
 
 INSERT INTO `tb_bens_familia` (`id`, `name`, `tag`) VALUES
 (1, 'MASCARA AUTONOMA', 'MSA'),
 (2, 'Sistema Cloração', 'SCL');
 
 -- --------------------------------------------------------
-
 --
--- Estrutura da tabela `tb_bens_frabricante`
+-- Estrutura da tabela `tb_frabricante`
 --
 
-CREATE TABLE `tb_bens_frabricante` (
+CREATE TABLE `tb_frabricante` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `nick` varchar(30) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `tb_bens_frabricante`
+-- Extraindo dados da tabela `tb_frabricante`
 --
 
-INSERT INTO `tb_bens_frabricante` (`id`, `name`, `nick`) VALUES
-(1, 'MSA', 'MSA');
+INSERT INTO `tb_frabricante` (`id`, `name`, `nick`) VALUES
+(1, 'MSA', 'MSA'),
+(1, 'CLORANDO', 'ECO');
 
 -- --------------------------------------------------------
+--
+-- Estrutura da tabela `tb_produto_tipo`
+--
 
+CREATE TABLE `tb_produto_tipo` (
+  `id` varchar(4) NOT NULL,
+  `name` varchar(30) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `tb_produto_tipo`
+--
+
+INSERT INTO `tb_produto_tipo` (`id`, `name`) VALUES
+('PROD', 'PRODUTO'),
+('SERV', 'SERVICO');
+
+-- --------------------------------------------------------
 --
 -- Estrutura da tabela `tb_bens_grupo`
 --
@@ -143,6 +182,27 @@ CREATE TABLE `tb_grupo` (
 --
 
 INSERT INTO `tb_grupo` (`id`, `name`, `tag`) VALUES
+(1, 'GAS CLORO', 'GCL'),
+(2, 'SEGURACA', 'SEG'),
+(3, 'POLICLORETO ALUMINIO', 'PAC');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_categoria`
+--
+
+CREATE TABLE `tb_categoria` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `tag` varchar(30) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `tb_categoria`
+--
+
+INSERT INTO `tb_categoria` (`id`, `name`, `tag`) VALUES
 (1, 'GAS CLORO', 'GCL'),
 (2, 'SEGURACA', 'SEG'),
 (3, 'POLICLORETO ALUMINIO', 'PAC');

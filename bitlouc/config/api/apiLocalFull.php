@@ -11,7 +11,8 @@ $loja = new Loja();
 $lojasGrupo = new LojaGrupos();
 $locais = new Locais();
 $locaisGrupos = new LocaisGrupos();
-$bens = new Bem();
+$equipamentos = new Equipamentos();
+$eqLocalizacao = new EqLocalizacao();
 $grupos = new Grupos();
 $descricao = new Descricao();
 $ativos = new Ativos();
@@ -25,8 +26,8 @@ if(isset($_GET['action'])){
 }
   
 if($action == 'read'):
-  $localId = $_POST['idLocal'];
-  //$localId = '2';
+  //$localId = $_POST['idLocal'];
+  $localId = '2';
 
   $arLojas = array();
   foreach($locais->findAll() as $key => $value):if($value->id == $localId) {
@@ -39,9 +40,12 @@ if($action == 'read'):
     $arLocal['loja']= $arLoja;
 
     $arBens = array();
-    foreach($bens->findAll() as $key => $value):if($value->local == $localId) {
-      $arBem = (array) $value; //Bem
-      array_push($arBens, $arBem );
+    foreach($eqLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status == '1') {
+
+      foreach($equipamentos->findAll() as $key => $value):if($value->local == $localId) {
+        $arBem = (array) $value; //Bem
+        array_push($arBens, $arBem );
+      }endforeach;
     }endforeach;
     $arLocal['bem']= $arBens;
 

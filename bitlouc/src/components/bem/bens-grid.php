@@ -3,10 +3,14 @@
     <!-- PRODUCT LIST -->
     <!-- /.box-header -->
     <div class="box-body">
-          <div>
-            <label><input type="radio" v-model="selectedGrupo" value="All" /> All </label>
-            <label v-for=" grupo in grupos"><input type="radio" v-model="selectedGrupo" v-bind:value="grupo.id" />{{ grupo.name }} </label>
-          </div>
+      <!-- #SELEÇÃO DE CATEGORIA -->
+      <div class="form-group">
+        <div class="radio">
+          <label><input type="radio" v-model="selectedGrupo" value="All">All </label>&nbsp;&nbsp;&nbsp;
+          <label v-for=" grupo in grupos"><input type="radio" v-model="selectedGrupo" v-bind:value="grupo.id">{{ grupo.name }} &nbsp;&nbsp;&nbsp;</label>
+        </div>
+      </div>
+      <!-- #/SELEÇÃO DE CATEGORIA -->
     
       <ul class="products-list product-list-in-box">
         <li class="item"  v-for="entry in filteredData">
@@ -15,7 +19,7 @@
           </div-->
           <div class="product-info">
             <a :href="'#/loja/' + $route.params._id + '/local/' + entry.id" class="product-title">{{entry.name}}
-            <span class="pull-right badge" v-for="grupo in entry.grupos">{{ grupo.tag }}</span>
+            <span class="pull-right label label-info"><i class="fa fa-fw fa-barcode"></i>{{ entry.plaqueta }}</span><span class="pull-right badge">teste</span>
             </a>
             <span class="product-description">{{entry.tipo}}
               <a v-if=" 0.000000 != entry.latitude" :href="'https://maps.google.com/maps?q='+ entry.latitude + '%2C' + entry.longitude" target="_blank">
