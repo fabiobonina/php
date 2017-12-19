@@ -113,9 +113,9 @@
     <?php include("src/components/loja/lojas-grid.php");?>
     <?php include("src/components/loja/loja.php");?>
     <!-- /components loja -->
-    <!-- components bem -->
-    <?php include("src/components/bem/bens-grid.php");?>
-    <!-- /components bem -->
+    <!-- components equipamento -->
+    <?php include("src/components/equipamento/equipamentos-grid.php");?>
+    <!-- /components equipamento -->
 
 
     <template id="add">
@@ -196,7 +196,7 @@
 <script src="src/components/loja/loja.js"></script>
 <script src="src/pages/lojas.js"></script>
 <!-- /components loja -->
-<!-- components bem -->
-<script src="src/components/bem/bens-grid.js"></script>
-<!-- /components bem -->
+<!-- components equipamento -->
+<script src="src/components/equipamento/equipamentos-grid.js"></script>
+<!-- /components equipamento -->
 <script src="appLoja.js"></script>

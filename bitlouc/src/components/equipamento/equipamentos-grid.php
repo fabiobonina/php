@@ -6,8 +6,8 @@
       <!-- #SELEÇÃO DE CATEGORIA -->
       <div class="form-group">
         <div class="radio">
-          <label><input type="radio" v-model="selectedGrupo" value="All">All </label>&nbsp;&nbsp;&nbsp;
-          <label v-for=" grupo in grupos"><input type="radio" v-model="selectedGrupo" v-bind:value="grupo.id">{{ grupo.name }} &nbsp;&nbsp;&nbsp;</label>
+          <label><input type="radio" v-model="selectedCategoria" value="All">All </label>&nbsp;&nbsp;&nbsp;
+          <label v-for=" categoria in categorias"><input type="radio" v-model="selectedCategoria" v-bind:value="categoria.id">{{ categoria.name }} &nbsp;&nbsp;&nbsp;</label>
         </div>
       </div>
       <!-- #/SELEÇÃO DE CATEGORIA -->

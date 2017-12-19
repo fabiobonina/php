@@ -87,8 +87,8 @@
             </div>
             <!-- /.col -->
             <bens-grid
-            :data="dados.bem"
-            :grupos="dados.grupos"
+            :data="dados.equipamento"
+            :categorias="dados.categoria"
             :filter-key="searchQuery">
             </bens-grid>
           </div>

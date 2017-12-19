@@ -2,7 +2,7 @@ Vue.component('bens-grid', {
   template: '#bens-grid',
   props: {
     data: Array,
-    grupos: Array,
+    categorias: Array,
     filterKey: String
   },
   data: function () {
@@ -12,18 +12,18 @@ Vue.component('bens-grid', {
       showModal: false,
       modalItem: {},
       geolocalizacao: '',
-      selectedGrupo: 'All'
+      selectedCategoria: 'All'
     }
   },
   computed: {
     filteredData: function () {
       var vm = this;
-      var grupo = vm.selectedGrupo;
-      if(grupo === "All") {
+      var categoria = vm.selectedCategoria;
+      if(categoria === "All") {
           return vm.data;
       } else {
           return vm.data.filter(function(person) {
-              return person.grupo === grupo;
+              return person.categoria === categoria;
           });
       }
     }

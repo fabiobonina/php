@@ -11,7 +11,7 @@
           </div-->
           <div class="product-info">
             <a :href="'#/loja/' + $route.params._id + '/local/' + entry.id" class="product-title">{{entry.name}}
-            <span class="pull-right badge" v-for="grupo in entry.grupos">{{ grupo.tag }}</span>
+            <span class="pull-right badge" v-for="categoria in entry.categoria">{{ categoria.tag }}</span>
             </a>
             <span class="product-description">{{entry.tipo}}
               <a v-if=" 0.000000 != entry.latitude" :href="'https://maps.google.com/maps?q='+ entry.latitude + '%2C' + entry.longitude" target="_blank">

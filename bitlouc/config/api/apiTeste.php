@@ -20,7 +20,7 @@ header('Content-Type: text/html; charset=utf-8');
   $locaisGrupos = new LocaisGrupos();
 
   $res = array('error' => false);
-  $action = 'local';
+  $action = 'read';
 
   if(isset($_GET['action'])){
 		$action = $_GET['action'];

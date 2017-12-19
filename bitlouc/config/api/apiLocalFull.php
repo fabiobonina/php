@@ -8,12 +8,12 @@ function __autoload($class_name){
 
 $usuarios = new Usuarios();
 $loja = new Loja();
-$lojasGrupo = new LojaGrupos();
+$lojaCategoria = new LojaCategorias();
 $locais = new Locais();
-$locaisGrupos = new LocaisGrupos();
+$localCategorias = new LocalCategorias();
 $equipamentos = new Equipamentos();
 $eqLocalizacao = new EqLocalizacao();
-$grupos = new Grupos();
+$categorias = new Categorias();
 $descricao = new Descricao();
 $ativos = new Ativos();
 
@@ -39,28 +39,28 @@ if($action == 'read'):
     }endforeach;
     $arLocal['loja']= $arLoja;
 
-    $arBens = array();
-    $Status = '1';
-    foreach($eqLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status == $Status) {
-      $equipId = $value->loja;
+    $arEquipamentos = array();
+    $status = 1;
+    foreach($eqLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status == $status) {
+      $equipId = $value->equipamento;
       foreach($equipamentos->findAll() as $key => $value):if($value->id == $equipId) {
-        $arBem = (array) $value; //Bem
-        array_push($arBens, $arBem );
+        $arEquipamento = (array) $value; //Bem
+        array_push($arEquipamentos, $arEquipamento );
       }endforeach;
     }endforeach;
-    $arLocal['bem']= $arBens;
+    $arLocal['equipamento']= $arEquipamentos;
 
     //Montar Array grupos----------------------------------------------------
-    $arGrupos = array();
-    foreach($locaisGrupos->findAll() as $key => $value):if($value->local == $localId) {
-      $grupoId = $value->grupo;
-      foreach($grupos->findAll() as $key => $value):if($value->id == $grupoId) {
-        $arGrupo = (array) $value;
-        array_push($arGrupos, $arGrupo );
+    $arCategorias = array();
+    foreach($localCategorias->findAll() as $key => $value):if($value->local == $localId) {
+      $categoriaId = $value->categoria;
+      foreach($categorias->findAll() as $key => $value):if($value->id == $categoriaId) {
+        $arCategoria = (array) $value;
+        array_push($arCategorias, $arCategoria );
       }endforeach;
     }endforeach;
 
-    $arLocal['grupos']= $arGrupos;
+    $arLocal['categoria']= $arCategorias;
     //Montar Array grupos----------------------------------------------------
 
   }endforeach;
@@ -90,7 +90,7 @@ if($action == 'read'):
       $arGrupos = array();
       foreach($locaisGrupos->findAll() as $key => $value):if($value->local == $localId) {
         $grupoId = $value->grupo;
-        foreach($grupos->findAll() as $key => $value):if($value->id == $grupoId) {
+        foreach($categorias->findAll() as $key => $value):if($value->id == $grupoId) {
           $arGrupo = (array) $value;
           array_push($arGrupos, $arGrupo );
         }endforeach;
@@ -119,8 +119,8 @@ if($action == 'read'):
     //Montar Array grupos----------------------------------------------------
     $arGrupos = array();
     foreach(ss->findAll() as $key => $value):if($value->loja == $lojaId) {
-      $gruposId = $value->grupo;
-      foreach($grupos->findAll() as $key => $value):if($value->id == $gruposId) {
+      $categoriasId = $value->grupo;
+      foreach($categorias->findAll() as $key => $value):if($value->id == $categoriasId) {
         $arGrupo = (array) $value;
         array_push($arGrupos, $arGrupo );
       }endforeach;

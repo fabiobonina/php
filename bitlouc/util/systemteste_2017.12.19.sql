@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 19-Dez-2017 às 09:12
+-- Generation Time: 19-Dez-2017 às 11:09
 -- Versão do servidor: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -132,9 +132,9 @@ INSERT INTO `tb_bens_nivel` (`id`, `name`, `tag`, `segmento`) VALUES
 
 CREATE TABLE `tb_categoria` (
   `id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `tag` varchar(30) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `name` varchar(50) CHARACTER SET latin1 NOT NULL,
+  `tag` varchar(30) CHARACTER SET latin1 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_categoria`
@@ -253,8 +253,6 @@ CREATE TABLE `tb_frabricante` (
 INSERT INTO `tb_frabricante` (`id`, `name`, `nick`) VALUES
 (1, 'MSA', 'MSA'),
 (2, 'CLORANDO', 'CLORANDO');
-
--- --------------------------------------------------------
 
 -- --------------------------------------------------------
 
@@ -1047,11 +1045,11 @@ INSERT INTO `tb_produto_tipo` (`id`, `name`) VALUES
 
 CREATE TABLE `tb_proprietario` (
   `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `nick` varchar(30) NOT NULL,
+  `name` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `nick` varchar(30) CHARACTER SET latin1 NOT NULL,
   `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0',
   `cadastro` date NOT NULL DEFAULT '0000-00-00'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_proprietario`
@@ -1114,21 +1112,21 @@ INSERT INTO `tb_sistema` (`id`, `descricao`, `ativo`) VALUES
 --
 
 CREATE TABLE `tb_tipo` (
-  `id` varchar(11) NOT NULL,
-  `name` varchar(50) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `id` varchar(11) CHARACTER SET latin1 NOT NULL,
+  `name` varchar(50) CHARACTER SET latin1 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_tipo`
 --
 
 INSERT INTO `tb_tipo` (`id`, `name`) VALUES
+('EEA', 'EEA'),
 ('ETA', 'ETA'),
 ('ETE', 'ETE'),
-('EEA', 'EEA'),
 ('IND', 'INDUSTRIA'),
-('POC', 'POCO'),
-('OUT', 'OUTROS');
+('OUT', 'OUTROS'),
+('POC', 'POCO');
 
 -- --------------------------------------------------------
 
@@ -1138,26 +1136,26 @@ INSERT INTO `tb_tipo` (`id`, `name`) VALUES
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `name` varchar(150) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `user` varchar(50) NOT NULL,
-  `password` varchar(32) NOT NULL,
-  `avatar` varchar(350) DEFAULT NULL,
+  `name` varchar(150) CHARACTER SET latin1 NOT NULL,
+  `email` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `user` varchar(50) CHARACTER SET latin1 NOT NULL,
+  `password` varchar(32) CHARACTER SET latin1 NOT NULL,
+  `avatar` varchar(350) CHARACTER SET latin1 DEFAULT NULL,
   `proprietario` int(11) DEFAULT NULL,
   `grupoLoja` int(2) DEFAULT NULL,
   `loja` int(11) DEFAULT NULL,
-  `nivel` enum('0','1','2','3','4') NOT NULL DEFAULT '0',
-  `ativo` enum('0','1') NOT NULL DEFAULT '0',
+  `nivel` enum('0','1','2','3','4') CHARACTER SET latin1 NOT NULL DEFAULT '0',
+  `ativo` enum('0','1') CHARACTER SET latin1 NOT NULL DEFAULT '0',
   `data_cadastro` date NOT NULL DEFAULT '0000-00-00',
   `data_ultimo_login` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `user`, `password`, `avatar`, `proprietario`, `grupoLoja`, `loja`, `nivel`, `ativo`, `data_cadastro`, `data_ultimo_login`) VALUES
-(0, 'FABIO VITORINO BONINA MORAIS', 'fabiobonina@gmail.com', 'Fabio Bonina', 'a906449d5769fa7361d7ecc6aa3f6d28', 'http://www.gravatar.com/avatar/5f3781a40c3fde1b4ac568a97692aa70?d=identicon', NULL, NULL, NULL, '0', '0', '2017-11-08', '2017-11-08 20:18:04');
+(1, 'FABIO VITORINO BONINA MORAIS', 'fabiobonina@gmail.com', 'Fabio Bonina', 'a906449d5769fa7361d7ecc6aa3f6d28', 'http://www.gravatar.com/avatar/5f3781a40c3fde1b4ac568a97692aa70?d=identicon', NULL, NULL, NULL, '0', '0', '2017-11-08', '2017-11-08 20:18:04');
 
 --
 -- Indexes for dumped tables
@@ -1229,32 +1227,6 @@ ALTER TABLE `tb_frabricante`
   ADD UNIQUE KEY `nick` (`nick`);
 
 --
--- Indexes for table `tb_grupo`
---
-ALTER TABLE `tb_categoria`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `tag` (`tag`);
-
---
--- Indexes for table `tb_grupoloja`
---
-ALTER TABLE `tb_grupoloja`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tb_locais`
---
-ALTER TABLE `tb_locais`
-  ADD PRIMARY KEY (`id`);
-
-
---
--- Indexes for table `tb_local_categoria`
---
-ALTER TABLE `tb_local_categoria`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `tb_loja`
 --
 ALTER TABLE `tb_loja`
@@ -1267,6 +1239,12 @@ ALTER TABLE `tb_loja`
 ALTER TABLE `tb_produtos`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `tag` (`tag`);
+
+--
+-- Indexes for table `tb_produto_categoria`
+--
+ALTER TABLE `tb_produto_categoria`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tb_produto_tipo`
@@ -1303,78 +1281,12 @@ ALTER TABLE `tb_tipo`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
---
--- AUTO_INCREMENT for table `tb_bem`
---
-ALTER TABLE `tb_bem`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `tb_bens_familia`
---
-ALTER TABLE `tb_bens_familia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `tb_bens_frabricante`
---
-ALTER TABLE `tb_bens_frabricante`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `tb_bens_grupo`
---
-ALTER TABLE `tb_bens_grupo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `tb_bens_nivel`
---
-ALTER TABLE `tb_bens_nivel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `tb_categoria`
---
-ALTER TABLE `tb_categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `tb_equipamentos`
---
-ALTER TABLE `tb_equipamentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `tb_eq_componentes`
---
-ALTER TABLE `tb_eq_componentes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `tb_eq_localizacao`
---
-ALTER TABLE `tb_eq_localizacao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `tb_frabricante`
---
-ALTER TABLE `tb_frabricante`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `tb_grupo`
---
-ALTER TABLE `tb_grupo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `tb_locais`
---
-ALTER TABLE `tb_locais`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=595;
---
--- AUTO_INCREMENT for table `tb_local_categoria`
---
-ALTER TABLE `tb_local_categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `tb_loja`
 --
@@ -1385,6 +1297,21 @@ ALTER TABLE `tb_loja`
 --
 ALTER TABLE `tb_produtos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `tb_produto_categoria`
+--
+ALTER TABLE `tb_produto_categoria`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tb_proprietario`
+--
+ALTER TABLE `tb_proprietario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

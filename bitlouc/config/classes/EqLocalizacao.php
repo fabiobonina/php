@@ -6,7 +6,7 @@ class EqLocalizacao extends Crud{
 	
 
 	
-	protected $table = 'tb_equipamentos';
+	protected $table = 'tb_eq_localizacao';
 	private $cliente;
 	private $localida;
 	private $plaqueta;

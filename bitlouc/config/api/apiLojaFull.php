@@ -9,12 +9,12 @@ header('Content-Type: text/html; charset=utf-8');
 	}
 
   $loja = new Loja();
-  $lojaGrupos = new LojaGrupos();
+  $lojaCategorias = new LojaCategorias();
 
   $locais = new Locais();
-  $locaisGrupos = new LocaisGrupos();
+  $localCategorias = new LocalCAtegorias();
 
-  $grupos = new Grupos();
+  $categorias = new Categorias();
 
   
   $res = array('error' => false);
@@ -36,7 +36,7 @@ header('Content-Type: text/html; charset=utf-8');
       //Montar Array locais-------------------------------------------------------
       $arrayLocais = array();
       $cont_localGeo = 0;
-      $arLocalGrupo = array();
+      $arLocalCategoria = array();
       foreach($locais->findAll() as $key => $value):if($value->loja == $lojaId) {
         
         $arLocal = (array) $value;
@@ -46,18 +46,18 @@ header('Content-Type: text/html; charset=utf-8');
           $cont_localGeo++;
         }
 
-        //Montar Array grupos----------------------------------------------------
-        $arGrupos = array();
-        foreach($locaisGrupos->findAll() as $key => $value):if($value->local == $localId) {
-          $grupoId = $value->grupo;
-          foreach($grupos->findAll() as $key => $value):if($value->id == $grupoId) {
-            $arGrupo = (array) $value;
-            array_push($arGrupos, $arGrupo );
+        //Montar Array categoria----------------------------------------------------
+        $arCategorias = array();
+        foreach($localCategorias->findAll() as $key => $value):if($value->local == $localId) {
+          $categoriaId = $value->categoria;
+          foreach($categorias->findAll() as $key => $value):if($value->id == $categoriaId) {
+            $arCategoria = (array) $value;
+            array_push($arCategorias, $arCategoria );
           }endforeach;
         }endforeach;
 
-        $arLocal['grupos']= $arGrupos;
-        //Montar Array grupos----------------------------------------------------
+        $arLocal['categoria']= $arCategorias;
+        //Montar Array categoria----------------------------------------------------
 
 
         array_push($arrayLocais, $arLocal );
@@ -76,18 +76,18 @@ header('Content-Type: text/html; charset=utf-8');
       $arLoja['locaisGeoStatus']= $geoStatus;
       //Montar Array locais------------------------------------------------------
 
-      //Montar Array grupos----------------------------------------------------
-      $arGrupos = array();
-      foreach($lojaGrupos->findAll() as $key => $value):if($value->loja == $lojaId) {
-        $gruposId = $value->grupo;
-        foreach($grupos->findAll() as $key => $value):if($value->id == $gruposId) {
-          $arGrupo = (array) $value;
-          array_push($arGrupos, $arGrupo );
+      //Montar Array categorias----------------------------------------------------
+      $arCategorias = array();
+      foreach($lojaCategorias->findAll() as $key => $value):if($value->loja == $lojaId) {
+        $categoriasId = $value->categoria;
+        foreach($categorias->findAll() as $key => $value):if($value->id == $categoriasId) {
+          $arCategoria = (array) $value;
+          array_push($arCategorias, $arCategoria );
         }endforeach;
       }endforeach;
 
-      $arLoja['grupos']= $arGrupos;
-      //Montar Array grupos----------------------------------------------------
+      $arLoja['categoria']= $arCategorias;
+      //Montar Array categorias----------------------------------------------------
 
 
       array_push($arLojas, $arLoja);
