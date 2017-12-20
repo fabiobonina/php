@@ -132,23 +132,22 @@ class Usuarios extends Crud{
 						} catch(PDOException $e) {
 							echo 'ERROR: ' . $e->getMessage();
 						}
-					$_SESSION['loginId'] = $loginId;
-					$_SESSION['loginName'] = $loginName;
-					$_SESSION['loginEmail'] = $loginEmail;
-					$_SESSION['loginUser'] = $loginUser;
-					$_SESSION['loginAvatar'] = $loginAvatar;
-					$_SESSION['loginProprietario'] = $loginProprietario;
-					$_SESSION['loginGrupo'] = $loginGrupo;
-					$_SESSION['loginLoja'] = $loginLoja;
-					$_SESSION['loginNivel'] = $loginNivel;
+						$_SESSION['loginId'] = $loginId;
+						$_SESSION['loginName'] = $loginName;
+						$_SESSION['loginEmail'] = $loginEmail;
+						$_SESSION['loginUser'] = $loginUser;
+						$_SESSION['loginAvatar'] = $loginAvatar;
+						$_SESSION['loginProprietario'] = $loginProprietario;
+						$_SESSION['loginGrupo'] = $loginGrupo;
+						$_SESSION['loginLoja'] = $loginLoja;
+						$_SESSION['loginNivel'] = $loginNivel;
 
-					
-					
-					echo '<div class="alert alert-success">
-							<button type="button" class="close" data-dismiss="alert">×</button>
-							<strong>Logado com Sucesso!</strong> Redirecionando para o sistema.
-						 </div>';
-					header("Refresh: 1, index.php?acao=welcome");
+						echo '<div class="alert alert-success">
+								<button type="button" class="close" data-dismiss="alert">×</button>
+								<strong>Logado com Sucesso!</strong> Redirecionando para o sistema.
+							</div>';
+						header("Refresh: 1, index.php?acao=welcome");
+						
 					}else{
 						echo '<div class="alert alert-danger">
 								<button type="button" class="close" data-dismiss="alert">×</button>

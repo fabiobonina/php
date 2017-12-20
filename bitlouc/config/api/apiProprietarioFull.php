@@ -2,23 +2,28 @@
 header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
+//include("admin/conexao/conecta.php");
+include("_chave.php");
+
+
 function __autoload($class_name){
   require_once '../classes/' . $class_name . '.php';
 }
-
+#PROPRIETARIO
 $proprietario = new Proprietario();
-
+#LOJA
 $loja = new Loja();
-$lojaCategoria = new LojaCategorias();
-
+$lojaCategorias = new LojaCategorias();
+#LOCAL
 $locais = new Locais();
 $localCategorias = new LocalCategorias();
+#EQUIPAMENTOS
 $equipamentos = new Equipamentos();
 $eqLocalizacao = new EqLocalizacao();
 $categorias = new Categorias();
-
 $usuarios = new Usuarios();
 $ativos = new Ativos();
+
 
 $res = array('error' => true);
 $arDados = array();
@@ -28,23 +33,95 @@ if(isset($_GET['action'])){
   $action = $_GET['action'];
 }
 
-
-
+//$acessoNivel = $userNivel;
+//$acessoProprietario = $userProprietario;
+//$acessoGrupo = $userGrupo;
+$acessoNivel = 0;
+$acessoProprietario = 0;
+$acessoGrupo = 'P';
 if($action == 'read'):
+  //$acessoProprietario = $_POST['acessoProprietario'];
 
-  //$proprietarioId = $_POST['proprietarioId'];
-  $proprietarioId = '1';
-  $arLojas = array();
-  foreach($proprietario->findAll() as $key => $value):if($value->id == $proprietarioId && $value->ativo == '0') {
-    $arProprietario = (array) $value;
+  #PROPRITARIO
+  foreach($proprietario->findAll() as $key => $value):if($value->id == $acessoProprietario && $value->ativo == '0') {
+    $arProprietario = (array) $value->name;
+
+    $contPp_localTt = 0;
+    $contPp_localGeo = 0;
+    #LOJAS-----------------------------------------------------------------------
+    $arLojas = array();
+    foreach($loja->findAll() as $key => $value):if($value->proprietario == $acessoProprietario && $value->ativo == '0'){
+      if($acessoNivel > 0):
+        $arLoja = (array) $value->name;//Loja
+        $lojaId = $value->id;
+
+        $contLj_localGeo = 0;
+        $contLj_localTt = 0;
+        #LOCAIS--------------------------------------------------------------------
+        $arrayLocais = array();
+        foreach($locais->findAll() as $key => $value):if($value->loja == $lojaId) {
+          $arLocal = (array) $value->name;
+          $localId = $value->id;
+
+          $contPp_localTt++;//CONTADOR LOCAIS PROPRIEDADE
+          $contLj_localTt++;//CONTADOR LOCAIS LOJA
+          if( $value->latitude <> 0.00000 && $value->longitude <> 0.00000){
+            $contLj_localGeo++;//CONTADOR COORDENADAS PROPRIEDADE
+            $contLj_localGeo++;//CONTADOR COORDENADAS LOJA
+          }
+
+          #LOCAL_CATEGORIA-------------------------------------------------------------------------
+          $arCategorias = array();
+          foreach($localCategorias->findAll() as $key => $value):if($value->local == $localId) {
+            $categoriaId = $value->categoria;
+            foreach($categorias->findAll() as $key => $value):if($value->id == $categoriaId) {
+              $arCategoria = (array) $value;
+              array_push($arCategorias, $arCategoria );
+            }endforeach;
+          }endforeach;
+
+          $arLocal['categoria']= $arCategorias;
+          #LOCAL_CATEGORIA--------------------------------------------------------------------------
+
+          array_push($arrayLocais, $arLocal );
+          
+        }endforeach;
+        $locaisTtLj = count($arrayLocais);
+        if($locaisTtLj > 0){
+          $geoStatus = round(($contLj_localGeo/$locaisTtLj)*100, 1);
+        }else{
+          $geoStatus = 0;
+        }
+        
+        $arLoja['locais']= $arrayLocais;
+        $arLoja['locaisQt']= $locaisTtLj;
+        $arLoja['locaisGeoQt']= $contLj_localGeo;
+        $arLoja['locaisGeoStatus']= $geoStatus;
+        $arProprietario['locaisQt']= $contLj_localTt;
+        #LOCAIS--------------------------------------------------------------------------------
+
+        #LOJA_CATEGORIA-----------------------------------------------------------------------------
+        $arCategorias = array();
+        foreach($lojaCategorias->findAll() as $key => $value):if($value->loja == $lojaId) {
+          $categoriasId = $value->categoria;
+          foreach($categorias->findAll() as $key => $value):if($value->id == $categoriasId) {
+            $arCategoria = (array) $value;
+            array_push($arCategorias, $arCategoria );
+          }endforeach;
+        }endforeach;
+
+        $arLoja['categoria']= $arCategorias;
+        #LOJA_CATEGORIA------------------------------------------------------------------------------
+
+        array_push($arLojas, $arLoja);
+      endif;    
+    }endforeach;
+    #LOJA--------------------------------------------------------------------------------------------
+  
   }endforeach;
   
-  $arLojas['proprietario']= $arProprietario;
-  //$localId = $_POST['idLocal'];
-
-  $localId = '2';
-
   
+  $localId = '2';
   foreach($locais->findAll() as $key => $value):if($value->id == $localId) {
     $arLocal = (array) $value;
     $lojaId = $value->loja;
@@ -77,80 +154,12 @@ if($action == 'read'):
 
     $arLocal['categoria']= $arCategorias;
     //Montar Array grupos----------------------------------------------------
-
+    
   }endforeach;
+  $arProprietario['lojas']= $arLojas;
   $arDados = $arLocal;
   $arDados = $arLojas;
   $res['error'] = false;
-  //Montar Array lojas------------------------------------------------------------
-  /*$arLojas = array();
-  foreach($loja->findAll() as $key => $value): {
-    
-    $arLoja = (array) $value; //Loja
-    $lojaId = $value->id;
-
-    //Montar Array locais-------------------------------------------------------
-    $arrayLocais = array();
-    $cont_localGeo = 0;
-    $arLocalGrupo = array();
-    foreach($locais->findAll() as $key => $value):if($value->loja == $lojaId) {
-      
-      $arLocal = (array) $value;
-      $localId = $value->id;
-
-      if( $value->latitude <> 0.00000 && $value->longitude <> 0.00000){
-        $cont_localGeo++;
-      }
-
-      //Montar Array grupos----------------------------------------------------
-      $arGrupos = array();
-      foreach($locaisGrupos->findAll() as $key => $value):if($value->local == $localId) {
-        $grupoId = $value->grupo;
-        foreach($categorias->findAll() as $key => $value):if($value->id == $grupoId) {
-          $arGrupo = (array) $value;
-          array_push($arGrupos, $arGrupo );
-        }endforeach;
-      }endforeach;
-
-      $arLocal['grupos']= $arGrupos;
-      //Montar Array grupos----------------------------------------------------
-
-
-      array_push($arrayLocais, $arLocal );
-      
-    }endforeach;
-    $locaisTt = count($arrayLocais);
-    if($locaisTt > 0){
-      $geoStatus = round(($cont_localGeo/$locaisTt)*100, 1);
-      }else{
-        $geoStatus = 0;
-      }
-    
-    $arLoja['locais']= $arrayLocais;
-    $arLoja['locaisQt']= $locaisTt;
-    $arLoja['locaisGeoQt']= $cont_localGeo;
-    $arLoja['locaisGeoStatus']= $geoStatus;
-    //Montar Array locais------------------------------------------------------
-
-    //Montar Array grupos----------------------------------------------------
-    $arGrupos = array();
-    foreach(ss->findAll() as $key => $value):if($value->loja == $lojaId) {
-      $categoriasId = $value->grupo;
-      foreach($categorias->findAll() as $key => $value):if($value->id == $categoriasId) {
-        $arGrupo = (array) $value;
-        array_push($arGrupos, $arGrupo );
-      }endforeach;
-    }endforeach;
-
-    $arLoja['grupos']= $arGrupos;
-    //Montar Array grupos----------------------------------------------------
-
-
-    array_push($arLojas, $arLoja);
-        
-  }endforeach;*/
-  //Montar Array lojas------------------------------------------------------------
-
 endif;
 
 #LOJA

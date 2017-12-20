@@ -31,6 +31,7 @@
                   <label for="search-element">Search</label>
                   <input v-model="searchQuery" class="form-control" id="search-element" requred/>
                 </div>
+               <p>{{dados.length.locais}}</pP>  
               </div>
               <grid-lojas
                 :data="dados"
