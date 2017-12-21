@@ -32,27 +32,31 @@ $action = 'read';
 if(isset($_GET['action'])){
   $action = $_GET['action'];
 }
+$res['user'] = $user;
+//$acessoNivel = $user['nivel'];// $user >  include("_chave.php");
+//$acessoProprietario = $user['proprietario']
+//$acessoGrupo = $user['grupo']
+//$acessoloja = $user['loja']
+$acessoNivel = 2;
+$acessoProprietario = 1;
+$acessoGrupo = 'C';
+$acessoloja = 1;
 
-//$acessoNivel = $userNivel;
-//$acessoProprietario = $userProprietario;
-//$acessoGrupo = $userGrupo;
-$acessoNivel = 0;
-$acessoProprietario = 0;
-$acessoGrupo = 'P';
 if($action == 'read'):
   //$acessoProprietario = $_POST['acessoProprietario'];
 
   #PROPRITARIO
-  foreach($proprietario->findAll() as $key => $value):if($value->id == $acessoProprietario && $value->ativo == '0') {
-    $arProprietario = (array) $value->name;
+  foreach($proprietario->findAll() as $key => $value):if($value->id == $acessoProprietario && $value->ativo == '0' ) {
+    $arProprietario = (array) $value;
 
     $contPp_localTt = 0;
     $contPp_localGeo = 0;
     #LOJAS-----------------------------------------------------------------------
     $arLojas = array();
-    foreach($loja->findAll() as $key => $value):if($value->proprietario == $acessoProprietario && $value->ativo == '0'){
+    foreach($loja->findAll() as $key => $value):
+      if($value->proprietario == $acessoProprietario && $value->ativo == '0' && (( $acessoNivel > 1 && $acessoGrupo == 'P' ) || $value->id == $acessoloja )){
       if($acessoNivel > 0):
-        $arLoja = (array) $value->name;//Loja
+        $arLoja = (array) $value;//Loja
         $lojaId = $value->id;
 
         $contLj_localGeo = 0;
@@ -75,7 +79,7 @@ if($action == 'read'):
           foreach($localCategorias->findAll() as $key => $value):if($value->local == $localId) {
             $categoriaId = $value->categoria;
             foreach($categorias->findAll() as $key => $value):if($value->id == $categoriaId) {
-              $arCategoria = (array) $value;
+              $arCategoria = (array) $value->name;
               array_push($arCategorias, $arCategoria );
             }endforeach;
           }endforeach;
@@ -157,8 +161,8 @@ if($action == 'read'):
     
   }endforeach;
   $arProprietario['lojas']= $arLojas;
-  $arDados = $arLocal;
-  $arDados = $arLojas;
+  //$arDados = $arLocal;
+  $arDados = $arProprietario;
   $res['error'] = false;
 endif;
 
@@ -274,5 +278,7 @@ if(isset($_GET['acao1']) && $_GET['acao1'] == 'deletar'):
 endif;
 
 $res['dados'] = $arDados;
+//$res = array_map('htmlentities' , $res);
+
 header("Content-Type: application/json");
-echo json_encode($res);
+echo json_encode($res, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

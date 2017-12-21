@@ -9,11 +9,13 @@ Vue.http.options.emulateJSON = true;
 const state = {
   todos:[{body: 'Learn vuex', completed: false}],
   todo: {},
+  proprietario:{},
   lojas: [],
   loja: {},
   locais: [],
   local: {},
-  users:[]
+  users:[],
+  user:[]
 }
 
 const mutations = {
@@ -38,8 +40,14 @@ const mutations = {
     state.todo.text = todo.body
     console.log(state.todo.text)
   },
+  SET_PROPRIETARIO(state, proprietario) {
+    state.proprietario = proprietario
+  },
   SET_USERS(state, users) {
     state.users = users
+  },
+  SET_USER(state, user) {
+    state.user = user
   },
   SET_LOJAS(state, lojas) {
     state.lojas = lojas
@@ -71,6 +79,12 @@ const actions = {
   edit({commit}, todo){
     commit('EDIT_TODO', todo)
   },
+  setProprietario({ commit }, proprietario) {
+    commit("SET_PROPRIETARIO", proprietario)
+  },
+  setUser({ commit }, user) {
+    commit("SET_USER", user)
+  },
   setUsers({ commit }, users) {
     commit("SET_USERS", users)
   },
@@ -89,6 +103,8 @@ const actions = {
 }
 
 const getters = {
+  getProprietario: state => state.proprietario,
+  getUser: state => state.user,
   getUsers: state => state.users,
   getLojas: state => state.lojas,
   getTodoById: state => (id) => {

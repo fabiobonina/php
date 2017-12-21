@@ -9,12 +9,16 @@
 
     //include("admin/conexao/conecta.php");
     //include("../../src/includes/logout.php");
+    $user = array();
+    $user['id'] = $_SESSION['loginId'];
+    $user['name'] = $_SESSION['loginName'];
+    $user['email'] = $_SESSION['loginEmail'];
+    $user['user'] = $_SESSION['loginUser'];
+    $user['avatar'] = $_SESSION['loginAvatar'];
+    $user['proprietario'] = $_SESSION['loginProprietario'];
+    $user['grupo'] = $_SESSION['loginGrupo'];
+    $user['loja'] = $_SESSION['loginLoja'];
+    $user['nivel'] = $_SESSION['loginNivel'];
 
-    $userUser = $_SESSION['loginUser'];
-    $userEmail = $_SESSION['loginEmail'];
-    $userProprietario = $_SESSION['loginProprietario'];
-    $userNivel = $_SESSION['loginNivel'];
-    $userGrupo = $_SESSION['loginGrupo'];
-    $userLoja = $_SESSION['loginLoja'];
 
 ?>
