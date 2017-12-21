@@ -1,46 +1,31 @@
 <template id="list">
   <div>
       <!-- Content Header (Page header) -->
-      <section class="content-header">
-        <h1>
-          Lojas
-          <small>Lista</small>
-        </h1>
-        <ol class="breadcrumb">
-          <li class="active"><i class="fa fa-dashboard"></i> Home</li>
-        </ol>
-      </section>
+    <section class="content-header">
+      <h1>
+        Lojas
+        <small>Lista</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li class="active"><i class="fa fa-dashboard"></i> Home</li>
+      </ol>
+    </section>
 
-      <!-- Main content -->
-      <section class="content">
-        <div class="box box-default">
-          <div class="box-body">
-            <div class="actions">
-              <a class="btn btn-default" >
-              <router-link :to="{path: '/add'}">
-                <span class="glyphicon glyphicon-plus"></span>
-                Add
-              </router-link>
-              </a>
-            </div>
-            <div>
-              <p class="successMessage" v-if="successMessage">{{successMessage}}</p>
-              <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
-              <div class="filters row">
-                <div class="form-group col-sm-3">
-                  <label for="search-element">Search</label>
-                  <input v-model="searchQuery" class="form-control" id="search-element" requred/>
-                </div>
-               <p>{{dados.length}}</pP>  
-              </div>
-              <div class="col-md-12">
-              <!-- Widget: user widget style 1 -->
+    <!-- Main content -->
+    <section class="content">
+      <div class="box box-default">
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+            <!-- Widget: user widget style 1 -->
               <div class="box box-widget widget-user">
                 <!-- Add the bg color to the header using any of the bg-* classes -->
                 <div class="widget-user-header bg-aqua-active">
-                  <h3 class="widget-user-username">{{ dados.name }}: {{ dados.tipo }} - {{ dados.name }}<span class="pull-right badge bg-blue">
+                  <p class="successMessage" v-if="successMessage">{{successMessage}}</p>
+                  <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
+                  <h3 class="widget-user-username">{{ dados.nick }}<span class="pull-right badge bg-blue">
                         Locais: <i class="fa fa-fw fa-building-o"></i> {{ }} /<i class="fa fa-fw fa-map-marker"></i> {{  }}% ({{ }})</span></h3>
-                  <h5 class="widget-user-desc">{{ dados.municipio }}/ {{ dados.uf }}</h5>
+                  <h5 class="widget-user-desc">{{ dados.name  }}</h5>
                   <h5 class="widget-user-desc">Seguimento: {{  }}
                     <div class="pull-right box-tools">
                       <div class="input-group input-group-sm" style="width: 150px;">
@@ -96,19 +81,23 @@
                   <a v-on:click="modalLocalAdd = true; selecItem(dados)" class="btn btn-app">
                     <i class="fa fa-plus"></i> LOCAL
                   </a>
+                  <a v-on:click="modalLocalAdd = true; selecItem(dados)" class="btn btn-app">
+                    <i class="fa fa-plus"></i> LOCAL
+                  </a>
+                  <a class="btn btn-default" ><span class="glyphicon glyphicon-plus"></span>
+                    Add
+                  </a>
                   <!-- /.row -->
                 </div>
               </div>
-              <!-- /.widget-user -->
+            <!-- /.widget-user -->
             </div>
             <!-- /.col -->
-              <grid-lojas
-                :data="dados"
-                :columns="gridColumns"
-                :filter-key="searchQuery">
-              </grid-lojas>
-            </div>
-          </div>
+            <grid-lojas
+              :data="dados.lojas"
+              :columns="gridColumns"
+              :filter-key="searchQuery">
+            </grid-lojas>
         </div>
         <!-- /.box-body -->
       </div>

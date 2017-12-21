@@ -112,7 +112,7 @@
     <?php include("src/components/local/localAdd.php");?>
     <!-- /components local-->
     <!-- components loja -->
-    <?php include("src/pages/lojas.php");?>
+    <?php include("src/components/loja/lojas.php");?>
     <?php include("src/components/loja/lojas-grid.php");?>
     <?php include("src/components/loja/loja.php");?>
     <!-- /components loja -->
@@ -179,9 +179,6 @@
     <template id="naoEncrontrado">
       <h2>No encuentro: 404</h2>
     </template>
-    <template id="index">
-      <h2>No encuentro: 404</h2>
-    </template>
 
 <!-- /.container -->
 </div>
@@ -202,7 +199,7 @@
 <!-- components loja -->
 <script src="src/components/loja/lojas-grid.js"></script>
 <script src="src/components/loja/loja.js"></script>
-<script src="src/pages/lojas.js"></script>
+<script src="src/components/loja/lojas.js"></script>
 <!-- /components loja -->
 <!-- components equipamento -->
 <script src="src/components/equipamento/equipamentos-grid.js"></script>

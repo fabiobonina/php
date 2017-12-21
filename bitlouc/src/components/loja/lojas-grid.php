@@ -1,18 +1,11 @@
 <template id="grid-lojas">
 <div>
   <!-- PRODUCT LIST -->
-  <div class="box box-primary">
-    <div class="box-header with-border">
-      <h3 class="box-title">Lista</h3>
-
-      <div class="box-tools pull-right">
-        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-        </button>
-        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-      </div>
-    </div>
     <!-- /.box-header -->
     <div class="box-body">
+    <div class="box-header with-border">
+      <h3 class="box-title">Lojas</h3>
+    </div>
       <ul class="products-list product-list-in-box">
         <li class="item"  v-for="entry in filteredData">
           <div class="product-img">
@@ -30,7 +23,7 @@
     </div>
     <!-- /.box-body -->
     <!-- /.box-footer -->
-  </div>
+
   <!--div class="list-group" v-for="entry in filteredData">
     <a :href="'#/loja/' + entry.loja.id" class="list-group-item"><h4 class="list-group-item-heading">{{entry.loja.nick}}</h4>
       <p class="list-group-item-text">{{entry.loja.name}}</p><span class="glyphicon glyphicon-eye-open"></span>{{entry.locais.length}} View <span class="glyphicon glyphicon-eye-open"></span>

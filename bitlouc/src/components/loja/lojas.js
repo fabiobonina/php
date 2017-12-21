@@ -13,7 +13,7 @@ var List = Vue.extend({
     },
     computed: {
       dados() {
-        return store.state.lojas;
+        return store.state.proprietario;
       },
     },
     methods: {
