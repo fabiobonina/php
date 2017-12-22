@@ -2,6 +2,8 @@
 header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
+include("_chave.php");
+
 function __autoload($class_name){
   require_once '../classes/' . $class_name . '.php';
 }
@@ -11,8 +13,8 @@ $loja = new Loja();
 $lojaCategoria = new LojaCategorias();
 $locais = new Locais();
 $localCategorias = new LocalCategorias();
-$equipamentos = new Equipamentos();
-$eqLocalizacao = new EqLocalizacao();
+$bens = new Bens();
+$bemLocalizacao = new BemLocalizacao();
 $categorias = new Categorias();
 $descricao = new Descricao();
 $ativos = new Ativos();
@@ -39,16 +41,16 @@ if($action == 'read'):
     }endforeach;
     $arLocal['loja']= $arLoja;
 
-    $arEquipamentos = array();
+    $arBens = array();
     $status = 1;
-    foreach($eqLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status == $status) {
-      $equipId = $value->equipamento;
-      foreach($equipamentos->findAll() as $key => $value):if($value->id == $equipId) {
+    foreach($bemLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status == $status) {
+      $bemId = $value->bem;
+      foreach($bens->findAll() as $key => $value):if($value->id == $bemId) {
         $arEquipamento = (array) $value; //Bem
-        array_push($arEquipamentos, $arEquipamento );
+        array_push($arBens, $arEquipamento );
       }endforeach;
     }endforeach;
-    $arLocal['equipamento']= $arEquipamentos;
+    $arLocal['bens']= $arBens;
 
     //Montar Array grupos----------------------------------------------------
     $arCategorias = array();

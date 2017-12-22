@@ -2,11 +2,11 @@
 require_once '_crud.php';
 
 try {
-class EqLocalizacao extends Crud{
+class Bens extends Crud{
 	
 
 	
-	protected $table = 'tb_eq_localizacao';
+	protected $table = 'tb_bem';
 	private $cliente;
 	private $localida;
 	private $plaqueta;

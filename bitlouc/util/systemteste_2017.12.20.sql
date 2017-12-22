@@ -25,37 +25,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_bem`
---
-
-CREATE TABLE `tb_bem` (
-  `id` int(11) NOT NULL,
-  `familia` int(11) NOT NULL,
-  `tag` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `capacidade` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `unidade` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
-  `modelo` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `frabicante` int(11) NOT NULL,
-  `codProprietario` int(11) NOT NULL,
-  `descProprietario` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `loja` int(11) NOT NULL,
-  `local` int(11) NOT NULL,
-  `grupo` int(11) NOT NULL,
-  `plaqueta` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
-  `data` date NOT NULL DEFAULT '0000-00-00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_bem`
---
-
-INSERT INTO `tb_bem` (`id`, `familia`, `tag`, `name`, `capacidade`, `unidade`, `modelo`, `frabicante`, `codProprietario`, `descProprietario`, `loja`, `local`, `grupo`, `plaqueta`, `data`) VALUES
-(1, 1, 'MSA', 'MASCARA AUTONOMA', '240', 'KG', '1', 1, 24, 'SABARA', 1, 2, 1, '101010', '2017-12-04');
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `tb_bens_familia`
 --
 
@@ -76,21 +45,22 @@ INSERT INTO `tb_bens_familia` (`id`, `name`, `tag`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_bens_frabricante`
+-- Estrutura da tabela `tb_bens_fabricante`
 --
 
-CREATE TABLE `tb_bens_frabricante` (
+CREATE TABLE `tb_bens_fabricante` (
   `id` int(11) NOT NULL,
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `nick` varchar(30) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Extraindo dados da tabela `tb_bens_frabricante`
+-- Extraindo dados da tabela `tb_bens_fabricante`
 --
 
-INSERT INTO `tb_bens_frabricante` (`id`, `name`, `nick`) VALUES
-(1, 'MSA', 'MSA');
+INSERT INTO `tb_bens_fabricante` (`id`, `name`, `nick`) VALUES
+(1, 'MSA', 'MSA'),
+(2, 'CLORANDO', 'CLORANDO');
 
 -- --------------------------------------------------------
 
@@ -150,10 +120,10 @@ INSERT INTO `tb_categoria` (`id`, `name`, `tag`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_equipamentos`
+-- Estrutura da tabela `tb_bem`
 --
 
-CREATE TABLE `tb_equipamentos` (
+CREATE TABLE `tb_bem` (
   `id` int(11) NOT NULL,
   `produto` int(11) NOT NULL,
   `tag` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -161,8 +131,8 @@ CREATE TABLE `tb_equipamentos` (
   `capacidade` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `unidade` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
   `numeracao` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `frabicante` int(11) NOT NULL,
-  `frabicanteNick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `fabricante` int(11) NOT NULL,
+  `fabricanteNick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `proprietario` int(11) NOT NULL,
   `proprietarioNick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `local` int(11) NOT NULL,
@@ -173,20 +143,20 @@ CREATE TABLE `tb_equipamentos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Extraindo dados da tabela `tb_equipamentos`
+-- Extraindo dados da tabela `tb_bem`
 --
 
-INSERT INTO `tb_equipamentos` (`id`, `produto`, `tag`, `name`, `capacidade`, `unidade`, `numeracao`, `frabicante`, `frabicanteNick`, `proprietario`, `proprietarioNick`, `local`, `categoria`, `plaqueta`, `dataFrabricacao`, `dataCompra`) VALUES
+INSERT INTO `tb_bem` (`id`, `produto`, `tag`, `name`, `capacidade`, `unidade`, `numeracao`, `fabricante`, `fabricanteNick`, `proprietario`, `proprietarioNick`, `local`, `categoria`, `plaqueta`, `dataFrabricacao`, `dataCompra`) VALUES
 (1, 2, 'SCL', 'SISTEMA DE CLORACAO', '240', 'KG', '123123', 2, 'CLORANDO', 24, 'SABARA', 2, 1, '101010', '2017-12-17', '2017-12-17'),
 (2, 1, 'MSA', 'MASCARA AUTONOMA', '3', 'KG', '123123', 1, 'MSA', 24, 'SABARA', 2, 1, '', '2017-12-10', '2017-12-10');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_eq_componentes`
+-- Estrutura da tabela `tb_bem_componentes`
 --
 
-CREATE TABLE `tb_eq_componentes` (
+CREATE TABLE `tb_bem_componentes` (
   `id` int(11) NOT NULL,
   `produto` int(11) NOT NULL,
   `tag` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -194,8 +164,8 @@ CREATE TABLE `tb_eq_componentes` (
   `capacidade` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `unidade` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
   `numeracao` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `frabicante` int(11) NOT NULL,
-  `frabicanteNick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `fabricante` int(11) NOT NULL,
+  `fabricanteNick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `proprietario` int(11) NOT NULL,
   `proprietarioNick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `local` int(11) NOT NULL,
@@ -205,22 +175,22 @@ CREATE TABLE `tb_eq_componentes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Extraindo dados da tabela `tb_eq_componentes`
+-- Extraindo dados da tabela `tb_bem_componentes`
 --
 
-INSERT INTO `tb_eq_componentes` (`id`, `produto`, `tag`, `name`, `capacidade`, `unidade`, `numeracao`, `frabicante`, `frabicanteNick`, `proprietario`, `proprietarioNick`, `local`, `categoria`, `dataFrabricacao`, `dataCompra`) VALUES
+INSERT INTO `tb_bem_componentes` (`id`, `produto`, `tag`, `name`, `capacidade`, `unidade`, `numeracao`, `fabricante`, `fabricanteNick`, `proprietario`, `proprietarioNick`, `local`, `categoria`, `dataFrabricacao`, `dataCompra`) VALUES
 (1, 3, 'CLORADOR', 'SISTEMA DE CLORACAO', '240', 'KG', '123123', 2, 'CLORANDO', 24, 'SABARA', 2, 1, '2017-12-17', '2017-12-17'),
 (2, 4, 'MSA', 'CILINDRO AR', '3.6', 'KG', 'J31243', 1, 'MSA', 24, 'SABARA', 2, 1, '2017-12-10', '2017-12-10');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_eq_localizacao`
+-- Estrutura da tabela `tb_bem_localizacao`
 --
 
-CREATE TABLE `tb_eq_localizacao` (
+CREATE TABLE `tb_bem_localizacao` (
   `id` int(11) NOT NULL,
-  `equipamento` int(11) NOT NULL,
+  `bem` int(11) NOT NULL,
   `loja` int(11) NOT NULL,
   `local` int(11) DEFAULT NULL,
   `dataIncial` date DEFAULT '0000-00-00',
@@ -229,51 +199,51 @@ CREATE TABLE `tb_eq_localizacao` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Extraindo dados da tabela `tb_eq_localizacao`
+-- Extraindo dados da tabela `tb_bem_localizacao`
 --
 
-INSERT INTO `tb_eq_localizacao` (`id`, `equipamento`, `loja`, `local`, `dataIncial`, `dataFinal`, `status`) VALUES
+INSERT INTO `tb_bem_localizacao` (`id`, `bem`, `loja`, `local`, `dataIncial`, `dataFinal`, `status`) VALUES
 (1, 1, 24, 535, '2017-12-01', '2017-12-17', '3'),
 (2, 1, 1, 2, '2017-12-18', '0000-00-00', '1');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_frabricante`
+-- Estrutura da tabela `tb_fabricante`
 --
 
-CREATE TABLE `tb_frabricante` (
+CREATE TABLE `tb_fabricante` (
   `id` int(11) NOT NULL,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `nick` varchar(30) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Extraindo dados da tabela `tb_frabricante`
+-- Extraindo dados da tabela `tb_fabricante`
 --
 
-INSERT INTO `tb_frabricante` (`id`, `name`, `nick`) VALUES
+INSERT INTO `tb_fabricante` (`id`, `name`, `nick`) VALUES
 (1, 'MSA', 'MSA'),
 (2, 'CLORANDO', 'CLORANDO');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_grupoloja`
+-- Estrutura da tabela `tb_grupo`
 --
 
-CREATE TABLE `tb_grupoloja` (
-  `id` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+CREATE TABLE `tb_grupo` (
+  `id` int(11) NOT NULL,
   `decricao` varchar(150) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Extraindo dados da tabela `tb_grupoloja`
+-- Extraindo dados da tabela `tb_grupo`
 --
 
-INSERT INTO `tb_grupoloja` (`id`, `decricao`) VALUES
-('P', 'Proprietario'),
-('C', 'Cliente');
+INSERT INTO `tb_grupo` (`id`, `decricao`) VALUES
+('2', 'Proprietario'),
+('1', 'Cliente');
 
 -- --------------------------------------------------------
 
@@ -1167,9 +1137,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `user`, `password`, `avatar`, `propr
 -- Indexes for table `tb_bem`
 --
 ALTER TABLE `tb_bem`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `loja` (`loja`),
-  ADD KEY `local` (`local`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tb_bens_familia`
@@ -1178,9 +1146,9 @@ ALTER TABLE `tb_bens_familia`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tb_bens_frabricante`
+-- Indexes for table `tb_bens_fabricante`
 --
-ALTER TABLE `tb_bens_frabricante`
+ALTER TABLE `tb_bens_fabricante`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1193,8 +1161,7 @@ ALTER TABLE `tb_bens_grupo`
 -- Indexes for table `tb_bens_nivel`
 --
 ALTER TABLE `tb_bens_nivel`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `segmento` (`segmento`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tb_categoria`
@@ -1204,27 +1171,25 @@ ALTER TABLE `tb_categoria`
   ADD UNIQUE KEY `tag` (`tag`);
 
 --
--- Indexes for table `tb_equipamentos`
+-- Indexes for table `tb_bem`
 --
-ALTER TABLE `tb_equipamentos`
+
+--
+-- Indexes for table `tb_bem_componentes`
+--
+ALTER TABLE `tb_bem_componentes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tb_eq_componentes`
+-- Indexes for table `tb_bem_localizacao`
 --
-ALTER TABLE `tb_eq_componentes`
+ALTER TABLE `tb_bem_localizacao`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tb_eq_localizacao`
+-- Indexes for table `tb_fabricante`
 --
-ALTER TABLE `tb_eq_localizacao`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tb_frabricante`
---
-ALTER TABLE `tb_frabricante`
+ALTER TABLE `tb_fabricante`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nick` (`nick`);
 

@@ -15,7 +15,11 @@ const state = {
   locais: [],
   local: {},
   users:[],
-  user:[]
+  user:[],
+  tipos:[],
+  produtos:[],
+  fabricantes:[],
+  categorias:[],
 }
 
 const mutations = {
@@ -55,12 +59,25 @@ const mutations = {
   SET_LOJA(state, loja) {
     state.loja = loja
   },
+  SET_LOCAL(state, local) {
+    state.local = local
+  },
   SET_LOCAIS(state, locais) {
     state.locais = locais
   },
-  SET_LOCAL(state, local) {
-    state.local = local
-  }
+  SET_TIPOS(state, tipos) {
+    state.tipos = tipos
+  },
+  SET_PRODUTOS(state, produtos) {
+    state.produtos = produtos
+  },
+  SET_FABRICANTES(state, fabricantes) {
+    state.fabricantes = fabricantes
+  },
+  SET_CATEGORIAS(state, categorias) {
+    state.categorias = categorias
+  },
+  
 }
 
 const actions = {
@@ -100,6 +117,18 @@ const actions = {
   setLocal({ commit }, local) {
     commit("SET_LOCAL", local)
   },
+  setTipos({ commit }, tipos) {
+    commit("SET_TIPOS", tipos)
+  },
+  setProdutos({ commit }, produtos) {
+    commit("SET_PRODUTOS", produtos)
+  },
+  setFabricantes({ commit }, fabricantes) {
+    commit("SET_FABRICANTES", fabricantes)
+  },
+  setCategorias({ commit }, categorias) {
+    commit("SET_CATEGORIAS", categorias)
+  },
 }
 
 const getters = {
@@ -107,6 +136,10 @@ const getters = {
   getUser: state => state.user,
   getUsers: state => state.users,
   getLojas: state => state.lojas,
+  getTipos: state => state.tipos,
+  getProdutos: state => state.produtos,
+  getFabricantes: state => state.fabricantes,
+  getCategorias: state => state.categorias,
   getTodoById: state => (id) => {
     return state.lojas.filter(loja => loja.id === id)
   },

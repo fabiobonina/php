@@ -18,8 +18,8 @@ $lojaCategorias = new LojaCategorias();
 $locais = new Locais();
 $localCategorias = new LocalCategorias();
 #EQUIPAMENTOS
-$equipamentos = new Equipamentos();
-$eqLocalizacao = new EqLocalizacao();
+$bens = new Bens();
+$bemLocalizacao = new BemLocalizacao();
 $categorias = new Categorias();
 $usuarios = new Usuarios();
 $ativos = new Ativos();
@@ -138,16 +138,16 @@ if($action == 'read'):
     }endforeach;
     $arLocal['loja']= $arLoja;
 
-    $arEquipamentos = array();
+    $arBens = array();
     $status = 1;
-    foreach($eqLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status == $status) {
-      $equipId = $value->equipamento;
-      foreach($equipamentos->findAll() as $key => $value):if($value->id == $equipId) {
-        $arEquipamento = (array) $value; //Bem
-        array_push($arEquipamentos, $arEquipamento );
+    foreach($bemLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status == $status) {
+      $bemId = $value->bem;
+      foreach($bens->findAll() as $key => $value):if($value->id == $bemId) {
+        $arBem = (array) $value; //Bem
+        array_push($arBens, $arBem );
       }endforeach;
     }endforeach;
-    $arLocal['equipamento']= $arEquipamentos;
+    $arLocal['bens']= $arBens;
 
     //Montar Array grupos----------------------------------------------------
     $arCategorias = array();
