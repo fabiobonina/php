@@ -39,8 +39,8 @@ $res['user'] = $user;
 //$acessoloja = $user['loja']
 $acessoNivel = 2;
 $acessoProprietario = 1;
-$acessoGrupo = 'C';
-$acessoloja = 1;
+$acessoGrupo = 'P';
+$acessoloja = 24;
 
 if($action == 'read'):
   //$acessoProprietario = $_POST['acessoProprietario'];
@@ -100,7 +100,6 @@ if($action == 'read'):
       $arLoja['locaisQt']= $locaisTtLj;
       $arLoja['locaisGeoQt']= $contLj_localGeo;
       $arLoja['locaisGeoStatus']= $geoStatus;
-      $arProprietario['locaisQt']= $contLj_localTt;
       #LOCAIS--------------------------------------------------------------------------------
       
       #LOJA_CATEGORIA-----------------------------------------------------------------------------

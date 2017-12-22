@@ -24,7 +24,7 @@
                   <p class="successMessage" v-if="successMessage">{{successMessage}}</p>
                   <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
                   <h3 class="widget-user-username">{{ dados.nick }}<span class="pull-right badge bg-blue">
-                        Locais: <i class="fa fa-fw fa-building-o"></i> {{ }} /<i class="fa fa-fw fa-map-marker"></i> {{  }}% ({{ }})</span></h3>
+                        Locais: <i class="fa fa-fw fa-building-o"></i> {{ dados.locaisQt }} /<i class="fa fa-fw fa-map-marker"></i> {{ dados.locaisGeoStatus }}% ({{ dados.locaisGeoQt }})</span></h3>
                   <h5 class="widget-user-desc">{{ dados.name  }}</h5>
                   <h5 class="widget-user-desc">Seguimento: {{  }}
                     <div class="pull-right box-tools">

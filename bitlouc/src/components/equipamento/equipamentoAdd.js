@@ -5,9 +5,9 @@ Vue.component('local-add', {
     return {
       errorMessage: [],
       successMessage: [],
-      tipo: '', regional: '', name: '', municipio: '', uf: '', coordenadas:'', ativa: '', 
-      isLoading: false,
-      tipos: []
+      produto: {}, name: '', capacidade: '', unidade: '', numeracao:'', modelo:'',
+      fabricante: {}, categoria: '', plaqueta: '', dataFab: '', dataCompra: '', ativa: '', 
+      isLoading: false
     };
   },
   props: {
@@ -16,8 +16,14 @@ Vue.component('local-add', {
     data: {}
   },
   computed: {
-    tipos() {
-      return store.state.tipos;
+    produtos() {
+      return store.state.produtos;
+    },
+    fabricantes() {
+      return store.state.fabricantes;
+    },
+    categorias() {
+      return store.state.categorias;
     },
   },
   computed: {
@@ -36,19 +42,20 @@ Vue.component('local-add', {
       this.errorMessage = []
       if(this.formValido()){
         this.isLoading = true
-        //const data = {'id': this.data.id, 'coordenadas': this.coordenadas
+        //const data = {'id': this.data.id, 'modelo': this.modelo
         //'cadastro': new Date().toJSON() }
-        if(this.coordenadas.length < 16){
-          this.coordenadas = '0.000000,0.000000'
+        if(this.modelo.length < 16){
+          this.modelo = '0.000000,0.000000'
         };
-        var geoposicao = this.coordenadas .split(",");
+        var geoposicao = this.modelo .split(",");
+        //console.log(geoposicao[0]);
         var postData = {
           loja: this.$route.params._id,
-          tipo: this.tipo,
-          regional: this.regional,
+          produto: this.produto,
+          tag: this.tag,
           name: this.name,
-          municipio: this.municipio,
-          uf: this.uf,
+          capacidade: this.capacidade,
+          unidade: this.unidade,
           latitude: geoposicao[0],
           longitude: geoposicao[1],
           ativo: '0'
@@ -76,7 +83,7 @@ Vue.component('local-add', {
       }
     },
     ehVazia () {
-      if(this.tipo.length == 0 || this.name.length == 0 || this.municipio.length == 0 || this.uf.length == 0){
+      if(this.produto.length == 0 || this.capacidade.length == 0 || this.unidade.length == 0 || this.fabricante.length == 0 ){
           this.errorMessage.push('Por favor, preencha os campos obrigatorio *')
           return true
       }
