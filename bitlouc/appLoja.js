@@ -132,10 +132,12 @@ const actions = {
 }
 
 const getters = {
-  getProprietario: state => state.proprietario,
   getUser: state => state.user,
   getUsers: state => state.users,
+  getProprietario: state => state.proprietario,
   getLojas: state => state.lojas,
+  getLocais: state => state.locais,
+  getLocal: state => state.local,
   getTipos: state => state.tipos,
   getProdutos: state => state.produtos,
   getFabricantes: state => state.fabricantes,
@@ -150,7 +152,18 @@ const getters = {
   getTodoBy: (state) => (id) => {
     return state.lojas.find(todo => todo.id === id)
   },
-  getLocal: state => state.loja,
+  getLocalId: (state) => (id) => {
+    return state.locais.find(todo => todo.id === id)
+    //return state.lojas.filter(loja => loja.id === id)
+  },
+  getLocalId: (state) => (id) => {
+    return state.locais.find(todo => todo.id === id)
+    //return state.lojas.filter(loja => loja.id === id)
+  },
+  getLocalLoja: (state) => (loja) => {
+    return state.locais.filter(todo => todo.loja === loja)
+    //return state.lojas.filter(loja => loja.id === id)
+  },
 }
 
 

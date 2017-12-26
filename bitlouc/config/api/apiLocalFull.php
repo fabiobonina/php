@@ -42,8 +42,8 @@ if($action == 'read'):
     $arLocal['loja']= $arLoja;
 
     $arBens = array();
-    $status = 1;
-    foreach($bemLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status == $status) {
+    $status = 3;
+    foreach($bemLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status < $status) {
       $bemId = $value->bem;
       foreach($bens->findAll() as $key => $value):if($value->id == $bemId) {
         $arEquipamento = (array) $value; //Bem

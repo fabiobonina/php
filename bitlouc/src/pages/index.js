@@ -25,14 +25,16 @@ Vue.component('index', {
     methods: {
       // Bu metot http get ile api üzerinden kayıtları users dizisine push eder
       dadosLojas: function() {
-        this.$http.get('./config/api/apiProprietarioFull.php?action=read')
+        this.$http.get('./config/api/apiProprietarioFull1.php?action=read')
           .then(function(response) {
             if(response.data.error){
               this.errorMessage = response.data.message;
             } else{
-              //console.log(response.data.dados);
-              this.$store.dispatch('setProprietario', response.data.dados);
+              //console.log(response.data);
               this.$store.dispatch('setUser', response.data.user);
+              this.$store.dispatch('setProprietario', response.data.proprietarios);
+              this.$store.dispatch('setLojas', response.data.lojas);
+              this.$store.dispatch('setLocais', response.data.locais);
             }
           })
           .catch(function(error) {

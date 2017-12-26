@@ -35,7 +35,7 @@ header('Content-Type: text/html; charset=utf-8');
       $arItem = $value; //Tipo
       array_push($arItens, $arItem);
     }endforeach;
-    $arDados['tipos'] = $arItens;
+    $res['tipos'] = $arItens;
     #TIPOS------------------------------------------------------------
     #PRODUTOS------------------------------------------------------------
     $arItens = array();
@@ -43,7 +43,7 @@ header('Content-Type: text/html; charset=utf-8');
       $arItem = $value; //Tipo
       array_push($arItens, $arItem);
     }endforeach;
-    $arDados['produtos'] = $arItens;
+    $res['produtos'] = $arItens;
     #PRODUTOS------------------------------------------------------------
     #CATEGORIAS------------------------------------------------------------
     $arItens = array();
@@ -51,7 +51,7 @@ header('Content-Type: text/html; charset=utf-8');
       $arItem = $value; //Tipo
       array_push($arItens, $arItem);
     }endforeach;
-    $arDados['categorias'] = $arItens;
+    $res['categorias'] = $arItens;
     #CATEGORIAS------------------------------------------------------------
     #FABRICANTES------------------------------------------------------------
     $arItens = array();
@@ -59,7 +59,7 @@ header('Content-Type: text/html; charset=utf-8');
       $arItem = $value; //Tipo
       array_push($arItens, $arItem);
     }endforeach;
-    $arDados['fabricantes'] = $arItens;
+    $res['fabricantes'] = $arItens;
     #FABRICANTES------------------------------------------------------------
 
   }

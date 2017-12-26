@@ -3,17 +3,24 @@ var Local = Vue.extend({
   data: function () {
     return {
       unsupportedBrowser: false,
-      showModal: false,
       searchQuery: '',
+      modalBemAdd: false,
+      modalItem: {},
     };
   },
   created: function() {
     //this.dados2();
     this.dadosLocal();
   },
+  mounted: function() {
+    this.modalBemAdd = true;
+  },
   computed: {
     dados()  {
-      return store.state.local;;
+      return store.state.local;
+    },
+    dados2()  {
+      return store.getters.getLocalId(this.$route.params._local);
     },
     //store.state.lojas // filteredItems
   }, // computed
@@ -39,8 +46,14 @@ var Local = Vue.extend({
           console.log(error);
         });
     },
+    onClose: function(){
+      this.modalBemAdd = false;
+    },
     onAtualizar: function(){
-      this.dadosLocal();
+      this.dadosLojas();
+    },
+    selecItem: function(data){
+      this.modalItem = data;
     },
 
   },

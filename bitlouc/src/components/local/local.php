@@ -77,8 +77,9 @@
                   <!-- /.row -->
                 </div>
                 <div class="box-footer">
-                  <a v-on:click="modalLocalAdd = true; selecItem(dados)" class="btn btn-app">
-                    <i class="fa fa-plus"></i> LOCAL
+                  <a v-on:click="modalBemAdd = true; selecItem(dados)" class="btn btn-app">
+                    <span class="glyphicon glyphicon-qrcode"></span>
+                    <span class="glyphicon-class">Bem</span>
                   </a>
                   <!-- /.row -->
                 </div>
@@ -87,10 +88,11 @@
             </div>
             <!-- /.col -->
             <bens-grid
-            :data="dados.equipamento"
+            :data="dados.bens"
             :categorias="dados.categoria"
             :filter-key="searchQuery">
             </bens-grid>
+            <bem-add v-if="modalBemAdd" v-on:close="onClose"  :data="modalItem"></bem-add>
           </div>
         </div>
         <!-- /.box-body -->

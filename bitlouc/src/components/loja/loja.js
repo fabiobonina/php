@@ -2,30 +2,31 @@ var Loja = Vue.extend({
   template: '#loja',
   data: function () {
     return {
-      loja: '',
       errorMessage: '',
       successMessage: '',
       searchQuery: '',
-      gridColumns: ['displayName', 'name'],
+      gridColumns: ['nick', 'name'],
       modalLocalAdd: false,
       modalItem: {},
     };
   },
   created: function() {
     //this.dados2();
-    this.dadosLojas();
+    //this.dadosLojas();
   },
   mounted: function() {
     //this.showModal = true;
   },
   computed: {
-    dados()  {
-      return store.getters.getTodoBy(this.$route.params._id);
+    loja()  {
+      return store.getters.getLojaId(this.$route.params._id);
     },
-    //store.state.lojas // filteredItems
+    locais()  {
+      return store.getters.getLocalLoja(this.$route.params._id);
+    },
   }, // computed
   methods: {
-    dados2: function() {
+    /*dados2: function() {
       if (!this.$route.params._id) {
         alert('Por favor, preencha todos os campos!');
         return false;
@@ -44,8 +45,8 @@ var Loja = Vue.extend({
         .catch(function(error) {
           console.log(error);
         });
-    },
-    dadosLojas: function() {
+    },*/
+    /*dadosLojas: function() {
       this.$http.get('./config/api/apiLojaFull.php?action=read')
         .then(function(response) {
           if(response.data.error){
@@ -60,7 +61,7 @@ var Loja = Vue.extend({
         .catch(function(error) {
           console.log(error);
         });
-    },
+    },*/
     onClose: function(){
       this.modalLocalAdd = false;
     },
@@ -70,10 +71,5 @@ var Loja = Vue.extend({
     selecItem: function(data){
       this.modalItem = data;
     },
-    
-
-  },
-  beforeCreate () {
-    this.loja = this.$route.params._id
   },
 });

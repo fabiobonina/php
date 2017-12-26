@@ -99,12 +99,14 @@
       <main id="app">
         <div>
           <index></index>
+          <configuracao></configuracao>
           <router-view></router-view>
         </div>    
       </main>
     </div>
         
     <?php include("src/pages/index.php");?>
+    <?php include("src/pages/config.php");?>
     <!-- components local -->
     <?php include("src/components/local/geolocalizacao.php");?>
     <?php include("src/components/local/locais-grid.php");?>
@@ -116,9 +118,10 @@
     <?php include("src/components/loja/lojas-grid.php");?>
     <?php include("src/components/loja/loja.php");?>
     <!-- /components loja -->
-    <!-- components equipamento -->
-    <?php include("src/components/equipamento/equipamentos-grid.php");?>
-    <!-- /components equipamento -->
+    <!-- components bem -->
+    <?php include("src/components/bem/bens-grid.php");?>
+    <?php include("src/components/bem/bemAdd.php");?>
+    <!-- /components bem -->
 
 
     <template id="add">
@@ -190,6 +193,7 @@
 <script src="lib/vue-resource.js"></script>
 
 <script src="src/pages/index.js"></script>
+<script src="src/pages/config.js"></script>
 <!-- components local-->
 <script src="src/components/local/geolocalizacao.js"></script>
 <script src="src/components/local/locais-grid.js"></script>
@@ -201,7 +205,8 @@
 <script src="src/components/loja/loja.js"></script>
 <script src="src/components/loja/lojas.js"></script>
 <!-- /components loja -->
-<!-- components equipamento -->
-<script src="src/components/equipamento/equipamentos-grid.js"></script>
-<!-- /components equipamento -->
+<!-- components bem -->
+<script src="src/components/bem/bens-grid.js"></script>
+<script src="src/components/bem/bemAdd.js"></script>
+<!-- /components bem -->
 <script src="appLoja.js"></script>

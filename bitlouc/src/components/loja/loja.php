@@ -20,10 +20,10 @@
               <div class="box box-widget widget-user">
                 <!-- Add the bg color to the header using any of the bg-* classes -->
                 <div class="widget-user-header bg-aqua-active">
-                  <h3 class="widget-user-username">{{ dados.nick }}<span class="pull-right badge bg-blue">
-                        Locais: <i class="fa fa-fw fa-building-o"></i> {{ dados.locaisQt }} /<i class="fa fa-fw fa-map-marker"></i> {{ dados.locaisGeoStatus }}% ({{ dados.locaisGeoQt }})</span></h3>
-                  <h5 class="widget-user-desc">Nome: {{ dados.name }}</h5>
-                  <h5 class="widget-user-desc">Seguimento: {{ dados.seguimento }}
+                  <h3 class="widget-user-username">{{ loja.nick }}<span class="pull-right badge bg-blue">
+                        Locais: <i class="fa fa-fw fa-building-o"></i> {{ loja.locaisQt }} /<i class="fa fa-fw fa-map-marker"></i> {{ loja.locaisGeoStatus }}% ({{ loja.locaisGeoQt }})</span></h3>
+                  <h5 class="widget-user-desc">Nome: {{ loja.name }}</h5>
+                  <h5 class="widget-user-desc">Seguimento: {{ loja.seguimento }}
                   <div class="pull-right box-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
                       <input v-model="searchQuery" name="table_search" class="form-control pull-right" placeholder="Search">
@@ -88,7 +88,7 @@
           </div>
           <!-- /.row -->
           <grid-local
-            :data="dados.locais"
+            :data="locais"
             :columns="gridColumns"
             :filter-key="searchQuery"
             v-on:atualizar="onAtualizar" >

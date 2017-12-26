@@ -1,12 +1,12 @@
-Vue.component('local-add', {
-  name: 'local-add',
-  template: '#local-add',
+Vue.component('bem-add', {
+  name: 'bem-add',
+  template: '#bem-add',
   data() {
     return {
       errorMessage: [],
       successMessage: [],
-      produto: {}, name: '', capacidade: '', unidade: '', numeracao:'', modelo:'',
-      fabricante: {}, categoria: '', plaqueta: '', dataFab: '', dataCompra: '', ativa: '', 
+      produto: {}, name: '', modelo: '', numeracao:'', modelo:'',
+      fabricante: {}, categoria: '', plaqueta: '', dataFab: '', dataCompra: '', ativa: '',
       isLoading: false
     };
   },
@@ -16,6 +16,12 @@ Vue.component('local-add', {
     data: {}
   },
   computed: {
+    temErros () {
+      return this.errorMessage.length > 0
+    },
+    temMessage () {
+      return this.successMessage.length > 0
+    },
     produtos() {
       return store.state.produtos;
     },
@@ -26,16 +32,7 @@ Vue.component('local-add', {
       return store.state.categorias;
     },
   },
-  computed: {
-    temErros () {
-      return this.errorMessage.length > 0
-    },
-    temMessage () {
-      return this.successMessage.length > 0
-    }
-  },
   created: function() {
-    this.carregarTipo();
   },
   methods: {
     saveItem: function(){
@@ -44,12 +41,17 @@ Vue.component('local-add', {
         this.isLoading = true
         //const data = {'id': this.data.id, 'modelo': this.modelo
         //'cadastro': new Date().toJSON() }
-        if(this.modelo.length < 16){
-          this.modelo = '0.000000,0.000000'
-        };
-        var geoposicao = this.modelo .split(",");
-        //console.log(geoposicao[0]);
         var postData = {
+          produtoId: this.produtos.id,
+          produtoTag: this.produtos.tag,
+          name: this.name,
+          modelo: this.modelo,
+          numeracao: this.numeracao,
+          fabricante: this.fabricante,
+          categoria: this.categoria.id,
+          plaqueta: this.plaqueta,
+          dataFab: this.dataFab,
+          dataCompra: this.dataCompra,
           loja: this.$route.params._id,
           produto: this.produto,
           tag: this.tag,
