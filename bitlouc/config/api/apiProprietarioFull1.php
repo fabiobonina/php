@@ -2,13 +2,12 @@
 header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
-//include("admin/conexao/conecta.php");
 include("_chave.php");
-
 
 function __autoload($class_name){
   require_once '../classes/' . $class_name . '.php';
 }
+
 #PROPRIETARIO
 $proprietario = new Proprietario();
 #LOJA
@@ -37,7 +36,7 @@ $res['user'] = $user;
 //$acessoProprietario = $user['proprietario']
 //$acessoGrupo = $user['grupo']
 //$acessoloja = $user['loja']
-$acessoNivel = 1;
+$acessoNivel = 2;
 $acessoProprietario = 1;
 $acessoGrupo = 'P';
 $acessoloja = 1;
@@ -95,8 +94,11 @@ if($action == 'read'):
         $status = 3;
         foreach($bemLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status <= $status ) {
           $bemId = $value->bem;
+          $bemId = $value->bem;
           foreach($bens->findAll() as $key => $value):if($value->id == $bemId) {
             $arBem = (array) $value; //Bem
+            $arBem['loja']= $lojaId;
+            $arBem['local']= $localId;
             array_push($arBens, $arBem );
         
             $contPp_bemTt++;

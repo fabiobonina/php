@@ -11,9 +11,10 @@ const state = {
   todo: {},
   proprietario:{},
   lojas: [],
-  loja: {},
+  loja: [],
   locais: [],
   local: {},
+  bens: [],
   users:[],
   user:[],
   tipos:[],
@@ -32,7 +33,8 @@ const mutations = {
   ADD_TEXT(state, text){
     state.todo.text = text  
   },
-  REMOVE_TODO(state, todo){ state.todos.splice(state.todos.indexOf(todo), 1)
+  REMOVE_TODO(state, todo){ 
+    state.todos.splice(state.todos.indexOf(todo), 1)
   },
   COMPLETE(state, todo){
     todo.completed = true
@@ -64,6 +66,9 @@ const mutations = {
   },
   SET_LOCAIS(state, locais) {
     state.locais = locais
+  },
+  SET_BENS(state, bens) {
+    state.bens = bens
   },
   SET_TIPOS(state, tipos) {
     state.tipos = tipos
@@ -117,6 +122,9 @@ const actions = {
   setLocal({ commit }, local) {
     commit("SET_LOCAL", local)
   },
+  setBens({ commit }, bens) {
+    commit("SET_BENS", bens)
+  },
   setTipos({ commit }, tipos) {
     commit("SET_TIPOS", tipos)
   },
@@ -129,6 +137,83 @@ const actions = {
   setCategorias({ commit }, categorias) {
     commit("SET_CATEGORIAS", categorias)
   },
+  fetchUsers({ commit }, { self })  {         
+    Vue.http.get("https://jsonplaceholder.typicode.com/users")
+    .then((response) => {
+        commit("SET_LOJA", response.body);
+        self.filterUsers();
+    })
+    .catch((error => {
+        console.log(error.statusText)
+    }))
+  },
+  fetchIndex({ commit }) {
+    return new Promise((resolve, reject) => {
+        Vue.http.get("./config/api/apiProprietarioFull1.php?action=read")
+        .then((response) => {
+          if(response.body.error){
+            console.log(response.body.message);
+          } else{
+            commit("SET_USER", response.body.user);
+            commit("SET_PROPRIETARIO", response.body.proprietarios);
+            commit("SET_LOJAS", response.body.lojas);
+            resolve();
+          }
+        })
+        .catch((error => {
+            console.log(error.statusText);
+        }));
+    });
+  },
+  fetchConfig({ commit }) {
+    return new Promise((resolve, reject) => {
+        Vue.http.get("./config/api/apiConfigFull.php?action=prod")
+      .then((response) => {
+        if(response.body.error){
+          console.log(response.body.message);
+        } else{
+          commit("SET_TIPOS", response.body.tipos);
+          resolve();
+        }
+      })
+      .catch((error => {
+          console.log(error.statusText);
+      }));
+    });
+  },
+  fetchLocais({ commit }, loja) {
+    return new Promise((resolve, reject) => {
+      var postData = {loja};
+      Vue.http.post('./config/api/apiLocalFull.php?action=read', postData)
+        .then((response) => {
+          if(response.body.error){
+            console.log(response.body.message);
+          } else{
+            commit("SET_LOCAIS", response.body.locais);
+            resolve();
+          }
+        })
+        .catch((error => {
+            console.log(error);
+        }));
+    });
+  },
+  fetchProdutos({ commit }) {
+    return new Promise((resolve, reject) => {
+        Vue.http.get("./config/api/apiConfigFull.php?action=prod")
+        .then((response) => {
+          if(response.body.error){
+            console.log(response.body.message);
+          } else{
+            commit("SET_PRODUTOS", response.body.produtos);
+            resolve();
+          }
+        })
+        .catch((error => {
+            console.log(error);
+        }));
+    });
+  },
 }
 
 const getters = {
@@ -138,10 +223,11 @@ const getters = {
   getLojas: state => state.lojas,
   getLocais: state => state.locais,
   getLocal: state => state.local,
-  getTipos: state => state.tipos,
-  getProdutos: state => state.produtos,
-  getFabricantes: state => state.fabricantes,
-  getCategorias: state => state.categorias,
+  getBens: state => state.bens,
+  //getTipos: state => state.tipos,
+  //getProdutos: state => state.produtos,
+  //getFabricantes: state => state.fabricantes,
+  //getCategorias: state => state.categorias,
   getTodoById: state => (id) => {
     return state.lojas.filter(loja => loja.id === id)
   },
@@ -164,6 +250,10 @@ const getters = {
     return state.locais.filter(todo => todo.loja === loja)
     //return state.lojas.filter(loja => loja.id === id)
   },
+  getBensLocal: (state) => (local) => {
+    return state.bens.filter(todo => todo.local === local)
+  },
+  
 }
 
 

@@ -2,98 +2,75 @@
 header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
+include("_chave.php");
 
+function __autoload($class_name){
+  require_once '../classes/' . $class_name . '.php';
+}
 
-  function __autoload($class_name){
-		require_once '../classes/' . $class_name . '.php';
-	}
+$tipos = new Tipos();
+$produtos = new Produtos();
+$categorias = new Categorias();
+$fabricantes = new Fabricantes();
+$loja = new Loja();
+$locais = new Locais();
+$sistemas = new Sistema();
+$grupo = new Grupo();
+$descricao = new Descricao();
+$ativos = new Ativos();
 
-  $tipos = new Tipos();
-  $produtos = new Produtos();
-  $categorias = new Categorias();
-  $fabricantes = new Fabricantes();
-  $loja = new Loja();
-  $locais = new Locais();
-  $sistemas = new Sistema();
-  $grupo = new Grupo();
-  $descricao = new Descricao();
-  $ativos = new Ativos();
+$res = array('error' => false);
+$action = 'config';
 
-  $res = array('error' => false);
-  $action = 'config';
+if(isset($_GET['action'])){
+  $action = $_GET['action'];
+}
 
-  if(isset($_GET['action'])){
-		$action = $_GET['action'];
-	}
+$arDados = array();
+if($action == 'config'):
 
-  $arDados = array();
-  if($action == 'config'){
+  #TIPOS-----------------------------------------------------------------
+  $arItens = array();
+  foreach($tipos->findAll() as $key => $value): {
+    $arItem = $value; //Tipo
+    array_push($arItens, $arItem);
+  }endforeach;
+  $res['tipos'] = $arItens;
+  #TIPOS-----------------------------------------------------------------
 
-    #TIPOS------------------------------------------------------------
-    $arItens = array();
-    foreach($tipos->findAll() as $key => $value): {
-      $arItem = $value; //Tipo
-      array_push($arItens, $arItem);
-    }endforeach;
-    $res['tipos'] = $arItens;
-    #TIPOS------------------------------------------------------------
-    #PRODUTOS------------------------------------------------------------
-    $arItens = array();
-    foreach($produtos->findAll() as $key => $value): {
-      $arItem = $value; //Tipo
-      array_push($arItens, $arItem);
-    }endforeach;
-    $res['produtos'] = $arItens;
-    #PRODUTOS------------------------------------------------------------
-    #CATEGORIAS------------------------------------------------------------
-    $arItens = array();
-    foreach($categorias->findAll() as $key => $value): {
-      $arItem = $value; //Tipo
-      array_push($arItens, $arItem);
-    }endforeach;
-    $res['categorias'] = $arItens;
-    #CATEGORIAS------------------------------------------------------------
-    #FABRICANTES------------------------------------------------------------
-    $arItens = array();
-    foreach($fabricantes->findAll() as $key => $value): {
-      $arItem = $value; //Tipo
-      array_push($arItens, $arItem);
-    }endforeach;
-    $res['fabricantes'] = $arItens;
-    #FABRICANTES------------------------------------------------------------
+  #CATEGORIAS------------------------------------------------------------
+  $arItens = array();
+  foreach($categorias->findAll() as $key => $value): {
+    $arItem = $value; //Tipo
+    array_push($arItens, $arItem);
+  }endforeach;
+  $res['categorias'] = $arItens;
+  #CATEGORIAS------------------------------------------------------------
 
-  }
-  if($action == 'teste'){
-    //Montar Array lojas------------------------------------------------------------
-    //$arDados = array();
-    foreach($loja->findAll() as $key => $value): {
-      
-      $arLoja = (array) $value; //Loja
+  #FABRICANTES-----------------------------------------------------------
+  $arItens = array();
+  foreach($fabricantes->findAll() as $key => $value): {
+    $arItem = $value; //Tipo
+    array_push($arItens, $arItem);
+  }endforeach;
+  $res['fabricantes'] = $arItens;
+  #FABRICANTES-----------------------------------------------------------
 
-      array_push($arDados, $arLoja);
-          
-    }endforeach;
-    //Montar Array lojas------------------------------------------------------------
-  }
+endif;
 
-  if($action == 'loja'){
-    $dados = array();
-    $lojaId = $_POST['lojaId'];
+if($action == 'prod'):
 
-    foreach($loja->findAll() as $key => $value):if($value->id == $lojaId) {
-      $loja = (array) $value;
-      $locais = array();
-      foreach($locais->findAll() as $key => $value):if($value->loja == $lojaId) {
-        $local = (array) $value;
-        array_push($locais, $local );
-      }endforeach;
+  #PRODUTOS--------------------------------------------------------------
+  $arItens = array();
+  foreach($produtos->findAll() as $key => $value): {
+    $arItem = $value; //Tipo
+    array_push($arItens, $arItem);
+  }endforeach;
+  $res['produtos'] = $arItens;
+  #PRODUTOS--------------------------------------------------------------
+  
+endif;
 
-      $loja['locais']= $locais;
-      $dados = $loja;
-    }endforeach;
-    
-  }
-
-  $res['dados'] = $arDados;
-  header("Content-Type: application/json");
-  echo json_encode($res);
+$res['dados'] = $arDados;
+header("Content-Type: application/json");
+echo json_encode($res);

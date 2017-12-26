@@ -11,8 +11,9 @@ var Loja = Vue.extend({
     };
   },
   created: function() {
-    //this.dados2();
-    //this.dadosLojas();
+    this.$store.dispatch("fetchLocal", this.$route.params._id).then(() => {
+      console.log("Buscando dados das Configurações!")
+    });
   },
   mounted: function() {
     //this.showModal = true;

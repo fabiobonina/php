@@ -8,6 +8,8 @@ var List = Vue.extend({
         gridColumns: ['displayName', 'name']
       };
     },
+    created() {
+    },
     computed: {
       proprietario() {
         return store.state.proprietario;
@@ -17,23 +19,6 @@ var List = Vue.extend({
       },
     },
     methods: {
-      onSubmit: function() {
-        if (!this.name || !this.surname) {
-          alert('Lütfen tüm alanları doldurunuz!');
-          return false;
-        }
-        var postData = {name: this.name, surname: this.surname};
-        this.$http.post('../api/api.php', postData)
-          .then(function(response) {
-            if (response.body.status == 'ok') {
-              this.users.push(response.body.users);
-            }
-            this.name = '';
-            this.surname = '';
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
-      }
     }
   });
+  

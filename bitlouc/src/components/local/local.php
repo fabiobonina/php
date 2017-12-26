@@ -22,9 +22,9 @@
               <div class="box box-widget widget-user">
                 <!-- Add the bg color to the header using any of the bg-* classes -->
                 <div class="widget-user-header bg-aqua-active">
-                  <h3 class="widget-user-username">{{ dados.loja.nick }}: {{ dados.tipo }} - {{ dados.name }}<span class="pull-right badge bg-blue">
+                  <h3 class="widget-user-username">{{ loja.nick }}: {{ local.tipo }} - {{ local.name }}<span class="pull-right badge bg-blue">
                         Locais: <i class="fa fa-fw fa-building-o"></i> {{ }} /<i class="fa fa-fw fa-map-marker"></i> {{  }}% ({{ }})</span></h3>
-                  <h5 class="widget-user-desc">{{ dados.municipio }}/ {{ dados.uf }}</h5>
+                  <h5 class="widget-user-desc">{{ local.municipio }}/ {{ local.uf }}</h5>
                   <h5 class="widget-user-desc">Seguimento: {{  }}
                     <div class="pull-right box-tools">
                       <div class="input-group input-group-sm" style="width: 150px;">
@@ -77,7 +77,7 @@
                   <!-- /.row -->
                 </div>
                 <div class="box-footer">
-                  <a v-on:click="modalBemAdd = true; selecItem(dados)" class="btn btn-app">
+                  <a v-on:click="modalBemAdd = true; selecItem(local)" class="btn btn-app">
                     <span class="glyphicon glyphicon-qrcode"></span>
                     <span class="glyphicon-class">Bem</span>
                   </a>
@@ -88,8 +88,8 @@
             </div>
             <!-- /.col -->
             <bens-grid
-            :data="dados.bens"
-            :categorias="dados.categoria"
+            :data="bens"
+            :categorias="local.categoria"
             :filter-key="searchQuery">
             </bens-grid>
             <bem-add v-if="modalBemAdd" v-on:close="onClose"  :data="modalItem"></bem-add>
