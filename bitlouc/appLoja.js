@@ -167,12 +167,15 @@ const actions = {
   },
   fetchConfig({ commit }) {
     return new Promise((resolve, reject) => {
-        Vue.http.get("./config/api/apiConfigFull.php?action=prod")
+        Vue.http.get("./config/api/apiConfigFull.php?action=config")
       .then((response) => {
         if(response.body.error){
           console.log(response.body.message);
         } else{
+          //console.log(response.body);
           commit("SET_TIPOS", response.body.tipos);
+          commit("SET_CATEGORIAS", response.body.categorias);
+          commit("SET_FABRICANTES", response.body.fabricantes);
           resolve();
         }
       })
@@ -183,13 +186,18 @@ const actions = {
   },
   fetchLocais({ commit }, loja) {
     return new Promise((resolve, reject) => {
-      var postData = {loja};
-      Vue.http.post('./config/api/apiLocalFull.php?action=read', postData)
+      var postData = {
+      loja: loja,
+      }
+      //console.log(postData);
+      Vue.http.post("./config/api/apiLocalFull.php?action=read",postData)
         .then((response) => {
           if(response.body.error){
             console.log(response.body.message);
           } else{
+            //console.log(response.body);
             commit("SET_LOCAIS", response.body.locais);
+            commit("SET_BENS", response.body.bens);
             resolve();
           }
         })
@@ -224,10 +232,10 @@ const getters = {
   getLocais: state => state.locais,
   getLocal: state => state.local,
   getBens: state => state.bens,
-  //getTipos: state => state.tipos,
-  //getProdutos: state => state.produtos,
-  //getFabricantes: state => state.fabricantes,
-  //getCategorias: state => state.categorias,
+  getTipos: state => state.tipos,
+  getProdutos: state => state.produtos,
+  getFabricantes: state => state.fabricantes,
+  getCategorias: state => state.categorias,
   getTodoById: state => (id) => {
     return state.lojas.filter(loja => loja.id === id)
   },

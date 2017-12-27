@@ -28,31 +28,17 @@ if(isset($_GET['action'])){
 }
   
 if($action == 'read'):
-  //$localId = $_POST['idLocal'];
-  $localId = '2';
+  $lojaId = $_POST['loja'];
+  //$lojaId = '1';
 
-  $arLojas = array();
-  foreach($locais->findAll() as $key => $value):if($value->id == $localId) {
+  $arLocais = array();
+  $arBens = array();
+  #LOCAIS-----------------------------------------------------------------------------------
+  foreach($locais->findAll() as $key => $value):if($value->loja == $lojaId) {
     $arLocal = (array) $value;
-    $lojaId = $value->loja;
+    $localId = $value->id;
 
-    foreach($loja->findAll() as $key => $value):if($value->id == $lojaId) {
-      $arLoja = (array) $value; //Loja
-    }endforeach;
-    $arLocal['loja']= $arLoja;
-
-    $arBens = array();
-    $status = 3;
-    foreach($bemLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status < $status) {
-      $bemId = $value->bem;
-      foreach($bens->findAll() as $key => $value):if($value->id == $bemId) {
-        $arEquipamento = (array) $value; //Bem
-        array_push($arBens, $arEquipamento );
-      }endforeach;
-    }endforeach;
-    $arLocal['bens']= $arBens;
-
-    //Montar Array grupos----------------------------------------------------
+    #LOCAL_CATEGORIA-------------------------------------------------------------------------
     $arCategorias = array();
     foreach($localCategorias->findAll() as $key => $value):if($value->local == $localId) {
       $categoriaId = $value->categoria;
@@ -63,10 +49,27 @@ if($action == 'read'):
     }endforeach;
 
     $arLocal['categoria']= $arCategorias;
-    //Montar Array grupos----------------------------------------------------
+    #LOCAL_CATEGORIA----------------------------------------------------------------------------
 
+    #LOCAIS_BENS-----------------------------------------------------------------------------------
+    $status = 3;
+    foreach($bemLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status <= $status ) {
+      $bemId = $value->bem;
+      foreach($bens->findAll() as $key => $value):if($value->id == $bemId) {
+        $arBem = (array) $value; //Bem
+        $arBem['loja']= $lojaId;
+        $arBem['local']= $localId;
+        array_push($arBens, $arBem );
+        
+      }endforeach;
+    }endforeach;
+    #LOCAIS_BENS-----------------------------------------------------------------------------------
+    array_push($arLocais, $arLocal );
   }endforeach;
-  $arDados = $arLocal;
+  #LOCAIS-------------------------------------------------------------------------------------------
+  $res['locais']= $arLocais;
+  $res['bens']= $arBens;
+  //$arDados = $arLocal;
   $res['error'] = false;
 
 endif;

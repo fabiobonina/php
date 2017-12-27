@@ -17,7 +17,7 @@
         </div>
         <div class="vue-modal-header">
           <slot name="header">
-            Loja: {{data.name}}
+          {{ loja.nick }}: {{ local.tipo }} - {{ local.name }}
           </slot>
         </div>
           <div class="vue-modal-body">

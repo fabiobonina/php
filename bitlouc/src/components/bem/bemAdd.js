@@ -22,6 +22,15 @@ Vue.component('bem-add', {
     temMessage () {
       return this.successMessage.length > 0
     },
+    proprietario() {
+      return store.state.produtos;
+    },
+    loja()  {
+      return store.getters.getLojaId(this.$route.params._id);
+    },
+    local()  {
+      return store.getters.getLocalId(this.$route.params._local);
+    },
     produtos() {
       return store.state.produtos;
     },
@@ -33,6 +42,9 @@ Vue.component('bem-add', {
     },
   },
   created: function() {
+    this.$store.dispatch('fetchProdutos').then(() => {
+      console.log("Buscando dados dos produtos!")
+    });
   },
   methods: {
     saveItem: function(){
@@ -47,19 +59,15 @@ Vue.component('bem-add', {
           name: this.name,
           modelo: this.modelo,
           numeracao: this.numeracao,
-          fabricante: this.fabricante,
+          fabricante: this.fabricante.id,
+          fabricanteNick: this.fabricante.nick,
+          proprietario: this.loja.id,
+          proprietarioNick: this.loja.nick,
+          proprietarioLocal: this.local.id,
           categoria: this.categoria.id,
           plaqueta: this.plaqueta,
           dataFab: this.dataFab,
           dataCompra: this.dataCompra,
-          loja: this.$route.params._id,
-          produto: this.produto,
-          tag: this.tag,
-          name: this.name,
-          capacidade: this.capacidade,
-          unidade: this.unidade,
-          latitude: geoposicao[0],
-          longitude: geoposicao[1],
           ativo: '0'
         };
         //var formData = this.toFormData(postData);
@@ -85,7 +93,7 @@ Vue.component('bem-add', {
       }
     },
     ehVazia () {
-      if(this.produto.length == 0 || this.capacidade.length == 0 || this.unidade.length == 0 || this.fabricante.length == 0 ){
+      if(this.produto.length == 0 || this.modelo.length == 0 || this.fabricante.length == 0 || this.categoria.length == 0){
           this.errorMessage.push('Por favor, preencha os campos obrigatorio *')
           return true
       }

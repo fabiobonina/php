@@ -187,7 +187,7 @@
 </div>
 <!-- /.content-wrapper -->
 
-<script src="lib/vue.js"></script>
+<script src="lib/vue.min.js"></script>
 <script src="lib/vuex.js"></script>
 <script src="lib/vue-router.js"></script>
 <script src="lib/vue-resource.js"></script>

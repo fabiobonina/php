@@ -11,8 +11,8 @@ var Loja = Vue.extend({
     };
   },
   created: function() {
-    this.$store.dispatch("fetchLocal", this.$route.params._id).then(() => {
-      console.log("Buscando dados das Configurações!")
+    this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
+      console.log("Buscando dados das locais!")
     });
   },
   mounted: function() {
@@ -23,7 +23,7 @@ var Loja = Vue.extend({
       return store.getters.getLojaId(this.$route.params._id);
     },
     locais()  {
-      return store.getters.getLocalLoja(this.$route.params._id);
+      return store.state.locais;
     },
   }, // computed
   methods: {

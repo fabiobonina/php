@@ -65,7 +65,7 @@ if($action == 'read'):
       $contLj_bemTt = 0;
       #LOCAIS-----------------------------------------------------------------------------------
       foreach($locais->findAll() as $key => $value):if($value->loja == $lojaId) {
-        $arLocal = (array) $value;
+        //$arLocal = (array) $value;
         $localId = $value->id;
 
         $contPp_localTt++;//CONTADOR LOCAIS PROPRIEDADE
@@ -76,7 +76,7 @@ if($action == 'read'):
         }
 
         #LOCAL_CATEGORIA-------------------------------------------------------------------------
-        $arCategorias = array();
+        /*$arCategorias = array();
         foreach($localCategorias->findAll() as $key => $value):if($value->local == $localId) {
           $categoriaId = $value->categoria;
           foreach($categorias->findAll() as $key => $value):if($value->id == $categoriaId) {
@@ -85,21 +85,20 @@ if($action == 'read'):
           }endforeach;
         }endforeach;
 
-        $arLocal['categoria']= $arCategorias;
+        $arLocal['categoria']= $arCategorias;*/
         #LOCAL_CATEGORIA----------------------------------------------------------------------------
 
-        array_push($arrayLocais, $arLocal );
+        //array_push($arrayLocais, $arLocal );
 
         #LOCAIS_BENS-----------------------------------------------------------------------------------
         $status = 3;
         foreach($bemLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status <= $status ) {
           $bemId = $value->bem;
-          $bemId = $value->bem;
           foreach($bens->findAll() as $key => $value):if($value->id == $bemId) {
-            $arBem = (array) $value; //Bem
-            $arBem['loja']= $lojaId;
-            $arBem['local']= $localId;
-            array_push($arBens, $arBem );
+            //$arBem = (array) $value; //Bem
+            //$arBem['loja']= $lojaId;
+            //$arBem['local']= $localId;
+            //array_push($arBens, $arBem );
         
             $contPp_bemTt++;
             $contLj_bemTt++;
@@ -110,17 +109,16 @@ if($action == 'read'):
         
       }endforeach;
       #LOCAIS-------------------------------------------------------------------------------------------
-      $locaisTtLj = count($arrayLocais);
-      if($locaisTtLj > 0){
-        $geoStatus = round(($contLj_localGeo/$locaisTtLj)*100, 1);
+      if($contLj_localTt > 0){
+        $geoStatus = round(($contLj_localGeo/$contLj_localTt)*100, 1);
       }else{
         $geoStatus = 0;
       }
       //$arLoja['locais']= $arrayLocais;
-      $arLoja['locaisQt']= $locaisTtLj;
+      $arLoja['locaisQt']= $contLj_localTt;
       $arLoja['locaisGeoQt']= $contLj_localGeo;
       $arLoja['locaisGeoStatus']= $geoStatus;
-      $arLoja['bensQt']= $geoStatus;
+      $arLoja['bensQt']= $contLj_bemTt;
       
       #LOJA_CATEGORIA-----------------------------------------------------------------------------
       $arCategorias = array();
@@ -146,46 +144,11 @@ if($action == 'read'):
     $arProprietario['locaisQt']= $contPp_localTt;
     $arProprietario['locaisGeoQt']= $contPp_localGeo;
     $arProprietario['locaisGeoStatus']= $geoStatus;
-    $arProprietario['bemsQt']= $geoStatus;
+    $arProprietario['bemsQt']= $contPp_bemTt;
   }endforeach;
   
-  /*/$localId = '2';
-  foreach($locais->findAll() as $key => $value):if($value->id == $localId) {
-    $arLocal = (array) $value;
-    $lojaId = $value->loja;
-
-    foreach($loja->findAll() as $key => $value):if($value->id == $lojaId) {
-      $arLoja = (array) $value; //Loja
-    }endforeach;
-    $arLocal['loja']= $arLoja;
-
-    $arBens = array();
-    $status = 1;
-    foreach($bemLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status == $status) {
-      $bemId = $value->bem;
-      foreach($bens->findAll() as $key => $value):if($value->id == $bemId) {
-        $arBem = (array) $value; //Bem
-        array_push($arBens, $arBem );
-      }endforeach;
-    }endforeach;
-    $arLocal['bens']= $arBens;
-
-    //Montar Array grupos----------------------------------------------------
-    $arCategorias = array();
-    foreach($localCategorias->findAll() as $key => $value):if($value->local == $localId) {
-      $categoriaId = $value->categoria;
-      foreach($categorias->findAll() as $key => $value):if($value->id == $categoriaId) {
-        $arCategoria = (array) $value;
-        array_push($arCategorias, $arCategoria );
-      }endforeach;
-    }endforeach;
-
-    $arLocal['categoria']= $arCategorias;
-    //Montar Array grupos----------------------------------------------------
-    
-  }endforeach; */
-  $res['bens']= $arBens;
-  $res['locais']= $arrayLocais;
+  //$res['bens']= $arBens;
+  //$res['locais']= $arrayLocais;
   $res['lojas']= $arLojas;
   //$arDados = $arLocal;
   $res['proprietarios'] = $arProprietario;

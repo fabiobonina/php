@@ -3,7 +3,7 @@
   <div>
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1><a href="#/" class="btn"><i class="fa fa-arrow-left"></i></a>Loja<small> dados</small></h1>
+      <h1><a href="#" class="btn"><i class="fa fa-arrow-left"></i></a>Loja<small> dados</small></h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Loja</li>
