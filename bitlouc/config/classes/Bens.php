@@ -7,55 +7,104 @@ class Bens extends Crud{
 
 	
 	protected $table = 'tb_bem';
-	private $cliente;
-	private $localida;
+	protected $table2 = 'tb_bem_localizacao';
+	private $produto;
+	private $produtoTag;
+	private $name;
+	private $modelo;
+	private $numeracao;
+	private $fabricante;
+	private $fabricanteNick;
+	private $proprietario;
+	private $proprietarioNick;
+	private $proprietarioLoja;
+	private $categoria;
 	private $plaqueta;
+	private $dataFab;
+	private $dataCompra;
+	private $ativo;
 
-	public function setCliente($cliente){
-		$this->cliente = $cliente;
+	public function setProduto($produto){
+		$this->produto = $produto;
 	}
-	public function setLocalidade($localidade){
-		$this->localidade = $localidade;
+	public function setTag($tag){
+		$this->tag = $tag;
+	}
+	public function setName($name){
+		$this->name = $name;
+	}
+	public function setModelo($modelo){
+		$this->modelo = $modelo;
+	}
+	public function setNumeracao($numeracao){
+		$this->numeracao = $numeracao;
+	}
+	public function setFabricante($fabricante){
+		$this->fabricante = $fabricante;
+	}
+	public function setFabricanteNick($fabricanteNick){
+		$this->fabricanteNick = $fabricanteNick;
+	}
+	public function setProprietario($proprietario){
+		$this->proprietario = $proprietario;
+	}
+	public function setProprietarioNick($proprietarioNick){
+		$this->proprietarioNick = $proprietarioNick;
+	}
+	public function setProprietarioLocal($proprietarioLocal){
+		$this->proprietarioLocal = $proprietarioLocal;
+	}
+	public function setCategoria($categoria){
+		$this->categoria = $categoria;
 	}
 	public function setPlaqueta($plaqueta){
-		$plaqueta = iconv('UTF-8', 'ASCII//TRANSLIT', $plaqueta);
-		$this->plaqueta = strtoupper ($plaqueta);
+		$this->plaqueta = $plaqueta;
 	}
-	public function getPlaqueta(){
-		return $this->plaqueta;
+	public function setDataFabricacao($dataFrabricacao){
+		$this->dataFrabricacao = $dataFrabricacao;
 	}
-	public function setData($data){
-		$this->data = $data;
+	public function setDataCompra($dataCompra){
+		$this->dataCompra = $dataCompra;
 	}
-
+	public function setAtivo($ativo){
+		$this->ativo = $ativo;
+	}
 
 	public function insert(){
 		try{
-		$sql  = "INSERT INTO $this->table (cliente, localidade, plaqueta, data) ";
-		$sql .= "VALUES (:cliente, :localidade, :plaqueta, :data)";
-		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':cliente',$this->cliente);
-		$stmt->bindParam(':localidade',$this->localidade);
-		$stmt->bindParam(':plaqueta',$this->plaqueta);
-		$stmt->bindParam(':data',$this->data);
-
-		return $stmt->execute();
+			$sql  = "INSERT INTO $this->table (produto, tag, name, modelo, numeracao, fabricante, fabricanteNick, proprietario, proprietarioNick, proprietarioLocal, categoria, plaqueta, dataFrabricacao, dataCompra) ";
+			$sql .= "VALUES (:produto, :tag, :name, :modelo, :numeracao, :fabricante, :fabricanteNick, :proprietario, :proprietarioNick, :proprietarioLocal, :categoria, :plaqueta, :dataFrabricacao, :dataCompra)";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':produto',$this->produto);
+			$stmt->bindParam(':tag',$this->tag);
+			$stmt->bindParam(':name',$this->name);
+			$stmt->bindParam(':modelo',$this->modelo);
+			$stmt->bindParam(':numeracao',$this->numeracao);
+			$stmt->bindParam(':fabricante',$this->fabricante);
+			$stmt->bindParam(':fabricanteNick',$this->fabricanteNick);
+			$stmt->bindParam(':proprietario',$this->proprietario);
+			$stmt->bindParam(':proprietarioNick',$this->proprietarioNick);
+			$stmt->bindParam(':proprietarioLocal',$this->proprietarioLocal);
+			$stmt->bindParam(':categoria',$this->categoria);
+			$stmt->bindParam(':plaqueta',$this->plaqueta);
+			$stmt->bindParam(':dataFrabricacao',$this->dataFrabricacao);
+			$stmt->bindParam(':dataCompra',$this->dataCompra);
+			return $stmt->execute();
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
-
 	}
 
 	public function update($id){
 		try{
-		$sql  = "UPDATE $this->table SET cliente = :cliente, localidade = :localidade, plaqueta = :plaqueta, data = :data WHERE id = :id ";
-		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':cliente',$this->cliente);
-		$stmt->bindParam(':localidade', $this->localidade);
-		$stmt->bindParam(':plaqueta',$this->plaqueta);
-		$stmt->bindParam(':data',$this->data);
-		$stmt->bindParam(':id', $id);
-		return $stmt->execute();
+			$sql  = "UPDATE $this->table SET cliente = :cliente, localidade = :localidade, plaqueta = :plaqueta, data = :data WHERE id = :id ";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':cliente',$this->cliente);
+			$stmt->bindParam(':localidade', $this->localidade);
+			$stmt->bindParam(':plaqueta',$this->plaqueta);
+			$stmt->bindParam(':data',$this->data);
+			$stmt->bindParam(':id', $id);
+			return $stmt->execute();
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}

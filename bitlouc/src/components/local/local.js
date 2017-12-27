@@ -11,6 +11,11 @@ var Local = Vue.extend({
   mounted: function() {
     this.modalBemAdd = true;
   },
+  created: function() {
+    this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
+      console.log("Buscando dados das locais!")
+    });
+  },
   computed: {
     local()  {
       return store.getters.getLocalId(this.$route.params._local);
@@ -28,7 +33,9 @@ var Local = Vue.extend({
       this.modalBemAdd = false;
     },
     onAtualizar: function(){
-      this.dadosLojas();
+      this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
+        console.log("Buscando dados das locais!")
+      });
     },
     selecItem: function(data){
       this.modalItem = data;

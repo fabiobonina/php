@@ -32,15 +32,15 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-2 control-label">Nome*</label>
-                  <div class="col-sm-10">
-                    <input v-model="name" type="text" class="form-control" id="inputPassword3" placeholder="Nome">
-                  </div>
-                </div>
-                <div class="form-group">
                   <label for="inputPassword3" class="col-sm-2 control-label">Modelo*</label>
                   <div class="col-sm-10">
                     <input v-model="modelo" type="text" class="form-control" id="inputPassword3" placeholder="Modelo">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword3" class="col-sm-2 control-label">Numeração</label>
+                  <div class="col-sm-10">
+                    <input v-model="numeracao" type="text" class="form-control" id="inputPassword3" placeholder="Numeração">
                   </div>
                 </div>
                 <div class="form-group">

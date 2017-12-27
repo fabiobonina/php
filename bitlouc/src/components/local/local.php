@@ -2,12 +2,12 @@
   <div>
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1><a :href="'#/loja/' + $route.params._id" class="btn"><i class="fa fa-arrow-left"></i></a>
+      <h1><a class="btn"><router-link :to="'/loja/' + $route.params._id"><i class="fa fa-arrow-left"></i></router-link></a>
         Local<small>dados</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a :href="'#/loja/' + $route.params._id">Loja</a></li>
+        <li><a><router-link to="/"><i class="fa fa-dashboard"></i> Home</router-link></a></li>
+        <li><a><router-link :to="'/loja/' + $route.params._id"> Loja</router-link></a></li>
         <li class="active">Local</li>
       </ol>
     </section>
@@ -77,7 +77,7 @@
                   <!-- /.row -->
                 </div>
                 <div class="box-footer">
-                  <a v-on:click="modalBemAdd = true; selecItem(local)" class="btn btn-app">
+                  <a v-on:click="modalBemAdd = true" class="btn btn-app">
                     <span class="glyphicon glyphicon-qrcode"></span>
                     <span class="glyphicon-class">Bem</span>
                   </a>

@@ -3,9 +3,9 @@
   <div>
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1><a href="#" class="btn"><i class="fa fa-arrow-left"></i></a>Loja<small> dados</small></h1>
+      <h1><a href="#" class="btn"><router-link to="/"><i class="fa fa-arrow-left"></i></router-link></a>Loja<small> dados</small></h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a><router-link to="/"><i class="fa fa-dashboard"></i> Home</router-link></a></li>
         <li class="active">Loja</li>
       </ol>
     </section>
@@ -24,16 +24,15 @@
                         Locais: <i class="fa fa-fw fa-building-o"></i> {{ loja.locaisQt }} /<i class="fa fa-fw fa-map-marker"></i> {{ loja.locaisGeoStatus }}% ({{ loja.locaisGeoQt }})</span></h3>
                   <h5 class="widget-user-desc">Nome: {{ loja.name }}</h5>
                   <h5 class="widget-user-desc">Seguimento: {{ loja.seguimento }}
-                  <div class="pull-right box-tools">
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                      <input v-model="searchQuery" name="table_search" class="form-control pull-right" placeholder="Search">
-                      <span class="input-group-btn">
+                    <div class="pull-right box-tools">
+                      <div class="input-group input-group-sm" style="width: 150px;">
+                        <input v-model="searchQuery" name="table_search" class="form-control pull-right" placeholder="Search">
+                        <span class="input-group-btn">
                           <button class="btn btn-teal btn-flat"> <i class="fa fa-building"></i></button>
                         </span>
+                      </div>
                     </div>
-                    
-                  </div></h5>
-                  
+                  </h5>
                 </div>
                 <!--div class="widget-user-image">
                   <img class="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Avatar">

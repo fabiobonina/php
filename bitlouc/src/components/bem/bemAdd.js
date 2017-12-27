@@ -5,14 +5,12 @@ Vue.component('bem-add', {
     return {
       errorMessage: [],
       successMessage: [],
-      produto: {}, name: '', modelo: '', numeracao:'', modelo:'',
+      produto: {}, modelo: '', numeracao:'', modelo:'',
       fabricante: {}, categoria: '', plaqueta: '', dataFab: '', dataCompra: '', ativa: '',
       isLoading: false
     };
   },
   props: {
-    title: { type: String, default: '' },
-    message: { type: String, default: 'Confirm' },
     data: {}
   },
   computed: {
@@ -54,9 +52,9 @@ Vue.component('bem-add', {
         //const data = {'id': this.data.id, 'modelo': this.modelo
         //'cadastro': new Date().toJSON() }
         var postData = {
-          produtoId: this.produtos.id,
-          produtoTag: this.produtos.tag,
-          name: this.name,
+          produto: this.produto.id,
+          tag: this.produto.tag,
+          name: this.produto.name,
           modelo: this.modelo,
           numeracao: this.numeracao,
           fabricante: this.fabricante.id,
@@ -71,10 +69,10 @@ Vue.component('bem-add', {
           ativo: '0'
         };
         //var formData = this.toFormData(postData);
-        //console.log(postData);
-        this.$http.post('./config/api/apiLocalFull.php?action=cadastrar', postData)
+        console.log(postData);
+        this.$http.post('./config/api/apiBemFull.php?action=cadastrar', postData)
           .then(function(response) {
-            //console.log(response);
+            console.log(response);
             if(response.data.error){
               this.errorMessage.push(response.data.message);
               this.isLoading = false;
