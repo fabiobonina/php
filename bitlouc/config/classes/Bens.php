@@ -74,7 +74,6 @@ class Bens extends Crud{
 			$sql .= "VALUES (:produto, :tag, :name, :modelo, :numeracao, :fabricante, :fabricanteNick, :proprietario, :proprietarioNick, :proprietarioLocal, :categoria, :plaqueta, :dataFrabricacao, :dataCompra)";
 			$stmt = DB::prepare($sql);
 			try{
-				$stmt->beginTransaction();
 				$stmt->bindParam(':produto',$this->produto);
 				$stmt->bindParam(':tag',$this->tag);
 				$stmt->bindParam(':name',$this->name);
@@ -89,37 +88,27 @@ class Bens extends Crud{
 				$stmt->bindParam(':plaqueta',$this->plaqueta);
 				$stmt->bindParam(':dataFrabricacao',$this->dataFrabricacao);
 				$stmt->bindParam(':dataCompra',$this->dataCompra);
-				return $stmt->execute();
-				$stmt->commit();
-				$lastId = $dbh->lastInsertId();
+				$stmt->execute();
+				
+				$bemId = DB::getInstance()->lastInsertId();
 				$status = '0';
 				try{
-					$sql  = "INSERT INTO $this->table2 (bem, loja, local, dataInicial, dataFinal, status)";
-					$sql .= "VALUES (:bem, :loja, :local, :dataInicial, :dataFinal, :status)";
+					$sql  = "INSERT INTO $this->table2 (bem, loja, local, dataInicial, status)";
+					$sql .= "VALUES (:bem, :loja, :local, :dataInicial, :status)";
 					$stmt = DB::prepare($sql);
-					try{
-						$stmt->beginTransaction();
-						$stmt->bindParam(':bem',$lastId);
-						$stmt->bindParam(':loja',$this->proprietario);
-						$stmt->bindParam(':local',$this->proprietarioLocal);
-						$stmt->bindParam(':dataInicial',$this->dataCompra);
-						$stmt->bindParam(':status',$status);
-						return $stmt->execute();
-						$stmt->commit();		
-					} catch(PDOExecption $e){
-						$dbh->rollback();
-						echo "Error!: " . $e->getMessage() . "</br>";
-					}
-				} catch(PDOException $e) {
-					$dbh->rollback();
+					$stmt->bindParam(':bem',$bemId);
+					$stmt->bindParam(':loja',$this->proprietario);
+					$stmt->bindParam(':local',$this->proprietarioLocal);
+					$stmt->bindParam(':dataInicial',$this->dataCompra);
+					$stmt->bindParam(':status',$status);
+					return $stmt->execute();
+				} catch(PDOExecption $e){
 					echo "Error!: " . $e->getMessage() . "</br>";
 				}
 			} catch(PDOExecption $e){
-				$dbh->rollback();
 				echo "Error!: " . $e->getMessage() . "</br>";
 			}
 		} catch(PDOException $e) {
-			$dbh->rollback();
 			echo "Error!: " . $e->getMessage() . "</br>";
 		}
 	}

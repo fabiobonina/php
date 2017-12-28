@@ -21,7 +21,7 @@ $ativos = new Ativos();
 
 $res = array('error' => true);
 $arDados = array();
-$action = 'read';
+$action = 'cadastrar';
 
 if(isset($_GET['action'])){
   $action = $_GET['action'];
@@ -110,6 +110,22 @@ if($action == 'cadastrar'):
   $dataFab = $_POST['dataFab'];
   $dataCompra = $_POST['dataCompra'];
   $ativo = $_POST['ativo'];
+
+  /*$produto = '1';
+  $tag = 'tag';
+  $name = 'name';
+  $modelo = 'modelo';
+  $numeracao = 'numeracao';
+  $fabricante = '1';
+  $fabricanteNick = 'fabricanteNick';
+  $proprietario = '1';
+  $proprietarioNick = 'proprietarioNick';
+  $proprietarioLocal = '2';
+  $categoria = '1';
+  $plaqueta = '10101010';
+  $dataFab = date("Y-m-d");
+  $dataCompra = date("Y-m-d");
+  $ativo = '0';*/
 
   $bens->setProduto($produto);
   $bens->setTag($tag);

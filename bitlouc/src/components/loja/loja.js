@@ -63,11 +63,10 @@ var Loja = Vue.extend({
           console.log(error);
         });
     },*/
-    onClose: function(){
-      this.modalLocalAdd = false;
-    },
     onAtualizar: function(){
-      this.dadosLojas();
+      this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
+        console.log("Buscando dados das locais!")
+      });
     },
     selecItem: function(data){
       this.modalItem = data;

@@ -89,10 +89,9 @@
           <grid-local
             :data="locais"
             :columns="gridColumns"
-            :filter-key="searchQuery"
-            v-on:atualizar="onAtualizar" >
+            :filter-key="searchQuery">
           </grid-local>
-          <local-add v-if="modalLocalAdd" v-on:close="onClose"  :data="modalItem"></local-add>
+          <local-add v-if="modalLocalAdd" v-on:close="modalLocalAdd = false"  @atualizar="onAtualizar" :data="modalItem"></local-add>
         </div>
         <!-- /.box-body -->
       </div>

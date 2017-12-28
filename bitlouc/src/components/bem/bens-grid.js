@@ -20,10 +20,12 @@ Vue.component('bens-grid', {
       var vm = this;
       var categoria = vm.selectedCategoria;
       if(categoria === "All") {
-          return vm.data;
+        return vm.data.filter(function(person) {
+          return person.status === 1;
+      });
       } else {
           return vm.data.filter(function(person) {
-              return person.categoria === categoria;
+              return person.categoria === categoria && person.status === 1;
           });
       }
     }

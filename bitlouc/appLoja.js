@@ -261,7 +261,6 @@ const getters = {
   getBensLocal: (state) => (local) => {
     return state.bens.filter(todo => todo.local === local)
   },
-  
 }
 
 

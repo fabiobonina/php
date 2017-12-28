@@ -29,12 +29,9 @@ var Local = Vue.extend({
     //store.state.lojas // filteredItems
   }, // computed
   methods: {
-    onClose: function(){
-      this.modalBemAdd = false;
-    },
     onAtualizar: function(){
       this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
-        console.log("Buscando dados das locais!")
+        this.modalBemAdd = false;
       });
     },
     selecItem: function(data){

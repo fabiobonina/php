@@ -92,7 +92,7 @@
             :categorias="local.categoria"
             :filter-key="searchQuery">
             </bens-grid>
-            <bem-add v-if="modalBemAdd" v-on:close="onClose"  :data="modalItem"></bem-add>
+            <bem-add v-if="modalBemAdd" v-on:close="modalBemAdd = false"  v-on:atualizar="onAtualizar"  :data="modalItem"></bem-add>
           </div>
         </div>
         <!-- /.box-body -->

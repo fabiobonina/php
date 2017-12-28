@@ -69,10 +69,10 @@ Vue.component('bem-add', {
           ativo: '0'
         };
         //var formData = this.toFormData(postData);
-        console.log(postData);
+        //console.log(postData);
         this.$http.post('./config/api/apiBemFull.php?action=cadastrar', postData)
           .then(function(response) {
-            console.log(response);
+            //console.log(response);
             if(response.data.error){
               this.errorMessage.push(response.data.message);
               this.isLoading = false;
@@ -80,7 +80,7 @@ Vue.component('bem-add', {
               this.successMessage.push(response.data.message);
               this.isLoading = false;
               setTimeout(() => {
-                this.$emit('close');
+                this.$emit('atualizar');
               }, 2000);  
             }
           })
