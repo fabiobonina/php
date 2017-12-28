@@ -4,8 +4,6 @@ require_once '_crud.php';
 try {
 class Bens extends Crud{
 	
-
-	
 	protected $table = 'tb_bem';
 	protected $table2 = 'tb_bem_localizacao';
 	private $produto;
@@ -75,23 +73,54 @@ class Bens extends Crud{
 			$sql  = "INSERT INTO $this->table (produto, tag, name, modelo, numeracao, fabricante, fabricanteNick, proprietario, proprietarioNick, proprietarioLocal, categoria, plaqueta, dataFrabricacao, dataCompra) ";
 			$sql .= "VALUES (:produto, :tag, :name, :modelo, :numeracao, :fabricante, :fabricanteNick, :proprietario, :proprietarioNick, :proprietarioLocal, :categoria, :plaqueta, :dataFrabricacao, :dataCompra)";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':produto',$this->produto);
-			$stmt->bindParam(':tag',$this->tag);
-			$stmt->bindParam(':name',$this->name);
-			$stmt->bindParam(':modelo',$this->modelo);
-			$stmt->bindParam(':numeracao',$this->numeracao);
-			$stmt->bindParam(':fabricante',$this->fabricante);
-			$stmt->bindParam(':fabricanteNick',$this->fabricanteNick);
-			$stmt->bindParam(':proprietario',$this->proprietario);
-			$stmt->bindParam(':proprietarioNick',$this->proprietarioNick);
-			$stmt->bindParam(':proprietarioLocal',$this->proprietarioLocal);
-			$stmt->bindParam(':categoria',$this->categoria);
-			$stmt->bindParam(':plaqueta',$this->plaqueta);
-			$stmt->bindParam(':dataFrabricacao',$this->dataFrabricacao);
-			$stmt->bindParam(':dataCompra',$this->dataCompra);
-			return $stmt->execute();
+			try{
+				$stmt->beginTransaction();
+				$stmt->bindParam(':produto',$this->produto);
+				$stmt->bindParam(':tag',$this->tag);
+				$stmt->bindParam(':name',$this->name);
+				$stmt->bindParam(':modelo',$this->modelo);
+				$stmt->bindParam(':numeracao',$this->numeracao);
+				$stmt->bindParam(':fabricante',$this->fabricante);
+				$stmt->bindParam(':fabricanteNick',$this->fabricanteNick);
+				$stmt->bindParam(':proprietario',$this->proprietario);
+				$stmt->bindParam(':proprietarioNick',$this->proprietarioNick);
+				$stmt->bindParam(':proprietarioLocal',$this->proprietarioLocal);
+				$stmt->bindParam(':categoria',$this->categoria);
+				$stmt->bindParam(':plaqueta',$this->plaqueta);
+				$stmt->bindParam(':dataFrabricacao',$this->dataFrabricacao);
+				$stmt->bindParam(':dataCompra',$this->dataCompra);
+				return $stmt->execute();
+				$stmt->commit();
+				$lastId = $dbh->lastInsertId();
+				$status = '0';
+				try{
+					$sql  = "INSERT INTO $this->table2 (bem, loja, local, dataInicial, dataFinal, status)";
+					$sql .= "VALUES (:bem, :loja, :local, :dataInicial, :dataFinal, :status)";
+					$stmt = DB::prepare($sql);
+					try{
+						$stmt->beginTransaction();
+						$stmt->bindParam(':bem',$lastId);
+						$stmt->bindParam(':loja',$this->proprietario);
+						$stmt->bindParam(':local',$this->proprietarioLocal);
+						$stmt->bindParam(':dataInicial',$this->dataCompra);
+						$stmt->bindParam(':status',$status);
+						return $stmt->execute();
+						$stmt->commit();		
+					} catch(PDOExecption $e){
+						$dbh->rollback();
+						echo "Error!: " . $e->getMessage() . "</br>";
+					}
+				} catch(PDOException $e) {
+					$dbh->rollback();
+					echo "Error!: " . $e->getMessage() . "</br>";
+				}
+			} catch(PDOExecption $e){
+				$dbh->rollback();
+				echo "Error!: " . $e->getMessage() . "</br>";
+			}
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$dbh->rollback();
+			echo "Error!: " . $e->getMessage() . "</br>";
 		}
 	}
 

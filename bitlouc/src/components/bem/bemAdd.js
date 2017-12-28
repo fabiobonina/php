@@ -91,7 +91,7 @@ Vue.component('bem-add', {
       }
     },
     ehVazia () {
-      if(this.produto.length == 0 || this.modelo.length == 0 || this.fabricante.length == 0 || this.categoria.length == 0){
+      if(this.produto.length == 0 || this.modelo.length == 0 || this.fabricante.length == 0 || this.categoria.length == 0 || this.dataCompra.length == 0){
           this.errorMessage.push('Por favor, preencha os campos obrigatorio *')
           return true
       }

@@ -72,7 +72,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-2 control-label">Dt.Compra</label>
+                  <label for="inputPassword3" class="col-sm-2 control-label">Dt.Compra*</label>
                   <div class="col-sm-10">
                     <input v-model="dataCompra" type="date" class="form-control" id="inputPassword3" placeholder="Data compra">
                   </div>
