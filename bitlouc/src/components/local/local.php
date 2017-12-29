@@ -22,10 +22,9 @@
               <div class="box box-widget widget-user">
                 <!-- Add the bg color to the header using any of the bg-* classes -->
                 <div class="widget-user-header bg-aqua-active">
-                  <h3 class="widget-user-username">{{ loja.nick }}: {{ local.tipo }} - {{ local.name }}<span class="pull-right badge bg-blue">
-                        Locais: <i class="fa fa-fw fa-building-o"></i> {{ }} /<i class="fa fa-fw fa-map-marker"></i> {{  }}% ({{ }})</span></h3>
+                  <h3 class="widget-user-username">{{ loja.nick }}: {{ local.tipo }} - {{ local.name }}
                   <h5 class="widget-user-desc">{{ local.municipio }}/ {{ local.uf }}</h5>
-                  <h5 class="widget-user-desc">Seguimento: {{  }}
+                  <h5 class="widget-user-desc">Seguimento: 
                     <div class="pull-right box-tools">
                       <div class="input-group input-group-sm" style="width: 150px;">
                         <input v-model="searchQuery" name="table_search" class="form-control pull-right" placeholder="Search">
@@ -76,15 +75,15 @@
                   </div>
                   <!-- /.row -->
                 </div>
-                <div class="box-footer">
-                  <a v-on:click="modalBemAdd = true" class="btn btn-app">
-                    <span class="glyphicon glyphicon-qrcode"></span>
-                    <span class="glyphicon-class">Bem</span>
-                  </a>
-                  <!-- /.row -->
-                </div>
               </div>
               <!-- /.widget-user -->
+            </div>
+            <div class="box-body">
+              <a v-on:click="modalBemAdd = true" class="btn btn-app">
+                <span class="glyphicon glyphicon-qrcode"></span>
+                <span class="glyphicon-class">Bem</span>
+              </a>
+              <!-- /.row -->
             </div>
             <!-- /.col -->
             <bens-grid
@@ -92,7 +91,7 @@
             :categorias="local.categoria"
             :filter-key="searchQuery">
             </bens-grid>
-            <bem-add v-if="modalBemAdd" v-on:close="modalBemAdd = false"  v-on:atualizar="onAtualizar"  :data="modalItem"></bem-add>
+            <bem-add v-if="modalBemAdd" v-on:close="modalBemAdd = false"  v-on:atualizar="onAtualizar"></bem-add>
           </div>
         </div>
         <!-- /.box-body -->

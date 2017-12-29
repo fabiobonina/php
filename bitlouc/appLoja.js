@@ -7,8 +7,6 @@
 Vue.http.options.emulateJSON = true;
 
 const state = {
-  todos:[{body: 'Learn vuex', completed: false}],
-  todo: {},
   proprietario:{},
   lojas: [],
   loja: [],
@@ -24,28 +22,6 @@ const state = {
 }
 
 const mutations = {
-  ADD_TODO(state){
-    state.todos.push({
-      body: state.todo.text,
-      completed: false
-      })
-  },
-  ADD_TEXT(state, text){
-    state.todo.text = text  
-  },
-  REMOVE_TODO(state, todo){ 
-    state.todos.splice(state.todos.indexOf(todo), 1)
-  },
-  COMPLETE(state, todo){
-    todo.completed = true
-  },
-  LOJAS_LOCALIADES(state, locais){
-    locais.id = true
-  },
-  EDIT_TODO(state, todo){
-    state.todo.text = todo.body
-    console.log(state.todo.text)
-  },
   SET_PROPRIETARIO(state, proprietario) {
     state.proprietario = proprietario
   },
@@ -86,21 +62,6 @@ const mutations = {
 }
 
 const actions = {
-  addTodo({commit}){
-    commit('ADD_TODO')
-  },
-  addText({commit}, e){
-    commit('ADD_TEXT', e.target.value)
-  },
-  remove({commit}, todo){
-    commit('REMOVE_TODO', todo)
-  },
-  complete({commit}, todo){
-    commit('COMPLETE', todo)
-  },
-  edit({commit}, todo){
-    commit('EDIT_TODO', todo)
-  },
   setProprietario({ commit }, proprietario) {
     commit("SET_PROPRIETARIO", proprietario)
   },
@@ -263,7 +224,6 @@ const getters = {
   },
 }
 
-
 const store = new Vuex.Store({
   state,
   mutations,
@@ -271,76 +231,6 @@ const store = new Vuex.Store({
   getters
 })
 
-var products = [
-  {id: 1, name: 'Angular', description: 'Superheroic JavaScript MVW Framework.', price: 100},
-  {id: 2, name: 'Ember', description: 'A framework for creating ambitious web applications.', price: 100},
-  {id: 3, name: 'React', description: 'A JavaScript Library for building user interfaces.', price: 100}
-];
-
-function findProduct (productId) {
-  return products[findProductKey(productId)];
-};
-
-function findProductKey (productId) {
-  for (var key = 0; key < products.length; key++) {
-    if (products[key].id == productId) {
-      return key;
-    }
-  }
-};
-
-var Edit = Vue.extend({
-  template: '#edit',
-  data: function () {
-    return {product: findProduct(this.$route.params._id)};
-  },
-  methods: {
-    updateProduct: function () {
-      //Obsolete, product is available directly from data...
-      let product = this.product; //var product = this.$get('product');
-      products[findProductKey(product.id)] = {
-        id: product.id,
-        name: product.name,
-        description: product.description,
-        price: product.price
-      };
-      router.push('/');
-    }
-  }
-});
-//-- ----------------------------------------------------------------------------
-var Add = Vue.extend({
-  template: '#add',
-  data: function () {
-    return {product: {name: '', description: '', price: ''}
-    }
-  },
-  methods: {
-    createProduct: function() {
-      //Obsolete, product is available directly from data...
-      let product = this.product; //var product = this.$get('product');
-      products.push({
-        id: Math.random().toString().split('.')[1],
-        name: product.name,
-        description: product.description,
-        price: product.price
-      });
-      router.push('/');
-    }
-  }
-});
-var Delete = Vue.extend({
-  template: '#delete',
-  data: function () {
-    return {item: findProduct(this.$route.params._id)};
-  },
-  methods: {
-    deleteProduct: function () {
-      products.splice(findProductKey(this.$route.params._id), 1);
-      router.push('/');
-    }
-  }
-});
 var NaoEncontrado = Vue.extend({
   template: '#naoEncontrado',
   data: function () {
@@ -369,9 +259,6 @@ var router = new VueRouter({
       ]
     },*/
     {path: '/loja/:_id/local/:_local', component: Local, name: 'local'},
-    {path: '/add', component: Add},
-    {path: '/loja/:_id/edit', component: Edit, name: 'edit'},
-    {path: '/loja/:_id/delete', component: Delete, name: 'delete'},
     {path: '*', component: NaoEncontrado}
   ]
 });

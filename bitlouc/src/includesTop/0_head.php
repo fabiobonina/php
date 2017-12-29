@@ -45,11 +45,15 @@ function __autoload($class_name){
   <link rel="stylesheet" href="./bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="./dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
+  <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="./dist/css/skins/_all-skins.min.css">
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.css' rel="stylesheet" type="text/css"></link>
+  <script src="lib/vue.js"></script>
+  <script src="lib/vuex.js"></script>
+  <script src="lib/vue-router.js"></script>
+  <script src="lib/vue-resource.js"></script>
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
 <body class="hold-transition skin-blue layout-top-nav">

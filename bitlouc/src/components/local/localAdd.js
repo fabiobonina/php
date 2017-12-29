@@ -6,8 +6,7 @@ Vue.component('local-add', {
       errorMessage: [],
       successMessage: [],
       tipo: '', regional: '', name: '', municipio: '', uf: '', coordenadas:'', ativa: '', 
-      isLoading: false,
-      tipos: []
+      isLoading: false
     };
   },
   props: {
@@ -19,8 +18,6 @@ Vue.component('local-add', {
     tipos() {
       return store.state.tipos;
     },
-  },
-  computed: {
     temErros () {
       return this.errorMessage.length > 0
     },
@@ -29,7 +26,7 @@ Vue.component('local-add', {
     }
   },
   created: function() {
-    this.carregarTipo();
+    //this.carregarTipo();
   },
   methods: {
     saveItem: function(){

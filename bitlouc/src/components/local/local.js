@@ -4,12 +4,11 @@ var Local = Vue.extend({
     return {
       unsupportedBrowser: false,
       searchQuery: '',
-      modalBemAdd: false,
-      modalItem: {},
+      modalBemAdd: false
     };
   },
   mounted: function() {
-    this.modalBemAdd = true;
+    //this.modalBemAdd = true;
   },
   created: function() {
     this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
@@ -33,9 +32,6 @@ var Local = Vue.extend({
       this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
         this.modalBemAdd = false;
       });
-    },
-    selecItem: function(data){
-      this.modalItem = data;
     },
   },
 });

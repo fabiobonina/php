@@ -123,75 +123,13 @@
     <?php include("src/components/bem/bemAdd.php");?>
     <!-- /components bem -->
 
-
-    <template id="add">
-      <div>
-      <h2>Add new product</h2>
-      <form v-on:submit="createProduct">
-        <div class="form-group">
-          <label for="add-name">Name</label>
-          <input class="form-control" id="add-name" v-model="product.name" required/>
-        </div>
-        <div class="form-group">
-          <label for="add-description">Description</label>
-          <textarea class="form-control" id="add-description" rows="10" v-model="product.description"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="add-price">Price, <span class="glyphicon glyphicon-euro"></span></label>
-          <input type="number" class="form-control" id="add-price" v-model="product.price"/>
-        </div>
-        <button type="submit" class="btn btn-primary">Create</button>
-        <a class="btn btn-default"><router-link to="/">Cancel</router-link></a>
-      </form>
-      </div>
-    </template>
-        
-    <template id="edit">
-      <div>
-      <h2>Edit product</h2>
-      <form v-on:submit="updateProduct">
-        <div class="form-group">
-          <label for="edit-name">Name</label>
-          <input class="form-control" id="edit-name" v-model="product.name" required/>
-        </div>
-        <div class="form-group">
-          <label for="edit-description">Description</label>
-          <textarea class="form-control" id="edit-description" rows="3" v-model="product.description"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="edit-price">Price, <span class="glyphicon glyphicon-euro"></span></label>
-          <input type="number" class="form-control" id="edit-price" v-model="product.price"/>
-        </div>
-        <button type="submit" class="btn btn-primary">Save</button>
-        <a class="btn btn-default"><router-link to="/">Cancel</router-link></a>
-      </form>
-      </div>
-    </template>
-
-    <template id="delete">
-      <div>
-      <h2>Delete product {{ product.name }}</h2>
-      <form v-on:submit="deleteProduct">
-        <p>The action cannot be undone.</p>
-        <button type="submit" class="btn btn-danger">Delete</button>
-        <a class="btn btn-default"><router-link to="/">Cancel</router-link></a>
-      </form>
-      </div>
-    </template>
-
     <template id="naoEncrontrado">
       <h2>No encuentro: 404</h2>
     </template>
-
+  </div>
 <!-- /.container -->
 </div>
 <!-- /.content-wrapper -->
-
-<script src="lib/vue.js"></script>
-<script src="lib/vuex.js"></script>
-<script src="lib/vue-router.js"></script>
-<script src="lib/vue-resource.js"></script>
-
 <script src="src/pages/index.js"></script>
 <script src="src/pages/config.js"></script>
 <!-- components local-->

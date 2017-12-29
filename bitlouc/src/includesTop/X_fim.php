@@ -1,6 +1,9 @@
 </div>
 <!-- ./wrapper -->
-
+<script src="lib/vue.js"></script>
+<script src="lib/vuex.js"></script>
+<script src="lib/vue-router.js"></script>
+<script src="lib/vue-resource.js"></script>
 <!-- jQuery 3 -->
 <script src="./bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->

@@ -7,7 +7,7 @@ var Loja = Vue.extend({
       searchQuery: '',
       gridColumns: ['nick', 'name'],
       modalLocalAdd: false,
-      modalItem: {},
+      active: 1
     };
   },
   created: function() {
@@ -16,7 +16,7 @@ var Loja = Vue.extend({
     });
   },
   mounted: function() {
-    //this.showModal = true;
+    //this.modalLocalAdd = true;
   },
   computed: {
     loja()  {
@@ -27,49 +27,10 @@ var Loja = Vue.extend({
     },
   }, // computed
   methods: {
-    /*dados2: function() {
-      if (!this.$route.params._id) {
-        alert('Por favor, preencha todos os campos!');
-        return false;
-      }
-      var postData = {lojaId: this.$route.params._id};
-      this.$http.post('./config/api/apiLojaFull.php?action=loja', postData)
-        .then(function(response) {
-          if(response.data.error){
-            this.errorMessage = response.data.message;
-          } else{
-              this.$store.dispatch('setLoja', response.data.dados);
-              //this.$router.push('/')
-              //console.log(response.data.dados);
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },*/
-    /*dadosLojas: function() {
-      this.$http.get('./config/api/apiLojaFull.php?action=read')
-        .then(function(response) {
-          if(response.data.error){
-            this.errorMessage = response.data.message;
-          } else{
-              //console.log(response.data.dados);
-              this.$store.dispatch('setLojas', response.data.dados);
-              //this.$router.push('/')
-              //this.users = response.data.users;
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },*/
     onAtualizar: function(){
       this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
         console.log("Buscando dados das locais!")
       });
-    },
-    selecItem: function(data){
-      this.modalItem = data;
-    },
+    }
   },
 });

@@ -75,10 +75,39 @@
                   <!-- /.row -->
                 </div>
                 <div class="box-footer">
-                  <a v-on:click="modalLocalAdd = true; selecItem(dados)" class="btn btn-app">
-                    <i class="fa fa-plus"></i> LOCAL
+                  <a v-on:click="modalLocalAdd = true" class="btn btn-app"><i class="fa fa-building-o"></i> LOCAL</a>
+                  <a v-on:click="modalLocalAdd = true" class="btn btn-app">
+                    <span class="glyphicon glyphicon-qrcode"></span>
+                    <span class="glyphicon-class">Local</span>
                   </a>
-                  <!-- /.row -->
+                </div>
+                <div class="tabs is-boxed">
+                  <ul>
+                    <li :class="active==1 ? 'is-active' : ''" @click="active=1">
+                      <a>
+                        <span class="icon is-small"><i class="fa fa-image"></i></span>
+                        <span>Pictures</span>
+                      </a>
+                    </li>
+                    <li :class="active==2 ? 'is-active' : ''" @click="active=2">
+                      <a>
+                        <span class="icon is-small"><i class="fa fa-music"></i></span>
+                        <span>Music</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <span class="icon is-small"><i class="fa fa-film"></i></span>
+                        <span>Videos</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <span class="icon is-small"><i class="fa fa-file-text-o"></i></span>
+                        <span>Documents</span>
+                      </a>
+                    </li>
+                  </ul>
                 </div>
               </div>
             <!-- /.widget-user -->
@@ -86,12 +115,53 @@
             <!-- /.col -->
           </div>
           <!-- /.row -->
+          <nav class="panel" v-if="active==1">
+            <p class="panel-heading">
+              repositories
+            </p>
+            <div class="panel-block">
+              <p class="control has-icons-left">
+                <input class="input is-small" type="text" placeholder="search">
+                <span class="icon is-small is-left">
+                  <i class="fa fa-search"></i>
+                </span>
+              </p>
+            </div>
+            <p class="panel-tabs">
+              <a class="is-active">all</a>
+              <a>public</a>
+              <a>private</a>
+              <a>sources</a>
+              <a>forks</a>
+            </p>
+            <a class="panel-block is-active">
+              <span class="panel-icon">
+                <i class="fa fa-book"></i>
+              </span>
+              bulma
+            </a>
+            <a class="panel-block">
+              <span class="panel-icon">
+                <i class="fa fa-code-fork"></i>
+              </span>
+              mojs
+            </a>
+            <label class="panel-block">
+              <input type="checkbox">
+              remember me
+            </label>
+            <div class="panel-block">
+              <button class="button is-link is-outlined is-fullwidth">
+                reset all filters
+              </button>
+            </div>
+          </nav>
           <grid-local
             :data="locais"
             :columns="gridColumns"
             :filter-key="searchQuery">
           </grid-local>
-          <local-add v-if="modalLocalAdd" v-on:close="modalLocalAdd = false"  @atualizar="onAtualizar" :data="modalItem"></local-add>
+          <local-add v-if="modalLocalAdd" v-on:close="modalLocalAdd = false" :data="loja" @atualizar="onAtualizar"></local-add>
         </div>
         <!-- /.box-body -->
       </div>

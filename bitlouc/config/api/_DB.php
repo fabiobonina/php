@@ -2,7 +2,7 @@
 header('Content-Type: text/html; charset=utf-8');
 require_once '_config.php';
 
-class DB extends PDO{
+class DB {
 
 	private static $instance;
 
