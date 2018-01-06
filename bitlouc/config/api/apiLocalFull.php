@@ -28,8 +28,8 @@ if(isset($_GET['action'])){
 }
   
 if($action == 'read'):
-  $lojaId = $_POST['loja'];
-  //$lojaId = '1';
+  //$lojaId = $_POST['loja'];
+  $lojaId = '1';
 
   $arLocais = array();
   $arBens = array();
@@ -77,7 +77,8 @@ endif;
 #LOJA
 if($action == 'loja'):
   $dados = array();
-  $lojaId = $_POST['lojaId'];
+  //$lojaId = $_POST['lojaId'];
+  $lojaId = 2;
 
   foreach($loja->findAll() as $key => $value):if($value->id == $lojaId) {
     $loja = (array) $value;

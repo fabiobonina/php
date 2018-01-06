@@ -81,7 +81,7 @@
                     <span class="glyphicon-class">Local</span>
                   </a>
                 </div>
-                <div class="tabs is-boxed">
+                <div class="tabs is-toggle">
                   <ul>
                     <li :class="active==1 ? 'is-active' : ''" @click="active=1">
                       <a>
@@ -109,11 +109,7 @@
                     </li>
                   </ul>
                 </div>
-              </div>
-            <!-- /.widget-user -->
-            </div>
-            <!-- /.col -->
-          </div>
+              
           <!-- /.row -->
           <nav class="panel" v-if="active==1">
             <p class="panel-heading">
@@ -145,6 +141,7 @@
                 <i class="fa fa-code-fork"></i>
               </span>
               mojs
+              <h1>teste</h1>
             </a>
             <label class="panel-block">
               <input type="checkbox">
@@ -162,6 +159,11 @@
             :filter-key="searchQuery">
           </grid-local>
           <local-add v-if="modalLocalAdd" v-on:close="modalLocalAdd = false" :data="loja" @atualizar="onAtualizar"></local-add>
+          </div>
+            <!-- /.widget-user -->
+            </div>
+            <!-- /.col -->
+          </div>
         </div>
         <!-- /.box-body -->
       </div>

@@ -1,16 +1,11 @@
 <template id="list">
   <div>
-      <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Lojas
-        <small>Lista</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li class="active"><i class="fa fa-dashboard"></i> Home</li>
-      </ol>
-    </section>
-
+    <nav class="breadcrumb is-right" aria-label="breadcrumbs">
+      <ul>
+        <li class="is-active"><a href="#" aria-current="page"><span class="icon is-small"><i class="fa fa-home" aria-hidden="true"></i></span><span>Home</span></a></li>
+      </ul>
+    </nav>
+    
     <!-- Main content -->
     <section class="content">
       <div class="box box-default">
