@@ -1,4 +1,4 @@
-<template id="footer">
+<template id="rodape">
   <div>
     <footer class="footer">
       <div class="container">

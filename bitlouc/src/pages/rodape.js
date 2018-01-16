@@ -1,6 +1,6 @@
-Vue.component('footer', {
-  name: 'footer',
-  template: '#footer',
+Vue.component('rodape', {
+  name: 'rodape',
+  template: '#rodape',
   data: function () {
     return {
       errorMessage: '',

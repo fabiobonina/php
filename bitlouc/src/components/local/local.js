@@ -4,7 +4,8 @@ var Local = Vue.extend({
     return {
       unsupportedBrowser: false,
       searchQuery: '',
-      modalBemAdd: false
+      modalBemAdd: false,
+      active: '1'
     };
   },
   mounted: function() {

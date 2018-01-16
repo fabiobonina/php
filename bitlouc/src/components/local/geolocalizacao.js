@@ -19,7 +19,13 @@ Vue.component('geolocalizacao', {
       return this.errorMessage.length > 0
     },
     temMessage () {
-      return this.successMessage.length > 0
+      if(this.errorMessage.length > 0){
+        return true
+      }
+      if(this.successMessage.length > 0){
+        return true
+      }
+      return false
     }
   },
   methods: {
@@ -37,7 +43,7 @@ Vue.component('geolocalizacao', {
         };        
         this.$http.post('./config/api/apiLocalFull.php?action=coordenadas', postData)
           .then(function(response) {
-            console.log(response);
+            //console.log(response);
             if(response.data.error){
               this.errorMessage.push(response.data.message);
               this.isLoading = false;
@@ -45,19 +51,15 @@ Vue.component('geolocalizacao', {
               this.successMessage.push(response.data.message);
               this.isLoading = false;
               setTimeout(() => {
-                this.$emit('close');
+                this.$emit('atualizar');
               }, 2000);  
             }
           })
           .catch(function(error) {
             console.log(error);
           });
-          //this.$store.state.create(data)
       }
     },
-    /*beforeLeave: function() {
-      this.$emit('unsupportedBrowser')
-    },*/
     ehVazia () {
       if(this.coordenadas.length == 0){
           this.errorMessage.push('Por favor, preencha todos os campos')

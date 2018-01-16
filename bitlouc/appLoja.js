@@ -19,6 +19,7 @@ const state = {
   produtos:[],
   fabricantes:[],
   categorias:[],
+  servicos:[],
 }
 
 const mutations = {

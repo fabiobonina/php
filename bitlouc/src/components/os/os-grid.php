@@ -1,11 +1,18 @@
-<template id="grid-local">
+<template id="os-grid">
   <div>
-    <section class="container">      
+      <div>
+        <div class="radio">
+          <label><input type="radio" v-model="selectedCategoria" value="All">All </label>&nbsp;&nbsp;&nbsp;
+          <label v-for=" categoria in categorias"><input type="radio" v-model="selectedCategoria" v-bind:value="categoria.id">{{ categoria.name }} &nbsp;&nbsp;&nbsp;</label>
+        </div>
+      </div>
+      <!-- #/SELEÇÃO DE CATEGORIA -->
+      <section class="container">      
       <div class="box content">
         <article class="post" v-for="entry in filteredData">
           <div class="columns">
             <div class="column is-6">
-              <a :href="'#/loja/' + $route.params._id + '/local/' + entry.id" class="product-title"><h5> {{entry.tipo}} - {{entry.name}}</h5></a>
+              <a :href="'#/loja/' + $route.params._id + '/local/' + entry.id" class="product-title"><h5>{{entry.name}} - {{entry.modelo}}</h5></a>
               <div class="media">
                 <div class="media-left">
                   <p class="image is-32x32">
@@ -14,8 +21,8 @@
                 </div>
                 <div class="media-content">
                   <div class="content">
-                    <p>{{entry.municipio}} /{{entry.uf}}  &nbsp; <a>#{{entry.regional}} </a> 
-                      <span class="tag" v-for="categoria in entry.categoria">{{ categoria.tag }} </span> 
+                    <p>{{entry.fabricanteNick}}  &nbsp; <a>#{{entry.proprietarioNick}} </a> 
+                      <span class="tag">{{entry.proprietarioNick}}</span> 
                     </p>
                   </div>
                 </div>
@@ -25,14 +32,14 @@
               <nav class="level">
                 <div class="level-item has-text-centered">
                   <div>
-                    <p class="heading">Local: <i class="fa fa-building-o"></i> {{ entry.locaisQt }}</p>
-                    <p><i class="fa fa-map-marker"></i> {{ entry.locaisGeoStatus }}% ({{ entry.locaisGeoQt }})</span></p>
+                    <p class="heading">Numeração <i class="fa fa-qrcode"></i></p>
+                    <p class="title"> {{ entry.numeracao }}</p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
-                    <p class="heading">Following</p>
-                    <p class="title">123</p>
+                    <p class="heading">Ativo <i class="fa fa-fw fa-barcode"></i></p>
+                    <p class="title">{{ entry.plaqueta }}</p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered">
@@ -49,8 +56,5 @@
         </article>
       </div>
     </section>
-    <div>
-      <geolocalizacao v-if="showModal" v-on:close="onClose" v-on:atualizar="onAtualizar" :data="modalItem"></geolocalizacao>
-    </div>
   </div>
 </template>

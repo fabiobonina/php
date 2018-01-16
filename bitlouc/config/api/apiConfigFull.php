@@ -16,7 +16,7 @@ $loja = new Loja();
 $locais = new Locais();
 $sistemas = new Sistema();
 $grupo = new Grupo();
-$descricao = new Descricao();
+$servicos = new Servicos();
 $ativos = new Ativos();
 
 $res = array('error' => false);
@@ -55,6 +55,15 @@ if($action == 'config'):
   }endforeach;
   $res['fabricantes'] = $arItens;
   #FABRICANTES-----------------------------------------------------------
+
+  #SERVICOS-----------------------------------------------------------
+  $arItens = array();
+  foreach($servicos->findAll() as $key => $value): {
+    $arItem = $value;
+    array_push($arItens, $arItem);
+  }endforeach;
+  $res['servicos'] = $arItens;
+  #SERVICOS-----------------------------------------------------------
 
 endif;
 

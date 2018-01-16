@@ -1,5 +1,5 @@
-Vue.component('bens-grid', {
-  template: '#bens-grid',
+Vue.component('os-grid', {
+  template: '#os-grid',
   props: {
     data: Array,
     categorias: Array,
@@ -10,14 +10,11 @@ Vue.component('bens-grid', {
     return {
       sortKey: '',
       sortOrders: '',
-      modalOsAdd: false,
+      showModal: false,
       modalItem: {},
       geolocalizacao: '',
       selectedCategoria: 'All'
     }
-  },
-  mounted: function() {
-    //this.modalOsAdd = true;
   },
   computed: {
     filteredData: function () {
@@ -46,11 +43,6 @@ Vue.component('bens-grid', {
     },
     selecItem: function(data){
       this.modalItem = data;
-    },
-    onAtualizar: function(){
-      this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
-        this.modalBemAdd = false;
-      });
     },
   }
 });

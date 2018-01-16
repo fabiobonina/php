@@ -1,6 +1,6 @@
-Vue.component('bem-add', {
-  name: 'bem-add',
-  template: '#bem-add',
+Vue.component('os-add', {
+  name: 'os-add',
+  template: '#os-add',
   data() {
     return {
       errorMessage: [],

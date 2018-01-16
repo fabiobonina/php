@@ -41,7 +41,7 @@ CREATE TABLE `login` (
   `ativo` enum('0','1') NOT NULL DEFAULT '0',
   `data_cadastro` date NOT NULL DEFAULT '0000-00-00',
   `data_ultimo_login` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `login`
@@ -83,7 +83,7 @@ CREATE TABLE `tb_ativo` (
   `localidade` int(11) NOT NULL,
   `plaqueta` varchar(11) NOT NULL,
   `data` date NOT NULL DEFAULT '0000-00-00'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_ativo`
@@ -245,7 +245,7 @@ CREATE TABLE `tb_clientes` (
   `nome` varchar(100) NOT NULL,
   `nick` varchar(30) NOT NULL,
   `ativo` enum('0','1') NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_clientes`
@@ -291,7 +291,7 @@ CREATE TABLE `tb_descricao` (
   `id` int(11) NOT NULL,
   `oat` int(11) NOT NULL,
   `descricao` varchar(800) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_descricao`
@@ -399,7 +399,7 @@ CREATE TABLE `tb_grupoloja` (
   `id` int(11) NOT NULL,
   `decricao` varchar(150) NOT NULL,
   `codigo` varchar(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_grupoloja`
@@ -422,7 +422,7 @@ CREATE TABLE `tb_insumos` (
   `quantidade` double NOT NULL,
   `valor` decimal(10,2) NOT NULL,
   `obs` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -441,7 +441,7 @@ CREATE TABLE `tb_localidades` (
   `latitude` float(10,6) DEFAULT NULL,
   `longitude` float(10,6) DEFAULT NULL,
   `ativo` enum('0','1') NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_localidades`
@@ -1237,7 +1237,7 @@ CREATE TABLE `tb_loja` (
   `seguimento` int(11) NOT NULL,
   `data` date NOT NULL DEFAULT '0000-00-00',
   `ativo` enum('0','1') NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_loja`
@@ -1288,7 +1288,7 @@ CREATE TABLE `tb_mod` (
   `data_final` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `tb_tecnicos_id` int(11) NOT NULL,
   `tb_oat_id` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1313,7 +1313,7 @@ CREATE TABLE `tb_oat` (
   `data_term` datetime DEFAULT '0000-00-00 00:00:00',
   `status` enum('0','1','2','3','4') NOT NULL DEFAULT '0',
   `ativo` enum('0','1') NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_oat`
@@ -1454,7 +1454,7 @@ CREATE TABLE `tb_osdespesa` (
   `quantidade` double NOT NULL,
   `valor` decimal(10,0) NOT NULL,
   `obs` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1469,7 +1469,7 @@ CREATE TABLE `tb_postagens` (
   `imagem` varchar(255) NOT NULL,
   `exibir` varchar(5) NOT NULL,
   `descricao` longtext NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1483,7 +1483,7 @@ CREATE TABLE `tb_proprietario` (
   `displayName` varchar(50) NOT NULL,
   `ativo` tinyint(1) NOT NULL,
   `cadastro` date NOT NULL DEFAULT '0000-00-00'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_proprietario`
@@ -1501,7 +1501,7 @@ INSERT INTO `tb_proprietario` (`id`, `name`, `displayName`, `ativo`, `cadastro`)
 CREATE TABLE `tb_seguimento` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_seguimento`
@@ -1523,21 +1523,22 @@ INSERT INTO `tb_seguimento` (`id`, `name`) VALUES
 CREATE TABLE `tb_servicos` (
   `id` varchar(6) NOT NULL,
   `descricao` varchar(30) CHARACTER SET utf8 NOT NULL,
-  `tipo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0',
+  `tipo` enum('0','1','2','3','4') CHARACTER SET utf8 NOT NULL DEFAULT '0',
   `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_servicos`
 --
 
 INSERT INTO `tb_servicos` (`id`, `descricao`, `tipo`, `ativo`) VALUES
-('NV0001', 'NOVA INSTALACAO', '0', '0'),
-('PV0001', 'PREVENTIVO', '1', '0'),
-('OP0002', 'ACOPLAR CILINDRO', '0', '0'),
-('OP0001', 'REABASTER PRODUTO', '0', '0'),
-('CR0001', 'CORRETIVO', '1', '0'),
-('VT0001', 'VISITA TECNICA', '0', '0');
+('INS001', 'NOVA INSTALACAO', '0', '0'),
+('PRV001', 'PREVENTIVO', '1', '0'),
+('OPE002', 'ACOPLAR CILINDRO', '2', '0'),
+('OPE001', 'REABASTER PRODUTO', '2', '0'),
+('COR001', 'CORRETIVO', '1', '0'),
+('DES0001', 'DESINTALACAO', '3', '0'),
+('VIT001', 'VISITA TECNICA', '4', '0');
 
 -- --------------------------------------------------------
 
@@ -1549,7 +1550,7 @@ CREATE TABLE `tb_sistema` (
   `id` varchar(12) NOT NULL,
   `descricao` varchar(30) CHARACTER SET utf8 NOT NULL,
   `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_sistema`
@@ -1574,7 +1575,7 @@ CREATE TABLE `tb_tecnicos` (
   `id` int(11) NOT NULL,
   `nome` varchar(100) NOT NULL,
   `nick_user` varchar(30) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1585,7 +1586,7 @@ CREATE TABLE `tb_tecnicos` (
 CREATE TABLE `tb_tipo` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_tipo`
@@ -1609,7 +1610,7 @@ CREATE TABLE `tipo_despesa` (
   `id` int(11) NOT NULL,
   `tipo_despesa` varchar(45) NOT NULL,
   `ativo` enum('0','1') NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Indexes for dumped tables

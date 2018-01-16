@@ -1,117 +1,94 @@
 
 <template id="loja">
   <div>
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1><a href="#" class="btn"><router-link to="/"><i class="fa fa-arrow-left"></i></router-link></a>Loja<small> dados</small></h1>
-      <ol class="breadcrumb">
-        <li><a><router-link to="/"><i class="fa fa-dashboard"></i> Home</router-link></a></li>
-        <li class="active">Loja</li>
-      </ol>
+    <nav class="breadcrumb is-right" aria-label="breadcrumbs">
+      <ul>
+        <li><router-link to="/"> Home</router-link></li>
+        <li class="is-active"><a aria-current="page">Loja</a></li>
+      </ul>
+    </nav>
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-three-fifths">
+            <h1 class="title"> {{ loja.nick }} </h1>
+            <p class="subtitle"> {{ loja.seguimento }} - {{ loja.name }} <span class="pull-right tag" v-for="categoria in loja.categoria">{{ categoria.tag }}</span></p>
+          </div>
+          <div class="column">
+            <nav class="level">
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">Local: <i class="fa fa-building-o"></i> {{ loja.locaisQt }}</p>
+                  <p><i class="fa fa-map-marker"></i> {{ loja.locaisGeoStatus }}% ({{ loja.locaisGeoQt }})</span></p>
+                </div>
+              </div>
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">Following</p>
+                  <p class="title">123</p>
+                </div>
+              </div>
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">Followers</p>
+                  <p class="title">456K</p>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
     </section>
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="box box-default">
-        <div class="box-body">     
-          <div class="row">
-            <div class="col-md-12">
-              <!-- Widget: user widget style 1 -->
-              <div class="box box-widget widget-user">
-                <!-- Add the bg color to the header using any of the bg-* classes -->
-                <div class="widget-user-header bg-aqua-active">
-                  <h3 class="widget-user-username">{{ loja.nick }}<span class="pull-right badge bg-blue">
-                        Locais: <i class="fa fa-fw fa-building-o"></i> {{ loja.locaisQt }} /<i class="fa fa-fw fa-map-marker"></i> {{ loja.locaisGeoStatus }}% ({{ loja.locaisGeoQt }})</span></h3>
-                  <h5 class="widget-user-desc">Nome: {{ loja.name }}</h5>
-                  <h5 class="widget-user-desc">Seguimento: {{ loja.seguimento }}
-                    <div class="pull-right box-tools">
-                      <div class="input-group input-group-sm" style="width: 150px;">
-                        <input v-model="searchQuery" name="table_search" class="form-control pull-right" placeholder="Search">
-                        <span class="input-group-btn">
-                          <button class="btn btn-teal btn-flat"> <i class="fa fa-building"></i></button>
-                        </span>
-                      </div>
-                    </div>
-                  </h5>
-                </div>
-                <!--div class="widget-user-image">
-                  <img class="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Avatar">
-                </div-->
-                <div class="box-footer">
-                  <div class="row">
-                    <div class="col-sm-3 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">3,200</h5>
-                        <span class="description-text">SALES</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-sm-3 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">13,000</h5>
-                        <span class="description-text">FOLLOWERS</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-sm-3 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">13,000</h5>
-                        <span class="description-text">FOLLOWERS</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-sm-3">
-                      <div class="description-block">
-                        <h5 class="description-header">35</h5>
-                        <span class="description-text">PRODUCTS</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                    <!-- /.col -->
-                  </div>
-                  <!-- /.row -->
-                </div>
-                <div class="box-footer">
-                  <a v-on:click="modalLocalAdd = true" class="btn btn-app"><i class="fa fa-building-o"></i> LOCAL</a>
-                  <a v-on:click="modalLocalAdd = true" class="btn btn-app">
-                    <span class="glyphicon glyphicon-qrcode"></span>
-                    <span class="glyphicon-class">Local</span>
-                  </a>
-                </div>
-                <div class="tabs is-toggle">
-                  <ul>
-                    <li :class="active==1 ? 'is-active' : ''" @click="active=1">
-                      <a>
-                        <span class="icon is-small"><i class="fa fa-image"></i></span>
-                        <span>Pictures</span>
-                      </a>
-                    </li>
-                    <li :class="active==2 ? 'is-active' : ''" @click="active=2">
-                      <a>
-                        <span class="icon is-small"><i class="fa fa-music"></i></span>
-                        <span>Music</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="icon is-small"><i class="fa fa-film"></i></span>
-                        <span>Videos</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="icon is-small"><i class="fa fa-file-text-o"></i></span>
-                        <span>Documents</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              
-          <!-- /.row -->
-          <nav class="panel" v-if="active==1">
+    <section class="container">
+      <div>
+        <div class="tabs is-toggle">
+          <ul>
+            <li :class="active==1 ? 'is-active' : ''" @click="active=1">
+              <a>
+                <span class="icon is-small"><i class="fa fa-building-o"></i></span>
+                <span>Locais</span>
+              </a>
+            </li>
+            <li :class="active==2 ? 'is-active' : ''" @click="active=2">
+              <a>
+                <span class="icon is-small"><i class="fa fa-music"></i></span>
+                <span>Bens Ocioso</span>
+              </a>
+            </li>
+            <li>
+              <a>
+                <span class="icon is-small"><i class="fa fa-film"></i></span>
+                <span>Videos</span>
+              </a>
+            </li>
+            <li>
+              <a>
+                <span class="icon is-small"><i class="fa fa-file-text-o"></i></span>
+                <span>Documents</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <section class="container">
+          <div  v-if="active==1">
+            <div class="widget-user-header bg-aqua-active">
+              <p class="successMessage" v-if="successMessage">{{successMessage}}</p>
+              <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
+            </div>
+            <div>
+              <a v-on:click="modalLocalAdd = true" class="button is-primary is-al">
+                <i class="fa fa-building-o"></i> Local Add
+              </a>
+            </div>
+            <br>
+            <grid-local
+                :data="locais"
+                :columns="gridColumns"
+                :filter-key="searchQuery">
+            </grid-local>
+          </div>
+        </section>
+          <!--nav class="panel">
             <p class="panel-heading">
               repositories
             </p>
@@ -147,28 +124,11 @@
               <input type="checkbox">
               remember me
             </label>
-            <div class="panel-block">
-              <button class="button is-link is-outlined is-fullwidth">
-                reset all filters
-              </button>
-            </div>
-          </nav>
-          <grid-local
-            :data="locais"
-            :columns="gridColumns"
-            :filter-key="searchQuery">
-          </grid-local>
+            
+          </nav-->
           <local-add v-if="modalLocalAdd" v-on:close="modalLocalAdd = false" :data="loja" @atualizar="onAtualizar"></local-add>
-          </div>
-            <!-- /.widget-user -->
-            </div>
-            <!-- /.col -->
-          </div>
-        </div>
-        <!-- /.box-body -->
       </div>
       <!-- /.box -->
     </section>
-      <!-- /.content -->
   </div>
 </template>

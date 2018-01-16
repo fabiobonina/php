@@ -55,10 +55,12 @@ if($action == 'read'):
     $status = 3;
     foreach($bemLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status <= $status ) {
       $bemId = $value->bem;
+      $bemStatus= $value->status;
       foreach($bens->findAll() as $key => $value):if($value->id == $bemId) {
         $arBem = (array) $value; //Bem
         $arBem['loja']= $lojaId;
         $arBem['local']= $localId;
+        $arBem['status']=$bemStatus;
         array_push($arBens, $arBem );
         
       }endforeach;

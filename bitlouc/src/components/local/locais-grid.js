@@ -53,10 +53,14 @@ Vue.component('grid-local', {
     },
     onClose: function(){
       this.showModal = false;
-      this.$emit('atualizar');
     },
     selecItem: function(data){
       this.modalItem = data;
+    },
+    onAtualizar: function(){
+      this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
+        this.showModal = false;
+      });
     },
   }
 });
