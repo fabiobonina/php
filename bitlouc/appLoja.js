@@ -20,9 +20,13 @@ const state = {
   fabricantes:[],
   categorias:[],
   servicos:[],
+  search:'',
 }
 
 const mutations = {
+  SET_SEARCH(state, search) {
+    state.search = search
+  },
   SET_PROPRIETARIO(state, proprietario) {
     state.proprietario = proprietario
   },
@@ -59,10 +63,16 @@ const mutations = {
   SET_CATEGORIAS(state, categorias) {
     state.categorias = categorias
   },
+  SET_SERVICOS(state, servicos) {
+    state.servicos = servicos
+  },
   
 }
 
 const actions = {
+  setSearch({ commit }, search) {
+    commit("SET_SEARCH", search)
+  },
   setProprietario({ commit }, proprietario) {
     commit("SET_PROPRIETARIO", proprietario)
   },
@@ -138,6 +148,7 @@ const actions = {
           commit("SET_TIPOS", response.body.tipos);
           commit("SET_CATEGORIAS", response.body.categorias);
           commit("SET_FABRICANTES", response.body.fabricantes);
+          commit("SET_SERVICOS", response.body.servicos);
           resolve();
         }
       })
@@ -187,6 +198,7 @@ const actions = {
 }
 
 const getters = {
+  getSearch: state => state.search,
   getUser: state => state.user,
   getUsers: state => state.users,
   getProprietario: state => state.proprietario,
@@ -198,6 +210,7 @@ const getters = {
   getProdutos: state => state.produtos,
   getFabricantes: state => state.fabricantes,
   getCategorias: state => state.categorias,
+  getServicos: state => state.servicos,
   getTodoById: state => (id) => {
     return state.lojas.filter(loja => loja.id === id)
   },

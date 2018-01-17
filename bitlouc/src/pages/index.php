@@ -8,7 +8,7 @@
         <div class="level-item">
           <div class="field has-addons">
             <p class="control">
-              <input class="input" type="text" placeholder="Search">
+              <input v-model="searchQuery" class="input" type="text" placeholder="Search">
             </p>
           </div>
         </div>
