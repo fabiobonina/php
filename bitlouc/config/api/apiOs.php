@@ -8,28 +8,20 @@ function __autoload($class_name){
   require_once '../classes/' . $class_name . '.php';
 }
 
-$usuarios = new Usuarios();
-$loja = new Loja();
-$lojaCategoria = new LojaCategorias();
-$locais = new Locais();
-$localCategorias = new LocalCategorias();
-$bens = new Bens();
-$bemLocalizacao = new BemLocalizacao();
-$categorias = new Categorias();
-$descricao = new Descricao();
-$ativos = new Ativos();
+$os = new Os();
+
 
 $res = array('error' => true);
 $arDados = array();
-$action = 'read';
+$action = 'cadastrar';
 
 if(isset($_GET['action'])){
   $action = $_GET['action'];
 }
   
 if($action == 'read'):
-  //$lojaId = $_POST['loja'];
-  $lojaId = '1';
+  $lojaId = $_POST['loja'];
+  //$lojaId = '1';
 
   $arLocais = array();
   $arBens = array();
@@ -55,12 +47,10 @@ if($action == 'read'):
     $status = 3;
     foreach($bemLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status <= $status ) {
       $bemId = $value->bem;
-      $bemStatus= $value->status;
       foreach($bens->findAll() as $key => $value):if($value->id == $bemId) {
         $arBem = (array) $value; //Bem
         $arBem['loja']= $lojaId;
         $arBem['local']= $localId;
-        $arBem['status']=$bemStatus;
         array_push($arBens, $arBem );
         
       }endforeach;
@@ -76,25 +66,6 @@ if($action == 'read'):
 
 endif;
 
-#LOJA
-if($action == 'loja'):
-  $dados = array();
-  //$lojaId = $_POST['lojaId'];
-  $lojaId = 2;
-
-  foreach($loja->findAll() as $key => $value):if($value->id == $lojaId) {
-    $loja = (array) $value;
-    $locais = array();
-    foreach($locais->findAll() as $key => $value):if($value->loja == $lojaId) {
-      $local = (array) $value;
-      array_push($locais, $local );
-    }endforeach;
-
-    $loja['locais']= $locais;
-    $dados = $loja;
-  }endforeach;
-  
-endif;
 
 #GEOLOCALIZAÇÃO
 if($action == 'coordenadas'):
@@ -116,27 +87,50 @@ endif;
 
 #CADASTRAR
 if($action == 'cadastrar'):
-  $loja = $_POST['loja'];
-  $tipo = $_POST['tipo'];
-  $regional = $_POST['regional'];
-  $name = $_POST['name'];
-  $municipio = $_POST['municipio'];
-  $uf = $_POST['uf'];
-  $lat = $_POST['latitude'];
-  $long = $_POST['longitude'];
+  /*$loja = $_POST['loja'];
+  $lojaNick = $_POST['lojaNick'];
+  $local = $_POST['local'];
+  $bem = $_POST['bem'];
+  $categoria = $_POST['categoria'];
+  $servico = $_POST['servico'];
+  $tipoServ = $_POST['tipoServ'];
+  $tecnicos = $_POST['tecnicos'];
+  $data = $_POST['data'];
+  $dtCadastro = $_POST['dtCadastro'];
+  $estado = $_POST['estado'];
+  $status = $_POST['status'];
   $ativo = $_POST['ativo'];
 
-  $locais->setLoja($loja);
-  $locais->setTipo($tipo);
-  $locais->setRegional($regional);
-  $locais->setName($name);
-  $locais->setMunicipio($municipio);
-  $locais->setUf($uf);
-  $locais->setLat($lat);
-  $locais->setLong($long);
-  $locais->setAtivo($ativo);
+  */
+  $loja = '1';
+  $lojaNick = 'AGESPISA';
+  $local = '2';
+  $bem = '1';
+  $categoria = '1';
+  $servico = 'servico';
+  $tipoServ = '3';
+  $tecnicos = 'tecnicos';
+  $data = date("Y-m-d");
+  $dtCadastro = date('Y-m-d H:i:s');
+  $estado = '0';
+  $status = '0';
+  $ativo = '0';
+  
+  $os->setLoja($loja);
+  $os->setLojaNick($lojaNick);
+  $os->setLocal($local);
+  $os->setBem($bem);
+  $os->setCategoria($categoria);
+  $os->setServico($servico);
+  $os->setTipoServ($tipoServ);
+  $os->setTecnicos($tecnicos);
+  $os->setData($data);
+  $os->setDtCadastro($dtCadastro);
+  $os->setEstado($estado);
+  $os->setStatus($status);
+  $os->setAtivo($ativo);
   # Insert
-  if($locais->insert()){
+  if($os->insert()){
     $res['error'] = false;
     $res['message']= "OK, dados salvo com sucesso";
   }else{
@@ -190,4 +184,4 @@ endif;
 
 $res['dados'] = $arDados;
 header("Content-Type: application/json");
-echo json_encode($res, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+echo json_encode($res);

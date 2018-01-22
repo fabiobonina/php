@@ -5,9 +5,15 @@ Vue.component('os-add', {
     return {
       errorMessage: [],
       successMessage: [],
-      produto: {}, modelo: '', numeracao:'', modelo:'',
-      fabricante: {}, categoria: '', plaqueta: '', dataFab: '', dataCompra: '', ativa: '',
-      isLoading: false
+      item:{}, servico: {}, tecnico: [], dataOs: '', ativa: '',
+      isLoading: false,
+      newTodoText: '',
+      todos: [
+        {id: 1, name: 'Do the dishes', },
+        {id: 2, name: 'Take out the trash', },
+        {id: 3, name: 'Mow the lawn'}
+      ],
+      nextTodoId: 4
     };
   },
   props: {
@@ -29,14 +35,11 @@ Vue.component('os-add', {
     local()  {
       return store.getters.getLocalId(this.$route.params._local);
     },
-    produtos() {
-      return store.state.produtos;
+    servicos() {
+      return store.state.servicos;
     },
-    fabricantes() {
-      return store.state.fabricantes;
-    },
-    categorias() {
-      return store.state.categorias;
+    tecnicos() {
+      return store.state.tecnicos;
     },
   },
   created: function() {
@@ -52,25 +55,23 @@ Vue.component('os-add', {
         //const data = {'id': this.data.id, 'modelo': this.modelo
         //'cadastro': new Date().toJSON() }
         var postData = {
-          produto: this.produto.id,
-          tag: this.produto.tag,
-          name: this.produto.name,
-          modelo: this.modelo,
-          numeracao: this.numeracao,
-          fabricante: this.fabricante.id,
-          fabricanteNick: this.fabricante.nick,
-          proprietario: this.loja.id,
-          proprietarioNick: this.loja.nick,
-          proprietarioLocal: this.local.id,
-          categoria: this.categoria.id,
-          plaqueta: this.plaqueta,
-          dataFab: this.dataFab,
-          dataCompra: this.dataCompra,
+          loja: this.loja.id,
+          lojaNick: this.loja.nick,
+          local: this.local.id,
+          bem: this.data.id,
+          categoria: this.data.categoria,
+          servico: this.servico.id,
+          tipoServ: this.servico.tipo,
+          tecnicos: this.tecnico,
+          data: this.dataOs,
+          dtCadastro: new Date().toJSON(),
+          estado: '0',
+          status: '0',
           ativo: '0'
         };
         //var formData = this.toFormData(postData);
         //console.log(postData);
-        this.$http.post('./config/api/apiBemFull.php?action=cadastrar', postData)
+        this.$http.post('./config/api/apiOsFull.php?action=cadastrar', postData)
           .then(function(response) {
             //console.log(response);
             if(response.data.error){
@@ -102,6 +103,10 @@ Vue.component('os-add', {
             return false
         }
         return true
+    },
+    addNewTodo: function () {
+      this.tecnico.push(this.item)
+      this.item = {}
     }
   },
 });

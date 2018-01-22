@@ -17,7 +17,7 @@ $locais = new Locais();
 $sistemas = new Sistema();
 $grupo = new Grupo();
 $servicos = new Servicos();
-$ativos = new Ativos();
+$tecnicos = new Tecnicos();
 
 $res = array('error' => false);
 $action = 'config';
@@ -64,6 +64,14 @@ if($action == 'config'):
   }endforeach;
   $res['servicos'] = $arItens;
   #SERVICOS-----------------------------------------------------------
+  #TECNICOS-----------------------------------------------------------
+  $arItens = array();
+  foreach($tecnicos->findAll() as $key => $value): {
+    $arItem = $value;
+    array_push($arItens, $arItem);
+  }endforeach;
+  $res['tecnicos'] = $arItens;
+  #TECNICOS-----------------------------------------------------------
 
 endif;
 
@@ -82,4 +90,4 @@ endif;
 
 $res['dados'] = $arDados;
 header("Content-Type: application/json");
-echo json_encode($res);
+echo json_encode($res, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

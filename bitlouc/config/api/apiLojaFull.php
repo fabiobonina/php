@@ -118,4 +118,4 @@ include("_chave.php");
 
   $res['dados'] = $arLojas;
   header("Content-Type: application/json");
-  echo json_encode($res);
+  echo json_encode($res, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

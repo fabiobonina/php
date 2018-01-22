@@ -20,6 +20,7 @@ const state = {
   fabricantes:[],
   categorias:[],
   servicos:[],
+  tecnicos:[],
   search:'',
 }
 
@@ -66,6 +67,10 @@ const mutations = {
   SET_SERVICOS(state, servicos) {
     state.servicos = servicos
   },
+  SET_TECNICOS(state, tecnicos) {
+    state.tecnicos = tecnicos
+  },
+  
   
 }
 
@@ -149,6 +154,7 @@ const actions = {
           commit("SET_CATEGORIAS", response.body.categorias);
           commit("SET_FABRICANTES", response.body.fabricantes);
           commit("SET_SERVICOS", response.body.servicos);
+          commit("SET_TECNICOS", response.body.tecnicos);
           resolve();
         }
       })
@@ -211,6 +217,7 @@ const getters = {
   getFabricantes: state => state.fabricantes,
   getCategorias: state => state.categorias,
   getServicos: state => state.servicos,
+  getTecnicos: state => state.tecnicos,
   getTodoById: state => (id) => {
     return state.lojas.filter(loja => loja.id === id)
   },
@@ -256,6 +263,15 @@ var NaoEncontrado = Vue.extend({
       //router.push('/');
     }
   }
+});
+Vue.component('todo-item', {
+  template: `
+    <li>
+      {{ user }}
+      <button class="delete" aria-label="close" v-on:click="$emit(\'remove\')"></button>
+    </li>
+  `,
+  props: ['user']
 });
 
 var router = new VueRouter({

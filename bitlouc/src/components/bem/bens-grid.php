@@ -53,6 +53,6 @@
         </article>
       </div>
     </section>
-    <os-add v-if="modalOsAdd" v-on:close="modalOsAdd = false"  v-on:atualizar="onAtualizar"></os-add>
+    <os-add v-if="modalOsAdd" v-on:close="modalOsAdd = false"  v-on:atualizar="onAtualizar" :data="modalItem"></os-add>
   </div>
 </template>

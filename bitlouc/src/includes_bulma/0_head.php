@@ -40,10 +40,12 @@ function __autoload($class_name){
   <link rel="stylesheet" href="./dist/css/font-awesome.min.css">
   <link rel="stylesheet" href="./dist/css/bulma.min.css"> 
   <link rel="stylesheet" type="text/css" href="./dist/css/index.css">
+    
   <script src="lib/vue.js"></script>
   <script src="lib/vuex.js"></script>
   <script src="lib/vue-router.js"></script>
   <script src="lib/vue-resource.js"></script>
+  
     
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
