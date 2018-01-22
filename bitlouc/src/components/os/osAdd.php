@@ -8,7 +8,6 @@
       </header>
       <section class="modal-card-body">
         <message :success="successMessage" :error="errorMessage"></message>
-        <message :success="successMessage" :error="errorMessage"></message>
         <!--#CONTEUDO -->
         <p>{{ loja.nick }}: {{ local.tipo }} - {{ local.name }}</p>
         <div class="field is-horizontal">

@@ -71,9 +71,9 @@ Vue.component('os-add', {
         };
         //var formData = this.toFormData(postData);
         //console.log(postData);
-        this.$http.post('./config/api/apiOsFull.php?action=cadastrar', postData)
+        this.$http.post('./config/api/apiOs.php?action=cadastrar', postData)
           .then(function(response) {
-            //console.log(response);
+            console.log(response);
             if(response.data.error){
               this.errorMessage.push(response.data.message);
               this.isLoading = false;
@@ -92,7 +92,7 @@ Vue.component('os-add', {
       }
     },
     ehVazia () {
-      if(this.produto.length == 0 || this.modelo.length == 0 || this.fabricante.length == 0 || this.categoria.length == 0 || this.dataCompra.length == 0){
+      if(this.servico.length == 0 || this.data.length == 0 || this.tecnico.length == 0 ){
           this.errorMessage.push('Por favor, preencha os campos obrigatorio *')
           return true
       }

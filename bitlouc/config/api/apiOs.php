@@ -87,21 +87,23 @@ endif;
 
 #CADASTRAR
 if($action == 'cadastrar'):
-  /*$loja = $_POST['loja'];
+
+  $loja = $_POST['loja'];
   $lojaNick = $_POST['lojaNick'];
   $local = $_POST['local'];
   $bem = $_POST['bem'];
   $categoria = $_POST['categoria'];
   $servico = $_POST['servico'];
   $tipoServ = $_POST['tipoServ'];
-  $tecnicos = $_POST['tecnicos'];
+  $tecnicos['tecnicos'] = $_POST['tecnicos'];
+  $tecnicos = (string) $tecnicos;
   $data = $_POST['data'];
   $dtCadastro = $_POST['dtCadastro'];
   $estado = $_POST['estado'];
   $status = $_POST['status'];
   $ativo = $_POST['ativo'];
 
-  */
+  /*
   $loja = '1';
   $lojaNick = 'AGESPISA';
   $local = '2';
@@ -115,6 +117,7 @@ if($action == 'cadastrar'):
   $estado = '0';
   $status = '0';
   $ativo = '0';
+  */
   
   $os->setLoja($loja);
   $os->setLojaNick($lojaNick);
@@ -184,4 +187,4 @@ endif;
 
 $res['dados'] = $arDados;
 header("Content-Type: application/json");
-echo json_encode($res);
+echo json_encode($res, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

@@ -50,6 +50,7 @@ Vue.component('bens-grid', {
     onAtualizar: function(){
       this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
         this.modalBemAdd = false;
+        this.modalOsAdd = false;
       });
     },
   }
