@@ -35,6 +35,7 @@
     <!-- components os -->
     <?php include("src/components/os/os-grid.php");?>
     <?php include("src/components/os/osAdd.php");?>
+    <?php include("src/components/os/osLojas.php");?>
     <!-- /components os -->
     <!-- components user -->
     <?php include("src/components/user/user.php");?>
@@ -73,6 +74,7 @@
 <!-- components os -->
 <script src="src/components/os/os-grid.js"></script>
 <script src="src/components/os/osAdd.js"></script>
+<script src="src/components/os/osLojas.js"></script>
 <!-- /components os -->
 <!-- components user -->
 <script src="src/components/user/user.js"></script>

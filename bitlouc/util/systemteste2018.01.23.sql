@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 27-Dez-2017 às 21:25
+-- Generation Time: 23-Jan-2018 às 21:04
 -- Versão do servidor: 10.1.26-MariaDB
 -- PHP Version: 7.1.9
 
@@ -51,9 +51,11 @@ CREATE TABLE `tb_bem` (
 --
 
 INSERT INTO `tb_bem` (`id`, `produto`, `tag`, `name`, `modelo`, `numeracao`, `fabricante`, `fabricanteNick`, `proprietario`, `proprietarioNick`, `proprietarioLocal`, `categoria`, `plaqueta`, `dataFrabricacao`, `dataCompra`) VALUES
-(0, 1, 'MSA', 'MASCARA AUTONOMA', '300LB', '1234', 1, 'MSA', 1, 'AGESPISA', 2, 1, '101010', NULL, '2017-12-27'),
-(1, 2, 'SCL', 'SISTEMA DE CLORACAO', '240', '123123', 2, 'CLORANDO', 24, 'SABARA', 2, 1, '101010', '2017-12-17', '2017-12-17'),
-(2, 1, 'MSA', 'MASCARA AUTONOMA', '3', '123123', 1, 'MSA', 24, 'SABARA', 2, 1, '', '2017-12-10', '2017-12-10');
+(1, 1, 'tag', 'name', 'modelo', 'numeracao', 1, 'fabricanteNick', 1, 'proprietarioNick', 2, 1, '10101010', '2017-12-28', '2017-12-28'),
+(2, 1, 'tag', 'name', 'modelo', 'numeracao', 1, 'fabricanteNick', 1, 'proprietarioNick', 2, 1, '10101010', '2017-12-28', '2017-12-28'),
+(3, 1, 'MSA', 'MASCARA AUTONOMA', '300lbs', '1234', 1, 'MSA', 1, 'AGESPISA', 2, 1, '101010', '2017-12-28', '2017-12-28'),
+(4, 2, 'SCL', 'SISTEMA CLORACAO', '26KG', '', 2, 'CLORANDO', 1, 'AGESPISA', 2, 1, '111111', '2017-12-28', '2017-12-28'),
+(5, 3, 'CLORADOR', 'CLORADOR', '100kg', '10000', 2, 'CLORANDO', 1, 'AGESPISA', 2, 1, '101010', '2017-12-28', '2017-12-28');
 
 -- --------------------------------------------------------
 
@@ -96,9 +98,9 @@ INSERT INTO `tb_bem_componentes` (`id`, `produto`, `tag`, `name`, `capacidade`, 
 CREATE TABLE `tb_bem_localizacao` (
   `id` int(11) NOT NULL,
   `bem` int(11) NOT NULL,
-  `loja` int(11) NOT NULL,
+  `loja` int(11) DEFAULT NULL,
   `local` int(11) DEFAULT NULL,
-  `dataIncial` date DEFAULT '0000-00-00',
+  `dataInicial` date DEFAULT '0000-00-00',
   `dataFinal` date DEFAULT '0000-00-00',
   `status` enum('0','1','2','3') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -107,9 +109,12 @@ CREATE TABLE `tb_bem_localizacao` (
 -- Extraindo dados da tabela `tb_bem_localizacao`
 --
 
-INSERT INTO `tb_bem_localizacao` (`id`, `bem`, `loja`, `local`, `dataIncial`, `dataFinal`, `status`) VALUES
-(1, 1, 24, 535, '2017-12-01', '2017-12-17', '3'),
-(2, 1, 1, 2, '2017-12-18', '0000-00-00', '1');
+INSERT INTO `tb_bem_localizacao` (`id`, `bem`, `loja`, `local`, `dataInicial`, `dataFinal`, `status`) VALUES
+(1, 1, 1, 2, '2017-12-28', '0000-00-00', '0'),
+(2, 2, 1, 2, '2017-12-28', '0000-00-00', '0'),
+(3, 3, 1, 2, '2017-12-28', '0000-00-00', '1'),
+(4, 4, 1, 2, '2017-12-28', '0000-00-00', '0'),
+(5, 5, 1, 2, '2017-12-28', '0000-00-00', '1');
 
 -- --------------------------------------------------------
 
@@ -371,6 +376,21 @@ CREATE TABLE `tb_grupoloja` (
 INSERT INTO `tb_grupoloja` (`id`, `decricao`) VALUES
 ('P', 'Proprietario'),
 ('C', 'Cliente');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_insumos`
+--
+
+CREATE TABLE `tb_insumos` (
+  `id` int(11) NOT NULL,
+  `tb_oat_id` int(11) NOT NULL,
+  `descricao` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `quantidade` double NOT NULL,
+  `valor` decimal(10,2) NOT NULL,
+  `obs` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -984,7 +1004,7 @@ INSERT INTO `tb_locais` (`id`, `loja`, `tipo`, `regional`, `name`, `municipio`, 
 (591, 16, 'ETA', 'MATA NORTE', 'PAUDALHO', 'PAUDALHO', 'PE', -7.882000, -35.179001, '0'),
 (592, 16, 'ETA', 'MATA NORTE', 'BIZARRA', 'BOM JARDIM', 'PE', -7.756000, -35.484001, '0'),
 (593, 16, 'ETA', 'MATA NORTE', 'BUENOS AIRES', 'BUENOS AIRES', 'PE', 0.000000, 0.000000, '0'),
-(594, 1, 'ETA', '', 'TESTE', 'ITAPISSUMA', 'PE', -7.111111, -34.923485, '0');
+(594, 1, 'ETA', '', 'TESTE', 'ITAPISSUMA', 'PE', -1.111111, -22.111111, '0');
 
 -- --------------------------------------------------------
 
@@ -1081,6 +1101,64 @@ CREATE TABLE `tb_loja_categoria` (
 
 INSERT INTO `tb_loja_categoria` (`id`, `loja`, `categoria`, `ativo`) VALUES
 (1, 1, 1, '0');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_mod`
+--
+
+CREATE TABLE `tb_mod` (
+  `id` int(11) NOT NULL,
+  `data_inicial` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `data_final` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `tecnico` int(11) NOT NULL,
+  `os` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_os`
+--
+
+CREATE TABLE `tb_os` (
+  `id` int(11) NOT NULL,
+  `loja` int(11) NOT NULL,
+  `lojaNick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `local` int(11) NOT NULL,
+  `servico` varchar(6) COLLATE utf8_unicode_ci NOT NULL,
+  `categoria` int(11) NOT NULL,
+  `tipoServ` int(1) NOT NULL,
+  `bem` int(11) NOT NULL,
+  `tecnicos` varchar(450) COLLATE utf8_unicode_ci NOT NULL,
+  `data` date NOT NULL DEFAULT '0000-00-00',
+  `dtUltimoMan` date DEFAULT '0000-00-00',
+  `dtCadastro` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `filial` int(2) DEFAULT NULL,
+  `os` int(11) DEFAULT NULL,
+  `dtOs` datetime DEFAULT '0000-00-00 00:00:00',
+  `dtFech` datetime DEFAULT '0000-00-00 00:00:00',
+  `dtTerm` datetime DEFAULT '0000-00-00 00:00:00',
+  `estado` enum('0','1','2','3','4') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `status` enum('0','1','2','3','4') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `ativo` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `tb_os`
+--
+
+INSERT INTO `tb_os` (`id`, `loja`, `lojaNick`, `local`, `servico`, `categoria`, `tipoServ`, `bem`, `tecnicos`, `data`, `dtUltimoMan`, `dtCadastro`, `filial`, `os`, `dtOs`, `dtFech`, `dtTerm`, `estado`, `status`, `ativo`) VALUES
+(1, 1, 'AGESPISA', 2, 'servic', 1, 3, 1, 'tecnicos', '2018-01-22', NULL, '2018-01-22 06:57:37', NULL, NULL, NULL, NULL, NULL, '0', '0', '0'),
+(2, 1, 'AGESPISA', 2, 'COR001', 1, 3, 3, 'Array', '2018-01-22', NULL, '2018-01-22 18:47:32', NULL, NULL, NULL, NULL, NULL, '0', '0', '0'),
+(3, 1, 'AGESPISA', 2, 'COR001', 1, 3, 3, 'Array', '2018-01-22', NULL, '2018-01-22 19:06:40', NULL, NULL, NULL, NULL, NULL, '0', '0', '0'),
+(4, 1, 'AGESPISA', 2, 'DES000', 1, 4, 3, 'Array', '2018-01-22', NULL, '2018-01-22 19:11:41', NULL, NULL, NULL, NULL, NULL, '0', '0', '0'),
+(5, 1, 'AGESPISA', 2, 'COR001', 1, 3, 3, 'Array', '2018-01-22', NULL, '2018-01-22 19:13:45', NULL, NULL, NULL, NULL, NULL, '0', '0', '0'),
+(6, 1, 'AGESPISA', 2, 'COR001', 1, 3, 3, 'Array', '2018-01-22', NULL, '2018-01-22 19:38:25', NULL, NULL, NULL, NULL, NULL, '0', '0', '0'),
+(7, 1, 'AGESPISA', 2, 'COR001', 1, 3, 3, 'Array', '2018-01-22', NULL, '2018-01-22 19:57:54', NULL, NULL, NULL, NULL, NULL, '0', '0', '0'),
+(8, 1, 'AGESPISA', 2, 'DES000', 1, 4, 3, 'Array', '2018-01-22', NULL, '2018-01-22 20:01:45', NULL, NULL, NULL, NULL, NULL, '0', '0', '0'),
+(9, 6, 'AGESPISA', 7, 'COR001', 1, 3, 3, 'Array', '2018-01-22', NULL, '2018-01-22 20:10:26', NULL, NULL, NULL, NULL, NULL, '0', '0', '0');
 
 -- --------------------------------------------------------
 
@@ -1182,6 +1260,32 @@ INSERT INTO `tb_seguimento` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `tb_servicos`
+--
+
+CREATE TABLE `tb_servicos` (
+  `id` varchar(6) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(30) CHARACTER SET utf8 NOT NULL,
+  `tipo` enum('0','1','2','3','4') CHARACTER SET utf8 NOT NULL DEFAULT '0',
+  `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `tb_servicos`
+--
+
+INSERT INTO `tb_servicos` (`id`, `name`, `tipo`, `ativo`) VALUES
+('COR001', 'CORRETIVO', '3', '0'),
+('DES000', 'DESINTALACAO', '4', '0'),
+('INS001', 'NOVA INSTALACAO', '1', '0'),
+('OPE001', 'REABASTER PRODUTO', '2', '0'),
+('OPE002', 'ACOPLAR CILINDRO', '2', '0'),
+('PRV001', 'PREVENTIVO', '3', '0'),
+('VIT001', 'VISITA TECNICA', '0', '0');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `tb_sistema`
 --
 
@@ -1203,6 +1307,26 @@ INSERT INTO `tb_sistema` (`id`, `descricao`, `ativo`) VALUES
 ('SBPAC-SPC', 'PAC', '0'),
 ('SBSEG-KITCL', 'KIT DE EMERGENCIA CLORO', '0'),
 ('SBSEG-MCA', 'MASCARA AUTONOMA', '0');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_tecnicos`
+--
+
+CREATE TABLE `tb_tecnicos` (
+  `id` int(11) NOT NULL,
+  `user` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `hh` double(5,2) NOT NULL,
+  `ativo` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `tb_tecnicos`
+--
+
+INSERT INTO `tb_tecnicos` (`id`, `user`, `hh`, `ativo`) VALUES
+(1, 'Fábio Boninã', 10.00, '0');
 
 -- --------------------------------------------------------
 
@@ -1241,8 +1365,8 @@ CREATE TABLE `users` (
   `password` varchar(32) CHARACTER SET latin1 NOT NULL,
   `avatar` varchar(350) CHARACTER SET latin1 DEFAULT NULL,
   `proprietario` int(11) DEFAULT NULL,
-  `grupoLoja` int(2) DEFAULT NULL,
-  `loja` int(11) DEFAULT NULL,
+  `grupoLoja` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `loja` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `nivel` enum('0','1','2','3','4') CHARACTER SET latin1 NOT NULL DEFAULT '0',
   `ativo` enum('0','1') CHARACTER SET latin1 NOT NULL DEFAULT '0',
   `data_cadastro` date NOT NULL DEFAULT '0000-00-00',
@@ -1254,7 +1378,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `user`, `password`, `avatar`, `proprietario`, `grupoLoja`, `loja`, `nivel`, `ativo`, `data_cadastro`, `data_ultimo_login`) VALUES
-(1, 'FABIO VITORINO BONINA MORAIS', 'fabiobonina@gmail.com', 'Fábio Boninã', 'a906449d5769fa7361d7ecc6aa3f6d28', 'http://www.gravatar.com/avatar/5f3781a40c3fde1b4ac568a97692aa70?d=identicon', NULL, NULL, NULL, '1', '0', '2017-11-08', '2017-11-08 20:18:04');
+(1, 'FABIO VITORINO BONINA MORAIS', 'fabiobonina@gmail.com', 'Fábio Boninã', 'a906449d5769fa7361d7ecc6aa3f6d28', 'http://www.gravatar.com/avatar/5f3781a40c3fde1b4ac568a97692aa70?d=identicon', 1, 'P', '2', '4', '0', '2017-11-08', '2017-11-08 20:18:04');
 
 --
 -- Indexes for dumped tables
@@ -1350,6 +1474,12 @@ ALTER TABLE `tb_loja`
   ADD UNIQUE KEY `nick` (`nick`);
 
 --
+-- Indexes for table `tb_os`
+--
+ALTER TABLE `tb_os`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tb_produtos`
 --
 ALTER TABLE `tb_produtos`
@@ -1382,10 +1512,23 @@ ALTER TABLE `tb_seguimento`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tb_servicos`
+--
+ALTER TABLE `tb_servicos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tb_sistema`
 --
 ALTER TABLE `tb_sistema`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_tecnicos`
+--
+ALTER TABLE `tb_tecnicos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `userx` (`user`);
 
 --
 -- Indexes for table `tb_tipo`
@@ -1397,17 +1540,42 @@ ALTER TABLE `tb_tipo`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user` (`user`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
+-- AUTO_INCREMENT for table `tb_bem`
+--
+ALTER TABLE `tb_bem`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `tb_bem_componentes`
+--
+ALTER TABLE `tb_bem_componentes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tb_bem_localizacao`
+--
+ALTER TABLE `tb_bem_localizacao`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `tb_loja`
 --
 ALTER TABLE `tb_loja`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT for table `tb_os`
+--
+ALTER TABLE `tb_os`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tb_produtos`
@@ -1425,6 +1593,12 @@ ALTER TABLE `tb_produto_categoria`
 -- AUTO_INCREMENT for table `tb_proprietario`
 --
 ALTER TABLE `tb_proprietario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tb_tecnicos`
+--
+ALTER TABLE `tb_tecnicos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --

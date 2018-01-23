@@ -88,45 +88,7 @@
             </grid-local>
           </div>
         </section>
-          <!--nav class="panel">
-            <p class="panel-heading">
-              repositories
-            </p>
-            <div class="panel-block">
-              <p class="control has-icons-left">
-                <input class="input is-small" type="text" placeholder="search">
-                <span class="icon is-small is-left">
-                  <i class="fa fa-search"></i>
-                </span>
-              </p>
-            </div>
-            <p class="panel-tabs">
-              <a class="is-active">all</a>
-              <a>public</a>
-              <a>private</a>
-              <a>sources</a>
-              <a>forks</a>
-            </p>
-            <a class="panel-block is-active">
-              <span class="panel-icon">
-                <i class="fa fa-book"></i>
-              </span>
-              bulma
-            </a>
-            <a class="panel-block">
-              <span class="panel-icon">
-                <i class="fa fa-code-fork"></i>
-              </span>
-              mojs
-              <h1>teste</h1>
-            </a>
-            <label class="panel-block">
-              <input type="checkbox">
-              remember me
-            </label>
-            
-          </nav-->
-          <local-add v-if="modalLocalAdd" v-on:close="modalLocalAdd = false" :data="loja" @atualizar="onAtualizar"></local-add>
+        <local-add v-if="modalLocalAdd" v-on:close="modalLocalAdd = false" :data="loja" @atualizar="onAtualizar"></local-add>
       </div>
       <!-- /.box -->
     </section>

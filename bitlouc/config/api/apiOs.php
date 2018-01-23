@@ -11,11 +11,21 @@ function __autoload($class_name){
 $oss = new Os();
 $lojas = new Loja();
 $bens = new Bens();
-
+$proprietario = new Proprietario();
 
 $res = array('error' => true);
 $arDados = array();
 $action = 'read';
+
+//$res['user'] = $user;
+$acessoNivel = $user['nivel'];// $user >  include("_chave.php");
+$acessoProprietario = $user['proprietario'];
+$acessoGrupo = $user['grupo'];
+$acessoloja = $user['loja'];
+//$acessoNivel = 2;
+//$acessoProprietario = 1;
+//$acessoGrupo = 'P';
+//$acessoloja = 24;
 
 if(isset($_GET['action'])){
   $action = $_GET['action'];
@@ -24,43 +34,51 @@ if(isset($_GET['action'])){
 if($action == 'read'):
   //$lojaId = $_POST['loja'];
   //$lojaId = '1';
+
   $osStatus = '1';
-  $arLocais = array();
-  $arOss = array();
-  #LOCAIS-----------------------------------------------------------------------------------
-  foreach($lojas->findAll() as $key => $value): {
-    $arLoja = (array) $value;
-    $lojaId = $value->id;
-    
-
-    #LOCAL_CATEGORIA-------------------------------------------------------------------------
+  $arLojas = array();
+  $contPp_OsTt = 0;
+  #PROPRITARIO-----------------------------------------------------------------------------------------
+  foreach($proprietario->findAll() as $key => $value):if($value->id == $acessoProprietario && $value->ativo == '0' ) {
+    $arProprietario = (array) $value;
+    #LOJAS---------------------------------------------------------------------------------------------
     $arLojas = array();
-    foreach($oss->findAll() as $key => $value):if($value->loja == $lojaId) {
-      $arOs = (array) $value;
-      $bemId = $value->bem;
-    
-
-    $arLocal['categoria']= $arOs;
-    #LOCAL_CATEGORIA----------------------------------------------------------------------------
-
-    #LOCAIS_BENS-----------------------------------------------------------------------------------
-    $status = 3;
-    
+    foreach($lojas->findAll() as $key => $value):if($value->proprietario == $acessoProprietario && (( $acessoNivel > 1 && $acessoGrupo == 'P' ) || $value->id == $acessoloja )){
+      $arLoja = (array) $value;
+      $lojaId = $value->id;
       
-      foreach($bens->findAll() as $key => $value):if($value->id == $bemId) {
-        $arBem = (array) $value; //Bem
-        $arBem['loja']= $lojaId;
-        $arBem['local']= $localId;
-        array_push($arBens, $arBem );
-        
+      $contLj_OsTt = 0;
+      #OSS--------------------------------------------------------------------------------------------
+      $arOss = array();
+      foreach($oss->findAll() as $key => $value):if($value->loja == $lojaId) {
+        $arOs = (array) $value;
+        $bemId = $value->bem;
+        $contPp_OsTt++;
+        $contLj_OsTt++;
+      
+        #BEM-----------------------------------------------------------------------------------------
+        $status = 3;      
+        foreach($bens->findAll() as $key => $value):if($value->id == $bemId) {
+          $arBem = (array) $value; //Bem
+          $arOs['bens']= $arBem;
+        }endforeach;
+        #BEM-----------------------------------------------------------------------------------------
+
+        array_push($arOss, $arOs);
       }endforeach;
+       
+      $arLoja['oss']= $arOss;
+      #OSS--------------------------------------------------------------------------------------------
+
+      if($contLj_OsTt > 0){
+        array_push($arLojas, $arLoja );   
+      }
     }endforeach;
-    #LOCAIS_BENS-----------------------------------------------------------------------------------
-    array_push($arLocais, $arLocal );
+    #LOJAS---------------------------------------------------------------------------------------------
   }endforeach;
-  #LOCAIS-------------------------------------------------------------------------------------------
-  $res['locais']= $arLocais;
-  $res['bens']= $arBens;
+  #PROPRITARIO-----------------------------------------------------------------------------------------
+  $res['osLojas']= $arLojas;
+  //$res['bens']= $arBens;
   //$arDados = $arLocal;
   $res['error'] = false;
 

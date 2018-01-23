@@ -1,24 +1,24 @@
 var List = Vue.extend({
-    template: '#list',
-    data: function () {
-      return {
-        errorMessage: '',
-        successMessage: '',
-        active: '0',
-        gridColumns: ['displayName', 'name']
-      };
+  template: '#list',
+  data: function () {
+    return {
+      errorMessage: '',
+      successMessage: '',
+      active: '0',
+      gridColumns: ['displayName', 'name']
+    };
+  },
+  created() {
+  },
+  computed: {
+    proprietario() {
+      return store.state.proprietario;
     },
-    created() {
+    lojas() {
+      return store.state.lojas;
     },
-    computed: {
-      proprietario() {
-        return store.state.proprietario;
-      },
-      lojas() {
-        return store.state.lojas;
-      },
-    },
-    methods: {
-    }
-  });
+  },
+  methods: {
+  }
+});
   

@@ -78,7 +78,8 @@
         </div>
         <section class="container">
           <div  v-if="active==0">
-            
+            <os-lojas>
+            </os-lojas>
           </div>
           <div  v-if="active==1">
             <div>

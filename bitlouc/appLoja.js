@@ -21,6 +21,7 @@ const state = {
   categorias:[],
   servicos:[],
   tecnicos:[],
+  oss:[],
   search:'',
 }
 
@@ -69,6 +70,9 @@ const mutations = {
   },
   SET_TECNICOS(state, tecnicos) {
     state.tecnicos = tecnicos
+  },
+  SET_OSS(state, oss) {
+    state.oss = oss
   },
   
   
@@ -163,6 +167,23 @@ const actions = {
       }));
     });
   },
+  fetchOs({ commit }) {
+    return new Promise((resolve, reject) => {
+        Vue.http.get("./config/api/apiOs.php?action=read")
+      .then((response) => {
+        if(response.body.error){
+          console.log(response.body.message);
+        } else{
+          //console.log(response.body);
+          commit("SET_OSS", response.body.osLojas);
+          resolve();
+        }
+      })
+      .catch((error => {
+          console.log(error.statusText);
+      }));
+    });
+  },
   fetchLocais({ commit }, loja) {
     return new Promise((resolve, reject) => {
       var postData = {
@@ -218,6 +239,7 @@ const getters = {
   getCategorias: state => state.categorias,
   getServicos: state => state.servicos,
   getTecnicos: state => state.tecnicos,
+  getOss: state => state.oss,
   getTodoById: state => (id) => {
     return state.lojas.filter(loja => loja.id === id)
   },
