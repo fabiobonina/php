@@ -276,7 +276,7 @@ Vue.component('todo-item', {
 
 var router = new VueRouter({
   routes: [
-    {path: '/', component: List},
+    {path: '/', component: List,  name: 'home'},
     {path: '/loja/:_id', component: Loja, name: 'loja'},
     /*{path: '/config', component: Loja,
     children: [

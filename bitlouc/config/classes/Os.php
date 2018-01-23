@@ -95,7 +95,7 @@ class Os extends Crud{
 			$stmt->bindParam(':tipoServ',$this->tipoServ);
 			$stmt->bindParam(':categoria',$this->categoria);
 			$stmt->bindParam(':bem',$this->bem);
-			$stmt->bindValue(':tecnicos',$this->tecnicos);
+			$stmt->bindParam(':tecnicos',$this->tecnicos);
 			$stmt->bindParam(':data',$this->data);
 			$stmt->bindParam(':dtUltimoMan',$this->dtUltimoMan);
 			$stmt->bindParam(':dtCadastro',$this->dtCadastro);

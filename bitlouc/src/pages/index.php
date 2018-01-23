@@ -21,9 +21,8 @@
 
       <div id="navbarExampleTransparentExample" class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item" href="https://bulma.io/">
-            Home
-          </a>
+          <a class="navbar-item" href="#/"> Home</a>
+          <a class="navbar-item" href="#/os"> OS</a>
           <div class="navbar-item dropdown">
             <a class="navbar-link">
               Docs

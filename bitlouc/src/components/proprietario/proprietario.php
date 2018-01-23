@@ -44,17 +44,58 @@
           <p class="successMessage" v-if="successMessage">{{successMessage}}</p>
           <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
         </div>
-        <div>
-          <a v-on:click="modalLojaAdd = true; selecItem(dados)" class="button is-primary is-al is-large">
-            <i class="fa fa-building-o"></i> Loja Add
-          </a>
+      </div>
+    </section>
+    <section class="container">
+      <div>
+        <div class="tabs is-toggle">
+          <ul>
+            <li :class="active==0 ? 'is-active' : ''" @click="active='0'">
+              <a>
+                <span class="icon is-small"><i class="fa fa-building-o"></i></span>
+                <span>OS´s</span>
+              </a>
+            </li>
+            <li :class="active==1 ? 'is-active' : ''" @click="active='1'">
+              <a>
+                <span class="icon is-small"><i class="fa fa-music"></i></span>
+                <span>Lojas</span>
+              </a>
+            </li>
+            <li :class="active==2 ? 'is-active' : ''" @click="active='2'">
+              <a>
+                <span class="icon is-small"><i class="fa fa-film"></i></span>
+                <span>Ocioso</span>
+              </a>
+            </li>
+            <li>
+              <a>
+                <span class="icon is-small"><i class="fa fa-file-text-o"></i></span>
+                <span>Documents</span>
+              </a>
+            </li>
+          </ul>
         </div>
-        <br>
-        <grid-lojas
-          :data="lojas"
-          :columns="gridColumns"
-          :filter-key="searchQuery">
-        </grid-lojas>
+        <section class="container">
+          <div  v-if="active==0">
+            
+          </div>
+          <div  v-if="active==1">
+            <div>
+              <a v-on:click="modalLojaAdd = true; selecItem(dados)" class="button is-primary is-al">
+                <i class="fa fa-building-o"></i> Loja
+              </a>
+            </div>
+            <br>
+            <grid-lojas
+              :data="lojas"
+              :columns="gridColumns">
+            </grid-lojas>
+          </div>
+          <div  v-if="active==2">
+            
+          </div>
+        </section>
       </div>
     </section>
       <!-- /.content -->

@@ -8,45 +8,45 @@ function __autoload($class_name){
   require_once '../classes/' . $class_name . '.php';
 }
 
-$os = new Os();
+$oss = new Os();
+$lojas = new Loja();
+$bens = new Bens();
 
 
 $res = array('error' => true);
 $arDados = array();
-$action = 'cadastrar';
+$action = 'read';
 
 if(isset($_GET['action'])){
   $action = $_GET['action'];
 }
   
 if($action == 'read'):
-  $lojaId = $_POST['loja'];
+  //$lojaId = $_POST['loja'];
   //$lojaId = '1';
-
+  $osStatus = '1';
   $arLocais = array();
-  $arBens = array();
+  $arOss = array();
   #LOCAIS-----------------------------------------------------------------------------------
-  foreach($locais->findAll() as $key => $value):if($value->loja == $lojaId) {
-    $arLocal = (array) $value;
-    $localId = $value->id;
+  foreach($lojas->findAll() as $key => $value): {
+    $arLoja = (array) $value;
+    $lojaId = $value->id;
+    
 
     #LOCAL_CATEGORIA-------------------------------------------------------------------------
-    $arCategorias = array();
-    foreach($localCategorias->findAll() as $key => $value):if($value->local == $localId) {
-      $categoriaId = $value->categoria;
-      foreach($categorias->findAll() as $key => $value):if($value->id == $categoriaId) {
-        $arCategoria = (array) $value;
-        array_push($arCategorias, $arCategoria );
-      }endforeach;
-    }endforeach;
+    $arLojas = array();
+    foreach($oss->findAll() as $key => $value):if($value->loja == $lojaId) {
+      $arOs = (array) $value;
+      $bemId = $value->bem;
+    
 
-    $arLocal['categoria']= $arCategorias;
+    $arLocal['categoria']= $arOs;
     #LOCAL_CATEGORIA----------------------------------------------------------------------------
 
     #LOCAIS_BENS-----------------------------------------------------------------------------------
     $status = 3;
-    foreach($bemLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status <= $status ) {
-      $bemId = $value->bem;
+    
+      
       foreach($bens->findAll() as $key => $value):if($value->id == $bemId) {
         $arBem = (array) $value; //Bem
         $arBem['loja']= $lojaId;
@@ -66,25 +66,6 @@ if($action == 'read'):
 
 endif;
 
-
-#GEOLOCALIZAÇÃO
-if($action == 'coordenadas'):
-  $id = $_POST['id'];
-  $lat = $_POST['latitude'];
-  $long = $_POST['longitude'];
-
-  $locais->setLat($lat);
-  $locais->setLong($long);
-
-  if($locais->geolocalizacso($id)){
-    $res['error'] = false;
-    $res['message']= "OK, dados salvo com sucesso";
-  }else{
-    $res['error'] = true; 
-    $res['message'] = "Error, nao foi possivel salvar os dados";      
-  }
-endif;
-
 #CADASTRAR
 if($action == 'cadastrar'):
 
@@ -95,8 +76,7 @@ if($action == 'cadastrar'):
   $categoria = $_POST['categoria'];
   $servico = $_POST['servico'];
   $tipoServ = $_POST['tipoServ'];
-  $tecnicos['tecnicos'] = $_POST['tecnicos'];
-  $tecnicos = (string) $tecnicos;
+  $tecnicos = json_encode($_POST['tecnicos'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
   $data = $_POST['data'];
   $dtCadastro = $_POST['dtCadastro'];
   $estado = $_POST['estado'];
@@ -145,44 +125,12 @@ endif;
 #ATUALIZAR
 if(isset($_POST['atualizar'])):
 
-  $id = $_POST['id'];
-  $cliente = $_POST['cliente'];
-  $regional = $_POST['regional'];
-  $nome = $_POST['nome'];
-  $municipio = $_POST['municipio'];
-  $uf = $_POST['uf'];
-  $lat = $_POST['lat'];
-  $long =$_POST["long"];
-  $ativo =$_POST["ativo"];
-
-  $locais->setCliente($cliente);
-  $locais->setRegional($regional);
-  $locais->setNome($nome);
-  $locais->setMunicipio($municipio);
-  $locais->setUf($uf);
-  $locais->setLat($lat);
-  $locais->setLong($long);
-  $locais->setAtivo($ativo);
-
-  if($locais->update($id)){
-    echo '<div class="alert alert-success">
-      <button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>Atualizado com sucesso!</strong> Redirecionando ...
-      </div>';
-    header("Refresh: 1, ".$redirecionar_1);
-  }
+  
 endif;
 
 #DELETAR
 if(isset($_GET['acao1']) && $_GET['acao1'] == 'deletar'):
-  $id = (int)$_GET['id'];
-  if($locais->delete($id)){
-    echo '<div class="alert alert-success">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>Deletado com sucesso!</strong> Redirecionando ...
-        </div>';
-    header("Refresh: 1, ".$redirecionar_1);
-  }
+  
 endif;
 
 $res['dados'] = $arDados;

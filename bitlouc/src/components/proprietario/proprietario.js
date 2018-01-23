@@ -4,7 +4,7 @@ var List = Vue.extend({
       return {
         errorMessage: '',
         successMessage: '',
-        searchQuery: '',
+        active: '0',
         gridColumns: ['displayName', 'name']
       };
     },
