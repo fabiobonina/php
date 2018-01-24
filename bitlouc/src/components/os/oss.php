@@ -81,11 +81,10 @@
               </a>
             </div>
             <br>
-            <grid-local
-                :data="locais"
-                :columns="gridColumns"
-                :filter-key="searchQuery">
-            </grid-local>
+            <os-grid
+                :data="oss"
+                :columns="gridColumns">
+            </os-grid>
           </div>
         </section>
         <local-add v-if="modalLocalAdd" v-on:close="modalLocalAdd = false" :data="loja" @atualizar="onAtualizar"></local-add>

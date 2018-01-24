@@ -8,10 +8,13 @@ function __autoload($class_name){
   require_once '../classes/' . $class_name . '.php';
 }
 
-$oss = new Os();
-$lojas = new Loja();
-$bens = new Bens();
 $proprietario = new Proprietario();
+$lojas = new Loja();
+$locais = new Locais();
+$oss = new Os();
+$bens = new Bens();
+$servicos = new Servicos();
+
 
 $res = array('error' => true);
 $arDados = array();
@@ -38,48 +41,69 @@ if($action == 'read'):
   $osStatus = '1';
   $arLojas = array();
   $contPp_OsTt = 0;
+  $arProprietario = array();
+  $arOss = array();
   #PROPRITARIO-----------------------------------------------------------------------------------------
   foreach($proprietario->findAll() as $key => $value):if($value->id == $acessoProprietario && $value->ativo == '0' ) {
-    $arProprietario = (array) $value;
+    $arProprietario['id'] = $value->id;
     #LOJAS---------------------------------------------------------------------------------------------
     $arLojas = array();
+    
     foreach($lojas->findAll() as $key => $value):if($value->proprietario == $acessoProprietario && (( $acessoNivel > 1 && $acessoGrupo == 'P' ) || $value->id == $acessoloja )){
       $arLoja = (array) $value;
       $lojaId = $value->id;
       
       $contLj_OsTt = 0;
       #OSS--------------------------------------------------------------------------------------------
-      $arOss = array();
-      foreach($oss->findAll() as $key => $value):if($value->loja == $lojaId) {
+      $estado = 3;
+      foreach($oss->findAll() as $key => $value):if($value->loja == $lojaId && $value->estado < $estado) {
         $arOs = (array) $value;
+        $localId = $value->local;
         $bemId = $value->bem;
+        $servId = $value->servico;
+        
         $contPp_OsTt++;
         $contLj_OsTt++;
-      
+
+        #LOCAIS-------------------------------------------------------------------------------------------
+        foreach($locais->findAll() as $key => $value):if($value->id == $localId) {
+          $arLocal = (array) $value;
+          $arOs['local']= $arLocal;
+        }endforeach;
+        #LOCAIS-------------------------------------------------------------------------------------------
+        
         #BEM-----------------------------------------------------------------------------------------
-        $status = 3;      
         foreach($bens->findAll() as $key => $value):if($value->id == $bemId) {
           $arBem = (array) $value; //Bem
-          $arOs['bens']= $arBem;
+          $arOs['bem']= $arBem;
         }endforeach;
         #BEM-----------------------------------------------------------------------------------------
 
+        #SERVICOS-----------------------------------------------------------
+        foreach($servicos->findAll() as $key => $value):if($value->id == $servId)  {
+          $arItem = $value;
+          $arOs['servico'] = $arItem;
+        }endforeach;
+        
+        #SERVICOS-----------------------------------------------------------
+        
         array_push($arOss, $arOs);
       }endforeach;
-       
-      $arLoja['oss']= $arOss;
-      #OSS--------------------------------------------------------------------------------------------
       
+      #OSS--------------------------------------------------------------------------------------------
+      $arLoja['osQt']= $contLj_OsTt;
+      $arProprietario['osQt']= $contPp_OsTt;
+
       if($contLj_OsTt > 0){
         array_push($arLojas, $arLoja );   
       }
     }endforeach;
+    $res['oss']= $arOss;
     #LOJAS---------------------------------------------------------------------------------------------
   }endforeach;
   #PROPRITARIO-----------------------------------------------------------------------------------------
+  $res['osProprietario']= $arProprietario;
   $res['osLojas']= $arLojas;
-  //$res['bens']= $arBens;
-  //$arDados = $arLocal;
   $res['error'] = false;
 
 endif;

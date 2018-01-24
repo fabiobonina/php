@@ -17,14 +17,15 @@
             <nav class="level">
               <div class="level-item has-text-centered">
                 <div>
-                  <p class="heading">Local: <i class="fa fa-building-o"></i> {{ proprietario.locaisQt }}</p>
-                  <p><i class="fa fa-map-marker"></i> {{ proprietario.locaisGeoStatus }}% ({{ proprietario.locaisGeoQt }})</span></p>
+                  <p class="heading">Local</p>
+                  <p class="title"> {{ proprietario.locaisQt }} <span class="icon is-small has-text-info"> <i class="fa fa-building-o"></i></span></p>
+                  <p> {{ proprietario.locaisGeoStatus }}% ({{ proprietario.locaisGeoQt }})<span class="icon has-text-success"><i class="fa fa-map-marker"></i></span></p>
                 </div>
               </div>
               <div class="level-item has-text-centered">
                 <div>
-                  <p class="heading">Following</p>
-                  <p class="title">123</p>
+                  <p class="heading">OS´s</p>
+                  <p class="title"> {{ osProprietario.osQt }} <span class="icon is-small has-text-warning"><i class="fa fa-wrench"></i></span></p>
                 </div>
               </div>
               <div class="level-item has-text-centered">

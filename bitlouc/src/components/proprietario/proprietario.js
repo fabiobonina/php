@@ -14,6 +14,9 @@ var List = Vue.extend({
     proprietario() {
       return store.state.proprietario;
     },
+    osProprietario() {
+      return store.state.osProprietario;
+    },
     lojas() {
       return store.state.lojas;
     },

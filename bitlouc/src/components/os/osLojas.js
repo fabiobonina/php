@@ -13,7 +13,7 @@ Vue.component('os-lojas', {
     },
     computed: {
         osLojas() {
-            return store.state.oss;
+            return store.state.osLojas;
         },
     },
     methods: {

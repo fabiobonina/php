@@ -12,16 +12,14 @@
         <article class="post" v-for="entry in filteredData">
           <div class="columns">
             <div class="column is-6">
-              <a :href="'#/loja/' + $route.params._id + '/local/' + entry.id" class="product-title"><h5>{{entry.name}} - {{entry.modelo}}</h5></a>
+              <a :href="'#/oss/' + $route.params._id + '/os/' + entry.id" class="product-title"><h5>{{entry.local.tipo}} - {{entry.local.name}} ({{entry.local.municipio}}/{{entry.local.uf}})</h5></a>
               <div class="media">
-                <div class="media-left">
-                  <p class="image is-32x32">
-                    <img src="http://bulma.io/images/placeholders/128x128.png">
-                  </p>
-                </div>
                 <div class="media-content">
                   <div class="content">
-                    <p>{{entry.fabricanteNick}}  &nbsp; <a>#{{entry.proprietarioNick}} </a> 
+                    <p>{{entry.bem.name}} {{entry.bem.modelo}}  &nbsp; <a>#{{entry.proprietarioNick}} </a> 
+                      <span class="tag">{{entry.proprietarioNick}}</span> 
+                    </p>
+                    <p>{{entry.bem.name}} {{entry.bem.modelo}}  &nbsp; <a>#{{entry.proprietarioNick}} </a> 
                       <span class="tag">{{entry.proprietarioNick}}</span> 
                     </p>
                   </div>
@@ -38,16 +36,21 @@
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
-                    <p class="heading">Ativo <i class="fa fa-fw fa-barcode"></i></p>
+                    <p class="heading">Ativo <i class="fa fa-barcode"></i></p>
                     <p class="title">{{ entry.plaqueta }}</p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
-                    <a v-if=" 0.000000 != entry.latitude" :href="'https://maps.google.com/maps?q='+ entry.latitude + '%2C' + entry.longitude" target="_blank">
-                      <span><i class="fa fa-map"></i> Como chegar</span>
+                    <a v-if=" 0.000000 != entry.local.latitude" :href="'https://maps.google.com/maps?q='+ entry.local.latitude + '%2C' + entry.local.longitude" target="_blank">
+                      <span>Mapa <i class="fa fa-map"></i></span>
                     </a>
-                    <p><button v-on:click="showModal = true; selecItem(entry)" class="button">Geoposição</button></p>
+                    <p class="field">
+                      <a v-on:click="showModal = true; selecItem(entry)" class="button is-small is-info">
+                        <span>Geoposição</span>
+                        <span class="icon is-small"><i class="fa fa-map-marker"></i></span>
+                      </a>
+                    </p>
                   </div>
                 </div>
               </nav>

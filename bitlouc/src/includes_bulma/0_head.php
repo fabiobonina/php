@@ -45,6 +45,7 @@ function __autoload($class_name){
   <script src="lib/vuex.js"></script>
   <script src="lib/vue-router.js"></script>
   <script src="lib/vue-resource.js"></script>
+  <script defer src="/dist/fontawesome/fantawesome-all.js"></script>
   
     
 </head>

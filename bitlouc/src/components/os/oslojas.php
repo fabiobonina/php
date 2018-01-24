@@ -1,10 +1,10 @@
 
 <template id="os-lojas">
     <div class="columns is-gapless is-multiline is-mobile">
-        <div v-for=" os in osLojas" class="column is-half">
+        <div v-for=" osLoja in osLojas" class="column is-half">
             <div class="card">
                 <header class="card-header">
-                <p class="card-header-title"><a :href="'#/oss/' + os.id" class="product-title">{{os.nick}}</a></p>
+                <p class="card-header-title"><a :href="'#/oss/' + osLoja.id" class="product-title">{{osLoja.nick}}</a></p>
                     <a href="#" class="card-header-icon" aria-label="more options">
                         <span class="icon">
                             <i class="fa fa-angle-down" aria-hidden="true"></i>
@@ -16,8 +16,8 @@
                         <nav class="level">
                             <div class="level-item has-text-centered">
                                 <div>
-                                    <p class="heading">OS´s:</p>
-                                    <p class="title"> {{ os.oss.length }} <i class="fa fa-wrench"></i></span></p>
+                                    <p class="heading">OS´s</p>
+                                    <p class="title"> {{ osLoja.osQt }} <span class="icon is-small has-text-warning"><i class="fa fa-wrench"></i></span></p>
                                 </div>
                             </div>
                             <div class="level-item has-text-centered">

@@ -2,8 +2,7 @@ Vue.component('os-grid', {
   template: '#os-grid',
   props: {
     data: Array,
-    categorias: Array,
-    status: String,
+    columns: Array,
     filterKey: String
   },
   data: function () {
@@ -18,17 +17,25 @@ Vue.component('os-grid', {
   },
   computed: {
     filteredData: function () {
-      var vm = this;
-      var categoria = vm.selectedCategoria;
-      if(categoria === "All") {
-        return vm.data.filter(function(person) {
-          return person.status === vm.status;
-      });
-      } else {
-          return vm.data.filter(function(person) {
-              return person.categoria === categoria && person.status === vm.status;
-          });
+      var sortKey = this.sortKey
+      var filterKey = store.state.search && store.state.search.toLowerCase()
+      var order = this.sortOrders[sortKey] || 1
+      var data = this.data
+      if (filterKey) {
+        data = data.filter(function (row) {
+          return Object.keys(row).some(function (key) {
+            return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+          })
+        })
       }
+      if (sortKey) {
+        data = data.slice().sort(function (a, b) {
+          a = a[sortKey]
+          b = b[sortKey]
+          return (a === b ? 0 : a > b ? 1 : -1) * order
+        })
+      }
+      return data
     }
   },
   filters: {
@@ -37,12 +44,20 @@ Vue.component('os-grid', {
     }
   },
   methods: {
+    sortBy: function (key) {
+      this.sortKey = key
+      this.sortOrders[key] = this.sortOrders[key] * -1
+    },
     onClose: function(){
       this.showModal = false;
-      this.$emit('atualizar');
     },
     selecItem: function(data){
       this.modalItem = data;
+    },
+    onAtualizar: function(){
+      this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
+        this.showModal = false;
+      });
     },
   }
 });

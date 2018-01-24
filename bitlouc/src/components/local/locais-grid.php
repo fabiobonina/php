@@ -38,9 +38,14 @@
                 <div class="level-item has-text-centered">
                   <div>
                     <a v-if=" 0.000000 != entry.latitude" :href="'https://maps.google.com/maps?q='+ entry.latitude + '%2C' + entry.longitude" target="_blank">
-                      <span><i class="fa fa-map"></i> Como chegar</span>
+                      <span>Mapa <i class="fa fa-map"></i></span>
                     </a>
-                    <p><button v-on:click="showModal = true; selecItem(entry)" class="button">Geoposição</button></p>
+                    <p class="field">
+                      <a v-on:click="showModal = true; selecItem(entry)" class="button is-small is-info">
+                        <span>Geoposição</span>
+                        <span class="icon is-small"><i class="fa fa-map-marker"></i></span>
+                      </a>
+                    </p>
                   </div>
                 </div>
               </nav>

@@ -21,6 +21,8 @@ const state = {
   categorias:[],
   servicos:[],
   tecnicos:[],
+  osProprietario:{},
+  osLojas:[],
   oss:[],
   search:'',
 }
@@ -70,6 +72,12 @@ const mutations = {
   },
   SET_TECNICOS(state, tecnicos) {
     state.tecnicos = tecnicos
+  },
+  SET_OSPROPRIETARIO(state, osProprietario) {
+    state.osProprietario = osProprietario
+  },
+  SET_OSLOJAS(state, osLojas) {
+    state.osLojas = osLojas
   },
   SET_OSS(state, oss) {
     state.oss = oss
@@ -174,8 +182,10 @@ const actions = {
         if(response.body.error){
           console.log(response.body.message);
         } else{
-          //console.log(response.body);
-          commit("SET_OSS", response.body.osLojas);
+          console.log(response.body);
+          commit("SET_OSPROPRIETARIO", response.body.osProprietario);
+          commit("SET_OSLOJAS", response.body.osLojas);
+          commit("SET_OSS", response.body.oss);
           resolve();
         }
       })
@@ -264,6 +274,12 @@ const getters = {
   },
   getBensLocal: (state) => (local) => {
     return state.bens.filter(todo => todo.local === local)
+  },
+  getOssLoja: (state) => (loja) => {
+    return state.oss.filter(todo => todo.loja === loja)
+  },
+  getOsId: (state) => (id) => {
+    return state.oss.find(todo => todo.id === id)
   },
 }
 
