@@ -69,7 +69,7 @@ if($action == 'read'):
        
       $arLoja['oss']= $arOss;
       #OSS--------------------------------------------------------------------------------------------
-
+      
       if($contLj_OsTt > 0){
         array_push($arLojas, $arLoja );   
       }

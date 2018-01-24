@@ -311,6 +311,8 @@ var router = new VueRouter({
       ]
     },*/
     {path: '/loja/:_id/local/:_local', component: Local, name: 'local'},
+    {path: '/oss/:_id', component: Oss, name: 'oss'},
+    {path: '/oss/:_id/os/:_os', component: Os, name: 'os'},
     {path: '*', component: NaoEncontrado}
   ]
 });

@@ -33,6 +33,8 @@
     <?php include("src/components/bem/bemAdd.php");?>
     <!-- /components bem -->
     <!-- components os -->
+    <?php include("src/components/os/oss.php");?>
+    <?php include("src/components/os/os.php");?>
     <?php include("src/components/os/os-grid.php");?>
     <?php include("src/components/os/osAdd.php");?>
     <?php include("src/components/os/osLojas.php");?>
@@ -73,6 +75,8 @@
 <!-- /components bem -->
 <!-- components os -->
 <script src="src/components/os/os-grid.js"></script>
+<script src="src/components/os/oss.js"></script>
+<script src="src/components/os/os.js"></script>
 <script src="src/components/os/osAdd.js"></script>
 <script src="src/components/os/osLojas.js"></script>
 <!-- /components os -->

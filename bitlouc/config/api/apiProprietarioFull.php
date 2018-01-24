@@ -23,6 +23,8 @@ $bemLocalizacao = new BemLocalizacao();
 $categorias = new Categorias();
 $usuarios = new Usuarios();
 $ativos = new Ativos();
+#OS
+$oss = new Os();
 
 
 $res = array('error' => true);
@@ -33,14 +35,14 @@ if(isset($_GET['action'])){
   $action = $_GET['action'];
 }
 $res['user'] = $user;
-$acessoNivel = $user['nivel'];
-$acessoProprietario = $user['proprietario']
-$acessoGrupo = $user['grupo']
-$acessoloja = $user['loja']
-//$acessoNivel = 2;
-//$acessoProprietario = 1;
-//$acessoGrupo = 'P';
-//$acessoloja = 24;
+//$acessoNivel = $user['nivel'];
+//$acessoProprietario = $user['proprietario'];
+//$acessoGrupo = $user['grupo'];
+//$acessoloja = $user['loja'];
+$acessoNivel = 2;
+$acessoProprietario = 1;
+$acessoGrupo = 'C';
+$acessoloja = 2;
 
 if($action == 'read'):
   //$acessoProprietario = $_POST['acessoProprietario'];
@@ -125,43 +127,6 @@ if($action == 'read'):
     $arProprietario['locaisQt']= $contPp_localTt;
     $arProprietario['locaisGeoQt']= $contPp_localGeo;
     $arProprietario['locaisGeoStatus']= $geoStatus;
-  }endforeach;
-  
-  
-  $localId = '2';
-  foreach($locais->findAll() as $key => $value):if($value->id == $localId) {
-    $arLocal = (array) $value;
-    $lojaId = $value->loja;
-
-    foreach($loja->findAll() as $key => $value):if($value->id == $lojaId) {
-      $arLoja = (array) $value; //Loja
-    }endforeach;
-    $arLocal['loja']= $arLoja;
-
-    $arBens = array();
-    $status = 1;
-    foreach($bemLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status == $status) {
-      $bemId = $value->bem;
-      foreach($bens->findAll() as $key => $value):if($value->id == $bemId) {
-        $arBem = (array) $value; //Bem
-        array_push($arBens, $arBem );
-      }endforeach;
-    }endforeach;
-    $arLocal['bens']= $arBens;
-
-    //Montar Array grupos----------------------------------------------------
-    $arCategorias = array();
-    foreach($localCategorias->findAll() as $key => $value):if($value->local == $localId) {
-      $categoriaId = $value->categoria;
-      foreach($categorias->findAll() as $key => $value):if($value->id == $categoriaId) {
-        $arCategoria = (array) $value;
-        array_push($arCategorias, $arCategoria );
-      }endforeach;
-    }endforeach;
-
-    $arLocal['categoria']= $arCategorias;
-    //Montar Array grupos----------------------------------------------------
-    
   }endforeach;
   $arProprietario['lojas']= $arLojas;
   //$arDados = $arLocal;
