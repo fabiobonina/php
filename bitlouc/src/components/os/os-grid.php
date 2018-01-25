@@ -1,11 +1,11 @@
 <template id="os-grid">
   <div>
-      <div>
+      <!--div>
         <div class="radio">
           <label><input type="radio" v-model="selectedCategoria" value="All">All </label>&nbsp;&nbsp;&nbsp;
           <label v-for=" categoria in categorias"><input type="radio" v-model="selectedCategoria" v-bind:value="categoria.id">{{ categoria.name }} &nbsp;&nbsp;&nbsp;</label>
         </div>
-      </div>
+      </div-->
       <!-- #/SELEÇÃO DE CATEGORIA -->
       <section class="container">      
       <div class="box content">
@@ -16,7 +16,7 @@
               <div class="media">
                 <div class="media-content">
                   <div class="content">
-                    <p>{{entry.bem.name}} {{entry.bem.modelo}}  &nbsp; <a>#{{entry.proprietarioNick}} </a> 
+                    <p>{{entry.data}} | {{entry.servico.name}}  &nbsp; <a>#{{entry.proprietarioNick}} </a> 
                       <span class="tag">{{entry.proprietarioNick}}</span> 
                     </p>
                     <p>{{entry.bem.name}} {{entry.bem.modelo}}  &nbsp; <a>#{{entry.proprietarioNick}} </a> 
