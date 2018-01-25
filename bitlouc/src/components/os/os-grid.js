@@ -12,7 +12,8 @@ Vue.component('os-grid', {
       showModal: false,
       modalItem: {},
       geolocalizacao: '',
-      selectedCategoria: 'All'
+      selectedCategoria: 'All',
+      active: 4
     }
   },
   computed: {

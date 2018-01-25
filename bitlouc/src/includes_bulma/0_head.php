@@ -40,6 +40,8 @@ function __autoload($class_name){
   <link rel="stylesheet" href="./dist/css/font-awesome.min.css">
   <link rel="stylesheet" href="./dist/css/bulma.min.css"> 
   <link rel="stylesheet" type="text/css" href="./dist/css/index.css">
+  <link href='https://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="./dist/css/_progress.css">
     
   <script src="lib/vue.js"></script>
   <script src="lib/vuex.js"></script>
