@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 23-Jan-2018 às 21:04
--- Versão do servidor: 10.1.26-MariaDB
--- PHP Version: 7.1.9
+-- Generation Time: 26-Jan-2018 às 07:09
+-- Versão do servidor: 10.1.13-MariaDB
+-- PHP Version: 7.0.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -1150,16 +1148,8 @@ CREATE TABLE `tb_os` (
 -- Extraindo dados da tabela `tb_os`
 --
 
-INSERT INTO `tb_os` (`id`, `loja`, `lojaNick`, `local`, `servico`, `categoria`, `tipoServ`, `bem`, `tecnicos`, `data`, `dtUltimoMan`, `dtCadastro`, `filial`, `os`, `dtOs`, `dtFech`, `dtTerm`, `estado`, `status`, `ativo`) VALUES
-(1, 1, 'AGESPISA', 2, 'servic', 1, 3, 1, 'tecnicos', '2018-01-22', NULL, '2018-01-22 06:57:37', NULL, NULL, NULL, NULL, NULL, '0', '0', '0'),
-(2, 1, 'AGESPISA', 2, 'COR001', 1, 3, 3, 'Array', '2018-01-22', NULL, '2018-01-22 18:47:32', NULL, NULL, NULL, NULL, NULL, '0', '0', '0'),
-(3, 1, 'AGESPISA', 2, 'COR001', 1, 3, 3, 'Array', '2018-01-22', NULL, '2018-01-22 19:06:40', NULL, NULL, NULL, NULL, NULL, '0', '0', '0'),
-(4, 1, 'AGESPISA', 2, 'DES000', 1, 4, 3, 'Array', '2018-01-22', NULL, '2018-01-22 19:11:41', NULL, NULL, NULL, NULL, NULL, '0', '0', '0'),
-(5, 1, 'AGESPISA', 2, 'COR001', 1, 3, 3, 'Array', '2018-01-22', NULL, '2018-01-22 19:13:45', NULL, NULL, NULL, NULL, NULL, '0', '0', '0'),
-(6, 1, 'AGESPISA', 2, 'COR001', 1, 3, 3, 'Array', '2018-01-22', NULL, '2018-01-22 19:38:25', NULL, NULL, NULL, NULL, NULL, '0', '0', '0'),
-(7, 1, 'AGESPISA', 2, 'COR001', 1, 3, 3, 'Array', '2018-01-22', NULL, '2018-01-22 19:57:54', NULL, NULL, NULL, NULL, NULL, '0', '0', '0'),
-(8, 1, 'AGESPISA', 2, 'DES000', 1, 4, 3, 'Array', '2018-01-22', NULL, '2018-01-22 20:01:45', NULL, NULL, NULL, NULL, NULL, '0', '0', '0'),
-(9, 6, 'AGESPISA', 7, 'COR001', 1, 3, 3, 'Array', '2018-01-22', NULL, '2018-01-22 20:10:26', NULL, NULL, NULL, NULL, NULL, '0', '0', '0');
+INSERT INTO `tb_os` (`id`, `loja`, `lojaNick`, `local`, `servico`, `categoria`, `tipoServ`, `bem`, `tecnicos`, `data`, `dtUltimoMan`, `dtCadastro`, `filial`, `os`, `dtOs`, `dtFech`, `dtTerm`, `estado`, `processo`, `status`, `ativo`) VALUES
+(1, 1, 'AGESPISA', 2, 'COR001', 1, 3, 3, '[{"id":"1","user":"Fábio Boninã","hh":"10.00","ativo":"0"}]', '2018-01-26', NULL, '2018-01-26 09:12:03', NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0');
 
 -- --------------------------------------------------------
 
@@ -1553,62 +1543,51 @@ ALTER TABLE `users`
 --
 ALTER TABLE `tb_bem`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `tb_bem_componentes`
 --
 ALTER TABLE `tb_bem_componentes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `tb_bem_localizacao`
 --
 ALTER TABLE `tb_bem_localizacao`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `tb_loja`
 --
 ALTER TABLE `tb_loja`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
-
 --
 -- AUTO_INCREMENT for table `tb_os`
 --
 ALTER TABLE `tb_os`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tb_produtos`
 --
 ALTER TABLE `tb_produtos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `tb_produto_categoria`
 --
 ALTER TABLE `tb_produto_categoria`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `tb_proprietario`
 --
 ALTER TABLE `tb_proprietario`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `tb_tecnicos`
 --
 ALTER TABLE `tb_tecnicos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-COMMIT;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

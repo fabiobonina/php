@@ -122,6 +122,7 @@ if($action == 'cadastrar'):
   $data = $_POST['data'];
   $dtCadastro = $_POST['dtCadastro'];
   $estado = $_POST['estado'];
+  $processo = $_POST['processo'];
   $status = $_POST['status'];
   $ativo = $_POST['ativo'];
 
@@ -137,25 +138,27 @@ if($action == 'cadastrar'):
   $data = date("Y-m-d");
   $dtCadastro = date('Y-m-d H:i:s');
   $estado = '0';
+  processo = '0';
   $status = '0';
   $ativo = '0';
   */
   
-  $os->setLoja($loja);
-  $os->setLojaNick($lojaNick);
-  $os->setLocal($local);
-  $os->setBem($bem);
-  $os->setCategoria($categoria);
-  $os->setServico($servico);
-  $os->setTipoServ($tipoServ);
-  $os->setTecnicos($tecnicos);
-  $os->setData($data);
-  $os->setDtCadastro($dtCadastro);
-  $os->setEstado($estado);
-  $os->setStatus($status);
-  $os->setAtivo($ativo);
+  $oss->setLoja($loja);
+  $oss->setLojaNick($lojaNick);
+  $oss->setLocal($local);
+  $oss->setBem($bem);
+  $oss->setCategoria($categoria);
+  $oss->setServico($servico);
+  $oss->setTipoServ($tipoServ);
+  $oss->setTecnicos($tecnicos);
+  $oss->setData($data);
+  $oss->setDtCadastro($dtCadastro);
+  $oss->setEstado($estado);
+  $oss->setProcesso($processo);
+  $oss->setStatus($status);
+  $oss->setAtivo($ativo);
   # Insert
-  if($os->insert()){
+  if($oss->insert()){
     $res['error'] = false;
     $res['message']= "OK, dados salvo com sucesso";
   }else{

@@ -21,6 +21,8 @@ class Os extends Crud{
 	private $dtOS;
 	private $dtFech;
 	private $dtTerm;
+	private $estado;
+	private $processo;
 	private $status;
 	private $ativo;
 
@@ -75,6 +77,9 @@ class Os extends Crud{
 	public function setEstado($estado){
 		$this->estado = $estado;
 	}
+	public function setProcesso($processo){
+		$this->processo = $processo;
+	}
 	public function setStatus($status){
 		$this->status = $status;
 	}
@@ -84,8 +89,8 @@ class Os extends Crud{
 
 	public function insert(){
 		try{
-			$sql  = "INSERT INTO $this->table ( loja, lojaNick, local, servico, tipoServ, categoria, bem, tecnicos, data, dtUltimoMan, dtCadastro, filial, os, dtOs, dtFech, dtTerm, estado, status, ativo) ";
-			$sql .= "VALUES (:loja, :lojaNick, :local, :servico, :tipoServ, :categoria, :bem, :tecnicos, :data, :dtUltimoMan, :dtCadastro, :filial, :os, :dtOs, :dtFech, :dtTerm, :estado, :status, :ativo)";
+			$sql  = "INSERT INTO $this->table ( loja, lojaNick, local, servico, tipoServ, categoria, bem, tecnicos, data, dtUltimoMan, dtCadastro, filial, os, dtOs, dtFech, dtTerm, estado, processo, status, ativo) ";
+			$sql .= "VALUES (:loja, :lojaNick, :local, :servico, :tipoServ, :categoria, :bem, :tecnicos, :data, :dtUltimoMan, :dtCadastro, :filial, :os, :dtOs, :dtFech, :dtTerm, :estado, :processo, :status, :ativo)";
 			$stmt = DB::prepare($sql);
 			
 			$stmt->bindParam(':loja',$this->loja);
@@ -105,6 +110,7 @@ class Os extends Crud{
 			$stmt->bindParam(':dtFech',$this->dtFech);
 			$stmt->bindParam(':dtTerm',$this->dtTerm);
 			$stmt->bindParam(':estado',$this->estado);
+			$stmt->bindParam(':processo',$this->processo);
 			$stmt->bindParam(':status',$this->status);
 			$stmt->bindParam(':ativo',$this->ativo);
 
@@ -117,7 +123,7 @@ class Os extends Crud{
 
 	public function update($id){
 		try{
-			$sql  = "UPDATE $this->table SET loja = :loja,  lojaNick = :lojaNick, local = :local, servico = :servico, tipoServ = :tipoServ, categoria = :categoria, bem = :bem, tecnicos = :tecnicos, data = :data, dtUltimaMan = :dtUltimaMan, dtCadastro = :dtCadastro, filial = :filial, os = :os, dtOs = :dtOs, dtFech = :dtFech, dtTerm = :dtTerm, estado = :estado, status = :status, ativo = :ativo WHERE id = :id";
+			$sql  = "UPDATE $this->table SET loja = :loja,  lojaNick = :lojaNick, local = :local, servico = :servico, tipoServ = :tipoServ, categoria = :categoria, bem = :bem, tecnicos = :tecnicos, data = :data, dtUltimaMan = :dtUltimaMan, dtCadastro = :dtCadastro, filial = :filial, os = :os, dtOs = :dtOs, dtFech = :dtFech, dtTerm = :dtTerm, estado = :estado, processo = :processo, status = :status, ativo = :ativo WHERE id = :id";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':loja',$this->loja);
 			$stmt->bindParam(':lojaNick',$this->lojaNick);
@@ -136,6 +142,7 @@ class Os extends Crud{
 			$stmt->bindParam(':dtFech',$this->dtFech);
 			$stmt->bindParam(':dtTerm',$this->dtTerm);
 			$stmt->bindParam(':estado',$this->estado);
+			$stmt->bindParam(':processo',$this->processo);
 			$stmt->bindParam(':status',$this->status);
 			$stmt->bindParam(':ativo',$this->ativo);
 			$stmt->bindParam(':id', $id);

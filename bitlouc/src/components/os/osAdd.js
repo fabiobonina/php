@@ -66,11 +66,12 @@ Vue.component('os-add', {
           data: this.dataOs,
           dtCadastro: new Date().toJSON(),
           estado: '0',
+          processo: '0',
           status: '0',
           ativo: '0'
         };
         //var formData = this.toFormData(postData);
-        //console.log(postData);
+        console.log(postData);
         this.$http.post('./config/api/apiOs.php?action=cadastrar', postData)
           .then(function(response) {
             console.log(response);

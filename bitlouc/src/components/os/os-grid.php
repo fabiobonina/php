@@ -13,7 +13,7 @@
           <div class="card" >
             <header class="card-header">
               <p class="card-header-title">
-                <router-link :to="'/oss/' + $route.params._id + '/os/' + entry.id"> {{entry.filial}} - {{entry.os}} | {{entry.local.tipo}} - {{entry.local.name}} ({{entry.local.municipio}}/{{entry.local.uf}})</router-link>
+                <router-link :to="'/oss/' + $route.params._id + '/os/' + entry.id" class="product-title"> {{entry.filial}} - {{entry.os}}, {{entry.data}} | {{entry.local.tipo}} - {{entry.local.name}} ({{entry.local.municipio}}/{{entry.local.uf}})</router-link>
               </p>
               <a class="card-header-icon" aria-label="more options">
                 <span class="icon"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
@@ -24,7 +24,7 @@
                 <article class="post" >
                   <div class="columns">
                     <div class="column is-6 is-info">
-                      <a class="product-title"><h5>{{entry.local.tipo}} - {{entry.local.name}} ({{entry.local.municipio}}/{{entry.local.uf}})</h5></a>
+                      <a class="product-title"><h5> {{entry.servico.name}}  </h5></a>
                         <div class="media">
                           <div class="media-content">
                             <div class="content">
@@ -77,23 +77,13 @@
                       <div class="checkout-wrap">
                         <p>Evolução</p>
                         <ul class="checkout-bar">
-                          <li :class="active>1 ? 'visited first' : active==1 ? 'active' : ''"><a href="#">Saiu</a></li>
-                          <li :class="active>2 ? 'visited first' : active==2 ? 'active' : ''">Chegou</li>
-                          <li :class="active>3 ? 'visited first' : active==3 ? 'active' : ''">Final</li>
-                          <li :class="active>4 ? 'visited first' : active==4 ? 'active' : ''">Retorno</li>
-                          <li :class="active>5 ? 'visited first' : active==5 ? 'previous visited' : ''">Completo</li>
+                          <li :class="entry.processo>1 ? 'visited first' : entry.processo==1 ? 'active' : ''"><a href="#">Encaminhado</a></li>
+                          <li :class="entry.processo>2 ? 'visited first' : entry.processo==2 ? 'active' : ''">Atendendo</li>
+                          <li :class="entry.processo>3 ? 'visited first' : entry.processo==3 ? 'active' : ''">Análise</li>
+                          <li :class="entry.processo>4 ? 'visited first' : entry.processo==4 ? 'active' : ''">Retorno</li>
+                          <li :class="entry.processo>5 ? 'visited first' : entry.processo==5 ? 'previous visited' : ''">Completo</li>
                         </ul>
                       </div>
-                    <div class="checkout-wrap">
-                      <p>Evolução</p>
-                      <ul class="checkout-bar">
-                        <li class="visited first"><a href="#">Em Rota</a></li>
-                        <li class="previous visited">Inicio</li>
-                        <li class="active">Final</li>
-                        <li class="next">Análise</li>
-                        <li :class="active>1 ? 'previous visited' : ''">Cocluido</li>
-                      </ul>
-                    </div>
                     <br>
                 </div>
             </div>
