@@ -58,6 +58,7 @@ if($action == 'read'):
       $estado = 3;
       foreach($oss->findAll() as $key => $value):if($value->loja == $lojaId && $value->estado < $estado) {
         $arOs = (array) $value;
+        $arOs['tecnicos'] = json_decode( $value->tecnicos);
         $localId = $value->local;
         $bemId = $value->bem;
         $servId = $value->servico;

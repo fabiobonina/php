@@ -32,14 +32,14 @@ if(isset($_GET['action'])){
   $action = $_GET['action'];
 }
 $res['user'] = $user;
-//$acessoNivel = $user['nivel'];// $user >  include("_chave.php");
-//$acessoProprietario = $user['proprietario']
-//$acessoGrupo = $user['grupo']
-//$acessoloja = $user['loja']
-$acessoNivel = 2;
-$acessoProprietario = 1;
-$acessoGrupo = 'C';
-$acessoloja = 1;
+$acessoNivel = $user['nivel'];// $user >  include("_chave.php");
+$acessoProprietario = $user['proprietario'];
+$acessoGrupo = $user['grupo'];
+$acessoloja = $user['loja'];
+//$acessoNivel = 2;
+//$acessoProprietario = 1;
+//$acessoGrupo = 'C';
+//$acessoloja = 1;
 
 if($action == 'read'):
   //$acessoProprietario = $_POST['acessoProprietario'];

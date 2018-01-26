@@ -2,18 +2,19 @@ Vue.component('os-grid', {
   template: '#os-grid',
   props: {
     data: Array,
-    columns: Array,
-    filterKey: String
+    columns: Array
   },
   data: function () {
+    var sortOrders = {}
+    this.columns.forEach(function (key) {
+      sortOrders[key] = 1
+    })
     return {
       sortKey: '',
-      sortOrders: '',
+      sortOrders: sortOrders,
       showModal: false,
       modalItem: {},
-      geolocalizacao: '',
-      selectedCategoria: 'All',
-      active: 4
+      selectedCategoria: 'All'
     }
   },
   computed: {

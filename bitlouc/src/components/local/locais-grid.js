@@ -2,8 +2,7 @@ Vue.component('grid-local', {
   template: '#grid-local',
   props: {
     data: Array,
-    columns: Array,
-    filterKey: String
+    columns: Array
   },
   data: function () {
     var sortOrders = {}

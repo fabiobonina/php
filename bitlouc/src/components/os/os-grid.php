@@ -13,7 +13,7 @@
           <div class="card" >
             <header class="card-header">
               <p class="card-header-title">
-                <router-link :to="'/oss/' + $route.params._id + '/os/' + entry.id" class="product-title"> {{entry.filial}} - {{entry.os}}, {{entry.data}} | {{entry.local.tipo}} - {{entry.local.name}} ({{entry.local.municipio}}/{{entry.local.uf}})</router-link>
+                <router-link :to="'/oss/' + $route.params._id + '/os/' + entry.id" class="product-title"> {{entry.local.tipo}} - {{entry.local.name}} ({{entry.local.municipio}}/{{entry.local.uf}})</router-link>
               </p>
               <a class="card-header-icon" aria-label="more options">
                 <span class="icon"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
@@ -24,16 +24,14 @@
                 <article class="post" >
                   <div class="columns">
                     <div class="column is-6 is-info">
-                      <a class="product-title"><h5> {{entry.servico.name}}  </h5></a>
+                      <a class="product-title"><h5> {{entry.data}} | {{entry.servico.name}}  </h5></a>
                         <div class="media">
                           <div class="media-content">
                             <div class="content">
-                            <p>{{entry.data}} | {{entry.servico.name}}  &nbsp; <a>#{{entry.proprietarioNick}} </a> 
-                                <span class="tag">{{entry.proprietarioNick}}</span> 
-                            </p>
                             <p>{{entry.bem.name}} {{entry.bem.modelo}}  &nbsp; <a>#{{entry.proprietarioNick}} </a> 
-                                <span class="tag">{{entry.proprietarioNick}}</span> 
+                                <span class="tag"></span> 
                             </p>
+                            <p v-for="tecnico in entry.tecnicos">  <span  class="tag">{{tecnico.user}}</span> &nbsp; <a># </a></p>
                           </div>
                         </div>
                       </div>
@@ -42,14 +40,14 @@
                           <nav class="level">
                             <div class="level-item has-text-centered">
                               <div>
-                                <p class="heading">Numeração <i class="fa fa-qrcode"></i></p>
-                                <p class="title"> {{ entry.numeracao }}</p>
+                                <p class="heading">OS <span class="icon is-small"><i class="fa fa-wrench"></i></span></p>
+                                <p class="title">  {{entry.filial}}| {{entry.os}} </p>
                               </div>
                             </div>
                             <div class="level-item has-text-centered">
                               <div>
                                 <p class="heading">Ativo <i class="fa fa-barcode"></i></p>
-                                <p class="title">{{ entry.plaqueta }}</p>
+                                <p class="title">{{ entry.bem.plaqueta }}</p>
                               </div>
                             </div>
                             <div class="level-item has-text-centered">
@@ -77,9 +75,9 @@
                       <div class="checkout-wrap">
                         <p>Evolução</p>
                         <ul class="checkout-bar">
-                          <li :class="entry.processo>1 ? 'visited first' : entry.processo==1 ? 'active' : ''"><a href="#">Encaminhado</a></li>
+                          <li :class="entry.processo>1 ? 'visited first' : entry.processo==1 ? 'active' : ''"><a href="#">Em Transito</a></li>
                           <li :class="entry.processo>2 ? 'visited first' : entry.processo==2 ? 'active' : ''">Atendendo</li>
-                          <li :class="entry.processo>3 ? 'visited first' : entry.processo==3 ? 'active' : ''">Análise</li>
+                          <li :class="entry.processo>3 ? 'visited first' : entry.processo==3 ? 'active' : ''">Teste</li>
                           <li :class="entry.processo>4 ? 'visited first' : entry.processo==4 ? 'active' : ''">Retorno</li>
                           <li :class="entry.processo>5 ? 'visited first' : entry.processo==5 ? 'previous visited' : ''">Completo</li>
                         </ul>
