@@ -8,7 +8,7 @@ var Oss = Vue.extend({
       gridColumns: ['nick', 'name'],
       modalLocalAdd: false,
       active: '1',
-      processo: {'nivel0': '0', 'nivel1': '1','nivel2': '2'}
+      estado: {'nivel0': '0', 'nivel1': '1','nivel2': '2'}
     };
   },
   created: function() {

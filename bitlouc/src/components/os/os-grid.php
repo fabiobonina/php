@@ -8,7 +8,7 @@
       </div-->
       <!-- #/SELEÇÃO DE CATEGORIA -->
       <section class="container is-primary">      
-        <article class="tile is-child notification is-primary">
+        <article :class="estado==0 ? 'tile is-child notification is-info' : estado==1 ? 'tile is-child notification is-warning' : 'tile is-child notification is-success'">
           <div class="columns is-gapless is-multiline is-mobile">
             <div v-for=" entry in filteredData" class="column is-half">
               <div class="card">

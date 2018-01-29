@@ -13,7 +13,7 @@
           <div class="card" >
             <header class="card-header">
               <p class="card-header-title">
-                <router-link :to="'/oss/' + $route.params._id + '/os/' + oss.id" class="product-title"> {{oss.local.tipo}} - {{oss.local.name}} ({{oss.local.municipio}}/{{oss.local.uf}})</router-link>
+                <router-link :to="'/oss/' + $route.params._id + '/os/' + oss.id" class="product-title"> {{oss.lojaNick}} | {{oss.local.tipo}} - {{oss.local.name}} ({{oss.local.municipio}}/{{oss.local.uf}})</router-link>
               </p>
               <a class="card-header-icon" aria-label="more options">
                 <span class="icon"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
@@ -88,34 +88,6 @@
             </footer>
           </div>
           <br>
-        </div>
-        <div class="columns">
-          <div class="column is-three-fifths">
-            <h1 class="title"> {{ loja.nick }} </h1>
-            <p class="subtitle"> {{ loja.seguimento }} - {{ loja.name }} <span class="pull-right tag" v-for="categoria in loja.categoria">{{ categoria.tag }}</span></p>
-          </div>
-          <div class="column">
-            <nav class="level">
-              <div class="level-item has-text-centered">
-                <div>
-                  <p class="heading">Local: <i class="fa fa-building-o"></i> {{ loja.locaisQt }}</p>
-                  <p><i class="fa fa-map-marker"></i> {{ loja.locaisGeoStatus }}% ({{ loja.locaisGeoQt }})</span></p>
-                </div>
-              </div>
-              <div class="level-item has-text-centered">
-                <div>
-                  <p class="heading">Following</p>
-                  <p class="title">123</p>
-                </div>
-              </div>
-              <div class="level-item has-text-centered">
-                <div>
-                  <p class="heading">Followers</p>
-                  <p class="title">456K</p>
-                </div>
-              </div>
-            </nav>
-          </div>
         </div>
       </div>
     </section>

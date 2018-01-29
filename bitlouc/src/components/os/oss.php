@@ -84,17 +84,17 @@
             <os-grid
               :data="oss"
               :columns="gridColumns"
-              :processo= "processo.nivel0">
+              :estado= "estado.nivel2">
             </os-grid>
             <os-grid
               :data="oss"
               :columns="gridColumns"
-              :processo= "processo.nivel1">
+              :estado= "estado.nivel0">
             </os-grid>
             <os-grid
               :data="oss"
               :columns="gridColumns"
-              :processo= "processo.nivel2">
+              :estado= "estado.nivel1">
             </os-grid>
           </div>
         </section>

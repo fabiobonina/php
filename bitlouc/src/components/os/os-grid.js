@@ -3,21 +3,19 @@ Vue.component('os-grid', {
   props: {
     data: Array,
     columns: Array,
-    processo: String
+    estado: String
   },
   data: function () {
     return {
       sortKey: '',
       showModal: false,
-      modalItem: {},
-      selectedProcesso: 'All'
+      modalItem: {}
     }
   },
   computed: {
     filteredData: function () {
-      var filterKey = this.processo
+      var filterKey = this.estado
       var data = this.data
-      var processo = this.selectedProcesso;
       return data = data.filter(function (row) {
         return row.processo === filterKey;
       });
