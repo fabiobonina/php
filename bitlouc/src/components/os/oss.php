@@ -1,7 +1,7 @@
 
 <template id="oss">
   <div>
-    <nav class="breadcrumb is-right" aria-label="breadcrumbs">
+    <nav class="is-right" aria-label="breadcrumbs">
       <ul>
         <li><router-link to="/"> Home</router-link></li>
         <li class="is-active"><a aria-current="page">Os´s</a></li>
@@ -82,8 +82,19 @@
             </div>
             <br>
             <os-grid
-                :data="oss"
-                :columns="gridColumns">
+              :data="oss"
+              :columns="gridColumns"
+              :processo= "processo.nivel0">
+            </os-grid>
+            <os-grid
+              :data="oss"
+              :columns="gridColumns"
+              :processo= "processo.nivel1">
+            </os-grid>
+            <os-grid
+              :data="oss"
+              :columns="gridColumns"
+              :processo= "processo.nivel2">
             </os-grid>
           </div>
         </section>

@@ -26,11 +26,11 @@ Vue.component('bens-grid', {
       if(categoria === "All") {
         return vm.data.filter(function(person) {
           return person.status === vm.status;
-      });
+        });
       } else {
-          return vm.data.filter(function(person) {
-              return person.categoria === categoria && person.status === vm.status;
-          });
+        return vm.data.filter(function(person) {
+          return person.categoria === categoria && person.status === vm.status;
+        });
       }
     }
   },

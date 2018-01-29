@@ -7,7 +7,7 @@ var Os = Vue.extend({
       searchQuery: '',
       gridColumns: ['nick', 'name'],
       modalLocalAdd: false,
-      active: 1
+      selectedCategoria: 'All'
     };
   },
   created: function() {
@@ -20,10 +20,10 @@ var Os = Vue.extend({
   },
   computed: {
     loja()  {
-      return store.getters.getLojaId(this.$route.params._id);
+      return store.getters.getOsId(this.$route.params._id);
     },
-    locais()  {
-      return store.state.locais;
+    oss()  {
+      return store.getters.getOsId(this.$route.params._os);
     },
   }, // computed
   methods: {
