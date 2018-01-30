@@ -25,15 +25,14 @@
             </div>
           </div>
         </div>
-        <div class="field is-horizontal">
-          <div class="field-label is-normal">
-            <label class="label">Question</label>
-          </div>
-          <div class="field-body">
-            <div class="field">
-              <div class="control">
-                <textarea class="textarea" placeholder="Explain how we can help you"></textarea>
-              </div>
+        <div class="field">
+          <label class="label">Subject</label>
+          <div class="control">
+            <div class="select">
+              <select>
+                <option>Select dropdown</option>
+                <option>With options</option>
+              </select>
             </div>
           </div>
         </div>

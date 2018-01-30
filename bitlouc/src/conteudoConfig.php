@@ -46,8 +46,8 @@
     <?php include("src/components/_uso/message.php");?>
     <!-- /components _usor -->
     <!-- components servicos -->
-    <?php include("src/components/servicos/descricao/descricaoApp.php");?>
-    <?php include("src/components/servicos/tecnico/deslocamento/deslocamentoApp.php");?>
+    <?php include("src/components/servicos/descricao/descricaoAdd.php");?>
+    <?php include("src/components/servicos/tecnico/deslocamento/deslocamentoAdd.php");?>
     <?php include("src/components/servicos/tecnico/tecnico.php");?>
     <!-- /components servicos -->
 
@@ -92,8 +92,8 @@
 <script src="src/components/_uso/message.js"></script>
 <!-- /components _uso -->
 <!-- components servicos -->
-<script src="src/components/servicos/descricao/descricaoApp.js"></script>
-<script src="src/components/servicos/tecnico/deslocamento/deslocamentoApp.js"></script>
+<script src="src/components/servicos/descricao/descricaoAdd.js"></script>
+<script src="src/components/servicos/tecnico/deslocamento/deslocamentoAdd.js"></script>
 <script src="src/components/servicos/tecnico/tecnico.js"></script>
 <!-- /components servicos -->
 <script src="appLoja.js"></script>

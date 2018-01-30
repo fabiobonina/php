@@ -70,7 +70,7 @@
                     
                       <div class="checkout-wrap">
                       <p v-for="tecnico in oss.tecnicos"> <a>@{{tecnico.user}} &nbsp;</a> </p>
-                        <ul class="checkout-bar">
+                        <ul v-if="!modalDeslocAdd" class="checkout-bar">
                           <li :class="oss.processo>1 ? 'visited first' : oss.processo==1 ? 'active' : ''"><a href="#">Em Transito</a></li>
                           <li :class="oss.processo>2 ? 'visited first' : oss.processo==2 ? 'active' : ''">Atendendo</li>
                           <li :class="oss.processo>3 ? 'visited first' : oss.processo==3 ? 'active' : ''">Teste</li>
@@ -140,7 +140,7 @@
             </grid-local>
           </div>
         </section>
-        <local-add v-if="modalLocalAdd" v-on:close="modalLocalAdd = false" :data="loja" @atualizar="onAtualizar"></local-add>
+        <deslocamento-add v-if="modalDeslocAdd" v-on:close="modaldeslocAdd = false" :data="loja" @atualizar="onAtualizar"></deslocamento-add>
       </div>
       <!-- /.box -->
     </section>

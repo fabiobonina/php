@@ -6,8 +6,9 @@ var Os = Vue.extend({
       successMessage: '',
       searchQuery: '',
       gridColumns: ['nick', 'name'],
-      modalLocalAdd: false,
-      selectedCategoria: 'All'
+      modalDeslocAdd: false,
+      selectedCategoria: 'All',
+      active: '1'
     };
   },
   created: function() {
@@ -16,7 +17,7 @@ var Os = Vue.extend({
     });
   },
   mounted: function() {
-    //this.modalLocalAdd = true;
+    this.modalDeslocAdd = true;
   },
   computed: {
     loja()  {
