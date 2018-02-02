@@ -7,6 +7,10 @@
 Vue.http.options.emulateJSON = true;
 
 const state = {
+  tipoDeslocamentos: [
+    {id: 1, name: 'Carro', categoria: '0', valor: '0.85'},
+    {id: 2, name: 'Passagem', categoria: '1', valor: ''}
+  ],
   proprietario:{},
   lojas: [],
   loja: [],
@@ -235,6 +239,7 @@ const actions = {
 }
 
 const getters = {
+  //getSearch: state => state.tipoDeslocamentos,
   getSearch: state => state.search,
   getUser: state => state.user,
   getUsers: state => state.users,

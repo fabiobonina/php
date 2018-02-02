@@ -6,6 +6,7 @@ Vue.component('deslocamento-add', {
       errorMessage: [],
       successMessage: [],
       coordenadas:'',
+      dtDesloc: new Date().toJSON(),
       isLoading: false
     };
   },
@@ -26,7 +27,10 @@ Vue.component('deslocamento-add', {
         return true
       }
       return false
-    }
+    },
+    tipoDeslocamentos() {
+      return store.state.tipoDeslocamentos;
+    },
   },
   methods: {
     saveItem: function(){
