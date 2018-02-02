@@ -17,7 +17,7 @@ var Os = Vue.extend({
     });
   },
   mounted: function() {
-    this.modalDeslocAdd = true;
+    //this.modalDeslocAdd = true;
   },
   computed: {
     loja()  {
