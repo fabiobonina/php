@@ -5,15 +5,18 @@ Vue.component('deslocamento-add', {
     return {
       errorMessage: [],
       successMessage: [],
-      coordenadas:'',
-      dtDesloc: new Date().toJSON(),
-      isLoading: false
+      km:'1',
+      dtDesloc: '',
+      isLoading: false,
     };
   },
   props: {
     title: { type: String, default: '' },
     message: { type: String, default: 'Confirm' },
     data: {}
+  },
+  created: function() {
+    this.dataT()
   },
   computed: {
     temErros () {
@@ -31,6 +34,7 @@ Vue.component('deslocamento-add', {
     tipoDeslocamentos() {
       return store.state.tipoDeslocamentos;
     },
+    
   },
   methods: {
     saveItem: function(){
@@ -80,6 +84,13 @@ Vue.component('deslocamento-add', {
             return false
         }
         return true
+    },
+    dataT() {
+      var datetime = new Date().toLocaleString();
+      var res = datetime.split(" ");
+      var date = res[0].split("/");
+      var time = res[1].slice(0, -3);
+      this.dtDesloc = date[2] + "-" + date[1] + "-" + date[0] + "T" + time;
     }
   },
 });

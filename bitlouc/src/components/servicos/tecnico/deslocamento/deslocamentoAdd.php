@@ -3,7 +3,7 @@
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">Delocamento: {{data.name}}, {{data.municipio}} /{{data.uf}}</p>
+        <p class="modal-card-title">Deslocamento: {{data.name}}, {{data.municipio}} /{{data.uf}}</p>
         <button class="delete" aria-label="close" v-on:click="$emit('close')"></button>
       </header>
       <section class="modal-card-body">
@@ -36,14 +36,24 @@
           </div>
           <div class="column">
             <div class="field">
-              <label class="label">Km final</label>
+              <label class="label">Km</label>
               <div class="control">
-                <input class="input" type="text" placeholder="Text input">
+                <input v-model="km" class="input" type="text" placeholder="Km">
               </div>
             </div>
           </div>
           <div class="column">
-            Fourth column
+            <div class="field">
+              <label class="label">Tipo</label>
+              <div class="control">
+                <div class="select">
+                  <select>
+                    <option>Select</option>
+                    <option v-for="option in tipoDeslocamentos" v-bind:value="option">{{ option.name }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       
