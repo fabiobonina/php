@@ -11,6 +11,10 @@ const state = {
     {id: 1, name: 'Carro', categoria: '0', valor: '0.85'},
     {id: 2, name: 'Passagem', categoria: '1', valor: ''}
   ],
+  statusDeslocamentos: [
+    {id: 1, name: 'Inicio'},
+    {id: 2, name: 'Chegou'},
+  ],
   proprietario:{},
   lojas: [],
   loja: [],
