@@ -12,8 +12,13 @@ const state = {
     {id: 2, name: 'Passagem', categoria: '1', valor: ''}
   ],
   statusDeslocamentos: [
-    {id: 1, name: 'Inicio'},
-    {id: 2, name: 'Chegou'},
+    {id: 1, name: 'Inicio Trajeto', categoria: '0' },
+    {id: 2, name: 'Final Trajeto', categoria: '0' },
+    {id: 3, name: 'Inicio Atendimento', categoria: '0' },
+    {id: 4, name: 'Pausar Atendimento', categoria: '0' },
+    {id: 5, name: 'Final Atendimento', categoria: '0' },
+    {id: 6, name: 'Retorno Atendimento', categoria: '0' },
+    {id: 7, name: 'Concluido', categoria: '0' }
   ],
   proprietario:{},
   lojas: [],

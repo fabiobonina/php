@@ -22,9 +22,9 @@
               <label class="label">Status</label>
               <p class="control is-expanded has-icons-left has-icons-right">
                 <div class="select">
-                  <select>
+                  <select v-model="statusDeslocamento">
                     <option>Select</option>
-                    <option v-for="option in tipoDeslocamentos" v-bind:value="option">{{ option.name }}</option>
+                    <option v-for="option in statusDeslocamentos" v-bind:value="option">{{ option.name }}</option>
                   </select>
                 </div>
               </p>
@@ -33,7 +33,7 @@
               <label class="label">Tipo</label>
               <p class="control is-expanded has-icons-left has-icons-right">
                 <div class="select">
-                  <select>
+                  <select v-model="tipoDelocamento">
                     <option>Select</option>
                     <option v-for="option in tipoDeslocamentos" v-bind:value="option">{{ option.name }}</option>
                   </select>

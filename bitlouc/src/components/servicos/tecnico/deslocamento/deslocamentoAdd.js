@@ -34,6 +34,9 @@ Vue.component('deslocamento-add', {
     tipoDeslocamentos() {
       return store.state.tipoDeslocamentos;
     },
+    statusDeslocamentos() {
+      return store.state.statusDeslocamentos;
+    },
     
   },
   methods: {
