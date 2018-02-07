@@ -5,8 +5,7 @@ Vue.component('deslocamento-add', {
     return {
       errorMessage: [],
       successMessage: [],
-      km:'1',
-      dtDesloc: '',
+      mod: { status: '', dtInicio: '', kmInicio:'', dtFinal: '', kmFinal:'',  dtDesloc: '', valor: '', tempo: '' },
       isLoading: false,
     };
   },
@@ -93,7 +92,9 @@ Vue.component('deslocamento-add', {
       var res = datetime.split(" ");
       var date = res[0].split("/");
       var time = res[1].slice(0, -3);
-      this.dtDesloc = date[2] + "-" + date[1] + "-" + date[0] + "T" + time;
+      var dtTime = date[2] + "-" + date[1] + "-" + date[0] + "T" + time;
+      this.dtInicio = dtTime;
+      this.dtFinal = dtTime;
     }
   },
 });
