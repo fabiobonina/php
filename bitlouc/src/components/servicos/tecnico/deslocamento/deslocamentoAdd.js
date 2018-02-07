@@ -5,6 +5,11 @@ Vue.component('deslocamento-add', {
     return {
       errorMessage: [],
       successMessage: [],
+      dtDesloc: '',
+      status: {},
+      tipo: { id: 0},
+      km: '',
+      valor: '',
       mod: { status: '', dtInicio: '', kmInicio:'', dtFinal: '', kmFinal:'',  dtDesloc: '', valor: '', tempo: '' },
       isLoading: false,
     };
@@ -13,6 +18,13 @@ Vue.component('deslocamento-add', {
     title: { type: String, default: '' },
     message: { type: String, default: 'Confirm' },
     data: {}
+  },
+  watch: {
+    // sempre que a pergunta mudar, essa função será executada
+    status: function () {
+      this.answer = 'Esperando você parar de escrever...'
+      this.getAnswer()
+    }
   },
   created: function() {
     this.dataT()
@@ -86,6 +98,12 @@ Vue.component('deslocamento-add', {
             return false
         }
         return true
+    },
+    tipoPercurso(){
+      if(this.tipo.id == 0 ){
+          return false
+      }
+      return true
     },
     dataT() {
       var datetime = new Date().toLocaleString();

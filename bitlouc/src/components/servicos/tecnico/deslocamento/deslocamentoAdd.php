@@ -11,7 +11,7 @@
         <message :success="successMessage" :error="errorMessage"></message>
         <div class="field is-horizontal">
           <div class="field-body">
-            
+
             <div class="field">
               <label class="label">Data</label>
               <p class="control">
@@ -22,7 +22,7 @@
               <label class="label">Status</label>
               <p class="control is-expanded has-icons-left has-icons-right">
                 <div class="select">
-                  <select v-model="statusDeslocamento">
+                  <select v-model="status">
                     <option>Select</option>
                     <option v-for="option in statusDeslocamentos" v-bind:value="option">{{ option.name }}</option>
                   </select>
@@ -33,94 +33,34 @@
               <label class="label">Tipo</label>
               <p class="control is-expanded has-icons-left has-icons-right">
                 <div class="select">
-                  <select v-model="tipoDelocamento">
+                  <select v-model="tipo">
                     <option>Select</option>
                     <option v-for="option in tipoDeslocamentos" v-bind:value="option">{{ option.name }}</option>
                   </select>
                 </div>
               </p>
             </div>
+          
           </div>
         </div>
         <div class="field is-horizontal">
           <div class="field-body">
-            <div class="field">
-            <label class="label">Tipo</label>
-              <p class="control is-expanded has-icons-left">
-                <input class="input" type="text" placeholder="Name">
-                <span class="icon is-small is-left">
-                  <i class="fas fa-user"></i>
-                </span>
-              </p>
-            </div>
-            <div class="field">
-              <label class="label">Tipo</label>
-              <p class="control is-expanded has-icons-left has-icons-right">
-                <div class="select">
-                  <select>
-                    <option>Select</option>
-                    <option v-for="option in tipoDeslocamentos" v-bind:value="option">{{ option.name }}</option>
-                  </select>
-                </div>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="field-body">
 
-          <div class="columns">
-            <div class="column">
-              <div class="field">
-                <label class="label">Tipo</label>
-                <div class="control">
-                  <div class="select">
-                    <select>
-                      <option>Select</option>
-                      <option v-for="option in tipoDeslocamentos" v-bind:value="option">{{ option.name }}</option>
-                    </select>
-                  </div>
-                </div>
+            <div v-if="tipo.categoria == 0 "class="field">
+              <label class="label">Km</label>
+              <div class="control">
+                <input v-model="km" class="input" type="text" placeholder="Km">
               </div>
             </div>
-            <div class="column">
-              <div class="field">
-                <label class="label">Tipo</label>
-                <div class="control">
-                  <div class="select">
-                    <select>
-                      <option>Select</option>
-                      <option v-for="option in tipoDeslocamentos" v-bind:value="option">{{ option.name }}</option>
-                    </select>
-                  </div>
-                </div>
+            <div v-if="tipo.categoria == 1 "class="field">
+              <label class="label">Valor</label>
+              <div class="control">
+                <input v-model="valor" class="input" type="text" placeholder="Valor">
               </div>
             </div>
-          </div>
           
-          <div class="columns">
-            <div class="column">
-              <div class="field">
-                <label class="label">Data</label>
-                <div class="control">
-                  <input v-model="dtDesloc" class="input" type="datetime-local" v-bind:value="dtDesloc" placeholder="Informe data">
-                </div>
-              </div>
-            </div>
-            <div class="column">
-              <div class="field">
-                <label class="label">Km</label>
-                <div class="control">
-                  <input v-model="km" class="input" type="text" placeholder="Km">
-                </div>
-              </div>
-            </div>
           </div>
-
-        </div>
-      </div>
-      
-
-        </div>
+        </div>      
         <!--#CONTEUDO -->
       </section>
       <footer class="modal-card-foot field is-grouped is-grouped-right">
