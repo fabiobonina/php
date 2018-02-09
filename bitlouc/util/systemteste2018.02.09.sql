@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 09-Fev-2018 às 07:00
--- Versão do servidor: 10.1.13-MariaDB
--- PHP Version: 7.0.8
+-- Generation Time: 09-Fev-2018 às 21:11
+-- Versão do servidor: 10.1.26-MariaDB
+-- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -1111,14 +1113,21 @@ CREATE TABLE `tb_mod` (
   `os` int(11) NOT NULL,
   `tecnico` int(11) NOT NULL,
   `dtInicio` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `dtFinal` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `tempo` int(11) NOT NULL,
-  `kmInicio` int(11) NOT NULL,
-  `kmFinal` int(11) NOT NULL,
-  `valor` int(11) NOT NULL,
-  `tipoTrajeto` int(11) NOT NULL,
+  `dtFinal` datetime DEFAULT '0000-00-00 00:00:00',
+  `tempo` int(11) DEFAULT NULL,
+  `kmInicio` int(11) DEFAULT NULL,
+  `kmFinal` int(11) DEFAULT NULL,
+  `valor` int(11) DEFAULT NULL,
+  `tipoTrajeto` int(11) DEFAULT NULL,
   `status` enum('0','1','2','3','4','5') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `tb_mod`
+--
+
+INSERT INTO `tb_mod` (`id`, `os`, `tecnico`, `dtInicio`, `dtFinal`, `tempo`, `kmInicio`, `kmFinal`, `valor`, `tipoTrajeto`, `status`) VALUES
+(2, 1, 1, '2018-02-09 07:22:00', '0000-00-00 00:00:00', NULL, NULL, NULL, NULL, NULL, '1');
 
 -- --------------------------------------------------------
 
@@ -1155,7 +1164,7 @@ CREATE TABLE `tb_os` (
 --
 
 INSERT INTO `tb_os` (`id`, `loja`, `lojaNick`, `local`, `servico`, `categoria`, `tipoServ`, `bem`, `tecnicos`, `data`, `dtUltimoMan`, `dtCadastro`, `filial`, `os`, `dtOs`, `dtFech`, `dtTerm`, `estado`, `processo`, `status`, `ativo`) VALUES
-(1, 1, 'AGESPISA', 2, 'COR001', 1, 3, 3, '[{"id":"1","user":"Fábio Boninã","hh":"10.00","ativo":"0"}]', '2018-01-26', NULL, '2018-01-26 09:12:03', NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0');
+(1, 1, 'AGESPISA', 2, 'COR001', 1, 3, 3, '[{\"id\":\"1\",\"user\":\"Fábio Boninã\",\"hh\":\"10.00\",\"ativo\":\"0\"}]', '2018-01-26', NULL, '2018-01-26 09:12:03', NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0');
 
 -- --------------------------------------------------------
 
@@ -1471,6 +1480,12 @@ ALTER TABLE `tb_loja`
   ADD UNIQUE KEY `nick` (`nick`);
 
 --
+-- Indexes for table `tb_mod`
+--
+ALTER TABLE `tb_mod`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tb_os`
 --
 ALTER TABLE `tb_os`
@@ -1549,51 +1564,68 @@ ALTER TABLE `users`
 --
 ALTER TABLE `tb_bem`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `tb_bem_componentes`
 --
 ALTER TABLE `tb_bem_componentes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `tb_bem_localizacao`
 --
 ALTER TABLE `tb_bem_localizacao`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `tb_loja`
 --
 ALTER TABLE `tb_loja`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT for table `tb_mod`
+--
+ALTER TABLE `tb_mod`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `tb_os`
 --
 ALTER TABLE `tb_os`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `tb_produtos`
 --
 ALTER TABLE `tb_produtos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `tb_produto_categoria`
 --
 ALTER TABLE `tb_produto_categoria`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `tb_proprietario`
 --
 ALTER TABLE `tb_proprietario`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `tb_tecnicos`
 --
 ALTER TABLE `tb_tecnicos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

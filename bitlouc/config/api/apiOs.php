@@ -14,6 +14,7 @@ $locais = new Locais();
 $oss = new Os();
 $bens = new Bens();
 $servicos = new Servicos();
+$mods = new Mod();
 
 
 $res = array('error' => true);
@@ -59,6 +60,7 @@ if($action == 'read'):
       foreach($oss->findAll() as $key => $value):if($value->loja == $lojaId && $value->estado < $estado) {
         $arOs = (array) $value;
         $arOs['tecnicos'] = json_decode( $value->tecnicos);
+        $osId = $value->id;
         $localId = $value->local;
         $bemId = $value->bem;
         $servId = $value->servico;
@@ -73,20 +75,26 @@ if($action == 'read'):
         }endforeach;
         #LOCAIS-------------------------------------------------------------------------------------------
         
-        #BEM-----------------------------------------------------------------------------------------
+        #BEM---------------------------------------------------------------------------------------------
         foreach($bens->findAll() as $key => $value):if($value->id == $bemId) {
           $arBem = (array) $value; //Bem
           $arOs['bem']= $arBem;
         }endforeach;
-        #BEM-----------------------------------------------------------------------------------------
+        #BEM---------------------------------------------------------------------------------------------
 
-        #SERVICOS-----------------------------------------------------------
+        #SERVICOS----------------------------------------------------------------------------------------
         foreach($servicos->findAll() as $key => $value):if($value->id == $servId)  {
           $arItem = $value;
           $arOs['servico'] = $arItem;
         }endforeach;
-        
-        #SERVICOS-----------------------------------------------------------
+        #SERVICOS----------------------------------------------------------------------------------------
+
+        #MODS--------------------------------------------------------------------------------------------
+        foreach($mods->findAll() as $key => $value):if($value->os == $osId)  {
+          $arItem = $value;
+          $arOs['mod'] = $arItem;
+        }endforeach;
+        #MODS--------------------------------------------------------------------------------------------
         
         array_push($arOss, $arOs);
       }endforeach;

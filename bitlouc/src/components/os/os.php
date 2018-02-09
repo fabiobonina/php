@@ -138,7 +138,7 @@
                 :columns="gridColumns"
                 :filter-key="searchQuery">
             </grid-local-->
-            <p v-for="tecnico in oss.tecnicos"> <a>@{{tecnico.user}} &nbsp;</a>
+            <!--p v-for="tecnico in oss.tecnicos"> <a>@{{tecnico.user}} &nbsp;</a-->
             <div>
               <a v-on:click="modalDeslocAdd = true" class="button is-primary is-al">
                 <i class="fa fa-building-o"></i> Delocamento
@@ -157,8 +157,8 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="tecnico in oss.tecnicos">
-                  <th>{{tecnico.user}} </th>
+                <tr v-for="mod in oss.mod">
+                  <th>{{ mod.dtInicio }} </th>
                   <td><a href="https://en.wikipedia.org/wiki/Leicester_City_F.C." title="Leicester City F.C.">Leicester City</a> <strong>(C)</strong></td>
                   <td>38</td>
                   <td>23</td>
@@ -167,10 +167,10 @@
                 </tr>
               </tbody>
             </table>
-            </p>
+            <!--/p-->
           </div>
         </section>
-        <deslocamento-add v-if="modalDeslocAdd" v-on:close="modaldeslocAdd = false" :data="loja" @atualizar="onAtualizar"></deslocamento-add>
+        <deslocamento-add v-if="modalDeslocAdd" v-on:close="modalDeslocAdd = false" :data="loja" @atualizar="onAtualizar"></deslocamento-add>
       </div>
       <!-- /.box -->
     </section>

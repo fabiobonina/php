@@ -37,6 +37,7 @@ const state = {
   osProprietario:{},
   osLojas:[],
   oss:[],
+  mods:[],
   search:'',
 }
 
@@ -95,7 +96,9 @@ const mutations = {
   SET_OSS(state, oss) {
     state.oss = oss
   },
-  
+  SET_MODS(state, mods) {
+    state.mods = mods
+  },
   
 }
 
@@ -199,6 +202,7 @@ const actions = {
           commit("SET_OSPROPRIETARIO", response.body.osProprietario);
           commit("SET_OSLOJAS", response.body.osLojas);
           commit("SET_OSS", response.body.oss);
+          commit("SET_MODS", response.body.mod);
           resolve();
         }
       })
@@ -294,6 +298,9 @@ const getters = {
   },
   getOsId: (state) => (id) => {
     return state.oss.find(todo => todo.id === id)
+  },
+  getModOsTec: (state) => (os, tecnico) => {
+    return state.oss.filter(todo => todo.os === os && todo.tecnico === tecnico)
   },
 }
 
