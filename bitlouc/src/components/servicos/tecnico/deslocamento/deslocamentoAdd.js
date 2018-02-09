@@ -7,7 +7,7 @@ Vue.component('deslocamento-add', {
       successMessage: [],
       dtDesloc: '',
       status: {},
-      tipo: { id: 0},
+      tipo: { id: 0 },
       km: '',
       valor: '',
       mod: { status: '', dtInicio: '', kmInicio:'', dtFinal: '', kmFinal:'',  dtDesloc: '', valor: '', tempo: '' },
@@ -18,13 +18,6 @@ Vue.component('deslocamento-add', {
     title: { type: String, default: '' },
     message: { type: String, default: 'Confirm' },
     data: {}
-  },
-  watch: {
-    // sempre que a pergunta mudar, essa função será executada
-    status: function () {
-      this.answer = 'Esperando você parar de escrever...'
-      this.getAnswer()
-    }
   },
   created: function() {
     this.dataT()

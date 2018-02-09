@@ -174,6 +174,12 @@ if(isset($_POST['atualizar'])):
   
 endif;
 
+#DESLOCAMENTO
+if(isset($_POST['deslocamento'])):
+
+  
+endif;
+
 #DELETAR
 if(isset($_GET['acao1']) && $_GET['acao1'] == 'deletar'):
   
