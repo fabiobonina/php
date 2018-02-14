@@ -138,7 +138,8 @@
                 :columns="gridColumns"
                 :filter-key="searchQuery">
             </grid-local-->
-            <!--p v-for="tecnico in oss.tecnicos"> <a>@{{tecnico.user}} &nbsp;</a-->
+            <div v-for="tecnico in oss.tecnicos">
+            <p> <a>@{{tecnico.user}} &nbsp;</a><p>
             <div>
               <a v-on:click="modalDeslocAdd = true" class="button is-primary is-al">
                 <i class="fa fa-building-o"></i> Delocamento
@@ -147,27 +148,32 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th><abbr title="Position">Pos</abbr></th>
-                  <th>Team</th>
-                  <th><abbr title="Played">Pld</abbr></th>
-                  <th><abbr title="Won">W</abbr></th>
-                  <th><abbr title="Drawn">D</abbr></th>
-                  <th>Qualification or relegation</th>
-                  <th><abbr title="Drawn">D</abbr></th>
+                  <th>DataInicio</th>
+                  <th>DataFinal</th>
+                  <th>Tempo</th>
+                  <th>KmInicio</th>
+                  <th>KmFinal</th>
+                  <th>Valor</th>
+                  <th>Ação</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="mod in oss.mod">
+                <tr v-for="mod in tecnico.mods">
                   <th>{{ mod.dtInicio }} </th>
-                  <td><a href="https://en.wikipedia.org/wiki/Leicester_City_F.C." title="Leicester City F.C.">Leicester City</a> <strong>(C)</strong></td>
-                  <td>38</td>
-                  <td>23</td>
-                  <td>12</td>
-                  <td>Qualification for the <a href="https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Champions_League#Group_stage" title="2016–17 UEFA Champions League">Champions League group stage</a></td>
+                  <td>{{ mod.dtFianl }}</td>
+                  <td>{{ mod.tempo }}</td>
+                  <td>{{ mod.KmInicio }}</td>
+                  <td>{{ mod.KmFinal }}</td>
+                  <td>{{ mod.Valor }}</td>
+                  <td>
+                    <a v-on:click="modalDeslocAdd = true" class="button is-primary is-al">Editar</a>
+                    <a v-on:click="modalDeslocAdd = true" class="button is-primary is-al">Chegada</a>
+                  </td>
                 </tr>
               </tbody>
             </table>
-            <!--/p-->
+            
+          </div>
           </div>
         </section>
         <deslocamento-add v-if="modalDeslocAdd" v-on:close="modalDeslocAdd = false" :data="loja" @atualizar="onAtualizar"></deslocamento-add>

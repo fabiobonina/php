@@ -15,6 +15,7 @@ $oss = new Os();
 $bens = new Bens();
 $servicos = new Servicos();
 $mods = new Mod();
+$osTecnicos = new OsTecnicos();
 
 
 $res = array('error' => true);
@@ -59,7 +60,7 @@ if($action == 'read'):
       $estado = 3;
       foreach($oss->findAll() as $key => $value):if($value->loja == $lojaId && $value->estado < $estado) {
         $arOs = (array) $value;
-        $arOs['tecnicos'] = json_decode( $value->tecnicos);
+        
         $osId = $value->id;
         $localId = $value->local;
         $bemId = $value->bem;
@@ -89,12 +90,24 @@ if($action == 'read'):
         }endforeach;
         #SERVICOS----------------------------------------------------------------------------------------
 
-        #MODS--------------------------------------------------------------------------------------------
-        foreach($mods->findAll() as $key => $value):if($value->os == $osId)  {
-          $arItem = $value;
-          $arOs['mod'] = $arItem;
+        #OSTECNICOS--------------------------------------------------------------------------------------------
+        $arTecnicos = array();
+        foreach($osTecnicos->findAll() as $key => $value):if($value->os == $osId)  {
+          $arTecnico = (array) $value;
+          $idTecnico = $value->tecnico;
+          #MODS--------------------------------------------------------------------------------------------
+          $arMods = array();
+          foreach($mods->findAll() as $key => $value):if($value->os == $osId && $value->tecnico == $idTecnico)  {
+            $arItem = $value;
+            array_push($arMods, $arItem);
+          }endforeach;
+          $arTecnico['mods'] = $arMods;
+          #MODS--------------------------------------------------------------------------------------------
+          //$arTecnico = $value;
+          array_push($arTecnicos, $arTecnico);
         }endforeach;
-        #MODS--------------------------------------------------------------------------------------------
+        $arOs['tecnicos'] = $arTecnicos;
+        #OSTECNICOS--------------------------------------------------------------------------------------------
         
         array_push($arOss, $arOs);
       }endforeach;
@@ -119,7 +132,7 @@ endif;
 
 #CADASTRAR
 if($action == 'cadastrar'):
-
+  /**/
   $loja = $_POST['loja'];
   $lojaNick = $_POST['lojaNick'];
   $local = $_POST['local'];
@@ -136,6 +149,12 @@ if($action == 'cadastrar'):
   $ativo = $_POST['ativo'];
 
   /*
+  $tecnicos = array();
+  $tecnico1['id'] = '1';
+  $tecnico2['id'] = '2';
+  array_push($tecnicos, $tecnico1 );
+  array_push($tecnicos, $tecnico2 );
+
   $loja = '1';
   $lojaNick = 'AGESPISA';
   $local = '2';
@@ -143,14 +162,16 @@ if($action == 'cadastrar'):
   $categoria = '1';
   $servico = 'servico';
   $tipoServ = '3';
-  $tecnicos = 'tecnicos';
+  $tecnicoss = json_encode($tecnicos, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);//$tecnicos = 'tecnicos';
   $data = date("Y-m-d");
   $dtCadastro = date('Y-m-d H:i:s');
   $estado = '0';
-  processo = '0';
+  $processo = '0';
   $status = '0';
   $ativo = '0';
-  */
+  /*/
+  //$tecnicosss = array();
+
   
   $oss->setLoja($loja);
   $oss->setLojaNick($lojaNick);

@@ -2,9 +2,12 @@
 
 require_once '_crud.php';
 
+
+
 class Os extends Crud{
 	
 	protected $table = 'tb_os';
+	protected $table2 = 'tb_os_tecnico';
 	private $loja;
 	private $lojaNick;
 	private $local;
@@ -114,7 +117,26 @@ class Os extends Crud{
 			$stmt->bindParam(':status',$this->status);
 			$stmt->bindParam(':ativo',$this->ativo);
 
-			return $stmt->execute();
+			$stmt->execute();
+			$osId = DB::getInstance()->lastInsertId();
+
+			$tecnicos = json_decode( $this->tecnicos);
+			foreach ($tecnicos as $value){
+				$idTec = $value->id;
+				$userTec = $value->user;
+				$hhTec = $value->hh;
+				$sql  = "INSERT INTO $this->table2 ( os, loja, tecnico, user, hh ) ";
+				$sql .= "VALUES ( :os, :loja, :tecnico, :user, :hh )";
+				$stmt = DB::prepare($sql);
+				$stmt->bindParam(':os',$osId);
+				$stmt->bindParam(':loja', $this->loja );
+				$stmt->bindParam(':tecnico', $idTec );
+				$stmt->bindParam(':user', $userTec );
+				$stmt->bindParam(':hh', $hhTec );
+				$stmt->execute();
+			}
+			 $res['error'] = false;
+			 return $res['message']= "OK, dados salvo com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
