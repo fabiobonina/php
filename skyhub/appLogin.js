@@ -97,36 +97,42 @@ Vue.component('login', {
   template: '#login',
   data: function () {
     return {
-      errorMessage: '',
-      successMessage: '',
-      searchQuery: '',
-      login: ['name', 'email'],
-      regintror: ['name', 'email', 'emailR', 'user', 'password', 'passwordR'],
-      users: [],
-      isLoading: false
-    };
-  },
-  created: function() {
-    //this.fetchData(); // Başlangıçta kayıtları al
+      errorMessage: [],
+      successMessage: [],
+      isLoading: false,
+      email:'',
+      password:''
+    }
   },
   computed: {
-
+    temErros () {
+      return this.errorMessage.length > 0
+    },
+    temMessage () {
+      if(this.errorMessage.length > 0){
+        return true
+      }
+      if(this.successMessage.length > 0){
+        return true
+      }
+      return false
+    },
   },
   methods: {
-    logar: function(){
-      this.errorMessage = []
-      if(this.formValido()){
+    registrar: function() {
+      if(this.checkForm()){
         this.isLoading = true
-        //const data = {'id': this.data.id, 'geolocalizacao': this.geolocalizacao
+        //const data = {'id': this.data.id, 'modelo': this.modelo
         //'cadastro': new Date().toJSON() }
         var postData = {
-          id: this.data.id,
-          latitude: geoposicao[0],
-          longitude: geoposicao[1]
-        };        
-        this.$http.post('./config/api/apiUser.php?action=login', postData)
+          email: this.email,
+          password: this.password
+        };
+        //var formData = this.toFormData(postData);
+        console.log(postData);
+        this.$http.post('./config/api/apiUser.php?action=logar', postData)
           .then(function(response) {
-            //console.log(response);
+            console.log(response);
             if(response.data.error){
               this.errorMessage.push(response.data.message);
               this.isLoading = false;
@@ -134,8 +140,9 @@ Vue.component('login', {
               this.successMessage.push(response.data.message);
               this.isLoading = false;
               setTimeout(() => {
-                this.$emit('atualizar');
-              }, 2000);  
+                this.$router.push('index.php');
+                this.$emit('close');
+              }, 2000);
             }
           })
           .catch(function(error) {
@@ -143,35 +150,20 @@ Vue.component('login', {
           });
       }
     },
-    
-    // Bu metot http post ile formdan alınan verileri apiye iletir
-    // Apiden dönen cevap users dizisine push edilir
-
-    isEmpty () {
-      if(this.nome.length == 0 || this.email.length == 0 || this.password.length == 0 || this.passwordR.length == 0){
-          return true;
+    checkForm:function(e) {
+      this.errorMessage = [];
+      if(!this.email) {
+        this.errorMessage.push("Email necessário.");
+      } else if(!this.validEmail(this.email)) {
+        this.errorMessage.push("Email válido necessário.");
       }
-      return false;
+      if(!this.password) this.errorMessage.push("Password necessário.");
+      if(!this.errorMessage.length) return true;
+      e.preventDefault();
     },
-    passwordValid () {
-        if(this.password.length < 6 || this.passwordR.length < 6){
-            return false;
-        }
-        if(this.password !== this.passwordR){
-            return false;
-        }
-        return true;
-    },
-    isFormValid(){
-        if(this.isEmpty()){
-            this.errors.push('Por favor, preencha todos os campos')
-            return false
-        }
-        if(!this.passwordValid()){
-            this.errors.push('senha incorreta')
-            return false
-        }
-        return true
+    validEmail:function(email) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
     }
   }
 });
@@ -183,9 +175,6 @@ Vue.component('register', {
     return {
       errorMessage: [],
       successMessage: [],
-      error:'',
-      errorEmail:'',
-      errorPassword:'',
       isLoading: false,
       name:'', email:'', emailR:'', user:'', password:'', passwordR:'',
     }
@@ -206,76 +195,55 @@ Vue.component('register', {
   },
   methods: {
     registrar: function() {
-      this.error = ''
-      this.errorPassword = ''
-      this.errorEmail = ''
-      if(this.formValido()){
+      if(this.checkForm()){
         this.isLoading = true
-        //const data = {'id': this.data.id, 'modelo': this.modelo
-        //'cadastro': new Date().toJSON() }
         var postData = {
           name: this.name,
           user: this.user,
           email: this.email,
           password: this.password
         };
-        //var formData = this.toFormData(postData);
-        console.log(postData);
-        this.$http.post('./config/api/apiUser.php?action=registrar', postData)
-          .then(function(response) {
-            console.log(response);
-            if(response.data.error){
-              this.errorMessage.push(response.data.message);
-              this.isLoading = false;
-            } else{
-              this.successMessage.push(response.data.message);
-              this.isLoading = false;
-              setTimeout(() => {
-                this.$emit('atualizar');
-              }, 2000);  
-            }
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
-          //this.$store.state.create(data)
+        //console.log(postData);
+        this.$http.post('./config/api/apiUser.php?action=registrar', postData).then(function(response) {
+          //console.log(response);
+          if(response.data.error){
+            this.errorMessage.push(response.data.message);
+            this.isLoading = false;
+          } else{
+            this.successMessage.push(response.data.message);
+            this.isLoading = false;
+            setTimeout(() => {
+              this.$emit('close');
+            }, 2000);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
       }
     },
-    isEmpty () {
-      if(this.name.length == 0 || this.user.length == 0 || this.email.length == 0 || this.emailR.length == 0 || this.password.length == 0 || this.passwordR.length == 0){
-          return true;
+    checkForm:function(e) {
+      this.errorMessage = [];
+      if(!this.name) this.errorMessage.push("Nome necessário.");
+      if(!this.user) this.errorMessage.push("Usuario necessário.");
+      if(!this.email) {
+        this.errorMessage.push("Email necessário.");
+      } else if(!this.validEmail(this.email)) {
+        this.errorMessage.push("Email válido necessário.");
+      } else if(this.email !== this.emailR) {
+        this.errorMessage.push("Email não é igual a confirmação.");
       }
-      return false;
-    },
-    passwordValid () {
-        if(this.password.length < 6 || this.passwordR.length < 6){
-            return false;
-        }
-        if(this.password !== this.passwordR){
-            return false;
-        }
-        return true;
-    },
-    emailValid () {
-      if(this.email !== this.emailR){
-          return false;
+      if(!this.password) {
+        this.errorMessage.push("Password necessário.");
+      } else if(this.password !== this.passwordR) {
+        this.errorMessage.push("Password não é igual a confirmação.");        
       }
-      return true;
+      if(!this.errorMessage.length) return true;
+      e.preventDefault();
     },
-    formValido(){
-        if(this.isEmpty()){
-          this.errorMessage.push('Por favor, preencha todos os campos')
-          return false
-        }
-        if(!this.passwordValid()){
-          this.errorPassword = 'senha incorreta'
-          return false
-        }
-        if(!this.emailValid()){
-          this.errorEmail = 'email incorreta'
-          return false
-        }
-        return true
+    validEmail:function(email) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
     }
   }
 });

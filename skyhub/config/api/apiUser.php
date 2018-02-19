@@ -15,6 +15,7 @@ $usuarios = new Usuarios();
 
 $res = array('error' => true);
 $arDados = array();
+$arErros = array();
 $action = 'registrar';
 
 if(isset($_GET['action'])){
@@ -46,18 +47,54 @@ if($action == 'registrar'):
   $user = $_POST['user'];
   $senha = $_POST['password'];
 
-  //$name  = 'name';
-  //$email = 'email';
-  //$user = 'user';
+  //$name  = 'Fabio';
+  //$email = 'fabiobonina@gmail.com';
+  //$user = 'Fabio Bonina';
   //$senha = 'password';
+
+  #USUARIOS-------------------------------------------------------------------------------------------
+  $duplicado = false;
+  $acentos = array(
+    'À', 'Á','Â','Ã','Ä','Å','Ç','È','É','Ê','Ë','Ì','Í','Î','Ï','Ò','Ó','Ô','Õ','Ö','Ù','Ú','Û','Ü','Ý',
+    'à','á','â','ã','ä','å','ç','è','é','ê','ë','ì','í','î','ï','ð','ò','ó','ô','õ','ö','ù','ú','û','ü','ý','ÿ', ' '
+  );
+
+  $sem_acentos = array(
+    'A','A','A','A','A','A','C','E','E','E','E','I','I','I','I','O','O','O','O','O','U','U','U','U','Y',
+    'a','a','a','a','a','a','c','e','e','e','e','i','i','i','i','o','o','o','o','o','o','u','u','u','u','y','y', '_'
+  );
+
+  foreach($usuarios->findAll() as $key => $value): {
+    $txtnome2 = $value->user;
+    $txtnome1 = str_replace($acentos, $sem_acentos, $user);
+    $txtnome2 = str_replace($acentos, $sem_acentos, $txtnome2);
+    
+    if($value->email == $email ):
+      $duplicado = true;
+      $res['error'] = true; 
+      $arError = "Error, email já cadastrado!";
+      array_push($arErros, $arError);
+    endif;
+
+    if(strtolower(utf8_decode($txtnome1)) == strtolower(utf8_decode($txtnome2))):
+      $duplicado = true;
+      $res['error'] = true; 
+      $arError = "Error, Nome do Usuario já ultilizado!";
+      array_push($arErros, $arError);
+    endif;
+  }endforeach;
+  #USUARIOS-------------------------------------------------------------------------------------------
   
+
+ 
+
   $nivel = "0";
   $ativo = "0";
   $password = md5($senha);
   $avatar = "http://www.gravatar.com/avatar/".md5($email)."?d=identicon";
   $datacadastro = date("Y-m-d");
   $datalogin = date("Y-m-d H:i:s");
-
+  if($duplicado == false):
     $usuarios->setName($name);
     $usuarios->setEmail($email);
     $usuarios->setNickuser($user);
@@ -73,8 +110,11 @@ if($action == 'registrar'):
       $res['message']= "OK, dados registrado com sucesso";
     }else{
       $res['error'] = true; 
-      $res['message'] = "Error, nao foi possivel salvar os dados";      
+      $arError = "Error, nao foi possivel salvar os dados";
+      array_push($arErros, $arError);
     }
+  endif;
+  $res['message']= $arErros;
 endif;
 
 #ATUALIZAR
