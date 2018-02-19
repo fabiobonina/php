@@ -94,6 +94,7 @@ endif;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>BitLOUC</title>
     <link href="./img/bit-louc.png" rel="icon" type="image/png"/>
+    <link rel="stylesheet" href="./dist/css/bulma.min.css"> 
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -209,7 +210,6 @@ endif;
       <!-- /.form-box -->
     </template>
     
-    </template>
     <script src="lib/vue.js"></script>
     <script src="lib/vuex.js"></script>
     <script src="lib/vue-router.js"></script>

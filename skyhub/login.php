@@ -2,199 +2,172 @@
 date_default_timezone_set('America/Recife');
 ob_start();
 session_start();
-if(isset($_SESSION['loginEmail']) && (isset($_SESSION['loginSenha']))){
+if(isset($_SESSION['loginEmail']) && (isset($_SESSION['loginNivel']))){
 	header("Location: index.php");exit;
 }
-
-function __autoload($class_name){
-  require_once 'admin/classes/' . $class_name . '.php';
-}
-
-	
-$usuario = new Usuarios();
-
-if(isset($_POST['logar'])):
-
-  $email=$_POST["email"];
-  $senha=$_POST["senha"];
-  $datalogin = date("Y-m-d H:i:s");
-  $password = md5($senha);
-
-  $usuario->setEmail($email);
-  $usuario->setSenha($password);
-  $usuario->setDatalogin($datalogin);
-
-  # Logar
-  if($usuario->logar()){
-    echo "Logado com sucesso!";
-  }
-
-endif;
-
-if(isset($_GET['acao'])){
-	
-	if(!isset($_POST['logar'])){
-	
-		$acao = $_GET['acao'];
-		if($acao=='negado'){
-			echo '<div class="alert alert-danger">
-						  <button type="button" class="close" data-dismiss="alert">×</button>
-						  <strong>Erro ao acessar!</strong> Você precisa estar logado p/ acessar o Sistema.
-					</div>';	
-		}
-	}
-}
-if(isset($_POST['cadastrar'])):
-
-    #Novo Usuario
-			$nome  = $_POST['nome'];
-			$email = $_POST['email'];
-      $emailR = $_POST['emailR'];
-			$nickuser=$_POST["nickuser"];
-			$senha=$_POST["password"];
-      $senhaR=$_POST["passwordR"];
-			$nivel = "0";
-      $ativo = "0";
-      $password = md5($senha);
-      $avatar = "http://www.gravatar.com/avatar/".md5($email)."?d=identicon";
-			$datacadastro = date("Y-m-d");
-			$datalogin = date("Y-m-d H:i:s");
-
-  if($email == $emailR && $senha == $senhaR){
-
-			$usuario->setNome($nome);
-			$usuario->setEmail($email);
-			$usuario->setNickuser($nickuser);
-      $usuario->setSenha($password);
-      $usuario->setAvatar($avatar);
-			$usuario->setDataCadastro($datacadastro);
-			$usuario->setDatalogin($datalogin);
-			$usuario->setNivel($nivel);
-			$usuario->setAtivo($ativo);
-			# Insert
-			if($usuario->insert()){
-				echo "Inserido com sucesso!";
-			}
-
-    }else{
-      echo '<div class="alert alert-danger">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>Erro nos dados!</strong> Verefique email ou senha.
-        </div>';
-    }
-  endif;
-
 ?>
-
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-
-    <title>SkyHub | Web Mobi</title>
-    <link href="admin/img/fa-paw.png" rel="icon" type="image/png" />
-
-    <!-- Bootstrap -->
-    <link href="config/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="config/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- Animate.css -->
-    <!--link href="https://colorlib.com/polygon/gentelella/css/animate.min.css" rel="stylesheet"-->
-
-    <!-- Custom Theme Style -->
-    <link href="config/build/css/custom.min.css" rel="stylesheet">
+    <title>BitLOUC</title>
+    <link href="./img/bit-louc.png" rel="icon" type="image/png"/>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="./dist/css/bulma.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <script src="lib/vue.js"></script>
+    <script src="lib/vuex.js"></script>
+    <!-- script src="lib/vue-router.js"></script-->
+    <script src="lib/vue-resource.js"></script>
+    
   </head>
-
-  <body class="login">
-    <div>
-      <a class="hiddenanchor" id="signup"></a>
-      <a class="hiddenanchor" id="signin"></a>
-
-      <div class="login_wrapper">
-        <div class="animate form login_form">
-          <section class="login_content">
-            <form action="#" method="post">
-              <h1>Login</h1>
-              <div>
-                <input type="email" name="email" class="form-control" placeholder="Email" required="" />
+  <body class="hold-transition login-page">
+    <div class="login-box">
+      
+      <main id="app">
+        <home></home>
+      </main>
+    </div>
+    <template id="home">
+      <div>
+        <section class="hero is-fullheight is-dark is-bold">
+          <div class="hero-body">
+            <div class="container">
+              <div class="login-logo has-text-centered">
+                <h1 class="title is-1"> <a href="./index.php" class="title is-1 has-text-info"><b class="title is-2 has-text-white">Bit</b>LOUC</a></h1>
               </div>
-              <div>
-                <input type="password" name="senha" class="form-control" placeholder="Senha" required="" />
-              </div>
-              <div>
-                <input type="submit" name="logar" value="Logar" class="btn btn-default submit">
-                <a class="reset_pass" href="#">Esqueceu sua senha?</a>
-              </div>
+              <br>
+              <login v-if="!novo" v-on:close="novo = true" ></login>
+              <register v-if="!novo" v-on:close="novo = false" ></register>
+            </div>
+          </div>
+        </section>
+      </div>
+    </template>
 
-              <div class="clearfix"></div>
+    <template id="login">
+      <!-- /.login-logo -->
+      <div>
+        <div class="columns is-vcentered">
+          <div class="column is-6 is-offset-3">
+            <h1 class="title">Login</h1>
+            <div class="box">
 
-              <div class="separator">
-                <p class="change_link">É novo aqui?
-                  <a href="#signup" class="to_register">Criar Conta</a>
-                </p>
-
-                <div class="clearfix"></div>
-                <br />
-
-                <div>
-                  <h1><i class="fa fa-paw"></i> SkyHub | Web Mobi</h1>
-                  <p>©2016 Todos os direitos reservados. SkyHub | Web Mobi. </p>
-                </div>
-              </div>
-            </form>
-          </section>
+              <label class="label">Email</label>
+              <p class="control has-icon has-icon-right">
+                <input class="input" type="text" placeholder="jsmith@example.org">
+                <span class="icon is-small">
+                  <i class="material-icons">check_circle</i>
+                </span>
+                <span class="help is-danger">{{}}</span>
+              </p>
+              <label class="label">Password</label>
+              <p class="control has-icon has-icon-right">
+                <input class="input" type="password" placeholder="●●●●●●●">
+                <span class="icon is-small">
+                  <i class="fa fa-warning"></i>
+                </span>
+                <span class="help is-danger">{{}}</span>
+              </p>
+              <hr>
+              <p class="control field is-grouped is-grouped-right">
+                <button :class="isLoading ? 'button is-info is-loading' : 'button is-info'" v-on:click="logar()">Login</button>
+              </p>
+            </div>
+            <p class="has-text-centered">
+              <a v-on:click="$emit('close')">Criar uma conta</a>
+              | 
+              <a href="#">Forgot password</a>
+            </p>
+          </div>
         </div>
 
-        <div id="register" class="animate form registration_form">
-          <section class="login_content">
-            <form method="post" action="">
-              <h1>Novo Usuario</h1>
-              <div>
-                <input type="text" name="nome" class="form-control" placeholder="Nome" required="" />
-              </div>
-              <div>
-                <input type="text" name="nickuser" class="form-control" placeholder="Usuário" required="" />
-              </div>
-              <div>
-                <input type="email" name="email" class="form-control" placeholder="Email" required="" />
-              </div>
-              <div>
-                <input type="email" name="emailR" class="form-control" placeholder="Confirmar Email" />
-              </div>
-              <div>
-                <input type="password" name="senha" class="form-control" placeholder="Senha" required="" />
-              </div>
-              <div>    			
-      			    <input type="password" name="senhaR" class="form-control" placeholder="Confirmar Senha" />
-  			      </div>
-              <div>
-                <input type="submit" name="cadastrar" value="Cadastrar" class="btn btn-default submit">
-              </div>
-
-              <div class="clearfix"></div>
-
-              <div class="separator">
-                <p class="change_link">Já é usuario ?
-                  <a href="#signin" class="to_register"> Logar </a>
+      </div>
+      <!-- /.login-box-body -->
+    </template>
+        
+    <template id="register">
+      <!-- /.form-box -->
+      <div>
+        <div class="columns is-vcentered">
+          <div class="column is-6 is-offset-3">
+            <!--#CONTEUDO -->
+            <h1 class="title">Registre-se</h1>
+            <div class="box">
+              <message :success="successMessage" :error="errorMessage"></message>
+              <!--#INICIO -->
+              <p><span class="help is-danger">{{ error }}</span></p>
+              <div class="field">
+                <p class="control has-icons-left">
+                  <input v-model="name" class="input" type="text" placeholder="Full name">
+                  <span class="icon is-small is-left">
+                    <i class="material-icons">account_box</i>
+                  </span>
                 </p>
-
-                <div class="clearfix"></div>
-                <br />
-
-                <div>
-                  <h1><i class="fa fa-paw"></i> SkyHub | Web Mobi</h1>
-                  <p>©2016 Todos os direitos reservados. SkyHub | Web Mobi.</p>
-                </div>
               </div>
-            </form>
-          </section>
+              <div class="field">
+                <p class="control has-icons-left">
+                  <input v-model="user" class="input" type="text" placeholder="User">
+                  <span class="icon is-small is-left">
+                    <i class="material-icons">account_circle</i>
+                  </span>
+                </p>
+              </div>
+              <div class="field">
+                <p class="control has-icons-left">
+                  <input v-model="email" class="input" type="email" placeholder="Email">
+                  <span class="icon is-small is-left">
+                    <i class="material-icons">email</i>
+                  </span>
+                  <span class="help is-danger">{{ errorEmail }}</span>
+                </p>
+              </div>
+              <div class="field">
+                <p class="control has-icons-left">
+                  <input v-model="emailR" class="input" type="email" placeholder="Email retype">
+                  <span class="icon is-small is-left">
+                    <i class="material-icons">email</i>
+                  </span>
+                </p>
+              </div>
+              <div class="field">
+                <p class="control has-icons-left">
+                  <input v-model="password" class="input" type="password" placeholder="Password">
+                  <span class="icon is-small is-left">
+                  <i class="material-icons">lock</i>
+                  </span>
+                  <span class="help is-danger">{{ errorPassword }}</span>
+                </p>
+              </div>
+              <div class="field">
+                <p class="control has-icons-left">
+                  <input v-model="passwordR" class="input" type="password" placeholder="Password retype">
+                  <span class="icon is-small is-left">
+                  <i class="material-icons">lock</i>
+                  </span>
+                </p>
+              </div>
+              <hr>
+              <p class="control field is-grouped is-grouped-right">
+                <button :class="isLoading ? 'button is-info is-loading' : 'button is-info'" v-on:click="registrar()">Registrar</button>
+              </p>  
+            </div>
+            <p class="has-text-centered">
+              <a v-on:click="$emit('close')">Eu já sou cadastrado</a>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+      <!-- /.form-box -->
+    </template>
+    <?php include("src/components/_uso/message.php");?>
+    <!-- components _uso -->
+    <script src="src/components/_uso/message.js"></script>
+    <!-- /components _uso -->
+    <script src="appLogin.js"></script>
+  
   </body>
 </html>

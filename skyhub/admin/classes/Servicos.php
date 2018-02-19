@@ -6,7 +6,6 @@ class Servicos extends Crud{
 	protected $table = 'tb_servicos';
 	private $cod;
 	private $descricao;
-	private $tipo;
 	private $ativo;
 
 	public function setCod($cod){
@@ -20,21 +19,17 @@ class Servicos extends Crud{
 	public function getDescricao(){
 		return $this->descricao;
 	}
-	public function setTipo($tipo){
-		$this->tipo = $tipo;
-	}
 	public function setAtivo($ativo){
 		$this->ativo = $ativo;
 	}
 
 	public function insert(){
 		try{
-		$sql  = "INSERT INTO $this->table (id, descricao, tipo, ativo) ";
-		$sql .= "VALUES (:id, :descricao, :tipo, :ativo)";
+		$sql  = "INSERT INTO $this->table (id, descricao, ativo) ";
+		$sql .= "VALUES (:id, :descricao, :ativo)";
 		$stmt = DB::prepare($sql);
 		$stmt->bindParam(':id',$this->cod);
 		$stmt->bindParam(':descricao',$this->descricao);
-		$stmt->bindParam(':tipo',$this->tipo);
 		$stmt->bindParam(':ativo',$this->ativo);
 
 		return $stmt->execute();
@@ -46,10 +41,9 @@ class Servicos extends Crud{
 
 	public function update($id){
 		try{
-		$sql  = "UPDATE $this->table SET descricao = :descricao, tipo = :tipo, ativo = :ativo WHERE id = :id ";
+		$sql  = "UPDATE $this->table SET descricao = :descricao, ativo = :ativo WHERE id = :id ";
 		$stmt = DB::prepare($sql);
 		$stmt->bindParam(':descricao', $this->descricao);
-		$stmt->bindParam(':tipo',$this->tipo);
 		$stmt->bindParam(':ativo',$this->ativo);
 		$stmt->bindParam(':id', $id);
 		return $stmt->execute();

@@ -116,7 +116,7 @@
 <?PHP
 include("functions/limita-texto.php");
       
-//<?php foreach($usuario->findAll() as $key => $value): ?>
+//<?php foreach($usuario->findAll() as $key => $value): >
 $select = "SELECT * from tb_postagens ORDER BY id DESC LIMIT 5";
 $contagem =1;
 		

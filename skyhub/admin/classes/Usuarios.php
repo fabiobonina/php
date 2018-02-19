@@ -3,16 +3,12 @@ require_once 'Crud.php';
 
 class Usuarios extends Crud{
 	
-	protected $table = 'users';
+	protected $table = 'login';
 	private $nome;
 	private $email;
 	private $nickuser;
 	private $senha;
-	private $nivel;
-	private $avatar;
-	private $proprientario;
-	private $grupoLoja;
-	private $loja;
+	private $nivel_usuario;
 	private $ativo;
 	private $datacadastro;
 	private $datalogin;
@@ -35,20 +31,8 @@ class Usuarios extends Crud{
 	public function setSenha($senha){
 		$this->senha = $senha;
 	}
-	public function setAvatar($avatar){
-		$this->avatar = $avatar;
-	}
-	public function setProprietario($proprietario){
-		$this->proprietario = $proprietario;
-	}
-	public function setGrupoLoja($grupoLoja){
-		$this->grupoLoja = $grupoLoja;
-	}
-	public function setLoja($loja){
-		$this->loja = $loja;
-	}
-	public function setNivel($nivel){
-		$this->nivel = $nivel;
+	public function setNivel($nivel_usuario){
+		$this->nivel_usuario = $nivel_usuario;
 	}
 	public function setAtivo($ativo){
 		$this->ativo = $ativo;
@@ -63,15 +47,14 @@ class Usuarios extends Crud{
 
 	public function insert(){
 		try{
-		$sql  = "INSERT INTO $this->table (name, email, user, password, avatar, nivel, ativo, data_cadastro, data_ultimo_login) ";
-		$sql .= "VALUES (:name, :email, :user, :password, :avatar, :nivel, :ativo, :data_cadastro, :data_ultimo_login)";
+		$sql  = "INSERT INTO $this->table (nome, email, nickuser, senha, nivel, ativo, data_cadastro, data_ultimo_login) ";
+		$sql .= "VALUES (:nome, :email, :nickuser, :senha, :nivel, :ativo, :data_cadastro, :data_ultimo_login)";
 		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':name',$this->nome);
+		$stmt->bindParam(':nome',$this->nome);
 		$stmt->bindParam(':email',$this->email);
-		$stmt->bindParam(':user',$this->nickuser);
-		$stmt->bindParam(':password',$this->senha);
-		$stmt->bindParam(':avatar', $this->avatar);
-		$stmt->bindParam(':nivel',$this->nivel);
+		$stmt->bindParam(':nickuser',$this->nickuser);
+		$stmt->bindParam(':senha',$this->senha);
+		$stmt->bindParam(':nivel',$this->nivel_usuario);
 		$stmt->bindParam(':ativo',$this->ativo);
 		$stmt->bindParam(':data_cadastro',$this->datacadastro);
 		$stmt->bindParam(':data_ultimo_login',$this->datalogin);
@@ -100,62 +83,39 @@ class Usuarios extends Crud{
 	}
 
 	public function logar(){
+
 		// SELECIONAR BANCO DE DADOS
-		$sql = "SELECT * from $this->table WHERE BINARY email=:email AND BINARY password=:password ";
+		
+		$sql = "SELECT * from $this->table WHERE BINARY nickuser=:nickuser AND BINARY senha=:senha ";
 			try{
 				$stmt = DB::prepare($sql);
-				$stmt->bindParam(':email', $this->email);
-				$stmt->bindParam(':password', $this->senha);
+				$stmt->bindParam(':nickuser', $this->nickuser);
+				$stmt->bindParam(':senha', $this->senha);
 				$stmt->execute();
 				$contar = $stmt->rowCount();
 				if($contar>0){
 					$loop = $stmt->fetchAll();
 					foreach ($loop as $show){
 						$loginId = $show->id;
-						$loginName = $show->name;
+						$loginNome = $show->nome;
 						$loginEmail = $show->email;
-						$loginUser = $show->user;
-						$loginAvatar = $show->avatar;
-						$loginProprietario = $show->proprietario;
-						$loginGrupo = $show->grupoLoja;
-						$loginLoja = $show->loja;
+						$loginUser = $show->nickuser;
+						$loginSenha = $show->senha;
 						$loginNivel = $show->nivel;
-						$loginAtivo = $show->ativo;
 					}
-					if($loginAtivo == 0){
-						try{
-							$sql  = "UPDATE $this->table SET data_ultimo_login = :data_ultimo_login WHERE id = :id";
-							$stmt = DB::prepare($sql);
-							$stmt->bindParam(':data_ultimo_login', $this->datalogin);
-							$stmt->bindParam(':id', $id);
-							$stmt->execute();
-						} catch(PDOException $e) {
-							echo 'ERROR: ' . $e->getMessage();
-						}
 					$_SESSION['loginId'] = $loginId;
-					$_SESSION['loginName'] = $loginName;
+					$_SESSION['loginNome'] = $loginNome;
 					$_SESSION['loginEmail'] = $loginEmail;
 					$_SESSION['loginUser'] = $loginUser;
-					$_SESSION['loginAvatar'] = $loginAvatar;
-					$_SESSION['loginProprietario'] = $loginProprietario;
-					$_SESSION['loginGrupo'] = $loginGrupo;
-					$_SESSION['loginLoja'] = $loginLoja;
+					$_SESSION['loginSenha'] = $loginSenha;
 					$_SESSION['loginNivel'] = $loginNivel;
 
-					
-					
 					echo '<div class="alert alert-success">
-							<button type="button" class="close" data-dismiss="alert">×</button>
-							<strong>Logado com Sucesso!</strong> Redirecionando para o sistema.
-						 </div>';
-					header("Refresh: 1, index.php?acao=welcome");
-					}else{
-						echo '<div class="alert alert-danger">
-								<button type="button" class="close" data-dismiss="alert">×</button>
-								<strong>Erro ao logar!</strong> contate o administrador do sistema.
-							</div>';
-					}
+						<button type="button" class="close" data-dismiss="alert">×</button>
+						<strong>Logado com Sucesso!</strong> Redirecionando para o sistema.
+					</div>';
 					
+					header("Refresh: 3, index.php?acao=welcome");
 				}else{
 					echo '<div class="alert alert-danger">
 						<button type="button" class="close" data-dismiss="alert">×</button>

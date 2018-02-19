@@ -146,8 +146,8 @@ CREATE TABLE `tb_localidades` (
   `nome` varchar(50) NOT NULL,
   `municipio` varchar(100) NOT NULL,
   `uf` varchar(2) NOT NULL,
-  `latitude` float(10,6) DEFAULT NULL,
-  `longitude` float(10,6) DEFAULT NULL,
+  `latitude` float(10,10) DEFAULT NULL,
+  `longitude` float(10,10) DEFAULT NULL,
   `ativo` enum('0','1') NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

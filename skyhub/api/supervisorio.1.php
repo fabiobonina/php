@@ -1,13 +1,13 @@
 <?php
-/*
+
 $dns = "mysql:host=mysql.hostinger.com.br;dbname=u634432767_tec";
 $user = "u634432767_tec";
 $pass = "lYhdZ58UEU";
-*/
+/*
 $dns = "mysql:host=localhost;dbname=test";
 $user = "root";
 $pass = "";
-
+*/
 //$_GET, $_POST e $_COOKIE.
 
 if(isset($_GET['cmd'])){
@@ -66,7 +66,7 @@ if(isset($_COOKIE['cmd'])){
     try {
         $con = new PDO($dns, $user, $pass);
 
-        if(!$con){ echo "Não foi possivel conectar com Banco de Dados!";};
+        if(!$con){ echo "Não foi possivel conectar com Banco de Dados!";         };
         $sql  = "INSERT INTO tb_teste (bem) ";
         $sql .= "VALUES (:bem)";
         $query = $con->prepare($sql);

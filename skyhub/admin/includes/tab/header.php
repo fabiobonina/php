@@ -2,25 +2,22 @@
 ob_start();
 session_start();
 
-// login
-if(!isset($_SESSION['loginUser']) && (!isset($_SESSION['loginNivel']))){
-	header("Location: login.php");exit;
-}
+  // login
+  if(!isset($_SESSION['loginUser']) && (!isset($_SESSION['loginSenha']))){
+    header("Location: login.php");exit;
+  }
 
-	//include("admin/conexao/conecta.php");
 	include("admin/includes/logout.php");
 
 	$userUsuario = $_SESSION['loginUser'];
-  $userEmail = $_SESSION['loginEmail'];
-	$userSenha = $_SESSION['loginProprietario'];
+	$userSenha = $_SESSION['loginSenha'];
 	$userNivel = $_SESSION['loginNivel'];
-	$userGrupo = $_SESSION['loginGrupo'];
-  $userLoja = $_SESSION['loginLoja'];
-  $userNome = $_SESSION['loginNome'];
+	$userNome = $_SESSION['loginNome'];
 
-  	function __autoload($class_name){
+	function __autoload($class_name){
 		require_once 'admin/classes/' . $class_name . '.php';
 	}
+
 ?>
 
 <!DOCTYPE html>

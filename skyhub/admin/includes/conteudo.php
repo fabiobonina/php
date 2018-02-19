@@ -1,13 +1,13 @@
 <?php $oats = new Oats();
       $usuarios = new Usuarios();
-      $lojas = new Lojas();
+      $clientes = new Clientes();
       $localidades = new Localidades();
       $sistemas = new Sistemas();
       $servicos = new Servicos();
       $descricoes = new Descricoes();
       $ativos = new Ativos();
 
-      $cont_anarar_os = 0;
+      $cont_abarar_os = 0;
       $cont_retorno = 0;
       $cont_finalizar = 0;
       $cont_concluidas = 0;
@@ -28,7 +28,7 @@
 
         $oatStatus = $value->status;
         if( $oatStatus == 0){
-          $cont_anarar_os++;
+          $cont_abarar_os++;
         }elseif($oatStatus == 1){
           $cont_retorno++;
         }
@@ -49,7 +49,7 @@
 
          foreach($localidades->findAll() as $key => $value):{
             $localId = $value->id;
-            $localidade = $value->loja . " | " . $value->nome;
+            $localidade = $value->cliente . " | " . $value->nome;
             $localLat = $value->latitude;
             $localLong = $value->longitude;
             $cont_oatTt = 0;
@@ -95,7 +95,7 @@
         //#### OAT Status #######
         var data2 = google.visualization.arrayToDataTable([
           ['OAT', 'Status'],
-          ['Solicitação',     <?php echo $cont_anarar_os; ?>],
+          ['Solicitação',     <?php echo $cont_abarar_os; ?>],
           ['Aberta',      <?php echo $cont_retorno; ?>],
           ['Fechada',  <?php echo $cont_finalizar; ?>],
           ['Concluida', <?php echo $cont_concluidas; ?>]
@@ -151,7 +151,7 @@
         var data_maps = google.visualization.arrayToDataTable([
           ['Lat', 'Long', 'Name'],
           <?php foreach($localidades->findAll() as $key => $value):if($value->ativo == 0 ) {
-            $localidade = $value->loja . " | " . $value->nome;
+            $localidade = $value->cliente . " | " . $value->nome;
             if( $value->latitude <> 0){
             ?>
 
@@ -189,7 +189,7 @@
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-clock-o"></i> OAT Solicitada</span>
-              <div class="count"><?php echo $cont_anarar_os; ?></div>
+              <div class="count"><?php echo $cont_abarar_os; ?></div>
               <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i> </i> Aguardando OS</span>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
@@ -277,7 +277,7 @@
                   <div id="placeholder33" style="height: 460px; display: none" class="demo-placeholder"></div>
                   <div style="width: 100%;">
 
-                    <div id="map_div" style="width: 100%; height: 600px"></div>
+                    <div id="map_div" style="width: 100%; height: 500px"></div>
                   </div>
                 </div>
                 <div class="clearfix"></div>
