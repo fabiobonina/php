@@ -101,25 +101,18 @@ Vue.component('login', {
       successMessage: [],
       isLoading: false,
       email:'',
-      password:''
+      password:'',
     }
   },
   computed: {
-    temErros () {
-      return this.errorMessage.length > 0
-    },
     temMessage () {
-      if(this.errorMessage.length > 0){
-        return true
-      }
-      if(this.successMessage.length > 0){
-        return true
-      }
+      if(this.errorMessage.length > 0) return true
+      if(this.successMessage.length > 0) return true
       return false
     },
   },
   methods: {
-    registrar: function() {
+    logar: function() {
       if(this.checkForm()){
         this.isLoading = true
         //const data = {'id': this.data.id, 'modelo': this.modelo
@@ -180,16 +173,9 @@ Vue.component('register', {
     }
   },
   computed: {
-    temErros () {
-      return this.errorMessage.length > 0
-    },
     temMessage () {
-      if(this.errorMessage.length > 0){
-        return true
-      }
-      if(this.successMessage.length > 0){
-        return true
-      }
+      if(this.errorMessage.length > 0) return true
+      if(this.successMessage.length > 0) return true
       return false
     },
   },
@@ -247,9 +233,29 @@ Vue.component('register', {
     }
   }
 });
+var NaoEncontrado = Vue.extend({
+  name: 'naoEncontrado',
+  template: '#naoEncontrado',
+  data: function () {
+    return {item: '' };
+  },
+  methods: {
+    deleteProduct: function () {
+      //products.splice(findProductKey(this.$route.params._id), 1);
+      //router.push('/');
+    }
+  }
+});
+var router = new VueRouter({
+  routes: [
+    {path: '/', component: home,  name: 'home'},
+    {path: '*', component: NaoEncontrado}
+  ]
+});
 
 var App = {}
 
 new Vue({
-  store
+  store,
+  router
 }).$mount('#app')
