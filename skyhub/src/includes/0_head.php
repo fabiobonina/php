@@ -37,18 +37,17 @@ function __autoload($class_name){
   <link href="./img/bit-louc.png" rel="icon" type="image/png" />
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="./dist/css/font-awesome.min.css">
+  
   <link rel="stylesheet" href="./dist/css/bulma.min.css"> 
-  <link rel="stylesheet" type="text/css" href="./dist/css/index.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href='https://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="./dist/css/index.css">
   <link rel="stylesheet" type="text/css" href="./dist/css/_progress.css">
     
   <script src="lib/vue.js"></script>
   <script src="lib/vuex.js"></script>
   <script src="lib/vue-router.js"></script>
-  <script src="lib/vue-resource.js"></script>
-  <script defer src="/dist/fontawesome/fantawesome-all.js"></script>
-  
+  <script src="lib/vue-resource.js"></script>  
     
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
