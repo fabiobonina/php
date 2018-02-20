@@ -3,17 +3,20 @@ ob_start();
 session_start();
 
 // login
-if(!isset($_SESSION['loginUser']) && (!isset($_SESSION['loginSenha']))){
+if(!isset($_SESSION['loginUser']) && (!isset($_SESSION['loginProprieratio']))){
 	header("Location: login.php");exit;
 }
-
+if(isset($_SESSION['loginNivel']) > '0'  && isset($_SESSION['loginGrupo']) == 1 && isset($_SESSION['loginProprieratio']) == 1){
+	header("Location: index.php");exit;
+}
 	//include("admin/conexao/conecta.php");
 	include("admin/includes/logout.php");
 
 	$userUsuario = $_SESSION['loginUser'];
-	$userSenha = $_SESSION['loginSenha'];
+	$userSenha = $_SESSION['loginProprietario'];
 	$userNivel = $_SESSION['loginNivel'];
-	$userNome = $_SESSION['loginNome'];
+  $userNome = $_SESSION['loginName'];
+  $userAvatar = $_SESSION['loginAvatar'];
 
   	function __autoload($class_name){
 		require_once 'admin/classes/' . $class_name . '.php';
@@ -47,6 +50,4 @@ if(!isset($_SESSION['loginUser']) && (!isset($_SESSION['loginSenha']))){
     <!-- Custom Theme Style -->
     <link href="build/css/custom.min.css" rel="stylesheet">
 
-    
-    
-    </head>
+  </head>

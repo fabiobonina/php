@@ -20,7 +20,7 @@ if(isset($_SESSION['loginEmail']) && (isset($_SESSION['loginNivel']))){
     
     <script src="lib/vue.js"></script>
     <script src="lib/vuex.js"></script>
-    <script src="lib/vue-router.js"></script>
+    <!--script src="lib/vue-router.js"></script-->
     <script src="lib/vue-resource.js"></script>
     
   </head>
@@ -165,7 +165,7 @@ if(isset($_SESSION['loginEmail']) && (isset($_SESSION['loginNivel']))){
     <!-- components _uso -->
     <script src="src/components/_uso/message.js"></script>
     <!-- /components _uso -->
-    <script src="appLogin.js"></script>
+    <script src="login.js"></script>
   
   </body>
 </html>

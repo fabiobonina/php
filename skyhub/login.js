@@ -100,8 +100,7 @@ Vue.component('login', {
       errorMessage: [],
       successMessage: [],
       isLoading: false,
-      email:'',
-      password:'',
+      email:'', password:'',
     }
   },
   computed: {
@@ -122,10 +121,8 @@ Vue.component('login', {
           password: this.password
         };
         //var formData = this.toFormData(postData);
-        console.log(postData);
         this.$http.post('./config/api/apiUser.php?action=logar', postData)
           .then(function(response) {
-            console.log(response);
             if(response.data.error){
               this.errorMessage.push(response.data.message);
               this.isLoading = false;
@@ -133,8 +130,7 @@ Vue.component('login', {
               this.successMessage.push(response.data.message);
               this.isLoading = false;
               setTimeout(() => {
-                this.$router.push('index.php');
-                this.$emit('close');
+                window.location.href = "./index.php";
               }, 2000);
             }
           })
@@ -246,16 +242,11 @@ var NaoEncontrado = Vue.extend({
     }
   }
 });
-var router = new VueRouter({
-  routes: [
-    {path: '/', component: home,  name: 'home'},
-    {path: '*', component: NaoEncontrado}
-  ]
-});
 
-var App = {}
+var App = {
+
+}
 
 new Vue({
-  store,
-  router
+  store
 }).$mount('#app')

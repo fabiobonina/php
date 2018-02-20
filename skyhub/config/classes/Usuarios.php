@@ -168,7 +168,18 @@ class Usuarios extends Crud{
 			} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
-		
+	}
+	public function updateLogar($id){
+		// SELECIONAR BANCO DE DADOS
+		try{
+			$sql  = "UPDATE $this->table SET data_ultimo_login = :data_ultimo_login WHERE id = :id";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':data_ultimo_login', $this->datalogin);
+			$stmt->bindParam(':id', $id);
+			return $stmt->execute();
+		} catch(PDOException $e) {
+			echo 'ERROR: ' . $e->getMessage();
+		}
 	}
 
 

@@ -16,7 +16,7 @@ $usuarios = new Usuarios();
 $res = array('error' => true);
 $arDados = array();
 $arErros = array();
-$action = 'registrar';
+$action = 'logar';
 
 if(isset($_GET['action'])){
   $action = $_GET['action'];
@@ -26,26 +26,82 @@ if($action == 'logar'):
 
   $email=$_POST["email"];
   $senha=$_POST["password"];
+
   $datalogin = date("Y-m-d H:i:s");
   $password = md5($senha);
 
-  $usuarios->setEmail($email);
-  $usuarios->setSenha($password);
-  $usuarios->setDatalogin($datalogin);
+  #USUARIOS-------------------------------------------------------------------------------------------
+  $userValido = '0';
+  foreach($usuarios->findAll() as $key => $value):if( $value->email == $email ) {
+    $value->password;
+    $userValido++;
+    if($password == $value->password){
+      
+      $loginAtivo = $value->ativo;
 
-  # Logar
-  if($usuarios->logar()){
-    $res['error'] = false;
-    $arDados = "Logado com sucesso!";
-    $res['message']= $arDados;
-  }else{
-    $res['error'] = true; 
-    $arError = "Error, nao foi possivel salvar os dados";
+      if($loginAtivo == 0){
+        $loginId = $value->id;
+        $loginName = $value->name;
+        $loginEmail = $value->email;
+        $loginUser = $value->user;
+        $loginAvatar = $value->avatar;
+        $loginProprietario = $value->proprietario;
+        $loginGrupo = $value->grupoLoja;
+        $loginLoja = $value->loja;
+        $loginNivel = $value->nivel;
+        $loginDtCadastro = $value->data_cadastro;
+        $loginDtUltimoLogin = $value->data_ultimo_login;
+
+        $usuarios->setDatalogin($datalogin);
+
+        if($usuarios->updateLogar($loginId)){
+          $res['error'] = false;
+          $arDados = "Logado com sucesso!";
+          $res['message']= $arDados;
+        }else{
+          $arError = "Atenção, data não atualizada";
+          array_push($arErros, $arError);
+        }
+
+        $_SESSION['loginId'] = $loginId;
+        $_SESSION['loginName'] = $loginName;
+        $_SESSION['loginEmail'] = $loginEmail;
+        $_SESSION['loginUser'] = $loginUser;
+        $_SESSION['loginAvatar'] = $loginAvatar;
+        $_SESSION['loginProprietario'] = $loginProprietario;
+        $_SESSION['loginGrupo'] = $loginGrupo;
+        $_SESSION['loginLoja'] = $loginLoja;
+        $_SESSION['loginNivel'] = $loginNivel;
+        $_SESSION['loginDtCadastro'] = $loginDtCadastro;
+        $_SESSION['loginDtUltimoLogin'] = $loginDtUltimoLogin;
+
+      }else{
+        $res['error'] = true;
+        $arError = "Error ao logar! Contate o administrador do sistema.";
+        array_push($arErros, $arError);
+      }
+    }else{
+      $res['error'] = true;
+      $arError = "Error ao logar! Senha invalida!";
+      array_push($arErros, $arError);
+    }
+  }endforeach;
+  #USUARIOS-------------------------------------------------------------------------------------------
+  
+  if($userValido == 0){
+    $res['error'] = true;
+    $arError = "Error ao logar! Usuario não encontrado!";
     array_push($arErros, $arError);
   }
-$res['message']= $arErros;
+  if($res['error'] == true){
+    $res['message']= $arErros;
+  }
+  
 endif;
 
+
+
+#REGISTRAR
 if($action == 'registrar'):
   #Novo Usuario
   $name  = $_POST['name'];
@@ -116,7 +172,11 @@ if($action == 'registrar'):
       array_push($arErros, $arError);
     }
   endif;
-  $res['message']= $arErros;
+
+  if($res['error'] == true){
+    $res['message']= $arErros;
+  }
+
 endif;
 
 #ATUALIZAR

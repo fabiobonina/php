@@ -1,20 +1,28 @@
-  <!-- Header -->
-  <?php include("admin/includes/header.php");?>
-  <!-- /Header -->
+<!-- /Head -->
+<?php include("src/includes/0_head.php");?>
+<!-- /Head -->
 
-            <!-- menu profile quick info -->
-            <?php include("admin/includes/menu.php");?>
-            <!-- /menu footer buttons -->
+<!-- /Header -->
+<?php include("src/includes/1_header.php");?>
+<!-- /Header -->
 
-        <!-- top navigation -->
-        <?php include("admin/includes/topo.php");?>
-        <!-- /top navigation -->
+<!-- menu profile quick info -->
+<?php //include("src/includes/2_menu.php");?>
+<!-- /menu footer buttons -->
 
-        <!-- page content -->
-        <?php include("admin/includes/conteudo.php");?>
-        <!-- /page content -->
-        
-        <!-- footer content -->
-        <?php include("admin/includes/footer.php");?>
-        <!-- /footer content -->
+<!-- top navigation -->
+<?php //include("src/includes/3_topo.php");?>
+<!-- /top navigation -->
+
+<!-- page content -->
+<?php include("src/index.php");?>
+<!-- /page content -->
+
+<!-- footer content -->
+<?php include("src/includes/4_footer.php");?>
+<!-- /footer content -->
+
+<!-- footer content -->
+<?php include("src/includes/X_fim.php");?>
+<!-- /footer content -->
 
