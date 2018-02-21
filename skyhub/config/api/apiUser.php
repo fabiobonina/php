@@ -30,15 +30,18 @@ if($action == 'logar'):
   $datalogin = date("Y-m-d H:i:s");
   $password = md5($senha);
 
-  #USUARIOS-------------------------------------------------------------------------------------------
+  #CONFIRMAÇÃO-LOGIN-------------------------------------------------------------------------------------------
+  #CONFINAÇÃO EMAIL
   $userValido = '0';
   foreach($usuarios->findAll() as $key => $value):if( $value->email == $email ) {
+    
+    #CONFINAÇÃO SENHA
     $value->password;
     $userValido++;
     if($password == $value->password){
       
+      #CONFINAÇÃO ATIVO
       $loginAtivo = $value->ativo;
-
       if($loginAtivo == 0){
         $loginId = $value->id;
         $loginName = $value->name;
@@ -51,9 +54,9 @@ if($action == 'logar'):
         $loginNivel = $value->nivel;
         $loginDtCadastro = $value->data_cadastro;
         $loginDtUltimoLogin = $value->data_ultimo_login;
-
+        
+        #ATUALIZAÇÃO ULTIMO LOGIN
         $usuarios->setDatalogin($datalogin);
-
         if($usuarios->updateLogar($loginId)){
           $res['error'] = false;
           $arDados = "Logado com sucesso!";
@@ -63,6 +66,7 @@ if($action == 'logar'):
           array_push($arErros, $arError);
         }
 
+        #CRIAR SESSÃO
         $_SESSION['loginId'] = $loginId;
         $_SESSION['loginName'] = $loginName;
         $_SESSION['loginEmail'] = $loginEmail;
@@ -86,7 +90,7 @@ if($action == 'logar'):
       array_push($arErros, $arError);
     }
   }endforeach;
-  #USUARIOS-------------------------------------------------------------------------------------------
+  #CONFIRMAÇÃO-LOGIN-------------------------------------------------------------------------------------------
   
   if($userValido == 0){
     $res['error'] = true;
