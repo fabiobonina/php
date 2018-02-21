@@ -18,10 +18,10 @@ if(isset($_SESSION['loginEmail']) && (isset($_SESSION['loginNivel']))){
     <link rel="stylesheet" href="./dist/css/bulma.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
-    <script src="lib/vue.js"></script>
-    <script src="lib/vuex.js"></script>
-    <!--script src="lib/vue-router.js"></script-->
-    <script src="lib/vue-resource.js"></script>
+    <script src="dist/lib/vue.js"></script>
+    <script src="dist/lib/vuex.js"></script>
+    <!--script src="dist/lib/vue-router.js"></script-->
+    <script src="dist/lib/vue-resource.js"></script>
     
   </head>
   <body class="hold-transition login-page">

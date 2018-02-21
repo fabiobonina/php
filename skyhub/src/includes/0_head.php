@@ -44,10 +44,10 @@ function __autoload($class_name){
   <link rel="stylesheet" type="text/css" href="./dist/css/index.css">
   <link rel="stylesheet" type="text/css" href="./dist/css/_progress.css">
     
-  <script src="lib/vue.js"></script>
-  <script src="lib/vuex.js"></script>
-  <script src="lib/vue-router.js"></script>
-  <script src="lib/vue-resource.js"></script>  
+  <script src="dist/lib/vue.js"></script>
+  <script src="dist/lib/vuex.js"></script>
+  <script src="dist/lib/vue-router.js"></script>
+  <script src="dist/lib/vue-resource.js"></script>  
     
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
