@@ -9,7 +9,6 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
     <!--link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css"></link>
     <link href="styles.css" rel="stylesheet" type="text/css"-->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   </head>
   <body>
 
@@ -17,7 +16,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAU4CVf8FLD6nXeKM_lSBL_nnY8DobX6Qs"></script>
-  <script src="vue-google-maps.js"></script>
 
   <div id="app">
   <vue-map :markers="locations"></vue-map>
