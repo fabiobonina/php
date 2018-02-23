@@ -1,6 +1,6 @@
-Vue.component('index', {
-  name: 'index',
-  template: '#index',
+Vue.component('top', {
+  name: 'top',
+  template: '#top',
   data: function () {
     return {
       errorMessage: '',

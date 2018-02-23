@@ -32,19 +32,19 @@ if(isset($_GET['action'])){
   $action = $_GET['action'];
 }
 $res['user'] = $user;
-$acessoNivel = $user['nivel'];// $user >  include("_chave.php");
-$acessoProprietario = $user['proprietario'];
-$acessoGrupo = $user['grupo'];
-$acessoloja = $user['loja'];
-//$acessoNivel = 2;
-//$acessoProprietario = 1;
-//$acessoGrupo = 'C';
-//$acessoloja = 1;
+//$acessoNivel = $user['nivel'];// $user >  include("_chave.php");
+//$acessoProprietario = $user['proprietario'];
+//$acessoGrupo = $user['grupo'];
+//$acessoloja = $user['loja'];
+$acessoNivel = 2;
+$acessoProprietario = 1;
+$acessoGrupo = 'c';
+$acessoloja = 1;
 
 if($action == 'read'):
   //$acessoProprietario = $_POST['acessoProprietario'];
 
-  #PROPRITARIO
+  #PROPRITARIO--------------------------------------------------------------------------------------------------------------------------------------
   $arLojas = array();
   $arrayLocais = array();
   $arBens = array();
@@ -65,7 +65,7 @@ if($action == 'read'):
       $contLj_bemTt = 0;
       #LOCAIS-----------------------------------------------------------------------------------
       foreach($locais->findAll() as $key => $value):if($value->loja == $lojaId) {
-        //$arLocal = (array) $value;
+        $arLocal = (array) $value;
         $localId = $value->id;
 
         $contPp_localTt++;//CONTADOR LOCAIS PROPRIEDADE
@@ -82,11 +82,10 @@ if($action == 'read'):
           foreach($bens->findAll() as $key => $value):if($value->id == $bemId) {
             $contPp_bemTt++;
             $contLj_bemTt++;
-            
           }endforeach;
         }endforeach;
         #LOCAIS_BENS-----------------------------------------------------------------------------------
-        
+        array_push($arrayLocais, $arLocal);
       }endforeach;
       #LOCAIS-------------------------------------------------------------------------------------------
       if($contLj_localTt > 0){
@@ -109,7 +108,6 @@ if($action == 'read'):
           array_push($arCategorias, $arCategoria );
         }endforeach;
       }endforeach;
-
       $arLoja['categoria']= $arCategorias;
       #LOJA_CATEGORIA------------------------------------------------------------------------------
       
@@ -128,7 +126,7 @@ if($action == 'read'):
   }endforeach;
   
   //$res['bens']= $arBens;
-  //$res['locais']= $arrayLocais;
+  $res['locais']= $arrayLocais;
   $res['lojas']= $arLojas;
   //$arDados = $arLocal;
   $res['proprietarios'] = $arProprietario;
@@ -151,7 +149,7 @@ if($action == 'loja'):
     $loja['locais']= $locais;
     $dados = $loja;
   }endforeach;
-  
+#PROPRITARIO--------------------------------------------------------------------------------------------------------------------------------------  
 endif;
 
 

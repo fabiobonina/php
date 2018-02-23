@@ -1,4 +1,4 @@
-<template id="index">
+<template id="top">
   <div>
     <nav class="navbar is-link">
       <div class="navbar-brand">
@@ -23,10 +23,15 @@
         <div class="navbar-start">
           <a class="navbar-item" href="index.php"> Home</a>
           <a class="navbar-item" href="#/os"> OS</a>
-          <div class="navbar-item dropdown">
-            <a class="navbar-link" href="__index.php">
-              SkyHub
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link" href="/documentation/overview/start/">
+              Docs
             </a>
+            <div class="navbar-dropdown is-boxed">
+              <a class="navbar-item" href="/documentation/overview/start/">
+                Overview
+              </a>
+            </div>
           </div>
         </div>
         

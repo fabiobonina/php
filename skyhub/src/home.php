@@ -4,9 +4,12 @@
     <div>
       <main id="app">
         <div>
-          <index></index>
+          <top></top>
           <configuracao></configuracao>
+          
           <router-view></router-view>
+          
+          <vue-map></vue-map>
           <rodape></rodape>
         </div>
       </main>
@@ -27,6 +30,7 @@
     <?php include("src/components/local/locais-grid.php");?>
     <?php include("src/components/local/local.php");?>
     <?php include("src/components/local/localAdd.php");?>
+    <?php include("src/components/local/maps.php");?>
     <!-- /components local-->
     <!-- components bem -->
     <?php include("src/components/bem/bens-grid.php");?>
@@ -73,6 +77,7 @@
 <script src="src/components/local/locais-grid.js"></script>
 <script src="src/components/local/local.js"></script>
 <script src="src/components/local/localAdd.js"></script>
+<script src="src/components/local/maps.js"></script>
 <!-- /components local-->
 <!-- components bem -->
 <script src="src/components/bem/bens-grid.js"></script>
