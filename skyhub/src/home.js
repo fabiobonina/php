@@ -154,7 +154,7 @@ const actions = {
   },
   fetchIndex({ commit }) {
     return new Promise((resolve, reject) => {
-        Vue.http.get("./config/api/apiProprietarioFull1.php?action=read")
+        Vue.http.get("./config/api/apiProprietario.php?action=read")
         .then((response) => {
           if(response.body.error){
             console.log(response.body.message);
@@ -172,7 +172,7 @@ const actions = {
   },
   fetchConfig({ commit }) {
     return new Promise((resolve, reject) => {
-        Vue.http.get("./config/api/apiConfigFull.php?action=config")
+        Vue.http.get("./config/api/apiConfig.php?action=config")
       .then((response) => {
         if(response.body.error){
           console.log(response.body.message);
@@ -217,7 +217,7 @@ const actions = {
       loja: loja,
       }
       //console.log(postData);
-      Vue.http.post("./config/api/apiLocalFull.php?action=read",postData)
+      Vue.http.post("./config/api/apiLocal.php?action=read",postData)
         .then((response) => {
           if(response.body.error){
             console.log(response.body.message);
@@ -235,7 +235,7 @@ const actions = {
   },
   fetchProdutos({ commit }) {
     return new Promise((resolve, reject) => {
-        Vue.http.get("./config/api/apiConfigFull.php?action=prod")
+        Vue.http.get("./config/api/apiConfig.php?action=prod")
         .then((response) => {
           if(response.body.error){
             console.log(response.body.message);

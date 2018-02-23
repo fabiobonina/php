@@ -15,7 +15,7 @@
 <!-- /top navigation -->
 
 <!-- page content -->
-<?php include("src/index.php");?>
+<?php include("src/home.php");?>
 <!-- /page content -->
 
 <!-- footer content -->

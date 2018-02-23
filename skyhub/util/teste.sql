@@ -28,8 +28,8 @@ CREATE TABLE IF NOT EXISTS `system_tec`.`login` (
   `senha` VARCHAR(32) CHARACTER SET 'latin1' NOT NULL,
   `nivel` ENUM('0', '1', '2', '3') CHARACTER SET 'latin1' NOT NULL DEFAULT '0',
   `ativo` ENUM('0', '1') CHARACTER SET 'latin1' NOT NULL DEFAULT '0',
-  `data_cadastro` DATE NOT NULL DEFAULT '0000-00-00',
-  `data_ultimo_login` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `data_cadastro` DATE NOT NULL,
+  `data_ultimo_login` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `niciuser_UNIQUE` (`nickuser` ASC),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `system_tec`.`tb_ativo` (
   `cliente` VARCHAR(30) CHARACTER SET 'latin1' NOT NULL,
   `localidade` INT(11) NOT NULL,
   `plaqueta` VARCHAR(11) CHARACTER SET 'latin1' NOT NULL,
-  `data` DATE NOT NULL DEFAULT '0000-00-00',
+  `data` DATE NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `cliente` (`cliente` ASC),
   INDEX `localidade` (`localidade` ASC))
@@ -61,9 +61,10 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_fabricante`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_fabricante` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
-  `nick` VARCHAR(30) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL)
+  `nick` VARCHAR(30) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
@@ -73,11 +74,12 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_proprietario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_proprietario` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) CHARACTER SET 'latin1' NOT NULL,
   `nick` VARCHAR(30) CHARACTER SET 'latin1' NOT NULL,
   `ativo` ENUM('0', '1') CHARACTER SET 'utf8' NOT NULL DEFAULT '0',
-  `cadastro` DATE NOT NULL DEFAULT '0000-00-00')
+  `cadastro` DATE NOT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
@@ -88,7 +90,8 @@ COLLATE = utf8_unicode_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_grupoloja` (
   `id` VARCHAR(2) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
-  `decricao` VARCHAR(150) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL)
+  `decricao` VARCHAR(150) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
@@ -99,7 +102,8 @@ COLLATE = utf8_unicode_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_seguimento` (
   `id` VARCHAR(4) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
-  `name` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL)
+  `name` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
@@ -109,13 +113,13 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_loja`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_loja` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `nick` VARCHAR(30) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
   `name` VARCHAR(250) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
   `proprietario` INT(11) NOT NULL,
   `grupoLoja` VARCHAR(2) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
   `seguimento` VARCHAR(4) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
-  `data` DATE NOT NULL DEFAULT '0000-00-00',
+  `data` DATE NOT NULL,
   `ativo` ENUM('0', '1') CHARACTER SET 'utf8' NOT NULL DEFAULT '0',
   INDEX `fk_tb_loja_tb_proprietario1_idx` (`proprietario` ASC),
   INDEX `fk_tb_loja_tb_grupoloja1_idx` (`grupoLoja` ASC),
@@ -144,9 +148,10 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_categoria`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_categoria` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) CHARACTER SET 'latin1' NOT NULL,
-  `tag` VARCHAR(30) CHARACTER SET 'latin1' NOT NULL)
+  `tag` VARCHAR(30) CHARACTER SET 'latin1' NOT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
@@ -157,7 +162,8 @@ COLLATE = utf8_unicode_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_produto_tipo` (
   `id` VARCHAR(4) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
-  `name` VARCHAR(30) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL)
+  `name` VARCHAR(30) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
@@ -167,7 +173,7 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_produtos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_produtos` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
   `tag` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
   `tipo` VARCHAR(4) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
@@ -187,7 +193,8 @@ COLLATE = utf8_unicode_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_tipo` (
   `id` VARCHAR(11) CHARACTER SET 'latin1' NOT NULL,
-  `name` VARCHAR(50) CHARACTER SET 'latin1' NOT NULL)
+  `name` VARCHAR(50) CHARACTER SET 'latin1' NOT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
@@ -197,7 +204,7 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_locais`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_locais` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `loja` INT(11) NOT NULL,
   `tipo` VARCHAR(11) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL,
   `regional` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL,
@@ -228,7 +235,7 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_bem`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_bem` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `produto` INT(11) NOT NULL,
   `tag` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
   `name` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
@@ -241,8 +248,8 @@ CREATE TABLE IF NOT EXISTS `system_tec`.`tb_bem` (
   `proprietarioLocal` INT(11) NOT NULL,
   `categoria` INT(11) NOT NULL,
   `plaqueta` VARCHAR(11) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL,
-  `dataFrabricacao` DATE NULL DEFAULT '0000-00-00',
-  `dataCompra` DATE NULL DEFAULT '0000-00-00',
+  `dataFrabricacao` DATE NULL,
+  `dataCompra` DATE NULL,
   INDEX `fk_tb_bem_tb_fabricante1_idx` (`fabricante` ASC),
   INDEX `fk_tb_bem_tb_loja1_idx` (`proprietario` ASC),
   INDEX `fk_tb_bem_tb_categoria1_idx` (`categoria` ASC),
@@ -282,12 +289,12 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_bem_localizacao`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_bem_localizacao` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `bem` INT(11) NOT NULL,
   `loja` INT(11) NULL DEFAULT NULL,
   `local` INT(11) NULL DEFAULT NULL,
-  `dataInicial` DATE NULL DEFAULT '0000-00-00',
-  `dataFinal` DATE NULL DEFAULT '0000-00-00',
+  `dataInicial` DATE NULL,
+  `dataFinal` DATE NULL,
   `status` ENUM('0', '1', '2', '3') CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '0',
   INDEX `fk_tb_bem_localizacao_tb_bem1_idx` (`bem` ASC),
   INDEX `fk_tb_bem_localizacao_tb_loja1_idx` (`loja` ASC),
@@ -316,9 +323,10 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_bens_familia`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_bens_familia` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
-  `tag` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL)
+  `tag` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
@@ -328,8 +336,9 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_grupo`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_grupo` (
-  `id` INT(11) NOT NULL,
-  `decricao` VARCHAR(150) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL)
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `decricao` VARCHAR(150) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
@@ -339,7 +348,7 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_bens_grupo`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_bens_grupo` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `bem` INT(11) NOT NULL,
   `grupo` INT(11) NOT NULL,
   INDEX `fk_tb_bens_grupo_tb_grupo1_idx` (`grupo` ASC),
@@ -363,10 +372,11 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_bens_nivel`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_bens_nivel` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
   `tag` INT(11) NOT NULL,
-  `segmento` INT(11) NOT NULL)
+  `segmento` INT(11) NOT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
@@ -407,7 +417,7 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_eq_componentes`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_eq_componentes` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `produto` INT(11) NOT NULL,
   `tag` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
   `name` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
@@ -420,8 +430,8 @@ CREATE TABLE IF NOT EXISTS `system_tec`.`tb_eq_componentes` (
   `proprietarioNick` VARCHAR(30) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
   `local` INT(11) NOT NULL,
   `categoria` INT(11) NOT NULL,
-  `dataFrabricacao` DATE NOT NULL DEFAULT '0000-00-00',
-  `dataCompra` DATE NOT NULL DEFAULT '0000-00-00',
+  `dataFrabricacao` DATE NOT NULL,
+  `dataCompra` DATE NOT NULL,
   INDEX `fk_tb_eq_componentes_tb_produtos1_idx` (`produto` ASC),
   INDEX `fk_tb_eq_componentes_tb_fabricante1_idx` (`frabicante` ASC),
   INDEX `fk_tb_eq_componentes_tb_loja1_idx` (`proprietario` ASC),
@@ -461,7 +471,7 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_equipamentos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_equipamentos` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `produto` INT(11) NOT NULL,
   `tag` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
   `name` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
@@ -475,8 +485,8 @@ CREATE TABLE IF NOT EXISTS `system_tec`.`tb_equipamentos` (
   `local` INT(11) NOT NULL,
   `categoria` INT(11) NOT NULL,
   `plaqueta` VARCHAR(11) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
-  `dataFrabricacao` DATE NOT NULL DEFAULT '0000-00-00',
-  `dataCompra` DATE NOT NULL DEFAULT '0000-00-00',
+  `dataFrabricacao` DATE NOT NULL,
+  `dataCompra` DATE NOT NULL,
   INDEX `fk_tb_equipamentos_tb_produtos1_idx` (`produto` ASC),
   INDEX `fk_tb_equipamentos_tb_fabricante1_idx` (`fabricante` ASC),
   INDEX `fk_tb_equipamentos_tb_proprietario1_idx` (`proprietario` ASC),
@@ -516,12 +526,12 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_eq_localizacao`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_eq_localizacao` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `equipamento` INT(11) NOT NULL,
   `loja` INT(11) NOT NULL,
   `local` INT(11) NULL DEFAULT NULL,
-  `dataIncial` DATE NULL DEFAULT '0000-00-00',
-  `dataFinal` DATE NULL DEFAULT '0000-00-00',
+  `dataIncial` DATE NULL,
+  `dataFinal` DATE NULL,
   `status` ENUM('0', '1', '2', '3') CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '0',
   INDEX `fk_tb_eq_localizacao_tb_equipamentos1_idx` (`equipamento` ASC),
   INDEX `fk_tb_eq_localizacao_tb_loja1_idx` (`loja` ASC),
@@ -550,7 +560,7 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_insumos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_insumos` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `tb_oat_id` INT(11) NOT NULL,
   `descricao` VARCHAR(100) CHARACTER SET 'latin1' NOT NULL,
   `quantidade` DOUBLE NOT NULL,
@@ -567,7 +577,7 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_local_categoria`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_local_categoria` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `local` INT(11) NOT NULL,
   `categoria` INT(11) NOT NULL,
   `ativo` ENUM('0', '1') CHARACTER SET 'utf8' NOT NULL DEFAULT '0',
@@ -613,7 +623,7 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_loja_categoria`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_loja_categoria` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `loja` INT(11) NOT NULL,
   `categoria` INT(11) NOT NULL,
   `ativo` ENUM('0', '1') CHARACTER SET 'utf8' NOT NULL DEFAULT '0')
@@ -626,7 +636,7 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_mod`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_mod` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `os` INT(11) NOT NULL,
   `tecnico` INT(11) NOT NULL,
   `dtInicio` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -652,7 +662,7 @@ CREATE TABLE IF NOT EXISTS `system_tec`.`tb_oat` (
   `localidade` INT(11) NOT NULL,
   `servico` VARCHAR(6) CHARACTER SET 'latin1' NOT NULL,
   `sistema` VARCHAR(12) CHARACTER SET 'latin1' NOT NULL,
-  `data` DATE NOT NULL DEFAULT '0000-00-00',
+  `data` DATE NOT NULL,
   `data_sol` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
   `filial` INT(2) NULL DEFAULT NULL,
   `os` INT(11) NULL DEFAULT NULL,
@@ -690,7 +700,7 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_os`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_os` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `loja` INT(11) NOT NULL,
   `lojaNick` VARCHAR(30) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
   `local` INT(11) NOT NULL,
@@ -699,8 +709,8 @@ CREATE TABLE IF NOT EXISTS `system_tec`.`tb_os` (
   `tipoServ` INT(1) NOT NULL,
   `bem` INT(11) NOT NULL,
   `tecnicos` VARCHAR(450) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
-  `data` DATE NOT NULL DEFAULT '0000-00-00',
-  `dtUltimoMan` DATE NULL DEFAULT '0000-00-00',
+  `data` DATE NOT NULL,
+  `dtUltimoMan` DATE NULL,
   `dtCadastro` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
   `filial` INT(2) NULL DEFAULT NULL,
   `os` INT(11) NULL DEFAULT NULL,
@@ -761,7 +771,7 @@ CREATE TABLE IF NOT EXISTS `system_tec`.`users` (
   `loja` VARCHAR(1) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL,
   `nivel` ENUM('0', '1', '2', '3', '4') CHARACTER SET 'latin1' NOT NULL DEFAULT '0',
   `ativo` ENUM('0', '1') CHARACTER SET 'latin1' NOT NULL DEFAULT '0',
-  `data_cadastro` DATE NOT NULL DEFAULT '0000-00-00',
+  `data_cadastro` DATE NOT NULL,
   `data_ultimo_login` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email` (`email` ASC),
@@ -794,7 +804,7 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_tecnicos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_tecnicos` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `user` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
   `hh` DOUBLE(5,2) NOT NULL,
   `ativo` ENUM('0', '1') CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '0',
@@ -813,7 +823,7 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_os_tecnico`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_os_tecnico` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `os` INT(11) NULL DEFAULT NULL,
   `loja` INT(11) NOT NULL,
   `tecnico` INT(11) NULL DEFAULT NULL,
@@ -846,7 +856,7 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tb_produto_categoria`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tb_produto_categoria` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `produto` INT(11) NOT NULL,
   `categoria` INT(11) NOT NULL,
   INDEX `fk_tb_produto_categoria_tb_categoria1_idx` (`categoria` ASC),
@@ -896,7 +906,7 @@ COLLATE = utf8_unicode_ci;
 -- Table `system_tec`.`tipo_despesa`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `system_tec`.`tipo_despesa` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `tipo_despesa` VARCHAR(45) CHARACTER SET 'latin1' NOT NULL,
   `ativo` ENUM('0', '1') CHARACTER SET 'latin1' NOT NULL,
   PRIMARY KEY (`id`))

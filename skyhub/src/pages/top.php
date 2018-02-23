@@ -2,8 +2,8 @@
   <div>
     <nav class="navbar is-link">
       <div class="navbar-brand">
-        <a class="navbar-item" href="https://bulma.io">
-          <img src="./img/bit-louc.png" alt="Bulma: a modern CSS framework based on Flexbox" width="28" height="28"> BitLOUC
+        <a class="navbar-item" href="index.php">
+          <img src="./img/bit-louc.png" alt="BitLOUC: Web | Mobi" width="28" height="28"> BitLOUC
         </a>
         <div class="level-item">
           <div class="field has-addons">
@@ -21,11 +21,11 @@
 
       <div id="navbarExampleTransparentExample" class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item" href="#/"> Home</a>
+          <a class="navbar-item" href="index.php"> Home</a>
           <a class="navbar-item" href="#/os"> OS</a>
           <div class="navbar-item dropdown">
-            <a class="navbar-link">
-              Docs
+            <a class="navbar-link" href="__index.php">
+              SkyHub
             </a>
           </div>
         </div>
