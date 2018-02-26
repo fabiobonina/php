@@ -32,14 +32,14 @@ if(isset($_GET['action'])){
   $action = $_GET['action'];
 }
 $res['user'] = $user;
-//$acessoNivel = $user['nivel'];// $user >  include("_chave.php");
-//$acessoProprietario = $user['proprietario'];
-//$acessoGrupo = $user['grupo'];
-//$acessoloja = $user['loja'];
-$acessoNivel = 2;
-$acessoProprietario = 1;
-$acessoGrupo = 'c';
-$acessoloja = 1;
+$acessoNivel = $user['nivel'];
+$acessoProprietario = $user['proprietario'];
+$acessoGrupo = $user['grupo'];
+$acessoloja = $user['loja'];
+//$acessoNivel = 2;
+//$acessoProprietario = 1;
+//$acessoGrupo = 'c';
+//$acessoloja = 1;
 
 if($action == 'read'):
   //$acessoProprietario = $_POST['acessoProprietario'];
@@ -59,6 +59,7 @@ if($action == 'read'):
       if($value->proprietario == $acessoProprietario && $value->ativo == '0' && (( $acessoNivel > 1 && $acessoGrupo == 'P' ) || $value->id == $acessoloja )){
       $arLoja = (array) $value;//Loja
       $lojaId = $value->id;
+      $lojaName = $value->name;
 
       $contLj_localGeo = 0;
       $contLj_localTt = 0;
@@ -67,7 +68,7 @@ if($action == 'read'):
       foreach($locais->findAll() as $key => $value):if($value->loja == $lojaId) {
         $arLocal = (array) $value;
         $localId = $value->id;
-
+        $arLocal['lojaNick'] = $lojaName;
         $contPp_localTt++;//CONTADOR LOCAIS PROPRIEDADE
         $contLj_localTt++;//CONTADOR LOCAIS LOJA
         if( $value->latitude <> 0.00000 && $value->longitude <> 0.00000){

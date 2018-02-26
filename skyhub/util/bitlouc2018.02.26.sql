@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 19-Fev-2018 às 07:00
+-- Generation Time: 26-Fev-2018 às 06:43
 -- Versão do servidor: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -26,17 +26,17 @@ SET time_zone = "+00:00";
 -- Estrutura da tabela `login`
 --
 
-CREATE TABLE IF NOT EXISTS `login` (
+CREATE TABLE `login` (
   `id` int(11) NOT NULL,
-  `nome` varchar(150) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `nickuser` varchar(30) NOT NULL,
-  `senha` varchar(32) NOT NULL,
-  `nivel` enum('0','1','2','3') NOT NULL DEFAULT '0',
-  `ativo` enum('0','1') NOT NULL DEFAULT '0',
-  `data_cadastro` date NOT NULL DEFAULT '0000-00-00',
-  `data_ultimo_login` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `nome` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `nickuser` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `senha` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `nivel` enum('0','1','2','3') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `ativo` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `data_cadastro` date NOT NULL,
+  `data_ultimo_login` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `login`
@@ -72,13 +72,13 @@ INSERT INTO `login` (`id`, `nome`, `email`, `nickuser`, `senha`, `nivel`, `ativo
 -- Estrutura da tabela `tb_ativo`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_ativo` (
+CREATE TABLE `tb_ativo` (
   `id` int(11) NOT NULL,
-  `cliente` varchar(30) NOT NULL,
+  `cliente` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `localidade` int(11) NOT NULL,
-  `plaqueta` varchar(11) NOT NULL,
-  `data` date NOT NULL DEFAULT '0000-00-00'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `plaqueta` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
+  `data` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_ativo`
@@ -103,13 +103,9 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (15, 'CAERN', 102, '106399', '2016-11-03'),
 (16, 'CAERN', 109, '106014', '2016-11-03'),
 (17, 'CAERN', 109, '106323', '2016-11-03'),
-(262, 'CAERN', 154, ' 000308', '2016-11-10'),
-(261, 'CAERN', 111, '000282', '2016-11-10'),
 (20, 'CAERN', 114, '106545', '2016-11-03'),
 (21, 'CAERN', 114, '106601', '2016-11-03'),
 (22, 'CAERN', 121, '010498', '2016-12-16'),
-(260, 'CAERN', 101, '106022', '2016-11-10'),
-(296, 'CASAL', 394, '240', '2016-12-01'),
 (27, 'CAERN', 131, '106318', '2016-11-03'),
 (28, 'CAERN', 131, '106526', '2016-11-03'),
 (29, 'CAERN', 132, '105993', '2016-11-03'),
@@ -122,7 +118,6 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (36, 'CAERN', 144, '106186', '2016-11-03'),
 (37, 'CAERN', 148, '256', '2016-11-03'),
 (38, 'CAERN', 150, '283', '2016-11-03'),
-(409, 'CAERN', 106, '106037', '2017-06-18'),
 (40, 'CAERN', 152, '10690', '2016-11-03'),
 (41, 'CAERN', 152, '106590', '2016-11-03'),
 (42, 'CAERN', 156, '106010', '2016-11-03'),
@@ -132,7 +127,6 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (46, 'CAERN', 173, '106314', '2016-11-03'),
 (47, 'CAERN', 183, '106475', '2016-11-03'),
 (48, 'CAERN', 183, '106501', '2016-11-03'),
-(264, 'CAERN', 184, '105452', '2016-11-10'),
 (51, 'CAERN', 185, '106490', '2016-11-03'),
 (52, 'CAERN', 187, '106493', '2016-11-03'),
 (53, 'CAERN', 187, '106553', '2016-11-03'),
@@ -171,20 +165,10 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (86, 'CAGEPA', 371, '105924', '2016-11-03'),
 (87, 'CAGEPA', 371, '106310', '2016-11-03'),
 (88, 'CAGEPA', 371, '106396', '2016-11-03'),
-(438, 'CASAL', 387, '105025', '2017-08-24'),
-(433, '', 0, '459', '2017-08-11'),
-(432, '', 0, '459', '2017-08-11'),
-(441, 'CASAL', 393, '104083', '2017-08-24'),
-(429, 'CASAL', 386, '324', '2017-08-05'),
-(428, 'CASAL', 386, '451', '2017-08-05'),
-(427, 'CASAL', 386, '461', '2017-08-05'),
 (97, 'CASAL', 394, '238', '2017-02-01'),
 (98, 'CASAL', 394, '239', '2017-02-01'),
 (99, 'CASAL', 396, '412', '2017-08-05'),
 (100, 'CASAL', 396, '425', '2017-08-05'),
-(420, 'CASAL', 395, '435', '2017-08-05'),
-(435, 'CASAL', 391, '457', '2017-08-11'),
-(434, 'CASAL', 391, '411', '2017-08-11'),
 (104, 'CASAL', 398, '458', '2017-08-11'),
 (105, 'CASAL', 398, '104082', '2017-08-11'),
 (106, 'CASAL', 401, '104570', '2016-11-03'),
@@ -192,14 +176,11 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (108, 'CASAL', 401, '104613', '2016-11-03'),
 (109, 'CASAL', 401, '105056', '2016-11-03'),
 (110, 'CASAL', 404, '426', '2017-06-18'),
-(408, 'CAERN', 151, '000370', '2017-06-18'),
-(407, 'CASAL', 404, '413', '2017-06-18'),
 (113, 'CASAL', 405, '416', '2017-06-18'),
 (114, 'CASAL', 405, '429', '2017-06-18'),
 (115, 'CASAL', 405, '000234', '2017-02-09'),
 (116, 'CASAL', 405, '104086', '2016-11-03'),
 (117, 'COSANPA', 409, '10210', '2016-11-03'),
-(295, 'COSANPA', 504, '0104270', '2016-11-26'),
 (119, 'COSANPA', 436, '104224', '2016-12-09'),
 (120, 'COSANPA', 450, '105330', '2016-11-03'),
 (121, 'DESO', 523, '104469', '2016-11-03'),
@@ -215,7 +196,11 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (256, 'CASAL', 406, '407', '2017-08-18'),
 (257, 'CAERN', 100, 'N?O EXISTE ', '2016-11-09'),
 (258, 'CAERN', 127, '105578', '2016-11-10'),
+(260, 'CAERN', 101, '106022', '2016-11-10'),
+(261, 'CAERN', 111, '000282', '2016-11-10'),
+(262, 'CAERN', 154, ' 000308', '2016-11-10'),
 (263, 'CAERN', 149, '000343', '2017-01-30'),
+(264, 'CAERN', 184, '105452', '2016-11-10'),
 (265, 'CAERN', 184, '106176', '2016-11-10'),
 (266, 'CAGEPA', 361, '106170', '2016-11-11'),
 (267, 'CAGEPA', 336, 'N?O POSSUI', '2016-11-11'),
@@ -224,13 +209,10 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (270, 'CAERN', 157, '000298', '2016-11-15'),
 (271, 'CASAL', 384, '445', '2017-08-05'),
 (272, 'CASAL', 384, '423', '2017-08-05'),
-(421, 'CASAL', 379, '410', '2017-08-05'),
 (274, 'CASAL', 384, '0104642', '2016-11-18'),
 (275, 'CAERN', 181, '106574', '2016-11-19'),
 (276, 'CASAL', 385, '433', '2017-08-05'),
-(424, 'CASAL', 380, '104095', '2017-08-05'),
 (278, 'CAERN', 97, '106524', '2016-11-22'),
-(488, 'CAER', 60, '106206', '2018-01-29'),
 (280, 'CAERN', 95, '105582', '2016-11-22'),
 (281, 'CAERN', 84, '106317', '2016-11-28'),
 (282, 'CAERN', 84, '106525', '2016-11-28'),
@@ -246,6 +228,8 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (292, 'CAGEPA', 370, '0104575', '2016-11-25'),
 (293, 'CAGEPA', 285, '106161', '2016-11-25'),
 (294, 'COSANPA', 428, '0105309', '2016-11-26'),
+(295, 'COSANPA', 504, '0104270', '2016-11-26'),
+(296, 'CASAL', 394, '240', '2016-12-01'),
 (297, 'CAERN', 140, '106528', '2016-12-05'),
 (298, 'CASAL', 402, '0104070', '2016-12-05'),
 (299, 'CASAL', 402, '439', '2017-08-11'),
@@ -265,13 +249,10 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (314, 'CAERN', 70, '0104559', '2016-12-21'),
 (315, 'CAERN', 70, '106179', '2016-12-21'),
 (316, 'COSANPA', 510, '0104274', '2016-12-22'),
-(332, 'CAERN', 79, 'NAO EXISTE', '2016-12-27'),
 (318, 'CASAL', 407, '0102998', '2016-12-23'),
 (319, 'CASAL', 407, '0102987', '2016-12-23'),
 (320, 'CASAL', 407, '0104096', '2016-12-23'),
 (321, 'CASAL', 407, '0104100', '2016-12-23'),
-(436, 'CASAL', 406, '450', '2017-08-18'),
-(437, 'CASAL', 406, '329', '2017-08-18'),
 (325, 'CASAL', 399, '481', '2017-08-11'),
 (326, 'CASAL', 389, '417', '2017-08-05'),
 (327, 'CASAL', 389, '430', '2017-08-05'),
@@ -279,6 +260,7 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (329, 'CAERN', 196, '106331 1065', '2017-10-26'),
 (330, 'CASAL', 395, '355', '2017-08-05'),
 (331, 'COSANPA', 508, '0105311', '2016-12-26'),
+(332, 'CAERN', 79, 'NAO EXISTE', '2016-12-27'),
 (333, 'CAER', 56, '106041', '2016-12-27'),
 (335, 'CAER', 52, '106033', '2016-12-27'),
 (336, 'CAER', 57, '1060 34', '2016-12-27'),
@@ -349,6 +331,9 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (404, 'CAERN', 73, '105551', '2017-06-01'),
 (405, 'CAERN', 202, '106283', '2017-06-12'),
 (406, 'CASAL', 752, '475', '2017-06-15'),
+(407, 'CASAL', 404, '413', '2017-06-18'),
+(408, 'CAERN', 151, '000370', '2017-06-18'),
+(409, 'CAERN', 106, '106037', '2017-06-18'),
 (410, 'CAERN', 125, '105981', '2017-06-18'),
 (411, 'CAERN', 125, '000358', '2017-06-18'),
 (412, 'CAEMA', 30, 'FFCL5023', '2017-10-09'),
@@ -357,14 +342,28 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (415, 'CAERN', 73, '000397', '2017-07-17'),
 (416, 'CAERN', 770, '000269', '2017-07-17'),
 (417, 'CAERN', 63, '106181', '2017-07-17'),
+(420, 'CASAL', 395, '435', '2017-08-05'),
+(421, 'CASAL', 379, '410', '2017-08-05'),
 (422, 'CASAL', 379, '454', '2017-08-05'),
 (423, 'CASAL', 379, '104099', '2017-08-05'),
+(424, 'CASAL', 380, '104095', '2017-08-05'),
 (425, 'CASAL', 380, '418', '2017-08-05'),
 (426, 'CASAL', 380, '431', '2017-08-05'),
+(427, 'CASAL', 386, '461', '2017-08-05'),
+(428, 'CASAL', 386, '451', '2017-08-05'),
+(429, 'CASAL', 386, '324', '2017-08-05'),
 (430, 'CASAL', 386, '104097', '2017-08-05'),
 (431, 'CAERN', 138, 'NAO EXISTE', '2017-08-07'),
+(432, '', 0, '459', '2017-08-11'),
+(433, '', 0, '459', '2017-08-11'),
+(434, 'CASAL', 391, '411', '2017-08-11'),
+(435, 'CASAL', 391, '457', '2017-08-11'),
+(436, 'CASAL', 406, '450', '2017-08-18'),
+(437, 'CASAL', 406, '329', '2017-08-18'),
+(438, 'CASAL', 387, '105025', '2017-08-24'),
 (439, 'CASAL', 387, '446', '2017-08-24'),
 (440, 'CASAL', 387, '105036', '2017-08-24'),
+(441, 'CASAL', 393, '104083', '2017-08-24'),
 (442, 'CASAL', 390, '474 KIT', '2017-08-27'),
 (443, 'CASAL', 390, '424 ALARME', '2017-08-27'),
 (444, 'CASAL', 390, '104054 ROTA', '2017-08-27'),
@@ -410,6 +409,7 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (485, 'CAER', 51, '105973', '2017-12-27'),
 (486, 'CAEMA', 19, 'FFCL4961', '2018-01-03'),
 (487, 'CAEMA', 27, 'FFCL4957', '2018-01-03'),
+(488, 'CAER', 60, '106206', '2018-01-29'),
 (489, 'CAERN', 134, '106069', '2018-02-05'),
 (490, 'CAERN', 134, '106039', '2018-02-05'),
 (491, 'CAEMA', 32, 'FFCL4958', '2018-02-06'),
@@ -421,7 +421,7 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 -- Estrutura da tabela `tb_bem`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_bem` (
+CREATE TABLE `tb_bem` (
   `id` int(11) NOT NULL,
   `produto` int(11) NOT NULL,
   `tag` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -435,20 +435,17 @@ CREATE TABLE IF NOT EXISTS `tb_bem` (
   `proprietarioLocal` int(11) NOT NULL,
   `categoria` int(11) NOT NULL,
   `plaqueta` varchar(11) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `dataFrabricacao` date DEFAULT '0000-00-00',
-  `dataCompra` date DEFAULT '0000-00-00'
+  `dataFrabricacao` date DEFAULT NULL,
+  `dataCompra` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Extraindo dados da tabela `tb_bem`
---
 -- --------------------------------------------------------
 
 --
 -- Estrutura da tabela `tb_bem_componentes`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_bem_componentes` (
+CREATE TABLE `tb_bem_componentes` (
   `id` int(11) NOT NULL,
   `produto` int(11) NOT NULL,
   `tag` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -466,30 +463,21 @@ CREATE TABLE IF NOT EXISTS `tb_bem_componentes` (
   `dataCompra` date NOT NULL DEFAULT '0000-00-00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Extraindo dados da tabela `tb_bem_componentes`
---
-
 -- --------------------------------------------------------
 
 --
 -- Estrutura da tabela `tb_bem_localizacao`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_bem_localizacao` (
+CREATE TABLE `tb_bem_localizacao` (
   `id` int(11) NOT NULL,
   `bem` int(11) NOT NULL,
   `loja` int(11) DEFAULT NULL,
   `local` int(11) DEFAULT NULL,
-  `dataInicial` date DEFAULT '0000-00-00',
-  `dataFinal` date DEFAULT '0000-00-00',
+  `dataInicial` date DEFAULT NULL,
+  `dataFinal` date DEFAULT NULL,
   `status` enum('0','1','2','3') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_bem_localizacao`
---
-
 
 -- --------------------------------------------------------
 
@@ -497,7 +485,7 @@ CREATE TABLE IF NOT EXISTS `tb_bem_localizacao` (
 -- Estrutura da tabela `tb_bens_familia`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_bens_familia` (
+CREATE TABLE `tb_bens_familia` (
   `id` int(11) NOT NULL,
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `tag` varchar(50) COLLATE utf8_unicode_ci NOT NULL
@@ -509,6 +497,8 @@ CREATE TABLE IF NOT EXISTS `tb_bens_familia` (
 
 INSERT INTO `tb_bens_familia` (`id`, `name`, `tag`) VALUES
 (1, 'MASCARA AUTONOMA', 'MSA'),
+(2, 'Sistema Cloração', 'SCL'),
+(1, 'MASCARA AUTONOMA', 'MSA'),
 (2, 'Sistema Cloração', 'SCL');
 
 -- --------------------------------------------------------
@@ -517,7 +507,7 @@ INSERT INTO `tb_bens_familia` (`id`, `name`, `tag`) VALUES
 -- Estrutura da tabela `tb_bens_frabricante`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_bens_frabricante` (
+CREATE TABLE `tb_bens_frabricante` (
   `id` int(11) NOT NULL,
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `nick` varchar(30) COLLATE utf8_unicode_ci NOT NULL
@@ -536,7 +526,7 @@ INSERT INTO `tb_bens_frabricante` (`id`, `name`, `nick`) VALUES
 -- Estrutura da tabela `tb_bens_grupo`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_bens_grupo` (
+CREATE TABLE `tb_bens_grupo` (
   `id` int(11) NOT NULL,
   `bem` int(11) NOT NULL,
   `grupo` int(11) NOT NULL
@@ -545,18 +535,13 @@ CREATE TABLE IF NOT EXISTS `tb_bens_grupo` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_bens_nivel`
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `tb_categoria`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_categoria` (
+CREATE TABLE `tb_categoria` (
   `id` int(11) NOT NULL,
-  `name` varchar(50) CHARACTER SET latin1 NOT NULL,
-  `tag` varchar(30) CHARACTER SET latin1 NOT NULL
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `tag` varchar(30) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -574,12 +559,12 @@ INSERT INTO `tb_categoria` (`id`, `name`, `tag`) VALUES
 -- Estrutura da tabela `tb_clientes`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_clientes` (
+CREATE TABLE `tb_clientes` (
   `id` int(11) NOT NULL,
-  `nome` varchar(100) NOT NULL,
-  `nick` varchar(30) NOT NULL,
-  `ativo` enum('0','1') NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `nome` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `nick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `ativo` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_clientes`
@@ -627,11 +612,11 @@ INSERT INTO `tb_clientes` (`id`, `nome`, `nick`, `ativo`) VALUES
 -- Estrutura da tabela `tb_descricao`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_descricao` (
+CREATE TABLE `tb_descricao` (
   `id` int(11) NOT NULL,
   `oat` int(11) NOT NULL,
-  `descricao` varchar(800) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `descricao` varchar(800) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_descricao`
@@ -2982,10 +2967,75 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `tb_equipamentos`
+--
+
+CREATE TABLE `tb_equipamentos` (
+  `id` int(11) NOT NULL,
+  `produto` int(11) NOT NULL,
+  `tag` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `capacidade` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `unidade` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
+  `numeracao` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `fabricante` int(11) NOT NULL,
+  `fabricanteNick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `proprietario` int(11) NOT NULL,
+  `proprietarioNick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `local` int(11) NOT NULL,
+  `categoria` int(11) NOT NULL,
+  `plaqueta` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
+  `dataFrabricacao` date NOT NULL,
+  `dataCompra` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_eq_componentes`
+--
+
+CREATE TABLE `tb_eq_componentes` (
+  `id` int(11) NOT NULL,
+  `produto` int(11) NOT NULL,
+  `tag` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `capacidade` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `unidade` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
+  `numeracao` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `frabicante` int(11) NOT NULL,
+  `frabicanteNick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `proprietario` int(11) NOT NULL,
+  `proprietarioNick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `local` int(11) NOT NULL,
+  `categoria` int(11) NOT NULL,
+  `dataFrabricacao` date NOT NULL,
+  `dataCompra` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_eq_localizacao`
+--
+
+CREATE TABLE `tb_eq_localizacao` (
+  `id` int(11) NOT NULL,
+  `equipamento` int(11) NOT NULL,
+  `loja` int(11) NOT NULL,
+  `local` int(11) DEFAULT NULL,
+  `dataIncial` date DEFAULT NULL,
+  `dataFinal` date DEFAULT NULL,
+  `status` enum('0','1','2','3') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `tb_fabricante`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_fabricante` (
+CREATE TABLE `tb_fabricante` (
   `id` int(11) NOT NULL,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `nick` varchar(30) COLLATE utf8_unicode_ci NOT NULL
@@ -3002,17 +3052,10 @@ INSERT INTO `tb_fabricante` (`id`, `name`, `nick`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_frabricante`
---
-
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `tb_grupo`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_grupo` (
+CREATE TABLE `tb_grupo` (
   `id` int(11) NOT NULL,
   `decricao` varchar(150) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -3022,8 +3065,8 @@ CREATE TABLE IF NOT EXISTS `tb_grupo` (
 --
 
 INSERT INTO `tb_grupo` (`id`, `decricao`) VALUES
-(2, 'Proprietario'),
-(1, 'Cliente');
+(1, 'Cliente'),
+(2, 'Proprietario');
 
 -- --------------------------------------------------------
 
@@ -3031,7 +3074,7 @@ INSERT INTO `tb_grupo` (`id`, `decricao`) VALUES
 -- Estrutura da tabela `tb_grupoloja`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_grupoloja` (
+CREATE TABLE `tb_grupoloja` (
   `id` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
   `decricao` varchar(150) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -3041,8 +3084,8 @@ CREATE TABLE IF NOT EXISTS `tb_grupoloja` (
 --
 
 INSERT INTO `tb_grupoloja` (`id`, `decricao`) VALUES
-('P', 'Proprietario'),
-('C', 'Cliente');
+('C', 'Cliente'),
+('P', 'Proprietario');
 
 -- --------------------------------------------------------
 
@@ -3050,14 +3093,628 @@ INSERT INTO `tb_grupoloja` (`id`, `decricao`) VALUES
 -- Estrutura da tabela `tb_insumos`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_insumos` (
+CREATE TABLE `tb_insumos` (
   `id` int(11) NOT NULL,
   `tb_oat_id` int(11) NOT NULL,
-  `descricao` varchar(100) NOT NULL,
+  `descricao` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `quantidade` double NOT NULL,
   `valor` decimal(10,2) NOT NULL,
-  `obs` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `obs` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_locais`
+--
+
+CREATE TABLE `tb_locais` (
+  `id` int(11) NOT NULL,
+  `loja` int(11) NOT NULL,
+  `tipo` varchar(11) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `regional` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `municipio` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `uf` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+  `latitude` float(10,6) DEFAULT NULL,
+  `longitude` float(10,6) DEFAULT NULL,
+  `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `tb_locais`
+--
+
+INSERT INTO `tb_locais` (`id`, `loja`, `tipo`, `regional`, `name`, `municipio`, `uf`, `latitude`, `longitude`, `ativo`) VALUES
+(2, 1, 'ETA', 'FLORIANO', 'FLORIANO', 'FLORIANO', 'PI', -6.784000, -43.020000, '0'),
+(3, 1, 'ETA', 'PARNAIBA', 'PARNAIBA', 'PARNAIBA', 'PI', -2.922000, -41.758999, '0'),
+(4, 2, 'ETA', '', 'BARCARENA', 'BARCARENA', 'PA', -1.550000, -48.738998, '0'),
+(5, 3, 'ETA', '', 'JOAO PESSOA', 'JOAO PESSOA', 'PB', -7.188000, -34.916000, '0'),
+(6, 4, 'ETA', '', 'TIMOTEO', 'TIMOTEO', 'MG', -19.524000, -42.653000, '0'),
+(7, 6, 'ETA', '', 'PEDRAS DE FOGO', 'PEDRAS DE FOGO', 'PB', -7.353000, -35.027000, '0'),
+(8, 7, 'ETA', '', 'ETA-ARAPIRACA', 'ARAPIRACA', 'AL', -9.702000, -36.688999, '0'),
+(9, 7, 'ETA', '', 'PILAR', 'PILAR', 'AL', 0.000000, 0.000000, '0'),
+(10, 7, 'ETA', '', 'SAO BRAS (ETA-MORRO DO GAIA)', 'SAO BRAS', 'AL', 0.000000, 0.000000, '0'),
+(11, 8, 'ETA', '', 'CUIABA ETA I', 'CUIABA', 'MT', -15.590000, -56.098999, '0'),
+(12, 8, 'ETA', '', 'CUIABA ETA II', 'CUIABA', 'MT', 0.000000, 0.000000, '0'),
+(13, 9, 'ETA', 'IMPERATRIZ', 'ACAILANDIA ELEVATORIA', 'ACAILANDIA', 'MA', -4.951000, -47.493000, '0'),
+(14, 9, 'ETA', '', 'ALCANTARA', 'ALCANTARA', 'MA', -2.358000, -44.432999, '0'),
+(15, 9, 'ETA', '', 'ARAIOSES', 'ARAIOSES', 'MA', 0.000000, 0.000000, '0'),
+(16, 9, 'ETA', 'ITAPECURU MIRIM', 'AREIAS', 'SAO LUIS', 'MA', 0.000000, 0.000000, '0'),
+(17, 9, 'ETA', '', 'AXIXA', 'AXIXA', 'MA', -2.838000, -44.062000, '0'),
+(18, 9, 'ETA', 'SAO JOAO DOS PATOS', 'BARAO DE GRAJAU', 'BARAO DE GRAJAU', 'MA', -6.758000, -43.022999, '0'),
+(19, 9, 'ETA', 'PRESIDENTE DUTRA', 'BARRA DO CORDA', 'BARRA DO CORDA', 'MA', 0.000000, 0.000000, '0'),
+(20, 9, 'ETA', 'BARREIRINHAS', 'BARREIRINHAS', 'BARREIRINHAS', 'MA', 0.000000, 0.000000, '0'),
+(21, 9, 'ETA', '', 'BOM JESUS DAS SELVAS', 'BOM JESUS DAS SELVAS', 'MA', 0.000000, 0.000000, '0'),
+(22, 9, 'ETA', '', 'BREJO', 'BREJO', 'MA', -3.680000, -42.689999, '0'),
+(23, 9, 'ETA', '', 'BURITI DE INACIA VAZ', 'SAO LUIS', 'MA', -3.941000, -42.922001, '0'),
+(24, 9, 'ETA', '', 'CANTANHEDE', 'CANTANHEDE', 'MA', 0.000000, 0.000000, '0'),
+(25, 9, 'ETA', 'CHAPADINHA', 'CHAPADINHA', 'CHAPADINHA', 'MA', -3.743000, -43.355000, '0'),
+(26, 9, 'ETA', 'SAO JOAO DOS PATOS', 'COLINAS', 'COLINAS', 'MA', -6.034000, -44.257000, '0'),
+(27, 9, 'ETA', '', 'DUQUE BACELAR', 'DUQUE BACELAR', 'MA', -4.162000, -42.942001, '0'),
+(28, 9, 'ETA', 'IMPERATRIZ', 'IMPERATRIZ', 'IMPERATRIZ', 'MA', -5.548000, -47.476002, '0'),
+(29, 9, 'ETA', 'BACABEIRA', 'ITALUIS', 'ROSARIO', 'MA', -3.027000, -44.308998, '0'),
+(30, 9, 'ETA', 'ITAPECURU MIRIM', 'ITAPECURU MIRIM', 'ITAPECURU MIRIM', 'MA', -3.409000, -44.348000, '0'),
+(31, 9, 'ETA', 'SAO JOAO DOS PATOS', 'LORETO', 'LORETO', 'MA', -7.096000, -45.129002, '0'),
+(32, 9, 'ETA', '', 'MIRANDA DO NORTE', 'MIRANDA DO NORTE', 'MA', 0.000000, 0.000000, '0'),
+(33, 9, 'ETA', 'ITAPECURU MIRIM', 'MORROS', 'MORROS', 'MA', -2.862000, -44.023998, '0'),
+(34, 9, 'ETA', 'CHAPADINHA', 'NINA RODRIGUES', 'NINA RODRIGUES', 'MA', -3.467000, -43.902000, '0'),
+(35, 9, 'ETA', 'METROPOLITANA', 'PACIENCIA', 'SAO LUIS', 'MA', -2.556000, -44.209999, '0'),
+(36, 9, 'ETA', '', 'PEDREIRAS', 'PEDREIRAS', 'MA', -4.574000, -44.602001, '0'),
+(37, 9, 'ETA', '', 'PINHEIRO', 'PINHEIRO', 'MA', -2.527000, -45.083000, '0'),
+(38, 9, 'ETA', '', 'PIRAPEMAS', 'PIRAPEMAS', 'MA', -3.728000, -44.229000, '0'),
+(39, 9, 'ETA', 'IMPERATRIZ', 'RIACHAO', 'RIACHAO', 'MA', 0.000000, 0.000000, '0'),
+(40, 9, 'ETA', 'METROPOLITANA', 'SACAVEM', 'ACAILANDIA', 'MA', -2.566000, -44.252998, '0'),
+(41, 9, 'ETA', '', 'SANTA QUITERIA', 'SANTA QUITERIA DO MARANHAO', 'MA', -3.501000, -42.562000, '0'),
+(42, 9, 'ETA', '', 'SAO BENEDITO DO RIO PRETO', 'ACAILANDIA', 'MA', 0.000000, 0.000000, '0'),
+(43, 9, 'ETA', '', 'SAO BERNARDO', 'SAO BERNARDO', 'MA', 0.000000, 0.000000, '0'),
+(44, 9, 'ETA', 'SAO JOAO DOS PATOS', 'SAO RAIMUNDO DAS MANGABEIRAS', 'SAO RAIMUNDO DAS MANGABEIRAS', 'MA', -7.024000, -45.478001, '0'),
+(45, 9, 'ETA', 'COROATA', 'TIMBIRAS', 'TIMBIRAS', 'MA', 0.000000, 0.000000, '0'),
+(46, 9, 'ETA', 'DEDREIRAS', 'TRIZIDELA DO VALE', 'TRIZIDELA DO VALE', 'MA', -4.573000, -44.617001, '0'),
+(47, 9, 'ETA', '', 'TUTOIA', 'TUTOIA', 'MA', -2.761000, -42.275002, '0'),
+(48, 9, 'ETA', '', 'URBANO SANTOS', 'URBANO SANTOS', 'MA', -3.203000, -43.389999, '0'),
+(49, 9, 'ETA', 'CHAPADINHA', 'VARGEM GRANDE', 'VARGEM GRANDE', 'MA', 0.000000, 0.000000, '0'),
+(50, 9, 'ETA', 'SANTA INES', 'VITORIA DO MEARIM', 'VITORIA DO MEARIM', 'MA', -3.477000, -44.867001, '0'),
+(51, 10, 'ETA', '', 'ALTO ALEGRE', 'ALTO ALEGRE', 'RR', 2.835000, -60.728001, '0'),
+(52, 10, 'ETA', '', 'CARACARAI', 'CARACARAI', 'RR', 1.829000, -61.132000, '0'),
+(53, 10, 'ETA', '', 'CAROEBE', 'CAROEBE', 'RR', 0.876169, -59.662998, '0'),
+(54, 10, 'ETA', '', 'MUCAJAI', 'MUCAJAI', 'RR', 2.448000, -60.917999, '0'),
+(55, 10, 'ETA', '', 'NORMANDIA', 'NORMANDIA', 'RR', 3.878000, -59.626999, '0'),
+(56, 10, 'ETA', '', 'PACARAIMA', 'PACARAIMA', 'RR', 4.477000, -61.146999, '0'),
+(57, 10, 'ETA', '', 'RORAINOPOLIS', 'RORAINOPOLIS', 'RR', 0.941046, -60.423000, '0'),
+(58, 10, 'ETA', '', 'SAO JOAO DA BALIZA', 'SAO JOAO DA BALIZA', 'RR', 0.950526, -59.909000, '0'),
+(59, 10, 'ETA', '', 'SAO LUIZ DO ANAUA', 'SAO JOAO DA BALIZA', 'RR', 1.010000, -60.033001, '0'),
+(60, 10, 'ETA', '', 'SAO PEDRO', 'BOA VISTA', 'RR', 2.826000, -60.658001, '0'),
+(61, 11, 'ETA', '', 'ACARI', 'ACARI', 'RN', 0.000000, 0.000000, '0'),
+(62, 11, 'ETA', '', 'ADUTORA DO BOQUEIRAO', 'RIACHO DA CRUZ', 'RN', 0.000000, 0.000000, '0'),
+(63, 11, 'ETA', '', 'ALTO RODRIGUES', 'ALTO DO RODRIGUES', 'RN', -5.301000, -36.764000, '0'),
+(64, 11, 'ETA', '', 'ANGICOS - CENTRO', 'ANGICOS', 'RN', 0.000000, 0.000000, '0'),
+(65, 11, 'ETA', '', 'ANGICOS - EB2', 'ANGICOS', 'RN', 0.000000, 0.000000, '0'),
+(66, 11, 'ETA', '', 'ANGICOS- ADUTORA CENTAL', 'ANGICOS', 'RN', 0.000000, 0.000000, '0'),
+(67, 11, 'ETA', '', 'APODI', 'APODI', 'RN', -5.660000, -37.798000, '0'),
+(68, 11, 'ETA', '', 'AREIA BRANCA', 'AREIA BRANCA', 'RN', 0.000000, 0.000000, '0'),
+(69, 11, 'ETA', '', 'ASSU', 'ACU', 'RN', -5.578000, -36.925999, '0'),
+(70, 11, 'ETA', '', 'BOA SAUDE', 'BOA SAUDE', 'RN', -6.138000, -35.577000, '0'),
+(71, 11, 'ETA', '', 'BOM JESUS - EB - 8', 'BOM JESUS', 'RN', 0.000000, 0.000000, '0'),
+(72, 11, 'ETA', '', 'BRASIL NOVO', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
+(73, 11, 'ETA', 'CAICO', 'CAICO', 'CAICO', 'RN', -6.467000, -37.091999, '0'),
+(74, 11, 'ETA', '', 'CAICO ZONA NORTE', 'CAICO', 'RN', 0.000000, 0.000000, '0'),
+(75, 11, 'ETA', '', 'CAMPO REDONDO', 'CAMPO REDONDO', 'RN', 0.000000, 0.000000, '0'),
+(76, 11, 'ETA', '', 'CANDELARIA', 'NATAL', 'RN', -5.839000, -35.220001, '0'),
+(77, 11, 'ETA', '', 'CANGUARETAMA', 'CANGUARETAMA', 'RN', -6.378000, -35.127998, '0'),
+(78, 11, 'ETA', '', 'CARAUBAS', 'CARAUBAS', 'RN', -5.634000, -37.535999, '0'),
+(79, 11, 'ETA', '', 'CARNAUBAIS', 'CARNAUBAIS', 'RN', -5.339000, -36.830002, '0'),
+(80, 11, 'ETA', '', 'CARNAUBAS-PALMA', 'CARNAUBAIS', 'RN', 0.000000, 0.000000, '0'),
+(81, 11, 'ETA', '', 'CERRO CORA ETA LOCAL', 'CERRO CORA', 'RN', -6.036000, -36.347000, '0'),
+(82, 11, 'ETA', '', 'CIDADE CAMPESTRE - P78', 'PARNAMIRIM', 'RN', 0.000000, 0.000000, '0'),
+(83, 11, 'ETA', '', 'CIDADE DOS BOSQUES - P17', 'PARNAMIRIM', 'RN', 0.000000, 0.000000, '0'),
+(84, 11, 'ETA', 'LITORAL SUL', 'CIDADE SATELITE', 'NATAL', 'RN', -5.863000, -35.230000, '0'),
+(85, 11, 'ETA', '', 'CIDADE SATELITE - P9', 'NATAL', 'RN', -5.860000, -35.243000, '0'),
+(86, 11, 'ETA', '', 'CONJUNTO JIQUI - P2', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
+(87, 11, 'ETA', '', 'CRUZETA - CAPITACAO', 'CRUZETA', 'RN', -6.411000, -36.794998, '0'),
+(88, 11, 'ETA', '', 'CRUZETA - ESCRITORIO', 'CRUZETA', 'RN', -6.412000, -36.787998, '0'),
+(89, 11, 'ETA', '', 'CURRAIS NOVOS', 'CURRAIS NOVOS', 'RN', -6.255000, -36.522999, '0'),
+(90, 11, 'ETA', '', 'DIX-SEPT ROSADO', 'GOVERNADOR DIX-SEPT ROSADO', 'RN', 0.000000, 0.000000, '0'),
+(91, 11, 'ETA', '', 'Dr. SEVERIANO', 'DOUTOR SEVERIANO', 'RN', 0.000000, 0.000000, '0'),
+(93, 11, 'ETA', '', 'ELOI DE SOUSA - EB - 10', 'SENADOR ELOI DE SOUZA', 'RN', 0.000000, 0.000000, '0'),
+(94, 11, 'ETA', '', 'EMAUS - P90', 'PARNAMIRIM', 'RN', 0.000000, 0.000000, '0'),
+(95, 11, 'ETA', '', 'ENTRONCAMENTO', 'NATAL', 'RN', -5.582000, -35.655998, '0'),
+(96, 11, 'ETA', '', 'EQUADOR', 'EQUADOR', 'RN', 0.000000, 0.000000, '0'),
+(97, 11, 'ETA', '', 'ESPIRITO SANTO I', 'ESPIRITO SANTO', 'RN', -6.335000, -35.299000, '0'),
+(98, 11, 'ETA', '', 'ESPIRITO SANTO II VARZEA', 'ESPIRITO SANTO', 'RN', -6.334000, -35.370998, '0'),
+(99, 11, 'ETA', '', 'CALDEIRAO - SANTANA DO SERIDO', 'SANTANA DO SERIDO', 'RN', -6.705000, -36.693001, '0'),
+(100, 11, 'ETE', '', 'ETE - DO BALDO', 'NATAL', 'RN', -5.790000, -35.210999, '0'),
+(101, 11, 'ETE', '', 'ETE-PARNAMIRIM', 'PARNAMIRIM', 'RN', -5.935000, -35.237999, '0'),
+(102, 11, 'ETA', '', 'EXTREMOZ', 'EXTREMOZ', 'RN', -5.726000, -35.282001, '0'),
+(103, 11, 'ETA', '', 'FELIPE CAMARA', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
+(104, 11, 'ETA', '', 'FELIPE CAMARAO - P01', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
+(105, 11, 'ETA', '', 'FELIPE CAMARAO - P10', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
+(106, 11, 'ETA', 'CAICO', 'FLORANEA EB4', 'FLORANIA', 'RN', -6.123000, -36.806999, '0'),
+(107, 11, 'ETA', '', 'FRANCISCO CAMPOS - P9', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
+(108, 11, 'ETA', '', 'FRANCISCO DANTAS', 'FRANCISCO DANTAS', 'RN', 0.000000, 0.000000, '0'),
+(109, 11, 'ETA', '', 'GARGALHEIRAS', 'ACARI', 'RN', -6.427000, -36.603001, '0'),
+(110, 11, 'ETA', '', 'GRAMORE', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
+(111, 11, 'ETA', '', 'GUARAPES P4', 'NATAL', 'RN', -5.840000, -35.273998, '0'),
+(112, 11, 'ETA', '', 'IPANGUACU', 'IPANGUACU', 'RN', -5.508000, -36.860001, '0'),
+(113, 11, 'ETA', '', 'IPUEIRA', 'IPUEIRA', 'RN', -6.814000, -37.201000, '0'),
+(114, 11, 'ETA', '', 'ITAJA - ADUTORA SERTAO CENTRAL', 'ITAJA', 'RN', -5.631000, -36.861000, '0'),
+(115, 11, 'ETA', '', 'ITAU', 'ITAU', 'RN', -5.837000, -37.987000, '0'),
+(116, 11, 'ETA', '', 'JANDAIRA', 'JANDAIRA', 'RN', 0.000000, 0.000000, '0'),
+(117, 11, 'ETA', '', 'JANDAIRA - P02', 'JANDAIRA', 'RN', 0.000000, 0.000000, '0'),
+(118, 11, 'ETA', '', 'JANDAIRA - P03', 'JANDAIRA', 'RN', 0.000000, 0.000000, '0'),
+(119, 11, 'ETA', '', 'JANDAIRA - P05', 'JANDAIRA', 'RN', 0.000000, 0.000000, '0'),
+(120, 11, 'ETA', '', 'JARDIM DE ANGICOS', 'JARDIM DE ANGICOS', 'RN', 0.000000, 0.000000, '0'),
+(121, 11, 'ETA', '', 'JARDIM DE PIRANHAS - ETA ESCRITORIO LOCAL', 'JARDIM DE PIRANHAS', 'RN', -6.379000, -37.347000, '0'),
+(122, 11, 'ETA', '', 'JARDIM DO SERIDO - PASSAGEM DAS TRAIRAS ', 'JARDIM DO SERIDO', 'RN', -6.517000, -36.937000, '0'),
+(123, 11, 'ETA', '', 'JARDIM PROGRESSO', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
+(124, 11, 'ETA', '', 'JERONIMO ROSADO - EB - 1', 'ACU', 'RN', -5.614000, -36.896000, '0'),
+(125, 11, 'ETA', '', 'JERONIMO ROSADO - EB - 2', 'MOSSORO', 'RN', -5.236000, -37.317001, '0'),
+(126, 11, 'ETA', '', 'JIQUI', 'NATAL', 'RN', -5.917000, -35.188000, '0'),
+(127, 11, 'ETA', '', 'JIQUI - P1', 'NATAL', 'RN', -5.862000, -35.208000, '0'),
+(128, 11, 'ETA', '', 'JOSE DA PENHA', 'JOSE DA PENHA', 'RN', 0.000000, 0.000000, '0'),
+(129, 11, 'ETA', '', 'JUCURUTU', 'JUCURUTU', 'RN', -6.034000, -37.016998, '0'),
+(130, 11, 'ETA', '', 'JUNDIA', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
+(131, 11, 'ETA', 'LITORAL SUL', 'LAGOA NOVA I', 'LAGOA NOVA', 'RN', 0.000000, 0.000000, '0'),
+(132, 11, 'ETA', 'LITORAL SUL', 'LAGOA NOVA II', 'LAGOA NOVA', 'RN', 0.000000, 0.000000, '0'),
+(133, 11, 'ETA', '', 'LAJES - ADUTORA SERTAO CENTRAL', 'LAJES', 'RN', -5.690000, -36.321999, '0'),
+(134, 11, 'ETA', '', 'LAJES - CABUGI', 'LAJES', 'RN', 0.000000, 0.000000, '0'),
+(135, 11, 'ETA', 'LITORAL NORTE', 'MACAIBA - GRANJA RECREIO', 'MACAIBA', 'RN', -5.875000, -35.307999, '0'),
+(136, 11, 'ETA', '', 'MACAU - ETA TAMBAUBA', 'MACAU', 'RN', -5.160000, -36.597000, '0'),
+(137, 11, 'ETA', '', 'MARCELINO VIEIRA', 'MARCELINO VIEIRA', 'RN', 0.000000, 0.000000, '0'),
+(138, 11, 'ETA', '', 'MARTINS', 'MARTINS', 'RN', -6.094000, -37.911999, '0'),
+(139, 11, 'ETA', '', 'MEDIO OESTE', 'ACU', 'RN', -5.886000, -36.994999, '0'),
+(140, 11, 'ETA', '', 'MONTANHAS', 'MONTANHAS', 'RN', -6.479000, -35.292999, '0'),
+(141, 11, 'ETA', '', 'MONTE ALEGRE', 'MONTE ALEGRE', 'RN', 0.000000, 0.000000, '0'),
+(142, 11, 'ETA', '', 'MOSSORO', 'MOSSORO', 'RN', 0.000000, 0.000000, '0'),
+(143, 11, 'ETA', '', 'NISIA FLORESTA - ETA BOMFIM - ADUT. MONSEN. EXP.', 'NISIA FLORESTA', 'RN', 0.000000, 0.000000, '0'),
+(144, 11, 'ETA', '', 'NOVA CRUZ', 'NOVA CRUZ', 'RN', -6.486000, -35.426998, '0'),
+(145, 11, 'ETA', '', 'NOVA PARNAMIRIM - P11', 'PARNAMIRIM', 'RN', 0.000000, 0.000000, '0'),
+(146, 11, 'ETA', '', 'NOVA PARNAMIRIM - P20', 'PARNAMIRIM', 'RN', 0.000000, 0.000000, '0'),
+(147, 11, 'ETA', '', 'NOVA PARNAMIRIM - P29', 'PARNAMIRIM', 'RN', 0.000000, 0.000000, '0'),
+(148, 11, 'ETA', '', 'NOVO CAMPO - P1', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
+(149, 11, 'ETA', '', 'OURO BRANCO ETA', 'OURO BRANCO', 'RN', -6.709000, -36.950001, '0'),
+(150, 11, 'ETA', '', 'P20 - ZONA NORTE', 'NATAL', 'RN', -5.739000, -35.280998, '0'),
+(151, 11, 'ETA', '', 'P36 - ZONA NORTE', 'NATAL', 'RN', -5.752000, -35.256001, '0'),
+(152, 11, 'ETA', '', 'P56 - ZONA NORTE', 'NATAL', 'RN', -5.747000, -35.230000, '0'),
+(153, 11, 'ETA', '', 'P6 - MOSSORO', 'MOSSORO', 'RN', -5.176000, -37.361000, '0'),
+(154, 11, 'ETA', '', 'PALMA', 'CAICO', 'RN', -6.629000, -37.150002, '0'),
+(155, 11, 'ETA', '', 'PARELHAS', 'PARELHAS', 'RN', -6.694000, -36.631001, '0'),
+(156, 11, 'ETA', '', 'PARNAMIRIM - LAGOA DO BONFIM', 'PARNAMIRIM', 'RN', -6.041000, -35.226002, '0'),
+(157, 11, 'ETA', '', 'PARNAMIRIM I', 'PARNAMIRIM', 'RN', -5.921000, -35.263000, '0'),
+(158, 11, 'ETA', '', 'PARNAMIRIM II - RIACHO VERMELHO', 'PARNAMIRIM', 'RN', -5.933000, -35.271999, '0'),
+(159, 11, 'ETA', '', 'PARQUE DAS DUNAS', 'NATAL', 'RN', -5.811000, -35.193001, '0'),
+(160, 11, 'ETA', '', 'PAU DOS FERROS', 'PAU DOS FERROS', 'RN', -6.146000, -38.193001, '0'),
+(161, 11, 'ETA', '', 'PEDRO VELHO', 'PEDRO VELHO', 'RN', 0.000000, 0.000000, '0'),
+(162, 11, 'ETA', 'ASSU', 'PENDENCIAS', 'PENDENCIAS', 'RN', -5.263000, -36.715000, '0'),
+(163, 11, 'ETA', '', 'PILOES', 'PILOES', 'RN', 0.000000, 0.000000, '0'),
+(164, 11, 'ETA', '', 'PIRANGI', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
+(165, 11, 'ETA', '', 'PLANALTO', 'PAU DOS FERROS', 'RN', 0.000000, 0.000000, '0'),
+(166, 11, 'ETA', '', 'PLANALTO - P01', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
+(167, 11, 'ETA', '', 'PLANALTO - P02', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
+(168, 11, 'ETA', '', 'PLANALTO - P03', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
+(169, 11, 'ETA', '', 'PLANALTO - P05', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
+(171, 11, 'ETA', '', 'PLANALTO P7', 'NATAL', 'RN', -5.835000, -35.262001, '0'),
+(172, 11, 'ETA', '', 'PLANALTO P9', 'NATAL', 'RN', -5.835000, -35.264999, '0'),
+(173, 11, 'ETA', '', 'PONTA NEGRA', 'NATAL', 'RN', -5.880000, -35.181999, '0'),
+(174, 11, 'ETA', '', 'PORTALEGRE', 'PORTALEGRE', 'RN', 0.000000, 0.000000, '0'),
+(175, 11, 'ETA', '', 'POTENGI - ALTO DA TORRE', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
+(176, 11, 'ETA', '', 'POTENGI - POCO 35', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
+(177, 11, 'ETA', '', 'POTENGI - POCO 44', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
+(178, 11, 'ETA', '', 'PUREZA', 'PUREZA', 'RN', 0.000000, 0.000000, '0'),
+(179, 11, 'ETA', '', 'REDINHA P57', 'NATAL', 'RN', -5.746000, -35.233002, '0'),
+(180, 11, 'ETA', '', 'RIACHUELO', 'RIACHUELO', 'RN', 0.000000, 0.000000, '0'),
+(181, 11, 'ETA', '', 'RIO BAHIA P2', 'NATAL', 'RN', -5.840000, -35.276001, '0'),
+(182, 11, 'ETA', '', 'RODOLFO FERNANDES', 'RODOLFO FERNANDES', 'RN', 0.000000, 0.000000, '0'),
+(183, 11, 'ETA', '', 'SAN VALE - P1', 'NATAL', 'RN', -5.854000, -35.216999, '0'),
+(184, 11, 'ETA', '', 'SANTA CRUZ - EB - 16', 'SANTA CRUZ', 'RN', -6.247000, -35.966000, '0'),
+(185, 11, 'ETA', '', 'SANTA FE', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
+(186, 11, 'ETA', '', 'SANTA TEREZA - P28', 'PARNAMIRIM', 'RN', 0.000000, 0.000000, '0'),
+(187, 11, 'ETA', '', 'SANTANA DO MATOS', 'SANTANA DO MATOS', 'RN', -5.966000, -36.660000, '0'),
+(188, 11, 'ETA', '', 'SANTANA DO SERIDO', 'SANTANA DO SERIDO', 'RN', -6.772000, -36.735001, '0'),
+(189, 11, 'ETA', '', 'SAO FERNANDO', 'SAO FERNANDO', 'RN', -6.376000, -37.185001, '0'),
+(190, 11, 'ETA', '', 'SAO JOAO DO SABUGI', 'SAO JOAO DO SABUGI', 'RN', -6.717000, -37.203999, '0'),
+(191, 11, 'ETA', '', 'SAO JOSE DO MIPIBU', 'SAO JOSE DE MIPIBU', 'RN', -6.075000, -35.231998, '0'),
+(192, 11, 'ETA', '', 'SAO MIGUEL', 'SAO MIGUEL', 'RN', -6.215000, -38.429001, '0'),
+(193, 11, 'ETA', '', 'SAO RAFAEL', 'SAO RAFAEL', 'RN', -5.802000, -36.879002, '0'),
+(194, 11, 'ETE', '', 'ETE SAO TOME', 'SAO TOME', 'RN', -5.973000, -36.070000, '0'),
+(196, 11, 'ETA', '', 'SERRA DE SANTANA', 'FLORANIA', 'RN', -6.128000, -36.820999, '0'),
+(197, 25, 'ETA', '', 'SAAE - SERRA NEGRA DO NORTE', 'SERRA NEGRA DO NORTE', 'RN', -6.670000, -37.390999, '0'),
+(198, 11, 'ETA', '', 'SERRINHA DOS PINTOS', 'SERRINHA DOS PINTOS', 'RN', 0.000000, 0.000000, '0'),
+(199, 11, 'ETA', '', 'TORRES P5', 'NATAL', 'RN', -5.844000, -35.271999, '0'),
+(200, 11, 'ETA', 'LITORAL SUL', 'TOUROS - BOQUEIRAO', 'NATAL', 'RN', -5.251000, -35.532001, '0'),
+(201, 11, 'ETA', '', 'UMARIZAL', 'UMARIZAL', 'RN', -5.990000, -37.818001, '0'),
+(202, 11, 'ETA', '', 'VERA CRUZ', 'VERA CRUZ', 'RN', -6.041000, -35.446999, '0'),
+(203, 11, 'ETA', '', 'ZONA NORTE - P23', 'NATAL', 'RN', -5.739000, -35.224998, '0'),
+(204, 11, 'ETA', '', 'ZONA NORTE - P57', 'NATAL', 'RN', -5.746000, -35.233002, '0'),
+(205, 11, 'ETA', '', 'ZONA NORTE - POCO 37', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
+(206, 11, 'ETA', 'NORTE', 'ZONA-16', 'NATAL', 'RN', -5.726000, -35.248001, '0'),
+(207, 12, 'ETA', '', 'ETA OESTE', 'CAUCAIA', 'CE', -3.787000, -38.655998, '0'),
+(208, 12, 'ETA', '', 'PAVUNA', 'PACATUBA', 'CE', -3.915000, -38.598999, '0'),
+(209, 13, 'ETA', '', 'AGUA BRANCA', 'AGUA BRANCA', 'PB', 0.000000, 0.000000, '0'),
+(210, 13, 'ETA', '', 'ALAGOA GRANDE', 'ALAGOA GRANDE', 'PB', 0.000000, 0.000000, '0'),
+(211, 13, 'ETA', '', 'ALAGOA NOVA', 'ALAGOA NOVA', 'PB', 0.000000, 0.000000, '0'),
+(212, 13, 'ETA', '', 'ALGODAO DE JANDAIRA', 'ALGODAO DE JANDAIRA', 'PB', 0.000000, 0.000000, '0'),
+(213, 13, 'ETA', '', 'ALHANDRA CLORACAO', 'ALHANDRA', 'PB', -7.435000, -34.903000, '0'),
+(214, 13, 'ETA', '', 'ALHANDRA PRE-CLORACAO', 'ALHANDRA', 'PB', 0.000000, 0.000000, '1'),
+(215, 13, 'ETA', '', 'APARECIDA', 'APARECIDA', 'PB', -6.786000, -38.077999, '0'),
+(216, 13, 'ETA', '', 'ARARA', 'ARARA', 'PB', 0.000000, 0.000000, '0'),
+(217, 13, 'ETA', 'BORBOREMA', 'AREIA', 'AREIA', 'PB', -6.923000, -35.667000, '0'),
+(218, 13, 'ETA', '', 'AREIA - SAULO MAIA', 'AREIA', 'PB', 0.000000, 0.000000, '0'),
+(219, 13, 'ETA', '', 'AREIAL', 'AREIAL', 'PB', 0.000000, 0.000000, '0'),
+(220, 13, 'ETA', 'BORBOREMA', 'AROEIRAS', 'AROEIRAS', 'PB', 0.000000, 0.000000, '0'),
+(221, 13, 'ETA', '', 'BANANEIRAS', 'BANANEIRAS', 'PB', -6.762000, -35.634998, '0'),
+(222, 13, 'ETA', '', 'BARRA DE SANTA ROSA', 'BARRA DE SANTA ROSA', 'PB', 0.000000, 0.000000, '0'),
+(223, 13, 'ETA', 'BORBOREMA', 'BARRA DE SAO MIGUEL', 'BARRA DE SAO MIGUEL', 'PB', -7.747000, -36.313999, '0'),
+(224, 13, 'ETA', 'BORBOREMA', 'BARRAGEM SAO JOSE', 'MONTEIRO', 'PB', 0.000000, 0.000000, '0'),
+(225, 13, 'ETA', '', 'BELEM', 'BELEM', 'PB', -6.726000, -35.555000, '0'),
+(226, 13, 'ETA', 'BORBOREMA', 'BOA VISTA', 'BOA VISTA', 'PB', 0.000000, 0.000000, '0'),
+(227, 13, 'ETA', '', 'BOM JESUS', 'BOM JESUS', 'PB', -6.896000, -38.523998, '0'),
+(228, 13, 'ETA', '', 'BONITO DE SANTA FE', 'BONITO DE SANTA FE', 'PB', -7.315000, -38.516998, '0'),
+(229, 13, 'ETA', 'BORBOREMA', 'BOQUEIRAO', 'BOQUEIRAO', 'PB', -7.484000, -36.136002, '0'),
+(230, 13, 'ETA', '', 'BREJO DO CRUZ', 'BREJO DO CRUZ', 'PB', -6.344000, -37.500000, '0'),
+(231, 13, 'ETA', 'RIO DO PEIXE', 'BREJO DOS SANTOS', 'BREJO DOS SANTOS', 'PB', -6.373000, -37.830002, '0'),
+(232, 13, 'ETA', '', 'CAAPORA', 'CAAPORA', 'PB', -7.510000, -34.924999, '0'),
+(233, 13, 'ETA', 'BORBOREMA', 'CABACEIRAS', 'CABACEIRAS', 'PB', 0.000000, 0.000000, '0'),
+(234, 13, 'ETA', '', 'CACHOEIRA DOS INDIOS', 'CACHOEIRA DOS INDIOS', 'PB', 0.000000, 0.000000, '0'),
+(235, 13, 'ETA', '', 'CACIMBA DE DENTRO', 'CACIMBA DE DENTRO', 'PB', -6.650000, -35.789001, '0'),
+(236, 13, 'ETA', '', 'CACIMBAS', 'CACIMBAS', 'PB', 0.000000, 0.000000, '0'),
+(237, 13, 'ETA', '', 'CAJA', 'CAMPINA GRANDE', 'PB', 0.000000, 0.000000, '0'),
+(238, 13, 'ETA', 'ALTO PIRANHAS', 'CAJAZEIRAS (ENG. AVIDOS)', 'CAJAZEIRAS', 'PB', -6.977000, -38.456001, '0'),
+(239, 13, 'ETA', '', 'CAJAZEIRINHAS', 'CAJAZEIRINHAS', 'PB', 0.000000, 0.000000, '0'),
+(240, 13, 'ETA', 'BORBOREMA', 'CAMALAU', 'CAMALAU', 'PB', -7.888000, -36.821999, '0'),
+(241, 13, 'ETA', '', 'CAMPINA GRANDE', 'CAMPINA GRANDE', 'PB', -7.385000, -35.974998, '0'),
+(242, 13, 'ETA', 'LITORAL', 'CAPIM', 'CAPIM', 'PB', 0.000000, 0.000000, '0'),
+(243, 13, 'ETA', '', 'CARAUBAS', 'CARAUBAS', 'PB', -7.762000, -36.548000, '0'),
+(244, 13, 'ETA', '', 'CARRAPATEIRA', 'CARRAPATEIRA', 'PB', 0.000000, 0.000000, '0'),
+(245, 13, 'ETA', '', 'CASSERENGUE', 'CASSERENGUE', 'PB', 0.000000, 0.000000, '0'),
+(246, 13, 'ETA', 'ESPINHARAS', 'CATINGUEIRA', 'CATINGUEIRA', 'PB', -7.092000, -37.647999, '0'),
+(247, 13, 'ETA', '', 'CATOLE DO ROCHA', 'CATOLE DO ROCHA', 'PB', -6.344000, -37.748001, '0'),
+(248, 13, 'ETA', '', 'CEPILHO', 'AREIA', 'PB', 0.000000, 0.000000, '0'),
+(249, 13, 'ETA', '', 'CHA DOS PEREIROS', 'INGA', 'PB', 0.000000, 0.000000, '0'),
+(250, 13, 'ETA', '', 'CONCEICAO', 'CONCEICAO', 'PB', 0.000000, 0.000000, '0'),
+(251, 13, 'ETA', '', 'CONDE', 'CONDE', 'PB', 0.000000, 0.000000, '0'),
+(252, 13, 'ETA', '', 'CONGO', 'CONGO', 'PB', 0.000000, 0.000000, '0'),
+(253, 13, 'ETA', 'BORBOREMA', 'COXIXOLA', 'COXIXOLA', 'PB', 0.000000, 0.000000, '0'),
+(254, 13, 'ETA', '', 'CRUZ DO ESPIRITO SANTO', 'CRUZ DO ESPIRITO SANTO', 'PB', -7.127000, -35.098000, '0'),
+(255, 13, 'ETA', 'BORBOREMA', 'CUBATI', 'CUBATI', 'PB', 0.000000, 0.000000, '0'),
+(256, 13, 'ETA', '', 'CUITE', 'CUITE', 'PB', 0.000000, 0.000000, '0'),
+(257, 13, 'ETA', 'BREJO', 'CUITEGI', 'CUITEGI', 'PB', -6.906000, -35.535000, '0'),
+(258, 13, 'ETA', '', 'DESTERRO', 'DESTERRO', 'PB', 0.000000, 0.000000, '0'),
+(259, 13, 'ETA', '', 'DIAMANTE', 'DIAMANTE', 'PB', 0.000000, 0.000000, '0'),
+(260, 13, 'ETA', '', 'DUAS ESTRADAS', 'DUAS ESTRADAS', 'PB', -6.703000, -35.442001, '0'),
+(261, 13, 'ETA', 'BORBOREMA', 'EB3 - MONTEIRO', 'MONTEIRO', 'PB', 0.000000, 0.000000, '0'),
+(262, 13, 'ETA', '', 'EMAS', 'EMAS', 'PB', -7.097000, -37.715000, '0'),
+(263, 13, 'ETA', 'BORBOREMA', 'ESPERANCA', 'ESPERANCA', 'PB', -7.034000, -35.859001, '0'),
+(264, 13, 'ETA', 'LITORAL', 'ITABAIANA - NOVA ETA II', 'ITABAIANA', 'PB', -7.343000, -35.335999, '0'),
+(265, 13, 'ETA', '', 'ITABAIANA - FORUM ETA III', 'ITABAIANA', 'PB', -7.317000, -35.341999, '0'),
+(266, 13, 'ETA', '', 'ITABAIANA - VELHA ETA I', 'ITABAIANA', 'PB', -7.342000, -35.334999, '0'),
+(267, 13, 'ETA', 'BORBOREMA', 'FAGUNDES', 'FAGUNDES', 'PB', -7.350000, -35.783001, '0'),
+(268, 13, 'ETA', 'BORBOREMA', 'FREI MARTINHO', 'FREI MARTINHO', 'PB', 0.000000, 0.000000, '0'),
+(269, 13, 'ETA', '', 'GADO BRAVO', 'GADO BRAVO', 'PB', 0.000000, 0.000000, '0'),
+(270, 13, 'ETA', '', 'GRAMAME', 'JOAO PESSOA', 'PB', -7.228000, -34.919998, '0'),
+(271, 13, 'ETA', '', 'GRAVATA', 'SAO JOAO DO RIO DO PEIXE', 'PB', -7.385000, -35.976002, '0'),
+(272, 13, 'ETA', '', 'GUARABIRA', 'GUARABIRA', 'PB', 0.000000, 0.000000, '0'),
+(273, 13, 'ETA', '', 'GURINHEM', 'GURINHEM', 'PB', 0.000000, 0.000000, '0'),
+(274, 13, 'ETA', '', 'GURJAO', 'GURJAO', 'PB', -7.248000, -36.494999, '0'),
+(275, 13, 'ETA', '', 'IBIARA', 'IBIARA', 'PB', 0.000000, 0.000000, '0'),
+(276, 13, 'ETA', '', 'IGARACY', 'IGARACY', 'PB', -7.176000, -38.154999, '0'),
+(277, 13, 'ETA', '', 'IMACULADA', 'IMACULADA', 'PB', 0.000000, 0.000000, '0'),
+(278, 13, 'ETA', '', 'INGA', 'INGA', 'PB', 0.000000, 0.000000, '0'),
+(279, 13, 'ETA', '', 'IPUEIRA', 'PAULISTA', 'PB', 0.000000, 0.000000, '0'),
+(280, 13, 'ETA', '', 'ITAPORANGA ETA VELHA', 'ITAPORANGA', 'PB', -7.323000, -38.228001, '0'),
+(281, 13, 'ETA', 'BORBOREMA', 'ITATUBA', 'ITATUBA', 'PB', -7.415000, -35.637001, '0'),
+(282, 13, 'ETA', '', 'JACARAU', 'JACARAU', 'PB', -6.619000, -35.286999, '0'),
+(283, 13, 'ETA', 'LITORAL', 'JACUMA', 'CONDE', 'PB', -7.286000, -34.805000, '0'),
+(284, 13, 'ETA', '', 'JERICO', 'JERICO', 'PB', -6.550000, -37.800999, '0'),
+(285, 13, 'ETA', 'BORBOREMA', 'JUAREZ TAVORA', 'JUAREZ TAVORA', 'PB', -7.166000, -35.592999, '0'),
+(286, 13, 'ETA', 'BORBOREMA', 'JUAZEIRINHO', 'JUAZEIRINHO', 'PB', 0.000000, 0.000000, '0'),
+(287, 13, 'ETA', '', 'JURIPIRANGA', 'JURIPIRANGA', 'PB', 0.000000, 0.000000, '0'),
+(288, 13, 'ETA', 'ESPINHARAS', 'JURU', 'JURU', 'PB', 0.000000, 0.000000, '0'),
+(289, 13, 'ETA', '', 'LAGOA DO MATO', 'REMIGIO', 'PB', 0.000000, 0.000000, '0'),
+(290, 13, 'ETA', '', 'LAGOA SECA', 'LAGOA SECA', 'PB', 0.000000, 0.000000, '0'),
+(291, 13, 'ETA', '', 'LIVRAMENTO', 'LIVRAMENTO', 'PB', 0.000000, 0.000000, '0'),
+(292, 13, 'ETA', '', 'LUCENA', 'LUCENA', 'PB', -6.898000, -34.872002, '0'),
+(293, 13, 'ETA', '', 'MALTA', 'MALTA', 'PB', 0.000000, 0.000000, '0'),
+(294, 13, 'ETA', '', 'MALTA-CONDADO', 'CONDADO', 'PB', 0.000000, 0.000000, '0'),
+(295, 13, 'ETA', '', 'MAMANGUAPE', 'MAMANGUAPE', 'PB', -6.837000, -35.132000, '0'),
+(296, 13, 'ETA', '', 'MANAIRA', 'MANAIRA', 'PB', 0.000000, 0.000000, '0'),
+(297, 13, 'ETA', '', 'MARES - JOAO PESSOA', 'JOAO PESSOA', 'PB', -7.153000, -34.910000, '0'),
+(298, 13, 'ETA', '', 'MARI', 'MARI', 'PB', 0.000000, 0.000000, '0'),
+(299, 13, 'ETA', '', 'MARIZOPOLIS', 'MARIZOPOLIS', 'PB', 0.000000, 0.000000, '0'),
+(300, 13, 'ETA', '', 'MASSARANDUBA', 'MASSARANDUBA', 'PB', 0.000000, 0.000000, '0'),
+(301, 13, 'ETA', '', 'MATINHAS', 'MATINHAS', 'PB', 0.000000, 0.000000, '0'),
+(302, 13, 'ETA', '', 'MATO GROSSO', 'MATO GROSSO', 'PB', 0.000000, 0.000000, '0'),
+(303, 13, 'ETA', '', 'MATUREIA', 'MATUREIA', 'PB', 0.000000, 0.000000, '0'),
+(304, 13, 'ETA', '', 'MOGEIRO', 'MOGEIRO', 'PB', 0.000000, 0.000000, '0'),
+(305, 13, 'ETA', '', 'MONTADAS', 'MONTADAS', 'PB', 0.000000, 0.000000, '0'),
+(306, 13, 'ETA', '', 'MONTE HOREBE', 'MONTE HOREBE', 'PB', -7.213000, -38.587002, '0'),
+(307, 13, 'ETA', 'BORBOREMA', 'MONTEIRO', 'MONTEIRO', 'PB', -7.913000, -37.109001, '0'),
+(308, 13, 'ETA', '', 'MULUNGU', 'MULUNGU', 'PB', 0.000000, 0.000000, '0'),
+(309, 13, 'ETA', '', 'NATUBA ETA NOVA', 'NATUBA', 'PB', -7.641000, -35.549000, '0'),
+(310, 13, 'ETA', '', 'NAZAREZINHO', 'NAZAREZINHO', 'PB', 0.000000, 0.000000, '0'),
+(311, 13, 'ETA', '', 'NOVA FLORESTA', 'NOVA FLORESTA', 'PB', 0.000000, 0.000000, '0'),
+(312, 13, 'ETA', '', 'NOVA OLINDA', 'NOVA OLINDA', 'PB', -7.482000, -38.041000, '0'),
+(313, 13, 'ETA', '', 'NOVA PALMEIRA', 'NOVA PALMEIRA', 'PB', 0.000000, 0.000000, '0'),
+(314, 13, 'ETA', '', 'OLHO DAGUA', 'OLHO DAGUA', 'PB', -7.216000, -37.752998, '0'),
+(315, 13, 'ETA', '', 'OURO VELHO', 'OURO VELHO', 'PB', 0.000000, 0.000000, '0'),
+(316, 13, 'ETA', '', 'PATOS', 'PATOS', 'PB', -7.059000, -37.271999, '0'),
+(317, 13, 'ETA', '', 'PAULISTA', 'PAULISTA', 'PB', -6.600000, -37.624001, '0'),
+(318, 13, 'ETA', '', 'PEDRAS DE FOGO', 'PEDRAS DE FOGO', 'PB', -7.392000, -35.105000, '0'),
+(319, 13, 'ETA', '', 'PEDRO VELHO', 'AROEIRAS', 'PB', 0.000000, 0.000000, '0'),
+(320, 13, 'ETA', '', 'PIANCO', 'PIANCO', 'PB', -7.188000, -37.914001, '0'),
+(321, 13, 'ETA', 'BORBOREMA', 'PICUI', 'PICUI', 'PB', 0.000000, 0.000000, '0'),
+(322, 13, 'ETA', '', 'PILAR', 'PILAR', 'PB', 0.000000, 0.000000, '0'),
+(323, 13, 'ETA', '', 'PILOES', 'PILOES', 'PB', 0.000000, 0.000000, '0'),
+(324, 13, 'ETA', '', 'PIRPIRITUBA', 'PIRPIRITUBA', 'PB', 0.000000, 0.000000, '0'),
+(325, 13, 'ETA', 'LITORAL', 'PITIMBU', 'PITIMBU', 'PB', -7.472000, -34.811001, '0'),
+(326, 13, 'ETA', 'BORBOREMA', 'POCINHOS', 'POCINHOS', 'PB', 0.000000, 0.000000, '0'),
+(327, 13, 'ETA', '', 'POMBAL', 'POMBAL', 'PB', -6.773000, -37.792999, '0'),
+(328, 13, 'ETA', '', 'PRATA', 'PRATA', 'PB', 0.000000, 0.000000, '0'),
+(329, 13, 'ETA', '', 'PRINCESA ISABEL', 'PRINCESA ISABEL', 'PB', -7.733000, -37.992001, '0'),
+(330, 13, 'ETA', '', 'PUXINANA', 'PUXINANA', 'PB', 0.000000, 0.000000, '0'),
+(331, 13, 'ETA', '', 'REMIGIO', 'REMIGIO', 'PB', 0.000000, 0.000000, '0'),
+(332, 13, 'ETA', '', 'REMIGIO (Cepilho)', 'REMIGIO', 'PB', -6.988000, -35.775002, '0'),
+(333, 13, 'ETA', '', 'RIACHO DOS CAVALOS', 'RIACHO DOS CAVALOS', 'PB', -6.432000, -37.651001, '0'),
+(334, 13, 'ETA', '', 'RIACHO STO. ANTONIO', 'RIACHO DE SANTO ANTONIO', 'PB', 0.000000, 0.000000, '0'),
+(335, 13, 'ETA', '', 'RIO TINTO', 'RIO TINTO', 'PB', 0.000000, 0.000000, '0'),
+(336, 13, 'ETA', 'LITORAL', 'SALGADO DE SAO FELIX', 'SALGADO DE SAO FELIX', 'PB', -7.357000, -35.443001, '0'),
+(337, 13, 'ETA', '', 'SANTA CRUZ', 'SANTA CRUZ', 'PB', -6.535000, -38.051998, '0'),
+(338, 13, 'ETA', '', 'SANTA GERTRUDES', 'PATOS', 'PB', -6.948000, -37.396999, '0'),
+(339, 13, 'ETA', '', 'SANTA HELENA', 'SANTA HELENA', 'PB', 0.000000, 0.000000, '0'),
+(340, 13, 'ETA', '', 'SANTA LUZIA', 'SANTA LUZIA', 'PB', -6.864000, -36.917000, '0'),
+(341, 13, 'ETA', 'LITORAL', 'SANTA RITA', 'SANTA RITA', 'PB', -7.140000, -34.983002, '0'),
+(342, 13, 'ETA', '', 'SANTA TEREZINHA', 'SANTA TERESINHA', 'PB', -7.085000, -37.445999, '0'),
+(343, 13, 'ETA', '', 'SANTANA DE MANGUEIRA', 'SANTANA DE MANGUEIRA', 'PB', 0.000000, 0.000000, '0'),
+(344, 13, 'ETA', '', 'SANTANA DOS GARROTES', 'SANTANA DOS GARROTES', 'PB', -7.390000, -37.987000, '0'),
+(345, 13, 'ETA', '', 'SAO BENTINHO', 'SAO BENTINHO', 'PB', -6.892000, -37.729000, '0'),
+(346, 13, 'ETA', '', 'SAO BENTO', 'SAO BENTO', 'PB', -6.494000, -37.449001, '0'),
+(347, 13, 'ETA', '', 'SAO DOMINGOS', 'SAO DOMINGOS DO CARIRI', 'PB', 0.000000, 0.000000, '0'),
+(348, 13, 'ETA', '', 'SAO GONCALO', 'SOUSA', 'PB', -6.846000, -38.325001, '0'),
+(349, 13, 'ETA', '', 'SAO JOAO DO CARIRI', 'SAO JOAO DO CARIRI', 'PB', 0.000000, 0.000000, '0'),
+(350, 13, 'ETA', '', 'SAO JOAO DO RIO DO PEIXE', 'SAO JOAO DO RIO DO PEIXE', 'PB', 0.000000, 0.000000, '0'),
+(351, 13, 'ETA', '', 'SAO JOSE DA LAGOA TAPADA', 'SAO JOSE DA LAGOA TAPADA', 'PB', -6.944000, -38.162998, '0'),
+(352, 13, 'ETA', '', 'SAO JOSE DE CAIANA', 'SAO JOSE DE CAIANA', 'PB', -7.252000, -38.299000, '0'),
+(353, 13, 'ETA', '', 'SAO JOSE DE ESPINHARAS', 'SAO JOSE DE ESPINHARAS', 'PB', -6.842000, -37.321999, '0'),
+(354, 13, 'ETA', '', 'SAO JOSE DO BOMFIM', 'SAO JOSE DO BONFIM', 'PB', -7.075000, -37.286999, '0'),
+(355, 13, 'ETA', '', 'SAO JOSE DO SABUGI', 'SAO JOSE DO SABUGI', 'PB', -6.783000, -36.791000, '0'),
+(356, 13, 'ETA', '', 'SAO JOSE DOS CORDEIROS', 'SAO JOSE DOS CORDEIROS', 'PB', 0.000000, 0.000000, '0'),
+(357, 13, 'ETA', '', 'SAO JOSE PIRANHAS', 'SAO JOSE DE ESPINHARAS', 'PB', -7.124000, -38.500000, '0'),
+(358, 13, 'ETA', '', 'SAO MAMEDE', 'SAO MAMEDE', 'PB', 0.000000, 0.000000, '0'),
+(359, 13, 'ETA', '', 'SAO MIGUEL', 'SAO MIGUEL DE TAIPU', 'PB', 0.000000, 0.000000, '0'),
+(360, 13, 'ETA', 'BORBOREMA', 'SAO SEBASTIAO DE LAGOA DE ROCA', 'SAO SEBASTIAO DE LAGOA DE ROCA', 'PB', -7.106000, -35.868000, '0'),
+(361, 13, 'ETA', '', 'SAPE', 'SAPE', 'PB', -7.091000, -35.228001, '0'),
+(362, 13, 'ETA', '', 'SERRA BRANCA', 'SERRA BRANCA', 'PB', 0.000000, 0.000000, '0'),
+(363, 13, 'ETA', '', 'SERRA GRANDE', 'SERRA GRANDE', 'PB', 0.000000, 0.000000, '0'),
+(364, 13, 'ETA', '', 'SERRA REDONDA', 'SERRA REDONDA', 'PB', 0.000000, 0.000000, '0'),
+(365, 13, 'ETA', '', 'SERRARIA', 'SERRARIA', 'PB', -6.815000, -35.639000, '0'),
+(366, 13, 'ETA', '', 'SOLANEA', 'SOLANEA', 'PB', -6.758000, -35.650002, '0'),
+(367, 13, 'ETA', '', 'SOUSA', 'SOUSA', 'PB', 0.000000, 0.000000, '0'),
+(368, 13, 'ETA', 'BORBOREMA', 'SUME - ETA VELHA', 'SUME', 'PB', 0.000000, 0.000000, '0'),
+(369, 13, 'ETA', 'BORBOREMA', 'SUME-ADUTORA DO CONGO EB II', 'SUME', 'PB', -7.681000, -36.875999, '0'),
+(370, 13, 'ETA', 'ESPINHARAS', 'TAPEROA', 'TAPEROA', 'PB', -7.216000, -36.826000, '0'),
+(371, 13, 'ETA', '', 'TAVARES', 'TAVARES', 'PB', 0.000000, 0.000000, '0'),
+(372, 13, 'ETA', '', 'TEIXEIRA', 'TEIXEIRA', 'PB', 0.000000, 0.000000, '0'),
+(373, 13, 'ETA', '', 'TRIUNFO', 'TRIUNFO', 'PB', -6.580000, -38.601002, '0'),
+(374, 13, 'ETA', '', 'UIRAUNA', 'UIRAUNA', 'PB', -6.512000, -38.414001, '0'),
+(375, 13, 'ETA', '', 'UIRAUNA - CAPIVARA', 'UIRAUNA', 'PB', -6.542000, -38.465000, '0'),
+(376, 13, 'ETA', 'BORBOREMA', 'UMBUZEIRO ETA VELHA', 'UMBUZEIRO', 'PB', -7.712000, -35.650002, '0'),
+(377, 13, 'ETA', '', 'VARZEA', 'VARZEA', 'PB', -6.772000, -36.990002, '0'),
+(378, 13, 'ETA', '', 'VISTA SERRANA', 'VISTA SERRANA', 'PB', -6.682000, -37.584999, '0'),
+(379, 14, 'ETA', 'SERTAO', 'AGUA BRANCA - EE5', 'AGUA BRANCA', 'AL', -9.262000, -37.935001, '0'),
+(380, 14, 'ETA', 'SERRANA', 'ANADIA', 'ANADIA', 'AL', -9.678000, -36.325001, '0'),
+(381, 14, 'ETA', 'LESTE', 'BARRA DE SAO MIGUEL', 'BARRA DE SAO MIGUEL', 'AL', -9.829000, -35.903000, '0'),
+(382, 14, 'ETA', 'BACIA', 'BATALHA', 'BATALHA', 'AL', -9.673000, -37.132000, '0'),
+(383, 14, 'ETA', 'SERRANA', 'CAPELA', 'CAPELA', 'AL', -9.415000, -36.080002, '0'),
+(384, 14, 'ETA', 'SERTAO', 'DELMIRO GOUVEIA - BARRAGEM LESTE', 'DELMIRO GOUVEIA', 'AL', -9.368000, -38.188999, '0'),
+(385, 14, 'ETA', 'SERTAO', 'DELMIRO GOUVEIA - EE3', 'DELMIRO GOUVEIA', 'AL', -9.392000, -38.011002, '0'),
+(386, 14, 'ETA', 'SERRANA', 'ESTRELA DE ALAGOAS', 'ESTRELA DE ALAGOAS', 'AL', -9.389000, -36.763000, '0'),
+(387, 14, 'ETA', 'LESTE', 'FLEXEIRAS', 'FLEXEIRAS', 'AL', -9.280000, -35.721001, '0'),
+(388, 14, 'ETA', 'LESTE', 'JOAQUIM GOMES', 'JOAQUIM GOMES', 'AL', -9.132000, -35.749001, '0'),
+(389, 14, 'ETA', 'AGRESTE', 'JUNQUEIRO', 'CAJUEIRO', 'AL', -9.905000, -36.469002, '0'),
+(390, 14, 'ETA', 'MACEIO', 'MACEIO - AVIACAO', 'MACEIO', 'AL', 0.000000, 0.000000, '0'),
+(391, 14, 'ETA', 'MACEIO', 'MACEIO - CARDOSO', 'MACEIO', 'AL', -9.623000, -35.745998, '0'),
+(392, 14, 'ETA', 'LESTE', 'MURICI - CACHOEIRA', 'MURICI', 'AL', 0.000000, 0.000000, '0'),
+(393, 14, 'ETA', 'LESTE', 'MURICI - CANSANCAO', 'MURICI', 'AL', -9.319000, -35.950001, '0'),
+(394, 14, 'ETA', 'LESTE', 'NOVO LINO', 'NOVO LINO', 'AL', -8.944000, -35.661999, '0'),
+(395, 14, 'ETA', 'SERTAO', 'OLHO DAGUA DO CASADO', 'OLHO DAGUA DO CASADO', 'AL', -9.469000, -37.844002, '0'),
+(396, 14, 'ETA', 'SERRANA', 'PALMEIRA DOS INDIOS', 'PALMEIRA DOS INDIOS', 'AL', -9.402000, -36.629002, '0'),
+(397, 14, 'ETA', 'BACIA', 'PAO DE ACUCAR', 'PAO DE ACUCAR', 'AL', -9.705000, -37.415001, '0'),
+(398, 14, 'ETA', 'SERRANA', 'PAULO JACINTO', 'PAULO JACINTO', 'AL', -9.359000, -36.365002, '0'),
+(399, 14, 'ETA', 'AGRESTE', 'PIACABUCU', 'PIACABUCU', 'AL', -10.405000, -36.429001, '0'),
+(400, 14, 'ETA', 'SERTAO', 'PIRANHAS', 'PIRANHAS', 'AL', -9.597000, -37.773998, '0'),
+(401, 14, 'ETA', 'MACEIO', 'PRATAGY', 'MACEIO', 'AL', -9.558000, -35.737000, '0'),
+(402, 14, 'ETA', 'SERRANA', 'QUEBRANGULO', 'QUEBRANGULO', 'AL', -9.315000, -36.473999, '0'),
+(403, 14, 'ETA', 'SERRANA', 'QUEBRANGULO - CACAMBAS', 'QUEBRANGULO', 'AL', -9.303000, -36.478001, '0'),
+(404, 14, 'ETA', 'LESTE', 'RIO LARGO - MATA DO ROLO', 'RIO LARGO', 'AL', -9.481000, -35.840000, '0'),
+(405, 14, 'ETA', 'LESTE', 'RIO LARGO - TABULEIRO DO PINTO', 'RIO LARGO', 'AL', -9.505000, -35.812000, '0'),
+(406, 14, 'ETA', 'LESTE', 'SATUBA', 'SATUBA', 'AL', -9.559000, -35.819000, '0'),
+(407, 14, 'ETA', 'AGRESTE', 'TRAIPU', 'TRAIPU', 'AL', -9.962000, -36.997002, '0'),
+(408, 17, 'ETA', '', '40 HORAS SABIA', 'ANANINDEUA', 'PA', 0.000000, 0.000000, '0'),
+(409, 17, 'ETA', '', '5 SETOR', 'BELEM', 'PA', -1.427000, -48.456001, '0'),
+(410, 17, 'ETA', '', 'ABAETETUBA', 'ABAETETUBA', 'PA', -1.721000, -48.882000, '0'),
+(411, 17, 'ETA', '', 'ABAETETUBA ALGODOAL', 'ABAETETUBA', 'PA', 0.000000, 0.000000, '0'),
+(412, 17, 'ETA', '', 'AFUA', 'AFUA', 'PA', 0.000000, 0.000000, '0'),
+(413, 17, 'ETA', '', 'ALENQUER', 'ALENQUER', 'PA', 0.000000, 0.000000, '0'),
+(414, 17, 'ETA', '', 'ALTAMIRA', 'ALTAMIRA', 'PA', 0.000000, 0.000000, '0'),
+(415, 17, 'ETA', '', 'ANAJAS', 'ANAJAS', 'PA', 0.000000, 0.000000, '0'),
+(416, 17, 'ETA', '', 'ANANINDEUA - CENTRO', 'ANANINDEUA', 'PA', -1.353000, -48.373001, '0'),
+(417, 17, 'ETA', '', 'ARIRI 1', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
+(418, 17, 'ETA', '', 'ARIRI 2', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
+(419, 17, 'ETA', '', 'ARIRI-BOLONHA', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
+(420, 17, 'ETA', '', 'AUGUSTO CORREIA', 'AUGUSTO CORREA', 'PA', 0.000000, 0.000000, '0'),
+(421, 17, 'ETA', 'METROPOLITANA', 'BELEM - BEJAMIM SODRE P5/ P8', 'BELEM', 'PA', -1.358000, -48.446999, '0'),
+(422, 17, 'ETA', '', 'BENGUI', 'BELEM', 'PA', -1.375000, -48.442001, '0'),
+(423, 17, 'ETA', '', 'BOLONHA', 'BELEM', 'PA', -1.418000, -48.438999, '0'),
+(424, 17, 'ETA', '', 'BRAGANCA - CHUMUCUI', 'BRAGANCA', 'PA', -1.095000, -46.792000, '0'),
+(425, 17, 'ETA', '', 'BREU BRANCO', 'BREU BRANCO', 'PA', 0.000000, 0.000000, '0'),
+(426, 17, 'ETA', '', 'BREVES', 'BREVES', 'PA', -1.686000, -50.483002, '0'),
+(427, 17, 'ETA', '', 'CACHOEIRA DOA ARARI', 'CACHOEIRA DO ARARI', 'PA', 0.000000, 0.000000, '0'),
+(428, 17, 'ETA', 'METROPOLITANA', 'CANARINHO', 'BELEM', 'PA', -1.336000, -48.456001, '0'),
+(429, 17, 'ETA', '', 'CAPANEMA - VILA TAUARI', 'CAPANEMA', 'PA', -1.123000, -47.058998, '0'),
+(430, 17, 'ETA', '', 'CAPITAO POCO', 'CAPITAO POCO', 'PA', 0.000000, 0.000000, '0'),
+(431, 17, 'ETA', '', 'CASTANHAL', 'CASTANHAL', 'PA', 0.000000, 0.000000, '0'),
+(432, 17, 'ETA', 'BAIXO AMAZONAS', 'CASTANHAL - CAICARA', 'CASTANHAL', 'PA', -1.316000, -47.896000, '0'),
+(433, 17, 'ETA', '', 'CATALINA', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
+(434, 17, 'ETA', '', 'CDP', 'BELEM', 'PA', -1.402000, -48.480999, '0'),
+(435, 17, 'ETA', '', 'CHEGUEVARA', 'MARITUBA', 'PA', -1.368000, -48.308998, '0'),
+(436, 17, 'ETA', '', 'CIDADE NOVA ( ANANINDEUA )', 'ANANINDEUA', 'PA', -1.336000, -48.382999, '0'),
+(437, 17, 'ETA', '', 'COHAB', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
+(438, 17, 'ETA', '', 'CASTANHAL - COMANDANTE ASSIS', 'CASTANHAL', 'PA', -1.290000, -47.931999, '0'),
+(439, 17, 'ETA', '', 'CONCEICAO DO ARAGUAIA', 'CONCEICAO DO ARAGUAIA', 'PA', -8.283000, -49.264000, '0'),
+(440, 17, 'ETA', '', 'CONJUNTO MAGUARI', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
+(441, 17, 'ETA', '', 'COQUEIRO', 'BELEM', 'PA', -1.370000, -48.429001, '0'),
+(442, 17, 'ETA', '', 'CORDEIRO DE FARIAS I', 'BELEM', 'PA', -1.350000, -48.464001, '0'),
+(443, 17, 'ETA', '', 'CORDEIRO DE FARIAS II', 'BELEM', 'PA', -1.350000, -48.464001, '0'),
+(444, 17, 'ETA', '', 'DOM ELISEU', 'DOM ELISEU', 'PA', -4.247000, -47.561001, '0'),
+(445, 17, 'ETA', '', 'FARO', 'FARO', 'PA', 0.000000, 0.000000, '0'),
+(446, 17, 'ETA', '', 'GUANABARA I', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
+(447, 17, 'ETA', '', 'GUANABARA II', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
+(448, 17, 'ETA', '', 'IGARAPE - MIRI C. NOVA', 'IGARAPE-MIRI', 'PA', 0.000000, 0.000000, '1'),
+(449, 17, 'ETA', '', 'IGARAPE - MIRI ESCRITORIO', 'IGARAPE-MIRI', 'PA', 0.000000, 0.000000, '1'),
+(450, 17, 'ETA', '', 'IGARAPE - MIRI ESTACAO', 'IGARAPE-MIRI', 'PA', -1.980000, -48.964001, '0'),
+(451, 17, 'ETA', '', 'INHANGAPI', 'INHANGAPI', 'PA', 0.000000, 0.000000, '0'),
+(452, 17, 'ETA', '', 'ITAITUBA', 'ITAITUBA', 'PA', -4.276000, -55.986000, '0'),
+(453, 17, 'ETA', '', 'ITUPIRANGA', 'ITUPIRANGA', 'PA', 0.000000, 0.000000, '0'),
+(454, 17, 'ETA', '', 'JACUNDA', 'JACUNDA', 'PA', 0.000000, 0.000000, '0'),
+(455, 17, 'ETA', '', 'JADERLANDIA', 'BELEM', 'PA', -1.303000, -47.895000, '0'),
+(456, 17, 'ETA', '', 'JURUTI', 'JURUTI', 'PA', 0.000000, 0.000000, '0'),
+(457, 17, 'ETA', '', 'LIMOEIRO DO AJURU', 'LIMOEIRO DO AJURU', 'PA', 0.000000, 0.000000, '0'),
+(458, 17, 'ETA', '', 'MAGALHAES BARATA', 'MAGALHAES BARATA', 'PA', 0.000000, 0.000000, '0'),
+(459, 17, 'ETA', '', 'MAGUARI', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
+(460, 17, 'ETA', '', 'MAIUATA', 'IGARAPE-MIRI', 'PA', 0.000000, 0.000000, '0'),
+(461, 17, 'ETA', '', 'MARABA CIDADE NOVA', 'MARABA', 'PA', 0.000000, 0.000000, '0'),
+(462, 17, 'ETA', '', 'MARABA NOVA', 'MARABA', 'PA', -5.326000, -49.077000, '0'),
+(463, 17, 'ETA', '', 'MARABA PIONEIRA', 'MARABA', 'PA', -5.339000, -49.124001, '0'),
+(464, 17, 'ETA', '', 'MARAPANIN', 'MARAPANIM', 'PA', 0.000000, 0.000000, '0'),
+(465, 17, 'ETA', '', 'MARITUBA BEIJA FLOR', 'MARITUBA', 'PA', 0.000000, 0.000000, '0'),
+(466, 17, 'ETA', '', 'MARITUBA CENTRO', 'MARITUBA', 'PA', 0.000000, 0.000000, '0'),
+(467, 17, 'ETA', '', 'MARITUBA COHAB', 'MARITUBA', 'PA', 0.000000, 0.000000, '0'),
+(468, 17, 'ETA', '', 'MARUDA', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
+(469, 17, 'ETA', '', 'CASTANHAL - MILAGRE', 'CASTANHAL', 'PA', -1.304000, -47.908001, '0'),
+(470, 17, 'ETA', '', 'MOCAJUBA', 'MOCAJUBA', 'PA', -2.585000, -49.509998, '0'),
+(471, 17, 'ETA', '', 'MOJU', 'MOJU', 'PA', 0.000000, 0.000000, '0'),
+(472, 17, 'ETA', '', 'MONTE ALEGRE', 'MONTE ALEGRE', 'PA', -1.994000, -54.055000, '0'),
+(473, 17, 'ETA', '', 'MOSQUEIRO - BAIA DO SOL', 'BELEM', 'PA', -1.065000, -48.334999, '0'),
+(474, 17, 'ETA', 'NORDESTE', 'NOVA TIMBOTEUA - ESCRITORIO', 'NOVA TIMBOTEUA', 'PA', -1.206000, -47.386002, '0'),
+(475, 17, 'ETA', '', 'NOVO REPARTIMENTO', 'NOVO REPARTIMENTO', 'PA', -4.248000, -49.956001, '0'),
+(476, 17, 'ETA', '', 'OBIDOS', 'OBIDOS', 'PA', -1.900000, -55.507999, '0'),
+(477, 17, 'ETA', '', 'OEIRA DO PARA', 'OEIRAS DO PARA', 'PA', 0.000000, 0.000000, '0'),
+(478, 17, 'ETA', 'BAIXO AMAZONAS', 'ORIXIMINA', 'ORIXIMINA', 'PA', -1.763000, -55.866001, '0'),
+(479, 17, 'ETA', '', 'OUREM', 'OUREM', 'PA', 0.000000, 0.000000, '0'),
+(480, 17, 'ETA', '', 'PAAR', 'BELEM', 'PA', -1.336000, -48.382999, '0'),
+(481, 17, 'ETA', '', 'PANORAMA XXI', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
+(482, 17, 'ETA', 'NORDESTE', 'PEIXE BOI', 'PEIXE-BOI', 'PA', -1.188000, -47.316002, '0'),
+(483, 17, 'ETA', '', 'PONTA DE PEDRAS', 'PONTA DE PEDRAS', 'PA', 0.000000, 0.000000, '0'),
+(484, 17, 'ETA', '', 'PORTEL', 'PORTEL', 'PA', 0.000000, 0.000000, '0'),
+(485, 17, 'ETA', '', 'PRAINHA', 'PRAINHA', 'PA', 0.000000, 0.000000, '0'),
+(486, 17, 'ETA', '', 'PRATINHA', 'BELEM', 'PA', -1.376000, -48.480000, '0'),
+(487, 17, 'ETA', '', 'R6', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
+(488, 17, 'ETA', '', 'SALGADO GRANDE', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
+(489, 17, 'ETA', '', 'SALINOPOLIS - ESCRITORIO ', 'SALINOPOLIS', 'PA', -0.621626, -47.354000, '0'),
+(490, 17, 'ETA', '', 'SALVA TERRA', 'SALVATERRA', 'PA', 0.000000, 0.000000, '0'),
+(491, 17, 'ETA', '', 'SANTA CRUZ DO ARARI', 'SANTA CRUZ DO ARARI', 'PA', 0.000000, 0.000000, '0'),
+(492, 17, 'ETA', '', 'SANTA LUZIA DO PARA', 'SANTA LUZIA DO PARA', 'PA', 0.000000, 0.000000, '0'),
+(493, 17, 'ETA', '', 'SANTA MARIA DAS BARREIRAS', 'SANTA MARIA DAS BARREIRAS', 'PA', 0.000000, 0.000000, '0'),
+(494, 17, 'ETA', '', 'SANTA MARIA DO PARA - POCO SANTA ROSA', 'SANTA MARIA DO PARA', 'PA', -1.357000, -47.568001, '0'),
+(495, 17, 'ETA', 'BAIXO AMAZONAS', 'SANTAREM', 'SANTAREM', 'PA', -2.443000, -54.730999, '0'),
+(496, 17, 'ETA', '', 'SAO BRAS', 'BELEM', 'PA', -1.449000, -48.469002, '0'),
+(497, 17, 'ETA', '', 'SAO CAETANO DE ODOVELAS', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
+(498, 17, 'ETA', '', 'SAO FELIX DO XINGU', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
+(499, 17, 'ETA', '', 'SAO FRANCISCO DO PARA', 'BELEM', 'PA', -1.175000, -47.803001, '0'),
+(500, 17, 'ETA', '', 'SATELITE', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
+(501, 17, 'ETA', '', 'SIDERAL', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
+(502, 17, 'ETA', '', 'SOURE', 'SOURE', 'PA', 0.000000, 0.000000, '0'),
+(503, 17, 'ETA', '', 'TAILANDIA', 'TAILANDIA', 'PA', -2.948000, -48.953999, '0'),
+(504, 17, 'ETA', '', 'TANGARAS', 'BELEM', 'PA', -1.276000, -47.953999, '0'),
+(505, 17, 'ETA', '', 'TENONE', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
+(506, 17, 'ETA', '', 'TERRA SANTA', 'TERRA SANTA', 'PA', 0.000000, 0.000000, '0'),
+(507, 17, 'ETA', '', 'TRACUATEUA', 'TRACUATEUA', 'PA', 0.000000, 0.000000, '0'),
+(508, 17, 'ETA', '', 'UIRAPURU', 'ANANINDEUA', 'PA', -1.327000, -48.398998, '0'),
+(509, 17, 'ETA', '', 'CASTANHAL - USINA', 'CASTANHAL', 'PA', -1.295000, -47.930000, '0'),
+(510, 17, 'ETA', '', 'VERDEJANTE', 'BELEM', 'PA', -1.410000, -48.394001, '0'),
+(511, 17, 'ETA', '', 'VIGIA DE NAZARE', 'VIGIA', 'PA', 0.000000, 0.000000, '0'),
+(512, 17, 'ETA', '', 'VILA CAFEZAL', 'MAGALHAES BARATA', 'PA', 0.000000, 0.000000, '0'),
+(513, 17, 'ETA', '', 'VILA CUIARANA - SALINOPOLIS', 'SALINOPOLIS', 'PA', -0.650630, -47.264999, '0'),
+(514, 17, 'ETA', '', 'VILA DE BEJA', 'ABAETETUBA', 'PA', 0.000000, 0.000000, '0'),
+(515, 17, 'ETA', '', 'CASTANHAL - VILA DO APEU', 'CASTANHAL', 'PA', -1.299000, -47.988998, '0'),
+(516, 17, 'ETA', '', 'VILA FATIMA', 'TRACUATEUA', 'PA', 0.000000, 0.000000, '0'),
+(517, 17, 'ETA', '', 'VILA MAUIATA', 'IGARAPE-MIRI', 'PA', 0.000000, 0.000000, '0'),
+(518, 17, 'ETA', '', 'VILA TAUARI', 'CAPANEMA', 'PA', 0.000000, 0.000000, '0'),
+(519, 17, 'ETA', '', 'VISEU', 'VISEU', 'PA', 0.000000, 0.000000, '0'),
+(520, 18, 'ETA', '', 'ETA II - NOVA', 'VARZEA GRANDE', 'MT', -15.640000, -56.168999, '0'),
+(521, 18, 'ETA', '', 'ETA I VELHA', 'VARZEA GRANDE', 'MT', -15.642000, -56.129002, '0'),
+(522, 19, 'ETA', '', 'RIO BRANCO - SOBRAL', 'RIO BRANCO', 'AC', -10.004000, -67.842003, '0'),
+(523, 20, 'ETA', '', 'ETA CAJAIBA - ITABAIANA', 'ITABAIANA', 'SE', -10.800000, -37.431000, '0'),
+(524, 20, 'ETA', '', 'AREIA BRANCA', 'AREIA BRANCA', 'SE', -10.759000, -37.318001, '0'),
+(525, 20, 'ETA', '', 'LAGARTO', 'LAGARTO', 'SE', -10.919000, -37.662998, '0'),
+(526, 20, 'ETA', '', 'TOBIAS BARRETO', 'TOBIAS BARRETO', 'SE', -11.183000, -37.998001, '0'),
+(527, 21, 'ETA', '', 'PETROLINA', 'PETROLINA', 'PE', -9.395000, -40.528999, '0'),
+(528, 22, 'ETA', '', 'BACABAL', 'BACABAL', 'MA', -4.234000, -44.778000, '0'),
+(529, 23, 'ETA', 'CAXIAS', 'CAXIAS - ETA POINT', 'CAXIAS', 'MA', -4.885000, -43.381001, '0'),
+(530, 23, 'ETA', 'CAXIAS', 'CAXIAS - ETA VOLTA REDONDA', 'CAXIAS', 'MA', -4.883000, -43.354000, '0'),
+(531, 26, 'ETA', '', 'PETROLINA', 'PETROLINA', 'PE', -9.395000, -40.529999, '0'),
+(532, 27, 'ETA', '', 'CAMPUS - NATAL UFRN', 'NATAL', 'RN', -5.837000, -35.202000, '0'),
+(533, 11, 'ETA', '', 'CAJUPIRANGA  - P68', 'PARNAMIRIM', 'RN', 0.000000, 0.000000, '0'),
+(535, 24, 'ETA', '', 'ITAPISSUMA', 'ITAPISSUMA', 'PE', -7.799000, -34.924999, '0'),
+(536, 28, 'ETA', '', 'BRASIL KIRIN IGARASSU', 'IGARASSU', 'PE', -7.797000, -34.928001, '0'),
+(537, 26, 'ETA', '', 'ARAPIRACA', 'ARAPIRACA', 'AL', -9.785000, -36.654999, '0'),
+(538, 11, 'ETA', '', 'SAO JOSE DO SERIDO', 'SAO JOSE DO SERIDO', 'RN', -6.450000, -36.875999, '0'),
+(539, 14, 'ETA', '', 'ALTO SERTAO - AGUA BRANCA', 'AGUA BRANCA', 'AL', -9.314000, -37.980999, '0'),
+(540, 3, 'ETA', '', 'ITAPISSUMA - XAROPARIA', 'ITAPISSUMA', 'PE', -7.751000, -34.924000, '0'),
+(542, 3, 'ETA', '', 'ITAPISSUMA - ETA/ETEI', 'ITAPISSUMA', 'PE', -7.751000, -34.924000, '0'),
+(543, 14, 'ETA', '', 'ALTO SERTAO(ETA NOVA)', 'DELMIRO GOUVEIA', 'AL', -9.314000, -37.980999, '0'),
+(544, 11, 'ETA', '', 'JARDIM DE PIRANHAS - MANOEL TORRES EB1', 'JARDIM DE PIRANHAS', 'RN', -6.377000, -37.353001, '0'),
+(545, 16, 'ETA', 'CPR Norte', 'BOTAFOGO', 'IGARASSU', 'PE', -7.852000, -34.938000, '0'),
+(546, 13, 'ETA', '', 'ARACAGI', 'ARACAGI', 'PB', -6.852000, -35.293999, '0'),
+(547, 16, 'ETA', 'CPR Norte', 'BOTAFOGO', 'IGARASSU', 'PE', -7.852000, -34.938000, '0'),
+(548, 16, 'ETA', 'CPR Norte', 'ARACOIABA', 'ARACOIABA', 'PE', -7.788000, -35.091999, '0'),
+(549, 16, 'ETA', 'CPR Norte', 'GOIANA', 'GOIANA', 'PE', -7.531000, -34.995998, '0'),
+(550, 16, 'ETA', 'CPR Leste', 'ALTO DO CEU', 'RECIFE', 'PE', -8.014000, -34.890999, '0'),
+(551, 16, 'ETA', 'CPR Leste', 'CAIXA DAGUA', 'RECIFE', 'PE', -7.995000, -34.904999, '0'),
+(552, 16, 'ETA', 'CPR Leste', 'VERA CRUZ', 'CAMARAGIBE', 'PE', -7.954000, -35.007999, '0'),
+(553, 16, 'ETA', 'CPR Leste', 'GUABIRABA - POCOS', 'RECIFE', 'PE', 0.000000, 0.000000, '0'),
+(554, 16, 'ETA', 'CPR Leste', 'DOIS IRMAOS EE', 'RECIFE', 'PE', -8.015000, -34.944000, '0'),
+(555, 16, 'ETA', 'CPR Leste', 'MACACOS EE', 'RECIFE', 'PE', -8.015000, -34.946999, '0'),
+(556, 16, 'ETA', 'CPR Oeste', 'TAPACURA', 'RECIFE', 'PE', -8.078000, -34.988998, '0'),
+(557, 16, 'ETA', 'CPR Oeste', 'VARZEA DO UNA', 'CAMARAGIBE', 'PE', -7.997000, -35.044998, '0'),
+(558, 16, 'ETA', 'CPR Oeste', 'MANOEL DE SENA', 'JABOATAO DOS GUARARAPES', 'PE', -8.106000, -35.014999, '0'),
+(559, 16, 'ETA', 'CPR Oeste', 'MORENO', 'MORENO', 'PE', -8.115000, -35.116001, '0'),
+(560, 16, 'ETA', 'CPR Oeste', 'Parque CAPIBARIBE', 'SAO LOURENCO DA MATA', 'PE', 0.000000, 0.000000, '0'),
+(561, 16, 'ETA', 'CPR Oeste', 'BONANCA', 'MORENO', 'PE', -8.112000, -35.188000, '0'),
+(562, 16, 'ETA', 'CPR Oeste', 'MATRIZ DA LUZ', 'SAO LOURENCO DA MATA', 'PE', -8.037000, -35.099998, '0'),
+(563, 16, 'ETA', 'CPR Sul', 'SUAPE', 'IPOJUCA', 'PE', -8.367000, -35.018002, '0'),
+(564, 16, 'ETA', 'CPR Sul', 'PORTO DE GALINHAS', 'IPOJUCA', 'PE', -8.505000, -35.023998, '0'),
+(565, 16, 'ETA', 'CPR Sul', 'IPOJUCA', 'IPOJUCA', 'PE', -8.396000, -35.062000, '0'),
+(566, 16, 'ETA', 'CPR Sul', 'CAMELA', 'IPOJUCA', 'PE', -8.509000, -35.122002, '0'),
+(567, 16, 'ETA', 'CPP', 'MARCOS FREIRE - CAPTACAO', 'JABOATAO DOS GUARARAPES', 'PE', -8.159000, -34.979000, '0'),
+(568, 16, 'ETA', 'CPP', 'MARCOS FREIRE - CONV. E COMP.', 'JABOATAO DOS GUARARAPES', 'PE', -8.132000, -34.973999, '0'),
+(569, 16, 'ETA', 'CPP', 'CHARNECA', 'CABO DE SANTO AGOSTINHO', 'PE', -8.296000, -35.062000, '0'),
+(570, 16, 'ETA', 'CPP', 'MURIBEQUINHA - CAPTACAO', 'JABOATAO DOS GUARARAPES', 'PE', -8.166000, -35.007000, '0'),
+(571, 16, 'ETA', 'CPP', 'MURIBEQUINHA - ETA', 'JABOATAO DOS GUARARAPES', 'PE', -8.172000, -34.999001, '0'),
+(572, 16, 'ETA', 'CPP', 'PIRAPAMA - CABO', 'CABO DE SANTO AGOSTINHO', 'PE', -8.267000, -35.049999, '0'),
+(573, 16, 'ETA', 'CPP', 'GURJAU / MATAPAGIPE', 'CABO DE SANTO AGOSTINHO', 'PE', -8.267000, -35.048000, '0'),
+(574, 16, 'ETA', 'MATA SUL', 'TAMANDARE - VELHA', 'TAMANDARE', 'PE', 0.000000, 0.000000, '0'),
+(575, 16, 'ETA', 'MATA SUL', 'TAMANDARE - NOVA - RIO FORMOSO', 'TAMANDARE', 'PE', 0.000000, 0.000000, '0'),
+(576, 16, 'ETA', 'MATA SUL', 'RIO FORMOSO', 'RIO FORMOSO', 'PE', 0.000000, 0.000000, '0'),
+(577, 16, 'ETA', 'MATA SUL', 'SIRINHAEM - Captacao', 'SIRINHAEM', 'PE', 0.000000, 0.000000, '0'),
+(578, 16, 'ETA', 'MATA SUL', 'SIRINHAEM - ETA', 'SIRINHAEM', 'PE', 0.000000, 0.000000, '0'),
+(579, 16, 'ETA', 'MATA SUL', 'VITORIA DE SANTO ANTAO', 'VITORIA DE SANTO ANTAO', 'PE', -8.116000, -35.300999, '0'),
+(580, 16, 'ETA', 'MATA SUL', 'BARREIROS', 'BARREIROS', 'PE', 0.000000, 0.000000, '0'),
+(581, 16, 'ETA', 'MATA SUL', 'SAO JOSE DA COROA GRANDE', 'SAO JOSE DA COROA GRANDE', 'PE', 0.000000, 0.000000, '0'),
+(582, 16, 'ETA', 'MATA SUL', 'CUCAU', 'RIO FORMOSO', 'PE', -8.631000, -35.265999, '0'),
+(583, 16, 'ETA', 'MATA SUL', 'GLORIA DO GOITA', 'GLORIA DO GOITA', 'PE', -8.005000, -35.291000, '0'),
+(584, 16, 'ETA', 'MATA SUL', 'JOAQUIM NABUCO', 'JOAQUIM NABUCO', 'PE', -8.630000, -35.532001, '0'),
+(585, 16, 'ETA', 'MATA SUL', 'PRIMAVERA', 'PRIMAVERA', 'PE', 0.000000, 0.000000, '0'),
+(586, 16, 'ETA', 'MATA SUL', 'SANTO AMARO', 'RECIFE', 'PE', 0.000000, 0.000000, '0'),
+(587, 16, 'ETA', 'MATA SUL', 'RIBEIRAO', 'RIBEIRAO', 'PE', -8.507000, -35.384998, '0'),
+(588, 16, 'ETA', 'MATA SUL', 'ESCADA', 'ESCADA', 'PE', 0.000000, 0.000000, '0'),
+(589, 16, 'ETA', 'MATA SUL', 'FREXEIRAS', 'ESCADA', 'PE', 0.000000, 0.000000, '0');
+INSERT INTO `tb_locais` (`id`, `loja`, `tipo`, `regional`, `name`, `municipio`, `uf`, `latitude`, `longitude`, `ativo`) VALUES
+(590, 16, 'ETA', 'MATA SUL', 'SAUE', 'TAMANDARE', 'PE', -8.768000, -35.318001, '0'),
+(591, 16, 'ETA', 'MATA NORTE', 'PAUDALHO', 'PAUDALHO', 'PE', -7.882000, -35.179001, '0'),
+(592, 16, 'ETA', 'MATA NORTE', 'BIZARRA', 'BOM JARDIM', 'PE', -7.756000, -35.484001, '0'),
+(593, 16, 'ETA', 'MATA NORTE', 'BUENOS AIRES', 'BUENOS AIRES', 'PE', 0.000000, 0.000000, '0'),
+(594, 1, 'ETA', '', 'TESTE', 'ITAPISSUMA', 'PE', -1.111111, -22.111111, '0');
 
 -- --------------------------------------------------------
 
@@ -3065,17 +3722,17 @@ CREATE TABLE IF NOT EXISTS `tb_insumos` (
 -- Estrutura da tabela `tb_localidades`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_localidades` (
+CREATE TABLE `tb_localidades` (
   `id` int(11) NOT NULL,
-  `cliente` varchar(30) NOT NULL,
-  `regional` varchar(100) DEFAULT NULL,
-  `nome` varchar(50) NOT NULL,
-  `municipio` varchar(100) NOT NULL,
-  `uf` varchar(2) NOT NULL,
+  `cliente` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `regional` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nome` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `municipio` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `uf` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
   `latitude` float(10,6) DEFAULT NULL,
   `longitude` float(10,6) DEFAULT NULL,
-  `ativo` enum('0','1') NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `ativo` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_localidades`
@@ -3275,7 +3932,6 @@ INSERT INTO `tb_localidades` (`id`, `cliente`, `regional`, `nome`, `municipio`, 
 (192, 'CAERN', '', 'SAO MIGUEL', 'SAO MIGUEL', 'RN', -6.215470, -38.429302, '0'),
 (193, 'CAERN', '', 'SAO RAFAEL', 'SAO RAFAEL', 'RN', -5.802804, -36.879539, '0'),
 (194, 'CAERN', '', 'ETE SAO TOME', 'SAO TOME', 'RN', -5.973583, -36.070179, '0'),
-(546, 'CAGEPA', '', 'ARACAGI', 'ARACAGI', 'PB', -6.852192, -35.294487, '0'),
 (196, 'CAERN', '', 'SERRA DE SANTANA', 'FLORANIA', 'RN', -5.964889, -36.954777, '0'),
 (197, 'SERRA NEGRA DO NORTE', '', 'SAAE - SERRA NEGRA DO NORTE', 'SERRA NEGRA DO NORTE', 'RN', -6.670883, -37.391548, '0'),
 (198, 'CAERN', '', 'SERRINHA DOS PINTOS', 'SERRINHA DOS PINTOS', 'RN', 0.000000, 0.000000, '0'),
@@ -3613,8 +4269,8 @@ INSERT INTO `tb_localidades` (`id`, `cliente`, `regional`, `nome`, `municipio`, 
 (531, 'SOLAR', '', 'PETROLINA', 'PETROLINA', 'PE', -9.395559, -40.530453, '0'),
 (532, 'UFRN', '', 'CAMPUS - NATAL UFRN', 'NATAL', 'RN', -5.837338, -35.202271, '0'),
 (533, 'CAERN', '', 'CAJUPIRANGA  - P68', 'PARNAMIRIM', 'RN', 0.000000, 0.000000, '0'),
-(536, 'BRASIL KIRIN', '', 'BRASIL KIRIN IGARASSU', 'IGARASSU', 'PE', -7.797803, -34.928207, '0'),
 (535, 'SABARA', '', 'ITAPISSUMA', 'ITAPISSUMA', 'PE', -7.799309, -34.925011, '0'),
+(536, 'BRASIL KIRIN', '', 'BRASIL KIRIN IGARASSU', 'IGARASSU', 'PE', -7.797803, -34.928207, '0'),
 (537, 'SOLAR', '', 'ARAPIRACA', 'ARAPIRACA', 'AL', -9.785653, -36.655251, '0'),
 (538, 'CAERN', '', 'SAO JOSE DO SERIDO', 'SAO JOSE DO SERIDO', 'RN', -6.450280, -36.876423, '0'),
 (539, 'CASAL', '', 'ALTO SERTAO - AGUA BRANCA', 'AGUA BRANCA', 'AL', -9.314660, -37.981758, '0'),
@@ -3623,6 +4279,7 @@ INSERT INTO `tb_localidades` (`id`, `cliente`, `regional`, `nome`, `municipio`, 
 (543, 'CASAL', '', 'ALTO SERTAO(ETA NOVA)', 'DELMIRO GOUVEIA', 'AL', -9.314146, -37.981365, '0'),
 (544, 'CAERN', '', 'JARDIM DE PIRANHAS - MANOEL TORRES EB1', 'JARDIM DE PIRANHAS', 'RN', -6.377249, -37.353966, '0'),
 (545, 'COMPESA', 'CPR Norte', 'BOTAFOGO', 'IGARASSU', 'PE', -7.852777, -34.938107, '0'),
+(546, 'CAGEPA', '', 'ARACAGI', 'ARACAGI', 'PB', -6.852192, -35.294487, '0'),
 (547, 'COMPESA', 'CPR Norte', 'BOTAFOGO', 'IGARASSU', 'PE', -7.852777, -34.938107, '0'),
 (548, 'COMPESA', 'CPR Norte', 'ARACOIABA', 'ARACOIABA', 'PE', -7.788469, -35.092251, '0'),
 (549, 'COMPESA', 'CPR Norte', 'GOIANA', 'GOIANA', 'PE', -7.531476, -34.996239, '0'),
@@ -3899,9 +4556,9 @@ INSERT INTO `tb_localidades` (`id`, `cliente`, `regional`, `nome`, `municipio`, 
 (819, 'CAGECE', '', 'IPAGUACU', 'IPAGUACU', 'CE', -3.509380, -40.278725, '0'),
 (820, 'CAGECE', '', 'GROAIRAS', 'GROAIRAS', 'CE', -3.904063, -40.402130, '0'),
 (821, 'CAGECE', '', 'SANTANA DO ACARAU', 'SANTANA DO ACARAU', 'CE', -3.457453, -40.217594, '0'),
-(825, 'CAGECE', '', 'SERRA DO FELIX', 'BEBERIBE', 'CE', -4.461232, -38.150440, '0'),
 (823, 'CAGECE', '', 'MORAUJO - VARZEA DA VOLTA', 'MORAUJO', 'CE', -3.501889, -40.615623, '0'),
 (824, 'CAGECE', '', 'UBAUNA', 'UBAUNA', 'CE', -3.737034, -40.686741, '0'),
+(825, 'CAGECE', '', 'SERRA DO FELIX', 'BEBERIBE', 'CE', -4.461232, -38.150440, '0'),
 (826, 'CAGECE', '', 'PALHANO', 'PALHANO', 'CE', -4.736352, -37.965450, '0'),
 (827, 'CAGECE', '', 'JAGUARUANA', 'JAGUARUANA', 'CE', -4.849774, -37.783184, '0'),
 (828, 'CAGECE', '', 'QUIXERE', 'QUIXERE', 'CE', -5.074149, -38.006786, '0'),
@@ -3954,26 +4611,142 @@ INSERT INTO `tb_localidades` (`id`, `cliente`, `regional`, `nome`, `municipio`, 
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `tb_local_categoria`
+--
+
+CREATE TABLE `tb_local_categoria` (
+  `id` int(11) NOT NULL,
+  `local` int(11) NOT NULL,
+  `categoria` int(11) NOT NULL,
+  `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `tb_local_categoria`
+--
+
+INSERT INTO `tb_local_categoria` (`id`, `local`, `categoria`, `ativo`) VALUES
+(1, 2, 1, '0'),
+(2, 2, 3, '0'),
+(3, 3, 1, '0');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_loja`
+--
+
+CREATE TABLE `tb_loja` (
+  `id` int(11) NOT NULL,
+  `nick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
+  `proprietario` int(11) NOT NULL,
+  `grupoLoja` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+  `seguimento` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
+  `data` date NOT NULL,
+  `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `tb_loja`
+--
+
+INSERT INTO `tb_loja` (`id`, `nick`, `name`, `proprietario`, `grupoLoja`, `seguimento`, `data`, `ativo`) VALUES
+(1, 'AGESPISA', 'AGESPISA', 1, 'C', 'SAN', '2017-08-18', '0'),
+(2, 'ALUBAR', 'ALUBAR', 1, 'C', 'IND', '2017-08-18', '0'),
+(3, 'AMBEV', 'AMBEV', 1, 'C', 'BEB', '2017-08-18', '0'),
+(4, 'APERAM', 'APERAM', 1, 'C', 'IND', '2017-08-18', '0'),
+(5, 'BATERIAS MOURA', 'BATERIAS MOURA', 1, 'C', 'IND', '2017-08-18', '0'),
+(6, 'BIOSEV - GIASA', 'BIOSEV - GIASA', 1, 'C', 'USI', '2017-08-18', '0'),
+(7, 'CAB AGRESTE', 'CAB AGRESTE', 1, 'C', 'SAN', '2017-08-18', '0'),
+(8, 'CAB CUIABA', 'CAB CUIABA', 1, 'C', 'SAN', '2017-08-18', '0'),
+(9, 'CAEMA', 'CAEMA', 1, 'C', 'SAN', '2017-08-18', '0'),
+(10, 'CAER', 'CAER', 1, 'C', 'SAN', '2017-08-18', '0'),
+(11, 'CAERN', 'CAERN', 1, 'C', 'SAN', '2017-08-18', '0'),
+(12, 'CAGECE', 'CAGECE', 1, 'C', 'SAN', '2017-08-18', '0'),
+(13, 'CAGEPA', 'CAGEPA', 1, 'C', 'SAN', '2017-08-18', '0'),
+(14, 'CASAL', 'CASAL', 1, 'C', 'SAN', '2017-08-18', '0'),
+(15, 'CESAN', 'CESAN', 1, 'C', 'SAN', '2017-08-18', '0'),
+(16, 'COMPESA', 'COMPESA', 1, 'C', 'SAN', '2017-08-18', '0'),
+(17, 'COSANPA', 'COSANPA', 1, 'C', 'SAN', '2017-08-18', '0'),
+(18, 'DAE-VARZEA GRANDE', 'DAE-VARZEA GRANDE', 1, 'C', 'SAN', '2017-08-18', '0'),
+(19, 'DEPASA', 'DEPASA', 1, 'C', 'SAN', '2017-08-18', '0'),
+(20, 'DESO', 'DESO', 1, 'C', 'SAN', '2017-08-18', '0'),
+(21, 'NIAGRO NICHIREI-PE', 'NIAGRO NICHIREI-PE', 1, 'C', 'IND', '2017-08-18', '0'),
+(22, 'SAAE - BACABAL', 'SAAE - BACABAL', 1, 'C', 'SAN', '2017-08-18', '0'),
+(23, 'SAAE - CAXIAS', 'SAAE - CAXIAS', 1, 'C', 'SAN', '2017-08-18', '0'),
+(24, 'SABARA', 'SABARA', 1, 'P', 'IND', '2017-08-18', '0'),
+(25, 'SERRA NEGRA DO NORTE', 'SERRA NEGRA DO NORTE', 1, 'C', 'SAN', '2017-08-18', '0'),
+(26, 'SOLAR', 'SOLAR', 1, 'C', 'BEB', '2017-08-18', '0'),
+(27, 'UFRN', 'UFRN', 1, 'C', 'OUT', '2017-08-18', '0'),
+(28, 'BRASIL KIRIN', 'BRASIL KIRIN', 1, 'C', 'BEB', '2017-08-18', '0'),
+(29, 'GERDAU', 'GERDAU', 1, 'C', 'IND', '2017-08-18', '0'),
+(30, 'HEINEKEN', 'HEINEKEN', 1, 'C', 'BEB', '2017-08-18', '0'),
+(31, 'SANEAR RONDONOPOLIS', 'SANEAR RONDONOPOLIS', 1, 'C', 'SAN', '2017-08-18', '0');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_loja_categoria`
+--
+
+CREATE TABLE `tb_loja_categoria` (
+  `id` int(11) NOT NULL,
+  `loja` int(11) NOT NULL,
+  `categoria` int(11) NOT NULL,
+  `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `tb_loja_categoria`
+--
+
+INSERT INTO `tb_loja_categoria` (`id`, `loja`, `categoria`, `ativo`) VALUES
+(1, 1, 1, '0');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_mod`
+--
+
+CREATE TABLE `tb_mod` (
+  `id` int(11) NOT NULL,
+  `os` int(11) NOT NULL,
+  `tecnico` int(11) NOT NULL,
+  `dtInicio` datetime NOT NULL,
+  `dtFinal` datetime DEFAULT NULL,
+  `tempo` int(11) DEFAULT NULL,
+  `kmInicio` int(11) DEFAULT NULL,
+  `kmFinal` int(11) DEFAULT NULL,
+  `valor` int(11) DEFAULT NULL,
+  `tipoTrajeto` int(11) DEFAULT NULL,
+  `status` enum('0','1','2','3','4','5') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `tb_oat`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_oat` (
+CREATE TABLE `tb_oat` (
   `id` int(11) NOT NULL,
-  `nickuser` varchar(30) NOT NULL,
-  `cliente` varchar(30) NOT NULL,
+  `nickuser` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `cliente` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `localidade` int(11) NOT NULL,
-  `servico` varchar(6) NOT NULL,
-  `sistema` varchar(12) NOT NULL,
-  `data` date NOT NULL DEFAULT '0000-00-00',
-  `data_sol` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `servico` varchar(6) COLLATE utf8_unicode_ci NOT NULL,
+  `sistema` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
+  `data` date NOT NULL,
+  `data_sol` datetime NOT NULL,
   `filial` int(2) DEFAULT NULL,
   `os` int(11) DEFAULT NULL,
-  `data_os` datetime DEFAULT '0000-00-00 00:00:00',
-  `data_fech` datetime DEFAULT '0000-00-00 00:00:00',
-  `data_term` datetime DEFAULT '0000-00-00 00:00:00',
-  `status` enum('0','1','2','3','4') NOT NULL DEFAULT '0',
-  `ativo` enum('0','1') NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `data_os` datetime DEFAULT NULL,
+  `data_fech` datetime DEFAULT NULL,
+  `data_term` datetime DEFAULT NULL,
+  `status` enum('0','1','2','3','4') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `ativo` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_oat`
@@ -3984,19 +4757,17 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (2, 'Francinei', 'COSANPA', 423, 'CR0001', 'SBGCL-SCL', '0000-00-00', '2016-11-01 13:03:36', 4, 247, '2016-11-04 00:00:00', '2016-11-04 19:28:15', '2016-11-07 18:27:02', '4', '0'),
 (3, 'gladson.marinho', 'CAERN', 157, 'VT0001', 'SBDSD-SDS', '0000-00-00', '2016-11-04 11:49:33', 1, 864, '2016-11-04 00:00:00', '2016-11-15 21:11:53', '2016-11-16 19:35:16', '4', '0'),
 (4, 'Francinei', 'COSANPA', 496, 'CR0001', 'SBPAC-SPC', '0000-00-00', '2016-11-01 17:06:49', 1, 865, '2016-11-04 00:00:00', '2016-11-04 19:32:25', '2016-11-10 00:41:12', '4', '0'),
-(8, 'reginaldo.barbosa', 'CAERN', 111, 'OP0001', 'SBDSD-SDS', '0000-00-00', '2016-11-01 18:59:18', 1, 665, '2016-11-01 00:00:00', '2016-11-17 00:50:06', '2016-11-17 11:34:49', '4', '0'),
 (6, 'reginaldo.barbosa', 'CAERN', 127, 'NV0001', 'SBDSD-SDS', '0000-00-00', '2016-11-01 18:54:19', 1, 650, '2016-11-01 00:00:00', '2016-11-17 11:49:59', '2016-11-17 11:59:19', '4', '0'),
 (7, 'francisco.barbosa', 'CAGEPA', 265, 'VT0001', 'SBGCL-SCL', '0000-00-00', '2016-11-01 18:55:48', 1, 646, '2016-11-01 00:00:00', '2016-11-16 14:06:41', '2016-11-17 12:05:56', '4', '0'),
+(8, 'reginaldo.barbosa', 'CAERN', 111, 'OP0001', 'SBDSD-SDS', '0000-00-00', '2016-11-01 18:59:18', 1, 665, '2016-11-01 00:00:00', '2016-11-17 00:50:06', '2016-11-17 11:34:49', '4', '0'),
 (9, 'reginaldo.barbosa', 'CAERN', 183, 'OP0001', 'SBDSD-SDS', '0000-00-00', '2016-11-01 19:00:16', 1, 702, '2016-11-01 00:00:00', '2016-11-17 01:00:40', '2016-11-17 11:51:59', '4', '0'),
 (10, 'reginaldo.barbosa', 'CAERN', 181, 'OP0001', 'SBDSD-SDS', '0000-00-00', '2016-11-01 19:00:53', 1, 703, '2016-11-01 00:00:00', '2016-11-17 11:49:17', '2016-11-17 12:32:41', '4', '0'),
 (11, 'reginaldo.barbosa', 'CAERN', 111, 'OP0001', 'SBDSD-SDS', '0000-00-00', '2016-11-01 19:01:22', 1, 704, '2016-11-01 00:00:00', '2016-11-17 11:50:51', '2016-11-17 12:34:04', '4', '0'),
 (12, 'reginaldo.barbosa', 'CAERN', 127, 'OP0001', 'SBDSD-SDS', '0000-00-00', '2016-11-01 19:01:47', 1, 705, '2016-11-01 00:00:00', '2016-11-17 11:51:02', '2016-11-17 12:36:57', '4', '0'),
 (13, 'francisco.barbosa', 'CAGEPA', 325, 'PV0001', 'SBGCL-SCL', '0000-00-00', '2016-11-01 19:02:34', 1, 714, '2016-11-01 00:00:00', '2016-11-17 13:36:05', '2016-11-17 13:36:45', '4', '0'),
-(286, 'reginaldo.barbosa', 'CAERN', 183, 'OP0001', 'SBDSD-SDS', '2016-12-12', '2016-12-12 07:43:51', 1, 1018, '2016-12-13 01:06:00', '2016-12-13 10:12:14', '2016-12-16 11:28:07', '4', '0'),
 (15, 'reginaldo.barbosa', 'CAERN', 183, 'VT0001', 'SBDSD-SDS', '0000-00-00', '2016-11-01 19:03:28', 1, 741, '2016-11-01 00:00:00', '2016-11-16 22:25:17', '2016-11-17 12:37:46', '4', '0'),
 (16, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '0000-00-00', '2016-11-01 19:14:27', 4, 208, '2016-11-01 00:00:00', '2016-11-04 19:41:27', '2016-11-10 01:55:31', '4', '0'),
 (17, 'ricardo.lopes', 'CAEMA', 29, 'PV0001', 'SBGCL-SCL', '0000-00-00', '2016-11-01 19:14:58', 4, 213, '2016-11-01 00:00:00', '2016-11-07 18:33:41', '2016-11-15 10:14:21', '4', '0'),
-(281, 'Francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2016-12-09', '2016-12-09 16:45:25', 1, 308, '2016-12-15 18:13:44', '2016-12-16 09:57:45', '2016-12-19 11:40:37', '4', '0'),
 (20, 'bruno.alves', 'CAGEPA', 295, 'PV0001', 'SBGCL-SCL', '0000-00-00', '2016-11-01 19:16:21', 1, 783, '2016-11-01 00:00:00', '2016-11-18 13:36:35', '2016-11-18 13:37:03', '4', '0'),
 (21, 'bruno.alves', 'CAGEPA', 267, 'PV0001', 'SBGCL-SCL', '0000-00-00', '2016-11-01 19:16:50', 1, 784, '2016-11-01 00:00:00', '2016-11-07 11:06:23', '2016-11-10 00:50:18', '4', '0'),
 (22, 'reginaldo.barbosa', 'CAERN', 166, 'VT0001', 'SBDSD-SDS', '0000-00-00', '2016-11-01 19:17:21', 1, 790, '2016-11-01 00:00:00', '2016-11-16 22:29:18', '2016-11-17 12:43:20', '4', '0'),
@@ -4026,7 +4797,6 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (50, 'Thonpson', 'AMBEV', 5, 'CR0001', 'SBDPT-SPT', '0000-00-00', '2016-11-04 14:42:23', 1, 867, '2016-11-04 00:00:00', '2016-11-16 14:31:06', '2016-11-16 16:28:13', '4', '0'),
 (51, 'Francinei', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '0000-00-00', '2016-11-04 14:56:20', 4, 249, '2016-11-04 00:00:00', '2016-11-04 19:51:02', '2016-11-10 02:02:01', '4', '0'),
 (52, 'Francinei', 'COSANPA', 409, 'OP0002', 'SBGCL-SCL', '0000-00-00', '2016-11-04 15:38:55', 4, 250, '2016-11-04 00:00:00', '2016-11-04 19:54:08', '2016-11-10 02:06:09', '4', '0'),
-(61, 'francisco.barbosa', 'DESO', 523, 'VT0001', 'SBDXC-SDX', '2016-11-04', '2016-11-07 11:11:11', 1, 879, '2016-11-07 11:20:37', '2016-11-16 14:46:45', '2016-11-17 12:17:50', '4', '0'),
 (54, 'RAFAELCARLOS', 'SOLAR', 0, 'NV0001', 'SBDPT-SPT', '2016-11-03', '2016-11-07 09:41:43', 1, 880, '2016-11-07 14:56:35', '2016-11-08 18:08:44', '2016-11-10 01:47:49', '4', '0'),
 (55, 'gladson.marinho', 'CAERN', 154, 'NV0001', 'SBDSD-SDS', '2016-11-03', '2016-11-06 11:39:25', 1, 881, '2016-11-07 17:42:38', '2016-11-10 23:20:40', '2016-11-15 14:45:00', '4', '0'),
 (56, 'gladson.marinho', 'CAERN', 149, 'NV0001', 'SBDSD-SDS', '2016-11-03', '2016-11-09 11:42:31', 1, 894, '2016-11-10 03:36:58', '2016-11-10 23:23:27', '2016-11-15 14:41:34', '4', '0'),
@@ -4034,13 +4804,13 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (58, 'gladson.marinho', 'CAERN', 199, 'OP0001', 'SBDSD-SDS', '2016-11-04', '2016-11-06 11:40:05', 1, 883, '2016-11-07 17:52:55', '2016-11-15 21:49:35', '2016-11-17 13:18:30', '4', '0'),
 (59, 'gladson.marinho', 'CAERN', 181, 'OP0001', 'SBDSD-SDS', '2016-11-04', '2016-11-06 11:49:30', 1, 884, '2016-11-07 17:54:14', '2016-11-19 14:38:30', '2016-11-21 11:01:36', '4', '0'),
 (60, 'gladson.marinho', 'CAERN', 111, 'OP0001', 'SBDSD-SDS', '2016-11-04', '2016-11-06 11:49:41', 1, 885, '2016-11-07 17:55:23', '2016-11-15 21:53:34', '2016-11-17 11:39:42', '4', '0'),
-(65, 'ricardo.lopes', 'CAEMA', 29, 'PV0001', 'SBGCL-SCL', '2016-10-05', '2016-11-07 14:52:03', 4, 256, '2016-11-10 16:36:32', '2016-11-21 11:17:37', '2016-11-21 19:19:22', '4', '0'),
+(61, 'francisco.barbosa', 'DESO', 523, 'VT0001', 'SBDXC-SDX', '2016-11-04', '2016-11-07 11:11:11', 1, 879, '2016-11-07 11:20:37', '2016-11-16 14:46:45', '2016-11-17 12:17:50', '4', '0'),
 (63, 'francisco.barbosa', 'DESO', 525, 'PV0001', 'SBDXC-SDX', '2015-11-02', '2016-11-07 13:14:15', 1, 877, '2016-11-09 11:53:04', '2016-11-16 14:39:50', '2016-11-17 12:18:54', '4', '0'),
 (64, 'Francinei', 'COSANPA', 428, 'OP0002', 'SBGCL-SCL', '2016-11-07', '2016-11-07 13:23:14', 4, 259, '2016-11-10 16:45:38', '2016-11-26 18:51:54', '2016-11-28 18:44:10', '4', '0'),
+(65, 'ricardo.lopes', 'CAEMA', 29, 'PV0001', 'SBGCL-SCL', '2016-10-05', '2016-11-07 14:52:03', 4, 256, '2016-11-10 16:36:32', '2016-11-21 11:17:37', '2016-11-21 19:19:22', '4', '0'),
 (66, 'ricardo.lopes', 'CAEMA', 28, 'PV0001', 'SBGCL-SCL', '2016-10-07', '2016-11-07 14:54:58', 4, 257, '2016-11-10 16:43:04', '2016-11-21 12:29:02', '2016-11-21 19:25:41', '4', '0'),
 (67, 'bruno.alves', 'CAGEPA', 361, 'CR0001', 'SBGCL-SCL', '2016-11-07', '2016-11-07 17:21:23', 1, 886, '2016-11-09 11:59:54', '2016-11-11 14:58:27', '2016-11-15 18:08:08', '4', '0'),
 (68, 'ricardo.lopes', 'SAAE - CAXIAS', 530, 'PV0001', 'SBGCL-SCL', '2016-10-20', '2016-11-07 18:54:38', 4, 258, '2016-11-10 16:44:24', '2016-11-21 13:03:21', '2016-11-21 19:30:58', '4', '0'),
-(548, 'francisco.barbosa', 'CAGEPA', 213, 'VT0001', 'SBGCL-SCL', '2017-02-01', '2017-02-01 19:43:26', 1, 1183, '2017-02-01 19:49:06', '2017-02-11 21:52:49', '2017-02-13 17:48:38', '4', '0'),
 (70, 'RAFAELCARLOS', 'CASAL', 387, 'PV0001', 'SBGCL-SCL', '2016-11-08', '2016-11-08 09:45:52', 1, 887, '2016-11-09 12:06:05', '2016-11-09 13:15:32', '2016-11-10 01:36:20', '4', '0'),
 (71, 'bruno.alves', 'CAGEPA', 336, 'CR0001', 'SBGCL-SCL', '2016-11-08', '2016-11-08 14:53:05', 1, 889, '2016-11-09 12:23:05', '2016-11-11 15:02:40', '2016-11-15 17:56:44', '4', '0'),
 (72, 'RAFAELCARLOS', 'SOLAR', 537, 'VT0001', 'SBDPT-SPT', '2016-10-31', '2016-11-08 18:10:30', 1, 903, '2016-11-10 16:28:24', '2016-11-18 22:37:41', '2016-11-21 11:10:38', '4', '0'),
@@ -4054,9 +4824,6 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (84, 'nahim.pantoja', 'COSANPA', 462, 'OP0002', 'SBGCL-SCL', '2016-11-05', '2016-11-09 14:38:37', 4, 263, '2016-11-10 16:53:02', '2016-11-19 15:42:42', '2016-11-21 19:24:58', '4', '0'),
 (85, 'nahim.pantoja', 'COSANPA', 463, 'OP0002', 'SBGCL-SCL', '2016-11-05', '2016-11-09 14:48:38', 4, 264, '2016-11-10 16:53:56', '2016-11-19 15:50:36', '2016-11-21 19:17:44', '4', '0'),
 (86, 'gladson.marinho', 'CAERN', 184, 'CR0001', 'SBGCL-SCL', '2016-11-09', '2016-11-09 21:31:54', 1, 898, '2016-11-10 03:44:35', '2016-11-10 23:31:54', '2016-11-15 14:30:25', '4', '0'),
-(285, 'nahim.pantoja', 'COSANPA', 409, 'OP0002', 'SBGCL-SCL', '2016-12-09', '2016-12-09 19:20:28', 4, 309, '2016-12-15 18:17:42', '2016-12-19 16:02:25', '2016-12-20 18:48:20', '4', '0'),
-(284, 'nahim.pantoja', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2016-12-09', '2016-12-09 19:19:38', 4, 310, '2016-12-15 18:22:29', '2016-12-19 16:10:35', '2016-12-20 18:51:25', '4', '0'),
-(280, 'Francinei', 'COSANPA', 416, 'VT0001', 'SBGCL-SCL', '2016-12-09', '2016-12-09 16:44:42', 4, 311, '2016-12-19 11:30:24', '2016-12-19 12:02:46', '2016-12-19 12:10:18', '4', '0'),
 (87, 'heitor.brito', 'CAGEPA', 258, 'CR0001', 'SBGCL-SCL', '2016-11-08', '2016-11-10 03:15:14', 1, 899, '2016-11-10 11:36:36', '2016-11-16 05:52:46', '2016-11-17 13:33:47', '4', '0'),
 (88, 'heitor.brito', 'CAGEPA', 371, 'CR0001', 'SBGCL-SCL', '2016-11-08', '2016-11-10 03:16:09', 1, 900, '2016-11-10 11:37:38', '2016-11-16 06:13:13', '2016-11-17 13:29:33', '4', '0'),
 (89, 'heitor.brito', 'CAGEPA', 344, 'CR0001', 'SBGCL-SCL', '2016-11-08', '2016-11-10 03:16:54', 1, 901, '2016-11-10 11:39:32', '2016-11-16 06:19:29', '2016-11-17 13:25:46', '4', '0'),
@@ -4074,7 +4841,6 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (102, 'heitor.brito', 'CAERN', 115, 'CR0001', 'SBGCL-SCL', '2016-11-14', '2016-11-14 15:54:50', 1, 910, '2016-11-15 12:46:36', '2016-11-19 15:56:10', '2016-11-21 18:33:02', '4', '0'),
 (103, 'Thonpson', 'DESO', 526, 'PV0001', 'SBDXC-SDX', '2016-11-13', '2016-11-15 02:39:24', 1, 909, '2016-11-15 12:43:29', '2016-11-16 14:44:06', '2016-11-16 16:51:49', '4', '0'),
 (104, 'gladson.marinho', 'CAERN', 156, 'CR0001', 'SBGCL-SCL', '0000-00-00', '2016-11-15 15:14:49', 1, 869, '2016-11-15 15:15:38', '2016-11-15 21:00:09', '2016-11-17 12:46:59', '4', '0'),
-(283, 'francisco.barbosa', 'CAGEPA', 546, 'VT0001', 'SBGCL-SCL', '2016-12-06', '2016-12-09 19:04:55', 1, 1017, '2016-12-09 19:41:30', '2016-12-09 19:51:37', '2016-12-19 12:30:27', '4', '0'),
 (105, 'gladson.marinho', 'CAERN', 183, 'NV0001', 'SBDSD-SDS', '2016-11-10', '2016-11-15 22:13:09', 1, 914, '2016-11-16 19:05:42', '2016-11-19 14:49:02', '2016-11-21 17:05:02', '4', '0'),
 (106, 'gladson.marinho', 'CAERN', 126, 'OP0001', 'SBDSD-SDS', '2016-11-11', '2016-11-15 22:14:06', 1, 915, '2016-11-16 19:10:20', '2016-11-19 14:52:22', '2016-11-21 17:19:41', '4', '0'),
 (107, 'reginaldo.barbosa', 'CAERN', 134, 'CR0001', 'SBGCL-SCL', '2016-11-14', '2016-11-16 08:57:54', 1, 916, '2016-11-16 19:12:18', '2016-11-17 00:21:11', '2016-11-17 13:44:04', '4', '0'),
@@ -4087,16 +4853,16 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (115, 'heitor.brito', 'CAERN', 106, 'CR0001', 'SBGCL-SCL', '2016-11-16', '2016-11-17 10:35:19', 1, 918, '2016-11-17 11:45:23', '2016-11-19 16:01:06', '2016-11-21 17:43:37', '4', '0'),
 (116, 'heitor.brito', 'CAERN', 112, 'CR0001', 'SBDSD-SDS', '2016-11-16', '2016-11-17 10:36:11', 1, 919, '2016-11-17 11:46:40', '2016-11-19 16:10:29', '2016-11-21 17:33:36', '4', '0'),
 (117, 'heitor.brito', 'CAERN', 193, 'CR0001', 'SBGCL-SCL', '2016-11-17', '2016-11-17 10:36:58', 1, 920, '2016-11-17 11:47:55', '2016-12-09 12:28:24', '2016-12-20 19:37:56', '4', '0'),
-(130, 'RAFAELCARLOS', 'SOLAR', 537, 'VT0001', 'SBDPT-SPT', '2016-11-09', '2016-11-18 18:26:08', 1, 903, '2016-11-18 18:26:55', '2016-11-18 23:23:17', '2016-11-21 17:20:38', '4', '0'),
 (119, 'nahim.pantoja', 'COSANPA', 424, 'CR0001', 'SBPAC-SPC', '2016-11-17', '2016-11-17 20:32:04', 1, 922, '2016-11-18 13:36:43', '2016-11-19 17:16:39', '2016-11-21 17:28:05', '4', '0'),
 (120, 'RAFAELCARLOS', 'CASAL', 384, 'PV0001', 'SBGCL-SCL', '2016-11-17', '2016-11-17 20:58:23', 1, 921, '2016-11-17 21:08:32', '2016-11-18 23:08:06', '2016-11-21 17:17:24', '4', '0'),
 (122, 'bruno.alves', 'CAGEPA', 227, 'VT0001', 'SBGCL-SCL', '2016-11-18', '2016-11-18 10:49:42', 1, 923, '2016-11-18 13:38:09', '2016-11-20 10:57:09', '2016-11-21 11:23:51', '4', '0'),
-(131, 'RAFAELCARLOS', 'CASAL', 543, 'PV0001', 'SBGCL-SCL', '2016-11-18', '2016-11-18 22:40:50', 1, 930, '2016-11-21 14:59:21', '2016-11-21 22:42:48', '2016-11-22 12:01:49', '4', '0'),
 (124, 'bruno.alves', 'CAGEPA', 348, 'CR0001', 'SBGCL-SCL', '2016-10-24', '2016-11-18 12:55:59', 1, 842, '2016-11-18 12:57:50', '2016-11-21 22:53:53', '2016-11-22 11:37:58', '4', '0'),
 (125, 'bruno.alves', 'CAGEPA', 350, 'CR0001', 'SBGCL-SCL', '2016-10-24', '2016-11-18 12:57:10', 1, 844, '2016-11-18 12:58:31', '2016-11-21 22:58:48', '2016-11-22 11:42:40', '4', '0'),
 (126, 'ricardo.lopes', 'CAGEPA', 270, 'PV0001', 'SBGCL-SCL', '2016-10-25', '2016-11-18 12:59:43', 1, 845, '2016-11-18 13:00:12', '2016-11-21 13:12:28', '2016-11-21 16:46:03', '4', '0'),
 (127, 'bruno.alves', 'CAGEPA', 262, 'CR0001', 'SBGCL-SCL', '2016-10-25', '2016-11-18 13:01:48', 1, 846, '2016-11-18 13:02:16', '2016-11-21 22:46:38', '2016-11-22 11:46:31', '4', '0'),
 (128, 'bruno.alves', 'CAGEPA', 252, 'CR0001', 'SBGCL-SCL', '2016-10-28', '2016-11-18 13:03:18', 1, 859, '2016-11-18 13:04:24', '2016-11-20 10:33:42', '2016-11-21 16:37:18', '4', '0'),
+(130, 'RAFAELCARLOS', 'SOLAR', 537, 'VT0001', 'SBDPT-SPT', '2016-11-09', '2016-11-18 18:26:08', 1, 903, '2016-11-18 18:26:55', '2016-11-18 23:23:17', '2016-11-21 17:20:38', '4', '0'),
+(131, 'RAFAELCARLOS', 'CASAL', 543, 'PV0001', 'SBGCL-SCL', '2016-11-18', '2016-11-18 22:40:50', 1, 930, '2016-11-21 14:59:21', '2016-11-21 22:42:48', '2016-11-22 12:01:49', '4', '0'),
 (132, 'RAFAELCARLOS', 'CASAL', 397, 'PV0001', 'SBGCL-SCL', '2016-11-18', '2016-11-18 22:40:29', 1, 924, '2016-11-18 22:49:25', '2016-11-18 23:17:42', '2016-11-21 16:40:45', '4', '0'),
 (133, 'nahim.pantoja', 'COSANPA', 450, 'OP0002', 'SBGCL-SCL', '2016-11-11', '2016-11-19 17:39:23', 4, 269, '2016-11-21 12:58:42', '2016-11-22 10:12:45', '2016-11-22 11:12:10', '4', '0'),
 (134, 'gladson.marinho', 'CAERN', 97, 'CR0001', 'SBGCL-SCL', '2016-11-17', '2016-11-21 12:44:28', 1, 925, '2016-11-21 13:04:05', '2016-11-22 10:43:45', '2016-11-22 12:21:28', '4', '0'),
@@ -4126,11 +4892,11 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (161, 'nahim.pantoja', 'COSANPA', 424, 'OP0002', 'SBGCL-SCL', '2016-11-17', '2016-11-22 10:29:21', 4, 274, '2016-11-22 11:43:36', '2016-11-22 19:13:02', '2016-11-22 20:19:26', '4', '0'),
 (162, 'nahim.pantoja', 'COSANPA', 424, 'CR0001', 'SBPAC-SPC', '2016-11-17', '2016-11-22 10:31:00', 1, 936, '2016-11-22 11:27:56', '2016-11-22 19:21:18', '2016-11-22 20:33:12', '4', '0'),
 (163, 'nahim.pantoja', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2016-11-18', '2016-11-22 10:32:14', 4, 275, '2016-11-22 11:44:37', '2016-11-22 19:28:08', '2016-11-22 20:22:32', '4', '0'),
-(170, 'Thonpson', 'DESO', 526, 'CR0001', 'SBDXC-SDX', '2016-11-23', '2016-11-23 11:29:39', 1, 941, '2016-11-24 13:35:25', '2016-11-28 18:02:39', '2016-11-28 18:27:48', '4', '0'),
 (166, 'nahim.pantoja', 'COSANPA', 463, 'OP0002', 'SBGCL-SCL', '2016-11-05', '2016-11-22 19:34:58', 4, 276, '2016-11-22 20:04:31', '2016-11-22 20:16:10', '2016-11-22 20:27:52', '4', '0'),
 (167, 'nahim.pantoja', 'COSANPA', 462, 'OP0002', 'SBGCL-SCL', '2016-11-05', '2016-11-22 19:37:03', 4, 277, '2016-11-22 20:06:48', '2016-11-22 20:28:21', '2016-11-24 16:24:33', '4', '0'),
 (168, 'nahim.pantoja', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2016-11-22', '2016-11-22 19:38:24', 4, 278, '2016-11-22 20:08:19', '2016-11-22 20:35:26', '2016-11-24 16:27:17', '4', '0'),
 (169, 'RAFAELCARLOS', 'CASAL', 395, 'PV0001', 'SBGCL-SCL', '2016-11-22', '2016-11-22 21:07:20', 1, 938, '2016-11-22 21:15:32', '2016-11-22 22:57:04', '2016-11-24 14:54:25', '4', '0'),
+(170, 'Thonpson', 'DESO', 526, 'CR0001', 'SBDXC-SDX', '2016-11-23', '2016-11-23 11:29:39', 1, 941, '2016-11-24 13:35:25', '2016-11-28 18:02:39', '2016-11-28 18:27:48', '4', '0'),
 (171, 'bruno.alves', 'CAGEPA', 363, 'CR0001', 'SBGCL-SCL', '2016-11-22', '2016-11-23 16:18:52', 1, 942, '2016-11-24 13:36:58', '2016-11-25 10:23:09', '2016-11-25 17:22:52', '4', '0'),
 (172, 'bruno.alves', 'CAGEPA', 354, 'CR0001', 'SBGCL-SCL', '2016-11-22', '2016-11-23 16:20:12', 1, 943, '2016-11-24 13:38:51', '2016-11-25 10:27:38', '2016-11-25 17:16:34', '4', '0'),
 (173, 'bruno.alves', 'CAGEPA', 370, 'CR0001', 'SBGCL-SCL', '2016-11-22', '2016-11-23 16:21:05', 1, 944, '2016-11-24 13:40:52', '2016-11-25 10:30:45', '2016-11-25 17:10:27', '4', '0'),
@@ -4192,7 +4958,6 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (230, 'jose.ferreira', 'CAEMA', 46, 'CR0001', 'SBGCL-SCL', '2016-12-02', '2016-12-04 12:45:10', 4, 300, '2016-12-06 10:26:05', '2016-12-21 11:37:30', '2016-12-21 14:38:03', '4', '0'),
 (231, 'jose.ferreira', 'CAEMA', 36, 'CR0001', 'SBGCL-SCL', '2016-12-02', '2016-12-04 12:46:42', 4, 301, '2016-12-06 10:33:18', '2016-12-23 15:05:02', '2016-12-27 11:35:48', '4', '0'),
 (232, 'rafael.carlos', 'CASAL', 402, 'CR0001', 'SBGCL-SCL', '2016-12-05', '2016-12-05 00:21:00', 1, 980, '2016-12-05 22:24:45', '2016-12-05 22:47:19', '2016-12-07 14:48:25', '4', '0'),
-(259, 'reginaldo.barbosa', 'CAERN', 92, 'CR0001', 'SBGCL-SCL', '2016-12-06', '2016-12-06 07:40:57', 1, 982, '2016-12-06 10:35:49', '2016-12-08 00:15:00', '2016-12-21 11:53:52', '4', '0'),
 (234, 'reginaldo.barbosa', 'CAERN', 126, 'OP0001', 'SBDSD-SDS', '2016-12-05', '2016-12-05 07:21:32', 1, 983, '2016-12-06 10:38:22', '2016-12-08 00:23:32', '2016-12-16 11:39:09', '4', '0'),
 (235, 'gladson.marinho', 'CAERN', 126, 'NV0001', 'SBGCL-SCL', '2016-12-01', '2016-12-05 10:41:54', 1, 984, '2016-12-06 10:41:04', '2016-12-12 09:36:59', '2016-12-16 12:02:40', '4', '0'),
 (236, 'heitor.brito', 'CAERN', 133, 'CR0001', 'SBGCL-SCL', '2016-10-28', '2016-12-05 12:36:52', 1, 985, '2016-12-06 10:42:30', '2016-12-09 12:50:40', '2016-12-16 13:40:11', '4', '0'),
@@ -4216,6 +4981,7 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (256, 'dagmo.esbell', 'CAER', 60, 'CR0001', 'SBGCL-SCL', '2016-12-05', '2016-12-06 10:36:44', 4, 302, '2016-12-06 10:38:11', '2016-12-06 18:26:35', '2016-12-07 16:19:05', '4', '0'),
 (257, 'rafael.carlos', 'DESO', 523, 'CR0001', 'SBDXC-SDX', '2016-12-05', '2016-12-05 21:51:37', 1, 978, '2016-12-05 22:06:48', '2016-12-07 17:51:16', '2016-12-15 19:29:52', '4', '0'),
 (258, 'rafael.carlos', 'DESO', 525, 'CR0001', 'SBDXC-SDX', '2016-12-05', '2016-12-05 21:52:07', 1, 979, '2016-12-05 22:07:07', '2016-12-07 18:02:35', '2016-12-15 19:14:25', '4', '0'),
+(259, 'reginaldo.barbosa', 'CAERN', 92, 'CR0001', 'SBGCL-SCL', '2016-12-06', '2016-12-06 07:40:57', 1, 982, '2016-12-06 10:35:49', '2016-12-08 00:15:00', '2016-12-21 11:53:52', '4', '0'),
 (260, 'reginaldo.barbosa', 'CAERN', 183, 'OP0001', 'SBDSD-SDS', '2016-12-06', '2016-12-06 07:42:04', 1, 1001, '2016-12-06 11:35:40', '2016-12-07 23:25:28', '2016-12-16 11:32:37', '4', '0'),
 (261, 'reginaldo.barbosa', 'CAERN', 181, 'OP0001', 'SBDSD-SDS', '2016-12-06', '2016-12-06 07:43:22', 1, 1002, '2016-12-06 11:36:41', '2016-12-07 23:33:09', '2016-12-21 12:04:58', '4', '0'),
 (262, 'reginaldo.barbosa', 'CAERN', 199, 'OP0001', 'SBDSD-SDS', '2016-12-06', '2016-12-06 07:44:17', 1, 1003, '2016-12-06 11:37:34', '2016-12-07 23:46:20', '2016-12-21 12:15:40', '4', '0'),
@@ -4236,6 +5002,12 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (277, 'rafael.carlos', 'CASAL', 381, 'CR0001', 'SBGCL-SCL', '2016-12-08', '2016-12-08 11:01:03', 1, 1014, '2016-12-08 15:47:20', '2016-12-08 15:58:59', '2016-12-16 16:35:03', '4', '0'),
 (278, 'reginaldo.barbosa', 'CAERN', 148, 'VT0001', 'SBDSD-SDS', '2016-12-09', '2016-12-09 09:25:49', 1, 1015, '2016-12-09 14:58:30', '2016-12-11 09:31:54', '2016-12-21 12:51:23', '4', '0'),
 (279, 'reginaldo.barbosa', 'CAERN', 101, 'CR0001', 'SBGCL-SCL', '2016-12-09', '2016-12-09 09:26:31', 1, 1016, '2016-12-09 14:59:36', '2016-12-11 09:22:24', '2016-12-21 12:57:46', '4', '0'),
+(280, 'Francinei', 'COSANPA', 416, 'VT0001', 'SBGCL-SCL', '2016-12-09', '2016-12-09 16:44:42', 4, 311, '2016-12-19 11:30:24', '2016-12-19 12:02:46', '2016-12-19 12:10:18', '4', '0'),
+(281, 'Francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2016-12-09', '2016-12-09 16:45:25', 1, 308, '2016-12-15 18:13:44', '2016-12-16 09:57:45', '2016-12-19 11:40:37', '4', '0'),
+(283, 'francisco.barbosa', 'CAGEPA', 546, 'VT0001', 'SBGCL-SCL', '2016-12-06', '2016-12-09 19:04:55', 1, 1017, '2016-12-09 19:41:30', '2016-12-09 19:51:37', '2016-12-19 12:30:27', '4', '0'),
+(284, 'nahim.pantoja', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2016-12-09', '2016-12-09 19:19:38', 4, 310, '2016-12-15 18:22:29', '2016-12-19 16:10:35', '2016-12-20 18:51:25', '4', '0'),
+(285, 'nahim.pantoja', 'COSANPA', 409, 'OP0002', 'SBGCL-SCL', '2016-12-09', '2016-12-09 19:20:28', 4, 309, '2016-12-15 18:17:42', '2016-12-19 16:02:25', '2016-12-20 18:48:20', '4', '0'),
+(286, 'reginaldo.barbosa', 'CAERN', 183, 'OP0001', 'SBDSD-SDS', '2016-12-12', '2016-12-12 07:43:51', 1, 1018, '2016-12-13 01:06:00', '2016-12-13 10:12:14', '2016-12-16 11:28:07', '4', '0'),
 (287, 'reginaldo.barbosa', 'CAERN', 181, 'OP0001', 'SBDSD-SDS', '2016-12-12', '2016-12-12 07:44:41', 1, 1019, '2016-12-13 01:06:29', '2016-12-13 10:21:34', '2016-12-21 12:07:28', '4', '0'),
 (288, 'reginaldo.barbosa', 'CAERN', 199, 'OP0001', 'SBDSD-SDS', '2016-12-12', '2016-12-12 07:45:26', 1, 1020, '2016-12-13 01:07:01', '2016-12-13 10:28:19', '2016-12-21 12:18:33', '4', '0'),
 (289, 'reginaldo.barbosa', 'CAERN', 111, 'OP0001', 'SBDSD-SDS', '2016-12-12', '2016-12-12 07:47:20', 1, 1021, '2016-12-13 01:07:22', '2016-12-13 10:32:06', '2016-12-21 12:27:30', '4', '0'),
@@ -4250,9 +5022,9 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (298, 'rafael.carlos', 'CASAL', 396, 'CR0001', 'SBGCL-SCL', '2016-12-13', '2016-12-13 14:00:08', 1, 1028, '2016-12-14 00:21:15', '2016-12-14 00:36:33', '2016-12-16 16:25:49', '4', '0'),
 (299, 'francisco.barbosa', 'DESO', 526, 'CR0001', 'SBDXC-SDX', '2016-12-12', '2016-12-13 14:07:18', 1, 1027, '2016-12-14 00:17:09', '2016-12-19 03:12:35', '2016-12-19 12:19:24', '4', '0'),
 (300, 'Thonpson', 'DESO', 523, 'NV0001', 'SBDXC-SDX', '2016-12-13', '2016-12-13 14:26:52', 1, 1029, '2016-12-14 12:25:05', '2016-12-19 17:24:06', '2016-12-21 13:33:52', '4', '0'),
-(301, 'Francinei', 'COSANPA', 424, 'OP0002', 'SBGCL-SCL', '2016-12-11', '2016-12-13 14:56:38', 4, 312, '2016-12-15 18:44:02', '2016-12-16 10:08:39', '2016-12-19 12:04:56', '4', '0');
+(301, 'Francinei', 'COSANPA', 424, 'OP0002', 'SBGCL-SCL', '2016-12-11', '2016-12-13 14:56:38', 4, 312, '2016-12-15 18:44:02', '2016-12-16 10:08:39', '2016-12-19 12:04:56', '4', '0'),
+(302, 'gladson.marinho', 'CAERN', 173, 'PV0001', 'SBGCL-SCL', '2016-12-13', '2016-12-13 16:52:15', 1, 1026, '2016-12-14 00:10:21', '2016-12-15 10:56:52', '2016-12-21 14:22:25', '4', '0');
 INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sistema`, `data`, `data_sol`, `filial`, `os`, `data_os`, `data_fech`, `data_term`, `status`, `ativo`) VALUES
-(302, 'gladson.marinho', 'CAERN', 173, 'PV0001', 'SBGCL-SCL', '2016-12-13', '2016-12-13 16:52:15', 1, 1026, '2016-12-14 00:10:21', '2016-12-15 10:56:52', '2016-12-21 14:22:25', '4', '0'),
 (303, 'jose.ferreira', 'CAEMA', 47, 'VT0001', 'SBGCL-SCL', '2016-12-14', '2016-12-14 08:53:14', 4, 314, '2016-12-15 18:49:07', '2016-12-23 14:55:01', '2016-12-27 11:32:49', '4', '0'),
 (305, 'nahim.pantoja', 'COSANPA', 462, 'OP0002', 'SBGCL-SCL', '2016-12-14', '2016-12-15 08:47:02', 4, 313, '2016-12-15 18:45:45', '2016-12-19 16:33:10', '2016-12-20 19:07:20', '4', '0'),
 (306, 'reginaldo.barbosa', 'CAERN', 159, 'VT0001', 'SBGCL-SCL', '2016-12-15', '2016-12-15 08:56:24', 1, 1032, '2016-12-15 12:27:22', '2016-12-16 15:34:52', '2016-12-21 13:08:21', '4', '0'),
@@ -4359,15 +5131,14 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (414, 'gladson.marinho', 'CAERN', 102, 'CR0001', 'SBGCL-SCL', '2017-01-03', '2017-01-04 10:27:28', 1, 1100, '2017-01-04 12:56:09', '2017-01-16 10:23:02', '2017-01-16 17:37:50', '4', '0'),
 (415, 'reginaldo.barbosa', 'CAERN', 743, 'NV0001', 'SBDSD-SDS', '2017-01-04', '2017-01-05 23:31:32', 1, 1114, '2017-01-09 18:54:53', '2017-01-10 18:58:02', '2017-01-11 23:44:36', '4', '0'),
 (416, 'Francinei', 'COSANPA', 441, 'CR0001', 'SBGCL-SCL', '2017-01-03', '2017-01-04 12:27:20', 4, 374, '2017-02-01 19:08:12', '2017-02-01 19:58:49', '2017-02-06 11:26:02', '4', '0'),
-(419, 'nahim.pantoja', 'COSANPA', 444, 'PV0001', 'SBPAC-SPC', '2017-01-04', '2017-01-04 20:39:48', 1, 1197, '2017-02-01 19:09:26', '2017-02-01 19:59:03', '2017-02-03 17:19:14', '4', '0'),
 (417, 'Francinei', 'COSANPA', 423, 'CR0001', 'SBPAC-SPC', '2017-01-03', '2017-01-04 14:56:16', 1, 1196, '2017-02-01 19:08:52', '2017-02-01 19:59:26', '2017-02-03 17:22:38', '4', '0'),
 (418, 'rafael.carlos', 'CASAL', 543, 'CR0001', 'SBGCL-SCL', '2017-01-04', '2017-01-04 16:26:35', 1, 1107, '2017-01-07 11:13:38', '2017-01-07 11:22:01', '2017-01-12 01:04:17', '4', '0'),
+(419, 'nahim.pantoja', 'COSANPA', 444, 'PV0001', 'SBPAC-SPC', '2017-01-04', '2017-01-04 20:39:48', 1, 1197, '2017-02-01 19:09:26', '2017-02-01 19:59:03', '2017-02-03 17:19:14', '4', '0'),
 (420, 'Francinei', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2017-01-04', '2017-01-04 21:13:29', 4, 392, '2017-02-01 19:12:47', '2017-02-01 19:59:37', '2017-02-03 19:14:15', '4', '0'),
 (421, 'reginaldo.barbosa', 'CAERN', 199, 'OP0001', 'SBDSD-SDS', '2017-01-05', '2017-01-05 09:27:24', 1, 1104, '2017-01-06 19:55:42', '2017-01-09 10:39:53', '2017-01-11 23:51:15', '4', '0'),
 (422, 'reginaldo.barbosa', 'CAERN', 181, 'OP0001', 'SBDSD-SDS', '2017-01-05', '2017-01-05 09:28:12', 1, 1105, '2017-01-06 20:02:34', '2017-01-09 10:42:16', '2017-01-11 23:57:04', '4', '0'),
 (423, 'reginaldo.barbosa', 'CAERN', 111, 'OP0001', 'SBDSD-SDS', '2017-01-05', '2017-01-05 09:28:44', 1, 1106, '2017-01-06 20:04:47', '2017-01-09 10:46:40', '2017-01-12 00:02:42', '4', '0'),
 (424, 'reginaldo.barbosa', 'CAERN', 183, 'OP0001', 'SBDSD-SDS', '2017-01-05', '2017-01-05 09:29:13', 1, 1115, '2017-01-09 18:57:08', '2017-01-10 18:20:08', '2017-01-12 00:08:26', '4', '0'),
-(435, 'nahim.pantoja', 'COSANPA', 462, 'OP0002', 'SBGCL-SCL', '2017-01-04', '2017-01-07 21:28:47', 4, 375, '2017-02-01 19:13:08', '2017-02-01 20:01:19', '2017-02-06 11:35:14', '4', '0'),
 (426, 'heitor.brito', 'CAERN', 162, 'CR0001', 'SBGCL-SCL', '2016-12-05', '2017-01-05 15:02:54', 1, 1116, '2017-01-09 18:59:18', '2017-01-11 03:22:33', '2017-01-12 00:18:17', '4', '0'),
 (427, 'heitor.brito', 'CAERN', 193, 'CR0001', 'SBGCL-SCL', '2016-12-06', '2017-01-05 15:03:51', 1, 1117, '2017-01-09 19:01:03', '2017-01-11 03:26:56', '2017-01-12 00:39:35', '4', '0'),
 (428, 'heitor.brito', 'CAERN', 160, 'CR0001', 'SBPAC-SPC', '2016-12-07', '2017-01-05 15:05:01', 1, 1118, '2017-01-09 19:03:02', '2017-01-11 03:32:05', '2017-01-12 00:56:40', '4', '0'),
@@ -4377,6 +5148,7 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (432, 'nahim.pantoja', 'COSANPA', 409, 'OP0002', 'SBGCL-SCL', '2017-01-06', '2017-01-06 13:54:09', 4, 377, '2017-02-01 19:13:48', '2017-02-01 20:02:24', '2017-02-06 12:17:45', '4', '0'),
 (433, 'nahim.pantoja', 'COSANPA', 436, 'OP0002', 'SBGCL-SCL', '2017-01-06', '2017-01-06 16:06:47', 4, 378, '2017-02-01 19:14:06', '2017-02-01 20:04:38', '2017-02-06 12:23:35', '4', '0'),
 (434, 'reginaldo.barbosa', 'CAERN', 144, 'CR0001', 'SBGCL-SCL', '2017-01-06', '2017-01-06 17:08:29', 1, 1119, '2017-01-09 19:05:02', '2017-01-10 18:33:52', '2017-01-12 01:01:16', '4', '0'),
+(435, 'nahim.pantoja', 'COSANPA', 462, 'OP0002', 'SBGCL-SCL', '2017-01-04', '2017-01-07 21:28:47', 4, 375, '2017-02-01 19:13:08', '2017-02-01 20:01:19', '2017-02-06 11:35:14', '4', '0'),
 (436, 'Francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-01-09', '2017-01-11 14:11:25', 4, 379, '2017-02-01 19:14:25', '2017-02-01 20:04:59', '2017-02-06 12:30:12', '4', '0'),
 (437, 'reginaldo.barbosa', 'CAERN', 146, 'NV0001', 'SBDSD-SDS', '2017-01-09', '2017-01-09 09:35:18', 1, 1120, '2017-01-09 19:07:26', '2017-01-10 18:46:17', '2017-01-12 00:33:09', '4', '0'),
 (438, 'rafael.carlos', 'CASAL', 391, 'CR0001', 'SBGCL-SCL', '2017-01-09', '2017-01-09 11:57:41', 1, 1111, '2017-01-09 15:17:51', '2017-01-09 15:23:31', '2017-01-12 01:08:00', '4', '0'),
@@ -4471,11 +5243,11 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (529, 'gladson.marinho', 'CAERN', 70, 'CR0001', 'SBGCL-SCL', '2017-01-26', '2017-01-30 10:45:07', 1, 1180, '2017-01-30 11:17:59', '2017-02-01 10:19:08', '2017-02-03 18:10:51', '4', '0'),
 (530, 'gladson.marinho', 'CAERN', 84, 'CR0001', 'SBGCL-SCL', '2017-01-27', '2017-01-30 10:45:37', 1, 1181, '2017-01-30 11:18:23', '2017-02-01 10:23:47', '2017-02-03 18:14:41', '4', '0'),
 (531, 'Francinei', 'COSANPA', 416, 'CR0001', 'SBGCL-SCL', '2017-01-30', '2017-01-30 11:06:48', 4, 366, '2017-01-30 11:22:38', '2017-01-31 18:38:52', '2017-02-06 13:53:29', '4', '0'),
-(537, 'francisco.barbosa', 'CAGEPA', 264, 'VT0001', 'SBGCL-SCL', '2017-01-30', '2017-01-30 19:42:03', 1, 1185, '2017-02-01 18:18:36', '2017-02-11 22:28:06', '2017-02-13 18:25:55', '4', '0'),
 (533, 'jose.ferreira', 'CAEMA', 50, 'CR0001', 'Escolha um s', '2017-01-30', '2017-01-30 12:39:37', 4, 391, '2017-02-01 19:17:42', '2017-05-30 19:00:59', '2017-05-30 19:11:38', '4', '0'),
 (534, 'Francinei', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2017-01-30', '2017-01-30 15:22:28', 4, 389, '2017-02-01 19:17:58', '2017-02-01 20:19:28', '2017-02-03 19:23:38', '4', '0'),
 (535, 'Francinei', 'COSANPA', 409, 'OP0002', 'SBGCL-SCL', '2017-01-30', '2017-01-30 15:27:16', 4, 390, '2017-02-01 19:18:12', '2017-02-01 20:23:03', '2017-02-06 13:58:00', '4', '0'),
 (536, 'rafael.carlos', 'CASAL', 394, 'VT0001', 'SBGCL-SCL', '2017-01-30', '2017-01-30 15:42:36', 1, 1186, '2017-02-01 18:18:58', '2017-02-01 23:58:05', '2017-02-01 23:59:59', '4', '0'),
+(537, 'francisco.barbosa', 'CAGEPA', 264, 'VT0001', 'SBGCL-SCL', '2017-01-30', '2017-01-30 19:42:03', 1, 1185, '2017-02-01 18:18:36', '2017-02-11 22:28:06', '2017-02-13 18:25:55', '4', '0'),
 (538, 'reginaldo.barbosa', 'CAERN', 173, 'CR0001', 'SBGCL-SCL', '2017-01-28', '2017-01-31 07:54:21', 1, 1187, '2017-02-01 18:19:25', '2017-02-06 08:29:40', '2017-02-06 14:47:53', '4', '0'),
 (539, 'reginaldo.barbosa', 'CAERN', 97, 'CR0001', 'SBGCL-SCL', '2017-01-31', '2017-01-31 07:54:50', 1, 1188, '2017-02-01 18:19:52', '2017-02-03 09:09:37', '2017-02-03 18:18:38', '4', '0'),
 (540, 'rafael.carlos', 'DESO', 525, 'CR0001', 'SBDXC-SDX', '2017-01-31', '2017-01-31 13:34:55', 1, 1189, '2017-02-01 18:20:15', '2017-02-01 23:49:42', '2017-02-01 23:52:13', '4', '0'),
@@ -4485,6 +5257,7 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (545, 'reginaldo.barbosa', 'CAERN', 181, 'OP0001', 'SBDSD-SDS', '2017-02-01', '2017-02-01 10:54:46', 1, 1193, '2017-02-01 18:22:00', '2017-02-03 09:01:22', '2017-02-03 18:21:58', '4', '0'),
 (546, 'reginaldo.barbosa', 'CAERN', 111, 'OP0001', 'SBDSD-SDS', '2017-02-01', '2017-02-01 10:55:17', 1, 1194, '2017-02-01 18:22:25', '2017-02-03 09:04:07', '2017-02-03 18:24:37', '4', '0'),
 (547, 'reginaldo.barbosa', 'CAERN', 199, 'OP0001', 'SBDSD-SDS', '2017-02-01', '2017-02-01 10:57:27', 1, 1195, '2017-02-01 18:22:53', '2017-02-03 08:57:51', '2017-02-03 18:27:26', '4', '0'),
+(548, 'francisco.barbosa', 'CAGEPA', 213, 'VT0001', 'SBGCL-SCL', '2017-02-01', '2017-02-01 19:43:26', 1, 1183, '2017-02-01 19:49:06', '2017-02-11 21:52:49', '2017-02-13 17:48:38', '4', '0'),
 (549, 'nahim.pantoja', 'COSANPA', 452, 'OP0002', 'SBGCL-SCL', '2017-02-01', '2017-02-01 20:20:19', 4, 393, '2017-02-03 16:44:21', '2017-02-07 14:31:35', '2017-02-08 17:42:38', '4', '0'),
 (550, 'Francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-02-01', '2017-02-01 20:24:44', 4, 394, '2017-02-03 16:44:38', '2017-02-07 12:54:10', '2017-02-08 17:49:50', '4', '0'),
 (551, 'rafael.carlos', 'CASAL', 394, 'CR0001', 'SBGCL-SCL', '2017-02-02', '2017-02-02 00:04:40', 1, 1200, '2017-02-03 16:44:53', '2017-02-05 19:58:01', '2017-02-05 19:58:21', '4', '0'),
@@ -4524,7 +5297,6 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sistema`, `data`, `data_sol`, `filial`, `os`, `data_os`, `data_fech`, `data_term`, `status`, `ativo`) VALUES
 (586, 'francisco.barbosa', 'CAGEPA', 265, 'CR0001', 'SBGCL-SCL', '2017-02-09', '2017-02-09 18:02:53', 1, 1227, '2017-02-13 14:39:50', '2017-02-15 17:23:12', '2017-02-27 17:44:06', '3', '0'),
 (587, 'francinei', 'COSANPA', 510, 'CR0001', 'SBGCL-SCL', '2017-02-10', '2017-02-10 11:01:21', 4, 403, '2017-02-13 16:23:36', '2017-02-13 20:02:21', '2017-02-13 23:30:39', '3', '0'),
-(596, 'francinei', 'COSANPA', 423, 'CR0001', 'SBGCL-SCL', '2017-02-10', '2017-02-10 21:11:27', 4, 404, '2017-02-13 16:23:56', '2017-02-13 20:07:07', '2017-02-13 23:35:32', '3', '0'),
 (589, 'reginaldo.barbosa', 'CAERN', 751, 'NV0001', 'SBDSD-SDS', '2017-02-10', '2017-02-10 11:21:40', 1, 1238, '2017-02-13 16:15:26', '2017-02-16 08:15:41', '2017-02-27 17:52:56', '3', '0'),
 (590, 'bruno.alves', 'CAGEPA', 352, 'CR0001', 'SBGCL-SCL', '2017-02-09', '2017-02-10 11:23:49', 1, 1229, '2017-02-13 14:40:19', '2017-02-16 10:14:31', '2017-02-27 18:00:07', '4', '0'),
 (591, 'bruno.alves', 'CAGEPA', 316, 'PV0001', 'SBGCL-SCL', '2017-02-09', '2017-02-10 11:24:17', 1, 1228, '2017-02-13 14:40:37', '2017-02-16 10:32:08', '2017-02-27 18:06:37', '4', '0'),
@@ -4532,6 +5304,7 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (593, 'reginaldo.barbosa', 'CAERN', 126, 'OP0001', 'SBDSD-SDS', '2017-02-10', '2017-02-10 11:59:10', 1, 1231, '2017-02-13 14:41:10', '2017-02-14 23:50:53', '2017-02-27 18:16:07', '3', '0'),
 (594, 'reginaldo.barbosa', 'CAERN', 111, 'OP0001', 'SBDSD-SDS', '2017-02-10', '2017-02-10 11:59:34', 1, 1232, '2017-02-13 14:41:32', '2017-02-14 23:38:41', '2017-02-27 18:23:36', '3', '0'),
 (595, 'reginaldo.barbosa', 'CAERN', 199, 'OP0001', 'SBDSD-SDS', '2017-02-10', '2017-02-10 12:00:00', 1, 1233, '2017-02-13 14:41:54', '2017-02-14 23:45:31', '2017-02-27 18:27:27', '3', '0'),
+(596, 'francinei', 'COSANPA', 423, 'CR0001', 'SBGCL-SCL', '2017-02-10', '2017-02-10 21:11:27', 4, 404, '2017-02-13 16:23:56', '2017-02-13 20:07:07', '2017-02-13 23:35:32', '3', '0'),
 (598, 'reginaldo.barbosa', 'CAERN', 749, 'NV0001', 'SBDSD-SDS', '2017-02-11', '2017-02-11 23:39:30', 1, 1239, '2017-02-13 16:15:53', '2017-02-16 08:11:24', '2017-02-27 18:33:31', '4', '0'),
 (599, 'gladson.marinho', 'CAERN', 187, 'PV0001', 'SBGCL-SCL', '2017-02-09', '2017-02-12 13:01:48', 1, 1234, '2017-02-13 14:42:10', '2017-02-17 13:01:45', '2017-02-27 18:42:42', '3', '0'),
 (600, 'gladson.marinho', 'CAERN', 139, 'CR0001', 'SBGCL-SCL', '2017-02-10', '2017-02-12 13:02:29', 1, 1235, '2017-02-13 14:42:22', '2017-02-17 13:06:04', '2017-02-27 18:48:49', '4', '0'),
@@ -4656,8 +5429,8 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (729, 'jose.ferreira', 'CAEMA', 37, 'PV0001', 'SBGCL-SCL', '2017-02-14', '2017-03-08 18:49:57', 4, 439, '2017-03-10 17:06:24', '2017-05-30 19:02:32', '2017-05-30 19:13:27', '4', '0'),
 (730, 'jose.ferreira', 'CAEMA', 25, 'PV0001', 'SBGCL-SCL', '2017-01-31', '2017-03-08 18:54:00', 4, 440, '2017-03-10 17:06:39', '2017-05-30 19:02:41', '2017-05-30 19:13:49', '4', '0'),
 (732, 'jose.ferreira', 'SAAE - CAXIAS', 529, 'PV0001', 'SBGCL-SCL', '2017-02-23', '2017-03-08 19:52:40', 4, 441, '2017-03-10 17:06:52', '2017-05-30 19:02:52', '2017-05-30 19:14:04', '4', '0'),
-(735, 'jose.ferreira', 'SAAE - CAXIAS', 530, 'PV0001', 'SBGCL-SCL', '2017-02-23', '2017-03-08 19:58:10', 4, 442, '2017-03-10 16:45:13', '2017-05-30 19:03:01', '2017-05-30 19:14:13', '4', '0'),
 (734, 'jose.ferreira', 'CAEMA', 36, 'PV0001', 'SBGCL-SCL', '2017-02-23', '2017-03-08 19:56:16', 4, 443, '2017-03-10 16:47:15', '2017-05-30 19:03:14', '2017-05-30 19:14:25', '4', '0'),
+(735, 'jose.ferreira', 'SAAE - CAXIAS', 530, 'PV0001', 'SBGCL-SCL', '2017-02-23', '2017-03-08 19:58:10', 4, 442, '2017-03-10 16:45:13', '2017-05-30 19:03:01', '2017-05-30 19:14:13', '4', '0'),
 (736, 'jose.ferreira', 'SAAE - CAXIAS', 530, 'PV0001', 'SBGCL-SCL', '2017-02-02', '2017-03-08 20:08:48', 4, 444, '2017-03-10 16:46:08', '2017-05-30 19:03:28', '2017-05-30 19:14:37', '4', '0'),
 (741, 'jose.ferreira', 'CAEMA', 35, 'PV0001', 'SBGCL-SCL', '2016-11-26', '2017-03-08 20:16:02', 4, 445, '2017-03-10 17:08:53', '2017-05-30 19:03:38', '2017-05-30 19:14:45', '3', '0'),
 (742, 'jose.ferreira', 'CAEMA', 50, 'PV0001', 'SBGCL-SCL', '2016-12-01', '2017-03-08 20:18:59', 4, 446, '2017-03-10 17:09:08', '2017-05-30 19:03:48', '2017-05-30 19:14:55', '3', '0'),
@@ -4716,12 +5489,12 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (797, 'bruno.alves', 'CAGEPA', 338, 'CR0001', 'SBGCL-SCL', '2017-03-20', '2017-03-21 11:34:15', 1, 1348, '2017-03-21 14:33:40', '2017-03-23 12:24:51', '2017-03-31 16:35:21', '4', '0'),
 (798, 'bruno.alves', 'CAGEPA', 215, 'CR0001', 'SBGCL-SCL', '2017-03-20', '2017-03-21 11:34:55', 1, 1349, '2017-03-21 14:33:55', '2017-03-23 12:31:21', '2017-03-31 16:59:57', '4', '0'),
 (799, 'jose.ferreira', 'CAEMA', 47, 'NV0001', 'SBGCL-SCL', '2017-03-19', '2017-03-21 13:37:34', 4, 459, '2017-03-21 14:35:57', '2017-05-30 19:05:15', '2017-05-30 19:16:32', '4', '0'),
-(806, 'rafael.carlos', 'CASAL', 384, 'NV0001', 'SBGCL-SCL', '2017-03-22', '2017-03-22 01:01:18', 1, 1351, '2017-03-23 17:46:25', '2017-03-26 15:24:43', '2017-03-31 17:08:17', '4', '0'),
 (801, 'Francinei', 'COSANPA', 424, 'CR0001', 'SBGCL-SCL', '2017-03-11', '2017-03-21 18:23:01', 4, 460, '2017-03-23 17:46:44', '2017-03-30 10:23:06', '2017-03-30 17:53:15', '4', '0'),
 (802, 'Francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-03-14', '2017-03-21 18:24:29', 4, 461, '2017-03-23 17:46:54', '2017-03-31 02:05:08', '2017-04-04 12:46:06', '4', '0'),
 (803, 'Francinei', 'COSANPA', 462, 'CR0001', 'SBPAC-SPC', '2017-03-17', '2017-03-21 18:28:07', 1, 1352, '2017-03-23 17:47:06', '2017-04-04 18:30:46', '2017-04-18 22:52:36', '4', '0'),
 (804, 'Francinei', 'COSANPA', 424, 'CR0001', 'SBGCL-SCL', '2017-03-20', '2017-03-21 18:29:08', 4, 462, '2017-03-23 17:47:17', '2017-04-04 18:39:48', '2017-04-20 18:26:18', '3', '0'),
 (805, 'Francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-03-21', '2017-03-21 18:30:13', 4, 463, '2017-03-23 17:47:32', '2017-03-31 02:17:29', '2017-04-04 12:49:21', '3', '0'),
+(806, 'rafael.carlos', 'CASAL', 384, 'NV0001', 'SBGCL-SCL', '2017-03-22', '2017-03-22 01:01:18', 1, 1351, '2017-03-23 17:46:25', '2017-03-26 15:24:43', '2017-03-31 17:08:17', '4', '0'),
 (808, 'francisco.barbosa', 'CAGEPA', 271, 'CR0001', 'SBGCL-SCL', '2017-03-21', '2017-03-22 08:20:36', 1, 1353, '2017-03-23 17:54:44', '2017-03-28 14:30:16', '2017-03-31 17:16:54', '3', '0'),
 (809, 'bruno.alves', 'CAGEPA', 373, 'CR0001', 'SBGCL-SCL', '2017-03-21', '2017-03-23 12:32:30', 1, 1354, '2017-03-23 17:55:04', '2017-04-05 10:41:48', '2017-04-18 23:01:52', '3', '0'),
 (810, 'nahim.pantoja', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-03-23', '2017-03-23 17:53:44', 4, 464, '2017-03-23 17:57:12', '2017-03-27 12:11:29', '2017-03-30 17:56:10', '3', '0'),
@@ -4861,8 +5634,8 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (952, 'francisco.barbosa', 'CAGEPA', 341, 'VT0001', 'SBGCL-SCL', '2017-04-12', '2017-04-13 14:08:01', 1, 1437, '2017-04-13 17:19:33', '2017-04-18 13:40:49', '2017-04-19 17:13:56', '3', '0'),
 (953, 'francisco.barbosa', 'CAGEPA', 254, 'PV0001', 'SBGCL-SCL', '2017-04-12', '2017-04-13 14:10:25', 1, 1439, '2017-04-13 17:23:36', '2017-04-18 13:55:59', '2017-04-19 17:18:35', '3', '0'),
 (954, 'francisco.barbosa', 'CAGEPA', 235, 'PV0001', 'SBGCL-SCL', '2017-04-12', '2017-04-13 14:11:20', 1, 1438, '2017-04-13 17:23:53', '2017-04-18 13:45:59', '2017-04-19 17:23:40', '3', '0'),
-(957, 'reginaldo.barbosa', 'CAERN', 126, 'OP0001', 'SBDSD-SDS', '2017-04-17', '2017-04-17 10:39:44', 1, 1440, '2017-04-18 17:34:11', '2017-04-25 08:07:52', '2017-04-26 13:05:36', '3', '0'),
 (956, 'dagmo.esbell', 'CAER', 60, 'VT0001', 'SBGCL-SCL', '2017-04-16', '2017-04-16 13:05:45', 4, 505, '2017-04-18 17:34:27', '2017-04-18 22:05:47', '2017-04-20 18:05:25', '3', '0'),
+(957, 'reginaldo.barbosa', 'CAERN', 126, 'OP0001', 'SBDSD-SDS', '2017-04-17', '2017-04-17 10:39:44', 1, 1440, '2017-04-18 17:34:11', '2017-04-25 08:07:52', '2017-04-26 13:05:36', '3', '0'),
 (958, 'dagmo.esbell', 'CAER', 60, 'VT0001', 'SBGCL-SCL', '2017-04-17', '2017-04-17 11:09:41', 4, 506, '2017-04-18 17:34:38', '2017-04-18 22:30:31', '2017-04-20 18:10:48', '3', '0'),
 (959, 'rafael.carlos', 'CASAL', 395, 'CR0001', 'SBGCL-SCL', '2017-04-17', '2017-04-17 17:14:40', 1, 1441, '2017-04-18 17:34:48', '2017-04-19 22:28:40', '2017-04-20 14:30:41', '3', '0'),
 (960, 'rafael.carlos', 'CASAL', 386, 'PV0001', 'SBGCL-SCL', '2017-04-17', '2017-04-17 17:15:19', 4, 1442, '2017-04-18 17:35:04', '2017-04-19 22:18:57', '2017-04-20 14:36:05', '3', '0'),
@@ -4895,9 +5668,9 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (988, 'reginaldo.barbosa', 'CAERN', 130, 'CR0001', 'SBPAC-SPC', '2017-04-24', '2017-04-24 18:17:51', 1, 1453, '2017-04-25 18:08:23', '2017-05-02 16:58:37', '2017-05-02 18:29:10', '3', '0'),
 (989, 'reginaldo.barbosa', 'CAERN', 126, 'CR0001', 'SBGCL-SCL', '2017-04-24', '2017-04-24 18:19:09', 1, 1454, '2017-04-25 18:08:35', '2017-05-02 17:27:35', '2017-05-02 18:33:16', '3', '0'),
 (990, 'jose.ferreira', 'AGESPISA', 1, 'PV0001', 'SBGCL-SCL', '2017-04-24', '2017-04-24 18:35:10', 4, 524, '2017-04-25 18:08:47', '2017-05-10 13:42:31', '2017-05-11 17:21:50', '3', '0'),
-(994, 'nahim.pantoja', 'COSANPA', 452, 'CR0001', 'SBPAC-SPC', '2017-04-25', '2017-04-25 00:21:23', 1, 1460, '2017-04-25 18:09:16', '2017-05-19 21:49:42', '2017-05-22 16:27:38', '3', '0'),
 (992, 'rafael.carlos', 'SOLAR', 537, 'NV0001', 'SBDPT-SPT', '2017-04-24', '2017-04-24 23:47:58', 1, 1452, '2017-04-25 00:11:04', '2017-04-25 00:17:28', '2017-04-26 14:22:13', '3', '0'),
 (993, 'rafael.carlos', 'CASAL', 386, 'VT0001', 'SBGCL-SCL', '2017-04-24', '2017-04-24 23:48:37', 1, 1451, '2017-04-25 00:09:14', '2017-05-01 12:51:53', '2017-05-02 18:40:09', '3', '0'),
+(994, 'nahim.pantoja', 'COSANPA', 452, 'CR0001', 'SBPAC-SPC', '2017-04-25', '2017-04-25 00:21:23', 1, 1460, '2017-04-25 18:09:16', '2017-05-19 21:49:42', '2017-05-22 16:27:38', '3', '0'),
 (995, 'reginaldo.barbosa', 'CAERN', 183, 'OP0001', 'SBDSD-SDS', '2017-04-25', '2017-04-25 08:25:28', 1, 1455, '2017-04-25 18:09:32', '2017-05-02 17:33:58', '2017-05-02 18:43:26', '3', '0'),
 (996, 'reginaldo.barbosa', 'CAERN', 181, 'OP0001', 'SBDSD-SDS', '2017-04-25', '2017-04-25 08:25:52', 1, 1456, '2017-04-25 18:09:48', '2017-05-02 17:39:44', '2017-05-02 18:46:09', '3', '0'),
 (997, 'reginaldo.barbosa', 'CAERN', 111, 'OP0001', 'SBDSD-SDS', '2017-04-25', '2017-04-25 08:26:17', 1, 1457, '2017-04-25 18:09:57', '2017-05-02 17:42:59', '2017-05-02 18:48:22', '3', '0'),
@@ -5163,13 +5936,13 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1272, 'jose.ferreira', 'CAEMA', 13, 'CR0001', 'SBDSD-SDS', '2017-06-02', '2017-06-02 10:29:35', 4, 602, '2017-06-02 14:38:30', '2017-06-06 18:25:56', '2017-07-17 19:45:03', '3', '0'),
 (1273, 'jose.ferreira', 'CAEMA', 28, 'CR0001', 'SBGCL-SCL', '2017-06-02', '2017-06-02 13:44:27', 4, 603, '2017-06-02 14:38:45', '2017-06-06 19:23:40', '2017-07-17 19:54:10', '3', '0'),
 (1274, 'francinei', 'COSANPA', 763, 'NV0001', 'SBDPT-SPT', '2017-06-02', '2017-06-03 11:05:48', 4, 604, '2017-06-06 19:51:54', '2017-06-07 10:55:13', '2017-07-18 18:43:01', '3', '0'),
-(1282, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-06-02', '2017-06-06 17:16:24', 4, 605, '2017-06-06 19:52:16', '2017-06-07 10:58:50', '2017-07-18 18:55:44', '3', '0'),
 (1276, 'rafael.carlos', 'CASAL', 543, 'VT0001', 'SBGCL-SCL', '2017-06-03', '2017-06-03 14:24:35', 1, 1630, '2017-06-03 14:29:26', '2017-06-03 14:33:19', '2017-06-14 18:06:18', '3', '0'),
 (1277, 'nahim.pantoja', 'COSANPA', 444, 'PV0001', 'SBGCL-SCL', '2017-06-05', '2017-06-05 08:35:57', 4, 606, '2017-06-06 19:52:32', '2017-06-13 17:39:51', '2017-07-18 19:06:24', '3', '0'),
 (1278, 'reginaldo.barbosa', 'CAERN', 88, 'CR0001', 'SBGCL-SCL', '2017-06-05', '2017-06-05 09:37:12', 1, 1631, '2017-06-06 20:02:47', '2017-06-08 00:26:10', '2017-06-14 17:57:00', '3', '0'),
 (1279, 'gladson.marinho', 'CAERN', 202, 'CR0001', 'SBGCL-SCL', '2017-05-30', '2017-06-05 11:58:09', 1, 1632, '2017-06-06 20:03:10', '2017-06-12 10:17:35', '2017-06-14 18:11:56', '3', '0'),
 (1280, 'reginaldo.barbosa', 'CAERN', 126, 'OP0001', 'SBDSD-SDS', '2017-06-06', '2017-06-06 10:28:54', 1, 1633, '2017-06-06 20:03:28', '2017-06-08 00:29:01', '2017-06-14 18:16:04', '3', '0'),
 (1281, 'francinei', 'COSANPA', 766, 'CR0001', 'SBDPT-SPT', '2017-05-31', '2017-06-06 14:16:14', 4, 607, '2017-06-06 20:03:43', '2017-06-07 10:51:24', '2017-07-18 19:21:12', '3', '0'),
+(1282, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-06-02', '2017-06-06 17:16:24', 4, 605, '2017-06-06 19:52:16', '2017-06-07 10:58:50', '2017-07-18 18:55:44', '3', '0'),
 (1283, 'francisco.barbosa', 'DESO', 523, 'CR0001', 'SBDXC-SDX', '2017-06-01', '2017-06-06 18:27:26', 1, 1634, '2017-06-06 20:03:55', '2017-07-26 13:23:20', '2017-08-02 20:02:16', '3', '0'),
 (1284, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-06-07', '2017-06-07 10:59:32', 4, 608, '2017-06-12 18:08:28', '2017-07-04 12:26:17', '2017-07-18 19:31:50', '3', '0'),
 (1285, 'rafael.carlos', 'CASAL', 380, 'CR0001', 'SBGCL-SCL', '2017-06-07', '2017-06-07 11:08:58', 1, 1637, '2017-06-10 21:23:13', '2017-06-10 21:35:42', '2017-06-14 18:21:42', '3', '0'),
@@ -5234,10 +6007,10 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1344, 'cleber.souza', 'CAEMA', 30, 'CR0001', 'SBGCL-SCL', '2017-06-21', '2017-06-21 14:48:29', 4, 9999, '2017-06-21 14:49:27', '2017-06-23 12:21:50', '2017-06-30 13:58:53', '3', '0'),
 (1345, 'reginaldo.barbosa', 'CAERN', 739, 'VT0001', 'SBDSD-SDS', '2017-06-21', '2017-06-21 14:55:47', 1, 1675, '2017-06-23 13:30:30', '2017-06-27 12:35:51', '2017-07-04 19:58:02', '3', '0'),
 (1347, 'jose.ferreira', 'CAEMA', 29, 'PV0001', 'SBGCL-SCL', '2017-06-22', '2017-06-22 12:40:39', 4, 619, '2017-06-23 13:30:45', '2017-06-30 18:52:42', '2017-07-17 19:59:35', '3', '0'),
-(1350, 'jose.ferreira', 'CAEMA', 40, 'CR0001', 'SBGCL-SCL', '2017-06-22', '2017-06-22 16:32:37', 4, 620, '2017-06-23 13:31:00', '2017-06-30 19:05:07', '2017-07-17 20:04:19', '3', '0'),
 (1349, 'reginaldo.barbosa', 'CAERN', 150, 'VT0001', 'SBDSD-SDS', '2017-06-22', '2017-06-22 16:21:48', 1, 1676, '2017-06-23 13:31:23', '2017-06-27 12:42:17', '2017-07-14 16:59:46', '3', '0'),
-(1353, 'reginaldo.barbosa', 'CAERN', 126, 'OP0001', 'SBDSD-SDS', '2017-06-23', '2017-06-23 11:24:30', 1, 1677, '2017-06-23 13:39:52', '2017-06-27 12:29:04', '2017-07-14 17:30:12', '3', '0'),
+(1350, 'jose.ferreira', 'CAEMA', 40, 'CR0001', 'SBGCL-SCL', '2017-06-22', '2017-06-22 16:32:37', 4, 620, '2017-06-23 13:31:00', '2017-06-30 19:05:07', '2017-07-17 20:04:19', '3', '0'),
 (1352, 'dagmo.esbell', 'CAER', 58, 'CR0001', 'SBGCL-SCL', '2017-06-23', '2017-06-23 09:41:08', 4, 621, '2017-06-23 13:40:10', '2017-06-26 12:39:23', '2017-07-17 19:17:58', '3', '0'),
+(1353, 'reginaldo.barbosa', 'CAERN', 126, 'OP0001', 'SBDSD-SDS', '2017-06-23', '2017-06-23 11:24:30', 1, 1677, '2017-06-23 13:39:52', '2017-06-27 12:29:04', '2017-07-14 17:30:12', '3', '0'),
 (1354, 'francinei', 'COSANPA', 452, 'NV0001', 'SBPAC-SPC', '2017-06-20', '2017-06-24 00:18:19', 1, 1678, '2017-06-29 18:22:23', '2017-10-24 14:53:57', '2017-10-25 14:03:12', '3', '0'),
 (1355, 'francinei', 'COSANPA', 452, 'NV0001', 'SBGCL-SCL', '2017-06-23', '2017-06-24 14:56:45', 4, 622, '2017-06-29 15:54:42', '2017-11-08 12:14:28', '2017-11-16 17:57:49', '3', '0'),
 (1356, 'francisco.barbosa', 'CASAL', 407, 'NV0001', 'SBGCL-SCL', '2017-06-23', '2017-06-25 23:30:31', 1, 1679, '2017-06-29 18:23:06', '2017-07-03 20:17:35', '2017-07-11 19:06:39', '3', '0'),
@@ -5323,8 +6096,8 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1440, 'thonpson', 'CASAL', 752, 'VT0001', 'SBGCL-SCL', '2017-07-12', '2017-07-12 08:39:33', 1, 1728, '2017-08-02 13:08:42', '2017-10-25 13:49:00', '2017-10-25 13:49:20', '4', '0'),
 (1441, 'francinei', 'COSANPA', 774, 'NV0001', 'SBDPT-SPT', '2017-07-11', '2017-07-12 10:33:00', 4, 678, '2017-08-02 17:57:24', '2017-10-24 12:54:25', '2017-10-25 14:53:44', '3', '0'),
 (1442, 'francinei', 'COSANPA', 773, 'NV0001', 'SBDPT-SPT', '2017-07-11', '2017-07-12 10:34:15', 4, 679, '2017-08-02 17:57:43', '2017-10-24 12:58:15', '2017-10-25 14:57:01', '3', '0'),
-(1445, 'rafael.carlos', 'CASAL', 380, 'PV0001', 'SBGCL-SCL', '2017-07-13', '2017-07-12 19:52:20', 1, 1729, '2017-08-02 13:09:21', '2017-08-05 16:08:38', '2017-08-16 14:41:58', '3', '0'),
 (1444, 'cleber.souza', 'CAGEPA', 377, 'PV0001', 'SBDSD-SDS', '2017-07-12', '2017-07-12 16:16:16', 1, 1730, '2017-08-02 13:09:43', '2017-08-03 12:28:02', '2017-08-16 14:45:40', '3', '0'),
+(1445, 'rafael.carlos', 'CASAL', 380, 'PV0001', 'SBGCL-SCL', '2017-07-13', '2017-07-12 19:52:20', 1, 1729, '2017-08-02 13:09:21', '2017-08-05 16:08:38', '2017-08-16 14:41:58', '3', '0'),
 (1446, 'jose.wilson', 'AGESPISA', 2, 'PV0001', 'SBGCL-SCL', '2017-07-12', '2017-07-12 21:28:46', 4, 652, '2017-08-02 13:09:59', '2017-08-03 16:12:17', '2017-08-14 12:33:26', '3', '0'),
 (1448, 'jose.wilson', 'SAAE - CAXIAS', 530, 'PV0001', 'SBGCL-SCL', '2017-07-12', '2017-07-12 21:34:21', 4, 653, '2017-08-02 13:10:19', '2017-08-03 16:30:48', '2017-08-14 12:38:15', '3', '0'),
 (1449, 'jose.wilson', 'CAEMA', 35, 'PV0001', 'SBGCL-SCL', '2017-07-12', '2017-07-12 21:37:08', 4, 654, '2017-08-02 13:10:35', '2017-08-03 16:42:26', '2017-08-14 12:46:27', '3', '0'),
@@ -5373,10 +6146,9 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1494, 'rafael.carlos', 'CASAL', 395, 'CR0001', 'SBGCL-SCL', '2017-07-21', '2017-07-23 12:13:45', 1, 1757, '2017-08-02 13:23:54', '2017-08-05 15:51:15', '2017-08-24 14:44:09', '3', '0'),
 (1495, 'nahim.pantoja', 'COSANPA', 504, 'CR0001', 'SBGCL-SCL', '2017-07-24', '2017-07-28 20:20:32', 4, 667, '2017-08-02 13:24:13', '2017-08-17 13:23:19', '2017-08-31 18:32:56', '3', '0'),
 (1496, 'francinei', 'COSANPA', 423, 'CR0001', 'SBGCL-SCL', '2017-07-24', '2017-07-24 18:34:51', 4, 668, '2017-08-02 13:24:45', '2017-10-24 15:04:38', '2017-10-25 16:16:14', '3', '0'),
-(1526, 'jose.wilson', 'CAEMA', 18, 'CR0001', 'SBGCL-SCL', '2017-08-01', '2017-08-01 23:31:48', 4, 674, '2017-08-02 14:14:27', '2017-08-06 13:17:58', '2017-08-14 13:43:52', '3', '0'),
-(1501, 'cleber.souza', 'CAERN', 201, 'PV0001', 'SBGCL-SCL', '2017-07-25', '2017-07-25 14:02:45', 1, 1758, '2017-08-02 13:27:10', '2017-08-03 13:37:40', '2017-08-24 14:47:36', '3', '0'),
 (1499, 'francinei', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2017-07-24', '2017-07-24 18:35:34', 4, 669, '2017-08-02 13:27:25', '2017-09-05 02:40:37', '2017-09-06 17:32:33', '3', '0'),
 (1500, 'francinei', 'COSANPA', 436, 'OP0002', 'SBGCL-SCL', '2017-07-24', '2017-07-24 18:36:06', 4, 675, '2017-08-02 14:14:57', '2017-09-05 02:43:29', '2017-09-06 17:43:34', '3', '0'),
+(1501, 'cleber.souza', 'CAERN', 201, 'PV0001', 'SBGCL-SCL', '2017-07-25', '2017-07-25 14:02:45', 1, 1758, '2017-08-02 13:27:10', '2017-08-03 13:37:40', '2017-08-24 14:47:36', '3', '0'),
 (1502, 'reginaldo.barbosa', 'CAERN', 193, 'CR0001', 'SBGCL-SCL', '2017-07-25', '2017-07-25 17:57:27', 1, 1777, '2017-08-02 14:15:15', '2017-08-14 11:17:43', '2017-08-24 14:50:45', '3', '0'),
 (1503, 'francinei', 'COSANPA', 442, 'CR0001', 'SBGCL-SCL', '2017-07-25', '2017-07-25 19:35:14', 4, 676, '2017-08-02 14:15:42', '2017-09-05 02:52:11', '2017-09-06 18:40:23', '3', '0'),
 (1504, 'nahim.pantoja', 'COSANPA', 450, 'OP0002', 'SBGCL-SCL', '2017-07-25', '2017-07-25 19:41:24', 4, 670, '2017-08-02 13:28:35', '2017-08-17 13:26:51', '2017-08-31 18:41:11', '3', '0'),
@@ -5401,6 +6173,7 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1523, 'reginaldo.barbosa', 'CAERN', 101, 'CR0001', 'SBGCL-SCL', '2017-07-28', '2017-07-28 23:16:29', 1, 1776, '2017-08-02 13:43:11', '2017-08-14 11:57:52', '2017-08-24 18:01:59', '3', '0'),
 (1524, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-07-31', '2017-08-01 01:02:05', 4, 672, '2017-08-02 13:43:37', '2017-09-05 03:00:07', '2017-09-06 16:37:27', '3', '0'),
 (1525, 'francinei', 'COSANPA', 428, 'OP0002', 'SBGCL-SCL', '2017-07-31', '2017-08-01 01:02:33', 4, 673, '2017-08-02 13:44:06', '2017-09-05 03:03:10', '2017-09-06 18:44:41', '3', '0'),
+(1526, 'jose.wilson', 'CAEMA', 18, 'CR0001', 'SBGCL-SCL', '2017-08-01', '2017-08-01 23:31:48', 4, 674, '2017-08-02 14:14:27', '2017-08-06 13:17:58', '2017-08-14 13:43:52', '3', '0'),
 (1528, 'francinei', 'COSANPA', 452, 'NV0001', 'SBGCL-SCL', '2017-08-02', '2017-08-02 10:01:03', 4, 677, '2017-08-02 14:15:57', '2017-11-08 14:17:55', '2017-11-16 19:03:47', '3', '0'),
 (1529, 'ricardo.lopes', 'CAGEPA', 232, 'PV0001', 'SBGCL-SCL', '2017-07-26', '2017-08-02 14:05:31', 1, 1778, '2017-08-02 14:26:31', '2017-10-25 14:39:26', '2017-10-25 14:49:55', '3', '0'),
 (1530, 'ricardo.lopes', 'CAGEPA', 292, 'CR0001', 'SBGCL-SCL', '2017-07-31', '2017-08-02 14:06:47', 1, 1779, '2017-08-02 14:26:47', '2017-10-26 19:36:04', '2017-10-27 11:38:24', '3', '0'),
@@ -5443,8 +6216,8 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1570, 'francinei', 'COSANPA', 469, 'Escolh', 'Escolha um s', '2017-08-10', '2017-08-10 12:44:06', 4, 683, '2017-08-11 13:00:09', '2017-09-05 03:19:58', '2017-09-12 17:19:11', '3', '0'),
 (1571, 'reginaldo.barbosa', 'CAERN', 70, 'CR0001', 'SBGCL-SCL', '2017-08-10', '2017-08-10 13:23:34', 1, 1813, '2017-08-10 19:00:01', '2017-08-14 12:21:52', '2017-08-29 19:02:27', '3', '0'),
 (1572, 'reginaldo.barbosa', 'CAERN', 97, 'CR0001', 'SBGCL-SCL', '2017-08-10', '2017-08-10 13:23:59', 1, 1814, '2017-08-10 19:00:26', '2017-08-14 12:29:09', '2017-08-29 19:08:41', '3', '0'),
-(1575, 'francinei', 'COSANPA', 438, 'Escolh', 'Escolha um s', '2017-08-10', '2017-08-10 14:01:55', 4, 681, '2017-08-11 13:00:28', '2017-09-05 03:28:25', '2017-09-12 17:33:25', '3', '0'),
 (1574, 'francinei', 'COSANPA', 509, 'CR0001', 'SBDPT-SPT', '2017-08-10', '2017-08-10 13:40:06', 4, 684, '2017-08-11 13:00:43', '2017-09-05 03:32:52', '2017-09-12 17:28:41', '3', '0'),
+(1575, 'francinei', 'COSANPA', 438, 'Escolh', 'Escolha um s', '2017-08-10', '2017-08-10 14:01:55', 4, 681, '2017-08-11 13:00:28', '2017-09-05 03:28:25', '2017-09-12 17:33:25', '3', '0'),
 (1577, 'francinei', 'COSANPA', 432, 'PV0001', 'SBDPT-SPT', '2017-08-10', '2017-08-11 01:53:42', 4, 685, '2017-08-11 13:00:55', '2017-09-05 03:39:18', '2017-09-12 17:37:01', '3', '0'),
 (1578, 'francinei', 'COSANPA', 504, 'CR0001', 'SBGCL-SCL', '2017-08-10', '2017-08-10 18:24:21', 4, 686, '2017-08-11 13:01:14', '2017-09-05 03:43:52', '2017-09-12 17:47:27', '3', '0'),
 (1579, 'francinei', 'COSANPA', 515, 'CR0001', 'SBDPT-SPT', '2017-08-10', '2017-08-10 18:28:01', 4, 687, '2017-08-11 13:01:32', '2017-09-05 03:47:58', '2017-09-12 17:52:13', '3', '0'),
@@ -5484,10 +6257,10 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1614, 'rafael.carlos', 'CASAL', 393, 'PV0001', 'SBGCL-SCL', '2017-08-17', '2017-08-18 21:59:45', 1, 1840, '2017-08-22 17:22:58', '2017-08-24 19:01:25', '2017-09-11 23:12:28', '3', '0'),
 (1615, 'cleber.souza', 'CAGEPA', 288, 'PV0001', 'SBGCL-SCL', '2017-08-19', '2017-08-19 08:47:32', 1, 1841, '2017-08-22 17:23:14', '2017-08-28 16:26:15', '2017-09-11 23:21:31', '3', '0'),
 (1617, 'jose.wilson', 'CAEMA', 18, 'CR0001', 'SBGCL-SCL', '2017-08-19', '2017-08-19 16:08:24', 4, 694, '2017-08-22 17:23:27', '2017-08-24 16:20:42', '2017-09-12 18:15:50', '3', '0'),
-(1622, 'bruno.alves', 'CAGEPA', 226, 'PV0001', 'SBGCL-SCL', '2017-08-18', '2017-08-21 22:05:54', 1, 1848, '2017-08-22 17:28:46', '2017-08-31 09:44:07', '2017-09-11 23:25:19', '3', '0'),
 (1619, 'rafael.carlos', 'CASAL', 404, 'VT0001', 'SBGCL-SCL', '2017-08-21', '2017-08-21 12:20:55', 1, 1842, '2017-08-22 17:24:49', '2017-08-24 18:55:17', '2017-09-11 23:29:48', '3', '0'),
 (1620, 'cleber.souza', 'CAGEPA', 238, 'PV0001', 'SBGCL-SCL', '2017-08-18', '2017-08-21 12:59:10', 1, 1843, '2017-08-22 17:25:03', '2017-08-28 16:31:36', '2017-09-11 23:35:57', '3', '0'),
 (1621, 'bruno.alves', 'CAGEPA', 248, 'CR0001', 'SBGCL-SCL', '2017-08-21', '2017-08-21 14:42:25', 1, 1844, '2017-08-22 17:25:14', '2017-08-31 09:47:04', '2017-09-11 23:38:53', '3', '0'),
+(1622, 'bruno.alves', 'CAGEPA', 226, 'PV0001', 'SBGCL-SCL', '2017-08-18', '2017-08-21 22:05:54', 1, 1848, '2017-08-22 17:28:46', '2017-08-31 09:44:07', '2017-09-11 23:25:19', '3', '0'),
 (1623, 'reginaldo.barbosa', 'CAERN', 100, 'VT0001', 'SBGCL-SCL', '2017-08-21', '2017-08-21 23:25:14', 1, 1845, '2017-08-22 17:25:27', '2017-09-04 08:30:58', '2017-09-11 23:42:15', '3', '0'),
 (1624, 'nahim.pantoja', 'COSANPA', 476, 'CR0001', 'SBGCL-SCL', '2017-08-22', '2017-08-22 01:40:28', 4, 693, '2017-08-22 17:25:40', '2017-08-27 14:14:43', '2017-09-12 18:26:32', '3', '0'),
 (1625, 'rafael.carlos', 'CASAL', 752, 'PV0001', 'SBGCL-SCL', '2017-08-22', '2017-08-22 13:56:31', 1, 1846, '2017-08-22 17:25:55', '2017-08-24 18:58:09', '2017-09-11 23:47:57', '3', '0'),
@@ -5604,8 +6377,8 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1744, 'reginaldo.barbosa', 'CAERN', 157, 'CR0001', 'SBDSD-SDS', '2017-09-20', '2017-09-20 18:32:12', 1, 1904, '2017-09-28 12:09:29', '2017-10-10 00:19:03', '2017-10-26 13:39:39', '3', '0');
 INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sistema`, `data`, `data_sol`, `filial`, `os`, `data_os`, `data_fech`, `data_term`, `status`, `ativo`) VALUES
 (1745, 'cleber.souza', 'CAERN', 160, 'NV0001', 'SBGCL-SCL', '2017-09-20', '2017-09-21 00:34:40', 1, 1905, '2017-09-28 12:09:44', '2017-10-16 19:02:27', '2017-10-26 14:33:52', '3', '0'),
-(1748, 'reginaldo.barbosa', 'CAERN', 98, 'CR0001', 'SBGCL-SCL', '2017-09-22', '2017-09-22 11:19:24', 1, 1906, '2017-09-28 12:09:56', '2017-10-10 09:58:24', '2017-10-26 14:43:59', '3', '0'),
 (1747, 'reginaldo.barbosa', 'CAERN', 97, 'CR0001', 'SBGCL-SCL', '2017-09-22', '2017-09-22 11:18:49', 1, 1907, '2017-09-28 12:10:09', '2017-10-10 15:01:27', '2017-10-26 14:51:59', '3', '0'),
+(1748, 'reginaldo.barbosa', 'CAERN', 98, 'CR0001', 'SBGCL-SCL', '2017-09-22', '2017-09-22 11:19:24', 1, 1906, '2017-09-28 12:09:56', '2017-10-10 09:58:24', '2017-10-26 14:43:59', '3', '0'),
 (1749, 'cleber.souza', 'CAERN', 138, 'PV0001', 'SBGCL-SCL', '2017-09-22', '2017-09-22 12:22:45', 1, 1908, '2017-09-28 12:10:30', '2017-10-16 19:09:33', '2017-10-26 15:01:26', '3', '0'),
 (1750, 'francisco.barbosa', 'COMPESA', 611, 'VT0001', 'SBGCL-SCL', '2017-09-22', '2017-09-22 16:17:48', 1, 1909, '2017-09-28 12:10:45', '2017-10-26 19:13:22', '2017-10-26 19:15:30', '3', '0'),
 (1751, 'francisco.barbosa', 'COMPESA', 608, 'VT0001', 'SBGCL-SCL', '2017-09-22', '2017-09-22 17:56:44', 1, 1910, '2017-09-28 12:11:06', '2017-10-09 18:16:10', '2017-10-09 18:35:09', '3', '0'),
@@ -5630,8 +6403,8 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1771, 'francisco.barbosa', 'CAGEPA', 270, 'CR0001', 'SBGCL-SCL', '2017-09-29', '2017-10-03 17:15:28', 1, 1920, '2017-10-04 17:40:30', '2017-10-09 18:07:00', '2017-10-09 18:30:17', '3', '0'),
 (1772, 'francisco.barbosa', 'COMPESA', 613, 'VT0001', 'SBSEG-MCA', '2017-09-22', '2017-10-03 17:16:53', 1, 1921, '2017-10-04 17:40:45', '2017-10-09 18:12:08', '2017-10-09 18:40:11', '3', '0'),
 (1773, 'rafael.carlos', 'CASAL', 385, 'PV0001', 'SBGCL-SCL', '2017-10-03', '2017-10-03 19:56:10', 1, 1922, '2017-10-04 17:40:55', '2017-10-04 22:56:42', '2017-10-27 12:05:13', '3', '0'),
-(1776, 'rafael.carlos', 'CASAL', 395, 'PV0001', 'SBGCL-SCL', '2017-10-04', '2017-10-03 23:26:41', 1, 1923, '2017-10-04 17:41:08', '2017-10-04 23:00:29', '2017-10-27 15:04:00', '3', '0'),
 (1775, 'rafael.carlos', 'CASAL', 384, 'PV0001', 'SBGCL-SCL', '2017-10-04', '2017-10-03 23:26:53', 1, 1924, '2017-10-04 17:41:20', '2017-10-04 23:05:17', '2017-10-27 14:58:31', '3', '0'),
+(1776, 'rafael.carlos', 'CASAL', 395, 'PV0001', 'SBGCL-SCL', '2017-10-04', '2017-10-03 23:26:41', 1, 1923, '2017-10-04 17:41:08', '2017-10-04 23:00:29', '2017-10-27 15:04:00', '3', '0'),
 (1777, 'bruno.alves', 'CAGEPA', 346, 'CR0001', 'SBGCL-SCL', '2017-10-04', '2017-10-04 00:16:54', 1, 1925, '2017-10-04 17:41:35', '2017-10-10 10:51:17', '2017-10-25 14:57:57', '3', '0'),
 (1778, 'reginaldo.barbosa', 'CAERN', 115, 'CR0001', 'SBGCL-SCL', '2017-10-04', '2017-10-04 09:21:19', 1, 1926, '2017-10-04 17:41:53', '2017-10-10 09:11:55', '2017-10-27 18:52:15', '3', '0'),
 (1779, 'reginaldo.barbosa', 'CAERN', 67, 'VT0001', 'SBDSD-SDS', '2017-10-04', '2017-10-04 09:22:25', 1, 1927, '2017-10-04 17:42:06', '2017-10-10 09:46:57', '2017-10-27 18:59:20', '3', '0'),
@@ -5720,9 +6493,9 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1867, 'cleber.souza', 'CAGEPA', 355, 'PV0001', 'SBGCL-SCL', '2017-10-21', '2017-10-21 22:50:45', 1, 1981, '2017-10-23 18:23:27', '2017-10-25 17:59:33', '2017-10-25 18:18:50', '3', '0'),
 (1868, 'rafael.carlos', 'CASAL', 394, 'CR0001', 'SBGCL-SCL', '2017-10-19', '2017-10-22 19:57:25', 1, 1973, '2017-10-22 20:06:17', '2017-10-22 20:12:39', '2017-10-27 18:40:07', '3', '0'),
 (1869, 'rafael.carlos', 'CASAL', 397, 'NV0001', 'SBGCL-SCL', '2017-10-23', '2017-10-22 19:57:45', 1, 1972, '2017-10-22 20:05:24', '2017-10-27 01:28:12', '2017-10-27 18:45:27', '3', '0'),
-(1873, 'francisco.barbosa', 'CAGEPA', 213, 'CR0001', 'SBGCL-SCL', '2017-10-13', '2017-10-23 16:49:14', 1, 1983, '2017-10-23 18:37:27', '2017-10-23 19:06:36', '2017-10-26 11:01:49', '3', '0'),
 (1871, 'francisco.barbosa', 'CAGEPA', 260, 'NV0001', 'SBGCL-SCL', '2017-10-17', '2017-10-23 16:19:49', 1, 1984, '2017-10-23 18:37:48', '2017-10-23 19:20:56', '2017-10-26 11:18:31', '3', '0'),
 (1872, 'francisco.barbosa', 'CAERN', 194, 'NV0001', 'SBGCL-SCL', '2017-10-18', '2017-10-23 16:20:34', 1, 1985, '2017-10-23 18:38:02', '2017-10-23 19:42:08', '2017-10-30 10:36:49', '3', '0'),
+(1873, 'francisco.barbosa', 'CAGEPA', 213, 'CR0001', 'SBGCL-SCL', '2017-10-13', '2017-10-23 16:49:14', 1, 1983, '2017-10-23 18:37:27', '2017-10-23 19:06:36', '2017-10-26 11:01:49', '3', '0'),
 (1874, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-10-23', '2017-10-23 17:33:02', 4, 774, '2017-10-23 18:38:27', '2017-10-23 19:53:35', '2017-10-27 13:06:33', '3', '0'),
 (1875, 'ricardo.lopes', 'CAGECE', 777, 'NV0001', 'SBGCL-SCL', '2017-08-23', '2017-10-23 19:19:45', 1, 1986, '2017-10-25 14:28:22', '2017-10-27 19:24:06', '2017-10-30 13:15:58', '3', '0'),
 (1876, 'ricardo.lopes', 'CAGECE', 778, 'NV0001', 'SBGCL-SCL', '2017-08-24', '2017-10-23 19:21:49', 1, 1988, '2017-10-25 14:28:40', '2017-10-27 19:27:09', '2017-10-30 13:23:28', '3', '0'),
@@ -5815,7 +6588,6 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1964, 'jose.wilson', 'CAEMA', 14, 'PV0001', 'SBGCL-SCL', '2017-11-07', '2017-11-07 14:45:46', 4, 798, '2017-11-08 16:58:41', '2017-11-10 02:31:10', '2017-11-23 14:01:53', '3', '0'),
 (1965, 'francinei', 'COSANPA', 428, 'OP0002', 'SBGCL-SCL', '2017-11-07', '2017-11-07 15:11:31', 4, 799, '2017-11-08 16:58:56', '2017-11-13 01:50:26', '2017-11-23 14:06:12', '3', '0'),
 (1966, 'francinei', 'COSANPA', 510, 'OP0002', 'SBGCL-SCL', '2017-11-07', '2017-11-07 15:13:03', 4, 800, '2017-11-08 16:59:07', '2017-11-13 01:45:59', '2017-11-23 14:10:39', '3', '0'),
-(1976, 'reginaldo.barbosa', 'CAERN', 77, 'CR0001', 'SBGCL-SCL', '2017-11-08', '2017-11-08 15:34:28', 1, 2053, '2017-11-08 17:06:23', '2017-11-13 12:11:09', '2017-11-22 16:38:01', '3', '0'),
 (1968, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-11-07', '2017-11-07 18:34:46', 4, 801, '2017-11-08 16:59:22', '2017-11-13 00:13:55', '2017-11-23 14:18:37', '3', '0'),
 (1969, 'dagmo.esbell', 'CAER', 60, 'CR0001', 'SBGCL-SCL', '2017-07-19', '2017-11-08 12:13:49', 4, 802, '2017-11-08 16:59:44', '2017-11-09 15:52:20', '2017-11-23 14:59:26', '3', '0'),
 (1970, 'dagmo.esbell', 'CAER', 59, 'CR0001', 'SBGCL-SCL', '2017-08-02', '2017-11-08 12:15:37', 4, 803, '2017-11-08 16:59:57', '2017-11-09 15:51:39', '2017-11-23 16:13:35', '3', '0'),
@@ -5824,6 +6596,7 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1973, 'dagmo.esbell', 'CAER', 761, 'CR0001', 'SBGCL-SCL', '2017-10-04', '2017-11-08 12:20:01', 3, 805, '2017-11-08 17:00:39', '2017-11-09 16:41:04', '2017-11-23 16:20:05', '3', '0'),
 (1974, 'dagmo.esbell', 'CAER', 60, 'PV0001', 'SBGCL-SCL', '2017-10-18', '2017-11-08 12:22:09', 4, 806, '2017-11-08 17:00:51', '2017-11-09 16:16:48', '2017-11-23 16:21:55', '3', '0'),
 (1975, 'dagmo.esbell', 'CAER', 60, 'PV0001', 'SBGCL-SCL', '2017-11-07', '2017-11-08 12:23:45', 3, 807, '2017-11-08 17:01:01', '2017-11-09 17:02:44', '2017-11-23 16:23:42', '3', '0'),
+(1976, 'reginaldo.barbosa', 'CAERN', 77, 'CR0001', 'SBGCL-SCL', '2017-11-08', '2017-11-08 15:34:28', 1, 2053, '2017-11-08 17:06:23', '2017-11-13 12:11:09', '2017-11-22 16:38:01', '3', '0'),
 (1977, 'gladson.marinho', 'CAERN', 126, 'PV0001', 'SBSEG-MCA', '2017-10-26', '2017-11-09 13:03:39', 1, 2064, '2017-11-13 18:03:49', '2017-11-14 11:01:53', '2017-11-22 16:42:01', '3', '0'),
 (1978, 'gladson.marinho', 'CAERN', 102, 'PV0001', 'SBSEG-MCA', '2017-10-26', '2017-11-09 13:04:19', 1, 2065, '2017-11-13 18:04:00', '2017-11-14 11:05:49', '2017-11-22 16:45:30', '3', '0'),
 (1979, 'gladson.marinho', 'CAERN', 173, 'CR0001', 'SBGCL-SCL', '2017-10-27', '2017-11-09 13:05:31', 1, 2066, '2017-11-13 18:04:15', '2017-11-14 11:11:18', '2017-11-22 16:49:49', '3', '0'),
@@ -5839,12 +6612,12 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1989, 'francinei', 'COSANPA', 424, 'CR0001', 'SBGCL-SCL', '2017-11-09', '2017-11-09 20:00:30', 4, 808, '2017-11-13 18:06:31', '2017-11-22 02:14:22', '2017-11-23 17:09:28', '3', '0'),
 (1990, 'rafael.carlos', 'DESO', 524, 'PV0001', 'SBDXC-SDX', '2017-11-07', '2017-11-09 22:55:50', 1, 2055, '2017-11-09 23:17:37', '2017-11-09 23:34:58', '2017-11-22 17:14:21', '3', '0'),
 (1991, 'rafael.carlos', 'DESO', 523, 'CR0001', 'SBDXC-SDX', '2017-11-08', '2017-11-09 22:56:24', 1, 2056, '2017-11-09 23:18:28', '2017-11-09 23:40:49', '2017-11-22 17:18:24', '3', '0'),
-(1998, 'rafael.carlos', 'CASAL', 400, 'NV0001', 'SBGCL-SCL', '2017-11-09', '2017-11-09 23:07:47', 1, 2059, '2017-11-09 23:23:01', '2017-11-09 23:55:21', '2017-11-22 17:25:16', '3', '0'),
 (1993, 'rafael.carlos', 'DESO', 525, 'CR0001', 'SBDXC-SDX', '2017-11-08', '2017-11-09 22:58:27', 1, 2057, '2017-11-09 23:19:22', '2017-11-09 23:45:35', '2017-11-22 17:30:54', '3', '0'),
 (1994, 'francisco.barbosa', 'CAERN', 194, 'NV0001', 'SBGCL-SCL', '2017-11-06', '2017-11-09 22:59:08', 1, 2075, '2017-11-13 18:06:44', '2017-11-15 03:07:12', '2017-11-22 17:36:24', '3', '0'),
 (1995, 'rafael.carlos', 'DESO', 526, 'PV0001', 'SBDXC-SDX', '2017-11-09', '2017-11-09 23:00:12', 1, 2058, '2017-11-09 23:20:05', '2017-11-09 23:50:52', '2017-11-22 17:41:28', '3', '0'),
-(1999, 'rafael.carlos', 'CASAL', 385, 'NV0001', 'SBGCL-SCL', '2017-11-09', '2017-11-09 23:08:12', 1, 2060, '2017-11-09 23:23:45', '2017-11-09 23:57:51', '2017-11-22 17:47:01', '3', '0'),
 (1997, 'francisco.barbosa', 'CAERN', 809, 'NV0001', 'SBGCL-SCL', '2017-11-07', '2017-11-09 23:01:10', 1, 2076, '2017-11-13 18:06:59', '2017-11-15 03:15:46', '2017-11-22 17:52:46', '3', '0'),
+(1998, 'rafael.carlos', 'CASAL', 400, 'NV0001', 'SBGCL-SCL', '2017-11-09', '2017-11-09 23:07:47', 1, 2059, '2017-11-09 23:23:01', '2017-11-09 23:55:21', '2017-11-22 17:25:16', '3', '0'),
+(1999, 'rafael.carlos', 'CASAL', 385, 'NV0001', 'SBGCL-SCL', '2017-11-09', '2017-11-09 23:08:12', 1, 2060, '2017-11-09 23:23:45', '2017-11-09 23:57:51', '2017-11-22 17:47:01', '3', '0'),
 (2000, 'rafael.carlos', 'CASAL', 384, 'NV0001', 'SBGCL-SCL', '2017-11-09', '2017-11-09 23:08:31', 1, 2061, '2017-11-09 23:24:23', '2017-11-09 23:59:38', '2017-11-22 17:57:25', '3', '0'),
 (2001, 'rafael.carlos', 'CASAL', 379, 'NV0001', 'SBGCL-SCL', '2017-11-09', '2017-11-09 23:08:51', 1, 2062, '2017-11-09 23:25:18', '2017-11-10 00:01:50', '2017-11-22 18:02:21', '3', '0'),
 (2002, 'rafael.carlos', 'CASAL', 543, 'CR0001', 'SBGCL-SCL', '2017-11-09', '2017-11-09 23:09:16', 1, 2063, '2017-11-09 23:25:58', '2017-11-10 00:05:21', '2017-11-22 18:20:09', '3', '0'),
@@ -5941,10 +6714,10 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (2096, 'jose.wilson', 'CAEMA', 16, 'CR0001', 'SBGCL-SCL', '2017-12-01', '2017-12-01 15:31:35', 4, 840, '2017-12-06 19:53:49', '2017-12-10 15:50:48', '2017-12-19 18:37:52', '3', '0'),
 (2097, 'rafael.carlos', 'CASAL', 390, 'PV0001', 'SBGCL-SCL', '2017-12-02', '2017-12-02 19:12:12', 1, 2133, '2017-12-04 22:59:05', '2017-12-04 23:16:26', '2017-12-22 13:46:57', '3', '0'),
 (2098, 'rafael.carlos', 'SOLAR', 537, 'PV0001', 'SBGCL-SCL', '2017-12-02', '2017-12-02 19:40:02', 1, 2135, '2017-12-04 23:00:39', '2017-12-04 23:24:23', '2017-12-22 14:05:17', '3', '0'),
-(2103, 'rafael.carlos', 'DESO', 523, 'CR0001', 'SBDXC-SDX', '2017-12-04', '2017-12-04 22:51:19', 1, 2134, '2017-12-04 22:59:59', '2017-12-07 17:23:12', '2017-12-22 14:15:29', '3', '0'),
 (2100, 'francinei', 'COSANPA', 409, 'PV0001', 'SBPAC-SPC', '2017-12-04', '2017-12-04 18:58:15', 1, 2139, '2017-12-06 19:54:04', '2017-12-08 12:01:38', '2017-12-22 14:30:52', '3', '0'),
 (2101, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-12-04', '2017-12-04 19:00:49', 4, 841, '2017-12-06 19:54:20', '2017-12-08 12:05:23', '2017-12-19 18:41:52', '3', '0'),
 (2102, 'reginaldo.barbosa', 'CAERN', 809, 'NV0001', 'SBGCL-SCL', '2017-12-04', '2017-12-04 21:38:21', 1, 2140, '2017-12-06 19:54:33', '2017-12-18 23:13:01', '2017-12-28 13:46:05', '3', '0'),
+(2103, 'rafael.carlos', 'DESO', 523, 'CR0001', 'SBDXC-SDX', '2017-12-04', '2017-12-04 22:51:19', 1, 2134, '2017-12-04 22:59:59', '2017-12-07 17:23:12', '2017-12-22 14:15:29', '3', '0'),
 (2104, 'rafael.carlos', 'CASAL', 382, 'PV0001', 'SBGCL-SCL', '2017-12-04', '2017-12-04 22:56:41', 1, 2132, '2017-12-04 22:58:10', '2017-12-04 23:13:33', '2017-12-28 14:02:20', '3', '0'),
 (2106, 'nahim.pantoja', 'COSANPA', 463, 'PV0001', 'SBPAC-SPC', '2017-12-04', '2017-12-05 15:58:17', 1, 2141, '2017-12-06 19:54:48', '2017-12-11 19:56:43', '2017-12-28 14:15:08', '3', '0'),
 (2107, 'nahim.pantoja', 'COSANPA', 462, 'OP0002', 'SBGCL-SCL', '2017-12-05', '2017-12-05 15:59:15', 4, 842, '2017-12-06 19:55:11', '2017-12-11 20:04:35', '2017-12-19 18:48:59', '3', '0'),
@@ -6065,12 +6838,12 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (2227, 'gladson.marinho', 'CAERN', 173, 'VT0001', 'SBGCL-SCL', '2017-12-27', '2018-01-02 12:49:13', 1, 2208, '2018-01-05 14:55:54', '2018-01-22 10:14:37', '2018-02-01 18:33:55', '3', '0'),
 (2228, 'gladson.marinho', 'CAERN', 76, 'VT0001', 'SBGCL-SCL', '2017-12-27', '2018-01-02 12:49:31', 1, 2209, '2018-01-05 14:56:06', '2018-01-22 10:18:43', '2018-02-01 18:46:25', '3', '0'),
 (2229, 'francinei', 'COSANPA', 450, 'OP0002', 'SBGCL-SCL', '2017-12-22', '2018-01-02 19:03:08', 4, 890, '2018-01-05 14:56:23', '2018-01-09 00:41:24', '2018-01-09 17:49:28', '3', '0'),
-(2238, 'nahim.pantoja', 'COSANPA', 436, 'PV0001', 'SBGCL-SCL', '2018-01-05', '2018-01-05 15:02:07', 4, 894, '2018-01-05 16:28:13', '2018-01-05 18:28:46', '2018-01-08 19:21:51', '3', '0'),
 (2232, 'francinei', 'COSANPA', 428, 'OP0002', 'SBGCL-SCL', '2018-01-03', '2018-01-03 12:45:15', 4, 891, '2018-01-05 14:57:08', '2018-01-09 00:28:52', '2018-01-09 18:39:44', '3', '0'),
 (2233, 'nahim.pantoja', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2018-01-03', '2018-01-03 13:24:15', 4, 892, '2018-01-05 14:57:24', '2018-01-05 18:21:54', '2018-01-08 19:27:59', '3', '0'),
 (2234, 'cleber.souza', 'CAERN', 67, 'PV0001', 'SBDSD-SDS', '2018-01-03', '2018-01-03 16:23:12', 1, 2211, '2018-01-05 14:57:40', '2018-01-15 13:58:18', '2018-02-01 18:50:24', '3', '0'),
 (2235, 'nahim.pantoja', 'COSANPA', 409, 'OP0002', 'SBGCL-SCL', '2018-01-04', '2018-01-04 10:57:57', 1, 893, '2018-01-05 14:57:55', '2018-01-05 18:25:03', '2018-01-08 19:32:07', '3', '0'),
 (2236, 'thonpson', 'BRASIL KIRIN', 536, 'CR0001', 'SBDPT-SPT', '2018-01-04', '2018-01-04 17:16:46', 1, 2212, '2018-01-05 14:58:13', NULL, NULL, '1', '0'),
+(2238, 'nahim.pantoja', 'COSANPA', 436, 'PV0001', 'SBGCL-SCL', '2018-01-05', '2018-01-05 15:02:07', 4, 894, '2018-01-05 16:28:13', '2018-01-05 18:28:46', '2018-01-08 19:21:51', '3', '0'),
 (2239, 'nahim.pantoja', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-01-05', '2018-01-05 16:51:57', 4, 895, '2018-01-08 17:21:29', '2018-01-09 19:09:42', '2018-02-06 13:35:24', '3', '0'),
 (2240, 'rafael.carlos', 'CASAL', 398, 'CR0001', 'SBGCL-SCL', '2017-12-28', '2018-01-08 10:41:08', 1, 2213, '2018-01-08 10:41:55', '2018-01-08 10:53:44', '2018-01-09 16:51:06', '3', '0'),
 (2241, 'rafael.carlos', 'CASAL', 391, 'NV0001', 'SBGCL-SCL', '2017-12-29', '2018-01-08 10:46:21', 1, 2214, '2018-01-08 10:46:32', '2018-01-08 10:56:35', '2018-01-09 17:13:32', '3', '0'),
@@ -6098,8 +6871,8 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (2263, 'cleber.souza', 'CAGEPA', 255, 'PV0001', 'SBGCL-SCL', '2018-01-09', '2018-01-11 20:53:50', 1, 2227, '2018-01-24 14:21:13', '2018-01-27 12:13:18', '2018-02-07 18:40:32', '3', '0'),
 (2265, 'cleber.souza', 'CAGEPA', 327, 'PV0001', 'SBGCL-SCL', '2018-01-10', '2018-01-11 20:56:00', 1, 2237, '2018-01-24 14:21:25', '2018-01-27 12:24:31', '2018-02-07 18:52:43', '3', '0'),
 (2266, 'cleber.souza', 'CAERN', 67, 'PV0001', 'SBDSD-SDS', '2018-01-11', '2018-01-11 20:57:06', 1, 2238, '2018-01-24 14:21:44', '2018-01-27 15:47:38', '2018-02-07 19:08:01', '3', '0'),
-(2270, 'nahim.pantoja', 'COSANPA', 499, 'PV0001', 'SBDPT-SPT', '2018-01-11', '2018-01-12 20:42:29', 4, 905, '2018-01-24 14:26:01', '2018-01-24 18:29:38', '2018-02-06 14:24:39', '3', '0'),
 (2269, 'francisco.barbosa', 'CAGEPA', 225, 'CR0001', 'SBGCL-SCL', '2018-01-12', '2018-01-12 15:26:26', 1, 2239, '2018-01-24 14:25:39', '2018-01-29 13:56:14', '2018-02-07 19:13:06', '3', '0'),
+(2270, 'nahim.pantoja', 'COSANPA', 499, 'PV0001', 'SBDPT-SPT', '2018-01-11', '2018-01-12 20:42:29', 4, 905, '2018-01-24 14:26:01', '2018-01-24 18:29:38', '2018-02-06 14:24:39', '3', '0'),
 (2271, 'nahim.pantoja', 'COSANPA', 509, 'PV0001', 'SBDPT-SPT', '2018-01-12', '2018-01-12 20:43:28', 4, 922, '2018-01-24 14:25:13', '2018-01-24 18:36:14', '2018-02-06 14:31:55', '3', '0'),
 (2272, 'nahim.pantoja', 'COSANPA', 428, 'PV0001', 'SBGCL-SCL', '2018-01-12', '2018-01-12 20:44:56', 4, 906, '2018-01-24 14:26:19', '2018-01-24 18:39:28', '2018-02-06 14:35:54', '3', '0'),
 (2273, 'nahim.pantoja', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-01-12', '2018-01-12 20:45:43', 4, 907, '2018-01-24 14:26:32', '2018-01-24 18:23:14', '2018-02-06 14:42:26', '3', '0'),
@@ -6114,8 +6887,8 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (2282, 'reginaldo.barbosa', 'CAERN', 77, 'PV0001', 'SBGCL-SCL', '2018-01-15', '2018-01-15 12:44:22', 1, 2240, '2018-01-24 14:27:21', '2018-02-18 11:22:45', NULL, '2', '0'),
 (2284, 'nahim.pantoja', 'COSANPA', 481, 'PV0001', 'SBDPT-SPT', '2018-01-15', '2018-01-15 18:10:01', 4, 910, '2018-01-24 14:27:35', '2018-01-24 18:51:44', '2018-02-06 14:56:03', '3', '0'),
 (2285, 'nahim.pantoja', 'COSANPA', 505, 'PV0001', 'SBDPT-SPT', '2018-01-15', '2018-01-15 18:11:16', 4, 911, '2018-01-24 14:27:48', '2018-01-24 18:55:34', '2018-02-06 15:00:38', '3', '0'),
-(2288, 'dagmo.esbell', 'CAER', 60, 'CR0001', 'SBGCL-SCL', '2018-01-17', '2018-01-17 19:54:33', 4, 912, '2018-01-24 14:28:03', '2018-01-29 12:34:49', '2018-02-06 15:10:29', '3', '0'),
 (2287, 'jose.wilson', 'CAEMA', 33, 'CR0001', 'SBGCL-SCL', '2018-01-12', '2018-01-16 13:47:38', 4, 913, '2018-01-24 14:28:16', '2018-01-28 12:57:28', '2018-02-06 15:16:22', '3', '0'),
+(2288, 'dagmo.esbell', 'CAER', 60, 'CR0001', 'SBGCL-SCL', '2018-01-17', '2018-01-17 19:54:33', 4, 912, '2018-01-24 14:28:03', '2018-01-29 12:34:49', '2018-02-06 15:10:29', '3', '0'),
 (2289, 'francinei', 'COSANPA', 409, 'CR0001', 'SBGCL-SCL', '2018-01-09', '2018-01-18 01:28:08', 4, 914, '2018-01-24 14:28:28', '2018-01-27 01:14:41', '2018-02-06 15:21:53', '3', '0'),
 (2290, 'francinei', 'COSANPA', 510, 'CR0001', 'SBGCL-SCL', '2018-01-09', '2018-01-18 01:29:04', 4, 915, '2018-01-24 14:28:43', '2018-01-27 01:18:13', '2018-02-06 13:30:23', '3', '0'),
 (2292, 'reginaldo.barbosa', 'CAERN', 100, 'CR0001', 'SBGCL-SCL', '2018-01-18', '2018-01-18 11:24:00', 1, 2241, '2018-01-24 14:29:04', '2018-02-18 11:28:34', NULL, '2', '0'),
@@ -6126,8 +6899,8 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (2297, 'rafael.carlos', 'CASAL', 387, 'NV0001', 'SBGCL-SCL', '2018-01-17', '2018-01-21 12:51:48', 1, 2235, '2018-01-21 13:00:29', '2018-01-21 13:08:06', '2018-02-07 20:07:30', '3', '0'),
 (2298, 'rafael.carlos', 'CASAL', 388, 'NV0001', 'SBGCL-SCL', '2018-01-17', '2018-01-21 12:52:24', 1, 2236, '2018-01-21 13:00:43', '2018-01-21 13:10:38', '2018-02-07 20:10:44', '3', '0'),
 (2299, 'rafael.carlos', 'SOLAR', 537, 'CR0001', 'SBDPT-SPT', '2018-01-16', '2018-01-21 12:53:18', 1, 2234, '2018-01-21 13:00:14', '2018-01-21 13:05:03', '2018-02-07 20:19:22', '3', '0'),
-(2303, 'francinei', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2018-01-19', '2018-01-21 16:50:45', 4, 919, '2018-01-24 14:30:31', '2018-01-27 02:05:32', '2018-02-06 15:42:39', '3', '0'),
 (2302, 'francinei', 'COSANPA', 428, 'OP0002', 'SBGCL-SCL', '2018-01-19', '2018-01-21 16:40:42', 4, 920, '2018-01-24 14:30:42', '2018-01-27 02:09:24', '2018-02-06 15:46:40', '3', '0'),
+(2303, 'francinei', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2018-01-19', '2018-01-21 16:50:45', 4, 919, '2018-01-24 14:30:31', '2018-01-27 02:05:32', '2018-02-06 15:42:39', '3', '0'),
 (2304, 'gladson.marinho', 'CAERN', 65, 'CR0001', 'SBGCL-SCL', '2018-01-03', '2018-01-22 10:19:17', 1, 2243, '2018-01-24 14:30:56', '2018-02-05 10:34:47', NULL, '2', '0'),
 (2305, 'gladson.marinho', 'CAERN', 153, 'CR0001', 'SBDSD-SDS', '2018-01-04', '2018-01-22 10:20:46', 1, 2244, '2018-01-24 14:31:08', '2018-02-05 10:39:16', NULL, '2', '0'),
 (2306, 'gladson.marinho', 'CAERN', 762, 'NV0001', 'SBGCL-SCL', '2018-01-10', '2018-01-22 10:21:22', 1, 2245, '2018-01-24 14:31:23', '2018-02-05 10:42:04', NULL, '2', '0'),
@@ -6179,8 +6952,8 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (2355, 'reginaldo.barbosa', 'CAERN', 809, 'VT0001', 'SBGCL-SCL', '2018-01-26', '2018-01-26 23:40:20', 1, 2286, '2018-01-30 22:38:18', '2018-02-18 13:15:53', NULL, '2', '0'),
 (2356, 'antonio.ferreira', 'CAGECE', 840, 'CR0001', 'SBGCL-SCL', '2017-12-19', '2018-01-27 13:21:48', 1, 2287, '2018-01-30 22:38:35', NULL, NULL, '1', '0'),
 (2357, 'antonio.ferreira', 'CAGECE', 832, 'NV0001', 'SBGCL-SCL', '2018-01-05', '2018-01-27 13:27:15', 1, 2288, '2018-01-30 22:39:00', NULL, NULL, '1', '0'),
-(2360, 'cleber.souza', 'CAGECE', 847, 'NV0001', 'SBGCL-SCL', '2017-12-19', '2018-01-27 22:20:13', 1, 2289, '2018-01-30 22:39:17', '2018-02-02 19:35:22', NULL, '2', '0'),
 (2359, 'cleber.souza', 'CAGECE', 844, 'NV0001', 'SBGCL-SCL', '2017-12-14', '2018-01-27 22:18:58', 1, 2290, '2018-01-30 22:39:50', '2018-02-02 19:49:40', NULL, '2', '0'),
+(2360, 'cleber.souza', 'CAGECE', 847, 'NV0001', 'SBGCL-SCL', '2017-12-19', '2018-01-27 22:20:13', 1, 2289, '2018-01-30 22:39:17', '2018-02-02 19:35:22', NULL, '2', '0'),
 (2361, 'cleber.souza', 'CAGECE', 849, 'NV0001', 'SBGCL-SCL', '2017-12-20', '2018-01-27 22:21:45', 1, 2291, '2018-01-30 22:40:07', '2018-02-02 19:57:15', NULL, '2', '0'),
 (2362, 'cleber.souza', 'CAGECE', 853, 'NV0001', 'SBGCL-SCL', '2017-12-22', '2018-01-27 22:24:44', 1, 2292, '2018-01-30 22:40:32', '2018-02-02 20:04:20', NULL, '2', '0'),
 (2363, 'cleber.souza', 'CAGECE', 851, 'NV0001', 'SBGCL-SCL', '2017-12-21', '2018-01-27 22:26:29', 1, 2293, '2018-01-30 22:40:56', '2018-02-02 20:10:09', NULL, '2', '0'),
@@ -6230,11 +7003,11 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (2410, 'nahim.pantoja', 'COSANPA', 428, 'OP0002', 'SBGCL-SCL', '2018-02-02', '2018-02-03 12:11:12', 4, 934, '2018-02-06 12:09:04', '2018-02-08 21:59:25', NULL, '2', '0'),
 (2411, 'cleber.souza', 'CAGEPA', 227, 'PV0001', 'SBGCL-SCL', '2018-02-05', '2018-02-05 19:09:05', 1, 2327, '2018-02-06 12:09:25', '2018-02-06 13:25:53', NULL, '2', '0'),
 (2412, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-02-05', '2018-02-05 19:31:57', 4, 935, '2018-02-06 12:09:45', '2018-02-08 20:18:05', NULL, '2', '0'),
-(2418, 'francinei', 'COSANPA', 423, 'CR0001', 'SBGCL-SCL', '2018-02-01', '2018-02-06 12:19:53', 4, 938, '2018-02-06 12:20:18', NULL, NULL, '1', '0'),
 (2414, 'francinei', 'COSANPA', 409, 'CR0001', 'SBGCL-SCL', '2018-02-03', '2018-02-05 19:33:47', 4, 937, '2018-02-06 12:10:28', '2018-02-08 20:23:47', NULL, '2', '0'),
 (2415, 'francinei', 'COSANPA', 490, 'CR0001', 'SBDPT-SPT', '2018-02-01', '2018-02-05 19:34:44', 4, 939, '2018-02-06 12:10:52', '2018-02-08 20:42:50', NULL, '2', '0'),
 (2416, 'francinei', 'COSANPA', 871, 'CR0001', 'SBDPT-SPT', '2018-02-02', '2018-02-06 10:20:12', 4, 936, '2018-02-06 12:11:15', '2018-02-08 20:52:20', NULL, '2', '0'),
 (2417, 'rafael.carlos', 'CASAL', 401, 'PV0001', 'SBGCL-SCL', '2018-02-05', '2018-02-06 11:24:38', 1, 2326, '2018-02-06 11:36:58', '2018-02-06 11:42:18', NULL, '2', '0'),
+(2418, 'francinei', 'COSANPA', 423, 'CR0001', 'SBGCL-SCL', '2018-02-01', '2018-02-06 12:19:53', 4, 938, '2018-02-06 12:20:18', NULL, NULL, '1', '0'),
 (2419, 'reginaldo.barbosa', 'CAERN', 70, 'CR0001', 'SBGCL-SCL', '2018-02-06', '2018-02-06 22:45:08', 1, 2328, '2018-02-07 20:34:33', '2018-02-18 11:46:40', NULL, '2', '0'),
 (2420, 'reginaldo.barbosa', 'CAERN', 866, 'CR0001', 'SBGCL-SCL', '2018-02-06', '2018-02-06 22:45:52', 1, 2329, '2018-02-07 20:34:56', '2018-02-18 11:52:35', NULL, '2', '0'),
 (2421, 'cleber.souza', 'CAGEPA', 741, 'PV0001', 'SBGCL-SCL', '2018-02-07', '2018-02-07 08:16:04', 1, 2330, '2018-02-07 20:35:15', '2018-02-09 10:47:37', NULL, '2', '0'),
@@ -6295,10 +7068,157 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `tb_os`
+--
+
+CREATE TABLE `tb_os` (
+  `id` int(11) NOT NULL,
+  `loja` int(11) NOT NULL,
+  `lojaNick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `local` int(11) NOT NULL,
+  `servico` varchar(6) COLLATE utf8_unicode_ci NOT NULL,
+  `categoria` int(11) NOT NULL,
+  `tipoServ` int(1) NOT NULL,
+  `bem` int(11) NOT NULL,
+  `tecnicos` varchar(450) COLLATE utf8_unicode_ci NOT NULL,
+  `data` date NOT NULL,
+  `dtUltimoMan` date DEFAULT NULL,
+  `dtCadastro` datetime NOT NULL,
+  `filial` int(2) DEFAULT NULL,
+  `os` int(11) DEFAULT NULL,
+  `dtOs` datetime DEFAULT NULL,
+  `dtFech` datetime DEFAULT NULL,
+  `dtTerm` datetime DEFAULT NULL,
+  `estado` enum('0','1','2','3','4') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `processo` enum('0','1','2','3','4','5') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `status` enum('0','1','2','3','4') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `ativo` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_os_tecnico`
+--
+
+CREATE TABLE `tb_os_tecnico` (
+  `id` int(11) NOT NULL,
+  `os` int(11) NOT NULL,
+  `loja` int(11) NOT NULL,
+  `tecnico` int(11) DEFAULT NULL,
+  `user` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `hh` double(5,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_produtos`
+--
+
+CREATE TABLE `tb_produtos` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `tag` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `tipo` varchar(4) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `tb_produtos`
+--
+
+INSERT INTO `tb_produtos` (`id`, `name`, `tag`, `tipo`) VALUES
+(1, 'MASCARA AUTONOMA', 'MSA', 'PROD'),
+(2, 'SISTEMA CLORACAO', 'SCL', 'PROD'),
+(3, 'CLORADOR', 'CLORADOR', 'PROD'),
+(4, 'CILINDRO AR RESPIRAVEL', 'CILINDRO AR', 'PROD');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_produto_categoria`
+--
+
+CREATE TABLE `tb_produto_categoria` (
+  `id` int(11) NOT NULL,
+  `produto` int(11) NOT NULL,
+  `categoria` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_produto_tipo`
+--
+
+CREATE TABLE `tb_produto_tipo` (
+  `id` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `tb_produto_tipo`
+--
+
+INSERT INTO `tb_produto_tipo` (`id`, `name`) VALUES
+('PROD', 'PRODUTO'),
+('SERV', 'SERVICO');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_proprietario`
+--
+
+CREATE TABLE `tb_proprietario` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `nick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0',
+  `cadastro` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `tb_proprietario`
+--
+
+INSERT INTO `tb_proprietario` (`id`, `name`, `nick`, `ativo`, `cadastro`) VALUES
+(1, 'Sabara Quimicos Ingredientes S/A', 'Sabará ã', '0', '2017-08-17');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_seguimento`
+--
+
+CREATE TABLE `tb_seguimento` (
+  `id` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `tb_seguimento`
+--
+
+INSERT INTO `tb_seguimento` (`id`, `name`) VALUES
+('BEB', 'BEBIDA'),
+('IND', 'INDUSTRIA'),
+('OUT', 'OUTRO'),
+('SAN', 'SANEAMENTO'),
+('USI', 'USINA');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `tb_servicos`
 --
 
-
+CREATE TABLE `tb_servicos` (
+  `id` varchar(6) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(30) CHARACTER SET utf8 NOT NULL,
+  `tipo` enum('0','1','2','3','4') CHARACTER SET utf8 NOT NULL DEFAULT '0',
+  `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_servicos`
@@ -6313,18 +7233,17 @@ INSERT INTO `tb_servicos` (`id`, `name`, `tipo`, `ativo`) VALUES
 ('PRV001', 'PREVENTIVO', '3', '0'),
 ('VIT001', 'VISITA TECNICA', '0', '0');
 
-
 -- --------------------------------------------------------
 
 --
 -- Estrutura da tabela `tb_sistema`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_sistema` (
-  `id` varchar(12) NOT NULL,
+CREATE TABLE `tb_sistema` (
+  `id` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
   `descricao` varchar(30) CHARACTER SET utf8 NOT NULL,
   `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_sistema`
@@ -6342,53 +7261,56 @@ INSERT INTO `tb_sistema` (`id`, `descricao`, `ativo`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `tb_tecnicos`
+--
+
+CREATE TABLE `tb_tecnicos` (
+  `id` int(11) NOT NULL,
+  `user` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `hh` double(5,2) NOT NULL,
+  `ativo` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `tb_tecnicos`
+--
+
+INSERT INTO `tb_tecnicos` (`id`, `user`, `hh`, `ativo`) VALUES
+(1, 'Fábio Boninã', 10.00, '0');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `tb_teste`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_teste` (
+CREATE TABLE `tb_teste` (
   `id` int(11) NOT NULL,
-  `bem` varchar(500) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `bem` varchar(500) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
 
 --
--- Extraindo dados da tabela `tb_teste`
+-- Estrutura da tabela `tb_tipo`
 --
 
-INSERT INTO `tb_teste` (`id`, `bem`) VALUES
-(391, '22/05/2017 14:54:00;23;ABS CEL/ETH IO (4ED/8EA/4SD);EA_1;Entrada Analógica 1;529.000'),
-(370, '9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
-(371, '9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
-(372, '9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
-(373, '9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
-(374, '9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
-(375, '17/05/2017 16:15:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
-(376, '17/05/2017 16:16:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
-(377, '17/05/2017 16:17:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
-(378, '17/05/2017 16:18:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
-(379, '17/05/2017 16:19:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
-(380, '17/05/2017 16:20:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
-(381, '17/05/2017 16:21:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
-(382, '17/05/2017 16:22:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
-(383, '17/05/2017 16:23:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
-(384, '17/05/2017 16:24:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
-(385, '17/05/2017 16:25:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
-(386, '17/05/2017 16:26:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
-(387, '17/05/2017 16:27:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
-(388, '17/05/2017 16:35:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
-(389, '17/05/2017 16:36:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
-(390, '17/05/2017 16:37:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
-(392, '22/05/2017 14:55:00;23;ABS CEL/ETH IO (4ED/8EA/4SD);EA_1;Entrada Analógica 1;529.000'),
-(393, '22/05/2017 15:03:00;1;ABS CEL/ETH IO (8ED/4EA/4SD);EA_1;PPM;1.115625'),
-(394, '22/05/2017 15:04:00;1;ABS CEL/ETH IO (8ED/4EA/4SD);EA_1;PPM;1.134375'),
-(395, '22/05/2017 15:05:00;1;ABS CEL/ETH IO (8ED/4EA/4SD);EA_1;PPM;1.115625'),
-(396, '22/05/2017 15:07:00;1;ABS CEL/ETH IO (8ED/4EA/4SD);EA_1;PPM;1.096875'),
-(397, '22/05/2017 15:08:00;1;ABS CEL/ETH IO (8ED/4EA/4SD);EA_1;PPM;1.096875'),
-(398, '22/05/2017 15:09:00;1;ABS CEL/ETH IO (8ED/4EA/4SD);EA_1;PPM;1.096875'),
-(399, '14/08/2017 16:28:08;126;SABARA;EA_1;Entrada Analógica 1;0.000;EA_2;404.000;EA_3;443.000;EA_4;988.000'),
-(400, '14/08/2017 16:30:02;126;SABARA;EA_1;Entrada Analógica 1;0.000;EA_2;404.000;EA_3;443.000;EA_4;989.000'),
-(401, '14/08/2017 16:31:01;126;SABARA;EA_1;Entrada Analógica 1;0.000;EA_2;404.000;EA_3;442.000;EA_4;991.000'),
-(402, '14/08/2017 16:32:02;126;SABARA;EA_1;Entrada Analógica 1;0.000;EA_2;404.000;EA_3;443.000;EA_4;984.000'),
-(403, '24/11/2017 11:41:08;243;SABARA;EA_1;PPM de Cloro;0.165;PPM;EA_2;Entrada Analógica 2;0.000;PPM;EA_4;Entrada Analógica 4;0.000;PPM;EA_3;Entrada Analógica 3;0.000;PPM');
+CREATE TABLE `tb_tipo` (
+  `id` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `tb_tipo`
+--
+
+INSERT INTO `tb_tipo` (`id`, `name`) VALUES
+('EEA', 'EEA'),
+('ETA', 'ETA'),
+('ETE', 'ETE'),
+('IND', 'INDUSTRIA'),
+('OUT', 'OUTROS'),
+('POC', 'POCO');
 
 -- --------------------------------------------------------
 
@@ -6396,11 +7318,11 @@ INSERT INTO `tb_teste` (`id`, `bem`) VALUES
 -- Estrutura da tabela `tipo_despesa`
 --
 
-CREATE TABLE IF NOT EXISTS `tipo_despesa` (
+CREATE TABLE `tipo_despesa` (
   `id` int(11) NOT NULL,
-  `tipo_despesa` varchar(45) NOT NULL,
-  `ativo` enum('0','1') NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `tipo_despesa` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `ativo` enum('0','1') COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -6408,21 +7330,28 @@ CREATE TABLE IF NOT EXISTS `tipo_despesa` (
 -- Estrutura da tabela `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `name` varchar(150) CHARACTER SET latin1 NOT NULL,
-  `email` varchar(100) CHARACTER SET latin1 NOT NULL,
-  `user` varchar(50) CHARACTER SET latin1 NOT NULL,
-  `password` varchar(32) CHARACTER SET latin1 NOT NULL,
-  `avatar` varchar(350) CHARACTER SET latin1 DEFAULT NULL,
+  `name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `user` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `avatar` varchar(350) COLLATE utf8_unicode_ci DEFAULT NULL,
   `proprietario` int(11) DEFAULT NULL,
-  `grupoLoja` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `loja` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `nivel` enum('0','1','2','3','4') CHARACTER SET latin1 NOT NULL DEFAULT '0',
-  `ativo` enum('0','1') CHARACTER SET latin1 NOT NULL DEFAULT '0',
-  `data_cadastro` date NOT NULL DEFAULT '0000-00-00',
-  `data_ultimo_login` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `grupoLoja` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `loja` int(11) DEFAULT NULL,
+  `nivel` enum('0','1','2','3','4') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `ativo` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `data_cadastro` date NOT NULL,
+  `data_ultimo_login` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `user`, `password`, `avatar`, `proprietario`, `grupoLoja`, `loja`, `nivel`, `ativo`, `data_cadastro`, `data_ultimo_login`) VALUES
+(1, 'FABIO VITORINO BONINA MORAIS', 'fabiobonina@gmail.com', 'Fábio Boninã', 'a906449d5769fa7361d7ecc6aa3f6d28', 'http://www.gravatar.com/avatar/5f3781a40c3fde1b4ac568a97692aa70?d=identicon', 1, 'P', 2, '4', '0', '2017-11-08', '2018-02-26 05:38:01');
 
 --
 -- Indexes for dumped tables
@@ -6431,3 +7360,558 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 -- Indexes for table `login`
 --
+ALTER TABLE `login`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `niciuser_UNIQUE` (`nickuser`),
+  ADD UNIQUE KEY `email_UNIQUE` (`email`);
+
+--
+-- Indexes for table `tb_ativo`
+--
+ALTER TABLE `tb_ativo`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cliente` (`cliente`),
+  ADD KEY `localidade` (`localidade`);
+
+--
+-- Indexes for table `tb_bem`
+--
+ALTER TABLE `tb_bem`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_tb_bem_tb_fabricante1_idx` (`fabricante`),
+  ADD KEY `fk_tb_bem_tb_loja1_idx` (`proprietario`),
+  ADD KEY `fk_tb_bem_tb_categoria1_idx` (`categoria`),
+  ADD KEY `fk_tb_bem_tb_produtos1_idx` (`produto`),
+  ADD KEY `fk_tb_bem_tb_locais1_idx` (`proprietarioLocal`);
+
+--
+-- Indexes for table `tb_bem_localizacao`
+--
+ALTER TABLE `tb_bem_localizacao`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_tb_bem_localizacao_tb_bem1_idx` (`bem`),
+  ADD KEY `fk_tb_bem_localizacao_tb_loja1_idx` (`loja`),
+  ADD KEY `fk_tb_bem_localizacao_tb_locais1_idx` (`local`);
+
+--
+-- Indexes for table `tb_bens_grupo`
+--
+ALTER TABLE `tb_bens_grupo`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_tb_bens_grupo_tb_grupo1_idx` (`grupo`),
+  ADD KEY `fk_tb_bens_grupo_tb_bem1_idx` (`bem`);
+
+--
+-- Indexes for table `tb_categoria`
+--
+ALTER TABLE `tb_categoria`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_clientes`
+--
+ALTER TABLE `tb_clientes`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nick` (`nick`);
+
+--
+-- Indexes for table `tb_descricao`
+--
+ALTER TABLE `tb_descricao`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tb_oat` (`oat`);
+
+--
+-- Indexes for table `tb_equipamentos`
+--
+ALTER TABLE `tb_equipamentos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_tb_equipamentos_tb_produtos1_idx` (`produto`),
+  ADD KEY `fk_tb_equipamentos_tb_fabricante1_idx` (`fabricante`),
+  ADD KEY `fk_tb_equipamentos_tb_proprietario1_idx` (`proprietario`),
+  ADD KEY `fk_tb_equipamentos_tb_locais1_idx` (`local`),
+  ADD KEY `fk_tb_equipamentos_tb_categoria1_idx` (`categoria`);
+
+--
+-- Indexes for table `tb_eq_componentes`
+--
+ALTER TABLE `tb_eq_componentes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_tb_eq_componentes_tb_produtos1_idx` (`produto`),
+  ADD KEY `fk_tb_eq_componentes_tb_fabricante1_idx` (`frabicante`),
+  ADD KEY `fk_tb_eq_componentes_tb_loja1_idx` (`proprietario`),
+  ADD KEY `fk_tb_eq_componentes_tb_locais1_idx` (`local`),
+  ADD KEY `fk_tb_eq_componentes_tb_categoria1_idx` (`categoria`);
+
+--
+-- Indexes for table `tb_eq_localizacao`
+--
+ALTER TABLE `tb_eq_localizacao`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_tb_eq_localizacao_tb_equipamentos1_idx` (`equipamento`),
+  ADD KEY `fk_tb_eq_localizacao_tb_loja1_idx` (`loja`),
+  ADD KEY `fk_tb_eq_localizacao_tb_locais1_idx` (`local`);
+
+--
+-- Indexes for table `tb_fabricante`
+--
+ALTER TABLE `tb_fabricante`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_grupo`
+--
+ALTER TABLE `tb_grupo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_grupoloja`
+--
+ALTER TABLE `tb_grupoloja`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_insumos`
+--
+ALTER TABLE `tb_insumos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_tb_osdespesa_tb_oat10` (`tb_oat_id`);
+
+--
+-- Indexes for table `tb_locais`
+--
+ALTER TABLE `tb_locais`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_tb_locais_tb_loja1_idx` (`loja`),
+  ADD KEY `fk_tb_locais_tb_tipo1_idx` (`tipo`);
+
+--
+-- Indexes for table `tb_localidades`
+--
+ALTER TABLE `tb_localidades`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_clientes` (`cliente`);
+
+--
+-- Indexes for table `tb_local_categoria`
+--
+ALTER TABLE `tb_local_categoria`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_tb_local_categoria_tb_locais1_idx` (`local`),
+  ADD KEY `fk_tb_local_categoria_tb_categoria1_idx` (`categoria`);
+
+--
+-- Indexes for table `tb_loja`
+--
+ALTER TABLE `tb_loja`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nick_UNIQUE` (`nick`),
+  ADD KEY `fk_tb_loja_tb_proprietario1_idx` (`proprietario`),
+  ADD KEY `fk_tb_loja_tb_grupoloja1_idx` (`grupoLoja`),
+  ADD KEY `fk_tb_loja_tb_seguimento1_idx` (`seguimento`);
+
+--
+-- Indexes for table `tb_loja_categoria`
+--
+ALTER TABLE `tb_loja_categoria`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_mod`
+--
+ALTER TABLE `tb_mod`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_tb_mod_tb_os1_idx` (`os`),
+  ADD KEY `fk_tb_mod_tb_tecnicos1_idx` (`tecnico`);
+
+--
+-- Indexes for table `tb_oat`
+--
+ALTER TABLE `tb_oat`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `nickuser` (`nickuser`,`cliente`,`localidade`,`servico`,`sistema`),
+  ADD KEY `fk_cleinte` (`cliente`),
+  ADD KEY `fk_localidades` (`localidade`),
+  ADD KEY `servico` (`servico`),
+  ADD KEY `sistema` (`sistema`);
+
+--
+-- Indexes for table `tb_os`
+--
+ALTER TABLE `tb_os`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_tb_os_tb_loja1_idx` (`loja`),
+  ADD KEY `fk_tb_os_tb_locais1_idx` (`local`),
+  ADD KEY `fk_tb_os_tb_servicos1_idx` (`servico`),
+  ADD KEY `fk_tb_os_tb_categoria1_idx` (`categoria`),
+  ADD KEY `fk_tb_os_tb_bem1_idx` (`bem`);
+
+--
+-- Indexes for table `tb_os_tecnico`
+--
+ALTER TABLE `tb_os_tecnico`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_tb_os_tecnico_tb_os1_idx` (`os`),
+  ADD KEY `fk_tb_os_tecnico_tb_loja1_idx` (`loja`),
+  ADD KEY `fk_tb_os_tecnico_tb_tecnicos1_idx` (`tecnico`);
+
+--
+-- Indexes for table `tb_produtos`
+--
+ALTER TABLE `tb_produtos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_tb_produtos_tb_produto_tipo1_idx` (`tipo`);
+
+--
+-- Indexes for table `tb_produto_categoria`
+--
+ALTER TABLE `tb_produto_categoria`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_tb_produto_categoria_tb_categoria1_idx` (`categoria`),
+  ADD KEY `fk_tb_produto_categoria_tb_produtos1_idx` (`produto`);
+
+--
+-- Indexes for table `tb_produto_tipo`
+--
+ALTER TABLE `tb_produto_tipo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_proprietario`
+--
+ALTER TABLE `tb_proprietario`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nick_UNIQUE` (`nick`);
+
+--
+-- Indexes for table `tb_seguimento`
+--
+ALTER TABLE `tb_seguimento`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_servicos`
+--
+ALTER TABLE `tb_servicos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_sistema`
+--
+ALTER TABLE `tb_sistema`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_tecnicos`
+--
+ALTER TABLE `tb_tecnicos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_tb_tecnicos_users1_idx` (`user`);
+
+--
+-- Indexes for table `tb_teste`
+--
+ALTER TABLE `tb_teste`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_tipo`
+--
+ALTER TABLE `tb_tipo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tipo_despesa`
+--
+ALTER TABLE `tipo_despesa`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `user` (`user`),
+  ADD KEY `fk_users_tb_proprietario_idx` (`proprietario`),
+  ADD KEY `fk_users_tb_grupoloja1_idx` (`grupoLoja`),
+  ADD KEY `fk_users_tb_loja1_idx` (`loja`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `login`
+--
+ALTER TABLE `login`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+--
+-- AUTO_INCREMENT for table `tb_ativo`
+--
+ALTER TABLE `tb_ativo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=493;
+--
+-- AUTO_INCREMENT for table `tb_bem`
+--
+ALTER TABLE `tb_bem`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tb_bem_localizacao`
+--
+ALTER TABLE `tb_bem_localizacao`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tb_bens_grupo`
+--
+ALTER TABLE `tb_bens_grupo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tb_categoria`
+--
+ALTER TABLE `tb_categoria`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `tb_clientes`
+--
+ALTER TABLE `tb_clientes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+--
+-- AUTO_INCREMENT for table `tb_descricao`
+--
+ALTER TABLE `tb_descricao`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2322;
+--
+-- AUTO_INCREMENT for table `tb_equipamentos`
+--
+ALTER TABLE `tb_equipamentos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tb_eq_componentes`
+--
+ALTER TABLE `tb_eq_componentes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tb_eq_localizacao`
+--
+ALTER TABLE `tb_eq_localizacao`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tb_fabricante`
+--
+ALTER TABLE `tb_fabricante`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `tb_grupo`
+--
+ALTER TABLE `tb_grupo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `tb_locais`
+--
+ALTER TABLE `tb_locais`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=595;
+--
+-- AUTO_INCREMENT for table `tb_localidades`
+--
+ALTER TABLE `tb_localidades`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=874;
+--
+-- AUTO_INCREMENT for table `tb_local_categoria`
+--
+ALTER TABLE `tb_local_categoria`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `tb_loja`
+--
+ALTER TABLE `tb_loja`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+--
+-- AUTO_INCREMENT for table `tb_loja_categoria`
+--
+ALTER TABLE `tb_loja_categoria`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `tb_mod`
+--
+ALTER TABLE `tb_mod`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tb_oat`
+--
+ALTER TABLE `tb_oat`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2475;
+--
+-- AUTO_INCREMENT for table `tb_os`
+--
+ALTER TABLE `tb_os`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tb_os_tecnico`
+--
+ALTER TABLE `tb_os_tecnico`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tb_produtos`
+--
+ALTER TABLE `tb_produtos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `tb_produto_categoria`
+--
+ALTER TABLE `tb_produto_categoria`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tb_proprietario`
+--
+ALTER TABLE `tb_proprietario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `tb_tecnicos`
+--
+ALTER TABLE `tb_tecnicos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `tb_teste`
+--
+ALTER TABLE `tb_teste`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Limitadores para a tabela `tb_bem`
+--
+ALTER TABLE `tb_bem`
+  ADD CONSTRAINT `fk_tb_bem_tb_categoria1` FOREIGN KEY (`categoria`) REFERENCES `tb_categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_bem_tb_fabricante1` FOREIGN KEY (`fabricante`) REFERENCES `tb_fabricante` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_bem_tb_locais1` FOREIGN KEY (`proprietarioLocal`) REFERENCES `tb_locais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_bem_tb_loja1` FOREIGN KEY (`proprietario`) REFERENCES `tb_loja` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_bem_tb_produtos1` FOREIGN KEY (`produto`) REFERENCES `tb_produtos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `tb_bem_localizacao`
+--
+ALTER TABLE `tb_bem_localizacao`
+  ADD CONSTRAINT `fk_tb_bem_localizacao_tb_bem1` FOREIGN KEY (`bem`) REFERENCES `tb_bem` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_bem_localizacao_tb_locais1` FOREIGN KEY (`local`) REFERENCES `tb_locais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_bem_localizacao_tb_loja1` FOREIGN KEY (`loja`) REFERENCES `tb_loja` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `tb_bens_grupo`
+--
+ALTER TABLE `tb_bens_grupo`
+  ADD CONSTRAINT `fk_tb_bens_grupo_tb_bem1` FOREIGN KEY (`bem`) REFERENCES `tb_bem` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_bens_grupo_tb_grupo1` FOREIGN KEY (`grupo`) REFERENCES `tb_grupo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `tb_equipamentos`
+--
+ALTER TABLE `tb_equipamentos`
+  ADD CONSTRAINT `fk_tb_equipamentos_tb_categoria1` FOREIGN KEY (`categoria`) REFERENCES `tb_categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_equipamentos_tb_fabricante1` FOREIGN KEY (`fabricante`) REFERENCES `tb_fabricante` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_equipamentos_tb_locais1` FOREIGN KEY (`local`) REFERENCES `tb_locais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_equipamentos_tb_produtos1` FOREIGN KEY (`produto`) REFERENCES `tb_produtos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_equipamentos_tb_proprietario1` FOREIGN KEY (`proprietario`) REFERENCES `tb_proprietario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `tb_eq_componentes`
+--
+ALTER TABLE `tb_eq_componentes`
+  ADD CONSTRAINT `fk_tb_eq_componentes_tb_categoria1` FOREIGN KEY (`categoria`) REFERENCES `tb_categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_eq_componentes_tb_fabricante1` FOREIGN KEY (`frabicante`) REFERENCES `tb_fabricante` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_eq_componentes_tb_locais1` FOREIGN KEY (`local`) REFERENCES `tb_locais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_eq_componentes_tb_loja1` FOREIGN KEY (`proprietario`) REFERENCES `tb_loja` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_eq_componentes_tb_produtos1` FOREIGN KEY (`produto`) REFERENCES `tb_produtos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `tb_eq_localizacao`
+--
+ALTER TABLE `tb_eq_localizacao`
+  ADD CONSTRAINT `fk_tb_eq_localizacao_tb_equipamentos1` FOREIGN KEY (`equipamento`) REFERENCES `tb_equipamentos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_eq_localizacao_tb_locais1` FOREIGN KEY (`local`) REFERENCES `tb_locais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_eq_localizacao_tb_loja1` FOREIGN KEY (`loja`) REFERENCES `tb_loja` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `tb_locais`
+--
+ALTER TABLE `tb_locais`
+  ADD CONSTRAINT `fk_tb_locais_tb_loja1` FOREIGN KEY (`loja`) REFERENCES `tb_loja` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_locais_tb_tipo1` FOREIGN KEY (`tipo`) REFERENCES `tb_tipo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `tb_local_categoria`
+--
+ALTER TABLE `tb_local_categoria`
+  ADD CONSTRAINT `fk_tb_local_categoria_tb_categoria1` FOREIGN KEY (`categoria`) REFERENCES `tb_categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_local_categoria_tb_locais1` FOREIGN KEY (`local`) REFERENCES `tb_locais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `tb_loja`
+--
+ALTER TABLE `tb_loja`
+  ADD CONSTRAINT `fk_tb_loja_tb_grupoloja1` FOREIGN KEY (`grupoLoja`) REFERENCES `tb_grupoloja` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_loja_tb_proprietario1` FOREIGN KEY (`proprietario`) REFERENCES `tb_proprietario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_loja_tb_seguimento1` FOREIGN KEY (`seguimento`) REFERENCES `tb_seguimento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `tb_mod`
+--
+ALTER TABLE `tb_mod`
+  ADD CONSTRAINT `fk_tb_mod_tb_os1` FOREIGN KEY (`os`) REFERENCES `tb_os` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_mod_tb_tecnicos1` FOREIGN KEY (`tecnico`) REFERENCES `tb_tecnicos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `tb_os`
+--
+ALTER TABLE `tb_os`
+  ADD CONSTRAINT `fk_tb_os_tb_bem1` FOREIGN KEY (`bem`) REFERENCES `tb_bem` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_os_tb_categoria1` FOREIGN KEY (`categoria`) REFERENCES `tb_categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_os_tb_locais1` FOREIGN KEY (`local`) REFERENCES `tb_locais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_os_tb_loja1` FOREIGN KEY (`loja`) REFERENCES `tb_loja` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_os_tb_servicos1` FOREIGN KEY (`servico`) REFERENCES `tb_servicos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `tb_os_tecnico`
+--
+ALTER TABLE `tb_os_tecnico`
+  ADD CONSTRAINT `fk_tb_os_tecnico_tb_loja1` FOREIGN KEY (`loja`) REFERENCES `tb_loja` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_os_tecnico_tb_os1` FOREIGN KEY (`os`) REFERENCES `tb_os` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_os_tecnico_tb_tecnicos1` FOREIGN KEY (`tecnico`) REFERENCES `tb_tecnicos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `tb_produtos`
+--
+ALTER TABLE `tb_produtos`
+  ADD CONSTRAINT `fk_tb_produtos_tb_produto_tipo1` FOREIGN KEY (`tipo`) REFERENCES `tb_produto_tipo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `tb_produto_categoria`
+--
+ALTER TABLE `tb_produto_categoria`
+  ADD CONSTRAINT `fk_tb_produto_categoria_tb_categoria1` FOREIGN KEY (`categoria`) REFERENCES `tb_categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tb_produto_categoria_tb_produtos1` FOREIGN KEY (`produto`) REFERENCES `tb_produtos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `tb_tecnicos`
+--
+ALTER TABLE `tb_tecnicos`
+  ADD CONSTRAINT `fk_tb_tecnicos_users1` FOREIGN KEY (`user`) REFERENCES `users` (`user`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `fk_users_tb_grupoloja1` FOREIGN KEY (`grupoLoja`) REFERENCES `tb_grupoloja` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_users_tb_loja1` FOREIGN KEY (`loja`) REFERENCES `tb_loja` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_users_tb_proprietario` FOREIGN KEY (`proprietario`) REFERENCES `tb_proprietario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

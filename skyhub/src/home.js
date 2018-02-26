@@ -162,6 +162,7 @@ const actions = {
             commit("SET_USER", response.body.user);
             commit("SET_PROPRIETARIO", response.body.proprietarios);
             commit("SET_LOJAS", response.body.lojas);
+            commit("SET_LOCAIS", response.body.locais);
             resolve();
           }
         })
