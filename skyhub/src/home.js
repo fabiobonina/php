@@ -199,7 +199,7 @@ const actions = {
         if(response.body.error){
           console.log(response.body.message);
         } else{
-          console.log(response.body);
+          //console.log(response.body);
           commit("SET_OSPROPRIETARIO", response.body.osProprietario);
           commit("SET_OSLOJAS", response.body.osLojas);
           commit("SET_OSS", response.body.oss);
@@ -337,6 +337,7 @@ Vue.component('todo-item', {
 var router = new VueRouter({
   routes: [
     {path: '/', component: Home,  name: 'home'},
+    {path: '/lojas', component: Lojas, name: 'lojas'},
     {path: '/loja/:_id', component: Loja, name: 'loja'},
     /*{path: '/config', component: Loja,
     children: [
@@ -349,6 +350,7 @@ var router = new VueRouter({
       ]
     },*/
     {path: '/loja/:_id/local/:_local', component: Local, name: 'local'},
+    {path: '/oss', component: Oss, name: 'oss'},
     {path: '/oss/:_id', component: Oss, name: 'oss'},
     {path: '/oss/:_id/os/:_os', component: Os, name: 'os'},
     {path: '*', component: NaoEncontrado}

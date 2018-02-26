@@ -6,10 +6,7 @@
         <div>
           <top></top>
           <configuracao></configuracao>
-          
-          <router-view></router-view>
-          
-          <vue-map></vue-map>
+            <router-view></router-view>
           <rodape></rodape>
         </div>
       </main>

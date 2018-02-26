@@ -68,10 +68,13 @@ Vue.component('vue-map', {
     createMarkers: function() {
       var self = this;
       this.markers = this.filteredData.map(function(location, i) {
+        var latitude = parseFloat(location.latitude).toFixed(6)
+        var longitude = parseFloat(location.longitude).toFixed(6)
         var position = {
-          lat: Number( location.latitude ), 
-          lng: Number( location.longitude )
+          lat: Number( latitude ), 
+          lng: Number( longitude)
         }
+        //console.log(position)
         var infoWindowContent =
           "<h2> Loja n. " + location.id + "</h2>" + "<br />" + 
           "<p>" + location.lojaNick + "</p>"+ "<br />" + 

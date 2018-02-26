@@ -6,7 +6,8 @@ Vue.component('top', {
       errorMessage: '',
       successMessage: '',
       searchQuery: '',
-      modalUser: false
+      modalUser: false,
+      active: '0',
     };
   },
   created: function() {
@@ -20,6 +21,12 @@ Vue.component('top', {
   computed: {
     user() {
       return store.state.user;
+    },
+    proprietario() {
+      return store.state.proprietario;
+    },
+    osProprietario() {
+      return store.state.osProprietario;
     },
   },
   watch: {

@@ -12,11 +12,9 @@
                 <ul class="" id="results-list" v-if="currentZoom > zoomTreshold || search">
                     <li v-for="(marker, i) in visibleMarkers">
                         <strong>{{ marker.loja }}, {{ marker.name }}</strong><br/>
-                        <span> {{ marker.local}}</span><br/>
+                        <span> {{ marker.local}}</span>
                         <span v-if="currentLocation">distância da sua localização: {{ Math.round(marker.distanceFromCenter / 1000) + ' km' }}<br/></span>
-                        <span>lat: {{ marker.position.lat() }}</span><br/>
-                        <span>lng: {{ marker.position.lng() }}</span>
-                        <button v-bind:data-id='marker.id' @click='centerMapToMarker'>show on map</button>
+                        <button class="button is-small is-info is-inverted" v-bind:data-id='marker.id' @click='centerMapToMarker'><span class="mdi mdi-map-marker-radius"></span>Ver Maps</button>
                     </li>
                 </ul>
                 <h2 v-else>O sue ponto de visualização contém {{ visibleMarkers.length }} localidades,
