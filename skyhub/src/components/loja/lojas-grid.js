@@ -12,7 +12,10 @@ Vue.component('grid-lojas', {
     })
     return {
       sortKey: '',
-      sortOrders: sortOrders
+      sortOrders: sortOrders,
+      modalItem: {},
+      modalEdt: false,
+      modalDel: false
     }
   },
   computed: {
@@ -47,6 +50,13 @@ Vue.component('grid-lojas', {
     sortBy: function (key) {
       this.sortKey = key
       this.sortOrders[key] = this.sortOrders[key] * -1
-    }
+    },
+    itemModal: function(){
+      this.modalEdt = false,
+      this.modalDel = false
+    },
+    selecItem: function(data){
+      this.modalItem = data;
+    },
   }
 });

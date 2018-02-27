@@ -52,7 +52,8 @@
     <!-- /components servicos -->
 
     <template id="naoEncrontrado">
-      <h2>No encuentro: 404</h2>
+      <div><h2>No encuentro: 404</h2></div>
+      
     </template>
   </div>
 <!-- /.container -->

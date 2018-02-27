@@ -4,8 +4,8 @@
     <div>
       <main id="app">
         <div>
-          <top></top>
           <configuracao></configuracao>
+          
             <router-view></router-view>
           <rodape></rodape>
         </div>
@@ -15,10 +15,14 @@
     <?php include("src/pages/top.php");?>
     <?php include("src/pages/rodape.php");?>
     <?php include("src/pages/config.php");?>
+    <?php include("src/pages/dashboard.php");?>
     <!-- components proprietario -->
     <?php include("src/components/proprietario/proprietario.php");?>
     <!-- /components proprietario -->
     <!-- components loja -->
+    <?php include("src/components/loja/loja-add.php");?>
+    <?php include("src/components/loja/loja-del.php");?>
+    <?php include("src/components/loja/loja-edt.php");?>
     <?php include("src/components/loja/loja.php");?>
     <?php include("src/components/loja/lojas.php");?>
     <?php include("src/components/loja/lojas-grid.php");?>
@@ -54,8 +58,9 @@
     <?php include("src/components/servicos/tecnico/tecnico.php");?>
     <!-- /components servicos -->
 
-    <template id="naoEncrontrado">
-      <h2>No encuentro: 404</h2>
+    <template id="naoEncontrado">
+      <div><h2>No encuentro: 404</h2></div>
+      
     </template>
   </div>
 <!-- /.container -->
@@ -64,11 +69,15 @@
 <script src="src/pages/top.js"></script>
 <script src="src/pages/rodape.js"></script>
 <script src="src/pages/config.js"></script>
+<script src="src/pages/dashboard.js"></script>
 <!-- components proprietario -->
 <script src="src/components/proprietario/proprietario.js"></script>
 <!-- /components proprietario -->
 <!-- components loja -->
 <script src="src/components/loja/lojas-grid.js"></script>
+<script src="src/components/loja/loja-add.js"></script>
+<script src="src/components/loja/loja-del.js"></script>
+<script src="src/components/loja/loja-edt.js"></script>
 <script src="src/components/loja/loja.js"></script>
 <script src="src/components/loja/lojas.js"></script>
 <script src="src/components/os/lojaOss.js"></script>

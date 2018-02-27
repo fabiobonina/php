@@ -336,8 +336,13 @@ Vue.component('todo-item', {
 
 var router = new VueRouter({
   routes: [
-    {path: '/', component: Home,  name: 'home'},
-    {path: '/lojas', component: Lojas, name: 'lojas'},
+    {path: '/', component: Home,
+      children: [
+        { path: '', component: Dashboard },
+        { path: 'oss', component: Oss },
+        { path: 'lojas', component: Lojas },
+      ]
+    },
     {path: '/loja/:_id', component: Loja, name: 'loja'},
     /*{path: '/config', component: Loja,
     children: [
@@ -350,7 +355,6 @@ var router = new VueRouter({
       ]
     },*/
     {path: '/loja/:_id/local/:_local', component: Local, name: 'local'},
-    {path: '/oss', component: Oss, name: 'oss'},
     {path: '/oss/:_id', component: LojaOss, name: 'lojaoss'},
     {path: '/oss/:_id/os/:_os', component: Os, name: 'os'},
     {path: '*', component: NaoEncontrado}

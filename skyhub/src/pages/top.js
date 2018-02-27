@@ -21,25 +21,13 @@ Vue.component('top', {
   computed: {
     user() {
       return store.state.user;
-    },
-    proprietario() {
-      return store.state.proprietario;
-    },
-    osProprietario() {
-      return store.state.osProprietario;
-    },
+    }
   },
   watch: {
     // sempre que a pergunta mudar, essa função será executada
-    searchQuery: function (val) {
-      this.buscar();
-    }
   },
   methods: {
-    // Bu metot http get ile api üzerinden kayıtları users dizisine push eder
-    buscar: function() {
-      this.$store.dispatch('setSearch', this.searchQuery);
-    }
+
   }
 });
 

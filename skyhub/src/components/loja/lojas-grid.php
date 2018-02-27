@@ -1,8 +1,6 @@
 <template id="grid-lojas">
   <div>
-    <section class="container">
-      <a class="button is-primary is-block is-al is-large" href="#">New Post</a>
-      
+    <section class="container">      
       <div class="box content">
         <article class="post" v-for="entry in filteredData">
           <div class="columns">
@@ -45,16 +43,41 @@
                     <p class="title">456K</p>
                   </div>
                 </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Ação</p>
+                    
+                    <div class="dropdown is-right is-hoverable">
+                      <div class="dropdown-trigger">
+                        <button class="button  is-text" aria-haspopup="true" aria-controls="dropdown-menu1">
+                          <span class="icon is-small">
+                            <span class="mdi mdi-dots-vertical"></span>
+                          </span>
+                        </button>
+                      </div>
+                      <div class="dropdown-menu" id="dropdown-menu1" role="menu">
+                        <div class="dropdown-content">
+                          <a @click.native="modalEdt = true; selecItem(props.item)" class="dropdown-item">
+                            <span class="mdi mdi-pencil"></span>Edit
+                          </a>
+                          <a @click.native="modalDel = true; selecItem(props.item)" class="dropdown-item">
+                            <span class="mdi mdi-delete"></span>Delete
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
               </nav>
             </div>
           </div>
         </article>
       </div>
     </section>
-    <div class="box-body">
-      <div class="box-header with-border">
-        <h3 class="title">Lojas</h3>
-      </div>
+    <div>
+      <loja-edt v-if="modalEdt" v-on:close="modalEdt = false" :data="loja" @atualizar="onAtualizar"></loja-edt>
+      <loja-del v-if="modalDel" v-on:close="modalDel = false" :data="loja" @atualizar="onAtualizar"></loja-del>
     </div>
   </div>
 </template>

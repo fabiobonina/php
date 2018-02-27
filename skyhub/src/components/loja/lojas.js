@@ -5,7 +5,9 @@ var Lojas = Vue.extend({
       errorMessage: '',
       successMessage: '',
       active: '0',
-      gridColumns: ['displayName', 'name']
+      gridColumns: ['displayName', 'name'],
+      search:'',
+      modalLojaAdd: true
     };
   },
   created() {
