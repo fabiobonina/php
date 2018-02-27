@@ -19,8 +19,10 @@
     <?php include("src/components/proprietario/proprietario.php");?>
     <!-- /components proprietario -->
     <!-- components loja -->
-    <?php include("src/components/loja/lojas-grid.php");?>
     <?php include("src/components/loja/loja.php");?>
+    <?php include("src/components/loja/lojas.php");?>
+    <?php include("src/components/loja/lojas-grid.php");?>
+    <?php include("src/components/os/lojaOss.php");?>
     <!-- /components loja -->
     <!-- components local -->
     <?php include("src/components/local/geolocalizacao.php");?>
@@ -38,7 +40,7 @@
     <?php include("src/components/os/os.php");?>
     <?php include("src/components/os/os-grid.php");?>
     <?php include("src/components/os/osAdd.php");?>
-    <?php include("src/components/os/osLojas.php");?>
+    
     <!-- /components os -->
     <!-- components user -->
     <?php include("src/components/user/user.php");?>
@@ -68,6 +70,8 @@
 <!-- components loja -->
 <script src="src/components/loja/lojas-grid.js"></script>
 <script src="src/components/loja/loja.js"></script>
+<script src="src/components/loja/lojas.js"></script>
+<script src="src/components/os/lojaOss.js"></script>
 <!-- /components loja -->
 <!-- components local-->
 <script src="src/components/local/geolocalizacao.js"></script>
@@ -85,7 +89,6 @@
 <script src="src/components/os/oss.js"></script>
 <script src="src/components/os/os.js"></script>
 <script src="src/components/os/osAdd.js"></script>
-<script src="src/components/os/osLojas.js"></script>
 <!-- /components os -->
 <!-- components user -->
 <script src="src/components/user/user.js"></script>

@@ -80,7 +80,7 @@
           <div class="container">
             <ul>
               <li :class="active==0 ? 'is-active' : ''" @click="active='0'"><a><router-link to="/"> Dashboard</router-link></a></li>
-              <li :class="active==1 ? 'is-active' : ''" @click="active='1'"><a><router-link to="/"> OS´s</router-link></a></li>
+              <li :class="active==1 ? 'is-active' : ''" @click="active='1'"><a><router-link to="/oss"> OS´s</router-link></a></li>
               <li :class="active==2 ? 'is-active' : ''" @click="active='2'"><a><router-link to="/lojas"> Lojas</router-link></a></li>
             </ul>
           </div>
