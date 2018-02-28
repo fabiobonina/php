@@ -11,5 +11,11 @@ Vue.component('configuracao', {
     this.$store.dispatch("fetchConfig").then(() => {
       console.log("Buscando dados das Configurações!")
     });
+    this.$store.dispatch("fetchIndex").then(() => {
+      console.log("Buscando dados para inicial!")
+    });
+    this.$store.dispatch("fetchOs").then(() => {
+      console.log("Buscando dados OS!")
+    });
   }
 });

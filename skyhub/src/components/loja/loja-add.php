@@ -142,18 +142,14 @@
                   </span>
                 </p>
               </div>
-              <hr>
-              <p class="control field is-grouped is-grouped-right">
-                <button :class="isLoading ? 'button is-info is-loading' : 'button is-info'" v-on:click="registrar()">Registrar</button>
-              </p>
             </div>
 
         
         <!--#CONTEUDO -->
       </section>
       <footer class="modal-card-foot field is-grouped is-grouped-right">
-        <button :class="isLoading ? 'button is-success is-loading' : 'button is-success'" v-on:click="saveItem()">Save</button>
         <button class="button" v-on:click="$emit('close')">Cancel</button>
+        <button :class="isLoading ? 'button is-info is-loading' : 'button is-info'" v-on:click="saveItem()">Save</button>
       </footer>
     </div>
   </div>

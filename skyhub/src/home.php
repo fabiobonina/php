@@ -5,8 +5,8 @@
       <main id="app">
         <div>
           <configuracao></configuracao>
-          
             <router-view></router-view>
+            <br>
           <rodape></rodape>
         </div>
       </main>
@@ -32,6 +32,7 @@
     <?php include("src/components/local/geolocalizacao.php");?>
     <?php include("src/components/local/locais-grid.php");?>
     <?php include("src/components/local/local.php");?>
+    <?php include("src/components/local/locais.php");?>
     <?php include("src/components/local/localAdd.php");?>
     <?php include("src/components/local/maps.php");?>
     <!-- /components local-->
@@ -86,6 +87,7 @@
 <script src="src/components/local/geolocalizacao.js"></script>
 <script src="src/components/local/locais-grid.js"></script>
 <script src="src/components/local/local.js"></script>
+<script src="src/components/local/locais.js"></script>
 <script src="src/components/local/localAdd.js"></script>
 <script src="src/components/local/maps.js"></script>
 <!-- /components local-->

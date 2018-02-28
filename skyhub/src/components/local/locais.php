@@ -1,4 +1,4 @@
-<template id="lojas">
+<template id="locais">
   <div>
     <section class="container">
       <div class="field has-addons">
@@ -10,13 +10,13 @@
         </div>
         &nbsp;
         <div class="control">
-          <a v-on:click="modalLojaAdd = true; selecItem(dados)" class="button is-link is-al">
-            <span class="mdi mdi-store"></span> Loja
+          <a v-on:click="modalLocalAdd = true; selecItem(dados)" class="button is-link is-al">
+            <span class="mdi mdi-home-modern"></span> Locais
           </a>
         </div>
       </div>
-      <grid-lojas :data="lojas" :columns="gridColumns" :filter-key="search"></grid-lojas>
-      <loja-add v-if="modalLojaAdd" v-on:close="modalLojaAdd = false" :data="loja" @atualizar="onAtualizar"></loja-add>
+      <grid-local :data="locais" :columns="gridColumns" :filter-key="search"></grid-local>
+      <local-add v-if="modalLocalAdd" v-on:close="modalLocalAdd = false" :data="loja" @atualizar="onAtualizar"></local-add>
     </section>
   </div>
 </template>

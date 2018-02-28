@@ -343,7 +343,12 @@ var router = new VueRouter({
         { path: 'lojas', component: Lojas },
       ]
     },
-    {path: '/loja/:_id', component: Loja, name: 'loja'},
+    {path: '/loja/:_id', component: Loja,
+      children: [
+        { path: '', component: Locais },
+        { path: 'oss', component: LojaOss },
+      ], name: 'loja'
+     },
     /*{path: '/config', component: Loja,
     children: [
         {path: '', components: { 
@@ -355,7 +360,6 @@ var router = new VueRouter({
       ]
     },*/
     {path: '/loja/:_id/local/:_local', component: Local, name: 'local'},
-    {path: '/oss/:_id', component: LojaOss, name: 'lojaoss'},
     {path: '/oss/:_id/os/:_os', component: Os, name: 'os'},
     {path: '*', component: NaoEncontrado}
   ]

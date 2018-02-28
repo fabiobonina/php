@@ -1,96 +1,70 @@
 
 <template id="loja">
   <div>
+  <section class="hero is-link">
+      <!-- Hero head: will stick at the top -->
+      <top></top>
+      <!-- Hero content: will be in the middle -->
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <div class="columns">
+            <div class="column is-two-fifths has-text-left">
+              <h1 class="title"> {{ loja.nick }} </h1>
+              <p class="subtitle"> {{ loja.seguimento }} - {{ loja.name }}
+                <span class="pull-right tag" v-for="categoria in loja.categoria">{{ categoria.tag }}</span>
+              </p>
+            </div>
+            <div class="column">
+              <nav class="level">
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Local</p>
+                    <p class="title is-4"> {{ loja.locaisQt }} <span class="icon is-small"> <i class="fa fa-building-o"></i></span></p>
+                    <p> {{ loja.locaisGeoStatus }}% ({{ loja.locaisGeoQt }})<span class="icon"><i class="fa fa-map-marker"></i></span></p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">OS´s</p>
+                    <p class="title is-4"> {{  }} <span class="icon is-small"><i class="fa fa-wrench"></i></span></p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Followers</p>
+                    <p class="title is-4">456K</p>
+                  </div>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Hero footer: will stick at the bottom -->
+      <div class="hero-foot">
+        <nav class="tabs">
+          <div class="container">
+            <ul>
+              <li :class="$route.path == '/loja/'+ $route.params._id ? 'is-active' : ''">
+                <a><router-link :to="'/loja/'+ $route.params._id"> Locais</router-link></a>
+              </li>
+              <li :class="$route.path == '/loja/'+ $route.params._id +'/oss' ? 'is-active' : ''">
+                <a><router-link :to="'/loja/'+ $route.params._id +'/oss'"> OS´s</router-link></a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+
+    </section>
     <nav class="breadcrumb is-right" aria-label="breadcrumbs">
       <ul>
         <li><router-link to="/"> Home</router-link></li>
         <li class="is-active"><a aria-current="page">Loja</a></li>
       </ul>
     </nav>
-    <section class="section">
-      <div class="container">
-        <div class="columns">
-          <div class="column is-three-fifths">
-            <h1 class="title"> {{ loja.nick }} </h1>
-            <p class="subtitle"> {{ loja.seguimento }} - {{ loja.name }} <span class="pull-right tag" v-for="categoria in loja.categoria">{{ categoria.tag }}</span></p>
-          </div>
-          <div class="column">
-            <nav class="level">
-              <div class="level-item has-text-centered">
-                <div>
-                  <p class="heading">Local: <i class="fa fa-building-o"></i> {{ loja.locaisQt }}</p>
-                  <p><i class="fa fa-map-marker"></i> {{ loja.locaisGeoStatus }}% ({{ loja.locaisGeoQt }})</span></p>
-                </div>
-              </div>
-              <div class="level-item has-text-centered">
-                <div>
-                  <p class="heading">Following</p>
-                  <p class="title">123</p>
-                </div>
-              </div>
-              <div class="level-item has-text-centered">
-                <div>
-                  <p class="heading">Followers</p>
-                  <p class="title">456K</p>
-                </div>
-              </div>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="container">
-      <div>
-        <div class="tabs is-toggle">
-          <ul>
-            <li :class="active==1 ? 'is-active' : ''" @click="active=1">
-              <a>
-                <span class="icon is-small"><i class="fa fa-building-o"></i></span>
-                <span>Locais</span>
-              </a>
-            </li>
-            <li :class="active==2 ? 'is-active' : ''" @click="active=2">
-              <a>
-                <span class="icon is-small"><i class="fa fa-music"></i></span>
-                <span>Bens Ocioso</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <span class="icon is-small"><i class="fa fa-film"></i></span>
-                <span>Videos</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <span class="icon is-small"><i class="fa fa-file-text-o"></i></span>
-                <span>Documents</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-        <section class="container">
-          <div  v-if="active==1">
-            <div class="widget-user-header bg-aqua-active">
-              <p class="successMessage" v-if="successMessage">{{successMessage}}</p>
-              <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
-            </div>
-            <div>
-              <a v-on:click="modalLocalAdd = true" class="button is-primary is-al">
-                <i class="fa fa-building-o"></i> Local Add
-              </a>
-            </div>
-            <br>
-            <grid-local
-                :data="locais"
-                :columns="gridColumns"
-                :filter-key="searchQuery">
-            </grid-local>
-          </div>
-        </section>
-        <local-add v-if="modalLocalAdd" v-on:close="modalLocalAdd = false" :data="loja" @atualizar="onAtualizar"></local-add>
-      </div>
-      <!-- /.box -->
-    </section>
+    <div>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
