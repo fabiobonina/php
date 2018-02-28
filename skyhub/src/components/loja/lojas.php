@@ -16,7 +16,7 @@
         </div>
       </div>
       <grid-lojas :data="lojas" :columns="gridColumns" :filter-key="search"></grid-lojas>
-      <loja-add v-if="modalLojaAdd" v-on:close="modalLojaAdd = false" :data="loja" @atualizar="onAtualizar"></loja-add>
+      <loja-add v-if="modalLojaAdd" v-on:close="modalLojaAdd = false" @atualizar="onAtualizar"></loja-add>
     </section>
   </div>
 </template>

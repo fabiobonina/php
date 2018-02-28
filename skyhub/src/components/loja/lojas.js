@@ -24,6 +24,11 @@ var Lojas = Vue.extend({
     },
   },
   methods: {
+    onAtualizar: function(){
+      this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
+        console.log("Buscando dados das locais!")
+      });
+    }
   }
 });
   

@@ -3,58 +3,81 @@
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">{{ }} <p> <i class="fa fa-qrcode"></i> {{  }} <i class="fa fa-fw fa-barcode"></i>{{   }}</p></p>
+        <p class="modal-card-title">{{ proprietarios.nick }} - Nova Loja <span class="mdi mdi-store"></span></p>
         <button class="delete" aria-label="close" v-on:click="$emit('close')"></button>
       </header>
       <section class="modal-card-body">
         <message :success="successMessage" :error="errorMessage"></message>
         <!--#CONTEUDO -->
-        <p>{{  }}</p>
+
+        <div class="field">
+          <p class="control has-icons-right">
+            <input v-model="name" class="input" type="text" placeholder="Nome">
+            <span class="icon is-small is-right">
+              <span class="mdi mdi-store"></span>
+            </span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control has-icons-right">
+            <input v-model="nick" class="input" type="text" placeholder="Nome Fantasia">
+            <span class="icon is-small is-right">
+              <span class="mdi mdi-store"></span>
+            </span>
+          </p>
+        </div>
         <div class="field is-horizontal">
           <div class="field-label is-normal">
-            <label class="label">Serviço</label>
+            <label class="label">Grupo / seguimento</label>
           </div>
           <div class="field-body">
             <div class="field">
               <div class="is-fullwidth">
                 <p class="control has-icons-left">
                   <span class="select">
-                    <select v-model="servico">
-                      <option v-for="option in servicos" v-bind:value="option">{{ option.name }}</option>
+                    <select v-model="grupo">
+                      <option selected>Grupo</option>
+                      <option v-for="option in grupos" v-bind:value="option">{{ option.name }}</option>
                     </select>
                   </span>
                   <span class="icon is-small is-left">
-                    <i class="fa fa-wrench"></i>
+                  <span class="mdi mdi-format-text"></span>
                   </span>
                 </p>
               </div>
             </div>
             <div class="field">
-              <p class="control is-expanded has-icons-left">
-                <input v-model="dataOs" class="input" type="date">
-                <span class="icon is-small is-left">
-                  <i class="fa fa-calendar"></i>
-                </span>
-              </p>
+            <div class="is-fullwidth">
+                <p class="control has-icons-left">
+                  <span class="select">
+                    <select v-model="seguimento">
+                      <option selected>Seguimento</option>
+                      <option v-for="option in seguimentos" v-bind:value="option">{{ option.name }}</option>
+                    </select>
+                  </span>
+                  <span class="icon is-small is-left">
+                  <span class="mdi mdi-format-text"></span>
+                  </span>
+                </p>
+              </div>
             </div>
           </div>
         </div>
-        
         <div class="field is-horizontal">
           <div class="field-label is-normal">
-            <label class="label">Tecnicos</label>
+            <label class="label">Categorias</label>
           </div>
           <div class="field-body">
             <div class="control is-expanded">
               <div class="select is-fullwidth">
                 <select name="country" v-model="item">
-                  <option v-for="option in tecnicos" v-bind:value="option">{{ option.user }}</option>
+                  <option v-for="option in categorias" v-bind:value="option">{{ option.name }}</option>
                 </select>
               </div>
             </div>
             <div class="control">
               <a v-on:click="addNewTodo"  class="button is-link">
-                <span class="icon is-small"><i class="fa fa-user-plus"></i></span>
+                <span class="icon is-small"><span class="mdi mdi-tag-multiple"></span></span>
               </a>
             </div>
           </div>
@@ -64,86 +87,33 @@
           <ul>
             <li
               is="todo-item"
-              v-for="(todo, index) in tecnico"
+              v-for="(todo, index) in categoria"
               v-bind:key="todo.id"
-              v-bind:user="todo.user"
-              v-on:remove="tecnico.splice(index, 1)"
+              v-bind:user="todo.name"
+              v-on:remove="categoria.splice(index, 1)"
             ></li>
           </ul>
         </div>
 
         <div class="field is-horizontal">
           <div class="field-label">
-            <label class="label">Already a member?</label>
+            <label class="label">Ativo?</label>
           </div>
           <div class="field-body">
             <div class="field is-narrow">
               <div class="control">
-                <label class="radio">
-                  <input type="radio" name="member"> Yes
-                </label>
-                <label class="radio">
-                  <input type="radio" name="member"> No
-                </label>
+                <input type="radio" value="1" v-model="ativo">
+                <label for="one">Não</label>
+                <br>
+                <input type="radio" value="0" v-model="ativo">
+                <label for="two">Sim</label>
               </div>
             </div>
           </div>
+          
+
         </div>
         <div>
-              <p class="has-text-centered">Registre-se</p>
-              <message :success="successMessage" :error="errorMessage"></message>
-              <br>
-              <!--#INICIO -->
-              <div class="field">
-                <p class="control has-icons-right">
-                  <input v-model="name" class="input" type="text" placeholder="Nome">
-                  <span class="icon is-small is-right">
-                    <i class="material-icons">account_box</i>
-                  </span>
-                </p>
-              </div>
-              <div class="field">
-                <p class="control has-icons-right">
-                  <input v-model="nick" class="input" type="text" placeholder="Nome Fantasia">
-                  <span class="icon is-small is-right">
-                    <i class="material-icons">account_circle</i>
-                  </span>
-                </p>
-              </div>
-              <div class="field">
-                <p class="control has-icons-right">
-                  <input v-model="email" class="input" type="email" placeholder="Email">
-                  <span class="icon is-small is-right">
-                    <i class="material-icons">email</i>
-                  </span>
-                </p>
-              </div>
-              <div class="field">
-                <p class="control has-icons-right">
-                  <input v-model="emailR" class="input" type="email" placeholder="Email confimer">
-                  <span class="icon is-small is-right">
-                    <i class="material-icons">email</i>
-                  </span>
-                </p>
-              </div>
-              <div class="field">
-                <p class="control has-icons-right">
-                  <input v-model="password" class="input" type="password" placeholder="Password">
-                  <span class="icon is-small is-right">
-                    <i class="material-icons">lock</i>
-                  </span>
-                </p>
-              </div>
-              <div class="field">
-                <p class="control has-icons-right">
-                  <input v-model="passwordR" class="input" type="password" placeholder="Password retype">
-                  <span class="icon is-small is-right">
-                    <i class="material-icons">lock</i>
-                  </span>
-                </p>
-              </div>
-            </div>
-
         
         <!--#CONTEUDO -->
       </section>

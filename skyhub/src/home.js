@@ -38,6 +38,8 @@ const state = {
   osLojas:[],
   oss:[],
   mods:[],
+  grupos:[],
+  seguimentos:[],
   search:'',
 }
 
@@ -99,7 +101,12 @@ const mutations = {
   SET_MODS(state, mods) {
     state.mods = mods
   },
-  
+  SET_SEGUIMENTOS(state, seguimentos) {
+    state.seguimentos = seguimentos
+  },
+  SET_GRUPOS(state, grupos) {
+    state.grupos = grupos
+  },
 }
 
 const actions = {
@@ -184,6 +191,8 @@ const actions = {
           commit("SET_FABRICANTES", response.body.fabricantes);
           commit("SET_SERVICOS", response.body.servicos);
           commit("SET_TECNICOS", response.body.tecnicos);
+          commit("SET_SEGUIMENTOS", response.body.seguimentos);
+          commit("SET_GRUPOS", response.body.grupos);
           resolve();
         }
       })

@@ -6,7 +6,8 @@ Vue.component('loja-add', {
       errorMessage: [],
       successMessage: [],
       isLoading: false,
-      nick:'', name:'', proprietario:'', grupoLoja:'', seguimento:'', data:'', ativo:'',
+      item:{},
+      nick:'', name:'', proprietario:'', grupo:'', seguimento:'', data:'', ativo:'0', categoria: []
     }
   },
   computed: {
@@ -15,9 +16,21 @@ Vue.component('loja-add', {
       if(this.successMessage.length > 0) return true
       return false
     },
+    proprietarios() {
+      return store.state.proprietario;
+    },
+    seguimentos() {
+      return store.state.seguimentos;
+    },
+    grupos() {
+      return store.state.grupos;
+    },
+    categorias() {
+      return store.state.categorias;
+    },
   },
   methods: {
-    registrar: function() {
+    saveItem: function() {
       if(this.checkForm()){
         this.isLoading = true
         var postData = {
@@ -50,25 +63,16 @@ Vue.component('loja-add', {
     checkForm:function(e) {
       this.errorMessage = [];
       if(!this.name) this.errorMessage.push("Nome necessário.");
-      if(!this.user) this.errorMessage.push("Usuario necessário.");
-      if(!this.email) {
-        this.errorMessage.push("Email necessário.");
-      } else if(!this.validEmail(this.email)) {
-        this.errorMessage.push("Email válido necessário.");
-      } else if(this.email !== this.emailR) {
-        this.errorMessage.push("Email não é igual a confirmação.");
-      }
-      if(!this.password) {
-        this.errorMessage.push("Password necessário.");
-      } else if(this.password !== this.passwordR) {
-        this.errorMessage.push("Password não é igual a confirmação.");        
-      }
+      if(!this.nick) this.errorMessage.push("Nome Fantasia necessário.");
+      if(!this.grupo) this.errorMessage.push("Grupo necessário.");
+      if(!this.seguimento) this.errorMessage.push("Seguimento necessário.");
+      if(!this.categoria) this.errorMessage.push("categoria necessária.");
       if(!this.errorMessage.length) return true;
       e.preventDefault();
     },
-    validEmail:function(email) {
-      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(email);
+    addNewTodo: function () {
+      this.categoria.push(this.item)
+      this.item = {}
     }
   }
 });
