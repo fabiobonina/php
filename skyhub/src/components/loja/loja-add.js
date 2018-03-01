@@ -7,7 +7,7 @@ Vue.component('loja-add', {
       successMessage: [],
       isLoading: false,
       item:{},
-      nick:'', name:'', proprietario:'', grupo:'', seguimento:'', data:'', ativo:'0', categoria: []
+      nick:'', name:'', grupo:'C', seguimento:'', ativo:'0', categoria: []
     }
   },
   computed: {
@@ -16,7 +16,7 @@ Vue.component('loja-add', {
       if(this.successMessage.length > 0) return true
       return false
     },
-    proprietarios() {
+    proprietario() {
       return store.state.proprietario;
     },
     seguimentos() {
@@ -36,9 +36,10 @@ Vue.component('loja-add', {
         var postData = {
           nick: this.nick,
           name: this.name,
-          grupoLoja: this.grupoLoja,
+          grupo: this.grupo,
           seguimento: this.seguimento,
-          data: this.data,
+          categotia: this.categoria,
+          proprietario: this.proprietario.id,
           ativa: this.ativa
         };
         //console.log(postData);
@@ -66,7 +67,6 @@ Vue.component('loja-add', {
       if(!this.nick) this.errorMessage.push("Nome Fantasia necessário.");
       if(!this.grupo) this.errorMessage.push("Grupo necessário.");
       if(!this.seguimento) this.errorMessage.push("Seguimento necessário.");
-      if(!this.categoria) this.errorMessage.push("categoria necessária.");
       if(!this.errorMessage.length) return true;
       e.preventDefault();
     },

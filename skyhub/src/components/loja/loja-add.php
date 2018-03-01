@@ -3,7 +3,7 @@
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">{{ proprietarios.nick }} - Nova Loja <span class="mdi mdi-store"></span></p>
+        <p class="modal-card-title">{{ proprietario.nick }} - Nova Loja <span class="mdi mdi-store"></span></p>
         <button class="delete" aria-label="close" v-on:click="$emit('close')"></button>
       </header>
       <section class="modal-card-body">
@@ -36,8 +36,7 @@
                 <p class="control has-icons-left">
                   <span class="select">
                     <select v-model="grupo">
-                      <option selected>Grupo</option>
-                      <option v-for="option in grupos" v-bind:value="option">{{ option.name }}</option>
+                      <option v-for="option in grupos" v-bind:value="option.id">{{ option.name }}</option>
                     </select>
                   </span>
                   <span class="icon is-small is-left">
@@ -51,8 +50,7 @@
                 <p class="control has-icons-left">
                   <span class="select">
                     <select v-model="seguimento">
-                      <option selected>Seguimento</option>
-                      <option v-for="option in seguimentos" v-bind:value="option">{{ option.name }}</option>
+                      <option v-for="option in seguimentos" v-bind:value="option.id">{{ option.name }}</option>
                     </select>
                   </span>
                   <span class="icon is-small is-left">

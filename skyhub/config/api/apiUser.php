@@ -49,7 +49,7 @@ if($action == 'logar'):
         $loginUser = $value->user;
         $loginAvatar = $value->avatar;
         $loginProprietario = $value->proprietario;
-        $loginGrupo = $value->grupoLoja;
+        $loginGrupo = $value->grupo;
         $loginLoja = $value->loja;
         $loginNivel = $value->nivel;
         $loginDtCadastro = $value->data_cadastro;

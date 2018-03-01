@@ -96,7 +96,74 @@ include("_chave.php");
     //Montar Array lojas------------------------------------------------------------
 
   }
+  #REGISTRAR
+if($action == 'new'):
+  #Novo Usuario
+  $name  = $_POST['name'];
+  $nick = $_POST['nick'];
+  $proprietario = $_POST['proprietario'];
+  $grupo = $_POST['grupo'];
+  $seguimento = $_POST['seguimento'];
+  $categoria = json_encode($_POST['categoria'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+  $ativo = $_POST['ativo'];
 
+  //$name  = 'Fabio';
+  //$email = 'fabiobonina@gmail.com';
+  //$user = 'Fabio Bonina';
+  //$senha = 'password';
+
+  #LOJAS-------------------------------------------------------------------------------------------
+  $duplicado = false;
+  $acentos = array(
+    'À', 'Á','Â','Ã','Ä','Å','Ç','È','É','Ê','Ë','Ì','Í','Î','Ï','Ò','Ó','Ô','Õ','Ö','Ù','Ú','Û','Ü','Ý',
+    'à','á','â','ã','ä','å','ç','è','é','ê','ë','ì','í','î','ï','ð','ò','ó','ô','õ','ö','ù','ú','û','ü','ý','ÿ', ' '
+  );
+  $sem_acentos = array(
+    'A','A','A','A','A','A','C','E','E','E','E','I','I','I','I','O','O','O','O','O','U','U','U','U','Y',
+    'a','a','a','a','a','a','c','e','e','e','e','i','i','i','i','o','o','o','o','o','o','u','u','u','u','y','y', '_'
+  );
+  foreach($lojas->findAll() as $key => $value): {
+    $txtnome2 = $value->nick;
+    $txtnome1 = str_replace($acentos, $sem_acentos, $nick);
+    $txtnome2 = str_replace($acentos, $sem_acentos, $txtnome2);
+    
+    if(strtolower(utf8_decode($txtnome1)) == strtolower(utf8_decode($txtnome2))):
+      $duplicado = true;
+      $res['error'] = true;
+      $arError = "Error, Nome Fantasia da loja já ultilizado!";
+      array_push($arErros, $arError);
+    endif;
+  }endforeach;
+  #LOJAS-------------------------------------------------------------------------------------------
+    
+  $data = date("Y-m-d");
+  
+  if($duplicado == false):
+    $lojas->setName($name);
+    $lojas->setNick($nick);
+    $lojas->setProbrietario($proprietario);
+    $lojas->setGrupo($grupo);
+    $lojas->setSegiomento($seguimento);
+    $lojas->setData($data);
+    $lojas->setAtivo($ativo);
+    $lojas->setCategoria($categoria);
+    # Insert
+    if($lojas->insert()){
+      $res['error'] = false;
+      $arDados = "OK, dados registrado com sucesso";
+      $res['message']= $arDados;
+    }else{
+      $res['error'] = true; 
+      $arError = "Error, nao foi possivel salvar os dados";
+      array_push($arErros, $arError);
+    }
+  endif;
+
+  if($res['error'] == true){
+    $res['message']= $arErros;
+  }
+
+endif;
 
   if($action == 'loja'){
     $dados = array();

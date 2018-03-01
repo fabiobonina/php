@@ -4,44 +4,86 @@ require_once '_crud.php';
 class Loja extends Crud{
 	
 	protected $table = 'tb_loja';
-	private $nome;
+	protected $table2 = 'tb_loja_categoria';
+	private $name;
 	private $nick;
+	private $proprietario;
+	private $grupo;
+	private $seguimento;
+	private $data;
 	private $ativo;
 
-	public function setNome($nome){
-		$nome = iconv('UTF-8', 'ASCII//TRANSLIT', $nome);
-		$this->nome = strtoupper ($nome);
-	}
-	public function getNome(){
-		return $this->nome;
+	public function setName($name){
+		$name = $name;
+		$this->name = $name;
 	}
 	public function setNick($nick){
-		$nick = iconv('UTF-8', 'ASCII//TRANSLIT', $nick);
-		$this->nick = strtoupper ($nick);
+		$nick =  $nick;
+		$this->nick = $nick;
 	}
+	public function setProprietario($proprietario){
+		$proprietario = $proprietario;
+		$this->proprietario = $proprietario;
+	}
+	public function setGrupo($grupo){
+		$grupo = $grupo;
+		$this->grupo = $grupo;
+	}
+	public function setSeguimento($seguimento){
+		$seguimento = $seguimento;
+		$this->seguimento = $seguimento;
+	}
+	public function setData($data){
+		$data = $data;
+		$this->data = $data;
+	} 
 	public function setAtivo($ativo){
 		$this->ativo = $ativo;
 	}
-
+	public function setCategoria($categoria){
+		$this->categoria = $categoria;
+	}
+	
 	public function insert(){
 
-		$sql  = "INSERT INTO $this->table (nome, nick, ativo) ";
-		$sql .= "VALUES (:nome, :nick, :ativo)";
+		$sql  = "INSERT INTO $this->table (name, nick, proprietario, grupo, seguimento, data, ativo) ";
+		$sql .= "VALUES (:name, :nick, :proprietario, :grupo, :seguimento, :data, :ativo)";
 		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':nome',$this->nome);
+		$stmt->bindParam(':name',$this->name);
 		$stmt->bindParam(':nick',$this->nick);
+		$stmt->bindParam(':proprietario',$this->proprietario);
+		$stmt->bindParam(':grupo',$this->grupo);
+		$stmt->bindParam(':seguimento',$this->seguimento);
+		$stmt->bindParam(':data',$this->data);
 		$stmt->bindParam(':ativo',$this->ativo);
 
-		return $stmt->execute(); 
+		$stmt->execute();
+		$lojaId = DB::getInstance()->lastInsertId();
+
+		$categorias = json_decode( $this->$categoria);
+		foreach ($categorias as $value){
+			$itemId = $value->id;
+			$sql  = "INSERT INTO $this->table2 ( loja, categoria ) ";
+			$sql .= "VALUES ( :loja, :categoria )";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':loja', $lojaId );
+			$stmt->bindParam(':categoria', $itemId );
+			
+			return $stmt->execute();
+		}
 
 	}
 
 	public function update($id){
 
-		$sql  = "UPDATE $this->table SET nome = :nome, nick = :nick, ativo = :ativo WHERE id = :id ";
+		$sql  = "UPDATE $this->table SET name = :name, nick = :nick, ativo = :ativo WHERE id = :id ";
 		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':nome', $this->nome);
+		$stmt->bindParam(':name',$this->name);
 		$stmt->bindParam(':nick',$this->nick);
+		$stmt->bindParam(':proprietario',$this->proprietario);
+		$stmt->bindParam(':grupo',$this->grupo);
+		$stmt->bindParam(':seguimento',$this->seguimento);
+		$stmt->bindParam(':data',$this->data);
 		$stmt->bindParam(':ativo',$this->ativo);
 		$stmt->bindParam(':id', $id);
 		return $stmt->execute();
@@ -63,7 +105,7 @@ class Loja extends Crud{
 				$loop = $stmt->fetchAll();
 				foreach ($loop as $show){
 					$loginId = $show->id;
-					$loginNome = $show->nome;
+					$loginNome = $show->name;
 					$loginEmail = $show->email;
 					$loginUser = $show->nickuser;
 					$loginSenha = $show->senha;

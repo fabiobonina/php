@@ -11,7 +11,7 @@ class Usuarios extends Crud{
 	private $nivel;
 	private $avatar;
 	private $proprientario;
-	private $grupoLoja;
+	private $grupo;
 	private $loja;
 	private $ativo;
 	private $datacadastro;
@@ -41,8 +41,8 @@ class Usuarios extends Crud{
 	public function setProprietario($proprietario){
 		$this->proprietario = $proprietario;
 	}
-	public function setGrupoLoja($grupoLoja){
-		$this->grupoLoja = $grupoLoja;
+	public function setGrupo($grupo){
+		$this->grupo = $grupo;
 	}
 	public function setLoja($loja){
 		$this->loja = $loja;
@@ -117,7 +117,7 @@ class Usuarios extends Crud{
 						$loginUser = $show->user;
 						$loginAvatar = $show->avatar;
 						$loginProprietario = $show->proprietario;
-						$loginGrupo = $show->grupoLoja;
+						$loginGrupo = $show->grupo;
 						$loginLoja = $show->loja;
 						$loginNivel = $show->nivel;
 						$loginAtivo = $show->ativo;
