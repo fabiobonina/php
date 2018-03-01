@@ -14,27 +14,21 @@ class Loja extends Crud{
 	private $ativo;
 
 	public function setName($name){
-		$name = $name;
 		$this->name = $name;
 	}
 	public function setNick($nick){
-		$nick =  $nick;
 		$this->nick = $nick;
 	}
 	public function setProprietario($proprietario){
-		$proprietario = $proprietario;
 		$this->proprietario = $proprietario;
 	}
 	public function setGrupo($grupo){
-		$grupo = $grupo;
 		$this->grupo = $grupo;
 	}
 	public function setSeguimento($seguimento){
-		$seguimento = $seguimento;
 		$this->seguimento = $seguimento;
 	}
 	public function setData($data){
-		$data = $data;
 		$this->data = $data;
 	} 
 	public function setAtivo($ativo){
@@ -45,31 +39,48 @@ class Loja extends Crud{
 	}
 	
 	public function insert(){
-
-		$sql  = "INSERT INTO $this->table (name, nick, proprietario, grupo, seguimento, data, ativo) ";
-		$sql .= "VALUES (:name, :nick, :proprietario, :grupo, :seguimento, :data, :ativo)";
-		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':name',$this->name);
-		$stmt->bindParam(':nick',$this->nick);
-		$stmt->bindParam(':proprietario',$this->proprietario);
-		$stmt->bindParam(':grupo',$this->grupo);
-		$stmt->bindParam(':seguimento',$this->seguimento);
-		$stmt->bindParam(':data',$this->data);
-		$stmt->bindParam(':ativo',$this->ativo);
-
-		$stmt->execute();
-		$lojaId = DB::getInstance()->lastInsertId();
-
-		$categorias = json_decode( $this->$categoria);
-		foreach ($categorias as $value){
-			$itemId = $value->id;
-			$sql  = "INSERT INTO $this->table2 ( loja, categoria ) ";
-			$sql .= "VALUES ( :loja, :categoria )";
+		try{
+			$sql  = "INSERT INTO $this->table (name, nick, proprietario, grupo, seguimento, data, ativo) ";
+			$sql .= "VALUES (:name, :nick, :proprietario, :grupo, :seguimento, :data, :ativo)";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':loja', $lojaId );
-			$stmt->bindParam(':categoria', $itemId );
+			$stmt->bindParam(':name',$this->name);
+			$stmt->bindParam(':nick',$this->nick);
+			$stmt->bindParam(':proprietario',$this->proprietario);
+			$stmt->bindParam(':grupo',$this->grupo);
+			$stmt->bindParam(':seguimento',$this->seguimento);
+			$stmt->bindParam(':data',$this->data);
+			$stmt->bindParam(':ativo',$this->ativo);
+
+			$categorias = json_decode( $this->categoria);
+			if( isset($categorias) ){
+				$stmt->execute();
+				$lojaId = DB::getInstance()->lastInsertId();
+				foreach ($categorias as $value){
+					$itemId = $value->id;
+					$sql  = "INSERT INTO $this->table2 ( loja, categoria ) ";
+					$sql .= "VALUES ( :loja, :categoria )";
+					$stmt = DB::prepare($sql);
+					$stmt->bindParam(':loja', $lojaId );
+					$stmt->bindParam(':categoria', $itemId );
+					
+					return $stmt->execute();
+				}
+			}else{
+				return $stmt->execute();
+			}
 			
-			return $stmt->execute();
+
+			
+			if( isset($categorias) ):
+				
+			endif;
+			return true;
+			
+		} catch(PDOException $e) {
+			$res['error'] = true; 
+			$arError = $e->getMessage();
+			header("Content-Type: application/json");
+			echo json_encode($res, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 		}
 
 	}

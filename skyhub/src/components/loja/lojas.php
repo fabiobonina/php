@@ -10,7 +10,7 @@
         </div>
         &nbsp;
         <div class="control">
-          <a v-on:click="modalLojaAdd = true; selecItem(dados)" class="button is-link is-al">
+          <a v-on:click="modalLojaAdd = true" class="button is-link is-al">
             <span class="mdi mdi-store"></span> Loja
           </a>
         </div>

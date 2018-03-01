@@ -8,7 +8,7 @@ include("_chave.php");
 		require_once '../classes/' . $class_name . '.php';
 	}
 
-  $loja = new Loja();
+  $lojas = new Loja();
   $lojaCategorias = new LojaCategorias();
 
   $locais = new Locais();
@@ -18,6 +18,9 @@ include("_chave.php");
 
   
   $res = array('error' => false);
+  $arDados = array();
+  $arErros = array();
+  $arLojas = array();
   $action = 'read';
 
   if(isset($_GET['action'])){
@@ -27,8 +30,8 @@ include("_chave.php");
   if($action == 'read'){
 
     //Montar Array lojas------------------------------------------------------------
-    $arLojas = array();
-    foreach($loja->findAll() as $key => $value): {
+    
+    foreach($lojas->findAll() as $key => $value): {
       
       $arLoja = (array) $value; //Loja
       $lojaId = $value->id;
@@ -97,14 +100,17 @@ include("_chave.php");
 
   }
   #REGISTRAR
-if($action == 'new'):
+if($action == 'cadastrar'):
   #Novo Usuario
   $name  = $_POST['name'];
   $nick = $_POST['nick'];
   $proprietario = $_POST['proprietario'];
   $grupo = $_POST['grupo'];
   $seguimento = $_POST['seguimento'];
-  $categoria = json_encode($_POST['categoria'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+  $categoria = '';
+  if( isset($_POST['categoria']) ):
+    $categoria = json_encode($_POST['categoria'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+  endif;
   $ativo = $_POST['ativo'];
 
   //$name  = 'Fabio';
@@ -141,9 +147,9 @@ if($action == 'new'):
   if($duplicado == false):
     $lojas->setName($name);
     $lojas->setNick($nick);
-    $lojas->setProbrietario($proprietario);
+    $lojas->setProprietario($proprietario);
     $lojas->setGrupo($grupo);
-    $lojas->setSegiomento($seguimento);
+    $lojas->setSeguimento($seguimento);
     $lojas->setData($data);
     $lojas->setAtivo($ativo);
     $lojas->setCategoria($categoria);

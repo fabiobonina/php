@@ -102,7 +102,6 @@
               <div class="control">
                 <input type="radio" value="1" v-model="ativo">
                 <label for="one">Não</label>
-                <br>
                 <input type="radio" value="0" v-model="ativo">
                 <label for="two">Sim</label>
               </div>

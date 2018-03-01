@@ -1,12 +1,13 @@
-Vue.component('register', {
-  name: 'register',
-  template: '#register',
+Vue.component('loja-adt', {
+  name: 'loja-adt',
+  template: '#loja-adt',
   data: function () {
     return {
       errorMessage: [],
       successMessage: [],
       isLoading: false,
-      name:'', email:'', emailR:'', user:'', password:'', passwordR:'',
+      item:{},
+      nick:'', name:'', grupo:'C', seguimento:'', ativo:'0', categoria: []
     }
   },
   computed: {
@@ -15,26 +16,44 @@ Vue.component('register', {
       if(this.successMessage.length > 0) return true
       return false
     },
+    proprietario() {
+      return store.state.proprietario;
+    },
+    seguimentos() {
+      return store.state.seguimentos;
+    },
+    grupos() {
+      return store.state.grupos;
+    },
+    categorias() {
+      return store.state.categorias;
+    },
   },
   methods: {
-    registrar: function() {
+    saveItem: function() {
       if(this.checkForm()){
         this.isLoading = true
         var postData = {
+          nick: this.nick,
           name: this.name,
-          user: this.user,
-          email: this.email,
-          password: this.password
+          grupo: this.grupo,
+          seguimento: this.seguimento,
+          categoria: this.categoria,
+          proprietario: this.proprietario.id,
+          ativo: this.ativo
         };
         //console.log(postData);
-        this.$http.post('./config/api/apiUser.php?action=registrar', postData).then(function(response) {
+        this.$http.post('./config/api/apiLoja.php?action=cadastrar', postData).then(function(response) {
           //console.log(response);
           if(response.data.error){
-            this.errorMessage.push(response.data.message);
+            this.errorMessage = response.data.message;
             this.isLoading = false;
           } else{
             this.successMessage.push(response.data.message);
             this.isLoading = false;
+            this.$store.dispatch("fetchIndex").then(() => {
+              console.log("Buscando dados para inicial!")
+            });
             setTimeout(() => {
               this.$emit('close');
             }, 2000);
@@ -48,25 +67,15 @@ Vue.component('register', {
     checkForm:function(e) {
       this.errorMessage = [];
       if(!this.name) this.errorMessage.push("Nome necessário.");
-      if(!this.user) this.errorMessage.push("Usuario necessário.");
-      if(!this.email) {
-        this.errorMessage.push("Email necessário.");
-      } else if(!this.validEmail(this.email)) {
-        this.errorMessage.push("Email válido necessário.");
-      } else if(this.email !== this.emailR) {
-        this.errorMessage.push("Email não é igual a confirmação.");
-      }
-      if(!this.password) {
-        this.errorMessage.push("Password necessário.");
-      } else if(this.password !== this.passwordR) {
-        this.errorMessage.push("Password não é igual a confirmação.");        
-      }
+      if(!this.nick) this.errorMessage.push("Nome Fantasia necessário.");
+      if(!this.grupo) this.errorMessage.push("Grupo necessário.");
+      if(!this.seguimento) this.errorMessage.push("Seguimento necessário.");
       if(!this.errorMessage.length) return true;
       e.preventDefault();
     },
-    validEmail:function(email) {
-      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(email);
+    addNewTodo: function () {
+      this.categoria.push(this.item)
+      this.item = {}
     }
   }
 });

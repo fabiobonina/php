@@ -38,19 +38,22 @@ Vue.component('loja-add', {
           name: this.name,
           grupo: this.grupo,
           seguimento: this.seguimento,
-          categotia: this.categoria,
+          categoria: this.categoria,
           proprietario: this.proprietario.id,
-          ativa: this.ativa
+          ativo: this.ativo
         };
         //console.log(postData);
-        this.$http.post('./config/api/apiUser.php?action=registrar', postData).then(function(response) {
+        this.$http.post('./config/api/apiLoja.php?action=cadastrar', postData).then(function(response) {
           //console.log(response);
           if(response.data.error){
-            this.errorMessage.push(response.data.message);
+            this.errorMessage = response.data.message;
             this.isLoading = false;
           } else{
             this.successMessage.push(response.data.message);
             this.isLoading = false;
+            this.$store.dispatch("fetchIndex").then(() => {
+              console.log("Buscando dados para inicial!")
+            });
             setTimeout(() => {
               this.$emit('close');
             }, 2000);
