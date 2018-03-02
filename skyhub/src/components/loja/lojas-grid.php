@@ -57,10 +57,10 @@
                       </div>
                       <div class="dropdown-menu" id="dropdown-menu1" role="menu">
                         <div class="dropdown-content">
-                          <a @click.native="modalEdt = true; selecItem(props.item)" class="dropdown-item">
+                          <a @click="modalEdt = true; selecItem(entry)" class="dropdown-item">
                             <span class="mdi mdi-pencil"></span>Edit
                           </a>
-                          <a @click.native="modalDel = true; selecItem(props.item)" class="dropdown-item">
+                          <a @click="modalDel = true; selecItem(entry)" class="dropdown-item">
                             <span class="mdi mdi-delete"></span>Delete
                           </a>
                         </div>
@@ -76,8 +76,8 @@
       </div>
     </section>
     <div>
-      <loja-edt v-if="modalEdt" v-on:close="modalEdt = false" :data="loja" @atualizar="onAtualizar"></loja-edt>
-      <loja-del v-if="modalDel" v-on:close="modalDel = false" :data="loja" @atualizar="onAtualizar"></loja-del>
+      <loja-edt v-if="modalEdt" v-on:close="modalEdt = false" :data="modalItem" @atualizar="onAtualizar"></loja-edt>
+      <loja-del v-if="modalDel" v-on:close="modalDel = false" :data="modalItem" @atualizar="onAtualizar"></loja-del>
     </div>
   </div>
 </template>

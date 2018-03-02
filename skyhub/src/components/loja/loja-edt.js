@@ -1,13 +1,14 @@
-Vue.component('loja-adt', {
-  name: 'loja-adt',
-  template: '#loja-adt',
+Vue.component('loja-edt', {
+  name: 'loja-edt',
+  template: '#loja-edt',
+  props: {
+    data: Object
+  },
   data: function () {
     return {
       errorMessage: [],
       successMessage: [],
       isLoading: false,
-      item:{},
-      nick:'', name:'', grupo:'C', seguimento:'', ativo:'0', categoria: []
     }
   },
   computed: {
@@ -34,16 +35,15 @@ Vue.component('loja-adt', {
       if(this.checkForm()){
         this.isLoading = true
         var postData = {
-          nick: this.nick,
-          name: this.name,
-          grupo: this.grupo,
-          seguimento: this.seguimento,
-          categoria: this.categoria,
-          proprietario: this.proprietario.id,
-          ativo: this.ativo
+          nick: this.data.nick,
+          name: this.data.name,
+          grupo: this.data.grupo,
+          seguimento: this.data.seguimento,
+          ativo: this.data.ativo,
+          id: this.data.id
         };
         //console.log(postData);
-        this.$http.post('./config/api/apiLoja.php?action=cadastrar', postData).then(function(response) {
+        this.$http.post('./config/api/apiLoja.php?action=editar', postData).then(function(response) {
           //console.log(response);
           if(response.data.error){
             this.errorMessage = response.data.message;
@@ -66,10 +66,10 @@ Vue.component('loja-adt', {
     },
     checkForm:function(e) {
       this.errorMessage = [];
-      if(!this.name) this.errorMessage.push("Nome necessário.");
-      if(!this.nick) this.errorMessage.push("Nome Fantasia necessário.");
-      if(!this.grupo) this.errorMessage.push("Grupo necessário.");
-      if(!this.seguimento) this.errorMessage.push("Seguimento necessário.");
+      if(!this.data.name) this.errorMessage.push("Nome necessário.");
+      if(!this.data.nick) this.errorMessage.push("Nome Fantasia necessário.");
+      if(!this.data.grupo) this.errorMessage.push("Grupo necessário.");
+      if(!this.data.seguimento) this.errorMessage.push("Seguimento necessário.");
       if(!this.errorMessage.length) return true;
       e.preventDefault();
     },

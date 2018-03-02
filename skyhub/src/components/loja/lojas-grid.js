@@ -51,12 +51,17 @@ Vue.component('grid-lojas', {
       this.sortKey = key
       this.sortOrders[key] = this.sortOrders[key] * -1
     },
-    itemModal: function(){
-      this.modalEdt = false,
-      this.modalDel = false
-    },
+    
     selecItem: function(data){
       this.modalItem = data;
     },
+    onAtualizar: function(){
+      this.$store.dispatch("fetchIndex").then(() => {
+        console.log("Buscando dados para inicial!")
+      });
+      this.modalEdt = false,
+      this.modalDel = false
+
+    }
   }
 });

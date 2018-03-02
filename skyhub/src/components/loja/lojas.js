@@ -7,7 +7,7 @@ var Lojas = Vue.extend({
       active: '0',
       gridColumns: ['displayName', 'name'],
       search:'',
-      modalLojaAdd: true
+      modalLojaAdd: false
     };
   },
   created() {

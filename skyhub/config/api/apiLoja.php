@@ -1,8 +1,8 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header('Content-Type: text/html; charset=utf-8');
+  header("Access-Control-Allow-Origin: *");
+  header('Content-Type: text/html; charset=utf-8');
 
-include("_chave.php");
+  include("_chave.php");
 
   function __autoload($class_name){
 		require_once '../classes/' . $class_name . '.php';
@@ -10,12 +10,9 @@ include("_chave.php");
 
   $lojas = new Loja();
   $lojaCategorias = new LojaCategorias();
-
   $locais = new Locais();
   $localCategorias = new LocalCAtegorias();
-
   $categorias = new Categorias();
-
   
   $res = array('error' => false);
   $arDados = array();
@@ -30,7 +27,6 @@ include("_chave.php");
   if($action == 'read'){
 
     //Montar Array lojas------------------------------------------------------------
-    
     foreach($lojas->findAll() as $key => $value): {
       
       $arLoja = (array) $value; //Loja
@@ -61,8 +57,6 @@ include("_chave.php");
 
         $arLocal['categoria']= $arCategorias;
         //Montar Array categoria----------------------------------------------------
-
-
         array_push($arrayLocais, $arLocal );
         
       }endforeach;
@@ -97,9 +91,8 @@ include("_chave.php");
           
     }endforeach;
     //Montar Array lojas------------------------------------------------------------
-
   }
-  #REGISTRAR
+#CADASTRAR-----------------------------------------------------------------------------
 if($action == 'cadastrar'):
   #Novo Usuario
   $name  = $_POST['name'];
@@ -170,7 +163,93 @@ if($action == 'cadastrar'):
   }
 
 endif;
+#CADASTRAR-----------------------------------------------------------------------------
+#EDITAR-----------------------------------------------------------------------------
+if($action == 'cadastrar'):
+  #editar
+  $name  = $_POST['name'];
+  $nick = $_POST['nick'];
+  $grupo = $_POST['grupo'];
+  $seguimento = $_POST['seguimento'];
+  $ativo = $_POST['ativo'];
+  $id = $_POST['id'];
 
+  //$name  = 'Fabio';
+  //$email = 'fabiobonina@gmail.com';
+  //$user = 'Fabio Bonina';
+  //$senha = 'password';
+
+  #LOJAS-------------------------------------------------------------------------------------------
+  $duplicado = false;
+  $acentos = array(
+    'À', 'Á','Â','Ã','Ä','Å','Ç','È','É','Ê','Ë','Ì','Í','Î','Ï','Ò','Ó','Ô','Õ','Ö','Ù','Ú','Û','Ü','Ý',
+    'à','á','â','ã','ä','å','ç','è','é','ê','ë','ì','í','î','ï','ð','ò','ó','ô','õ','ö','ù','ú','û','ü','ý','ÿ', ' '
+  );
+  $sem_acentos = array(
+    'A','A','A','A','A','A','C','E','E','E','E','I','I','I','I','O','O','O','O','O','U','U','U','U','Y',
+    'a','a','a','a','a','a','c','e','e','e','e','i','i','i','i','o','o','o','o','o','o','u','u','u','u','y','y', '_'
+  );
+  foreach($lojas->findAll() as $key => $value): {
+    $txtnome2 = $value->nick;
+    $itemId = $value->id;
+    $txtnome1 = str_replace($acentos, $sem_acentos, $nick);
+    $txtnome2 = str_replace($acentos, $sem_acentos, $txtnome2);
+    
+    if(($id != $itemId ) && ( strtolower(utf8_decode($txtnome1)) == strtolower(utf8_decode($txtnome2)) ) ):
+      $duplicado = true;
+      $res['error'] = true;
+      $arError = "Error, Nome Fantasia da loja já ultilizado!";
+      array_push($arErros, $arError);
+    endif;
+  }endforeach;
+  #LOJAS-------------------------------------------------------------------------------------------
+    
+  if($duplicado == false):
+    $lojas->setName($name);
+    $lojas->setNick($nick);
+    $lojas->setGrupo($grupo);
+    $lojas->setSeguimento($seguimento);
+    $lojas->setData($data);
+    $lojas->setAtivo($ativo);
+    # Insert
+    if($lojas->update($id)){
+      $res['error'] = false;
+      $arDados = "OK, dados registrado com sucesso";
+      $res['message']= $arDados;
+    }else{
+      $res['error'] = true; 
+      $arError = "Error, nao foi possivel salvar os dados";
+      array_push($arErros, $arError);
+    }
+  endif;
+
+  if( ($res['error'] == true) && (isset($arErros)) ){
+    $res['message']= $arErros;
+  }
+
+endif;
+#EDITAR-----------------------------------------------------------------------------
+
+#DELETAR-----------------------------------------------------------------------------
+if($action == 'delete'):
+  #delete
+  $id = $_POST['id'];
+  if($lojas->delete($id)){
+    $res['error'] = false;
+    $arDados = "OK, dados registrado com sucesso";
+    $res['message']= $arDados;
+  }else{
+    $res['error'] = true; 
+    $arError = "Error, nao foi possivel salvar os dados";
+    array_push($arErros, $arError);
+  }
+
+  if( ($res['error'] == true) && (isset($arErros)) ){
+    $res['message']= $arErros;
+  }
+
+endif;
+#DELETAR-----------------------------------------------------------------------------
   if($action == 'loja'){
     $dados = array();
     $lojaId = $_POST['lojaId'];
