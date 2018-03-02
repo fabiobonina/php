@@ -5,38 +5,34 @@ try {
 class LocalCategorias extends Crud{
 
 	protected $table = 'tb_local_categoria';
-	private $cliente;
-	private $localida;
-	private $plaqueta;
+	private $loja;
+	private $categoria;
+	private $ativo;
 
-	public function setCliente($cliente){
-		$this->cliente = $cliente;
+	public function setLoja($loja){
+		$this->loja = $loja;
 	}
-	public function setLocalidade($localidade){
-		$this->localidade = $localidade;
+	public function setCategoria($categoria){
+		$this->categoria = $categoria;
 	}
-	public function setPlaqueta($plaqueta){
-		$plaqueta = iconv('UTF-8', 'ASCII//TRANSLIT', $plaqueta);
-		$this->plaqueta = strtoupper ($plaqueta);
+	public function setAtivo($ativo){
+		$this->ativo = $ativo;
 	}
-	public function getPlaqueta(){
-		return $this->plaqueta;
-	}
-	public function setData($data){
-		$this->data = $data;
-	}
-
 
 	public function insert(){
 		try{
-		$sql  = "INSERT INTO $this->table (cliente, localidade, plaqueta, data) ";
-		$sql .= "VALUES (:cliente, :localidade, :plaqueta, :data)";
-		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':cliente',$this->cliente);
-		$stmt->bindParam(':localidade',$this->localidade);
-		$stmt->bindParam(':plaqueta',$this->plaqueta);
-		$stmt->bindParam(':data',$this->data);
+			$categorias = json_decode( $this->categoria);
 
+			foreach ($categorias as $value){
+				$itemId = $value->id;
+				$sql  = "INSERT INTO $this->table2 ( loja, categoria ) ";
+				$sql .= "VALUES ( :loja, :categoria )";
+				$stmt = DB::prepare($sql);
+				$stmt->bindParam(':loja', $this->loja );
+				$stmt->bindParam(':categoria', $itemId );
+				
+				return $stmt->execute();
+			}
 		return $stmt->execute();
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
@@ -46,12 +42,9 @@ class LocalCategorias extends Crud{
 
 	public function update($id){
 		try{
-		$sql  = "UPDATE $this->table SET cliente = :cliente, localidade = :localidade, plaqueta = :plaqueta, data = :data WHERE id = :id ";
+		$sql  = "UPDATE $this->table SET ativo = :ativo, data = :data WHERE id = :id ";
 		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':cliente',$this->cliente);
-		$stmt->bindParam(':localidade', $this->localidade);
-		$stmt->bindParam(':plaqueta',$this->plaqueta);
-		$stmt->bindParam(':data',$this->data);
+		$stmt->bindParam(':ativo',$this->ativo);
 		$stmt->bindParam(':id', $id);
 		return $stmt->execute();
 		} catch(PDOException $e) {
@@ -59,22 +52,6 @@ class LocalCategorias extends Crud{
 		}
 		
 	}
-
-	public function findAtiv($Cod){
-		try{
-		$sql  = "SELECT * FROM $this->table WHERE id = :id";
-		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':id', $Cod, PDO::PARAM_INT);
-		$stmt->execute();
-		return $stmt->fetch();
-		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
-		}
-	}
-
-
-	
-
 
 }
 }catch( Exception $e ) {

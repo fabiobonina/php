@@ -1,6 +1,6 @@
-Vue.component('loja-edt', {
-  name: 'loja-edt',
-  template: '#loja-edt',
+Vue.component('loja-cat', {
+  name: 'loja-cat',
+  template: '#loja-cat',
   props: {
     data: Object
   },
@@ -9,6 +9,8 @@ Vue.component('loja-edt', {
       errorMessage: [],
       successMessage: [],
       isLoading: false,
+      categoria: [],
+      ativo:''
     }
   },
   computed: {
@@ -44,7 +46,64 @@ Vue.component('loja-edt', {
         };
         //console.log(postData);
         this.$http.post('./config/api/apiLoja.php?action=editar', postData).then(function(response) {
-          //console.log(response);
+          console.log(response);
+          if(response.data.error){
+            this.errorMessage = response.data.message;
+            this.isLoading = false;
+          } else{
+            this.successMessage.push(response.data.message);
+            this.isLoading = false;
+            this.$store.dispatch("fetchIndex").then(() => {
+              console.log("Atualizado lojas!")
+            });
+            setTimeout(() => {
+              this.$emit('close');
+            }, 2000);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      }
+    },
+    catDeletete: function() {
+      if(this.checkForm()){
+        this.isLoading = true
+        var postData = {
+          id: this.data.id
+        };
+        //console.log(postData);
+        this.$http.post('./config/api/apiLoja.php?action=catDelete', postData).then(function(response) {
+          console.log(response);
+          if(response.data.error){
+            this.errorMessage = response.data.message;
+            this.isLoading = false;
+          } else{
+            this.successMessage.push(response.data.message);
+            this.isLoading = false;
+            this.$store.dispatch("fetchIndex").then(() => {
+              console.log("Atualizado lojas!")
+            });
+            setTimeout(() => {
+              this.$emit('close');
+            }, 2000);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      }
+    },
+    catStatus: function() {
+      if(this.checkForm()){
+        this.isLoading = true
+        var postData = {
+          ativo: this.ativo,
+          id: this.data.id
+        };
+        //console.log(postData);
+        this.$http.post('./config/api/apiLoja.php?action=catStatus', postData).then(function(response) {
+          console.log(response);
           if(response.data.error){
             this.errorMessage = response.data.message;
             this.isLoading = false;

@@ -11,7 +11,7 @@
         &nbsp;
         <div class="control">
           <a v-on:click="modalLocalAdd = true; selecItem(dados)" class="button is-link is-al">
-            <span class="mdi mdi-home-modern"></span> Locais
+            <span class="mdi mdi-home-modern"></span> Local
           </a>
         </div>
       </div>

@@ -104,8 +104,10 @@ if($action == 'read'):
       $arCategorias = array();
       foreach($lojaCategorias->findAll() as $key => $value):if($value->loja == $lojaId) {
         $categoriasId = $value->categoria;
+        $categoriasAtivo = $value->ativo;
         foreach($categorias->findAll() as $key => $value):if($value->id == $categoriasId) {
           $arCategoria = (array) $value;
+          $arCategoria['ativo'] = $categoriasAtivo;
           array_push($arCategorias, $arCategoria );
         }endforeach;
       }endforeach;

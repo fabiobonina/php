@@ -7,7 +7,8 @@ var Loja = Vue.extend({
       searchQuery: '',
       gridColumns: ['nick', 'name'],
       modalLocalAdd: false,
-      active: 1
+      active: 1,
+      modalCat: false
     };
   },
   created: function() {

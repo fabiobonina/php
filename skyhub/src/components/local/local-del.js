@@ -1,11 +1,11 @@
-Vue.component('local-add', {
-  name: 'local-add',
-  template: '#local-add',
+Vue.component('local-del', {
+  name: 'local-del',
+  template: '#local-del',
   data() {
     return {
       errorMessage: [],
       successMessage: [],
-      tipo: '', regional: '', name: '', municipio: '', uf: '', coordenadas:'', ativa: '', 
+      tipo: '', regional: '', name: '', municipio: '', uf: '', coordenadas:'', ativo: '0', 
       isLoading: false
     };
   },
@@ -15,15 +15,14 @@ Vue.component('local-add', {
     data: {}
   },
   computed: {
+    temMessage () {
+      if(this.errorMessage.length > 0) return true
+      if(this.successMessage.length > 0) return true
+      return false
+    },
     tipos() {
       return store.state.tipos;
     },
-    temErros () {
-      return this.errorMessage.length > 0
-    },
-    temMessage () {
-      return this.successMessage.length > 0
-    }
   },
   created: function() {
     //this.carregarTipo();
@@ -31,10 +30,8 @@ Vue.component('local-add', {
   methods: {
     saveItem: function(){
       this.errorMessage = []
-      if(this.formValido()){
+      if(this.checkForm()){
         this.isLoading = true
-        //const data = {'id': this.data.id, 'coordenadas': this.coordenadas
-        //'cadastro': new Date().toJSON() }
         if(this.coordenadas.length < 16){
           this.coordenadas = '0.000000,0.000000'
         };
@@ -48,9 +45,8 @@ Vue.component('local-add', {
           uf: this.uf,
           latitude: geoposicao[0],
           longitude: geoposicao[1],
-          ativo: '0'
+          ativo: this.ativo
         };
-        //var formData = this.toFormData(postData);
         //console.log(postData);
         this.$http.post('./config/api/apiLocalFull.php?action=cadastrar', postData)
           .then(function(response) {
@@ -72,18 +68,18 @@ Vue.component('local-add', {
           //this.$store.state.create(data)
       }
     },
-    ehVazia () {
-      if(this.tipo.length == 0 || this.name.length == 0 || this.municipio.length == 0 || this.uf.length == 0){
-          this.errorMessage.push('Por favor, preencha os campos obrigatorio *')
-          return true
-      }
-      return false
+    checkForm:function(e) {
+      this.errorMessage = [];
+      if(!this.tipo) this.errorMessage.push("Tipo necessário.");
+      if(!this.name) this.errorMessage.push("Nome necessário.");
+      if(!this.municipio) this.errorMessage.push("Municipio necessário.");
+      if(!this.uf) this.errorMessage.push("Grupo necessário.");
+      if(!this.errorMessage.length) return true;
+      e.preventDefault();
     },
-    formValido(){
-        if(this.ehVazia()){
-            return false
-        }
-        return true
+    addNewTodo: function () {
+      this.categoria.push(this.item)
+      this.item = {}
     }
   },
 });

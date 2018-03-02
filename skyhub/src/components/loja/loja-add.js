@@ -52,7 +52,7 @@ Vue.component('loja-add', {
             this.successMessage.push(response.data.message);
             this.isLoading = false;
             this.$store.dispatch("fetchIndex").then(() => {
-              console.log("Buscando dados para inicial!")
+              console.log("Atualizado lojas!")
             });
             setTimeout(() => {
               this.$emit('close');

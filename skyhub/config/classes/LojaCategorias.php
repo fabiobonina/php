@@ -74,6 +74,21 @@ class LojaCategorias extends Crud{
 		}
 	}
 
+	
+	public function deleteLoja($loja){
+		try{
+		$sql  = "DELETE FROM $this->table WHERE loja = :loja";
+		$stmt = DB::prepare($sql);
+		$stmt->bindParam(':loja', $loja, PDO::PARAM_INT);
+		return $stmt->execute();
+		
+		} catch(PDOException $e) {
+			$res['error'] = true; 
+			$res['message'] = $e->getMessage();
+			header("Content-Type: application/json");
+			echo json_encode($res, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+		}
+	}
 
 	
 

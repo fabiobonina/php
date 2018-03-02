@@ -356,7 +356,7 @@ var router = new VueRouter({
       children: [
         { path: '', component: Locais },
         { path: 'oss', component: LojaOss },
-      ], name: 'loja'
+      ]
      },
     /*{path: '/config', component: Loja,
     children: [

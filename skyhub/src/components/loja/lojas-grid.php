@@ -46,7 +46,6 @@
                 <div class="level-item has-text-centered">
                   <div>
                     <p class="heading">Ação</p>
-                    
                     <div class="dropdown is-right is-hoverable">
                       <div class="dropdown-trigger">
                         <button class="button  is-text" aria-haspopup="true" aria-controls="dropdown-menu1">
@@ -63,10 +62,12 @@
                           <a @click="modalDel = true; selecItem(entry)" class="dropdown-item">
                             <span class="mdi mdi-delete"></span>Delete
                           </a>
+                          <a @click="modalCat = true; selecItem(entry)" class="dropdown-item">
+                            <span class="mdi mdi-tag-multiple"></span>Categoria
+                          </a>
                         </div>
                       </div>
                     </div>
-
                   </div>
                 </div>
               </nav>

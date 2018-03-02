@@ -1,97 +1,97 @@
 <?php
-  header("Access-Control-Allow-Origin: *");
-  header('Content-Type: text/html; charset=utf-8');
+header("Access-Control-Allow-Origin: *");
+header('Content-Type: text/html; charset=utf-8');
 
-  include("_chave.php");
+include("_chave.php");
 
-  function __autoload($class_name){
-		require_once '../classes/' . $class_name . '.php';
-	}
+function __autoload($class_name){
+  require_once '../classes/' . $class_name . '.php';
+}
 
-  $lojas = new Loja();
-  $lojaCategorias = new LojaCategorias();
-  $locais = new Locais();
-  $localCategorias = new LocalCAtegorias();
-  $categorias = new Categorias();
-  
-  $res = array('error' => false);
-  $arDados = array();
-  $arErros = array();
-  $arLojas = array();
-  $action = 'read';
+$lojas = new Loja();
+$lojaCategorias = new LojaCategorias();
+$locais = new Locais();
+$localCategorias = new LocalCAtegorias();
+$categorias = new Categorias();
 
-  if(isset($_GET['action'])){
-		$action = $_GET['action'];
-	}
+$res = array('error' => false);
+$arDados = array();
+$arErros = array();
+$arLojas = array();
+$action = 'read';
 
-  if($action == 'read'){
+if(isset($_GET['action'])){
+  $action = $_GET['action'];
+}
 
-    //Montar Array lojas------------------------------------------------------------
-    foreach($lojas->findAll() as $key => $value): {
+if($action == 'read'){
+
+  //Montar Array lojas------------------------------------------------------------
+  foreach($lojas->findAll() as $key => $value): {
+    
+    $arLoja = (array) $value; //Loja
+    $lojaId = $value->id;
+
+    //Montar Array locais-------------------------------------------------------
+    $arrayLocais = array();
+    $cont_localGeo = 0;
+    $arLocalCategoria = array();
+    foreach($locais->findAll() as $key => $value):if($value->loja == $lojaId) {
       
-      $arLoja = (array) $value; //Loja
-      $lojaId = $value->id;
+      $arLocal = (array) $value;
+      $localId = $value->id;
 
-      //Montar Array locais-------------------------------------------------------
-      $arrayLocais = array();
-      $cont_localGeo = 0;
-      $arLocalCategoria = array();
-      foreach($locais->findAll() as $key => $value):if($value->loja == $lojaId) {
-        
-        $arLocal = (array) $value;
-        $localId = $value->id;
+      if( $value->latitude <> 0.00000 && $value->longitude <> 0.00000){
+        $cont_localGeo++;
+      }
 
-        if( $value->latitude <> 0.00000 && $value->longitude <> 0.00000){
-          $cont_localGeo++;
-        }
-
-        //Montar Array categoria----------------------------------------------------
-        $arCategorias = array();
-        foreach($localCategorias->findAll() as $key => $value):if($value->local == $localId) {
-          $categoriaId = $value->categoria;
-          foreach($categorias->findAll() as $key => $value):if($value->id == $categoriaId) {
-            $arCategoria = (array) $value;
-            array_push($arCategorias, $arCategoria );
-          }endforeach;
-        }endforeach;
-
-        $arLocal['categoria']= $arCategorias;
-        //Montar Array categoria----------------------------------------------------
-        array_push($arrayLocais, $arLocal );
-        
-      }endforeach;
-      $locaisTt = count($arrayLocais);
-      if($locaisTt > 0){
-        $geoStatus = round(($cont_localGeo/$locaisTt)*100, 1);
-       }else{
-         $geoStatus = 0;
-       }
-      
-      $arLoja['locais']= $arrayLocais;
-      $arLoja['locaisQt']= $locaisTt;
-      $arLoja['locaisGeoQt']= $cont_localGeo;
-      $arLoja['locaisGeoStatus']= $geoStatus;
-      //Montar Array locais------------------------------------------------------
-
-      //Montar Array categorias----------------------------------------------------
+      //Montar Array categoria----------------------------------------------------
       $arCategorias = array();
-      foreach($lojaCategorias->findAll() as $key => $value):if($value->loja == $lojaId) {
-        $categoriasId = $value->categoria;
-        foreach($categorias->findAll() as $key => $value):if($value->id == $categoriasId) {
+      foreach($localCategorias->findAll() as $key => $value):if($value->local == $localId) {
+        $categoriaId = $value->categoria;
+        foreach($categorias->findAll() as $key => $value):if($value->id == $categoriaId) {
           $arCategoria = (array) $value;
           array_push($arCategorias, $arCategoria );
         }endforeach;
       }endforeach;
 
-      $arLoja['categoria']= $arCategorias;
-      //Montar Array categorias----------------------------------------------------
-
-
-      array_push($arLojas, $arLoja);
-          
+      $arLocal['categoria']= $arCategorias;
+      //Montar Array categoria----------------------------------------------------
+      array_push($arrayLocais, $arLocal );
+      
     }endforeach;
-    //Montar Array lojas------------------------------------------------------------
-  }
+    $locaisTt = count($arrayLocais);
+    if($locaisTt > 0){
+      $geoStatus = round(($cont_localGeo/$locaisTt)*100, 1);
+      }else{
+        $geoStatus = 0;
+      }
+    
+    $arLoja['locais']= $arrayLocais;
+    $arLoja['locaisQt']= $locaisTt;
+    $arLoja['locaisGeoQt']= $cont_localGeo;
+    $arLoja['locaisGeoStatus']= $geoStatus;
+    //Montar Array locais------------------------------------------------------
+
+    //Montar Array categorias----------------------------------------------------
+    $arCategorias = array();
+    foreach($lojaCategorias->findAll() as $key => $value):if($value->loja == $lojaId) {
+      $categoriasId = $value->categoria;
+      foreach($categorias->findAll() as $key => $value):if($value->id == $categoriasId) {
+        $arCategoria = (array) $value;
+        array_push($arCategorias, $arCategoria );
+      }endforeach;
+    }endforeach;
+
+    $arLoja['categoria']= $arCategorias;
+    //Montar Array categorias----------------------------------------------------
+
+
+    array_push($arLojas, $arLoja);
+        
+  }endforeach;
+  //Montar Array lojas------------------------------------------------------------
+}
 #CADASTRAR-----------------------------------------------------------------------------
 if($action == 'cadastrar'):
   #Novo Usuario
@@ -165,7 +165,7 @@ if($action == 'cadastrar'):
 endif;
 #CADASTRAR-----------------------------------------------------------------------------
 #EDITAR-----------------------------------------------------------------------------
-if($action == 'cadastrar'):
+if($action == 'editar'):
   #editar
   $name  = $_POST['name'];
   $nick = $_POST['nick'];
@@ -173,11 +173,6 @@ if($action == 'cadastrar'):
   $seguimento = $_POST['seguimento'];
   $ativo = $_POST['ativo'];
   $id = $_POST['id'];
-
-  //$name  = 'Fabio';
-  //$email = 'fabiobonina@gmail.com';
-  //$user = 'Fabio Bonina';
-  //$senha = 'password';
 
   #LOJAS-------------------------------------------------------------------------------------------
   $duplicado = false;
@@ -203,13 +198,12 @@ if($action == 'cadastrar'):
     endif;
   }endforeach;
   #LOJAS-------------------------------------------------------------------------------------------
-    
+  
   if($duplicado == false):
     $lojas->setName($name);
     $lojas->setNick($nick);
     $lojas->setGrupo($grupo);
     $lojas->setSeguimento($seguimento);
-    $lojas->setData($data);
     $lojas->setAtivo($ativo);
     # Insert
     if($lojas->update($id)){
@@ -231,16 +225,22 @@ endif;
 #EDITAR-----------------------------------------------------------------------------
 
 #DELETAR-----------------------------------------------------------------------------
-if($action == 'delete'):
+if($action == 'deletar'):
   #delete
   $id = $_POST['id'];
   if($lojas->delete($id)){
+    if($lojaCategorias->deleteLoja($id)){
     $res['error'] = false;
-    $arDados = "OK, dados registrado com sucesso";
+    $arDados = "OK, registro deletado";
     $res['message']= $arDados;
+    }else{
+      $res['error'] = true; 
+      $arError = "Error, nao foi possivel deletar os dados";
+      array_push($arErros, $arError);
+    }
   }else{
     $res['error'] = true; 
-    $arError = "Error, nao foi possivel salvar os dados";
+    $arError = "Error, nao foi possivel deletar os dados";
     array_push($arErros, $arError);
   }
 
@@ -250,6 +250,90 @@ if($action == 'delete'):
 
 endif;
 #DELETAR-----------------------------------------------------------------------------
+#CATEGORIA-ATIVO----------------------------------------------------------------------
+if($action == 'CatStatus'):
+  $ativo = $_POST['ativo'];
+  $id = $_POST['id'];
+
+  $lojaCategorias->setAtivo($ativo);
+
+  if($lojaCategorias->update($id)){
+    $res['error'] = false;
+    $arDados = "OK, dados atualisado com sucesso";
+    $res['message']= $arDados;
+  }else{
+    $res['error'] = true; 
+    $arError = "Error, nao foi possivel salvar os dados";
+    array_push($arErros, $arError);
+  }
+  //Montar Array lojas------------------------------------------------------------
+  foreach($lojas->findAll() as $key => $value): {
+    
+    $arLoja = (array) $value; //Loja
+    $lojaId = $value->id;
+
+    //Montar Array locais-------------------------------------------------------
+    $arrayLocais = array();
+    $cont_localGeo = 0;
+    $arLocalCategoria = array();
+    foreach($locais->findAll() as $key => $value):if($value->loja == $lojaId) {
+      
+      $arLocal = (array) $value;
+      $localId = $value->id;
+
+      if( $value->latitude <> 0.00000 && $value->longitude <> 0.00000){
+        $cont_localGeo++;
+      }
+
+      //Montar Array categoria----------------------------------------------------
+      $arCategorias = array();
+      foreach($localCategorias->findAll() as $key => $value):if($value->local == $localId) {
+        $categoriaId = $value->categoria;
+        foreach($categorias->findAll() as $key => $value):if($value->id == $categoriaId) {
+          $arCategoria = (array) $value;
+          array_push($arCategorias, $arCategoria );
+        }endforeach;
+      }endforeach;
+
+      $arLocal['categoria']= $arCategorias;
+      //Montar Array categoria----------------------------------------------------
+      array_push($arrayLocais, $arLocal );
+      
+    }endforeach;
+    $locaisTt = count($arrayLocais);
+    if($locaisTt > 0){
+      $geoStatus = round(($cont_localGeo/$locaisTt)*100, 1);
+      }else{
+        $geoStatus = 0;
+      }
+    
+    $arLoja['locais']= $arrayLocais;
+    $arLoja['locaisQt']= $locaisTt;
+    $arLoja['locaisGeoQt']= $cont_localGeo;
+    $arLoja['locaisGeoStatus']= $geoStatus;
+    //Montar Array locais------------------------------------------------------
+
+    //Montar Array categorias----------------------------------------------------
+    $arCategorias = array();
+    foreach($lojaCategorias->findAll() as $key => $value):if($value->loja == $lojaId) {
+      $categoriasId = $value->categoria;
+      foreach($categorias->findAll() as $key => $value):if($value->id == $categoriasId) {
+        $arCategoria = (array) $value;
+        array_push($arCategorias, $arCategoria );
+      }endforeach;
+    }endforeach;
+
+    $arLoja['categoria']= $arCategorias;
+    //Montar Array categorias----------------------------------------------------
+
+
+    array_push($arLojas, $arLoja);
+        
+  }endforeach;
+  //Montar Array lojas------------------------------------------------------------
+endif;
+#CATEGORIA-ATIVO----------------------------------------------------------------------
+
   if($action == 'loja'){
     $dados = array();
     $lojaId = $_POST['lojaId'];

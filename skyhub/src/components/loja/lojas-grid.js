@@ -15,7 +15,8 @@ Vue.component('grid-lojas', {
       sortOrders: sortOrders,
       modalItem: {},
       modalEdt: false,
-      modalDel: false
+      modalDel: false,
+      modalCat: false
     }
   },
   computed: {
@@ -60,8 +61,8 @@ Vue.component('grid-lojas', {
         console.log("Buscando dados para inicial!")
       });
       this.modalEdt = false,
-      this.modalDel = false
-
+      this.modalDel = false,
+      this.modalCat = false
     }
   }
 });

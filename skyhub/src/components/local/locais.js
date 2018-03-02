@@ -11,7 +11,8 @@ var Locais = Vue.extend({
       errorMessage: '',
       successMessage: '',
       search: '',
-      modalLocalAdd: '',
+      modalLocalAdd: false,
+      modalCat: false,
       gridColumns: ['displayName', 'name']
     };
   },

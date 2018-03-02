@@ -23,6 +23,7 @@
     <?php include("src/components/loja/loja-add.php");?>
     <?php include("src/components/loja/loja-del.php");?>
     <?php include("src/components/loja/loja-edt.php");?>
+    <?php include("src/components/loja/loja-cat.php");?>
     <?php include("src/components/loja/loja.php");?>
     <?php include("src/components/loja/lojas.php");?>
     <?php include("src/components/loja/lojas-grid.php");?>
@@ -33,7 +34,9 @@
     <?php include("src/components/local/locais-grid.php");?>
     <?php include("src/components/local/local.php");?>
     <?php include("src/components/local/locais.php");?>
-    <?php include("src/components/local/localAdd.php");?>
+    <?php include("src/components/local/local-add.php");?>
+    <?php include("src/components/local/local-edt.php");?>
+    <?php include("src/components/local/local-del.php");?>
     <?php include("src/components/local/maps.php");?>
     <!-- /components local-->
     <!-- components bem -->
@@ -79,6 +82,7 @@
 <script src="src/components/loja/loja-add.js"></script>
 <script src="src/components/loja/loja-del.js"></script>
 <script src="src/components/loja/loja-edt.js"></script>
+<script src="src/components/loja/loja-cat.js"></script>
 <script src="src/components/loja/loja.js"></script>
 <script src="src/components/loja/lojas.js"></script>
 <script src="src/components/os/lojaOss.js"></script>
@@ -88,7 +92,9 @@
 <script src="src/components/local/locais-grid.js"></script>
 <script src="src/components/local/local.js"></script>
 <script src="src/components/local/locais.js"></script>
-<script src="src/components/local/localAdd.js"></script>
+<script src="src/components/local/local-add.js"></script>
+<script src="src/components/local/local-edt.js"></script>
+<script src="src/components/local/local-del.js"></script>
 <script src="src/components/local/maps.js"></script>
 <!-- /components local-->
 <!-- components bem -->
