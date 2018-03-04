@@ -3,26 +3,26 @@
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">{{ proprietario.nick }} - Editar Loja <span class="mdi mdi-store"></span></p>
+        <p class="modal-card-title">{{ proprietario.nick }} - {{ loja.nick }} <span class="mdi mdi-store"></span></p>
         <button class="delete" aria-label="close" v-on:click="$emit('close')"></button>
       </header>
       <section class="modal-card-body">
         <message :success="successMessage" :error="errorMessage"></message>
         <!--#CONTEUDO -->
-        <h2 class="subtitle">{{ data.nick }}</h2>
-        <div v-for="item in data.categoria">
+        <h2 class="subtitle">Categorias</h2>
+        <div v-for="item in loja.categoria">
           <h2 class="subtitle"> {{ item.name }} - {{ item.tag }}
-          <a v-if="item.ativo == 0" @click="ativo = 1; selecItem(entry)" class="button  is-small is-primary">Desativar
+          <a v-if="item.ativo == 0" @click="ativo = '1'; catStatus(item)" class="button  is-small is-primary">Aivo &nbsp;
             <span class="icon is-small">
-              <span class="mdi mdi-check"></span>
+              <span class="mdi mdi-sync"></span>
             </span>
           </a>
-          <a v-if="item.ativo == 1" @click="ativo = 0; selecItem(entry)" class="button  is-small is-light">Desativar
+          <a v-if="item.ativo == 1" @click="ativo = '0'; catStatus(item)" class="button  is-small is-light">Desativo &nbsp;
             <span class="icon is-small">
-              <span class="mdi mdi-check"></span>
+              <span class="mdi mdi-sync-off"></span>
             </span>
           </a>
-            <a class="button  is-small is-link">Link
+            <a @click="ativo = '0'; catDelete(item)" class="button  is-small is-danger">Link
               <span class="icon is-small">
                 <span class="mdi mdi-check"></span>
               </span>
@@ -30,82 +30,7 @@
           </h2>
         </div>
         <br>
-        <div class="field is-horizontal">
-          <div class="field-label is-normal">
-            <label class="label">Serviço</label>
-          </div>
-          <div class="field-body">
-            <div class="field">
-              <div class="is-fullwidth">
-                <p class="control has-icons-left">
-                  <input v-model="dataOs" class="input" type="date">
-                  <span class="icon is-small is-left">
-                    <i class="fa fa-calendar"></i>
-                  </span>
-                </p>
-              </div>
-            </div>
-            <div class="field">
-              <p class="control is-expanded has-icons-left">
-                <input v-model="dataOs" class="input" type="date">
-                <span class="icon is-small is-left">
-                  <i class="fa fa-calendar"></i>
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="field">
-          <p class="control has-icons-right">
-            <input v-model="data.name" class="input" type="text" placeholder="Nome">
-            <span class="icon is-small is-right">
-              <span class="mdi mdi-store"></span>
-            </span>
-          </p>
-        </div>
-        <div class="field">
-          <p class="control has-icons-right">
-            <input v-model="data.nick" class="input" type="text" placeholder="Nome Fantasia">
-            <span class="icon is-small is-right">
-              <span class="mdi mdi-store"></span>
-            </span>
-          </p>
-        </div>
-        <div class="field is-horizontal">
-          <div class="field-label is-normal">
-            <label class="label">Grupo / seguimento</label>
-          </div>
-          <div class="field-body">
-            <div class="field">
-              <div class="is-fullwidth">
-                <p class="control has-icons-left">
-                  <span class="select">
-                    <select v-model="data.grupo">
-                      <option v-for="option in grupos" v-bind:value="option.id">{{ option.name }}</option>
-                    </select>
-                  </span>
-                  <span class="icon is-small is-left">
-                  <span class="mdi mdi-format-text"></span>
-                  </span>
-                </p>
-              </div>
-            </div>
-            <div class="field">
-              <div class="is-fullwidth">
-                <p class="control has-icons-left">
-                  <span class="select">
-                    <select v-model="data.seguimento">
-                      <option v-for="option in seguimentos" v-bind:value="option.id">{{ option.name }}</option>
-                    </select>
-                  </span>
-                  <span class="icon is-small is-left">
-                  <span class="mdi mdi-format-text"></span>
-                  </span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        
         <div class="field is-horizontal">
           <div class="field-label">
             <label class="label">Ativo?</label>
@@ -113,9 +38,9 @@
           <div class="field-body">
             <div class="field is-narrow">
               <div class="control">
-                <input type="radio" value="1" v-model="data.ativo">
+                <input type="radio" value="1" v-model="loja.ativo">
                 <label for="one">Não</label>
-                <input type="radio" value="0" v-model="data.ativo">
+                <input type="radio" value="0" v-model="loja.ativo">
                 <label for="two">Sim</label>
               </div>
             </div>

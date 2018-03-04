@@ -16,7 +16,7 @@
                 <div class="media-content">
                   <div class="content">
                     <p>
-                      <a href="#">@teste</a> {{entry.name}}  &nbsp; 
+                      <a href="#">@teste</a> {{entry.name}}  &nbsp;
                       <span class="tag" v-for="categoria in entry.categoria">{{ categoria.tag }} </span> 
                     </p>
                   </div>
@@ -79,6 +79,7 @@
     <div>
       <loja-edt v-if="modalEdt" v-on:close="modalEdt = false" :data="modalItem" @atualizar="onAtualizar"></loja-edt>
       <loja-del v-if="modalDel" v-on:close="modalDel = false" :data="modalItem" @atualizar="onAtualizar"></loja-del>
+      <loja-cat v-if="modalCat" v-on:close="modalCat = false" :data="modalItem" @atualizar="onAtualizar"></loja-cat>
     </div>
   </div>
 </template>

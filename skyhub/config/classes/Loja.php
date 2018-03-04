@@ -62,9 +62,10 @@ class Loja extends Crud{
 					$stmt = DB::prepare($sql);
 					$stmt->bindParam(':loja', $lojaId );
 					$stmt->bindParam(':categoria', $itemId );
-					
-					return $stmt->execute();
+					$stmt->execute();
 				}
+				$res['error'] = false;
+			 	return $res['message']= "OK, dados salvo com sucesso";
 			}else{
 				return $stmt->execute();
 			}

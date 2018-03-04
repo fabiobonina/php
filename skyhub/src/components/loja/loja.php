@@ -35,33 +35,6 @@
                     <p class="title is-4">456K</p>
                   </div>
                 </div>
-                <div class="level-item has-text-centered">
-                  <div>
-                    <p class="heading">Ação</p>
-                    <div class="dropdown is-right is-hoverable">
-                      <div class="dropdown-trigger">
-                        <button class="button  is-text" aria-haspopup="true" aria-controls="dropdown-menu1">
-                          <span class="icon is-small">
-                            <span class="mdi mdi-dots-vertical"></span>
-                          </span>
-                        </button>
-                      </div>
-                      <div class="dropdown-menu" id="dropdown-menu1" role="menu">
-                        <div class="dropdown-content">
-                          <a @click="modalEdt = true; selecItem(data)" class="dropdown-item">
-                            <span class="mdi mdi-pencil"></span>Edit
-                          </a>
-                          <a @click="modalDel = true; selecItem(data)" class="dropdown-item">
-                            <span class="mdi mdi-delete"></span>Delete
-                          </a>
-                          <a @click="modalCat = true; selecItem(data)" class="dropdown-item">
-                            <span class="mdi mdi-tag-multiple"></span>Categoria
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </nav>
             </div>
           </div>

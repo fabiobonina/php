@@ -10,7 +10,8 @@ Vue.component('loja-cat', {
       successMessage: [],
       isLoading: false,
       categoria: [],
-      ativo:''
+      ativo:'',
+      item:{},
     }
   },
   computed: {
@@ -22,11 +23,8 @@ Vue.component('loja-cat', {
     proprietario() {
       return store.state.proprietario;
     },
-    seguimentos() {
-      return store.state.seguimentos;
-    },
-    grupos() {
-      return store.state.grupos;
+    loja()  {
+      return store.getters.getLojaId(this.data.id);
     },
     categorias() {
       return store.state.categorias;
@@ -66,11 +64,11 @@ Vue.component('loja-cat', {
         });
       }
     },
-    catDeletete: function() {
-      if(this.checkForm()){
+    catDelete: function(data) {
+      if(confirm('Deseja realmente deletar ' + data.name + '?')){
         this.isLoading = true
         var postData = {
-          id: this.data.id
+          id: data.id
         };
         //console.log(postData);
         this.$http.post('./config/api/apiLoja.php?action=catDelete', postData).then(function(response) {
@@ -85,7 +83,7 @@ Vue.component('loja-cat', {
               console.log("Atualizado lojas!")
             });
             setTimeout(() => {
-              this.$emit('close');
+              //this.$emit('close');
             }, 2000);
           }
         })
@@ -94,14 +92,20 @@ Vue.component('loja-cat', {
         });
       }
     },
-    catStatus: function() {
-      if(this.checkForm()){
-        this.isLoading = true
+    catStatus: function(data) {
+        if(data.ativo == 0){
+          this.isLoading = true
+          this.ativo = '1'
+        }
+        if(data.ativo == 1){
+          this.isLoading = true
+          this.ativo = '0'
+        }
         var postData = {
           ativo: this.ativo,
-          id: this.data.id
+          id: data.id
         };
-        //console.log(postData);
+        console.log(postData);
         this.$http.post('./config/api/apiLoja.php?action=catStatus', postData).then(function(response) {
           console.log(response);
           if(response.data.error){
@@ -114,14 +118,14 @@ Vue.component('loja-cat', {
               console.log("Atualizado lojas!")
             });
             setTimeout(() => {
-              this.$emit('close');
+              //this.$emit('close');
             }, 2000);
           }
         })
         .catch(function(error) {
           console.log(error);
         });
-      }
+      
     },
     checkForm:function(e) {
       this.errorMessage = [];
