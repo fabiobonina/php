@@ -29,9 +29,6 @@ Vue.component('local-add', {
       return store.state.categorias;
     },
   },
-  created: function() {
-    //this.carregarTipo();
-  },
   methods: {
     saveItem: function(){
       this.errorMessage = []
@@ -54,7 +51,7 @@ Vue.component('local-add', {
           categoria: this.categoria
         };
         //console.log(postData);
-        this.$http.post('./config/api/apiLocalFull.php?action=cadastrar', postData)
+        this.$http.post('./config/api/apiLocal.php?action=cadastrar', postData)
           .then(function(response) {
             //console.log(response);
             if(response.data.error){
@@ -62,6 +59,9 @@ Vue.component('local-add', {
               this.isLoading = false;
             } else{
               this.successMessage.push(response.data.message);
+              this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
+                console.log("Atulizando dados das localidades!")
+              });
               this.isLoading = false;
               setTimeout(() => {
                 this.$emit('close');

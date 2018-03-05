@@ -37,6 +37,7 @@
     <?php include("src/components/local/local-add.php");?>
     <?php include("src/components/local/local-edt.php");?>
     <?php include("src/components/local/local-del.php");?>
+    <?php include("src/components/local/local-cat.php");?>
     <?php include("src/components/local/maps.php");?>
     <!-- /components local-->
     <!-- components bem -->
@@ -95,6 +96,7 @@
 <script src="src/components/local/local-add.js"></script>
 <script src="src/components/local/local-edt.js"></script>
 <script src="src/components/local/local-del.js"></script>
+<script src="src/components/local/local-cat.js"></script>
 <script src="src/components/local/maps.js"></script>
 <!-- /components local-->
 <!-- components bem -->

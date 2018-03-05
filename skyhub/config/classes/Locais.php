@@ -55,55 +55,60 @@ class Locais extends Crud{
 
 	public function insert(){
 		try{
-
-		$sql  = "INSERT INTO $this->table (loja, tipo, regional, name, municipio, uf, latitude, longitude, ativo) ";
-		$sql .= "VALUES (:loja, :tipo, :regional, :name, :municipio, :uf, :latitude, :longitude, :ativo)";
-		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':loja',$this->loja);
-		$stmt->bindParam(':tipo',$this->tipo);
-		$stmt->bindParam(':regional',$this->regional);
-		$stmt->bindParam(':name',$this->name);
-		$stmt->bindParam(':municipio',$this->municipio);
-		$stmt->bindParam(':uf',$this->uf);
-		$stmt->bindParam(':latitude',$this->latitude);
-		$stmt->bindParam(':longitude',$this->longitude);
-		$stmt->bindParam(':ativo',$this->ativo);
-		
-		$categorias = json_decode( $this->categoria);
-		if( isset($categorias) ){
-			$stmt->execute();
-			$localId = DB::getInstance()->lastInsertId();
-			foreach ($categorias as $value){
-				$itemId = $value->id;
-				$sql  = "INSERT INTO $this->table2 ( local, categoria ) ";
-				$sql .= "VALUES ( :local, :categoria )";
-				$stmt = DB::prepare($sql);
-				$stmt->bindParam(':local', $localId );
-				$stmt->bindParam(':categoria', $itemId );
+			$sql  = "INSERT INTO $this->table (loja, tipo, regional, name, municipio, uf, latitude, longitude, ativo) ";
+			$sql .= "VALUES (:loja, :tipo, :regional, :name, :municipio, :uf, :latitude, :longitude, :ativo)";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':loja',$this->loja);
+			$stmt->bindParam(':tipo',$this->tipo);
+			$stmt->bindParam(':regional',$this->regional);
+			$stmt->bindParam(':name',$this->name);
+			$stmt->bindParam(':municipio',$this->municipio);
+			$stmt->bindParam(':uf',$this->uf);
+			$stmt->bindParam(':latitude',$this->latitude);
+			$stmt->bindParam(':longitude',$this->longitude);
+			$stmt->bindParam(':ativo',$this->ativo);
+			
+			$categorias = json_decode( $this->categoria);
+			if( isset($categorias) ){
 				$stmt->execute();
+				$localId = DB::getInstance()->lastInsertId();
+				foreach ($categorias as $value){
+					$itemId = $value->id;
+					$sql  = "INSERT INTO $this->table2 ( local, categoria ) ";
+					$sql .= "VALUES ( :local, :categoria )";
+					$stmt = DB::prepare($sql);
+					$stmt->bindParam(':local', $localId );
+					$stmt->bindParam(':categoria', $itemId );
+					$stmt->execute();
+				}
+				$res['error'] = false;
+				return $res['message']= "OK, dados salvo com sucesso";
+			}else{
+				return $stmt->execute();
 			}
-			$res['error'] = false;
-			 return $res['message']= "OK, dados salvo com sucesso";
-		}else{
-			return $stmt->execute();
+		} catch(PDOException $e) {
+			$res['error'] = true; 
+			$arError = $e->getMessage();
+			header("Content-Type: application/json");
+			echo json_encode($res, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 		}
 
 	}
 
 	public function update($id){
 		try{
-		$sql  = "UPDATE $this->table SET loja = :loja, tipo = :tipo, regional = :regional, name = :name, municipio = :municipio, uf = :uf, 	latitude = :latitude, longitude = :longitude, ativo = :ativo WHERE id = :id ";
-		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':loja',$this->loja);
-		$stmt->bindParam(':regional',$this->regional);
-		$stmt->bindParam(':name',$this->name);
-		$stmt->bindParam(':municipio',$this->municipio);
-		$stmt->bindParam(':uf',$this->uf);
-		$stmt->bindParam(':latitude',$this->latitude);
-		$stmt->bindParam(':longitude',$this->longitude);
-		$stmt->bindParam(':ativo',$this->ativo);
-		$stmt->bindParam(':id', $id);
-		return $stmt->execute();
+			$sql  = "UPDATE $this->table SET tipo = :tipo, regional = :regional, name = :name, municipio = :municipio, uf = :uf, 	latitude = :latitude, longitude = :longitude, ativo = :ativo WHERE id = :id ";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':tipo',$this->tipo);
+			$stmt->bindParam(':regional',$this->regional);
+			$stmt->bindParam(':name',$this->name);
+			$stmt->bindParam(':municipio',$this->municipio);
+			$stmt->bindParam(':uf',$this->uf);
+			$stmt->bindParam(':latitude',$this->latitude);
+			$stmt->bindParam(':longitude',$this->longitude);
+			$stmt->bindParam(':ativo',$this->ativo);
+			$stmt->bindParam(':id', $id);
+			return $stmt->execute();
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}

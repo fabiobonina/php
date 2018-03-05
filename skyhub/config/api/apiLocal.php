@@ -10,7 +10,7 @@ function __autoload($class_name){
 
 $usuarios = new Usuarios();
 $loja = new Loja();
-$lojaCategoria = new LojaCategorias();
+$lojaCategorias = new lojaCategorias();
 $locais = new Locais();
 $localCategorias = new LocalCategorias();
 $bens = new Bens();
@@ -150,6 +150,143 @@ if($action == 'cadastrar'):
   }
 endif;
 
+#EDITAR-----------------------------------------------------------------------------
+if($action == 'editar'):
+  #editar
+  $id = $_POST['id'];
+  $tipo = $_POST['tipo'];
+  $regional = $_POST['regional'];
+  $name = $_POST['name'];
+  $municipio = $_POST['municipio'];
+  $uf = $_POST['uf'];
+  $lat = $_POST['latitude'];
+  $long = $_POST['longitude'];
+  $ativo = $_POST['ativo'];
+  
+  $locais->setTipo($tipo);
+  $locais->setRegional($regional);
+  $locais->setName($name);
+  $locais->setMunicipio($municipio);
+  $locais->setUf($uf);
+  $locais->setLat($lat);
+  $locais->setLong($long);
+  $locais->setAtivo($ativo);
+
+  if($locais->update($id)){
+    $res['error'] = false;
+    $arDados = "OK, dados registrado com sucesso";
+    $res['message']= $arDados;
+  }else{
+    $res['error'] = true; 
+    $arError = "Error, nao foi possivel salvar os dados";
+    array_push($arErros, $arError);
+  }
+
+  if( ($res['error'] == true) && (isset($arErros)) ){
+    $res['message']= $arErros;
+  }
+endif;
+#EDITAR-----------------------------------------------------------------------------
+
+#DELETAR-----------------------------------------------------------------------------
+if($action == 'deletar'):
+  #delete
+  $id = $_POST['id'];
+  if($lojas->delete($id)){
+    if($localCategorias->deleteLoja($id)){
+    $res['error'] = false;
+    $arDados = "OK, registro deletado";
+    $res['message']= $arDados;
+    }else{
+      $res['error'] = true; 
+      $arError = "Error, nao foi possivel deletar os dados";
+      array_push($arErros, $arError);
+    }
+  }else{
+    $res['error'] = true; 
+    $arError = "Error, nao foi possivel deletar os dados";
+    array_push($arErros, $arError);
+  }
+
+  if( ($res['error'] == true) && (isset($arErros)) ){
+    $res['message']= $arErros;
+  }
+
+endif;
+#DELETAR-----------------------------------------------------------------------------
+
+#CATEGORIA-ATIVO----------------------------------------------------------------------
+if($action == 'catStatus'):
+  $ativo = $_POST['ativo'];
+  $id = $_POST['id'];
+
+  $localCategorias->setAtivo($ativo);
+
+  if($localCategorias->update($id)){
+    $res['error'] = false;
+    $arDados = "OK, dados atualisado com sucesso";
+    $res['message']= $arDados;
+  }else{
+    $res['error'] = true; 
+    $arError = "Error, nao foi possivel salvar os dados";
+    array_push($arErros, $arError);
+  }
+endif;
+#CATEGORIA-ATIVO----------------------------------------------------------------------
+
+#CATEGORIA-DELETAR----------------------------------------------------------------------
+if($action == 'catDelete'):
+  $id = $_POST['id'];
+
+  if($localCategorias->delete($id)){
+    $res['error'] = false;
+    $arDados = "OK, dados deleto com sucesso";
+    $res['message']= $arDados;
+  }else{
+    $res['error'] = true; 
+    $arError = "Error, nao foi possivel realisar operação";
+    array_push($arErros, $arError);
+  }
+endif;
+#CATEGORIA-DELETAR----------------------------------------------------------------------
+
+#CATEGORIA-CADASTRAR----------------------------------------------------------------------
+if($action == 'catCadastrar'):
+  #Novo
+  $local  = $_POST['local'];
+  $categoria = $_POST['categoria'];
+
+  #LOJAS-------------------------------------------------------------------------------------------
+  $duplicado = false;
+
+  foreach ($categoria as $data){
+    $itemId = $data->id;
+    foreach($localCategorias->findAll() as $key => $value):if($loja == $value->loja) {
+      $categoriaId = $value->categoria;
+      if( $itemId != $categoriaId ):
+        $localCategorias->setLoja($loja);
+        $localCategorias->setCategoria($itemId);
+        # Insert
+        if($localCategorias->insert()){
+          $res['error'] = false;
+          $arDados = "OK, dados salvo com sucesso";
+          $res['message']= $arDados;
+        }else{
+          $res['error'] = true; 
+          $arError = "Error, nao foi possivel salvar os dados";
+          array_push($arErros, $arError);
+        }
+      endif;
+    }endforeach;
+  }
+  #LOJAS-------------------------------------------------------------------------------------------
+    
+  if($res['error'] == true){
+    $res['message']= $arErros;
+  }
+
+endif;
+#CATEGORIA-CADASTRAR----------------------------------------------------------------------
 #ATUALIZAR
 if(isset($_POST['atualizar'])):
 

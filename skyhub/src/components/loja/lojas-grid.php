@@ -5,23 +5,13 @@
         <article class="post" v-for="entry in filteredData">
           <div class="columns">
             <div class="column is-6">
-              <a :href="'#/loja/' + entry.id" class="product-title"><h5>{{entry.nick}}</h5></a>
-              <span class="pull-right has-text-grey-light"><i class="fa fa-comments"></i> 1</span>
-              <div class="media">
-                <div class="media-left">
-                  <p class="image is-32x32">
-                    <img src="http://bulma.io/images/placeholders/128x128.png">
-                  </p>
-                </div>
-                <div class="media-content">
-                  <div class="content">
-                    <p>
-                      <a href="#">@teste</a> {{entry.name}}  &nbsp;
-                      <span class="tag" v-for="categoria in entry.categoria">{{ categoria.tag }} </span> 
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <a :href="'#/loja/' + entry.id" ><p class="title is-5"> {{entry.nick}}</p></a>
+              <p class="subtitle is-6" style="margin-bottom: 0;"> {{entry.name}}
+                <span class="pull-right"  v-for="categoria in entry.categoria">
+                  <span class="tag">{{ categoria.tag }}</span>&nbsp;
+                </span>
+              </p>
+              <p>Seguimento:  &nbsp; <a>#{{entry.seguimento}} </a></p>
             </div>
             <div class="column is-6">
               <nav class="level">

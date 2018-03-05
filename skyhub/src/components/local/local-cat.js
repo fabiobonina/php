@@ -1,6 +1,6 @@
-Vue.component('loja-cat', {
-  name: 'loja-cat',
-  template: '#loja-cat',
+Vue.component('local-cat', {
+  name: 'local-cat',
+  template: '#local-cat',
   props: {
     data: Object
   },
@@ -20,11 +20,11 @@ Vue.component('loja-cat', {
       if(this.successMessage.length > 0) return true
       return false
     },
-    proprietario() {
-      return store.state.proprietario;
-    },
     loja()  {
-      return store.getters.getLojaId(this.data.id);
+      return store.getters.getLojaId(this.$route.params._id);
+    },
+    local()  {
+      return store.getters.getLocalId(this.data.id);
     },
     categorias() {
       return store.state.categorias;
@@ -39,7 +39,7 @@ Vue.component('loja-cat', {
           loja: this.data.id
         };
         //console.log(postData);
-        this.$http.post('./config/api/apiLoja.php?action=catCadastrar', postData).then(function(response) {
+        this.$http.post('./config/api/apiLocal.php?action=catCadastrar', postData).then(function(response) {
           console.log(response);
           if(response.data.error){
             this.errorMessage = response.data.message;
@@ -48,7 +48,7 @@ Vue.component('loja-cat', {
             this.successMessage.push(response.data.message);
             this.isLoading = false;
             this.$store.dispatch("fetchIndex").then(() => {
-              console.log("Atualizado lojas!")
+              console.log("Atualizado locais!")
             });
             setTimeout(() => {
               this.$emit('close');
@@ -67,7 +67,7 @@ Vue.component('loja-cat', {
           id: data.id
         };
         //console.log(postData);
-        this.$http.post('./config/api/apiLoja.php?action=catDelete', postData).then(function(response) {
+        this.$http.post('./config/api/apiLocal.php?action=catDelete', postData).then(function(response) {
           console.log(response);
           if(response.data.error){
             this.errorMessage = response.data.message;
@@ -97,7 +97,7 @@ Vue.component('loja-cat', {
         id: data.id
       };
       //console.log(postData);
-      this.$http.post('./config/api/apiLoja.php?action=catStatus', postData).then(function(response) {
+      this.$http.post('./config/api/apiLocal.php?action=catStatus', postData).then(function(response) {
         //console.log(response);
         if(response.data.error){
           this.errorMessage = response.data.message;

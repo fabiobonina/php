@@ -5,21 +5,11 @@
         <article class="post" v-for="entry in filteredData">
           <div class="columns">
             <div class="column is-6">
-              <a :href="'#/loja/' + $route.params._id + '/local/' + entry.id" class="product-title"><h5> {{entry.tipo}} - {{entry.name}}</h5></a>
-              <div class="media">
-                <div class="media-left">
-                  <p class="image is-32x32">
-                    <img src="http://bulma.io/images/placeholders/128x128.png">
-                  </p>
-                </div>
-                <div class="media-content">
-                  <div class="content">
-                    <p>{{entry.municipio}} /{{entry.uf}}  &nbsp; <a>#{{entry.regional}} </a> 
-                      <span class="tag" v-for="categoria in entry.categoria">{{ categoria.tag }} </span> 
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <a :href="'#/loja/' + $route.params._id + '/local/' + entry.id" ><p class="title is-5"> {{entry.tipo}} - {{entry.name}}</p></a>
+              <p class="subtitle is-6" style="margin-bottom: 0;"> {{entry.municipio}} /{{entry.uf}}
+                <span class="pull-right"  v-for="categoria in entry.categoria"> <span class="tag">{{ categoria.tag }}</span> &nbsp;  </span>
+              </p>
+              <p>Regional:  &nbsp; <a>#{{entry.regional}} </a></p>
             </div>
             <div class="column is-6">
               <nav class="level">

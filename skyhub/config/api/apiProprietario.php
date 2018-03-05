@@ -75,7 +75,20 @@ if($action == 'read'):
           $contPp_localGeo++;//CONTADOR COORDENADAS PROPRIEDADE
           $contLj_localGeo++;//CONTADOR COORDENADAS LOJA
         }
+        #LOCAL_CATEGORIA-------------------------------------------------------------------------
+        $arCategorias = array();
+        foreach($localCategorias->findAll() as $key => $value):if($value->local == $localId) {
+          $categoriaId = $value->categoria;
+          $categoriasAtivo = $value->ativo;
+          foreach($categorias->findAll() as $key => $value):if($value->id == $categoriaId) {
+            $arCategoria = (array) $value;
+            $arCategoria['ativo'] = $categoriasAtivo;
+            array_push($arCategorias, $arCategoria );
+          }endforeach;
+        }endforeach;
 
+        $arLocal['categoria']= $arCategorias;
+        #LOCAL_CATEGORIA----------------------------------------------------------------------------
         #LOCAIS_BENS-----------------------------------------------------------------------------------
         $status = 3;
         foreach($bemLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status <= $status ) {
