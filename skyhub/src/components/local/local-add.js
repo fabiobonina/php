@@ -1,18 +1,17 @@
 Vue.component('local-add', {
   name: 'local-add',
   template: '#local-add',
+  props: {
+    data: {}
+  },
   data() {
     return {
       errorMessage: [],
       successMessage: [],
-      tipo: '', regional: '', name: '', municipio: '', uf: '', coordenadas:'', ativo: '0', 
+      tipo: '', regional: '', name: '', municipio: '', uf: '', coordenadas:'', ativo: '0', categoria: [],
+      item:{},
       isLoading: false
     };
-  },
-  props: {
-    title: { type: String, default: '' },
-    message: { type: String, default: 'Confirm' },
-    data: {}
   },
   computed: {
     temMessage () {
@@ -20,8 +19,14 @@ Vue.component('local-add', {
       if(this.successMessage.length > 0) return true
       return false
     },
+    loja()  {
+      return store.getters.getLojaId(this.$route.params._id);
+    },
     tipos() {
       return store.state.tipos;
+    },
+    categorias() {
+      return store.state.categorias;
     },
   },
   created: function() {
@@ -32,7 +37,7 @@ Vue.component('local-add', {
       this.errorMessage = []
       if(this.checkForm()){
         this.isLoading = true
-        if(this.coordenadas.length < 16){
+        if(!this.coordenadas){
           this.coordenadas = '0.000000,0.000000'
         };
         var geoposicao = this.coordenadas .split(",");
@@ -45,7 +50,8 @@ Vue.component('local-add', {
           uf: this.uf,
           latitude: geoposicao[0],
           longitude: geoposicao[1],
-          ativo: this.ativo
+          ativo: this.ativo,
+          categoria: this.categoria
         };
         //console.log(postData);
         this.$http.post('./config/api/apiLocalFull.php?action=cadastrar', postData)
@@ -65,7 +71,6 @@ Vue.component('local-add', {
           .catch(function(error) {
             console.log(error);
           });
-          //this.$store.state.create(data)
       }
     },
     checkForm:function(e) {
@@ -73,7 +78,11 @@ Vue.component('local-add', {
       if(!this.tipo) this.errorMessage.push("Tipo necessário.");
       if(!this.name) this.errorMessage.push("Nome necessário.");
       if(!this.municipio) this.errorMessage.push("Municipio necessário.");
-      if(!this.uf) this.errorMessage.push("Grupo necessário.");
+      if(!this.uf) this.errorMessage.push("UF necessário.");
+      if(!this.ativo) this.errorMessage.push("Ativo necessário.");
+      if(this.coordenadas.length > 0){
+        if(this.coordenadas.length < 17) this.errorMessage.push('Coordenadas incorretas!');
+      }
       if(!this.errorMessage.length) return true;
       e.preventDefault();
     },

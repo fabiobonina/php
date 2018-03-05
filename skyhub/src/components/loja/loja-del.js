@@ -32,7 +32,7 @@ Vue.component('loja-del', {
   },
   methods: {
     deletarItem: function() {
-      if(this.checkForm()){
+      if(confirm('Deseja realmente deletar ' + this.data.nick + '?')){
         this.isLoading = true
         var postData = {
           id: this.data.id
@@ -58,19 +58,6 @@ Vue.component('loja-del', {
           console.log(error);
         });
       }
-    },
-    checkForm:function(e) {
-      this.errorMessage = [];
-      if(!this.data.name) this.errorMessage.push("Nome necessário.");
-      if(!this.data.nick) this.errorMessage.push("Nome Fantasia necessário.");
-      if(!this.data.grupo) this.errorMessage.push("Grupo necessário.");
-      if(!this.data.seguimento) this.errorMessage.push("Seguimento necessário.");
-      if(!this.errorMessage.length) return true;
-      e.preventDefault();
-    },
-    addNewTodo: function () {
-      this.categoria.push(this.item)
-      this.item = {}
     }
   }
 });

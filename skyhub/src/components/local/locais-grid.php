@@ -40,12 +40,36 @@
                     <a v-if=" 0.000000 != entry.latitude" :href="'https://maps.google.com/maps?q='+ entry.latitude + '%2C' + entry.longitude" target="_blank">
                       <span>Mapa <i class="fa fa-map"></i></span>
                     </a>
-                    <p class="field">
-                      <a v-on:click="showModal = true; selecItem(entry)" class="button is-small is-info">
-                        <span>Geoposição</span>
-                        <span class="icon is-small"><i class="fa fa-map-marker"></i></span>
-                      </a>
-                    </p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Ação</p>
+                    <div class="dropdown is-right is-hoverable">
+                      <div class="dropdown-trigger">
+                        <button class="button  is-text" aria-haspopup="true" aria-controls="dropdown-menu1">
+                          <span class="icon is-large">
+                            <span class="mdi mdi-apps"></span>
+                          </span>
+                        </button>
+                      </div>
+                      <div class="dropdown-menu" id="dropdown-menu1" role="menu">
+                        <div class="dropdown-content">
+                          <a @click="modalGeo = true; selecItem(entry)" class="dropdown-item">
+                            <span class="mdi mdi-map-marker"></span>Geoposição
+                          </a>
+                          <a @click="modalCat = true; selecItem(entry)" class="dropdown-item">
+                            <span class="mdi mdi-tag-multiple"></span>Categoria
+                          </a>
+                          <a @click="modalEdt = true; selecItem(entry)" class="dropdown-item">
+                            <span class="mdi mdi-pencil"></span>Edit
+                          </a>
+                          <a @click="modalDel = true; selecItem(entry)" class="dropdown-item">
+                            <span class="mdi mdi-delete"></span>Delete
+                          </a>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </nav>
@@ -55,7 +79,10 @@
       </div>
     </section>
     <div>
-      <geolocalizacao v-if="showModal" v-on:close="onClose" v-on:atualizar="onAtualizar" :data="modalItem"></geolocalizacao>
+      <local-geo v-if="modalGeo" v-on:close="modalGeo = false" :data="modalItem"></local-geo>
+      <local-edt v-if="modalEdt" v-on:close="modalEdt = false" :data="modalItem"></local-edt>
+      <local-del v-if="modalDel" v-on:close="modalDel = false" :data="modalItem"></local-del>
+      <local-cat v-if="modalCat" v-on:close="modalCat = false" :data="modalItem"></local-cat>
     </div>
   </div>
 </template>

@@ -1,4 +1,4 @@
-<template id="geolocalizacao">
+<template id="local-geo">
   <div class="modal is-active" >
     <div class="modal-background"></div>
     <div class="modal-card">

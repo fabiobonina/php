@@ -35,12 +35,8 @@ Vue.component('loja-cat', {
       if(this.checkForm()){
         this.isLoading = true
         var postData = {
-          nick: this.data.nick,
-          name: this.data.name,
-          grupo: this.data.grupo,
-          seguimento: this.data.seguimento,
-          ativo: this.data.ativo,
-          id: this.data.id
+          categorias: this.categoria,
+          loja: this.data.id
         };
         //console.log(postData);
         this.$http.post('./config/api/apiLoja.php?action=editar', postData).then(function(response) {

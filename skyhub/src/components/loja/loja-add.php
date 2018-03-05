@@ -107,11 +107,7 @@
               </div>
             </div>
           </div>
-          
-
-        </div>
-        <div>
-        
+        </div>        
         <!--#CONTEUDO -->
       </section>
       <footer class="modal-card-foot field is-grouped is-grouped-right">

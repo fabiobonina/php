@@ -30,7 +30,7 @@
     <?php include("src/components/os/lojaOss.php");?>
     <!-- /components loja -->
     <!-- components local -->
-    <?php include("src/components/local/geolocalizacao.php");?>
+    <?php include("src/components/local/local-geo.php");?>
     <?php include("src/components/local/locais-grid.php");?>
     <?php include("src/components/local/local.php");?>
     <?php include("src/components/local/locais.php");?>
@@ -88,7 +88,7 @@
 <script src="src/components/os/lojaOss.js"></script>
 <!-- /components loja -->
 <!-- components local-->
-<script src="src/components/local/geolocalizacao.js"></script>
+<script src="src/components/local/local-geo.js"></script>
 <script src="src/components/local/locais-grid.js"></script>
 <script src="src/components/local/local.js"></script>
 <script src="src/components/local/locais.js"></script>

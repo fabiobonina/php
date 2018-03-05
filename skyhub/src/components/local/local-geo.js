@@ -1,6 +1,6 @@
-Vue.component('geolocalizacao', {
-  name: 'geolocalizacao',
-  template: '#geolocalizacao',
+Vue.component('local-geo', {
+  name: 'local-geo',
+  template: '#local-geo',
   data() {
     return {
       errorMessage: [],
@@ -15,16 +15,9 @@ Vue.component('geolocalizacao', {
     data: {}
   },
   computed: {
-    temErros () {
-      return this.errorMessage.length > 0
-    },
     temMessage () {
-      if(this.errorMessage.length > 0){
-        return true
-      }
-      if(this.successMessage.length > 0){
-        return true
-      }
+      if(this.errorMessage.length > 0) return true
+      if(this.successMessage.length > 0) return true
       return false
     }
   },
@@ -50,8 +43,11 @@ Vue.component('geolocalizacao', {
             } else{
               this.successMessage.push(response.data.message);
               this.isLoading = false;
+              this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
+                console.log("Atualizado locais!")
+              });
               setTimeout(() => {
-                this.$emit('atualizar');
+                this.$emit('close');
               }, 2000);  
             }
           })

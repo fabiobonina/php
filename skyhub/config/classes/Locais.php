@@ -4,6 +4,7 @@ require_once '_crud.php';
 class Locais extends Crud{
 	
 	protected $table = 'tb_locais';
+	protected $table2 = 'tb_local_categoria';
 	private $loja;
 	private $tipo;
 	private $regional;
@@ -48,6 +49,9 @@ class Locais extends Crud{
 	public function setAtivo($ativo){
 		$this->ativo = $ativo;
 	}
+	public function setCategoria($categoria){
+		$this->categoria = $categoria;
+	}
 
 	public function insert(){
 		try{
@@ -64,10 +68,24 @@ class Locais extends Crud{
 		$stmt->bindParam(':latitude',$this->latitude);
 		$stmt->bindParam(':longitude',$this->longitude);
 		$stmt->bindParam(':ativo',$this->ativo);
-
-		return $stmt->execute();
-		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+		
+		$categorias = json_decode( $this->categoria);
+		if( isset($categorias) ){
+			$stmt->execute();
+			$localId = DB::getInstance()->lastInsertId();
+			foreach ($categorias as $value){
+				$itemId = $value->id;
+				$sql  = "INSERT INTO $this->table2 ( local, categoria ) ";
+				$sql .= "VALUES ( :local, :categoria )";
+				$stmt = DB::prepare($sql);
+				$stmt->bindParam(':local', $localId );
+				$stmt->bindParam(':categoria', $itemId );
+				$stmt->execute();
+			}
+			$res['error'] = false;
+			 return $res['message']= "OK, dados salvo com sucesso";
+		}else{
+			return $stmt->execute();
 		}
 
 	}

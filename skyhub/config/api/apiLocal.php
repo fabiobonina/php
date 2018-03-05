@@ -125,6 +125,10 @@ if($action == 'cadastrar'):
   $lat = $_POST['latitude'];
   $long = $_POST['longitude'];
   $ativo = $_POST['ativo'];
+  $categoria = '';
+  if( isset($_POST['categoria']) ):
+    $categoria = json_encode($_POST['categoria'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+  endif;
 
   $locais->setLoja($loja);
   $locais->setTipo($tipo);
@@ -135,6 +139,7 @@ if($action == 'cadastrar'):
   $locais->setLat($lat);
   $locais->setLong($long);
   $locais->setAtivo($ativo);
+  $locais->setCategoria($categoria);
   # Insert
   if($locais->insert()){
     $res['error'] = false;

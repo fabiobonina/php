@@ -22,30 +22,15 @@
               <span class="mdi mdi-sync-off"></span>
             </span>
           </a>
-            <a @click="ativo = '0'; catDelete(item)" class="button  is-small is-danger">Link
+            <a @click="ativo = '0'; catDelete(item)" class="button  is-small is-danger">Del &nbsp;
               <span class="icon is-small">
-                <span class="mdi mdi-check"></span>
+                <span class="mdi mdi-close"></span>
               </span>
             </a>
           </h2>
         </div>
         <br>
         
-        <div class="field is-horizontal">
-          <div class="field-label">
-            <label class="label">Ativo?</label>
-          </div>
-          <div class="field-body">
-            <div class="field is-narrow">
-              <div class="control">
-                <input type="radio" value="1" v-model="loja.ativo">
-                <label for="one">Não</label>
-                <input type="radio" value="0" v-model="loja.ativo">
-                <label for="two">Sim</label>
-              </div>
-            </div>
-          </div>
-        </div>
         <div class="field is-horizontal">
           <div class="field-label is-normal">
             <label class="label">Categorias</label>

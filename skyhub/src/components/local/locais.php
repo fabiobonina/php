@@ -10,13 +10,13 @@
         </div>
         &nbsp;
         <div class="control">
-          <a v-on:click="modalLocalAdd = true; selecItem(dados)" class="button is-link is-al">
+          <a v-on:click="modalLocalAdd = true" class="button is-link is-al">
             <span class="mdi mdi-home-modern"></span> Local
           </a>
         </div>
       </div>
       <grid-local :data="locais" :columns="gridColumns" :filter-key="search"></grid-local>
-      <local-add v-if="modalLocalAdd" v-on:close="modalLocalAdd = false" :data="loja" @atualizar="onAtualizar"></local-add>
+      <local-add v-if="modalLocalAdd" v-on:close="modalLocalAdd = false"></local-add>
     </section>
   </div>
 </template>

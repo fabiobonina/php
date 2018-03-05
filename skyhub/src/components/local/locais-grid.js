@@ -12,9 +12,13 @@ Vue.component('grid-local', {
     return {
       sortKey: '',
       sortOrders: sortOrders,
-      showModal: false,
       modalItem: {},
-      geolocalizacao: ''
+      geolocalizacao: '',
+      modalAdd: false,
+      modalEdt: false,
+      modalDel: false,
+      modalCat: false,
+      modalGeo: false,
     }
   },
   computed: {
