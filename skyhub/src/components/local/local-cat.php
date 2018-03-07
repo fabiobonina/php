@@ -3,7 +3,7 @@
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">{{ loja.nick }} / {{ local.tipo }} {{ local.nome }} <span class="mdi mdi-store"></span></p>
+        <p class="modal-card-title">{{ loja.nick }} / {{ local.tipo }} {{ local.name }} <span class="mdi mdi-store"></span></p>
         <button class="delete" aria-label="close" v-on:click="$emit('close')"></button>
       </header>
       <section class="modal-card-body">

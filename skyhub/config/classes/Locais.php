@@ -16,11 +16,7 @@ class Locais extends Crud{
 	private $ativo;
 
 	public function setName($name){
-		$name = iconv('UTF-8', 'ASCII//TRANSLIT', $name);
 		$this->name = strtoupper ($name);
-	}
-	public function getName(){
-		return $this->name;
 	}
 	public function setLoja($loja){
 		$this->loja = $loja;
@@ -29,15 +25,12 @@ class Locais extends Crud{
 		$this->tipo = $tipo;
 	}
 	public function setRegional($regional){
-		$regional = iconv('UTF-8', 'ASCII//TRANSLIT', $regional);
 		$this->regional = strtoupper ($regional);
 	}
 	public function setMunicipio($municipio){
-		$municipio = iconv('UTF-8', 'ASCII//TRANSLIT', $municipio);
 		$this->municipio = strtoupper ($municipio);
 	}
 	public function setUf($uf){
-		$uf = iconv('UTF-8', 'ASCII//TRANSLIT', $uf);
 		$this->uf = strtoupper ($uf);
 	}
 	public function setLat($latitude){

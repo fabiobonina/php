@@ -23,7 +23,7 @@ class LojaCategorias extends Crud{
 
 	public function insert(){
 		try{
-			$sql  = "INSERT INTO $this->table2 ( loja, categoria ) ";
+			$sql  = "INSERT INTO $this->table ( loja, categoria ) ";
 			$sql .= "VALUES ( :loja, :categoria )";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':loja', $this->loja );
@@ -48,6 +48,17 @@ class LojaCategorias extends Crud{
 			echo 'ERROR: ' . $e->getMessage();
 		}
 		
+	}
+	public function deleteLoja($loja){
+		try{
+		$sql  = "DELETE FROM $this->table WHERE loja = :loja";
+		$stmt = DB::prepare($sql);
+		$stmt->bindParam(':loja', $loja, PDO::PARAM_INT);
+		
+		return $stmt->execute(); 
+		} catch(PDOException $e) {
+			echo 'ERROR: ' . $e->getMessage();
+		}
 	}
 
 }

@@ -35,12 +35,12 @@ Vue.component('local-cat', {
       if(this.checkForm()){
         this.isLoading = true
         var postData = {
-          categorias: this.categoria,
-          loja: this.data.id
+          categoria: this.categoria,
+          local: this.data.id
         };
         //console.log(postData);
         this.$http.post('./config/api/apiLocal.php?action=catCadastrar', postData).then(function(response) {
-          console.log(response);
+          //console.log(response);
           if(response.data.error){
             this.errorMessage = response.data.message;
             this.isLoading = false;
@@ -51,7 +51,10 @@ Vue.component('local-cat', {
               console.log("Atualizado locais!")
             });
             setTimeout(() => {
-              this.$emit('close');
+              //this.$emit('close');
+              this.errorMessage = [];
+              this.successMessage = [];
+              this.categoria = [];
             }, 2000);
           }
         })
@@ -68,7 +71,7 @@ Vue.component('local-cat', {
         };
         //console.log(postData);
         this.$http.post('./config/api/apiLocal.php?action=catDelete', postData).then(function(response) {
-          console.log(response);
+          //console.log(response);
           if(response.data.error){
             this.errorMessage = response.data.message;
             this.isLoading = false;
@@ -80,6 +83,8 @@ Vue.component('local-cat', {
             });
             setTimeout(() => {
               //this.$emit('close');
+              this.errorMessage = [];
+              this.successMessage = [];
             }, 2000);
           }
         })
@@ -90,8 +95,8 @@ Vue.component('local-cat', {
     },
     catStatus: function(data) {
       this.isLoading = true
-      if(data.ativo == 0) this.ativo = '1';
-      if(data.ativo == 1) this.ativo = '0';
+      if(data.ativo == '0') this.ativo = '1';
+      if(data.ativo == '1') this.ativo = '0';
       var postData = {
         ativo: this.ativo,
         id: data.id
@@ -110,6 +115,8 @@ Vue.component('local-cat', {
           });
           setTimeout(() => {
             //this.$emit('close');
+            this.errorMessage = [];
+            this.successMessage = [];
           }, 2000);
         }
       })
@@ -119,10 +126,7 @@ Vue.component('local-cat', {
     },
     checkForm:function(e) {
       this.errorMessage = [];
-      if(!this.data.name) this.errorMessage.push("Nome necessário.");
-      if(!this.data.nick) this.errorMessage.push("Nome Fantasia necessário.");
-      if(!this.data.grupo) this.errorMessage.push("Grupo necessário.");
-      if(!this.data.seguimento) this.errorMessage.push("Seguimento necessário.");
+      if(!this.data.categoria) this.errorMessage.push("Categoria necessário.");
       if(!this.errorMessage.length) return true;
       e.preventDefault();
     },

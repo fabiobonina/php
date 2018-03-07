@@ -78,11 +78,13 @@ if($action == 'read'):
         #LOCAL_CATEGORIA-------------------------------------------------------------------------
         $arCategorias = array();
         foreach($localCategorias->findAll() as $key => $value):if($value->local == $localId) {
-          $categoriaId = $value->categoria;
-          $categoriasAtivo = $value->ativo;
-          foreach($categorias->findAll() as $key => $value):if($value->id == $categoriaId) {
+          $catLacalCategoria = $value->categoria;
+          $catLacalAtivo = $value->ativo;
+          $catLacalId = $value->id;
+          foreach($categorias->findAll() as $key => $value):if($value->id == $catLacalCategoria) {
             $arCategoria = (array) $value;
-            $arCategoria['ativo'] = $categoriasAtivo;
+            $arCategoria['ativo'] = $catLacalAtivo;
+            $arCategoria['id'] = $catLacalId;
             array_push($arCategorias, $arCategoria );
           }endforeach;
         }endforeach;
@@ -116,11 +118,13 @@ if($action == 'read'):
       #LOJA_CATEGORIA-----------------------------------------------------------------------------
       $arCategorias = array();
       foreach($lojaCategorias->findAll() as $key => $value):if($value->loja == $lojaId) {
-        $categoriasId = $value->categoria;
-        $categoriasAtivo = $value->ativo;
-        foreach($categorias->findAll() as $key => $value):if($value->id == $categoriasId) {
+        $catLjCategoria = $value->categoria;
+        $catLjAtivo = $value->ativo;
+        $catLjId = $value->id;
+        foreach($categorias->findAll() as $key => $value):if($value->id == $catLjCategoria) {
           $arCategoria = (array) $value;
-          $arCategoria['ativo'] = $categoriasAtivo;
+          $arCategoria['ativo'] = $catLjAtivo;
+          $arCategoria['id'] = $catLjId;
           array_push($arCategorias, $arCategoria );
         }endforeach;
       }endforeach;

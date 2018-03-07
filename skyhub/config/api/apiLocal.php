@@ -21,6 +21,7 @@ $ativos = new Ativos();
 
 $res = array('error' => true);
 $arDados = array();
+$arErros = array();
 $action = 'read';
 
 if(isset($_GET['action'])){
@@ -41,9 +42,13 @@ if($action == 'read'):
     #LOCAL_CATEGORIA-------------------------------------------------------------------------
     $arCategorias = array();
     foreach($localCategorias->findAll() as $key => $value):if($value->local == $localId) {
-      $categoriaId = $value->categoria;
-      foreach($categorias->findAll() as $key => $value):if($value->id == $categoriaId) {
+      $catLacalCategoria = $value->categoria;
+      $catLacalAtivo = $value->ativo;
+      $catLacalId = $value->id;
+      foreach($categorias->findAll() as $key => $value):if($value->id == $catLacalCategoria) {
         $arCategoria = (array) $value;
+        $arCategoria['ativo'] = $catLacalAtivo;
+        $arCategoria['id'] = $catLacalId;
         array_push($arCategorias, $arCategoria );
       }endforeach;
     }endforeach;
@@ -79,8 +84,8 @@ endif;
 #LOJA
 if($action == 'loja'):
   $dados = array();
-  //$lojaId = $_POST['lojaId'];
-  $lojaId = 2;
+  $lojaId = $_POST['lojaId'];
+  //$lojaId = 2;
 
   foreach($loja->findAll() as $key => $value):if($value->id == $lojaId) {
     $loja = (array) $value;
@@ -193,7 +198,7 @@ if($action == 'deletar'):
   #delete
   $id = $_POST['id'];
   if($lojas->delete($id)){
-    if($localCategorias->deleteLoja($id)){
+    if($localCategorias->deleteLocal($id)){
     $res['error'] = false;
     $arDados = "OK, registro deletado";
     $res['message']= $arDados;
@@ -255,31 +260,38 @@ if($action == 'catCadastrar'):
   #Novo
   $local  = $_POST['local'];
   $categoria = $_POST['categoria'];
-
-  #LOJAS-------------------------------------------------------------------------------------------
-  $duplicado = false;
-
-  foreach ($categoria as $data){
-    $itemId = $data->id;
-    foreach($localCategorias->findAll() as $key => $value):if($loja == $value->loja) {
-      $categoriaId = $value->categoria;
-      if( $itemId != $categoriaId ):
-        $localCategorias->setLoja($loja);
-        $localCategorias->setCategoria($itemId);
-        # Insert
-        if($localCategorias->insert()){
-          $res['error'] = false;
-          $arDados = "OK, dados salvo com sucesso";
-          $res['message']= $arDados;
-        }else{
-          $res['error'] = true; 
-          $arError = "Error, nao foi possivel salvar os dados";
-          array_push($arErros, $arError);
-        }
-      endif;
+  foreach ( $categoria as $data){
+    $itemId = $data['id'];
+    $duplicado = false;
+    foreach($localCategorias->findAll() as $key => $value): {
+      $catLacalCategoria = $value->categoria;
+      $catLacalLocal = $value->local;
+      
+      if($local == $catLacalLocal){
+        if($itemId == $catLacalCategoria ):
+          $duplicado = true;
+        endif;
+      }          
     }endforeach;
+    if( !$duplicado ){
+      $localCategorias->setLocal($local);
+      $localCategorias->setCategoria($itemId);
+      # Insert
+      if($localCategorias->insert()){
+        $res['error'] = false;
+        $arDados = "OK, dados salvo com sucesso";
+        $res['message']= $arDados;
+      }else{
+        $res['error'] = true; 
+        $arError = "Error, nao foi possivel salvar os dados";
+        array_push($arErros, $arError);
+      }
+    }else{
+      $res['error'] = true; 
+      $arError = "Error, item já cadastrado";
+      array_push($arErros, $arError);
+    }
   }
-  #LOJAS-------------------------------------------------------------------------------------------
     
   if($res['error'] == true){
     $res['message']= $arErros;
@@ -287,48 +299,7 @@ if($action == 'catCadastrar'):
 
 endif;
 #CATEGORIA-CADASTRAR----------------------------------------------------------------------
-#ATUALIZAR
-if(isset($_POST['atualizar'])):
 
-  $id = $_POST['id'];
-  $cliente = $_POST['cliente'];
-  $regional = $_POST['regional'];
-  $nome = $_POST['nome'];
-  $municipio = $_POST['municipio'];
-  $uf = $_POST['uf'];
-  $lat = $_POST['lat'];
-  $long =$_POST["long"];
-  $ativo =$_POST["ativo"];
-
-  $locais->setCliente($cliente);
-  $locais->setRegional($regional);
-  $locais->setNome($nome);
-  $locais->setMunicipio($municipio);
-  $locais->setUf($uf);
-  $locais->setLat($lat);
-  $locais->setLong($long);
-  $locais->setAtivo($ativo);
-
-  if($locais->update($id)){
-    echo '<div class="alert alert-success">
-      <button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>Atualizado com sucesso!</strong> Redirecionando ...
-      </div>';
-    header("Refresh: 1, ".$redirecionar_1);
-  }
-endif;
-
-#DELETAR
-if(isset($_GET['acao1']) && $_GET['acao1'] == 'deletar'):
-  $id = (int)$_GET['id'];
-  if($locais->delete($id)){
-    echo '<div class="alert alert-success">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>Deletado com sucesso!</strong> Redirecionando ...
-        </div>';
-    header("Refresh: 1, ".$redirecionar_1);
-  }
-endif;
 
 $res['dados'] = $arDados;
 header("Content-Type: application/json");

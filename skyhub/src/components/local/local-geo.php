@@ -3,7 +3,7 @@
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">Local: {{data.name}}, {{data.municipio}} /{{data.uf}}</p>
+        <p class="modal-card-title">{{data.tipo}} - {{data.name}}, {{data.municipio}}/{{data.uf}}</p>
         <button class="delete" aria-label="close" v-on:click="$emit('close')"></button>
       </header>
       <section class="modal-card-body">
@@ -28,8 +28,8 @@
         <!--#CONTEUDO -->
       </section>
       <footer class="modal-card-foot field is-grouped is-grouped-right">
-        <button :class="isLoading ? 'button is-success is-loading' : 'button is-success'" v-on:click="saveItem()">Save</button>
-        <button class="button" v-on:click="$emit('close')">Cancel</button>
+      <button class="button" v-on:click="$emit('close')">Cancel</button>
+        <button :class="isLoading ? 'button is-info is-loading' : 'button is-info'" v-on:click="saveItem()">Save</button>
       </footer>
     </div>
   </div>

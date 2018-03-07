@@ -11,7 +11,7 @@
   $lojas = new Loja();
   $lojaCategorias = new LojaCategorias();
   $locais = new Locais();
-  $localCategorias = new LocalCAtegorias();
+  $localCategorias = new LocalCategorias();
   $categorias = new Categorias();
 
   $res = array('error' => false);
@@ -292,31 +292,38 @@
     #Novo
     $loja  = $_POST['loja'];
     $categoria = $_POST['categoria'];
-
-    #LOJAS-------------------------------------------------------------------------------------------
-    $duplicado = false;
-
-    foreach ($categoria as $data){
-      $itemId = $data->id;
-      foreach($lojaCategorias->findAll() as $key => $value):if($loja == $value->loja) {
-        $categoriaId = $value->categoria;
-        if( $itemId != $categoriaId ):
-          $lojaCategorias->setLoja($loja);
-          $lojaCategorias->setCategoria($itemId);
-          # Insert
-          if($lojaCategorias->insert()){
-            $res['error'] = false;
-            $arDados = "OK, dados salvo com sucesso";
-            $res['message']= $arDados;
-          }else{
-            $res['error'] = true; 
-            $arError = "Error, nao foi possivel salvar os dados";
-            array_push($arErros, $arError);
-          }
-        endif;
+    foreach ( $categoria as $data){
+      $itemId = $data['id'];
+      $duplicado = false;
+      foreach($lojaCategorias->findAll() as $key => $value): {
+        $catLjCategoria = $value->categoria;
+        $catLjLoja = $value->loja;
+        
+        if($loja == $catLjLoja){
+          if($itemId == $catLjCategoria ):
+            $duplicado = true;
+          endif;
+        }          
       }endforeach;
+      if( !$duplicado ){
+        $lojaCategorias->setLoja($loja);
+        $lojaCategorias->setCategoria($itemId);
+        # Insert
+        if($lojaCategorias->insert()){
+          $res['error'] = false;
+          $arDados = "OK, dados salvo com sucesso";
+          $res['message']= $arDados;
+        }else{
+          $res['error'] = true; 
+          $arError = "Error, nao foi possivel salvar os dados";
+          array_push($arErros, $arError);
+        }
+      }else{
+        $res['error'] = true; 
+        $arError = "Error, item já cadastrado";
+        array_push($arErros, $arError);
+      }
     }
-    #LOJAS-------------------------------------------------------------------------------------------
       
     if($res['error'] == true){
       $res['message']= $arErros;

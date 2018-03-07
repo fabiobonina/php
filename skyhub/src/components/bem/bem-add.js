@@ -1,26 +1,22 @@
 Vue.component('bem-add', {
   name: 'bem-add',
   template: '#bem-add',
+  props: {
+    data: {}
+  },
   data() {
     return {
       errorMessage: [],
       successMessage: [],
-      produto: {}, modelo: '', numeracao:'', modelo:'',
-      fabricante: {}, categoria: '', plaqueta: '', dataFab: '', dataCompra: '', ativa: '',
+      produto: {}, modelo: '', numeracao:'', modelo:'', fabricante: {},
+      categoria: '', plaqueta: '', dataFab: '', dataCompra: '', ativo: '',
       isLoading: false
     };
-  },
-  props: {
-    data: {}
-  },
+  },  
   computed: {
     temMessage () {
-      if(this.errorMessage.length > 0){
-        return true
-      }
-      if(this.successMessage.length > 0){
-        return true
-      }
+      if(this.errorMessage.length > 0) return true
+      if(this.successMessage.length > 0) return true
       return false
     },
     loja()  {
@@ -47,10 +43,8 @@ Vue.component('bem-add', {
   methods: {
     saveItem: function(){
       this.errorMessage = []
-      if(this.formValido()){
+      if(this.checkForm()){
         this.isLoading = true
-        //const data = {'id': this.data.id, 'modelo': this.modelo
-        //'cadastro': new Date().toJSON() }
         var postData = {
           produto: this.produto.id,
           tag: this.produto.tag,
@@ -66,42 +60,41 @@ Vue.component('bem-add', {
           plaqueta: this.plaqueta,
           dataFab: this.dataFab,
           dataCompra: this.dataCompra,
-          ativo: '0'
+          ativo: this.ativo
         };
-        //var formData = this.toFormData(postData);
         //console.log(postData);
         this.$http.post('./config/api/apiBemFull.php?action=cadastrar', postData)
           .then(function(response) {
-            //console.log(response);
-            if(response.data.error){
-              this.errorMessage.push(response.data.message);
-              this.isLoading = false;
-            } else{
-              this.successMessage.push(response.data.message);
-              this.isLoading = false;
-              setTimeout(() => {
-                this.$emit('atualizar');
-              }, 2000);  
-            }
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
-          //this.$store.state.create(data)
+          //console.log(response);
+          if(response.data.error){
+            this.errorMessage.push(response.data.message);
+            this.isLoading = false;
+          } else{
+            this.successMessage.push(response.data.message);
+            this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
+              console.log("Atulizando dados das localidades!")
+            });
+            this.isLoading = false;
+            setTimeout(() => {
+              this.$emit('close');
+            }, 2000);  
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
       }
     },
-    ehVazia () {
-      if(this.produto.length == 0 || this.modelo.length == 0 || this.fabricante.length == 0 || this.categoria.length == 0 || this.dataCompra.length == 0){
-          this.errorMessage.push('Por favor, preencha os campos obrigatorio *')
-          return true
-      }
-      return false
+    checkForm:function(e) {
+      this.errorMessage = [];
+      if(!this.produto) this.errorMessage.push("Tipo necessário.");
+      if(!this.modelo) this.errorMessage.push("Nome necessário.");
+      if(!this.fabricante) this.errorMessage.push("Municipio necessário.");
+      if(!this.categoria) this.errorMessage.push("UF necessário.");
+      if(!this.ativo) this.errorMessage.push("Ativo necessário.");
+      if(!this.dataCompra) this.errorMessage.push('Coordenadas incorretas!');
+      if(!this.errorMessage.length) return true;
+      e.preventDefault();
     },
-    formValido(){
-        if(this.ehVazia()){
-            return false
-        }
-        return true
-    }
   },
 });

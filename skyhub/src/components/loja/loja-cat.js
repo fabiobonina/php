@@ -35,12 +35,12 @@ Vue.component('loja-cat', {
       if(this.checkForm()){
         this.isLoading = true
         var postData = {
-          categorias: this.categoria,
+          categoria: this.categoria,
           loja: this.data.id
         };
         //console.log(postData);
         this.$http.post('./config/api/apiLoja.php?action=catCadastrar', postData).then(function(response) {
-          console.log(response);
+          //console.log(response);
           if(response.data.error){
             this.errorMessage = response.data.message;
             this.isLoading = false;
@@ -51,7 +51,9 @@ Vue.component('loja-cat', {
               console.log("Atualizado lojas!")
             });
             setTimeout(() => {
-              this.$emit('close');
+              this.errorMessage = [];
+              this.successMessage = [];
+              this.categoria = [];
             }, 2000);
           }
         })
@@ -68,7 +70,7 @@ Vue.component('loja-cat', {
         };
         //console.log(postData);
         this.$http.post('./config/api/apiLoja.php?action=catDelete', postData).then(function(response) {
-          console.log(response);
+          //console.log(response);
           if(response.data.error){
             this.errorMessage = response.data.message;
             this.isLoading = false;
@@ -80,6 +82,8 @@ Vue.component('loja-cat', {
             });
             setTimeout(() => {
               //this.$emit('close');
+              this.errorMessage = [];
+              this.successMessage = [];
             }, 2000);
           }
         })
@@ -109,7 +113,8 @@ Vue.component('loja-cat', {
             console.log("Atualizado lojas!")
           });
           setTimeout(() => {
-            //this.$emit('close');
+            this.errorMessage = [];
+            this.successMessage = [];
           }, 2000);
         }
       })
@@ -119,10 +124,7 @@ Vue.component('loja-cat', {
     },
     checkForm:function(e) {
       this.errorMessage = [];
-      if(!this.data.name) this.errorMessage.push("Nome necessário.");
-      if(!this.data.nick) this.errorMessage.push("Nome Fantasia necessário.");
-      if(!this.data.grupo) this.errorMessage.push("Grupo necessário.");
-      if(!this.data.seguimento) this.errorMessage.push("Seguimento necessário.");
+      if(this.categoria.length == 0) this.errorMessage.push("Categoria necessário.");
       if(!this.errorMessage.length) return true;
       e.preventDefault();
     },
