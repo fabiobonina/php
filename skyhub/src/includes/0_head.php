@@ -51,8 +51,10 @@ function __autoload($class_name){
   <script src="dist/lib/vuex.js"></script>
   <script src="dist/lib/vue-router.js"></script>
   <script src="dist/lib/vue-resource.js"></script>
+  <script src="dist/js/vue-select.js"></script>
+  
   <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlfHdTSE_d9zwwYKs5gbL01mHElMLCFgE&libraries=places,geometry"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlfHdTSE_d9zwwYKs5gbL01mHElMLCFgE&libraries=places,geometry"></script>
     
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->

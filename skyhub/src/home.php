@@ -48,7 +48,7 @@
     <?php include("src/components/os/oss.php");?>
     <?php include("src/components/os/os.php");?>
     <?php include("src/components/os/os-grid.php");?>
-    <?php include("src/components/os/osAdd.php");?>
+    <?php include("src/components/os/os-add.php");?>
     <?php include("src/components/os/lojaOs.php");?>
     <?php include("src/components/os/localOs.php");?>
     
@@ -109,7 +109,7 @@
 <script src="src/components/os/os-grid.js"></script>
 <script src="src/components/os/oss.js"></script>
 <script src="src/components/os/os.js"></script>
-<script src="src/components/os/osAdd.js"></script>
+<script src="src/components/os/os-add.js"></script>
 <script src="src/components/os/lojaOs.js"></script>
 <script src="src/components/os/localOs.js"></script>
 <!-- /components os -->

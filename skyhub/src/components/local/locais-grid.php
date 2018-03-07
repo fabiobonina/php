@@ -27,7 +27,7 @@
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
-                    <a v-if=" 0.000000 != entry.latitude" :href="'https://maps.google.com/maps?q='+ entry.latitude + '%2C' + entry.longitude" target="_blank">
+                    <a v-if=" 0.000000 != entry.latitude" :href="'https://maps.google.com/maps?q='+ entry.latitude + ',' + entry.longitude" target="_blank">
                       <span>Mapa <i class="fa fa-map"></i></span>
                     </a>
                   </div>

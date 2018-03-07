@@ -5,7 +5,8 @@ Vue.component('os-add', {
     return {
       errorMessage: [],
       successMessage: [],
-      item:{}, servico: {}, tecnico: [], dataOs: '', ativa: '',
+      item:{},
+      servico: null, tecnico: null, dataOs: '', ativa: '',
       isLoading: false,
       newTodoText: '',
       todos: [

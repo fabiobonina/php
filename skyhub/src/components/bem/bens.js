@@ -12,8 +12,10 @@ var Bens = Vue.extend({
       successMessage: '',
       search: '',
       modalAdd: false,
-      active: '',
-      gridColumns: ['displayName', 'name']
+      modalOs: true,
+      active: '1',
+      gridColumns: ['displayName', 'name'],
+      modalItem: null
     };
   },
   created: function() {

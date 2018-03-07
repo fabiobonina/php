@@ -2,7 +2,8 @@ Vue.component('grid-local', {
   template: '#grid-local',
   props: {
     data: Array,
-    columns: Array
+    columns: Array,
+    filterKey: String
   },
   data: function () {
     var sortOrders = {}
@@ -24,7 +25,7 @@ Vue.component('grid-local', {
   computed: {
     filteredData: function () {
       var sortKey = this.sortKey
-      var filterKey = store.state.search && store.state.search.toLowerCase()
+      var filterKey = this.filterKey && this.filterKey.toLowerCase()
       var order = this.sortOrders[sortKey] || 1
       var data = this.data
       if (filterKey) {

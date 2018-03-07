@@ -333,6 +333,9 @@ var NaoEncontrado = Vue.extend({
     }
   }
 });
+
+Vue.component('v-select', VueSelect.VueSelect);
+
 Vue.component('todo-item', {
   template: `
     <li>

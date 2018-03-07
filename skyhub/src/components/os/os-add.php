@@ -3,13 +3,17 @@
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">{{data.name}} <p> <i class="fa fa-qrcode"></i> {{ data.numeracao }} <i class="fa fa-fw fa-barcode"></i>{{ data.plaqueta }}</p></p>
+        <p class="modal-card-title">{{ local.tipo }} - {{ local.name }} <p> <i class="fa fa-qrcode"></i> {{ }} <i class="fa fa-fw fa-barcode"></i>{{  }}</p></p>
         <button class="delete" aria-label="close" v-on:click="$emit('close')"></button>
       </header>
       <section class="modal-card-body">
         <message :success="successMessage" :error="errorMessage"></message>
         <!--#CONTEUDO -->
         <p>{{ loja.nick }}: {{ local.tipo }} - {{ local.name }}</p>
+        <div v-if='data'>
+          <i class="fa fa-qrcode"></i> {{ data.numeracao }} <i class="fa fa-fw fa-barcode"></i>{{ data.plaqueta }}
+        </div>
+        
         <div class="field is-horizontal">
           <div class="field-label is-normal">
             <label class="label">Serviço</label>

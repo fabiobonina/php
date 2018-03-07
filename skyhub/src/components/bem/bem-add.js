@@ -2,15 +2,17 @@ Vue.component('bem-add', {
   name: 'bem-add',
   template: '#bem-add',
   props: {
-    data: {}
+    data: {},
+    filterKey: String
   },
   data() {
     return {
       errorMessage: [],
       successMessage: [],
-      produto: {}, modelo: '', numeracao:'', modelo:'', fabricante: {},
-      categoria: '', plaqueta: '', dataFab: '', dataCompra: '', ativo: '',
-      isLoading: false
+      produto: null, modelo: '', numeracao:'', modelo:'', fabricante: null,
+      categoria: null, plaqueta: '', dataFab: '', dataCompra: '', ativo: '',
+      isLoading: false,
+      item:{},
     };
   },  
   computed: {
@@ -62,10 +64,10 @@ Vue.component('bem-add', {
           dataCompra: this.dataCompra,
           ativo: this.ativo
         };
-        //console.log(postData);
-        this.$http.post('./config/api/apiBemFull.php?action=cadastrar', postData)
+        console.log(postData);
+        this.$http.post('./config/api/apiBem.php?action=cadastrar', postData)
           .then(function(response) {
-          //console.log(response);
+          console.log(response);
           if(response.data.error){
             this.errorMessage.push(response.data.message);
             this.isLoading = false;
@@ -87,12 +89,12 @@ Vue.component('bem-add', {
     },
     checkForm:function(e) {
       this.errorMessage = [];
-      if(!this.produto) this.errorMessage.push("Tipo necessário.");
-      if(!this.modelo) this.errorMessage.push("Nome necessário.");
+      if(!this.categoria) this.errorMessage.push("Categoria necessário.");
+      if(!this.produto) this.errorMessage.push("Produto necessário.");
+      if(!this.modelo) this.errorMessage.push("Modelo necessário.");
       if(!this.fabricante) this.errorMessage.push("Municipio necessário.");
-      if(!this.categoria) this.errorMessage.push("UF necessário.");
       if(!this.ativo) this.errorMessage.push("Ativo necessário.");
-      if(!this.dataCompra) this.errorMessage.push('Coordenadas incorretas!');
+      if(!this.dataCompra) this.errorMessage.push('data compra necessário!');
       if(!this.errorMessage.length) return true;
       e.preventDefault();
     },
