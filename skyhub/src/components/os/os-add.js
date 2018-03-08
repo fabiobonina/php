@@ -1,33 +1,23 @@
 Vue.component('os-add', {
   name: 'os-add',
   template: '#os-add',
+  props: {
+    data: {}
+  },
   data() {
     return {
       errorMessage: [],
       successMessage: [],
       item:{},
-      servico: null, tecnico: null, dataOs: '', ativa: '',
+      servico: null, tecnico: null, dataOs: '', ativo: '0',
       isLoading: false,
-      newTodoText: '',
-      todos: [
-        {id: 1, name: 'Do the dishes', },
-        {id: 2, name: 'Take out the trash', },
-        {id: 3, name: 'Mow the lawn'}
-      ],
-      nextTodoId: 4
+      categoria: null
     };
-  },
-  props: {
-    data: {}
   },
   computed: {
     temMessage () {
-      if(this.errorMessage.length > 0){
-        return true
-      }
-      if(this.successMessage.length > 0){
-        return true
-      }
+      if(this.errorMessage.length > 0) return true
+      if(this.successMessage.length > 0) return true
       return false
     },
     loja()  {
@@ -42,25 +32,41 @@ Vue.component('os-add', {
     tecnicos() {
       return store.state.tecnicos;
     },
+    categorias() {
+      return store.state.categorias;
+    },
+    filterServ: function () {
+      var vm = this;
+      var servicos = vm.servicos;
+      if(vm.data === null) {
+        return vm.servicos.filter(function(item) {
+          return item.tipo == '0';
+        });
+      } else {
+        return vm.servicos.filter(function(item) {
+          return item.tipo > '0';
+        });
+      }
+    }
   },
   created: function() {
     this.$store.dispatch('fetchProdutos').then(() => {
       console.log("Buscando dados dos produtos!")
     });
+    this.dataT();
+    this.addCategoria();
   },
   methods: {
     saveItem: function(){
       this.errorMessage = []
-      if(this.formValido()){
+      if(this.checkForm()){
         this.isLoading = true
-        //const data = {'id': this.data.id, 'modelo': this.modelo
-        //'cadastro': new Date().toJSON() }
         var postData = {
           loja: this.loja.id,
           lojaNick: this.loja.nick,
           local: this.local.id,
           bem: this.data.id,
-          categoria: this.data.categoria,
+          categoria: this.categoria,
           servico: this.servico.id,
           tipoServ: this.servico.tipo,
           tecnicos: this.tecnico,
@@ -69,7 +75,7 @@ Vue.component('os-add', {
           estado: '0',
           processo: '0',
           status: '0',
-          ativo: '0'
+          ativo: this.ativo
         };
         //var formData = this.toFormData(postData);
         console.log(postData);
@@ -93,22 +99,26 @@ Vue.component('os-add', {
           //this.$store.state.create(data)
       }
     },
-    ehVazia () {
-      if(this.servico.length == 0 || this.data.length == 0 || this.tecnico.length == 0 ){
-          this.errorMessage.push('Por favor, preencha os campos obrigatorio *')
-          return true
-      }
-      return false
+    checkForm:function(e) {
+      this.errorMessage = [];
+      if(!this.servico) this.errorMessage.push("Serviço necessário.");
+      if(!this.data) this.errorMessage.push("Data necessário.");
+      if(!this.tecnico) this.errorMessage.push("Tecnico necessário.");
+      if(!this.ativo) this.errorMessage.push("Ativo necessário.");
+      if(!this.errorMessage.length) return true;
+      e.preventDefault();
     },
-    formValido(){
-        if(this.ehVazia()){
-            return false
-        }
-        return true
+    dataT() {
+      var datetime = new Date().toLocaleString();
+      var res = datetime.split(" ");
+      var date = res[0].split("/");
+      var time = res[1].slice(0, -3);
+      var dtTime = date[2] + "-" + date[1] + "-" + date[0];
+      this.dataOs = dtTime;
+      console.log(dtTime);
     },
-    addNewTodo: function () {
-      this.tecnico.push(this.item)
-      this.item = {}
+    addCategoria: function () {
+      if( this.data.length > 0 ) this.categoria = this.data.categoria;
     }
   },
 });

@@ -3,7 +3,7 @@
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">{{ local.tipo }} - {{ local.name }} <p> <i class="fa fa-qrcode"></i> {{ }} <i class="fa fa-fw fa-barcode"></i>{{  }}</p></p>
+        <p class="modal-card-title">{{ loja.nick }}: {{ local.tipo }} - {{ local.name }} <p> <i class="fa fa-qrcode"></i> {{ }} <i class="fa fa-fw fa-barcode"></i>{{  }}</p></p>
         <button class="delete" aria-label="close" v-on:click="$emit('close')"></button>
       </header>
       <section class="modal-card-body">
@@ -22,11 +22,7 @@
             <div class="field">
               <div class="is-fullwidth">
                 <p class="control has-icons-left">
-                  <span class="select">
-                    <select v-model="servico">
-                      <option v-for="option in servicos" v-bind:value="option">{{ option.name }}</option>
-                    </select>
-                  </span>
+                <v-select label="name" v-model="servico" :options="servicos"></v-select>
                   <span class="icon is-small is-left">
                     <i class="fa fa-wrench"></i>
                   </span>
@@ -43,53 +39,50 @@
             </div>
           </div>
         </div>
-        
+        <div v-if="!data" class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label">Categoria</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <p class="control has-icons-left">
+                <v-select multiple label="name" v-model="categoria" :options="categorias"></v-select>
+                <span class="icon is-small is-left">
+                  <i class="fa fa-user-plus"></i>
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div class="field is-horizontal">
           <div class="field-label is-normal">
             <label class="label">Tecnicos</label>
           </div>
           <div class="field-body">
-            <div class="control is-expanded">
-              <div class="select is-fullwidth">
-                <select name="country" v-model="item">
-                  <option v-for="option in tecnicos" v-bind:value="option">{{ option.user }}</option>
-                </select>
-              </div>
-            </div>
-            <div class="control">
-              <a v-on:click="addNewTodo"  class="button is-link">
-                <span class="icon is-small"><i class="fa fa-user-plus"></i></span>
-              </a>
+            <div class="field">
+              <p class="control has-icons-left">
+                <v-select multiple label="user" v-model="tecnico" :options="tecnicos"></v-select>
+                <span class="icon is-small is-left">
+                  <i class="fa fa-user-plus"></i>
+                </span>
+              </p>
             </div>
           </div>
         </div>
         
-        <div id="todo-list-example">
-          <ul>
-            <li
-              is="todo-item"
-              v-for="(todo, index) in tecnico"
-              v-bind:key="todo.id"
-              v-bind:user="todo.user"
-              v-on:remove="tecnico.splice(index, 1)"
-            ></li>
-          </ul>
-        </div>
-
         <div class="field is-horizontal">
           <div class="field-label">
-            <label class="label">Already a member?</label>
+            <label class="label">Ativo?</label>
           </div>
           <div class="field-body">
             <div class="field is-narrow">
               <div class="control">
                 <label class="radio">
-                  <input type="radio" name="member">
-                  Yes
+                  <input value="0" v-model="ativo" type="radio"> Yes
                 </label>
                 <label class="radio">
-                  <input type="radio" name="member">
-                  No
+                  <input value="1" v-model="ativo" type="radio">  No
                 </label>
               </div>
             </div>
