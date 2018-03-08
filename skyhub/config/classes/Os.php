@@ -92,8 +92,8 @@ class Os extends Crud{
 
 	public function insert(){
 		try{
-			$sql  = "INSERT INTO $this->table ( loja, lojaNick, local, servico, tipoServ, categoria, bem, tecnicos, data, dtUltimoMan, dtCadastro, filial, os, dtOs, dtFech, dtTerm, estado, processo, status, ativo) ";
-			$sql .= "VALUES (:loja, :lojaNick, :local, :servico, :tipoServ, :categoria, :bem, :tecnicos, :data, :dtUltimoMan, :dtCadastro, :filial, :os, :dtOs, :dtFech, :dtTerm, :estado, :processo, :status, :ativo)";
+			$sql  = "INSERT INTO $this->table ( loja, lojaNick, local, servico, tipoServ, categoria, data, dtUltimoMan, dtCadastro, filial, os, dtOs, dtFech, dtTerm, estado, processo, status, ativo) ";
+			$sql .= "VALUES (:loja, :lojaNick, :local, :servico, :tipoServ, :categoria, :data, :dtUltimoMan, :dtCadastro, :filial, :os, :dtOs, :dtFech, :dtTerm, :estado, :processo, :status, :ativo)";
 			$stmt = DB::prepare($sql);
 			
 			$stmt->bindParam(':loja',$this->loja);
@@ -102,8 +102,6 @@ class Os extends Crud{
 			$stmt->bindParam(':servico',$this->servico);
 			$stmt->bindParam(':tipoServ',$this->tipoServ);
 			$stmt->bindParam(':categoria',$this->categoria);
-			$stmt->bindParam(':bem',$this->bem);
-			$stmt->bindParam(':tecnicos',$this->tecnicos);
 			$stmt->bindParam(':data',$this->data);
 			$stmt->bindParam(':dtUltimoMan',$this->dtUltimoMan);
 			$stmt->bindParam(':dtCadastro',$this->dtCadastro);
@@ -119,11 +117,18 @@ class Os extends Crud{
 
 			$stmt->execute();
 			$osId = DB::getInstance()->lastInsertId();
-
+			if($this->bem != null){
+				$sql  = "UPDATE $this->table SET bem = :bem WHERE id = :id";
+				$stmt = DB::prepare($sql);
+				$stmt->bindParam(':bem',$this->bem);
+				$stmt->bindParam(':id', $osId);
+				$stmt->execute();
+			}
+			
 			$tecnicos = json_decode( $this->tecnicos);
 			foreach ($tecnicos as $value){
 				$idTec = $value->id;
-				$userTec = $value->user;
+				$userTec = $value->userNick;
 				$hhTec = $value->hh;
 				$sql  = "INSERT INTO $this->table2 ( os, loja, tecnico, user, hh ) ";
 				$sql .= "VALUES ( :os, :loja, :tecnico, :user, :hh )";

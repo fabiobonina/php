@@ -1,11 +1,11 @@
 
 <template id="oss">
-    <article class="tile is-child notification is-primary">
-        <div class="columns is-gapless is-multiline is-mobile">
+    <section class="container">      
+        <div class="columns  is-mobile">
             <div v-for=" osLoja in osLojas" class="column is-half">
                 <div class="card">
                     <header class="card-header">
-                    <p class="card-header-title"><a :href="'#/oss/' + osLoja.id" class="product-title">{{osLoja.nick}}</a></p>
+                    <p class="card-header-title"><a :href="'#/loja/' + osLoja.id +'/lojaos'" class="product-title">{{osLoja.nick}}</a></p>
                         <a href="#" class="card-header-icon" aria-label="more options">
                             <span class="icon">
                                 <i class="fa fa-angle-down" aria-hidden="true"></i>
@@ -17,8 +17,8 @@
                             <nav class="level">
                                 <div class="level-item has-text-centered">
                                     <div>
-                                        <p class="heading">OS´s</p>
-                                        <p class="title"> {{ osLoja.osQt }} <span class="icon is-small has-text-warning"><i class="fa fa-wrench"></i></span></p>
+                                        <p class="heading">OS´s <span class="mdi mdi-wrench"></span></p>
+                                        <p class="title"> {{ osLoja.osQt }} </p>
                                     </div>
                                 </div>
                                 <div class="level-item has-text-centered">
@@ -34,19 +34,12 @@
                                     </div>
                                 </div>
                             </nav>
-                            Lorem 
-                            <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-                            <br>
-                            <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
                         </div>
                     </div>
                     <footer class="card-footer">
-                        <a href="#" class="card-footer-item">Save</a>
-                        <a href="#" class="card-footer-item">Edit</a>
-                        <a href="#" class="card-footer-item">Delete</a>
                     </footer>
                 </div>
             </div>
         </div>
-    </article>
+    </section>      
 </template>

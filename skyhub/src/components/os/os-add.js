@@ -11,6 +11,7 @@ Vue.component('os-add', {
       item:{},
       servico: null, tecnico: null, dataOs: '', ativo: '0',
       isLoading: false,
+      bem: null,
       categoria: null
     };
   },
@@ -59,14 +60,15 @@ Vue.component('os-add', {
   methods: {
     saveItem: function(){
       this.errorMessage = []
+
       if(this.checkForm()){
         this.isLoading = true
         var postData = {
           loja: this.loja.id,
           lojaNick: this.loja.nick,
           local: this.local.id,
-          bem: this.data.id,
-          categoria: this.categoria,
+          bem: this.bem,
+          categoria: this.categoria.id,
           servico: this.servico.id,
           tipoServ: this.servico.tipo,
           tecnicos: this.tecnico,
@@ -87,9 +89,12 @@ Vue.component('os-add', {
               this.isLoading = false;
             } else{
               this.successMessage.push(response.data.message);
+              this.$store.dispatch("fetchOs").then(() => {
+                console.log("Atualizando dados OS!")
+              });
               this.isLoading = false;
               setTimeout(() => {
-                this.$emit('atualizar');
+                this.$emit('close');
               }, 2000);  
             }
           })
@@ -102,7 +107,7 @@ Vue.component('os-add', {
     checkForm:function(e) {
       this.errorMessage = [];
       if(!this.servico) this.errorMessage.push("Serviço necessário.");
-      if(!this.data) this.errorMessage.push("Data necessário.");
+      if(!this.dataOs) this.errorMessage.push("Data necessário.");
       if(!this.tecnico) this.errorMessage.push("Tecnico necessário.");
       if(!this.ativo) this.errorMessage.push("Ativo necessário.");
       if(!this.errorMessage.length) return true;
@@ -115,10 +120,12 @@ Vue.component('os-add', {
       var time = res[1].slice(0, -3);
       var dtTime = date[2] + "-" + date[1] + "-" + date[0];
       this.dataOs = dtTime;
-      console.log(dtTime);
     },
     addCategoria: function () {
-      if( this.data.length > 0 ) this.categoria = this.data.categoria;
+      if( this.data != null ) {
+        this.categoria = this.data.categoria;
+        this.bem = this.data.id;
+      }
     }
   },
 });

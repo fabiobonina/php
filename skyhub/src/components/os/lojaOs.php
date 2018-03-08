@@ -7,38 +7,7 @@
         <li class="is-active"><a aria-current="page">Os´s</a></li>
       </ul>
     </nav>
-    <section class="section">
-      <div class="container">
-        <div class="columns">
-          <div class="column is-three-fifths">
-            <h1 class="title"> {{ loja.nick }} </h1>
-            <p class="subtitle"> {{ loja.seguimento }} - {{ loja.name }} <span class="pull-right tag" v-for="categoria in loja.categoria">{{ categoria.tag }}</span></p>
-          </div>
-          <div class="column">
-            <nav class="level">
-              <div class="level-item has-text-centered">
-                <div>
-                  <p class="heading">Local: <i class="fa fa-building-o"></i> {{ loja.locaisQt }}</p>
-                  <p><i class="fa fa-map-marker"></i> {{ loja.locaisGeoStatus }}% ({{ loja.locaisGeoQt }})</span></p>
-                </div>
-              </div>
-              <div class="level-item has-text-centered">
-                <div>
-                  <p class="heading">Following</p>
-                  <p class="title">123</p>
-                </div>
-              </div>
-              <div class="level-item has-text-centered">
-                <div>
-                  <p class="heading">Followers</p>
-                  <p class="title">456K</p>
-                </div>
-              </div>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </section>
+    
     <section class="container">
       <div>
         <div class="tabs is-toggle">
