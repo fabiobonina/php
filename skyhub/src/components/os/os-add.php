@@ -48,7 +48,7 @@
           </div>
         </div>
 
-        <div class="field is-horizontal">
+        <div v-if="data" class="field is-horizontal">
           <div class="field-label">
             <label class="label">Categoria</label>
           </div>

@@ -8,8 +8,8 @@
       </div-->
       <!-- #/SELEÇÃO DE CATEGORIA -->
       <section class="container is-primary">      
-        <article :class="estado==0 ? 'tile is-child notification is-info' : estado==1 ? 'tile is-child notification is-warning' : 'tile is-child notification is-success'">
-          <div class="columns is-gapless is-multiline is-mobile">
+        
+          <div class="columns is-mobile">
             <div v-for=" entry in filteredData" class="column is-half">
               <div class="card">
                 <header class="card-header">
@@ -32,7 +32,7 @@
                       <div class="level-item has-text-centered">
                         <div>
                           <p class="heading">Ativo <i class="fa fa-barcode"></i></p>
-                          <p class="title">{{ entry.bem.plaqueta }}</p>
+                          <p v-if="entry.bem" class="title">{{ entry.bem.plaqueta }}</p>
                         </div>
                       </div>
                       <div class="level-item has-text-centered">
@@ -53,7 +53,7 @@
                     <div class="media">
                       <div class="media-content">
                         <div class="content">
-                          <p>{{entry.bem.name}} {{entry.bem.modelo}}  &nbsp; <a>#{{entry.bem.fabricanteNick}} </a> 
+                          <p v-if="entry.bem">{{entry.bem.name}} {{entry.bem.modelo}}  &nbsp; <a>#{{entry.bem.fabricanteNick}} </a> 
                             <span class="tag"></span> 
                           </p>
                         </div>
@@ -206,7 +206,7 @@
             </div>
           </div>
         </article-->
-      </article>
+
     </section>
   </div>
 </template>

@@ -12,7 +12,7 @@ var Bens = Vue.extend({
       successMessage: '',
       search: '',
       modalAdd: false,
-      modalOs: true,
+      modalOs: false,
       active: '1',
       gridColumns: ['displayName', 'name'],
       modalItem: null

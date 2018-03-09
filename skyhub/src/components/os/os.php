@@ -28,7 +28,7 @@
                         <div class="media">
                           <div class="media-content">
                             <div class="content">
-                            <p>{{oss.bem.name}} {{oss.bem.modelo}}  &nbsp; <a>#{{oss.bem.fabricanteNick}} </a> 
+                            <p v-if="oss.bem">{{oss.bem.name}} {{oss.bem.modelo}}  &nbsp; <a>#{{oss.bem.fabricanteNick}} </a> 
                                 <span class="tag"></span> 
                             </p>
                             
@@ -47,7 +47,7 @@
                             <div class="level-item has-text-centered">
                               <div>
                                 <p class="heading">Ativo <i class="fa fa-barcode"></i></p>
-                                <p class="title">{{ oss.bem.plaqueta }}</p>
+                                <p v-if="oss.bem" class="title">{{ oss.bem.plaqueta }}</p>
                               </div>
                             </div>
                             <div class="level-item has-text-centered">
@@ -67,7 +67,44 @@
                         </div>
                         </div>
                     </article>
-                    
+                    <ul class="steps">
+  <li class="step-item is-completed is-success">
+    <div class="step-marker">
+      <span class="icon">
+        <i class="fa fa-check"></i>
+      </span>
+    </div>
+    <div class="step-details is-primary is-completed">
+      <p class="step-title">Step 1</p>
+      <p>This is the first step of the process.</p>
+    </div>
+  </li>
+  <li class="step-item is-info is-completed">
+    <div class="step-marker"></div>
+    <div class="step-details">
+      <p class="step-title">Step 2</p>
+      <p>This is the second step. You get here once you have completed the first step.</p>
+    </div>
+  </li>
+  <li class="step-item is-warning is-completed">
+    <div class="step-marker">3</div>
+    <div class="step-details">
+      <p class="step-title">Step 3</p>
+      <p>This is the third step. One more last before the end.</p>
+    </div>
+  </li>
+  <li class="step-item is-danger is-active">
+    <div class="step-marker">
+      <span class="icon">
+        <i class="fa fa-flag"></i>
+      </span>
+    </div>
+    <div class="step-details">
+      <p class="step-title">Step 4</p>
+      <p>Final step. You have completed all the previous steps and end the process.</p>
+    </div>
+  </li>
+</ul>
                       <div class="checkout-wrap">
                       <p v-for="tecnico in oss.tecnicos"> <a>@{{tecnico.user}} &nbsp;</a> </p>
                         <ul v-if="!modalDeslocAdd" class="checkout-bar">

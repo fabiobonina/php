@@ -48,7 +48,7 @@ if($action == 'read'):
       foreach($categorias->findAll() as $key => $value):if($value->id == $catLacalCategoria) {
         $arCategoria = (array) $value;
         $arCategoria['ativo'] = $catLacalAtivo;
-        $arCategoria['id'] = $catLacalId;
+        $arCategoria['catLocal'] = $catLacalId;
         array_push($arCategorias, $arCategoria );
       }endforeach;
     }endforeach;
@@ -66,6 +66,9 @@ if($action == 'read'):
         $arBem['loja']= $lojaId;
         $arBem['local']= $localId;
         $arBem['status']=$bemStatus;
+        foreach($categorias->findAll() as $key => $value):if($value->id == $arBem['categoria']) {
+          $arBem['categoria'] = $value;
+        }endforeach;
         array_push($arBens, $arBem );
         
       }endforeach;

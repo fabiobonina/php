@@ -122,7 +122,7 @@ Vue.component('os-add', {
       this.dataOs = dtTime;
     },
     addCategoria: function () {
-      if( this.data != null ) {
+      if( this.data ) {
         this.categoria = this.data.categoria;
         this.bem = this.data.id;
       }

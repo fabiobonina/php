@@ -46,13 +46,16 @@ function __autoload($class_name){
   <link rel="stylesheet" type="text/css" href="./dist/css/index.css">
   <link rel="stylesheet" type="text/css" href="./dist/css/_progress.css">
   <link rel="stylesheet" type="text/css" href="./dist/css/vuemaps.css" -->
-    
+  <link rel="stylesheet" type="text/css" href="https://wikiki.github.io/css/documentation.css" -->
+
   <script src="dist/lib/vue.js"></script>
   <script src="dist/lib/vuex.js"></script>
   <script src="dist/lib/vue-router.js"></script>
   <script src="dist/lib/vue-resource.js"></script>
   <script src="dist/js/vue-select.js"></script>
   
+  <script src="https://wikiki.github.io/css/documentation.css?v=201801131648"></script>
+  <script src="https://wikiki.github.io/js/steps.min.js"></script>
   <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlfHdTSE_d9zwwYKs5gbL01mHElMLCFgE&libraries=places,geometry"></script>
     
