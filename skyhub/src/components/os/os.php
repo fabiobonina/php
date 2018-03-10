@@ -1,6 +1,73 @@
 
 <template id="os">
   <div>
+    <section class="hero is-link">
+      <!-- Hero head: will stick at the top -->
+      <top></top>
+      <!-- Hero content: will be in the middle -->
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <div class="columns">
+            <div class="column is-two-thirds has-text-left">
+              <h1 class="title is-5"> {{oss.lojaNick}} | {{oss.local.tipo}} - {{oss.local.name}} ({{oss.local.municipio}}/{{oss.local.uf}}) </h1>
+              <p class="subtitle" style="margin-bottom: 0;"> {{oss.data}} | {{oss.servico.name}}
+                <span class="pull-right"  v-for=" "> <span class="tag">{{ }}</span> &nbsp;  </span>
+              </p>
+              <p v-if="oss.bem">{{oss.bem.name}} {{oss.bem.modelo}}  &nbsp; <a>#{{oss.bem.fabricanteNick}} </a> 
+            </div>
+            <div class="column">
+              <nav class="level">
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">OS <span class="icon is-small"><i class="fa fa-wrench"></i></span></p>
+                    <p class="title">  {{oss.filial}}| {{oss.os}} </p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Ativo <i class="fa fa-barcode"></i></p>
+                    <p v-if="oss.bem" class="title">{{ oss.bem.plaqueta }}</p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                  <a v-if=" 0.000000 != oss.local.latitude" :href="'https://maps.google.com/maps?q='+ oss.local.latitude + ',' + oss.local.longitude" target="_blank">
+                    <span><i class="fa fa-map"></i> Como chegar</span>
+                  </a>
+                  </div>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- Hero footer: will stick at the bottom -->
+      <div class="hero-foot">
+        <nav class="tabs">
+          <div class="container">
+            <ul>
+              <li :class="$route.path == '/loja/'+ $route.params._id ? 'is-active' : ''">
+                <a><router-link :to="'/loja/'+ $route.params._id"> Bens</router-link></a>
+              </li>
+              <li :class="$route.path == '/loja/'+ $route.params._id +'/lojaos' ? 'is-active' : ''">
+                <a><router-link :to="'/loja/'+ $route.params._id +'/lojaos'"> OS´s</router-link></a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </section>
+    <div>
+      <router-view></router-view>
+    </div>
+    <nav class="breadcrumb is-right" aria-label="breadcrumbs">
+      <ul>
+        <li><router-link to="/"> Home</router-link></li>
+        <li><router-link :to="'/loja/' + $route.params._id"> Loja</router-link></li>
+        <li class="is-active"><a aria-current="page">Local</a></li>
+      </ul>
+    </nav>
     <nav class="breadcrumb is-right" aria-label="breadcrumbs">
       <ul>
         <li><router-link to="/"> Home</router-link></li>
@@ -68,43 +135,39 @@
                         </div>
                     </article>
                     <ul class="steps">
-  <li class="step-item is-completed is-success">
-    <div class="step-marker">
-      <span class="icon">
-        <i class="fa fa-check"></i>
-      </span>
-    </div>
-    <div class="step-details is-primary is-completed">
-      <p class="step-title">Step 1</p>
-      <p>This is the first step of the process.</p>
-    </div>
-  </li>
-  <li class="step-item is-info is-completed">
-    <div class="step-marker"></div>
-    <div class="step-details">
-      <p class="step-title">Step 2</p>
-      <p>This is the second step. You get here once you have completed the first step.</p>
-    </div>
-  </li>
-  <li class="step-item is-warning is-completed">
-    <div class="step-marker">3</div>
-    <div class="step-details">
-      <p class="step-title">Step 3</p>
-      <p>This is the third step. One more last before the end.</p>
-    </div>
-  </li>
-  <li class="step-item is-danger is-active">
-    <div class="step-marker">
-      <span class="icon">
-        <i class="fa fa-flag"></i>
-      </span>
-    </div>
-    <div class="step-details">
-      <p class="step-title">Step 4</p>
-      <p>Final step. You have completed all the previous steps and end the process.</p>
-    </div>
-  </li>
-</ul>
+                      <li :class="oss.processo>1 ? 'step-item is-completed is-success' : oss.processo==1 ? 'step-item is-completed is-success' : 'step-item'">
+                        <div class="step-marker">
+                          <span class="icon">
+                            <i class="fa fa-check"></i>
+                          </span>
+                        </div>
+                        <div class="step-details is-primary is-completed">
+                          <p class="step-title">Em Transito</p>
+                        </div>
+                      </li>
+                      <li class="step-item is-info is-completed">
+                        <div class="step-marker"></div>
+                        <div class="step-details">
+                          <p class="step-title">Atendendo</p>
+                        </div>
+                      </li>
+                      <li class="step-item is-warning is-completed">
+                        <div class="step-marker">3</div>
+                        <div class="step-details">
+                          <p class="step-title">Retorno</p>
+                        </div>
+                      </li>
+                      <li class="step-item is-danger is-active">
+                        <div class="step-marker">
+                          <span class="icon">
+                            <i class="fa fa-flag"></i>
+                          </span>
+                        </div>
+                        <div class="step-details">
+                          <p class="step-title">Completo</p>
+                        </div>
+                      </li>
+                    </ul>
                       <div class="checkout-wrap">
                       <p v-for="tecnico in oss.tecnicos"> <a>@{{tecnico.user}} &nbsp;</a> </p>
                         <ul v-if="!modalDeslocAdd" class="checkout-bar">
