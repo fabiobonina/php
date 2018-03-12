@@ -31,9 +31,11 @@
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
-                  <a v-if=" 0.000000 != local.latitude" :href="'https://maps.google.com/maps?q='+ local.latitude + ',' + local.longitude" target="_blank">
-                    <span><i class="fa fa-map"></i> Como chegar</span>
-                  </a>
+                    <a v-if=" 0.000000 != local.latitude"
+                    :href="'https://maps.google.com/maps?q='+ local.latitude + ',' + local.longitude"
+                    target="_blank">
+                      <span class="title is-2 mdi mdi-google-maps"></span>
+                    </a>
                   </div>
                 </div>
               </nav>

@@ -9,7 +9,11 @@ Vue.component('os-grid', {
     return {
       sortKey: '',
       showModal: false,
-      modalItem: {}
+      modalItem: {},
+      modalTec: false,
+      modalEdt: false,
+      modalDel: false,
+      modalCat: false
     }
   },
   computed: {

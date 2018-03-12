@@ -53,18 +53,9 @@
             <os-grid
               :data="oss"
               :columns="gridColumns"
-              :estado= "estado.nivel2">
-            </os-grid>
-            <os-grid
-              :data="oss"
-              :columns="gridColumns"
               :estado= "estado.nivel0">
             </os-grid>
-            <os-grid
-              :data="oss"
-              :columns="gridColumns"
-              :estado= "estado.nivel1">
-            </os-grid>
+            
           </div>
         </section>
         <local-add v-if="modalLocalAdd" v-on:close="modalLocalAdd = false" :data="loja" @atualizar="onAtualizar"></local-add>

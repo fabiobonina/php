@@ -42,6 +42,8 @@
     <!-- components bem -->
     <?php include("src/components/bem/bens-grid.php");?>
     <?php include("src/components/bem/bem-add.php");?>
+    <?php include("src/components/bem/bem-edt.php");?>
+    <?php include("src/components/bem/bem-del.php");?>
     <?php include("src/components/bem/bens.php");?>
     <!-- /components bem -->
     <!-- components os -->
@@ -49,6 +51,9 @@
     <?php include("src/components/os/os.php");?>
     <?php include("src/components/os/os-grid.php");?>
     <?php include("src/components/os/os-add.php");?>
+    <?php include("src/components/os/os-edt.php");?>
+    <?php include("src/components/os/os-del.php");?>
+    <?php include("src/components/os/os-tec.php");?>    
     <?php include("src/components/os/lojaOs.php");?>
     <?php include("src/components/os/localOs.php");?>
     
@@ -103,6 +108,8 @@
 <!-- components bem -->
 <script src="src/components/bem/bens-grid.js"></script>
 <script src="src/components/bem/bem-add.js"></script>
+<script src="src/components/bem/bem-edt.js"></script>
+<script src="src/components/bem/bem-del.js"></script>
 <script src="src/components/bem/bens.js"></script>
 <!-- /components bem -->
 <!-- components os -->
@@ -110,6 +117,9 @@
 <script src="src/components/os/oss.js"></script>
 <script src="src/components/os/os.js"></script>
 <script src="src/components/os/os-add.js"></script>
+<script src="src/components/os/os-edt.js"></script>
+<script src="src/components/os/os-del.js"></script>
+<script src="src/components/os/os-tec.js"></script>
 <script src="src/components/os/lojaOs.js"></script>
 <script src="src/components/os/localOs.js"></script>
 <!-- /components os -->
