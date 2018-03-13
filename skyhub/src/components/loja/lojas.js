@@ -13,6 +13,9 @@ var Lojas = Vue.extend({
   created() {
   },
   computed: {
+    user()  {
+      return store.state.user;
+    },
     proprietario() {
       return store.state.proprietario;
     },

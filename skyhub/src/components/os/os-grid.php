@@ -1,13 +1,7 @@
 <template id="os-grid">
   <div>
-      <!--div>
-        <div class="radio">
-          <label><input type="radio" v-model="selectedCategoria" value="All">All </label>&nbsp;&nbsp;&nbsp;
-          <label v-for=" categoria in categorias"><input type="radio" v-model="selectedCategoria" v-bind:value="categoria.id">{{ categoria.name }} &nbsp;&nbsp;&nbsp;</label>
-        </div>
-      </div-->
-      <!-- #/SELEÇÃO DE CATEGORIA -->
-      <section class="container">      
+    <!-- #/SELEÇÃO DE CATEGORIA -->
+    <section class="container">      
       <div class="box content">
         <article class="post" v-for="entry in filteredData">
           <div class="columns">
@@ -45,7 +39,7 @@
                     </a>
                   </div>
                 </div>
-                <div class="level-item has-text-centered">
+                <div v-if="user.nivel > 2 && user.grupo == 'P'" class="level-item has-text-centered">
                   <div>
                     <p class="heading">Ação</p>
                     <div class="dropdown is-right is-hoverable">
