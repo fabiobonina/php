@@ -203,11 +203,73 @@ if(isset($_POST['atualizar'])):
   
 endif;
 
-#DESLOCAMENTO
-if(isset($_POST['deslocamento'])):
 
-  
+#DESLOCAMENTO----------------------------------------------------------------------
+if($action == 'deslocamento'):
+  #Novo
+  $os       = $_POST['os'];
+  $tecnicos = $_POST['tecnicos'];
+  $tipo     = $_POST['tipo'];
+  $status   = $_POST['status'];
+  $date     = $_POST['date'];
+  $km       = $_POST['km'];
+  $valor    = $_POST['valor'];
+  $processo = $_POST['processo'];
+
+  foreach ( $tecnicos as $data){
+    $itemId = $data['id'];
+    $duplicado = false;
+    foreach($mods->findAll() as $key => $value): {
+      $catLacalCategoria = $value->categoria;
+      $catLacalLocal = $value->local;
+      
+      if($local == $catLacalLocal){
+        if($itemId == $catLacalCategoria ):
+          $duplicado = true;
+        endif;
+      }          
+    }endforeach;
+    if( !$duplicado ){
+      $mods->setOs($os);
+      $mods->setTecnico($itemId);
+      $mods->setTipoTrajeto($tipo['id']);
+      $mods->setStatus($status['id']);
+      $mods->setDtInicio($date);
+      $mods->setKmInicio($km);
+      $mods->setValor($valor);
+      
+      # Insert
+      if($mods->insertInicio()){
+        if($oss->upProcesso($os)){
+          $oss->setProcesso($processo);
+          $res['error'] = false;
+          $arDados = "OK, dados salvo com sucesso";
+          $res['message']= $arDados;
+        }else{
+          $res['error'] = true; 
+          $arError = "Error, nao foi possivel mudar processo OS";
+          array_push($arErros, $arError);
+        }
+      }else{
+        $res['error'] = true; 
+        $arError = "Error, nao foi possivel salvar os dados";
+        array_push($arErros, $arError);
+      }
+    }else{
+      $res['error'] = true; 
+      $arError = "Error, item já cadastrado";
+      array_push($arErros, $arError);
+    }
+  }
+    
+  if($res['error'] == true){
+    $res['message']= $arErros;
+  }
+
 endif;
+#DESLOCAMENTO----------------------------------------------------------------------
+
+
 
 #DELETAR
 if(isset($_GET['acao1']) && $_GET['acao1'] == 'deletar'):

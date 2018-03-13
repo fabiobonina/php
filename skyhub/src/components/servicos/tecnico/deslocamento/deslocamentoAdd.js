@@ -8,12 +8,12 @@ Vue.component('deslocamento-add', {
     return {
       errorMessage: [],
       successMessage: [],
-      dtDesloc: '',
-      status: {},
-      tipo: { id: 0 },
-      km: '',
-      status: Number(this.data.processo)+1, dtInicio: '', kmInicio:'', dtFinal: '', kmFinal:'',  dtDesloc: '', valor: '', tempo: '',
       tecnicos: null,
+      status: null,
+      tipo: null,
+      km: '',
+      date: '',
+      dtInicio: '', kmInicio:'', kmFinal:'',  dtDesloc: '', valor: '', tempo: '',
       isLoading: false,
     };
   },
@@ -38,19 +38,26 @@ Vue.component('deslocamento-add', {
   methods: {
     saveItem: function(){
       this.errorMessage = []
-      if(this.formValido()){
+      if(this.checkForm()){
         this.isLoading = true
-        //const data = {'id': this.data.id, 'geolocalizacao': this.geolocalizacao
-        //'cadastro': new Date().toJSON() }
-        var geoposicao = this.coordenadas .split(",");
+        if(this.tipo.categoria == '0'){
+          this.valor = '0';
+        }else{
+          this.km = '0';
+        }
         var postData = {
-          id: this.data.id,
-          latitude: geoposicao[0],
-          longitude: geoposicao[1]
-        };        
-        this.$http.post('./config/api/apiLocalFull.php?action=coordenadas', postData)
+          os: this.data.id,
+          tecnicos: this.tecnicos,
+          tipo: this.tipo,
+          status: this.status,
+          date: this.date,
+          km: this.km,
+          valor: this.valor
+        };
+        console.log(postData);
+        this.$http.post('./config/api/apiOs.php?action=deslocamento', postData)
           .then(function(response) {
-            //console.log(response);
+            alert(response.data);
             if(response.data.error){
               this.errorMessage.push(response.data.message);
               this.isLoading = false;
@@ -67,22 +74,15 @@ Vue.component('deslocamento-add', {
           });
       }
     },
-    ehVazia () {
-      if(this.coordenadas.length == 0){
-          this.errorMessage.push('Por favor, preencha todos os campos')
-          return true
-      }
-      if(this.coordenadas.length < 17){
-        this.errorMessage.push('Coordenadas incorretas')
-        return true
-      }
-      return false
-    },
-    formValido(){
-        if(this.ehVazia()){
-            return false
-        }
-        return true
+    checkForm:function(e) {
+      this.errorMessage = [];
+      if(!this.tecnicos) this.errorMessage.push("Tecnicos necessário.");
+      if(!this.status) this.errorMessage.push("Status necessário.");
+      if(!this.dtInicio) this.errorMessage.push("Data necessário.");
+      if(!this.km && !this.valor) this.errorMessage.push("Km ou Valor necessário.");
+      if(!this.tipo) this.errorMessage.push("Tipo necessário.");
+      if(!this.errorMessage.length) return true;
+      e.preventDefault();
     },
     tipoPercurso(){
       if(this.tipo.id == 0 ){
@@ -97,7 +97,13 @@ Vue.component('deslocamento-add', {
       var time = res[1].slice(0, -3);
       var dtTime = date[2] + "-" + date[1] + "-" + date[0] + "T" + time;
       this.dtInicio = dtTime;
-      this.dtFinal = dtTime;
+      this.date = dtTime;
+    },
+    addCategoria: function () {
+      if( this.data ) {
+        this.categoria = this.data.categoria;
+        this.bem = this.data.id;
+      }
     }
   },
 });

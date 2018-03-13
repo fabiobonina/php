@@ -4,7 +4,7 @@ var Os = Vue.extend({
     return {
       errorMessage: '',
       successMessage: '',
-      searchQuery: '',
+      search: '',
       modalItem: null,
       gridColumns: ['nick', 'name'],
       modalDeslocAdd: false,

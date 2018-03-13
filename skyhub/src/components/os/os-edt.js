@@ -80,10 +80,10 @@ Vue.component('os-edt', {
           ativo: this.ativo
         };
         //var formData = this.toFormData(postData);
-        console.log(postData);
+        //console.log(postData);
         this.$http.post('./config/api/apiOs.php?action=cadastrar', postData)
           .then(function(response) {
-            console.log(response);
+            //console.log(response);
             if(response.data.error){
               this.errorMessage.push(response.data.message);
               this.isLoading = false;

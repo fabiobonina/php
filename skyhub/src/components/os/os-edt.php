@@ -10,8 +10,8 @@
         <message :success="successMessage" :error="errorMessage"></message>
         <!--#CONTEUDO -->
         
-        <div v-if='data'>
-          <p>{{ data.name }} - {{ data.modelo }} <i class="fa fa-qrcode"></i> {{ data.numeracao }} <i class="fa fa-fw fa-barcode"></i>{{ data.plaqueta }}</p>
+        <div v-if='data.bem'>
+          <p>{{ data.bem.name }} - {{ data.bem.modelo }} <i class="fa fa-qrcode"></i> {{ data.bem.numeracao }} <i class="fa fa-fw fa-barcode"></i>{{ data.bem.plaqueta }}</p>
         </div>
         
         <div class="field is-horizontal">
@@ -21,7 +21,7 @@
           <div class="field-body">
             <div class="field">
               <p class="control is-expanded has-icons-left">
-                <input v-model="dataOs" class="input" type="date">
+                <input v-model="data.data" class="input" type="date">
                 <span class="icon is-small is-left">
                   <span class="mdi mdi-calendar mdi-dark is-left"></span>
                 </span>
@@ -42,7 +42,7 @@
                 </a>
               </p>
               <p class="control">
-                  <v-select label="name" v-model="servico" :options="servicos"></v-select>
+                  <v-select label="name" v-model="data.servico" :options="servicos"></v-select>
               </p>
             </div>
           </div>
@@ -60,7 +60,7 @@
                 </a>
               </p>
               <p class="control">
-                <v-select label="name" v-model="categoria" :options="categorias"></v-select>
+                <v-select label="name" v-model="data.categoria" :options="categorias"></v-select>
               </p>
             </div>
           </div>
@@ -78,7 +78,7 @@
                 </a>
               </p>
               <p class="control">
-                <v-select multiple label="userNick" v-model="tecnico" :options="tecnicos"></v-select>
+                <v-select multiple label="user" v-model="data.tecnicos" :options="tecnicos"></v-select>
               </p>
             </div>
           </div>
@@ -92,10 +92,10 @@
             <div class="field is-narrow">
               <div class="control">
                 <label class="radio">
-                  <input value="0" v-model="ativo" type="radio"> Yes
+                  <input value="0" v-model="data.ativo" type="radio"> Yes
                 </label>
                 <label class="radio">
-                  <input value="1" v-model="ativo" type="radio">  No
+                  <input value="1" v-model="data.ativo" type="radio">  No
                 </label>
               </div>
             </div>

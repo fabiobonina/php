@@ -58,6 +58,25 @@ class Mod extends Crud{
 		}
 
 	}
+	public function insertInicio(){
+		try{
+		$sql  = "INSERT INTO $this->table (os, tecnico, dtInicio, kmInicio, valor, tipoTrajeto, status) ";
+		$sql .= "VALUES (:os, :tecnico, :dtIncio, :kmInicio, :valor, :tipoTrajeto, :status)";
+		$stmt = DB::prepare($sql);
+		$stmt->bindParam(':os', 	 	 $this->os);
+		$stmt->bindParam(':tecnico', 	 $this->tecnico);
+		$stmt->bindParam(':dtIncio',  	 $this->dtIncio);
+		$stmt->bindParam(':kmInicio', 	 $this->kmInicio);
+		$stmt->bindParam(':valor',    	 $this->valor);
+		$stmt->bindParam(':tipoTrajeto', $this->tipoTrajeto);
+		$stmt->bindParam(':status', 	 $this->status);
+
+		return $stmt->execute();
+		} catch(PDOException $e) {
+			echo 'ERROR: ' . $e->getMessage();
+		}
+
+	}
 
 	public function update($id){
 		try{

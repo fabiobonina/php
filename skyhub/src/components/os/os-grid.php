@@ -53,9 +53,6 @@
                           <a @click="modalTec = true; selecItem(entry)" class="dropdown-item">
                             <span class="mdi mdi-map-marker"></span>Tecnicos
                           </a>
-                          <a @click="modalCat = true; selecItem(entry)" class="dropdown-item">
-                            <span class="mdi mdi-tag-multiple"></span>Categoria
-                          </a>
                           <a @click="modalEdt = true; selecItem(entry)" class="dropdown-item">
                             <span class="mdi mdi-pencil"></span>Edit
                           </a>

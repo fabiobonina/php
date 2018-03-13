@@ -1,9 +1,9 @@
-<template id="os-edt">
+<template id="os-tec">
   <div class="modal is-active" >
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">OS: {{ local.tipo }} - {{ local.name }} <p> <i class="fa fa-qrcode"></i> {{ }} <i class="fa fa-fw fa-barcode"></i>{{  }}</p></p>
+        <p class="modal-card-title">OS: {{ data.local.tipo }} - {{ data.local.name }} </p>
         <button class="delete" aria-label="close" v-on:click="$emit('close')"></button>
       </header>
       <section class="modal-card-body">
@@ -21,7 +21,7 @@
           <div class="field-body">
             <div class="field">
               <p class="control is-expanded has-icons-left">
-                <input v-model="dataOs" class="input" type="date">
+                <input v-model="data.data" class="input" type="date">
                 <span class="icon is-small is-left">
                   <span class="mdi mdi-calendar mdi-dark is-left"></span>
                 </span>
@@ -42,7 +42,7 @@
                 </a>
               </p>
               <p class="control">
-                  <v-select label="name" v-model="servico" :options="servicos"></v-select>
+                  <v-select label="name" v-model="data.servico" :options="servicos"></v-select>
               </p>
             </div>
           </div>
@@ -60,7 +60,7 @@
                 </a>
               </p>
               <p class="control">
-                <v-select label="name" v-model="categoria" :options="categorias"></v-select>
+                <v-select label="name" v-model="data.categoria" :options="categorias"></v-select>
               </p>
             </div>
           </div>
@@ -78,7 +78,7 @@
                 </a>
               </p>
               <p class="control">
-                <v-select multiple label="userNick" v-model="tecnico" :options="tecnicos"></v-select>
+                <v-select multiple label="user" v-model="data.tecnicos" :options="tecnicos"></v-select>
               </p>
             </div>
           </div>
@@ -92,10 +92,10 @@
             <div class="field is-narrow">
               <div class="control">
                 <label class="radio">
-                  <input value="0" v-model="ativo" type="radio"> Yes
+                  <input value="0" v-model="data.ativo" type="radio"> Yes
                 </label>
                 <label class="radio">
-                  <input value="1" v-model="ativo" type="radio">  No
+                  <input value="1" v-model="data.ativo" type="radio">  No
                 </label>
               </div>
             </div>
