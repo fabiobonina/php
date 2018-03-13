@@ -7,19 +7,8 @@
 Vue.http.options.emulateJSON = true;
 
 const state = {
-  tipoDeslocamentos: [
-    {id: 1, name: 'Carro', categoria: '0', valor: '0.85'},
-    {id: 2, name: 'Passagem', categoria: '1', valor: ''}
-  ],
-  statusDeslocamentos: [
-    {id: 1, name: 'Inicio Trajeto', categoria: '0' },
-    {id: 2, name: 'Final Trajeto', categoria: '0' },
-    {id: 3, name: 'Inicio Atendimento', categoria: '0' },
-    {id: 4, name: 'Pausar Atendimento', categoria: '0' },
-    {id: 5, name: 'Final Atendimento', categoria: '0' },
-    {id: 6, name: 'Retorno Atendimento', categoria: '0' },
-    {id: 7, name: 'Concluido', categoria: '0' }
-  ],
+  deslocTipos: [],
+  deslocStatus: [],
   proprietario:{},
   lojas: [],
   loja: [],
@@ -107,6 +96,12 @@ const mutations = {
   SET_GRUPOS(state, grupos) {
     state.grupos = grupos
   },
+  SET_DESLOC_TIPOS(state, deslocTipos) {
+    state.deslocTipos = deslocTipos
+  },
+  SET_DESLOC_STATUS(state, deslocStatus) {
+    state.deslocStatus = deslocStatus
+  },
 }
 
 const actions = {
@@ -193,6 +188,8 @@ const actions = {
           commit("SET_TECNICOS", response.body.tecnicos);
           commit("SET_SEGUIMENTOS", response.body.seguimentos);
           commit("SET_GRUPOS", response.body.grupos);
+          commit("SET_DESLOC_STATUS", response.body.deslocStatus);
+          commit("SET_DESLOC_TIPOS", response.body.deslocTipos);
           resolve();
         }
       })

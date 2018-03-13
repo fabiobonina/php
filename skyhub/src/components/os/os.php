@@ -11,7 +11,7 @@
             <div class="column is-two-thirds has-text-left">
               <h1 class="title is-5"> {{oss.lojaNick}} | {{oss.local.tipo}} - {{oss.local.name}} ({{oss.local.municipio}}/{{oss.local.uf}}) </h1>
               <p class="subtitle" style="margin-bottom: 0;"> {{oss.data}} | {{oss.servico.name}}
-                <span class="pull-right"  v-for=" "> <span class="tag">{{ }}</span> &nbsp;  </span>
+                <span class="pull-right"> <span class="tag">{{ oss.categoria }}</span> &nbsp;  </span>
               </p>
               <p v-if="oss.bem">{{oss.bem.name}} {{oss.bem.modelo}}  &nbsp; <a>#{{oss.bem.fabricanteNick}} </a> 
               <p v-for="tecnico in oss.tecnicos"> <a><span class="icon mdi mdi-worker"></span> {{tecnico.user}} &nbsp;</a> </p>
@@ -26,12 +26,13 @@
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
-                    <p class="heading">Ativo <span class=" title mdi mdi-barcode"></span></p>
+                    <p class="heading">Ativo <span class="title is-6 mdi mdi-barcode"></span></p>
                     <p v-if="oss.bem" class="title">{{ oss.bem.plaqueta }}</p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
+                  <p class="heading">Mapa </p>
                     <a v-if=" 0.000000 != oss.local.latitude"
                       :href="'https://maps.google.com/maps?q='+ oss.local.latitude + ',' + oss.local.longitude"
                     target="_blank">
@@ -79,7 +80,6 @@
               </div>
             </li>
           </ul>
-        
         </div>
       </div>
       <!-- Hero footer: will stick at the bottom -->
@@ -114,6 +114,12 @@
         <div class="control">
           <a v-on:click="modalDeslocAdd = true" class="button is-link is-al">
             <span class="mdi mdi-arrow-right-bold"></span> Deslocamento
+          </a>
+        </div>
+        &nbsp;
+        <div class="control">
+          <a v-on:click="modalDeslocAdd = true" class="button is-link is-al">
+            <span class="mdi mdi-arrow-right-bold"></span> Descrição
           </a>
         </div>
       </div>
@@ -180,7 +186,8 @@
           </div>
           </div>
         </section>
-        <deslocamento-add v-if="modalDeslocAdd" v-on:close="modalDeslocAdd = false" :data="loja" @atualizar="onAtualizar"></deslocamento-add>
+        <deslocamento-add v-if="modalDeslocAdd" v-on:close="modalDeslocAdd = false" :data="oss" @atualizar="onAtualizar"></deslocamento-add>
+        <descricao-add v-if="modalDescAdd" v-on:close="modalDescAdd = false" :data="loja" @atualizar="onAtualizar"></descricao-add>
       </div>
       <!-- /.box -->
     </section>

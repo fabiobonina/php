@@ -11,16 +11,28 @@
         <message :success="successMessage" :error="errorMessage"></message>
         <!--#INICIO -->
         <div class="field is-horizontal">
+          <div class="field-label">
+            <label class="label">Tecnicos</label>
+          </div>
+          <div class="field-body">
+            <div class="field has-addons">
+              <p class="control">
+                <a class="button is-static">
+                  <span class="mdi mdi-worker"></span>
+                </a>
+              </p>
+              <p class="control">
+                <v-select multiple label="user" v-model="tecnicos" :options="data.tecnicos"></v-select>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="field is-horizontal">
           <div class="field-body">
             <div class="field">
               <label class="label">Status</label>
               <p class="control is-expanded has-icons-left has-icons-right">
-                <div class="select">
-                  <select v-model="status">
-                    <option>Select</option>
-                    <option v-for="option in statusDeslocamentos" v-bind:value="option">{{ option.name }}</option>
-                  </select>
-                </div>
+                <v-select label="name" v-model="status" :options="deslocStatus"></v-select>
               </p>
             </div>
             <div class="field">
@@ -39,7 +51,7 @@
                 <div class="select">
                   <select v-model="tipo">
                     <option>Select</option>
-                    <option v-for="option in tipoDeslocamentos" v-bind:value="option">{{ option.name }}</option>
+                    <option v-for="option in deslocTipos" v-bind:value="option">{{ option.name }}</option>
                   </select>
                 </div>
               </p>

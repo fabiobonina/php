@@ -5,10 +5,12 @@ var Os = Vue.extend({
       errorMessage: '',
       successMessage: '',
       searchQuery: '',
+      modalItem: null,
       gridColumns: ['nick', 'name'],
       modalDeslocAdd: false,
+      modalDescAdd: false,
       selectedCategoria: 'All',
-      active: '1'
+      active: '1',
     };
   },
   created: function() {
@@ -32,6 +34,9 @@ var Os = Vue.extend({
       this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
         console.log("Buscando dados das locais!")
       });
-    }
+    },
+    selecItem: function(data){
+      this.modalItem = data;
+    },
   },
 });

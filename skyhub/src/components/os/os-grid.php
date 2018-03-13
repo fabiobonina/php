@@ -12,9 +12,11 @@
         <article class="post" v-for="entry in filteredData">
           <div class="columns">
             <div class="column is-6">
-              <h1 class="title is-5"> {{entry.lojaNick}} | {{entry.local.tipo}} - {{entry.local.name}} ({{entry.local.municipio}}/{{entry.local.uf}}) </h1>
+              <a :href="'#/oss/' + $route.params._id + '/os/' + entry.id">
+                <h1 class="title is-4"> {{entry.lojaNick}} | {{entry.local.tipo}} - {{entry.local.name}} ({{entry.local.municipio}}/{{entry.local.uf}}) </h1>
+              </a>
               <p class="subtitle" style="margin-bottom: 0;"> {{entry.data}} | {{entry.servico.name}}
-                <span class="pull-right"  v-for=" "> <span class="tag">{{ }}</span> &nbsp;  </span>
+                <span class="pull-right"  v-for=" "> <span class="tag">{{ entry.categoria.tag }}</span> &nbsp;  </span>
               </p>
               <p v-if="entry.bem">{{entry.bem.name}} {{entry.bem.modelo}}  &nbsp; <a>#{{entry.bem.fabricanteNick}} </a> 
               <p v-for="tecnico in entry.tecnicos"> <a><span class="icon mdi mdi-worker"></span> {{tecnico.user}} &nbsp;</a> </p>
@@ -36,8 +38,8 @@
                 <div class="level-item has-text-centered">
                   <div>
                     <p class="heading">Mapa</p>
-                    <a v-if=" 0.000000 != entry.latitude"
-                    :href="'https://maps.google.com/maps?q='+ entry.latitude + ',' + entry.longitude"
+                    <a v-if=" 0.000000 != entry.local.latitude"
+                    :href="'https://maps.google.com/maps?q='+ entry.local.latitude + ',' + entry.local.longitude"
                     target="_blank">
                       <span class="title is-2 has-text-info mdi mdi-google-maps"></span>
                     </a>

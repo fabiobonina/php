@@ -1,6 +1,9 @@
 Vue.component('deslocamento-add', {
   name: 'deslocamento-add',
   template: '#deslocamento-add',
+  props: {
+    data: Object
+  },
   data() {
     return {
       errorMessage: [],
@@ -9,36 +12,26 @@ Vue.component('deslocamento-add', {
       status: {},
       tipo: { id: 0 },
       km: '',
-      status: '', dtInicio: '', kmInicio:'', dtFinal: '', kmFinal:'',  dtDesloc: '', valor: '', tempo: '',
+      status: Number(this.data.processo)+1, dtInicio: '', kmInicio:'', dtFinal: '', kmFinal:'',  dtDesloc: '', valor: '', tempo: '',
+      tecnicos: null,
       isLoading: false,
     };
   },
-  props: {
-    title: { type: String, default: '' },
-    message: { type: String, default: 'Confirm' },
-    data: {}
-  },
+  
   created: function() {
     this.dataT()
   },
   computed: {
-    temErros () {
-      return this.errorMessage.length > 0
-    },
     temMessage () {
-      if(this.errorMessage.length > 0){
-        return true
-      }
-      if(this.successMessage.length > 0){
-        return true
-      }
+      if(this.errorMessage.length > 0) return true
+      if(this.successMessage.length > 0) return true
       return false
     },
-    tipoDeslocamentos() {
-      return store.state.tipoDeslocamentos;
+    deslocTipos() {
+      return store.state.deslocTipos;
     },
-    statusDeslocamentos() {
-      return store.state.statusDeslocamentos;
+    deslocStatus() {
+      return store.state.deslocStatus;
     },
     
   },

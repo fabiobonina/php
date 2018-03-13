@@ -19,6 +19,8 @@ $grupos = new Grupo();
 $servicos = new Servicos();
 $seguimentos = new Seguimento();
 $tecnicos = new Tecnicos();
+$deslocTipos = new DeslocTipos();
+$deslocStatus = new DeslocStatus();
 
 $res = array('error' => false);
 $action = 'config';
@@ -89,6 +91,23 @@ if($action == 'config'):
   }endforeach;
   $res['tecnicos'] = $arItens;
   #TECNICOS-----------------------------------------------------------
+  #DESLOC_TIPO-----------------------------------------------------------
+  $arItens = array();
+  foreach($deslocTipos->findAll() as $key => $value): {
+    $arItem = $value;
+    array_push($arItens, $arItem);
+  }endforeach;
+  $res['deslocTipos'] = $arItens;
+  #DESLOC_TIPO-----------------------------------------------------------
+  #DESLOC_STATUS-----------------------------------------------------------
+  $arItens = array();
+  foreach($deslocStatus->findAll() as $key => $value): {
+    $arItem = $value;
+    array_push($arItens, $arItem);
+  }endforeach;
+  $res['deslocStatus'] = $arItens;
+  #DESLOC_STATUS-----------------------------------------------------------
+
 
 endif;
 
