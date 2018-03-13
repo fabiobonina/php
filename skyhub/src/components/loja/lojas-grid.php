@@ -33,16 +33,14 @@
                     <p class="title">456K</p>
                   </div>
                 </div>
-                <div class="level-item has-text-centered">
+                <div v-if="user.nivel > 2 && user.grupo == 'P'" class="level-item has-text-centered">
                   <div>
                     <p class="heading">Ação</p>
                     <div class="dropdown is-right is-hoverable">
                       <div class="dropdown-trigger">
-                        <button class="button  is-text" aria-haspopup="true" aria-controls="dropdown-menu1">
-                          <span class="icon is-small">
-                            <span class="mdi mdi-dots-vertical"></span>
-                          </span>
-                        </button>
+                        <a aria-haspopup="true" aria-controls="dropdown-menu1">
+                          <span class="title is-2 mdi mdi-apps"></span>
+                        </a>
                       </div>
                       <div class="dropdown-menu" id="dropdown-menu1" role="menu">
                         <div class="dropdown-content">

@@ -9,7 +9,7 @@
           <a class="button is-info"><span class="mdi mdi-magnify"></span></a>
         </div>
         &nbsp;
-        <div class="control">
+        <div v-if="user.nivel > 2 && user.grupo == 'P'" class="control">
           <a v-on:click="modalLojaAdd = true" class="button is-link is-al">
             <span class="mdi mdi-store"></span> Loja
           </a>

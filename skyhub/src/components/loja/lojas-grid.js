@@ -20,6 +20,9 @@ Vue.component('grid-lojas', {
     }
   },
   computed: {
+    user()  {
+      return store.state.user;
+    },
     filteredData: function () {
       var sortKey = this.sortKey
       var filterKey = this.filterKey && this.filterKey.toLowerCase()

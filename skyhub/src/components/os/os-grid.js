@@ -17,6 +17,9 @@ Vue.component('os-grid', {
     }
   },
   computed: {
+    user()  {
+      return store.state.user;
+    },
     filteredData: function () {
       var filterKey = this.estado
       var data = this.data
