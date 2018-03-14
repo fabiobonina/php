@@ -2985,7 +2985,12 @@ CREATE TABLE `tb_desloc_status` (
 --
 
 INSERT INTO `tb_desloc_status` (`id`, `name`, `categoria`) VALUES
-(1, 'Inicio Trajeto', '0'),
+(1, 'Inicio Viagem', '1'),
+(2, 'Parsa na Viagem', '2'),
+(3, 'Continuação Viagem', '3'),
+(4, 'Pausar Atendimento', '0'),
+(5, 'Final Atendimento', '0'),
+(6, 'Retorno Atendimento', '0'),
 (2, 'Final Trajeto', '0'),
 (3, 'Inicio Atendimento', '0'),
 (4, 'Pausar Atendimento', '0'),

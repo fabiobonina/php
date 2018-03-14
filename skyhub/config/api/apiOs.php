@@ -217,11 +217,11 @@ if($action == 'deslocamento'):
   $processo = $_POST['processo'];
 
   foreach ( $tecnicos as $data){
-    $itemId = $data['id'];
+    $itemId    = $data['id'];
     $duplicado = false;
     foreach($mods->findAll() as $key => $value): {
-      $catLacalCategoria = $value->categoria;
-      $catLacalLocal = $value->local;
+      $tecMod = $value->tecnico;
+      $osMod  = $value->os;
       
       if($local == $catLacalLocal){
         if($itemId == $catLacalCategoria ):
@@ -240,16 +240,18 @@ if($action == 'deslocamento'):
       
       # Insert
       if($mods->insertInicio()){
-        if($oss->upProcesso($os)){
-          $oss->setProcesso($processo);
-          $res['error'] = false;
-          $arDados = "OK, dados salvo com sucesso";
-          $res['message']= $arDados;
-        }else{
-          $res['error'] = true; 
-          $arError = "Error, nao foi possivel mudar processo OS";
-          array_push($arErros, $arError);
-        }
+        foreach($oss->find($os) as $key => $value):if( $value->processo < $processo) {
+          if($oss->upProcesso($os)){
+            $oss->setProcesso($processo);
+            $res['error'] = false;
+            $arDados = "OK, dados salvo com sucesso";
+            $res['message']= $arDados;
+          }else{
+            $res['error'] = true; 
+            $arError = "Error, nao foi possivel mudar processo OS";
+            array_push($arErros, $arError);
+          }
+        }endforeach;
       }else{
         $res['error'] = true; 
         $arError = "Error, nao foi possivel salvar os dados";

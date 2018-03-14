@@ -99,11 +99,9 @@ Vue.component('deslocamento-add', {
       this.dtInicio = dtTime;
       this.date = dtTime;
     },
-    addCategoria: function () {
-      if( this.data ) {
-        this.categoria = this.data.categoria;
-        this.bem = this.data.id;
-      }
+    progresso: function () {
+      if(this.data.progresso == '0' && this.status ==  '1') this.progresso = '1';
+      
     }
   },
 });
