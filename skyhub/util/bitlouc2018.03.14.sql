@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 12-Mar-2018 às 21:14
+-- Generation Time: 14-Mar-2018 às 20:01
 -- Versão do servidor: 10.1.26-MariaDB
 -- PHP Version: 7.1.9
 
@@ -2977,7 +2977,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 CREATE TABLE `tb_desloc_status` (
   `id` int(11) NOT NULL,
   `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `categoria` enum('0', '1','2','3','4','5','6','7','8','9','10') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `categoria` enum('0','1','2','3','4','5','6','7','8','9','10') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `processo` enum('1','2','3','4','5','6','7','8','9','10','11') COLLATE utf8_unicode_ci NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -2986,17 +2986,17 @@ CREATE TABLE `tb_desloc_status` (
 --
 
 INSERT INTO `tb_desloc_status` (`id`, `name`, `categoria`, `processo`) VALUES
-(1, 'Inicio da Viagem',    '0', '1'),
-(2, 'Parsa na Viagem',     '1', '2'),
-(3, 'Retorno da Viagem',   '2', '3'),
-(4, 'Inicio do Serviço',   '3', '4'),
-(5, 'Pausa no Servio',     '4', '5'),
-(6, 'Retorno do Servio',   '5', '6'),
-(7, 'Final do Servio',     '6', '7'),
-(8, 'Inicio do Retorno',   '7', '8'),
-(9, 'Pausa no Trajeto',    '8', '9'),
+(1, 'Inicio da Viagem', '0', '1'),
+(2, 'Parsa na Viagem', '1', '2'),
+(3, 'Retorno da Viagem', '2', '3'),
+(4, 'Inicio do Serviço', '3', '4'),
+(5, 'Pausa no Servio', '4', '5'),
+(6, 'Retorno do Servio', '5', '6'),
+(7, 'Final do Servio', '6', '7'),
+(8, 'Inicio do Retorno', '7', '8'),
+(9, 'Pausa no Trajeto', '8', '9'),
 (10, 'Retorno do Trajeto', '9', '10'),
-(11, 'Concluido',          '10', '11');
+(11, 'Concluido', '10', '11');
 
 -- --------------------------------------------------------
 
@@ -4762,6 +4762,13 @@ CREATE TABLE `tb_mod` (
   `tipoTrajeto` int(11) DEFAULT NULL,
   `status` enum('0','1','2','3','4','5') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `tb_mod`
+--
+
+INSERT INTO `tb_mod` (`id`, `os`, `tecnico`, `dtInicio`, `dtFinal`, `tempo`, `kmInicio`, `kmFinal`, `valor`, `tipoTrajeto`, `status`) VALUES
+(1, 1, 1, '2018-03-14 11:54:00', NULL, NULL, 1, NULL, 0, 1, '1');
 
 -- --------------------------------------------------------
 
@@ -7128,7 +7135,7 @@ CREATE TABLE `tb_os` (
   `dtFech` datetime DEFAULT NULL,
   `dtTerm` datetime DEFAULT NULL,
   `estado` enum('0','1','2','3','4') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
-  `processo` enum('0','1','2','3','4','5') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `processo` enum('0','1','2','3','4','5','6','7','8','9','10','11') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `status` enum('0','1','2','3','4') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `ativo` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -7138,7 +7145,7 @@ CREATE TABLE `tb_os` (
 --
 
 INSERT INTO `tb_os` (`id`, `loja`, `lojaNick`, `local`, `servico`, `categoria`, `tipoServ`, `bem`, `data`, `dtUltimoMan`, `dtCadastro`, `filial`, `os`, `dtOs`, `dtFech`, `dtTerm`, `estado`, `processo`, `status`, `ativo`) VALUES
-(1, 1, 'AGESPISA', 2, 'COR001', 1, 3, NULL, '2018-03-08', NULL, '2018-03-08 17:56:04', NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0'),
+(1, 1, 'AGESPISA', 2, 'COR001', 1, 3, NULL, '2018-03-08', NULL, '2018-03-08 17:56:04', NULL, NULL, NULL, NULL, NULL, '0', '4', '0', '0'),
 (2, 11, 'CAERN', 61, 'COR001', 1, 3, NULL, '2018-03-08', NULL, '2018-03-08 18:44:16', NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0'),
 (3, 1, 'AGESPISA', 2, 'COR001', 1, 3, 3, '2018-03-09', NULL, '2018-03-09 16:01:45', NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0');
 
@@ -7408,7 +7415,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `user`, `password`, `avatar`, `proprietario`, `grupo`, `loja`, `nivel`, `ativo`, `data_cadastro`, `data_ultimo_login`) VALUES
-(1, 'FABIO VITORINO BONINA MORAIS', 'fabiobonina@gmail.com', 'Fábio Boninã', 'a906449d5769fa7361d7ecc6aa3f6d28', 'http://www.gravatar.com/avatar/5f3781a40c3fde1b4ac568a97692aa70?d=identicon', 1, 'P', 2, '4', '0', '2017-11-08', '2018-03-12 07:48:45');
+(1, 'FABIO VITORINO BONINA MORAIS', 'fabiobonina@gmail.com', 'Fábio Boninã', 'a906449d5769fa7361d7ecc6aa3f6d28', 'http://www.gravatar.com/avatar/5f3781a40c3fde1b4ac568a97692aa70?d=identicon', 1, 'P', 2, '4', '0', '2017-11-08', '2018-03-14 10:59:23');
 
 --
 -- Indexes for dumped tables
@@ -7742,7 +7749,7 @@ ALTER TABLE `tb_descricao`
 -- AUTO_INCREMENT for table `tb_desloc_status`
 --
 ALTER TABLE `tb_desloc_status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tb_desloc_tipo`
@@ -7808,7 +7815,7 @@ ALTER TABLE `tb_loja_categoria`
 -- AUTO_INCREMENT for table `tb_mod`
 --
 ALTER TABLE `tb_mod`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_oat`

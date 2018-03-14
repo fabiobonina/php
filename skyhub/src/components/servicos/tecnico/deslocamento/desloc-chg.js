@@ -1,6 +1,6 @@
-Vue.component('deslocamento-add', {
-  name: 'deslocamento-add',
-  template: '#deslocamento-add',
+Vue.component('desloc-chg', {
+  name: 'desloc-chg',
+  template: '#desloc-chg',
   props: {
     data: Object
   },
@@ -30,10 +30,13 @@ Vue.component('deslocamento-add', {
     deslocTipos() {
       return store.state.deslocTipos;
     },
-    deslocStatus() {
-      return store.state.deslocStatus;
-    },
-    
+    deslocStatus: function () {
+      var filterKey = this.data.processo
+      var data = store.state.deslocStatus
+      return data = data.filter(function (row) {
+        return row.categoria <= filterKey;
+      });
+    }
   },
   methods: {
     saveItem: function(){
@@ -64,8 +67,11 @@ Vue.component('deslocamento-add', {
             } else{
               this.successMessage.push(response.data.message);
               this.isLoading = false;
+              this.$store.dispatch("fetchOs").then(() => {
+                console.log("Buscando dados OS!")
+              });
               setTimeout(() => {
-                this.$emit('atualizar');
+                this.$emit('close');
               }, 2000);  
             }
           })
@@ -84,12 +90,6 @@ Vue.component('deslocamento-add', {
       if(!this.errorMessage.length) return true;
       e.preventDefault();
     },
-    tipoPercurso(){
-      if(this.tipo.id == 0 ){
-          return false
-      }
-      return true
-    },
     dataT() {
       var datetime = new Date().toLocaleString();
       var res = datetime.split(" ");
@@ -99,9 +99,5 @@ Vue.component('deslocamento-add', {
       this.dtInicio = dtTime;
       this.date = dtTime;
     },
-    progresso: function () {
-      if(this.data.progresso == '0' && this.status ==  '1') this.progresso = '1';
-      
-    }
   },
 });

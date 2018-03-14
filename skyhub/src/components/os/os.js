@@ -8,6 +8,8 @@ var Os = Vue.extend({
       modalItem: null,
       gridColumns: ['nick', 'name'],
       modalDeslocAdd: false,
+      modalDeslocChg: false,
+      modalDeslocEdt: false,
       modalDescAdd: false,
       selectedCategoria: 'All',
       active: '1',

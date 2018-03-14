@@ -1,6 +1,6 @@
-Vue.component('deslocamento-add', {
-  name: 'deslocamento-add',
-  template: '#deslocamento-add',
+Vue.component('desloc-edt', {
+  name: 'desloc-edt',
+  template: '#desloc-edt',
   data() {
     return {
       errorMessage: [],

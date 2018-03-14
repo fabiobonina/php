@@ -12,7 +12,7 @@
               <p class="subtitle" style="margin-bottom: 0;"> {{entry.data}} | {{entry.servico.name}}
                 <span class="pull-right"  v-for=" "> <span class="tag">{{ entry.categoria.tag }}</span> &nbsp;  </span>
               </p>
-              <p v-if="entry.bem">{{entry.bem.name}} {{entry.bem.modelo}}  &nbsp; <a>#{{entry.bem.fabricanteNick}} </a> 
+              <p v-if="entry.bem" style="margin-bottom: 0;">{{entry.bem.name}} {{entry.bem.modelo}}  &nbsp; <a>#{{entry.bem.fabricanteNick}} </a> 
               <p v-for="tecnico in entry.tecnicos"> <a><span class="icon mdi mdi-worker"></span> {{tecnico.user}} &nbsp;</a> </p>
             </div>
             <div class="column is-6">
@@ -70,7 +70,7 @@
 
           <div>
             <ul class="steps is-small">
-              <li :class="entry.processo>1 ? 'step-item is-completed is-success' : entry.processo==1 ? 'step-item is-completed is-success' : 'step-item'">
+              <li :class="entry.processo > 0 && entry.processo < 1 ? entry.processo < 3  ? 'step-item is-completed is-info' : 'step-item is-completed is-info' : 'step-item'">
                 <div class="step-marker">
                   <span class="mdi mdi-arrow-right-bold"></span>
                 </div>

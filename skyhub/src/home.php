@@ -66,7 +66,9 @@
     <!-- /components _usor -->
     <!-- components servicos -->
     <?php include("src/components/servicos/descricao/descricaoAdd.php");?>
-    <?php include("src/components/servicos/tecnico/deslocamento/deslocamentoAdd.php");?>
+    <?php include("src/components/servicos/tecnico/deslocamento/desloc-add.php");?>
+    <?php include("src/components/servicos/tecnico/deslocamento/desloc-chg.php");?>
+    <?php include("src/components/servicos/tecnico/deslocamento/desloc-edt.php");?>
     <?php include("src/components/servicos/tecnico/tecnico.php");?>
     <!-- /components servicos -->
 
@@ -131,7 +133,9 @@
 <!-- /components _uso -->
 <!-- components servicos -->
 <script src="src/components/servicos/descricao/descricaoAdd.js"></script>
-<script src="src/components/servicos/tecnico/deslocamento/deslocamentoAdd.js"></script>
+<script src="src/components/servicos/tecnico/deslocamento/desloc-add.js"></script>
+<script src="src/components/servicos/tecnico/deslocamento/desloc-chg.js"></script>
+<script src="src/components/servicos/tecnico/deslocamento/desloc-edt.js"></script>
 <script src="src/components/servicos/tecnico/tecnico.js"></script>
 <!-- /components servicos -->
 

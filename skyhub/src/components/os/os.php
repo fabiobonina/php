@@ -47,7 +47,7 @@
 
         <div>
           <ul class="steps is-small">
-            <li :class="oss.processo>1 ? 'step-item is-completed is-success' : oss.processo==1 ? 'step-item is-completed is-success' : 'step-item'">
+            <li :class="oss.processo > 0 ? oss.processo < 4  ? 'step-item is-completed is-info' : 'step-item is-completed is-success' : 'step-item'">
               <div class="step-marker">
                 <span class="mdi mdi-arrow-right-bold"></span>
               </div>
@@ -55,7 +55,7 @@
                 <p class="step-title">Em Transito</p>
               </div>
             </li>
-            <li class="step-item is-info is-completed">
+            <li :class="oss.processo > 3 ? oss.processo < 7  ? 'step-item is-completed is-info' : 'step-item is-completed is-success' : 'step-item'">
               <div class="step-marker">
                 <span class="icon mdi mdi-wrench"></span>
               </div>
@@ -63,7 +63,7 @@
                 <p class="step-title">Atendendo</p>
               </div>
             </li>
-            <li class="step-item is-warning is-completed">
+            <li :class="oss.processo > 6 ? oss.processo < 11  ? 'step-item is-completed is-info' : 'step-item is-completed is-success' : 'step-item'">
               <div class="step-marker">
                 <span class="mdi mdi-redo-variant"></span>
               </div>
@@ -71,7 +71,7 @@
                 <p class="step-title">Retorno</p>
               </div>
             </li>
-            <li class="step-item is-danger is-active">
+            <li :class="oss.processo == 11 ? 'step-item is-completed is-success' : 'step-item'">
               <div class="step-marker">
                 <span class="icon mdi mdi-flag-variant"></span>
               </div>
@@ -123,8 +123,6 @@
           </a>
         </div>
       </div>
-      <grid-local :data="locais" :columns="gridColumns" :filter-key="search"></grid-local>
-      <local-add v-if="modalLocalAdd" v-on:close="modalLocalAdd = false"></local-add>
     </section>
     <nav class="breadcrumb is-right" aria-label="breadcrumbs">
       <ul>
@@ -172,12 +170,12 @@
                   <th>{{ mod.dtInicio }} </th>
                   <td>{{ mod.dtFianl }}</td>
                   <td>{{ mod.tempo }}</td>
-                  <td>{{ mod.KmInicio }}</td>
-                  <td>{{ mod.KmFinal }}</td>
-                  <td>{{ mod.Valor }}</td>
+                  <td>{{ mod.kmInicio }}</td>
+                  <td>{{ mod.kmFinal }}</td>
+                  <td>{{ mod.valor }}</td>
                   <td>
-                    <a v-on:click="modalDeslocAdd = true" class="button is-primary is-al">Editar</a>
-                    <a v-on:click="modalDeslocAdd = true" class="button is-primary is-al">Chegada</a>
+                    <a v-on:click="modalDeslocAdd = true; selecItem(mod)" class="button is-primary is-al">Editar</a>
+                    <a v-on:click="modalDeslocAdd = true; selecItem(mod)" class="button is-primary is-al">Chegada</a>
                   </td>
                 </tr>
               </tbody>
@@ -186,8 +184,10 @@
           </div>
           </div>
         </section>
-        <deslocamento-add v-if="modalDeslocAdd" v-on:close="modalDeslocAdd = false" :data="oss" @atualizar="onAtualizar"></deslocamento-add>
-        <descricao-add v-if="modalDescAdd" v-on:close="modalDescAdd = false" :data="loja" @atualizar="onAtualizar"></descricao-add>
+        <desloc-add v-if="modalDeslocAdd" v-on:close="modalDeslocAdd = false" :data="oss"></desloc-add>
+        <desloc-edt v-if="modalDeslocChg" v-on:close="modalDeslocChg = false" :data="modalItem"></desloc-edt>
+        <desloc-chg v-if="modalDeslocEdt" v-on:close="modalDeslocEdt = false" :data="modalItem"></desloc-chg>
+        <descricao-add v-if="modalDescAdd" v-on:close="modalDescAdd = false" :data="loja"></descricao-add>
       </div>
       <!-- /.box -->
     </section>

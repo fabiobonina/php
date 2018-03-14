@@ -214,8 +214,6 @@ if($action == 'deslocamento'):
   $date     = $_POST['date'];
   $km       = $_POST['km'];
   $valor    = $_POST['valor'];
-  $processo = $_POST['processo'];
-
   foreach ( $tecnicos as $data){
     $itemId    = $data['id'];
     $duplicado = false;
@@ -240,14 +238,14 @@ if($action == 'deslocamento'):
       
       # Insert
       if($mods->insertInicio()){
-        foreach($oss->find($os) as $key => $value):if( $value->processo < $processo) {
+        foreach($oss->find($os) as $key => $value): {
           if($oss->upProcesso($os)){
-            $oss->setProcesso($processo);
+            $oss->setProcesso($status['processo']);
             $res['error'] = false;
             $arDados = "OK, dados salvo com sucesso";
             $res['message']= $arDados;
           }else{
-            $res['error'] = true; 
+            $res['error'] = true;
             $arError = "Error, nao foi possivel mudar processo OS";
             array_push($arErros, $arError);
           }
