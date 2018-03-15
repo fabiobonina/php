@@ -3,7 +3,7 @@
     <!-- #/SELEÇÃO DE CATEGORIA -->
     <section class="container">      
       <div class="box content">
-        <article class="post" v-for="entry in filteredData">
+        <article class="post" v-for="entry in data">
           <div class="columns">
             <div class="column is-6">
               <a :href="'#/oss/' + $route.params._id + '/os/' + entry.id">

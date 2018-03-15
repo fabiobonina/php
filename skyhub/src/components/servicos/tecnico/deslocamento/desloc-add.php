@@ -12,7 +12,62 @@
         <!--#INICIO -->
         <div class="field is-horizontal">
           <div class="field-label">
-            <label class="label">Tecnicos</label>
+            <label class="label">Data</label>
+          </div>
+          <div class="field-body">
+            <div class="field has-addons">
+              <p class="control">
+                <a class="button is-static">
+                  <span class="mdi mdi-calendar-clock"></span>
+                </a>
+              </p>
+              <p class="control">
+                <input v-model="date" class="input" type="datetime-local"  placeholder="Informe data">
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="field is-horizontal">
+          <div class="field-body">
+            <div class="field">
+              <label class="label">Tecnico</label>
+              <p class="control">
+                <v-select label="user" v-model="tecnico" :options="data.tecnicos"></v-select>
+              </p>
+            </div>
+            <div class="field">
+              <label class="label">Tipo Trajeto</label>
+              <p class="control">
+                <v-select label="name" v-model="tipo" :options="deslocTipos"></v-select>
+              </p>
+            </div>     
+          </div>
+        </div>
+        <div class="field is-horizontal">
+          <div class="field-body">
+            <div class="field">
+              <label class="label">Status</label>
+              <p class="control">
+                <v-select label="name" v-model="status" :options="deslocStatus"></v-select>
+              </p>
+            </div>
+            <div v-if="tipo != null && tipo.categoria == 0" class="field">
+              <label class="label">Km</label>
+              <div class="control">
+                <input v-model="km" class="input" type="text" placeholder="Km">
+              </div>
+            </div>
+            <div v-if="tipo != null &&  tipo.categoria == 1 "class="field">
+              <label class="label">Valor</label>
+              <div class="control">
+                <input v-model="valor" class="input" type="text" placeholder="Valor">
+              </div>
+            </div>    
+          </div>
+        </div>
+        <div v-if="tipo != null && tipo.categoria == 0" class="field is-horizontal">
+          <div class="field-label">
+            <label class="label">Outros Tecnicos</label>
           </div>
           <div class="field-body">
             <div class="field has-addons">
@@ -27,48 +82,9 @@
             </div>
           </div>
         </div>
-        <div class="field is-horizontal">
-          <div class="field-body">
-            <div class="field">
-              <label class="label">Status</label>
-              <p class="control is-expanded has-icons-left has-icons-right">
-                <v-select label="name" v-model="status" :options="deslocStatus"></v-select>
-              </p>
-            </div>
-            <div class="field">
-              <label class="label">Tipo Trajeto</label>
-              <p class="control is-expanded has-icons-left has-icons-right">
-                <v-select label="name" v-model="tipo" :options="deslocTipos"></v-select>
-              </p>
-            </div>
-                    
-          </div>
-        </div>
-        <div class="field is-horizontal">
-          <div class="field-body">
-            <div class="field">
-              <label class="label">Data Inicio</label>
-              <p class="control">
-                <input v-model="date" class="input" type="datetime-local"  placeholder="Informe data">
-              </p>
-            </div>    
-            <div v-if="tipo != null && tipo.categoria == 0 "class="field">
-              <label class="label">Km</label>
-              <div class="control">
-                <input v-model="km" class="input" type="text" placeholder="Km">
-              </div>
-            </div>
-            <div v-if="tipo != null &&  tipo.categoria == 1 "class="field">
-              <label class="label">Valor</label>
-              <div class="control">
-                <input v-model="valor" class="input" type="text" placeholder="Valor">
-              </div>
-            </div>
-          </div>
-          <br>
-          <br>
-          <br>
-        </div>
+        <br>
+        <br>
+        <br>
         <!--#INICIO -->
         <!--#FINAL ->
         <div class="field is-horizontal">

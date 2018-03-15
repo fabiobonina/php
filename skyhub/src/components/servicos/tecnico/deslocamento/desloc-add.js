@@ -8,6 +8,7 @@ Vue.component('desloc-add', {
     return {
       errorMessage: [],
       successMessage: [],
+      tecnico: null,
       tecnicos: null,
       status: null,
       tipo: null,
@@ -34,7 +35,7 @@ Vue.component('desloc-add', {
       var filterKey = this.data.processo
       var data = store.state.deslocStatus
       return data = data.filter(function (row) {
-        return row.categoria <= filterKey;
+        return row.categoria == filterKey;
       });
     }
   },
@@ -50,6 +51,7 @@ Vue.component('desloc-add', {
         }
         var postData = {
           os: this.data.id,
+          tecnico: this.tecnico,
           tecnicos: this.tecnicos,
           tipo: this.tipo,
           status: this.status,
