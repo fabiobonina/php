@@ -47,7 +47,8 @@
 
         <div>
           <ul class="steps is-small">
-            <li :class="oss.processo > 0 ? oss.processo < 4  ? 'step-item is-completed is-info' : 'step-item is-completed is-success' : 'step-item'">
+            <li :class="oss.processo > 0 ?
+                          'step-item is-completed is-info' : 'step-item'">
               <div class="step-marker">
                 <span class="mdi mdi-arrow-right-bold"></span>
               </div>
@@ -55,7 +56,10 @@
                 <p class="step-title">Em Transito</p>
               </div>
             </li>
-            <li :class="oss.processo > 3 ? oss.processo < 7  ? 'step-item is-completed is-info' : 'step-item is-completed is-success' : 'step-item'">
+            <li :class="oss.processo >= 1 ?
+                          oss.processo == 1 || oss.processo == 3 ? 'step-item is-completed is-success' :
+                          oss.processo == 2  ? 'step-item is-completed is-warning' : 'step-item is-completed is-info' 
+                        : 'step-item'">
               <div class="step-marker">
                 <span class="icon mdi mdi-wrench"></span>
               </div>
@@ -63,7 +67,10 @@
                 <p class="step-title">Atendendo</p>
               </div>
             </li>
-            <li :class="oss.processo > 6 ? oss.processo < 11  ? 'step-item is-completed is-info' : 'step-item is-completed is-success' : 'step-item'">
+            <li :class="oss.processo >= 4 ?
+                          oss.processo == 4 || oss.processo == 6 ? 'step-item is-completed is-success' :
+                          oss.processo == 5  ? 'step-item is-completed is-warning' : 'step-item is-completed is-info' 
+                        : 'step-item'">
               <div class="step-marker">
                 <span class="mdi mdi-redo-variant"></span>
               </div>
@@ -71,7 +78,10 @@
                 <p class="step-title">Retorno</p>
               </div>
             </li>
-            <li :class="oss.processo == 11 ? 'step-item is-completed is-success' : 'step-item'">
+            <li :class="oss.processo >= 7 ?
+                          oss.processo == 7 || oss.processo == 9 ? 'step-item is-completed is-success' :
+                          oss.processo == 8  ? 'step-item is-completed is-warning' : 'step-item is-completed is-info' 
+                        : 'step-item'">
               <div class="step-marker">
                 <span class="icon mdi mdi-flag-variant"></span>
               </div>
@@ -168,7 +178,7 @@
               <tbody>
                 <tr v-for="mod in tecnico.mods">
                   <th>{{ mod.dtInicio }} </th>
-                  <td>{{ mod.dtFianl }}</td>
+                  <td>{{ mod.dtFinal }}</td>
                   <td>{{ mod.tempo }}</td>
                   <td>{{ mod.kmInicio }}</td>
                   <td>{{ mod.kmFinal }}</td>

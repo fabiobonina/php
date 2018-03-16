@@ -39,10 +39,16 @@ Vue.component('desloc-add', {
           return row.categoria == '0';
         }
         if( filterKey == '1') {
-          return Number(row.categoria) < 4 && Number(row.categoria) >0 || Number(row.categoria) == 10;
+          return Number(row.processo) < 4 && Number(row.processo) >0 || Number(row.processo) == 10;
+        }
+        if( filterKey == '2') {
+          return Number(row.processo) < 2 ;
+        }
+        if( filterKey == '3') {
+          return Number(row.categoria) == 1 ;
         }
         if( filterKey == '4') {
-          return Number(row.categoria) < 4;
+          return Number(row.processo) < 4 ;
         }
         
         

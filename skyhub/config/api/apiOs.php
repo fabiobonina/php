@@ -209,56 +209,111 @@ endif;
 if($action == 'deslocamento'):
   $arMods = array();
   #Novo
-  //$os       = $_POST['os'];
-  //$tecnico = $_POST['tecnico'];
-  //$tecnicos = $_POST['tecnicos'];
-  //$tipo     = $_POST['tipo'];
-  //$status   = $_POST['status'];
-  //$date     = $_POST['date'];
-  //$km       = $_POST['km'];
-  //$valor    = $_POST['valor'];
+  $os       = $_POST['os'];
+  $tecnico = $_POST['tecnico'];
+  $tecnicos = $_POST['tecnicos'];
+  $tipo     = $_POST['tipo'];
+  $status   = $_POST['status'];
+  $date     = $_POST['date'];
+  $km       = $_POST['km'];
+  $valor    = $_POST['valor'];
 
-  $os            = '1';
-  $tecnico['id'] = '1';
-  $tecnico2['id']= '2';
-  $tecnicos[0]   = $tecnico;
-  $tecnicos[1]   = $tecnico2;
-  $tipo['id']    = '1';
-  $status['id']  = '2';
-  $date          = date("Y-m-d H:i:s");
-  $km            = '1';
-  $valor         = '0';
+  //$os                 = '1';
+  //$tecnico['id']      = '1';
+  //$tecnico2['id']     = '2';
+  //$tecnicos[0]        = $tecnico;
+  //$tecnicos[1]        = $tecnico2;
+  //$tipo['id']         = '1';
+  //$tipo['valor']      = '0.85';
+  //$status['id']       = '8';
+  //$status['categoria']= '2';
+  //$status['processo'] = '8';
+  //$date               = date("Y-m-d H:i:s");
+  //$km                 = '30';
+  //$valor              = '0';
 
   $stTeste = false;
-  # tecnico...
+  # tecnico----------------------------------------------------------------------------------------------------------------------------
   foreach($mods->findAll() as $key => $value): if($value->ativo == '0' && $value->tecnico == $tecnico['id'] && $value->os == $os ) {
-    $arMod = (array) $value;
 
+    $arMod = (array) $value;
+    $idMod = $value->id;
+    $dbDate = $value->dtInicio;
+    # validar Status
     if( $value->status ==  $status['id']){
       $stTeste = true;
       array_push($arErros, 'Error, exite um deslocamento aberto com esse mesmo Status');
     }
-    if( strtotime($value->dtInicio) > strtotime($date) ){
+    # validar data
+    if( strtotime($dbDate) > strtotime($date) ){
       $stTeste = true;
-      array_push($arErros, 'Error, dataFinal('.$date.') menor que dataInicio('.$value->dtInicio.')');
+      array_push($arErros, 'Error, dataFinal('.$date.') menor que dataInicio('.$dbDate.')');
+    }else{
+      $dbDate = new DateTime($dbDate);
+      $aDate  = new DateTime($date);
+      $diff   = $dbDate->diff($aDate);
+      $tempo  = $diff->h + ($diff->days * 24);
     }
-    if( $value->kmInicio > $km ){
-      $stTeste = true;
-      array_push($arErros, 'Error, KmFinal('.$km.') menor que kmInicio('.$value->kmInicio.')');
+    # validar TipoTrajeto
+    if( $value->tipoTrajeto != $tipo['id']){
+        $stTeste = true;
+        array_push($arErros, 'Error, Tipo de trajeto é diferente do inicial');
+    }else{
+      # validar KM
+      if( $tipo['id'] == '1'){
+        if( $value->kmInicio > $km ){
+          $stTeste = true;
+          array_push($arErros, 'Error, KmFinal('.$km.') menor que kmInicio('.$value->kmInicio.')');
+        }else{
+          $valor = ($km - $value->kmInicio ) * $tipo['valor'];
+        }
+      }
+      
     }
+    
     array_push($arMods, $arMod);
 
   }endforeach;
 
-  echo $result = count($arMods);
   if(!$stTeste){
     #desloc aberto
-    if (count($arMods) == '1'){
-      echo 'ok_1';
+    if ( count($arMods) == '1' ) {
+      # code...
+      $mods->setOs($os);
+      $mods->setTecnico($tecnico['id']);
+      $mods->setTipoTrajeto($tipo['id']);
+      $mods->setStatus($status['id']);
+      $mods->setDtFinal($date);
+      $mods->setKmFinal($km);
+      $mods->setTempo($tempo);
+      $mods->setValor($valor);
+      $mods->setAtivo('1');
+      
+      # InsertFinal
+      if( $mods->insertFinal($idMod) ){
+        foreach( $oss->find($os) as $key => $value ): {
+          $oss->setProcesso($status['processo']);
+          if( $oss->upProcesso($os) ){
+            if($status['categoria'] == 2 ){
+              $arMods = array();
+            }
+            $res['error'] = false;
+            $arDados = "OK, dados salvo com sucesso";
+            $res['message']= $arDados;
+          }else{
+            $res['error'] = true;
+            array_push($arErros, "Error, nao foi possivel mudar processo OS");
+          }
+        }endforeach;
+      }else{
+        $res['error'] = true;
+      }
+    }else{
+      $res['error'] = true;
+      array_push($arErros, "Error, nao foi possivel salvar deslocamento");
     }
     #desloc inicial
-    elseif (count($arMods) == '0' && $status['categoria'] == (0 || 2 )) {
-      # code...
+    if (count($arMods) == '0' || $status['categoria'] == 2 ) {
       $mods->setOs($os);
       $mods->setTecnico($tecnico['id']);
       $mods->setTipoTrajeto($tipo['id']);
@@ -270,141 +325,144 @@ if($action == 'deslocamento'):
       # Insert
       if($mods->insertInicio()){
         foreach($oss->find($os) as $key => $value): {
+          $oss->setProcesso($status['processo']);
           if($oss->upProcesso($os)){
-            $oss->setProcesso($status['processo']);
             $res['error'] = false;
             $arDados = "OK, dados salvo com sucesso";
             $res['message']= $arDados;
           }else{
             $res['error'] = true;
-            $arError = "Error, nao foi possivel mudar processo OS";
-            array_push($arErros, $arError);
+            array_push($arErros, "Error, nao foi possivel mudar processo OS");
           }
         }endforeach;
       }else{
         $res['error'] = true;
+        array_push($arErros, "Error, nao foi possivel salvar deslocamento");
       }
-    
-
-    } else {
-    # code...
-    $res['error'] = true;
-    $arError = 'Error, item já cadastrado';
-    array_push($arErros, $arError);  
-    echo 'ok null';
+    }else {
+      $res['error'] = true;
+      array_push($arErros, 'Error, item já cadastrado'); 
     }
-
+    #tecnicos----------------------------------------------------------------------------------------------------------------------------
     foreach ( $tecnicos as $data){
-      $itemId    =  '1';//$data['id'];
-      $duplicado = false;
+      $itemId    =  $data['id'];
       $arMods = array();
-
-      foreach($mods->findAll() as $key => $value): if($value->ativo == $ativo && $value->tecnico == $itemId ) {
-        $arMod = (array) $value;
-        $tecMod = $value->tecnico;
-        $osMod  = $value->os;
-        
-        /*if($local == $catLacalLocal){
-          if($itemId == $catLacalCategoria ):
-            $duplicado = true;
-          endif;
-        }*/
-        array_push($arMods, $arMod);   
-      }endforeach;
-
-      echo $result = count($arMods);
-
-      if (count($arMods) == '1'){
-        echo 'ok_1';
-
-      }
-      elseif (count($arMods) == '0') {
-        # code...
-        if( !$duplicado ){
-          $mods->setOs($os);
-          $mods->setTecnico($itemId);
-          $mods->setTipoTrajeto($tipo['id']);
-          $mods->setStatus($status['id']);
-          $mods->setDtInicio($date);
-          $mods->setKmInicio($km);
-          $mods->setValor($valor);
-          
-          # Insert
-          if($mods->insertInicio()){
-            foreach($oss->find($os) as $key => $value): {
-              if($oss->upProcesso($os)){
-                $oss->setProcesso($status['processo']);
-                $res['error'] = false;
-                $arDados = "OK, dados salvo com sucesso";
-                $res['message']= $arDados;
-              }else{
-                $res['error'] = true;
-                $arError = "Error, nao foi possivel mudar processo OS";
-                array_push($arErros, $arError);
-              }
-            }endforeach;
-          }else{
-            $res['error'] = true; 
-            $arError = "Error, nao foi possivel salvar os dados";
-            array_push($arErros, $arError);
-          }
-        }else{
-          $res['error'] = true; 
-          $arError = "Error, item já cadastrado";
-          array_push($arErros, $arError);
-        }
-      } else {
-        # code...
-        $res['error'] = true; 
-        $arError = 'Error, item já cadastrado';
-        array_push($arErros, $arError);
-        echo 'ok null';
-      }
-    }
-    /*if( !$duplicado ){
-      $mods->setOs($os);
-      $mods->setTecnico($itemId);
-      $mods->setTipoTrajeto($tipo['id']);
-      $mods->setStatus($status['id']);
-      $mods->setDtInicio($date);
-      $mods->setKmInicio($km);
-      $mods->setValor($valor);
       
-      # Insert
-      if($mods->insertInicio()){
-        foreach($oss->find($os) as $key => $value): {
-          if($oss->upProcesso($os)){
-            $oss->setProcesso($status['processo']);
-            $res['error'] = false;
-            $arDados = "OK, dados salvo com sucesso";
-            $res['message']= $arDados;
+      #VALIDAR-TECNICO.............................
+      if( $itemId != $tecnico['id'] ){
+        #carona
+        if( $tipo['id'] == '1'){
+          $tipo['id'] = '3';
+          $km         = '0';
+          $valor      = '0';
+        }
+        foreach($mods->findAll() as $key => $value): if($value->ativo == '0' && $value->tecnico == $itemId && $value->os == $os ) {
+
+          $arMod = (array) $value;
+          $idMod = $value->id;
+          $dbDate = $value->dtInicio;
+          # validar Status
+          if( $value->status ==  $status['id']){
+            $stTeste = true;
+            array_push($arErros, 'Error, exite um deslocamento aberto com esse mesmo Status');
+          }
+          # validar data
+          if( strtotime($dbDate) > strtotime($date) ){
+            $stTeste = true;
+            array_push($arErros, 'Error, dataFinal('.$date.') menor que dataInicio('.$dbDate.')');
+          }else{
+            $dbDate = new DateTime($dbDate);
+            $aDate  = new DateTime($date);
+            $diff   = $dbDate->diff($aDate);
+            $tempo  = $diff->h + ($diff->days * 24);
+          }
+          # validar TipoTrajeto
+          if( $value->tipoTrajeto != $tipo['id']){
+              $stTeste = true;
+              array_push($arErros, 'Error, Tipo de trajeto é diferente do inicial');
+          }          
+          array_push($arMods, $arMod);
+  
+        }endforeach;
+        
+        if(!$stTeste){
+          #desloc aberto
+          if ( count($arMods) == '1' ) {
+            # code...
+            $mods->setOs($os);
+            $mods->setTecnico($itemId);
+            $mods->setTipoTrajeto($tipo['id']);
+            $mods->setStatus($status['id']);
+            $mods->setDtFinal($date);
+            $mods->setKmFinal($km);
+            $mods->setTempo($tempo);
+            $mods->setValor($valor);
+            $mods->setAtivo('1');
+            
+            # InsertFinal
+            if( $mods->insertFinal($idMod) ){
+              foreach( $oss->find($os) as $key => $value ): {
+                $oss->setProcesso($status['processo']);
+                if( $oss->upProcesso($os) ){
+                  if($status['categoria'] == 2 ){
+                    $arMods = array();
+                  }
+                  $res['error'] = false;
+                  $arDados = "OK, dados salvo com sucesso";
+                  $res['message']= $arDados;
+                }else{
+                  $res['error'] = true;
+                  array_push($arErros, "Error, nao foi possivel mudar processo OS");
+                }
+              }endforeach;
+            }else{
+              $res['error'] = true;
+            }
           }else{
             $res['error'] = true;
-            $arError = "Error, nao foi possivel mudar processo OS";
-            array_push($arErros, $arError);
+            array_push($arErros, "Error, nao foi possivel salvar deslocamento");
           }
-        }endforeach;
-      }else{
-        $res['error'] = true; 
-        $arError = "Error, nao foi possivel salvar os dados";
-        array_push($arErros, $arError);
+          #desloc inicial
+          if (count($arMods) == '0' || $status['categoria'] == 2 ) {
+            $mods->setOs($os);
+            $mods->setTecnico($itemId);
+            $mods->setTipoTrajeto($tipo['id']);
+            $mods->setStatus($status['id']);
+            $mods->setDtInicio($date);
+            $mods->setKmInicio($km);
+            $mods->setValor($valor);
+            
+            # Insert
+            if($mods->insertInicio()){
+              foreach($oss->find($os) as $key => $value): {
+                $oss->setProcesso($status['processo']);
+                if($oss->upProcesso($os)){
+                  $res['error'] = false;
+                  $arDados = "OK, dados salvo com sucesso";
+                  $res['message']= $arDados;
+                }else{
+                  $res['error'] = true;
+                  array_push($arErros, "Error, nao foi possivel mudar processo OS");
+                }
+              }endforeach;
+            }else{
+              $res['error'] = true;
+              array_push($arErros, "Error, nao foi possivel salvar deslocamento");
+            }
+          }else {
+            $res['error'] = true;
+            array_push($arErros, 'Error, item já cadastrado'); 
+          }
+        }
       }
-    }else{
-      $res['error'] = true; 
-      $arError = "Error, item já cadastrado";
-      array_push($arErros, $arError);
+      #VALIDAR-TECNICO..............................
     }
-  //}*/
-
-
-  } else {
-    # code...
+    #tecnicos----------------------------------------------------------------------------------------------------------------------------
+  }else {
     $res['error'] = true; 
     echo 'ok null';
   }
 
-  
-    
   if($res['error'] == true){
     $res['message']= $arErros;
   }
