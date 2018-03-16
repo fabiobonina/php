@@ -224,9 +224,9 @@ if($action == 'deslocamento'):
   $tecnicos[0]   = $tecnico;
   $tecnicos[1]   = $tecnico2;
   $tipo['id']    = '1';
-  $status['id']  = '1';
+  $status['id']  = '2';
   $date          = date("Y-m-d H:i:s");
-  $km            = '2';
+  $km            = '1';
   $valor         = '0';
 
   $stTeste = false;
@@ -236,6 +236,15 @@ if($action == 'deslocamento'):
 
     if( $value->status ==  $status['id']){
       $stTeste = true;
+      array_push($arErros, 'Error, exite um deslocamento aberto com esse mesmo Status');
+    }
+    if( strtotime($value->dtInicio) > strtotime($date) ){
+      $stTeste = true;
+      array_push($arErros, 'Error, dataFinal('.$date.') menor que dataInicio('.$value->dtInicio.')');
+    }
+    if( $value->kmInicio > $km ){
+      $stTeste = true;
+      array_push($arErros, 'Error, KmFinal('.$km.') menor que kmInicio('.$value->kmInicio.')');
     }
     array_push($arMods, $arMod);
 
@@ -273,9 +282,7 @@ if($action == 'deslocamento'):
           }
         }endforeach;
       }else{
-        $res['error'] = true; 
-        $arError = "Error, nao foi possivel salvar os dados";
-        array_push($arErros, $arError);
+        $res['error'] = true;
       }
     
 
@@ -393,8 +400,6 @@ if($action == 'deslocamento'):
   } else {
     # code...
     $res['error'] = true; 
-    $arError = 'Error, exite um deslocamento aberto com esse mesmo Status';
-    array_push($arErros, $arError);
     echo 'ok null';
   }
 

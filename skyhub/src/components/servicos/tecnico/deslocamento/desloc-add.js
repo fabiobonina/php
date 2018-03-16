@@ -35,7 +35,17 @@ Vue.component('desloc-add', {
       var filterKey = this.data.processo
       var data = store.state.deslocStatus
       return data = data.filter(function (row) {
-        return row.categoria == filterKey;
+        if( filterKey == '0') {
+          return row.categoria == '0';
+        }
+        if( filterKey == '1') {
+          return Number(row.categoria) < 4 && Number(row.categoria) >0 || Number(row.categoria) == 10;
+        }
+        if( filterKey == '4') {
+          return Number(row.categoria) < 4;
+        }
+        
+        
       });
     }
   },
