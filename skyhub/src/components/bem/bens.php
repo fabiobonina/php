@@ -21,13 +21,13 @@
         &nbsp;
         <div class="control">
           <a v-on:click="modalAdd = true" class="button is-link is-al">
-            <span class="mdi mdi-home-modern"></span> Bem
+            <span class="mdi mdi-file-tree"></span> Bem
           </a>
         </div>
         &nbsp;
         <div class="control">
           <a v-on:click="modalOs = true" class="button is-link is-al">
-            <span class="mdi mdi-home-modern"></span> OS
+            <span class="mdi mdi-wrench"></span> OS
           </a>
         </div>
       </div>

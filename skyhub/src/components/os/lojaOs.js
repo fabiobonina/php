@@ -7,7 +7,6 @@ var LojaOss = Vue.extend({
       successMessage: '',
       searchQuery: '',
       gridColumns: ['nick', 'name'],
-      modalLocalAdd: false,
       active: '1',
       estado: {'nivel0': '0', 'nivel1': '1','nivel2': '2'}
     };

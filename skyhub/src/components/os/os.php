@@ -83,7 +83,7 @@
                           oss.processo == 8  ? 'step-item is-completed is-warning' : 'step-item is-completed is-info' 
                         : 'step-item'">
               <div class="step-marker">
-                <span class="icon mdi mdi-flag-variant"></span>
+                <span class="icon mdi mdi-check"></span>
               </div>
               <div class="step-details">
                 <p class="step-title">Completo</p>
@@ -123,13 +123,13 @@
         &nbsp;
         <div class="control">
           <a v-on:click="modalDeslocAdd = true" class="button is-link is-al">
-            <span class="mdi mdi-arrow-right-bold"></span> Deslocamento
+            <span class="mdi mdi-walk"></span> Desloc.
           </a>
         </div>
         &nbsp;
         <div class="control">
           <a v-on:click="modalDeslocAdd = true" class="button is-link is-al">
-            <span class="mdi mdi-arrow-right-bold"></span> Descrição
+            <span class="mdi mdi-note-text"></span> Nota
           </a>
         </div>
       </div>
@@ -144,12 +144,7 @@
     <section class="container">
       <div>
         <section class="container">
-          <div  v-if="active==1">
-            <div>
-              <a v-on:click="modalDeslocAdd = true" class="button is-primary is-al">
-                <i class="fa fa-building-o"></i> Local Add
-              </a>
-            </div>
+          <div>
             <br>
             <!--grid-local
                 :data="locais"
@@ -159,9 +154,9 @@
             <div v-for="tecnico in oss.tecnicos">
             <p> <a>@{{tecnico.user}} &nbsp;</a><p>
             <div>
-              <a v-on:click="modalDeslocAdd = true" class="button is-primary is-al">
-                <i class="fa fa-building-o"></i> Delocamento
-              </a>
+            <a v-on:click="modalDeslocAdd = true" class="button is-link is-al">
+              <span class="mdi mdi-walk"></span> Desloc.
+            </a>
             </div>
             <table class="table">
               <thead>

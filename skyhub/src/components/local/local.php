@@ -26,7 +26,7 @@
                 <div class="level-item has-text-centered">
                   <div>
                     <p class="heading">OS´s</p>
-                    <p class="title is-4"> {{  }} <span class="icon is-small"><i class="fa fa-wrench"></i></span></p>
+                    <p class="title is-4"> {{  }} <span class="icon mdi mdi-wrench"></span></p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered">
