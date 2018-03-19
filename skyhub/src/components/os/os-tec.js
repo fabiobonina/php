@@ -9,10 +9,8 @@ Vue.component('os-tec', {
       errorMessage: [],
       successMessage: [],
       item:{},
-      servico: null, tecnico: null, dataOs: '', ativo: '0',
+      tecnicos: null,
       isLoading: false,
-      bem: null,
-      categoria: null
     };
   },
   computed: {
@@ -22,33 +20,14 @@ Vue.component('os-tec', {
       return false
     },
     loja()  {
-      return store.getters.getLojaId(this.$route.params._id);
+      return store.getters.getLojaId(this.data.id);
     },
-    local()  {
-      return store.getters.getLocalId(this.$route.params._local);
-    },
-    servicos() {
-      return store.state.servicos;
-    },
-    tecnicos() {
+    _tecnicos() {
       return store.state.tecnicos;
     },
-    categorias() {
-      return store.state.categorias;
+    _os()  {
+      return store.getters.getOsId(this.data.id);
     },
-    filterServ: function () {
-      var vm = this;
-      var servicos = vm.servicos;
-      if(vm.data === null) {
-        return vm.servicos.filter(function(item) {
-          return item.tipo == '0';
-        });
-      } else {
-        return vm.servicos.filter(function(item) {
-          return item.tipo > '0';
-        });
-      }
-    }
   },
   created: function() {
     this.$store.dispatch('fetchProdutos').then(() => {
@@ -64,20 +43,8 @@ Vue.component('os-tec', {
       if(this.checkForm()){
         this.isLoading = true
         var postData = {
-          loja: this.loja.id,
-          lojaNick: this.loja.nick,
-          local: this.local.id,
-          bem: this.bem,
-          categoria: this.categoria.id,
-          servico: this.servico.id,
-          tipoServ: this.servico.tipo,
-          tecnicos: this.tecnico,
-          data: this.dataOs,
-          dtCadastro: new Date().toJSON(),
-          estado: '0',
-          processo: '0',
-          status: '0',
-          ativo: this.ativo
+          os: this.data.id,
+          tecnicos: this.tecnicos,
         };
         //var formData = this.toFormData(postData);
         console.log(postData);
@@ -103,6 +70,97 @@ Vue.component('os-tec', {
           });
           //this.$store.state.create(data)
       }
+    },
+    saveItem: function() {
+      if(this.checkForm()){
+        this.isLoading = true
+        var postData = {
+          categoria: this.categoria,
+          loja: this.data.id
+        };
+        //console.log(postData);
+        this.$http.post('./config/api/apiLoja.php?action=catCadastrar', postData).then(function(response) {
+          //console.log(response);
+          if(response.data.error){
+            this.errorMessage = response.data.message;
+            this.isLoading = false;
+          } else{
+            this.successMessage.push(response.data.message);
+            this.isLoading = false;
+            this.$store.dispatch("fetchIndex").then(() => {
+              console.log("Atualizado lojas!")
+            });
+            setTimeout(() => {
+              this.errorMessage = [];
+              this.successMessage = [];
+              this.categoria = [];
+            }, 2000);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      }
+    },
+    catDelete: function(data) {
+      if(confirm('Deseja realmente deletar ' + data.name + '?')){
+        this.isLoading = true
+        var postData = {
+          id: data.id
+        };
+        //console.log(postData);
+        this.$http.post('./config/api/apiLoja.php?action=catDelete', postData).then(function(response) {
+          //console.log(response);
+          if(response.data.error){
+            this.errorMessage = response.data.message;
+            this.isLoading = false;
+          } else{
+            this.successMessage.push(response.data.message);
+            this.isLoading = false;
+            this.$store.dispatch("fetchIndex").then(() => {
+              console.log("Atualizado lojas!")
+            });
+            setTimeout(() => {
+              //this.$emit('close');
+              this.errorMessage = [];
+              this.successMessage = [];
+            }, 2000);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      }
+    },
+    catStatus: function(data) {
+      this.isLoading = true
+      if(data.ativo == 0) this.ativo = '1';
+      if(data.ativo == 1) this.ativo = '0';
+      var postData = {
+        ativo: this.ativo,
+        id: data.id
+      };
+      //console.log(postData);
+      this.$http.post('./config/api/apiLoja.php?action=catStatus', postData).then(function(response) {
+        //console.log(response);
+        if(response.data.error){
+          this.errorMessage = response.data.message;
+          this.isLoading = false;
+        } else{
+          this.successMessage.push(response.data.message);
+          this.isLoading = false;
+          this.$store.dispatch("fetchIndex").then(() => {
+            console.log("Atualizado lojas!")
+          });
+          setTimeout(() => {
+            this.errorMessage = [];
+            this.successMessage = [];
+          }, 2000);
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
     },
     checkForm:function(e) {
       this.errorMessage = [];

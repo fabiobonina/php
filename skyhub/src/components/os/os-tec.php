@@ -13,58 +13,17 @@
         <div v-if='data'>
           <p>{{ data.name }} - {{ data.modelo }} <i class="fa fa-qrcode"></i> {{ data.numeracao }} <i class="fa fa-fw fa-barcode"></i>{{ data.plaqueta }}</p>
         </div>
-        
-        <div class="field is-horizontal">
-          <div class="field-label is-normal">
-            <label class="label">DataOS</label>
-          </div>
-          <div class="field-body">
-            <div class="field">
-              <p class="control is-expanded has-icons-left">
-                <input v-model="data.data" class="input" type="date">
-                <span class="icon is-small is-left">
-                  <span class="mdi mdi-calendar mdi-dark is-left"></span>
-                </span>
-              </p>
-            </div>
-          </div>
+        <h2 class="subtitle">Tecnicos</h2>
+        <div v-for="item in _os.tecnicos">
+          <h2 class="subtitle"> {{ item.user }}
+            <a @click="catDelete(item)" class="button  is-small is-danger">Del &nbsp;
+              <span class="icon is-small">
+                <span class="mdi mdi-close"></span>
+              </span>
+            </a>
+          </h2>
         </div>
-      
-        <div class="field is-horizontal">
-          <div class="field-label">
-            <label class="label">Serviço</label>
-          </div>
-          <div class="field-body">
-            <div class="field has-addons">
-              <p class="control">
-                <a class="button is-static">
-                  <span class="mdi mdi-settings"></span>
-                </a>
-              </p>
-              <p class="control">
-                  <v-select label="name" v-model="data.servico" :options="servicos"></v-select>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div v-if="!data" class="field is-horizontal">
-          <div class="field-label">
-            <label class="label">Categoria</label>
-          </div>
-          <div class="field-body">
-            <div class="field has-addons">
-              <p class="control">
-                <a class="button is-static">
-                  <span class="mdi mdi-tag"></span>
-                </a>
-              </p>
-              <p class="control">
-                <v-select label="name" v-model="data.categoria" :options="categorias"></v-select>
-              </p>
-            </div>
-          </div>
-        </div>
+        <br>
 
         <div class="field is-horizontal">
           <div class="field-label">
@@ -78,30 +37,13 @@
                 </a>
               </p>
               <p class="control">
-                <v-select multiple label="user" v-model="data.tecnicos" :options="tecnicos"></v-select>
+                <v-select multiple label="userNick" v-model="tecnicos" :options="_tecnicos"></v-select>
               </p>
             </div>
           </div>
         </div>
-        
-        <div class="field is-horizontal">
-          <div class="field-label">
-            <label class="label">Ativo?</label>
-          </div>
-          <div class="field-body">
-            <div class="field is-narrow">
-              <div class="control">
-                <label class="radio">
-                  <input value="0" v-model="data.ativo" type="radio"> Yes
-                </label>
-                <label class="radio">
-                  <input value="1" v-model="data.ativo" type="radio">  No
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-        
+        <br>
+        <br>
         <!--#CONTEUDO -->
       </section>
       <footer class="modal-card-foot field is-grouped is-grouped-right">
