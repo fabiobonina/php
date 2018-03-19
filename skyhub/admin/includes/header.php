@@ -1,14 +1,14 @@
 <?php
-ob_start();
-session_start();
+  ob_start();
+  session_start();
 
-// login
-if(!isset($_SESSION['loginUser']) && (!isset($_SESSION['loginProprieratio']))){
-	header("Location: login.php");exit;
-}
-if(isset($_SESSION['loginNivel']) > '0'  && isset($_SESSION['loginGrupo']) == 1 && isset($_SESSION['loginProprieratio']) == 1){
-	header("Location: index.php");exit;
-}
+  // login
+  if(!isset($_SESSION['loginUser']) && (!isset($_SESSION['loginProprieratio']))){
+    header("Location: login.php");exit;
+  }
+  if(isset($_SESSION['loginNivel']) > '0'  && isset($_SESSION['loginGrupo']) == 1 && isset($_SESSION['loginProprieratio']) == 1){
+    header("Location: index.php");exit;
+  }
 	//include("admin/conexao/conecta.php");
 	include("admin/includes/logout.php");
 

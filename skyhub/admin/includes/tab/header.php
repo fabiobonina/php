@@ -10,9 +10,8 @@ session_start();
 	include("admin/includes/logout.php");
 
 	$userUsuario = $_SESSION['loginUser'];
-	$userSenha = $_SESSION['loginSenha'];
 	$userNivel = $_SESSION['loginNivel'];
-	$userNome = $_SESSION['loginNome'];
+	$userNome = $_SESSION['loginName'];
 
 	function __autoload($class_name){
 		require_once 'admin/classes/' . $class_name . '.php';

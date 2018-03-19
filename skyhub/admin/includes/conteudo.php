@@ -78,7 +78,7 @@
 
    ?>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script async defer src="http://maps.google.com/maps/api/js?key=AIzaSyD690bEo7B-V4nQR5T8-aiyf61bbGzrL6Q" type="text/javascript"></script>
+    <!--script async defer src="http://maps.google.com/maps/api/js?key=AIzaSyD690bEo7B-V4nQR5T8-aiyf61bbGzrL6Q" type="text/javascript"></script-->
 
 
     <script type="text/javascript">
@@ -100,14 +100,12 @@
           ['Fechada',  <?php echo $cont_finalizar; ?>],
           ['Concluida', <?php echo $cont_concluidas; ?>]
         ]);
-
         var piechart_options = {title:'OAT Status',
                        width:450,
                        height:400,
                       pieHole: 0.4};
         var piechart = new google.visualization.PieChart(document.getElementById('piechart_div'));
         piechart.draw(data2, piechart_options);
-
       }
       function drawStacked() {
         //#### OAT x Tecnico #######
@@ -176,8 +174,6 @@
 
 
        </body>
-
-
         <!-- page content -->
         <div class="right_col" role="main">
           <!-- top tiles -->
