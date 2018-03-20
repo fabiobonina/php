@@ -3,6 +3,7 @@ header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
 include("_chave.php");
+include('../function/_GeralFunction.php');
 
 function __autoload($class_name){
   require_once '../classes/' . $class_name . '.php';
@@ -199,8 +200,101 @@ if($action == 'cadastrar'):
 endif;
 
 #ATUALIZAR
-if(isset($_POST['atualizar'])):
+if($action == 'osAmarar'):
 
+  $os     = $_POST['os'];
+  $filial = $_POST['filial'];
+  $dtOs   = $_POST['dtOs'];
+  $status = $_POST['status'];
+  $id     = $_POST['id'];
+
+
+  $oss->setOs($os);
+  $oss->setFilia($filial);
+  $oss->setDtOs($dtOs);
+  $oss->setStatus($status);
+  # Amarar
+  if($oss->amarar($id)){
+    $res['error'] = false;
+    $res['message']= "OK, dados salvo com sucesso";
+  }else{
+    $res['error'] = true; 
+    $res['message'] = "Error, nao foi possivel salvar os dados";      
+  }
+endif;
+
+#DESCRICAO ADD
+if(isset($_POST['descAdd'])):
+  if(!isset($_POST['oat']) OR !isset($_POST['descricao'])){
+    echo '<div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>Dados incompletos!</strong> Os dados estão incorretos.
+          </div>';
+  }else{
+    $oat = $_POST['oat'];
+    $descricao = $_POST['descricao'];
+
+    $descricoes->setOat($oat);
+    $descricoes->setDescricao($descricao);
+    # Insert
+    if($descricoes->insert()){
+      echo '<div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>Salva com sucesso!</strong> Redirecionando ...
+            </div>';
+      header("Refresh: 1, oat-operacao.php?acao=retorno&acao1=consulta&oat=". $oat );	
+    }
+  }
+endif;
+
+#DESCRICAO Editar
+if(isset($_POST['descEdt'])):
+  if(!isset($_POST['oat']) OR !isset($_POST['descricao']) OR !isset($_POST['cod'])){
+    echo '<div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>Dados incompletos!</strong> Os dados estão incorretos.
+          </div>';
+  }else{
+    $id = $_POST['cod'];
+    $oat = $_POST['oat'];
+    $descricao = $_POST['descricao'];
+
+    $descricoes->setOat($oat);
+    $descricoes->setDescricao($descricao);
+
+    if($descricoes->update($id)){
+      echo '<div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>Salva com sucesso!</strong> Redirecionando ...
+            </div>';
+      header("Refresh: 1, oat-operacao.php?acao=retorno&acao1=consulta&oat=". $oat);	
+    }
+  }
+  
+endif;
+#RETORNAR
+if(isset($_POST['fechar'])):
+if(!isset($_POST['oat'])){
+  echo '<div class="alert alert-danger">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <strong>Dados incompletos!</strong> Os dados estão incorretos.
+        </div>';
+}else{
+  $id = $_POST['oat'];
+  $dataFech = date("Y-m-d H:i:s");
+  $status = "2";
+
+  $oats->setDataFech($dataFech);
+  $oats->setStatus($status);
+
+  if($oats->retorno($id)){
+    echo '<div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>OAT Fechada!</strong> Redirecionando ...
+        </div>';
+    header("Refresh: 1, oat-operacao.php?acao=retorno");	
+  }
+}
   
 endif;
 
@@ -249,10 +343,9 @@ if($action == 'deslocamento'):
       $stTeste = true;
       array_push($arErros, 'Error, dataFinal('.$date.') menor que dataInicio('.$dbDate.')');
     }else{
-      $dbDate = new DateTime($dbDate);
-      $aDate  = new DateTime($date);
-      $diff   = $dbDate->diff($aDate);
-      $tempo  = $diff->h + ($diff->days * 24);
+
+      $tempo = $textFunction->dtDiff($dbDate, $date);    
+
     }
     # validar TipoTrajeto
     if( $value->tipoTrajeto != $tipo['id']){

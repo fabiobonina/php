@@ -4,7 +4,7 @@ header('Content-Type: text/html; charset=utf-8');
 
 include("_chave.php");
 
-include('../function/TextFunction.php');
+include('../function/_GeralFunction.php');
 
 function __autoload($class_name){
   require_once '../classes/' . $class_name . '.php';

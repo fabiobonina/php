@@ -1,6 +1,6 @@
 <?php
 
-class TextFunction {
+class GeralFunction {
 		
 	public function dtDiff($dtX, $dtY){
 		$dtX = new DateTime($dtX);
