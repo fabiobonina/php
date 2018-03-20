@@ -10,25 +10,26 @@ function __autoload($class_name){
 }
 
 $proprietario = new Proprietario();
-$lojas = new Loja();
-$locais = new Locais();
-$oss = new Os();
-$bens = new Bens();
-$servicos = new Servicos();
-$mods = new Mod();
-$osTecnicos = new OsTecnicos();
+$lojas        = new Loja();
+$locais       = new Locais();
+$oss          = new Os();
+$bens         = new Bens();
+$servicos     = new Servicos();
+$mods         = new Mod();
+$osTecnicos   = new OsTecnicos();
+$notas        = new Mota();
 
 
-$res = array('error' => true);
-$arDados = array();
-$arErros = array();
+$res    = array('error' => true);
+$arDados= array();
+$arErros= array();
 $action = 'deslocamento';
 
 //$res['user'] = $user;
-$acessoNivel = $user['nivel'];// $user >  include("_chave.php");
+$acessoNivel        = $user['nivel'];// $user >  include("_chave.php");
 $acessoProprietario = $user['proprietario'];
-$acessoGrupo = $user['grupo'];
-$acessoloja = $user['loja'];
+$acessoGrupo        = $user['grupo'];
+$acessoloja         = $user['loja'];
 //$acessoNivel = 2;
 //$acessoProprietario = 1;
 //$acessoGrupo = 'P';
@@ -135,20 +136,20 @@ endif;
 #CADASTRAR
 if($action == 'cadastrar'):
   /**/
-  $loja = $_POST['loja'];
-  $lojaNick = $_POST['lojaNick'];
-  $local = $_POST['local'];
-  $bem = $_POST['bem'];
-  $categoria = $_POST['categoria'];
-  $servico = $_POST['servico'];
-  $tipoServ = $_POST['tipoServ'];
-  $tecnicos = json_encode($_POST['tecnicos'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-  $data = $_POST['data'];
+  $loja       = $_POST['loja'];
+  $lojaNick   = $_POST['lojaNick'];
+  $local      = $_POST['local'];
+  $bem        = $_POST['bem'];
+  $categoria  = $_POST['categoria'];
+  $servico    = $_POST['servico'];
+  $tipoServ   = $_POST['tipoServ'];
+  $tecnicos   = json_encode($_POST['tecnicos'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+  $data       = $_POST['data'];
   $dtCadastro = $_POST['dtCadastro'];
-  $estado = $_POST['estado'];
-  $processo = $_POST['processo'];
-  $status = $_POST['status'];
-  $ativo = $_POST['ativo'];
+  $estado     = $_POST['estado'];
+  $processo   = $_POST['processo'];
+  $status     = $_POST['status'];
+  $ativo      = $_POST['ativo'];
 
   /*
   $tecnicos = array();
@@ -204,10 +205,9 @@ if($action == 'osAmarar'):
 
   $os     = $_POST['os'];
   $filial = $_POST['filial'];
-  $dtOs   = $_POST['dtOs'];
   $status = $_POST['status'];
   $id     = $_POST['id'];
-
+  $dtOs   = date("Y-m-d H:i:s");
 
   $oss->setOs($os);
   $oss->setFilia($filial);
@@ -224,77 +224,65 @@ if($action == 'osAmarar'):
 endif;
 
 #DESCRICAO ADD
-if(isset($_POST['descAdd'])):
-  if(!isset($_POST['oat']) OR !isset($_POST['descricao'])){
-    echo '<div class="alert alert-danger">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>Dados incompletos!</strong> Os dados estão incorretos.
-          </div>';
-  }else{
-    $oat = $_POST['oat'];
-    $descricao = $_POST['descricao'];
+if($action =='descAdd'):
 
-    $descricoes->setOat($oat);
-    $descricoes->setDescricao($descricao);
+    $os       = $_POST['os'];
+    $descricao= $_POST['descricao'];
+
+    $notas->setOs($oat);
+    $notas->setNota($descricao);
     # Insert
-    if($descricoes->insert()){
-      echo '<div class="alert alert-success">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>Salva com sucesso!</strong> Redirecionando ...
-            </div>';
-      header("Refresh: 1, oat-operacao.php?acao=retorno&acao1=consulta&oat=". $oat );	
+    if($notas->insert()){
+      $res['error'] = false;
+      $res['message']= "OK, dados salvo com sucesso";
+    }else{
+      $res['error'] = true; 
+      $res['message'] = "Error, nao foi possivel salvar os dados";      
     }
-  }
 endif;
 
 #DESCRICAO Editar
-if(isset($_POST['descEdt'])):
-  if(!isset($_POST['oat']) OR !isset($_POST['descricao']) OR !isset($_POST['cod'])){
+if($action =='descEdt'):
+
+    $id       = $_POST['id'];
+    $descricao= $_POST['descricao'];
+
+    $notas->setOat($oat);
+    $notas->setDescricao($descricao);
+
+    if($notas->update($id)){
+      $res['error'] = false;
+      $res['message']= "OK, dados alterado com sucesso";
+    }else{
+      $res['error'] = true; 
+      $res['message'] = "Error, nao foi possivel salvar os dados"; 
+    }
+  
+endif;
+
+#RETORNAR
+if(isset($_POST['fechar'])):
+  if(!isset($_POST['oat'])){
     echo '<div class="alert alert-danger">
             <button type="button" class="close" data-dismiss="alert">×</button>
             <strong>Dados incompletos!</strong> Os dados estão incorretos.
           </div>';
   }else{
-    $id = $_POST['cod'];
-    $oat = $_POST['oat'];
-    $descricao = $_POST['descricao'];
+    $id = $_POST['oat'];
+    $dataFech = date("Y-m-d H:i:s");
+    $status = "2";
 
-    $descricoes->setOat($oat);
-    $descricoes->setDescricao($descricao);
+    $oats->setDataFech($dataFech);
+    $oats->setStatus($status);
 
-    if($descricoes->update($id)){
+    if($oats->retorno($id)){
       echo '<div class="alert alert-success">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>Salva com sucesso!</strong> Redirecionando ...
-            </div>';
-      header("Refresh: 1, oat-operacao.php?acao=retorno&acao1=consulta&oat=". $oat);	
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <strong>OAT Fechada!</strong> Redirecionando ...
+          </div>';
+      header("Refresh: 1, oat-operacao.php?acao=retorno");	
     }
   }
-  
-endif;
-#RETORNAR
-if(isset($_POST['fechar'])):
-if(!isset($_POST['oat'])){
-  echo '<div class="alert alert-danger">
-          <button type="button" class="close" data-dismiss="alert">×</button>
-          <strong>Dados incompletos!</strong> Os dados estão incorretos.
-        </div>';
-}else{
-  $id = $_POST['oat'];
-  $dataFech = date("Y-m-d H:i:s");
-  $status = "2";
-
-  $oats->setDataFech($dataFech);
-  $oats->setStatus($status);
-
-  if($oats->retorno($id)){
-    echo '<div class="alert alert-success">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>OAT Fechada!</strong> Redirecionando ...
-        </div>';
-    header("Refresh: 1, oat-operacao.php?acao=retorno");	
-  }
-}
   
 endif;
 
