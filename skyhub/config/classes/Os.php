@@ -201,7 +201,6 @@ class Os extends Crud{
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
-
 	}
 	public function retorno($id){
 		try{

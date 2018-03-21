@@ -89,9 +89,7 @@ Vue.component('os-add', {
               this.isLoading = false;
             } else{
               this.successMessage.push(response.data.message);
-              this.$store.dispatch("fetchOs").then(() => {
-                console.log("Atualizando dados OS!")
-              });
+              this.atualizacao();
               this.isLoading = false;
               setTimeout(() => {
                 this.$emit('close');
@@ -103,6 +101,11 @@ Vue.component('os-add', {
           });
           //this.$store.state.create(data)
       }
+    },
+    atualizacao: function(){
+      this.$store.dispatch("fetchOs").then(() => {
+        console.log("Atualizando dados OS!")
+      });
     },
     checkForm:function(e) {
       this.errorMessage = [];

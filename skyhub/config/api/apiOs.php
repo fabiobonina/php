@@ -3,7 +3,7 @@ header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
 include("_chave.php");
-include('../function/_GeralFunction.php');
+include( '../function/osFunction.php');
 
 function __autoload($class_name){
   require_once '../classes/' . $class_name . '.php';
@@ -18,6 +18,8 @@ $servicos     = new Servicos();
 $mods         = new Mod();
 $osTecnicos   = new OsTecnicos();
 $notas        = new Nota();
+
+$osFunction = new OsFunction();
 
 
 $res    = array('error' => true);
@@ -210,7 +212,7 @@ if($action == 'osAmarar'):
   $dtOs   = date("Y-m-d H:i:s");
 
   $oss->setOs($os);
-  $oss->setFilia($filial);
+  $oss->setFilial($filial);
   $oss->setDtOs($dtOs);
   $oss->setStatus($status);
   # Amarar
@@ -332,7 +334,7 @@ if($action == 'deslocamento'):
       array_push($arErros, 'Error, dataFinal('.$date.') menor que dataInicio('.$dbDate.')');
     }else{
 
-      $tempo = $textFunction->dtDiff($dbDate, $date);    
+      $tempo = $osFunction->dtDiff($dbDate, $date);
 
     }
     # validar TipoTrajeto

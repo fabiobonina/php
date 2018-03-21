@@ -31,10 +31,11 @@
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
+                    <p class="heading">Rota</p>
                     <a v-if=" 0.000000 != local.latitude"
                     :href="'https://maps.google.com/maps?q='+ local.latitude + ',' + local.longitude"
                     target="_blank">
-                      <span class="title is-2 mdi mdi-google-maps"></span>
+                      <span class="title is-3 has-text-info mdi mdi-directions"></span>
                     </a>
                   </div>
                 </div>

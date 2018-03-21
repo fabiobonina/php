@@ -8,8 +8,15 @@ Vue.component('os-amarrac', {
     return {
       errorMessage: [],
       successMessage: [],
-      coordenadas:'',
-      isLoading: false
+      filial: null,
+      os: null,
+      isLoading: false,
+      filiais: [
+        {id:'1', name: 'PE'},
+        {id:'3', name: 'CE'},
+        {id:'4', name: 'GO'},
+        {id:'5', name: 'SBO'},            
+      ]
     };
   },
   computed: {
@@ -22,17 +29,15 @@ Vue.component('os-amarrac', {
   methods: {
     saveItem: function(){
       this.errorMessage = []
-      if(this.formValido()){
+      if(this.checkForm()){
         this.isLoading = true
-        //const data = {'id': this.data.id, 'geolocalizacao': this.geolocalizacao
-        //'cadastro': new Date().toJSON() }
-        var geoposicao = this.coordenadas .split(",");
         var postData = {
           id: this.data.id,
-          latitude: geoposicao[0],
-          longitude: geoposicao[1]
+          os: this.os,
+          filial: this.filial.id,
+          status: '1'
         };        
-        this.$http.post('./config/api/apiLocalFull.php?action=coordenadas', postData)
+        this.$http.post('./config/api/apiOs.php?action=osAmarar', postData)
           .then(function(response) {
             //console.log(response);
             if(response.data.error){
@@ -41,9 +46,7 @@ Vue.component('os-amarrac', {
             } else{
               this.successMessage.push(response.data.message);
               this.isLoading = false;
-              this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
-                console.log("Atualizado locais!")
-              });
+              this.atualizacao();
               setTimeout(() => {
                 this.$emit('close');
               }, 2000);  
@@ -54,22 +57,17 @@ Vue.component('os-amarrac', {
           });
       }
     },
-    ehVazia () {
-      if(this.coordenadas.length == 0){
-          this.errorMessage.push('Por favor, preencha todos os campos')
-          return true
-      }
-      if(this.coordenadas.length < 17){
-        this.errorMessage.push('Coordenadas incorretas')
-        return true
-      }
-      return false
+    checkForm:function(e) {
+      this.errorMessage = [];
+      if(!this.filial) this.errorMessage.push("Filial necessário.");
+      if(!this.os) this.errorMessage.push("OS necessário.");
+      if(!this.errorMessage.length) return true;
+      e.preventDefault();
     },
-    formValido(){
-        if(this.ehVazia()){
-            return false
-        }
-        return true
-    }
+    atualizacao: function(){
+      this.$store.dispatch("fetchOs").then(() => {
+        console.log("Atualizando dados OS!")
+      });
+    },
   },
 });

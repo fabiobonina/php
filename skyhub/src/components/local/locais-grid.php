@@ -27,11 +27,11 @@
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
-                    <p class="heading">Mapa</p>
+                    <p class="heading">Rota</p>
                     <a v-if=" 0.000000 != entry.latitude"
                     :href="'https://maps.google.com/maps?q='+ entry.latitude + ',' + entry.longitude"
                     target="_blank">
-                      <span class="title is-2 has-text-info mdi mdi-google-maps"></span>
+                      <span class="title is-3 has-text-info mdi mdi-directions"></span>
                     </a>
                   </div>
                 </div>
@@ -41,7 +41,7 @@
                     <div class="dropdown is-right is-hoverable">
                       <div class="dropdown-trigger">
                         <a aria-haspopup="true" aria-controls="dropdown-menu1">
-                          <span class="title is-2 mdi mdi-apps"></span>
+                          <span class="title is-3 mdi mdi-apps"></span>
                         </a>
                       </div>
                       <div class="dropdown-menu" id="dropdown-menu1" role="menu">

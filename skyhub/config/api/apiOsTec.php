@@ -4,7 +4,7 @@ header('Content-Type: text/html; charset=utf-8');
 
 include("_chave.php");
 
-include('../function/_GeralFunction.php');
+include('../function/osFunction.php');
 
 function __autoload($class_name){
   require_once '../classes/' . $class_name . '.php';
@@ -19,7 +19,7 @@ $servicos = new Servicos();
 $mods = new Mod();
 $osTecnicos = new OsTecnicos();
 
-$textFunction = new TextFunction();
+$osFunction = new OsFunction();
 
 $res = array('error' => true);
 $arDados = array();
@@ -134,55 +134,23 @@ if($action == 'read'):
 
 endif;
 
-#CADASTRAR
-if($action == 'cadastrar'):
-  /**/
+#OS_TEC_ADD
+if($action == 'osTecAdd'):
+
   $os = $_POST['os'];
   $loja = $_POST['loja'];
-  $tecnicos = json_encode($_POST['tecnicos'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+  $tecnicos = $_POST['tecnicos'];
 
-  /*
-  $tecnicos = array();
-  $tecnico1['id'] = '1';
-  $tecnico2['id'] = '2';
-  array_push($tecnicos, $tecnico1 );
-  array_push($tecnicos, $tecnico2 );
+  $item = $osFunction->insertOsTec( $tecnicos, $os , $loja);
 
-  $loja = '1';
-  $lojaNick = 'AGESPISA';
-  $local = '2';
-  $bem = '1';
-  $categoria = '1';
-  $servico = 'servico';
-  $tipoServ = '3';
-  $tecnicoss = json_encode($tecnicos, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);//$tecnicos = 'tecnicos';
-  $data = date("Y-m-d");
-  $dtCadastro = date('Y-m-d H:i:s');
-  $estado = '0';
-  $processo = '0';
-  $status = '0';
-  $ativo = '0';
-  /*/
-  //$tecnicosss = array();
-
-  $tecnicos = json_decode( $this->tecnicos);
-			foreach ($tecnicos as $value){
-				$idTec = $value->id;
-				$userTec = $value->userNick;
-				$hhTec = $value->hh;
-        $osTecnicos->setOs($os);
-        $osTecnicos->setLoja($loja);
-        $osTecnicos->setTecnico($tecnico);
-        $osTecnicos->setUser($user);
-        $osTecnicos->setHh($hhTec);
-      }
+  $res['dados'] = $item;
   # Insert
-  if($oss->insert()){
-    $res['error'] = false;
-    $res['message']= "OK, dados salvo com sucesso";
+  if( !$item['error'] ){
+    $res['error'] = $item['error'];
+    $res['message']= $item['message'];
   }else{
-    $res['error'] = true; 
-    $res['message'] = "Error, nao foi possivel salvar os dados";      
+    $res['error'] = $item['error']; 
+    $res['message'] = $item['message'];
   }
 endif;
 
@@ -464,7 +432,7 @@ if($action == 'teste'):
     $dt1 = date("2018-01-01 10:10:00");
     $dt2  = date("2018-01-02 10:10:00");
     
-    $data = $textFunction->dtDiff($dt1, $dt2);    
+    $data = $osFunction->dtDiff($dt1, $dt2);    
     $res['error'] = false;
     $res['message']= $data;
     
