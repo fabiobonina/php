@@ -17,7 +17,7 @@ $bens         = new Bens();
 $servicos     = new Servicos();
 $mods         = new Mod();
 $osTecnicos   = new OsTecnicos();
-$notas        = new Mota();
+$notas        = new Nota();
 
 
 $res    = array('error' => true);

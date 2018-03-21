@@ -13,7 +13,7 @@ Vue.component('os-grid', {
       modalTec: false,
       modalEdt: false,
       modalDel: false,
-      modalCat: false
+      modalOs: false,
     }
   },
   computed: {

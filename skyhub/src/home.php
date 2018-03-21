@@ -53,7 +53,8 @@
     <?php include("src/components/os/os-add.php");?>
     <?php include("src/components/os/os-edt.php");?>
     <?php include("src/components/os/os-del.php");?>
-    <?php include("src/components/os/os-tec.php");?>    
+    <?php include("src/components/os/os-tec.php");?> 
+    <?php include("src/components/os/os-amarrac.php");?>    
     <?php include("src/components/os/lojaOs.php");?>
     <?php include("src/components/os/localOs.php");?>
     
@@ -122,6 +123,7 @@
 <script src="src/components/os/os-edt.js"></script>
 <script src="src/components/os/os-del.js"></script>
 <script src="src/components/os/os-tec.js"></script>
+<script src="src/components/os/os-amarrac.js"></script>
 <script src="src/components/os/lojaOs.js"></script>
 <script src="src/components/os/localOs.js"></script>
 <!-- /components os -->

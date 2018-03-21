@@ -10,7 +10,7 @@
                 <h1 class="title is-4"> {{entry.lojaNick}} | {{entry.local.tipo}} - {{entry.local.name}} ({{entry.local.municipio}}/{{entry.local.uf}}) </h1>
               </a>
               <p class="subtitle" style="margin-bottom: 0;"> {{entry.data}} | {{entry.servico.name}}
-                <span class="pull-right"  v-for=" "> <span class="tag">{{ entry.categoria.tag }}</span> &nbsp;  </span>
+                <span class="pull-right"> <span class="tag">{{ entry.categoria.tag }}</span> &nbsp;  </span>
               </p>
               <p v-if="entry.bem" style="margin-bottom: 0;">{{entry.bem.name}} {{entry.bem.modelo}}  &nbsp; <a>#{{entry.bem.fabricanteNick}} </a> 
               <p v-for="tecnico in entry.tecnicos"> <a><span class="icon mdi mdi-worker"></span> {{tecnico.user}} &nbsp;</a> </p>
@@ -50,6 +50,9 @@
                       </div>
                       <div class="dropdown-menu" id="dropdown-menu1" role="menu">
                         <div class="dropdown-content">
+                          <a @click="modalOs = true; selecItem(entry)" class="dropdown-item">
+                            <span class="mdi mdi-map-marker"></span>Amarrar OS
+                          </a>
                           <a @click="modalTec = true; selecItem(entry)" class="dropdown-item">
                             <span class="mdi mdi-map-marker"></span>Tecnicos
                           </a>
@@ -112,6 +115,7 @@
       <os-tec v-if="modalTec" v-on:close="modalTec = false" :data="modalItem"></os-tec>
       <os-edt v-if="modalEdt" v-on:close="modalEdt = false" :data="modalItem"></os-edt>
       <os-del v-if="modalDel" v-on:close="modalDel = false" :data="modalItem"></os-del>
+      <os-amarrac v-if="modalOs" v-on:close="modalOs = false" :data="modalItem"></os-amarrac>
     </div>
   </div>
 </template>
