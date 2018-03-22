@@ -31,9 +31,8 @@ class Nota extends Crud{
 
 	public function update($id){
 		try{
-			$sql  = "UPDATE $this->table SET os = :os, descricao = :descricao  WHERE id = :id ";
+			$sql  = "UPDATE $this->table SET descricao = :descricao  WHERE id = :id ";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':os',$this->os);
 			$stmt->bindParam(':descricao', $this->descricao);
 			$stmt->bindParam(':id', $id);
 			return $stmt->execute();

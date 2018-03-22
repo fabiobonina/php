@@ -25,7 +25,7 @@ Vue.component('nota-add', {
   },
   methods: {
     saveItem: function(){
-      this.errorMessage = null
+      this.errorMessage = []
 
       if(this.checkForm()){
         this.isLoading = true
@@ -46,9 +46,8 @@ Vue.component('nota-add', {
               this.atualizacao();
               this.isLoading = false;
               setTimeout(() => {
-                this.errorMessage = null;
-                this.successMessage = null;
-                this.tecnicos = null;
+                this.errorMessage = [];
+                this.successMessage = [];
               }, 2000);
             }
           })

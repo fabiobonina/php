@@ -58,9 +58,9 @@ Vue.component('os-tec', {
               this.atualizacao();
               this.isLoading = false;
               setTimeout(() => {
-                this.errorMessage = null;
+                this.errorMessage   = null;
                 this.successMessage = null;
-                this.tecnicos = null;
+                this.tecnicos       = null;
               }, 2000);
             }
           })

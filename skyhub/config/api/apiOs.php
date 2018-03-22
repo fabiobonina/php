@@ -226,13 +226,13 @@ if($action == 'osAmarar'):
 endif;
 
 #DESCRICAO ADD
-if($action =='descAdd'):
+if($action =='osNotaAdd'):
 
     $os       = $_POST['os'];
     $descricao= $_POST['descricao'];
 
-    $notas->setOs($oat);
-    $notas->setNota($descricao);
+    $notas->setOs($os);
+    $notas->setDescricao($descricao);
     # Insert
     if($notas->insert()){
       $res['error'] = false;
@@ -244,12 +244,11 @@ if($action =='descAdd'):
 endif;
 
 #DESCRICAO Editar
-if($action =='descEdt'):
+if($action =='osNotaEdt'):
 
     $id       = $_POST['id'];
     $descricao= $_POST['descricao'];
 
-    $notas->setOat($oat);
     $notas->setDescricao($descricao);
 
     if($notas->update($id)){
