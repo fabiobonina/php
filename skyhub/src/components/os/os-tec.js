@@ -14,18 +14,18 @@ Vue.component('os-tec', {
     };
   },
   computed: {
-    temMessage () {
+    temMessage() {
       if(this.errorMessage.length > 0) return true
       if(this.successMessage.length > 0) return true
       return false
     },
-    loja()  {
+    loja() {
       return store.getters.getLojaId(this.data.id);
     },
     _tecnicos() {
       return store.state.tecnicos;
     },
-    _os()  {
+    _os() {
       return store.getters.getOsId(this.data.id);
     },
   },
@@ -70,25 +70,23 @@ Vue.component('os-tec', {
           //this.$store.state.create(data)
       }
     },
-
     tecDelete: function(data) {
-      if(confirm('Deseja realmente deletar ' + data.name + '?')){
+      if(confirm('Deseja realmente deletar ' + data.user + '?')){
         this.isLoading = true
         var postData = {
-          id: data.id
+          id: data.id,
+          os: this.data.id,
         };
         //console.log(postData);
-        this.$http.post('./config/api/apiOsTec.php?action=osTecDelete', postData).then(function(response) {
+        this.$http.post('./config/api/apiOsTec.php?action=osTecDel', postData).then(function(response) {
           //console.log(response);
           if(response.data.error){
-            this.errorMessage = response.data.message;
+            this.errorMessage.push( response.data.message);
             this.isLoading = false;
           } else{
             this.successMessage.push(response.data.message);
             this.isLoading = false;
-            this.$store.dispatch("fetchIndex").then(() => {
-              console.log("Atualizado lojas!")
-            });
+            this.atualizacao();
             setTimeout(() => {
               //this.$emit('close');
               this.errorMessage = [];

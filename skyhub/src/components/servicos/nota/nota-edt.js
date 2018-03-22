@@ -1,6 +1,6 @@
-Vue.component('descricao-add', {
-  name: 'descricao-add',
-  template: '#descricao-add',
+Vue.component('nota-edt', {
+  name: 'nota-edt',
+  template: '#nota-edt',
   data() {
     return {
       errorMessage: [],

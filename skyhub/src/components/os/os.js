@@ -10,7 +10,8 @@ var Os = Vue.extend({
       modalDeslocAdd: false,
       modalDeslocChg: false,
       modalDeslocEdt: false,
-      modalDescAdd: false,
+      modalNotaAdd: true,
+      modalNotaEdt: false,
       selectedCategoria: 'All',
       active: '1',
     };
@@ -27,7 +28,7 @@ var Os = Vue.extend({
     loja()  {
       return store.getters.getOsId(this.$route.params._id);
     },
-    oss()  {
+    _os()  {
       return store.getters.getOsId(this.$route.params._os);
     },
   }, // computed

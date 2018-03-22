@@ -16,7 +16,7 @@
         <h2 class="subtitle">Tecnicos</h2>
         <div v-for="item in _os.tecnicos">
           <h2 class="subtitle"> {{ item.user }}
-            <a @click="catDelete(item)" class="button  is-small is-danger">Del &nbsp;
+            <a @click="tecDelete(item)" class="button  is-small is-danger">Del &nbsp;
               <span class="icon is-small">
                 <span class="mdi mdi-close"></span>
               </span>

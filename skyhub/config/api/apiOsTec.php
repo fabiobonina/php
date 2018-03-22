@@ -154,10 +154,23 @@ if($action == 'osTecAdd'):
   }
 endif;
 
-#ATUALIZAR
-if(isset($_POST['atualizar'])):
+#OS_TEC_DEL
+if($action == 'osTecDel'):
 
-  
+  $id = $_POST['id'];
+  $os = $_POST['os'];
+
+  $item = $osFunction->deleteOsTec( $id, $os);
+
+  $res['dados'] = $item;
+  # Insert
+  if( !$item['error'] ){
+    $res['error'] = $item['error'];
+    $res['message']= $item['message'];
+  }else{
+    $res['error'] = $item['error']; 
+    $res['message'] = $item['message'];
+  }
 endif;
 
 

@@ -1,4 +1,4 @@
-<template id="descricao-add">
+<template id="nota-edt">
   <div class="modal is-active" >
     <div class="modal-background"></div>
     <div class="modal-card">
