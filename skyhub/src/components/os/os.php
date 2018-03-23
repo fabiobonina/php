@@ -142,6 +142,21 @@
       </ul>
     </nav>
     <section class="container">
+
+       <div class="columns">
+              <div class="column">
+                First column
+              </div>
+              <div class="column">
+                <p v-for="nota in _os.notas">{{ nota.descricao}}</p>
+              </div>
+              <div class="column">
+                Third column
+              </div>
+              <div class="column">
+                Fourth column
+              </div>
+            </div>
       <div>
         <section class="container">
           <div>
@@ -158,6 +173,7 @@
               <span class="mdi mdi-walk"></span> Desloc.
             </a>
             </div>
+           
             <table class="table">
               <thead>
                 <tr>

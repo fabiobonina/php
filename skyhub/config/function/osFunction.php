@@ -3,6 +3,7 @@
 	include( '_usoFunction.php');
 	include('../classes/osTecnicos.php');
 	include('../classes/Mod.php');
+	include('../classes/Nota.php');
 
 
 
@@ -86,5 +87,17 @@
 			
 		}
 		
+		public function listOsNota( $osId ){
+			$notas = new Nota();
+			#MODS--------------------------------------------------------------------------------------------
+			$arDatas = array();
+			foreach($notas->findAll() as $key => $value):if($value->os == $osId )  {
+			$arItem = $value;
+			array_push($arDatas, $arItem);
+			}endforeach;
+			return  $arDatas;
+			#MODS--------------------------------------------------------------------------------------------
+			
+		}
 
 	}

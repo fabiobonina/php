@@ -10,7 +10,7 @@ var Os = Vue.extend({
       modalDeslocAdd: false,
       modalDeslocChg: false,
       modalDeslocEdt: false,
-      modalNotaAdd: true,
+      modalNotaAdd: false,
       modalNotaEdt: false,
       selectedCategoria: 'All',
       active: '1',

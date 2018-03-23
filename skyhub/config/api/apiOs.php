@@ -25,7 +25,7 @@ $osFunction = new OsFunction();
 $res    = array('error' => true);
 $arDados= array();
 $arErros= array();
-$action = 'deslocamento';
+$action = 'read';
 
 //$res['user'] = $user;
 $acessoNivel        = $user['nivel'];// $user >  include("_chave.php");
@@ -113,7 +113,7 @@ if($action == 'read'):
         }endforeach;
         $arOs['tecnicos'] = $arTecnicos;
         #OSTECNICOS--------------------------------------------------------------------------------------------
-        
+        $arOs['notas'] = $osFunction->listOsNota( $osId );
         array_push($arOss, $arOs);
       }endforeach;
       
