@@ -1,6 +1,6 @@
 <?php $oats = new Oats();
       $usuarios = new Usuarios();
-      $lojas = new Lojas();
+      $clientes = new Clientes();
       $localidades = new Localidades();
       $sistemas = new Sistemas();
       $servicos = new Servicos();
@@ -49,7 +49,7 @@
 
          foreach($localidades->findAll() as $key => $value):{
             $localId = $value->id;
-            $localidade = $value->loja . " | " . $value->nome;
+            $localidade = $value->cliente . " | " . $value->nome;
             $localLat = $value->latitude;
             $localLong = $value->longitude;
             $cont_oatTt = 0;

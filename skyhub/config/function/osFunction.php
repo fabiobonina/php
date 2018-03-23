@@ -4,7 +4,7 @@
 	include('../classes/osTecnicos.php');
 	include('../classes/Mod.php');
 	include('../classes/Nota.php');
-
+	include('../classes/DeslocStatus.php');
 
 
 	class OsFunction extends UsoFunction {
@@ -76,6 +76,7 @@
 		}
 		public function listOsTecMod( $osId, $tecId ){
 			$mods = new Mod();
+			$deslocStatus = new DeslocStatus();
 			#MODS--------------------------------------------------------------------------------------------
 			$arMods = array();
 			foreach($mods->findAll() as $key => $value):if($value->os == $osId && $value->tecnico == $tecId)  {

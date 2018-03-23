@@ -3,7 +3,6 @@ header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
 include("_chave.php");
-
 include('../function/osFunction.php');
 
 function __autoload($class_name){
@@ -11,20 +10,20 @@ function __autoload($class_name){
 }
 
 $proprietario = new Proprietario();
-$lojas = new Loja();
-$locais = new Locais();
-$oss = new Os();
-$bens = new Bens();
-$servicos = new Servicos();
-$mods = new Mod();
-$osTecnicos = new OsTecnicos();
+$lojas        = new Loja();
+$locais       = new Locais();
+$oss          = new Os();
+$bens         = new Bens();
+$servicos     = new Servicos();
+$mods         = new Mod();
+$osTecnicos   = new OsTecnicos();
+$deslocStatus = new DeslocStatus();
+$osFunction   = new OsFunction();
 
-$osFunction = new OsFunction();
-
-$res = array('error' => true);
+$res     = array('error' => true);
 $arDados = array();
 $arErros = array();
-$action = 'teste';
+$action  = 'teste';
 
 //$res['user'] = $user;
 $acessoNivel = $user['nivel'];// $user >  include("_chave.php");
@@ -442,10 +441,10 @@ endif;
 #ATUALIZAR
 if($action == 'teste'):
     
-    $dt1 = date("2018-01-01 10:10:00");
+    $dt1 = '1';
     $dt2  = date("2018-01-02 10:10:00");
     
-    $data = $osFunction->dtDiff($dt1, $dt2);    
+    $data = $deslocStatus->findAll();    
     $res['error'] = false;
     $res['message']= $data;
     

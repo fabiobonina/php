@@ -75,45 +75,34 @@ if($action == 'read'):
         $contLj_OsTt++;
 
         #LOCAIS-------------------------------------------------------------------------------------------
-        foreach($locais->findAll() as $key => $value):if($value->id == $localId) {
-          $arLocal = (array) $value;
-          $arOs['local']= $arLocal;
-        }endforeach;
+        $arOs['local'] = $locais->find($localId);
         #LOCAIS-------------------------------------------------------------------------------------------
         
         #BEM---------------------------------------------------------------------------------------------
-        foreach($bens->findAll() as $key => $value):if($value->id == $bemId) {
-          $arBem = (array) $value; //Bem
-          $arOs['bem']= $arBem;
-        }endforeach;
+        $arOs['bem']= $bens->find($bemId);
         #BEM---------------------------------------------------------------------------------------------
 
         #SERVICOS----------------------------------------------------------------------------------------
-        foreach($servicos->findAll() as $key => $value):if($value->id == $servId)  {
-          $arItem = $value;
-          $arOs['servico'] = $arItem;
-        }endforeach;
+        $arOs['servico'] = $servicos->find( $servId );
         #SERVICOS----------------------------------------------------------------------------------------
 
         #OSTECNICOS--------------------------------------------------------------------------------------------
         $arTecnicos = array();
-        foreach($osTecnicos->findAll() as $key => $value):if($value->os == $osId)  {
+        foreach($osTecnicos->findOs($osId) as $key => $value): {
           $arTecnico = (array) $value;
-          $idTecnico = $value->tecnico;
+          $tecId = $value->tecnico;
           #MODS--------------------------------------------------------------------------------------------
-          $arMods = array();
-          foreach($mods->findAll() as $key => $value):if($value->os == $osId && $value->tecnico == $idTecnico)  {
-            $arItem = $value;
-            array_push($arMods, $arItem);
-          }endforeach;
-          $arTecnico['mods'] = $arMods;
+          $arTecnico['mods'] = $notas->listOsTecMod( $osId, $tecId );
           #MODS--------------------------------------------------------------------------------------------
           //$arTecnico = $value;
           array_push($arTecnicos, $arTecnico);
         }endforeach;
         $arOs['tecnicos'] = $arTecnicos;
         #OSTECNICOS--------------------------------------------------------------------------------------------
+
+        #OSNOTAS--------------------------------------------------------------------------------------------
         $arOs['notas'] = $osFunction->listOsNota( $osId );
+        #OSNOTAS--------------------------------------------------------------------------------------------
         array_push($arOss, $arOs);
       }endforeach;
       
@@ -287,7 +276,7 @@ if(isset($_POST['fechar'])):
   
 endif;
 
-
+$notas->listOsTecMod( $osId, $tecId )
 #DESLOCAMENTO----------------------------------------------------------------------
 if($action == 'deslocamento'):
   $arMods = array();
@@ -551,7 +540,269 @@ if($action == 'deslocamento'):
 
 endif;
 #DESLOCAMENTO----------------------------------------------------------------------
+#DESLOCAMENTO----------------------------------------------------------------------
+if($action == 'deslocamento2'):
+  $arMods = array();
+  #Novo
+  $osId       = $_POST['os'];
+  $tecnico = $_POST['tecnico'];
+  $tecnicos = $_POST['tecnicos'];
+  $tipo     = $_POST['tipo'];
+  $status   = $_POST['status'];
+  $date     = $_POST['date'];
+  $km       = $_POST['km'];
+  $valor    = $_POST['valor'];
 
+  //$os                 = '1';
+  //$tecnico['id']      = '1';
+  //$tecnico2['id']     = '2';
+  //$tecnicos[0]        = $tecnico;
+  //$tecnicos[1]        = $tecnico2;
+  //$tipo['id']         = '1';
+  //$tipo['valor']      = '0.85';
+  //$status['id']       = '8';
+  //$status['categoria']= '2';
+  //$status['processo'] = '8';
+  //$date               = date("Y-m-d H:i:s");
+  //$km                 = '30';
+  //$valor              = '0';
+
+  $stTeste = false;
+  # tecnico----------------------------------------------------------------------------------------------------------------------------
+  foreach($notas->listOsTecMod( $osId, $tecnico['id'] ) as $key => $value): if($value->ativo == '0' ) {
+    
+    $arMod = (array) $value;
+    $idMod = $value->id;
+    $dbDate = $value->dtInicio;
+    # validar Status
+    if( $value->status ==  $status['id']){
+      $stTeste = true;
+      array_push($arErros, 'Error, exite um deslocamento aberto com esse mesmo Status');
+    }
+    # validar data
+    if( strtotime($dbDate) > strtotime($date) ){
+      $stTeste = true;
+      array_push($arErros, 'Error, dataFinal('.$date.') menor que dataInicio('.$dbDate.')');
+    }else{
+
+      $tempo = $osFunction->dtDiff($dbDate, $date);
+
+    }
+    # validar TipoTrajeto
+    if( $value->tipoTrajeto != $tipo['id']){
+        $stTeste = true;
+        array_push($arErros, 'Error, Tipo de trajeto é diferente do inicial');
+    }else{
+      # validar KM
+      if( $tipo['id'] == '1'){
+        if( $value->kmInicio > $km ){
+          $stTeste = true;
+          array_push($arErros, 'Error, KmFinal('.$km.') menor que kmInicio('.$value->kmInicio.')');
+        }else{
+          $valor = ($km - $value->kmInicio ) * $tipo['valor'];
+        }
+      }
+      
+    }
+    
+    array_push($arMods, $arMod);
+
+  }endforeach;
+
+  if(!$stTeste){
+    #desloc aberto
+    if ( count($arMods) == '1' ) {
+      # code...
+      $mods->setOs($os);
+      $mods->setTecnico($tecnico['id']);
+      $mods->setTipoTrajeto($tipo['id']);
+      $mods->setStatus($status['id']);
+      $mods->setDtFinal($date);
+      $mods->setKmFinal($km);
+      $mods->setTempo($tempo);
+      $mods->setValor($valor);
+      $mods->setAtivo('1');
+      
+      # InsertFinal
+      if( $mods->insertFinal($idMod) ){
+        foreach( $oss->find($os) as $key => $value ): {
+          $oss->setProcesso($status['processo']);
+          if( $oss->upProcesso($os) ){
+            if($status['categoria'] == 2 ){
+              $arMods = array();
+            }
+            $res['error'] = false;
+            $arDados = "OK, dados salvo com sucesso";
+            $res['message']= $arDados;
+          }else{
+            $res['error'] = true;
+            array_push($arErros, "Error, nao foi possivel mudar processo OS");
+          }
+        }endforeach;
+      }else{
+        $res['error'] = true;
+      }
+    }else{
+      $res['error'] = true;
+      array_push($arErros, "Error, nao foi possivel salvar deslocamento");
+    }
+    #desloc inicial
+    if (count($arMods) == '0' || $status['categoria'] == 2 ) {
+      $mods->setOs($os);
+      $mods->setTecnico($tecnico['id']);
+      $mods->setTipoTrajeto($tipo['id']);
+      $mods->setStatus($status['id']);
+      $mods->setDtInicio($date);
+      $mods->setKmInicio($km);
+      $mods->setValor($valor);
+      
+      # Insert
+      if($mods->insertInicio()){
+        foreach($oss->find($os) as $key => $value): {
+          $oss->setProcesso($status['processo']);
+          if($oss->upProcesso($os)){
+            $res['error'] = false;
+            $arDados = "OK, dados salvo com sucesso";
+            $res['message']= $arDados;
+          }else{
+            $res['error'] = true;
+            array_push($arErros, "Error, nao foi possivel mudar processo OS");
+          }
+        }endforeach;
+      }else{
+        $res['error'] = true;
+        array_push($arErros, "Error, nao foi possivel salvar deslocamento");
+      }
+    }else {
+      $res['error'] = true;
+      array_push($arErros, 'Error, item já cadastrado'); 
+    }
+    #tecnicos----------------------------------------------------------------------------------------------------------------------------
+    foreach ( $tecnicos as $data){
+      $itemId    =  $data['id'];
+      $arMods = array();
+      
+      #VALIDAR-TECNICO.............................
+      if( $itemId != $tecnico['id'] ){
+        #carona
+        if( $tipo['id'] == '1'){
+          $tipo['id'] = '3';
+          $km         = '0';
+          $valor      = '0';
+        }
+        foreach($mods->findAll() as $key => $value): if($value->ativo == '0' && $value->tecnico == $itemId && $value->os == $os ) {
+
+          $arMod = (array) $value;
+          $idMod = $value->id;
+          $dbDate = $value->dtInicio;
+          # validar Status
+          if( $value->status ==  $status['id']){
+            $stTeste = true;
+            array_push($arErros, 'Error, exite um deslocamento aberto com esse mesmo Status');
+          }
+          # validar data
+          if( strtotime($dbDate) > strtotime($date) ){
+            $stTeste = true;
+            array_push($arErros, 'Error, dataFinal('.$date.') menor que dataInicio('.$dbDate.')');
+          }else{
+            $dbDate = new DateTime($dbDate);
+            $aDate  = new DateTime($date);
+            $diff   = $dbDate->diff($aDate);
+            $tempo  = $diff->h + ($diff->days * 24);
+          }
+          # validar TipoTrajeto
+          if( $value->tipoTrajeto != $tipo['id']){
+              $stTeste = true;
+              array_push($arErros, 'Error, Tipo de trajeto é diferente do inicial');
+          }          
+          array_push($arMods, $arMod);
+  
+        }endforeach;
+        
+        if(!$stTeste){
+          #desloc aberto
+          if ( count($arMods) == '1' ) {
+            # code...
+            $mods->setOs($os);
+            $mods->setTecnico($itemId);
+            $mods->setTipoTrajeto($tipo['id']);
+            $mods->setStatus($status['id']);
+            $mods->setDtFinal($date);
+            $mods->setKmFinal($km);
+            $mods->setTempo($tempo);
+            $mods->setValor($valor);
+            $mods->setAtivo('1');
+            
+            # InsertFinal
+            if( $mods->insertFinal($idMod) ){
+              foreach( $oss->find($os) as $key => $value ): {
+                $oss->setProcesso($status['processo']);
+                if( $oss->upProcesso($os) ){
+                  if($status['categoria'] == 2 ){
+                    $arMods = array();
+                  }
+                  $res['error'] = false;
+                  $arDados = "OK, dados salvo com sucesso";
+                  $res['message']= $arDados;
+                }else{
+                  $res['error'] = true;
+                  array_push($arErros, "Error, nao foi possivel mudar processo OS");
+                }
+              }endforeach;
+            }else{
+              $res['error'] = true;
+            }
+          }else{
+            $res['error'] = true;
+            array_push($arErros, "Error, nao foi possivel salvar deslocamento");
+          }
+          #desloc inicial
+          if (count($arMods) == '0' || $status['categoria'] == 2 ) {
+            $mods->setOs($os);
+            $mods->setTecnico($itemId);
+            $mods->setTipoTrajeto($tipo['id']);
+            $mods->setStatus($status['id']);
+            $mods->setDtInicio($date);
+            $mods->setKmInicio($km);
+            $mods->setValor($valor);
+            
+            # Insert
+            if($mods->insertInicio()){
+              foreach($oss->find($os) as $key => $value): {
+                $oss->setProcesso($status['processo']);
+                if($oss->upProcesso($os)){
+                  $res['error'] = false;
+                  $arDados = "OK, dados salvo com sucesso";
+                  $res['message']= $arDados;
+                }else{
+                  $res['error'] = true;
+                  array_push($arErros, "Error, nao foi possivel mudar processo OS");
+                }
+              }endforeach;
+            }else{
+              $res['error'] = true;
+              array_push($arErros, "Error, nao foi possivel salvar deslocamento");
+            }
+          }else {
+            $res['error'] = true;
+            array_push($arErros, 'Error, item já cadastrado'); 
+          }
+        }
+      }
+      #VALIDAR-TECNICO..............................
+    }
+    #tecnicos----------------------------------------------------------------------------------------------------------------------------
+  }else {
+    $res['error'] = true; 
+    echo 'ok null';
+  }
+
+  if($res['error'] == true){
+    $res['message']= $arErros;
+  }
+
+endif;
+#DESLOCAMENTO----------------------------------------------------------------------
 
 
 #DELETAR

@@ -145,17 +145,23 @@
 
        <div class="columns">
               <div class="column">
-                First column
+                <div v-for="tecnico in _os.tecnicos">
+                <p> <a>@{{tecnico.user}} &nbsp;</a><p>
+                  <p v-for="mod in tecnico.mods">
+                  
+                  <th>{{ mod.dtInicio }} </th>
+                  <td>{{ mod.dtFinal }}</td>
+                  <td>{{ mod.tempo }}</td>
+                  <td>{{ mod.kmInicio }}</td>
+                  <td>{{ mod.kmFinal }}</td>
+                  <td>{{ mod.valor }}</td>
+                  </p>
+                </div>
               </div>
               <div class="column">
                 <p v-for="nota in _os.notas">{{ nota.descricao}}</p>
               </div>
-              <div class="column">
-                Third column
-              </div>
-              <div class="column">
-                Fourth column
-              </div>
+
             </div>
       <div>
         <section class="container">

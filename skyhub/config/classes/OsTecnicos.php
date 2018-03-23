@@ -64,5 +64,16 @@ class OsTecnicos extends Crud{
             echo $res['message'] = 'ERROR: ' . $e->getMessage();  
 		}
 	}
+	public function findOs($os){
+		try{
+			$sql  = "SELECT * FROM $this->table WHERE os = :os";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':os', $os, PDO::PARAM_INT);
+			$stmt->execute();
+			return $stmt->fetchAll();
+		} catch(PDOException $e) {
+			echo 'ERROR: ' . $e->getMessage();
+		}
+	}
 
 }
