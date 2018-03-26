@@ -87,8 +87,7 @@
 			#MODS--------------------------------------------------------------------------------------------
 			
 		}
-		
-		public function listOsTecModValidacao( $osId, $tecId, $statusId, $dtFinal, $tipoId, $tipoValor, $kmFinal ){
+		public function listOsTecModValidacao( $osId, $tecId, $statusId, $dtFinal, $tipoId, $tipoValor, $kmFinal, $valor ){
 			$mods = new Mod();
 			#MODS--------------------------------------------------------------------------------------------
 			$ativo = '0';
@@ -120,21 +119,26 @@
 					array_push($res['message'], 'Error, Tipo de trajeto é diferente do inicial');
 				}else{
 					# validar KM
-					$valor = $this->somarValorKm($kmInicio, $kmFinal, $tipoValor);
-					if( $valor['error'] ){
-						$res['error'] =  $valor['error'];
-						array_push($res['message'], $valor['message']);
+					if( $tipoId == '1'){
+						$valor = $this->somarValorKm($kmInicio, $kmFinal, $tipoValor);
+						if( $valor['error'] ){
+							$res['error'] =  $valor['error'];
+							array_push($res['message'], $valor['message']);
+						}else{
+							$arMods['valor'] = $valor;
+						}
+					}elseif( $tipoId == '2'){
+						$arMods['valor'] = $value->valor + $valor;
 					}else{
-						$arMods['valor'] = $valor;
-					}	
+						$arMods['valor'] = '0';
+					}
 				}
-				
 				array_push($arMods['data'], $arItem);
 			}endforeach;
 
 			if($res['error']){
 				return $res;
-			}elseif( count($tecI['data']) > '1' ){
+			}elseif( count($arMods['data']) > '1' ){
 				$res['error'] = true;
 				array_push($res['message'], 'Error, Mais de 1 trajeto aberto!');
 				return $res;
@@ -144,7 +148,6 @@
 			}
 			#MODS--------------------------------------------------------------------------------------------
 		}
-
 		public function modAdd( $osId, $tecId, $tipoId, $statusId, $statusProcesso, $date, $km, $valor ){
 			
 			$mods = new Mod();
@@ -174,9 +177,9 @@
 				$res['message'] = "Error, nao foi possivel iniciar deslocamento";
 			}
 		}
-
 		public function modUp( $osId, $tecId, $tipoId, $statusId, $statusProcesso, $date, $km, $tempo, $valor, $modId ){
 			$mods = new Mod();
+			$oss = new Os();
 			$mods->setOs($osId);
 			$mods->setTecnico($tecId);
 			$mods->setTipoTrajeto($tipoId);
@@ -203,7 +206,6 @@
 				array_push($res['message'], 'Error, não foi possivel fechar o deslocamento( '.$modId.' )');
 			}
 		}
-
 		public function listOsNota( $osId ){
 			$notas = new Nota();
 			#MODS--------------------------------------------------------------------------------------------
@@ -215,5 +217,46 @@
 			return  $arDatas;
 			#MODS--------------------------------------------------------------------------------------------
 		}
+		public function insertTecMod( $osId, $tecId, $statusId, $statusProcesso, $tipoId, $tipoValor, $date, $km, $valor, $tecNivel ){
+			if( $tipoId == '1' && $tecNivel = '1'){
+				$tipoId 	= '3';
+				$tipoValor	= '0';
+				$km     	= '0';
+			}
+			#validar informações
+			$tec = $this->listOsTecModValidacao( $osId, $tecId, $statusId, $date, $tipoId, $tipoValor, $km, $valor );
+			if( $tec['error'] ){
+				$res['error'] = $tec['error'];
+				return $res['message']= $tec['message'];
+			}else{
+				#desloc aberto
+				if ( count($tec['data']) == '1' ) {
+					$tempo = $tec['tempo'];
+					$valor = $tec['valor'];
+					$modId = $tec['modId'];
+					# InsertFinal
+					$item = $this->modUp( $osId, $tecId, $tipoId, $statusId, $statusProcesso, $date, $km, $tempo, $valor, $modId);
+					if( $item['error'] ){
+						$res['error'] = $item['error'];
+						return array_push( $res['message']= $item['message'] );
+					}else{
+						$res['error'] = $item['error']; 
+						array_push( $res['message']= $item['message'] );
+					}
+				}
+				if ( count($tec['data']) == '0' || $status['categoria'] == '2' && !$res['error'] ) {
+					#desloc inicial
+					$item =  $this->modAdd( $osId, $tecId, $tipoId, $statusId, $statusProcesso, $date, $km, $valor );
+					if( !$item['error'] ){
+						$res['error'] = $item['error'];
+						return array_push( $res['message']= $item['message'] );
+					}else{
+						$res['error'] = $item['error']; 
+						$res['message'] = $item['message'];
+					}
+				}
+			}
 
+			return $res;
+		}
 	}

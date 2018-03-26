@@ -573,91 +573,33 @@ if($action == 'desloc2'):
 
   #tecnicoI----------------------------------------------------------------------------------------------------------------------------
   $tecI = array();
-  var_dump ($tecI = $osFunction->listOsTecModValidacao( $osId, $tecnico['id'], $status['id'], $date, $tipo['id'], $tipo['valor'], $km ) )  ;
-  
+  $tecNivel = '0';
+  $tecI = $osFunction->insertTecMod( $osId, $tecnico['id'], $status['id'], $status['processo'], $tipo['id'], $tipo['valor'], $date, $km, $valor, $tecNivel );
+
   if( $tecI['error'] ){
     $res['error'] = $tecI['error'];
     $res['message']= $tecI['message'];
   }else{
-    #desloc aberto
-    if ( count($tecI['data']) == '1' ) {
-      $tempo = $tecI['tempo'];
-      $valor = $tecI['valor'];
-      $modId = $tecI['modId'];
-      # InsertFinal
-      $item = $osFunction->modUp( $osId, $tecnico['id'], $tipo['id'], $status['id'], $status['processo'], $date, $km, $tempo, $valor, $modId);
-      if( !$item['error'] ){
-        $res['error'] = $item['error'];
-        array_push( $res['message']= $item['message'] );
-      }else{
-        $res['error'] = $item['error']; 
-        $res['message'] = $item['message'];
-      }
-    }elseif ( count($tecI['data']) == '0' || $status['categoria'] == '2' ) {
-      #desloc inicial
-      $item =  $osFunction->modAdd( $osId, $tecnico['id'], $tipo['id'], $status['id'], $status['processo'], $date, $km, $valor );
-      if( !$item['error'] ){
-        $res['error'] = $item['error'];
-        array_push( $res['message']= $item['message'] );
-      }else{
-        $res['error'] = $item['error']; 
-        $res['message'] = $item['message'];
-      }
-    }
     #tecnicos----------------------------------------------------------------------------------------------------------------------------
     foreach ( $tecnicos as $data){
       $itemId   = $data['id'];
       $arMods   = array();
-      
-      #VALIDAR-TECNICO.............................
       if( $itemId != $tecnico['id'] ){
-        #carona
-        if( $tipo['id'] == '1'){
-          $tipo['id'] = '3';
-          $km         = '0';
-          $valor      = '0';
-        }
+        $tecNivel = '1';
+        $tecII = $osFunction->insertTecMod( $osId, $tecnico['id'], $status['id'], $status['processo'], $tipo['id'], $tipo['valor'], $date, $km, $valor, $tecNivel );
         #tecnicos----------------------------------------------------------------------------------------------------------------------------
-        var_dump ($tecII = $osFunction->listOsTecModValidacao( $osId, $itemId, $status['id'], $date, $tipo['id'], $tipo['valor'], $km ));
-
         if( $tecII['error'] ){
           $res['error'] = $tecII['error'];
           $res['message']= $tecII['message'];
         }else{
           #desloc aberto
-          if ( count($tecII['data']) == '1' ) {
-            $tempo = $tecII['tempo'];
-            $modId = $tecII['modId'];
-            # InsertFinal
-            $item = $osFunction->modUp( $osId, $itemId, $tipo['id'], $status['id'], $status['processo'], $date, $km, $tempo, $valor, $modId );
-
-            # OsProcesso
-            if( !$item['error'] ){
-              $res['error'] = $item['error'];
-              array_push( $res['message']= $item['message'] );
-            }else{
-              $res['error'] = $item['error']; 
-              $res['message'] = $item['message'];
-            }
-          }elseif (count($tecI['data']) == '0' || $status['categoria'] == 2 ) {   
-          #desloc inicial
-            $item =  $osFunction->modAdd( $osId, $itemId['id'], $tipo['id'], $status['id'], $status['processo'], $date, $km, $valor ); 
-            # OsProcesso
-            if( !$item['error'] ){
-              $res['error'] = $item['error'];
-              array_push( $res['message']= $item['message'] );
-            }else{
-              $res['error'] = $item['error']; 
-              $res['message'] = $item['message'];
-            }
-          }
+          $res['error'] = $item['error'];
+          array_push( $res['message']= $item['message'] );
         }
       }
-      #VALIDAR-TECNICO..............................
     }
     #tecnicos----------------------------------------------------------------------------------------------------------------------------
   }
-
 endif;
 #DESLOCAMENTO----------------------------------------------------------------------
 
