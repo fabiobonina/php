@@ -75,5 +75,17 @@ class OsTecnicos extends Crud{
 			echo 'ERROR: ' . $e->getMessage();
 		}
 	}
+	
+	public function findPlus($os){
+		try{
+			$sql  = "SELECT $this->table.*, TabelaB.* FROM $this->table LEFT JOIN TabelaB ON $this->table.Chave = TabelaB.Chave";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':os', $os, PDO::PARAM_INT);
+			$stmt->execute();
+			return $stmt->fetchAll();
+		} catch(PDOException $e) {
+			echo 'ERROR: ' . $e->getMessage();
+		}
+	}
 
 }

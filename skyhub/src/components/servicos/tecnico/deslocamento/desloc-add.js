@@ -36,7 +36,7 @@ Vue.component('desloc-add', {
       var data = store.state.deslocStatus
       return data = data.filter(function (row) {
         if( filterKey == '0') {
-          return row.categoria == '0';
+          return row.processo == '1';
         }
         if( filterKey == '1') {
           return Number(row.processo) < 4 && Number(row.processo) >0 || Number(row.processo) == 10;
@@ -75,7 +75,7 @@ Vue.component('desloc-add', {
           km: this.km,
           valor: this.valor
         };
-        console.log(postData);
+        //console.log(postData);
         this.$http.post('./config/api/apiOs.php?action=deslocamento', postData)
           .then(function(response) {
             alert(response.data);

@@ -177,11 +177,11 @@ class Os extends Crud{
 		}
 	}
 
-	public function upProcesso($id){
+	public function upProcesso($id, $processo){
 		try{
 			$sql  = "UPDATE $this->table SET processo = :processo WHERE id = :id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':processo',$this->processo);
+			$stmt->bindParam(':processo',$processo);
 			$stmt->bindParam(':id'		,$id);
 			return $stmt->execute();
 		} catch(PDOException $e) {

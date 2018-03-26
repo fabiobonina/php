@@ -6,10 +6,10 @@ class Mod extends Crud{
 	
 
 	
-	protected $table = 'tb_mod';
-	private $os;
-	private $tecnico;
-	private $dtIncio;
+	protected 	$table = 'tb_mod';
+	private 	$os;
+	private 	$tecnico;
+	private 	$dtIncio;
 
 	public function setOs($os){
 		$this->os = $os;
@@ -40,6 +40,9 @@ class Mod extends Crud{
 	}
 	public function setStatus($status){
 		$this->status = $status;
+	}
+	public function setTipo($tipo){
+		$this->tipo = $tipo;
 	}
 	public function setAtivo($ativo){
 		$this->ativo = $ativo;
@@ -119,13 +122,28 @@ class Mod extends Crud{
 		
 	}
 
-	public function findAtiv($Cod){
+	public function findOsTec($osId, $tecId){
 		try{
-		$sql  = "SELECT * FROM $this->table WHERE id = :id";
+		$sql  = "SELECT * FROM $this->table WHERE os = :os AND tecnico = :tecnico";
 		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':id', $Cod, PDO::PARAM_INT);
+		$stmt->bindParam(':os', $osId, PDO::PARAM_INT);
+		$stmt->bindParam(':tecnico', $tecId, PDO::PARAM_INT);
 		$stmt->execute();
-		return $stmt->fetch();
+		return $stmt->fetchAll();
+		} catch(PDOException $e) {
+			echo 'ERROR: ' . $e->getMessage();
+		}
+	}
+
+	public function findOsTecAtiv($osId, $tecId, $ativo){
+		try{
+		$sql  = "SELECT * FROM $this->table WHERE  os=:os AND tecnico=:tecnico AND ativo = :ativo";
+		$stmt = DB::prepare($sql);
+		$stmt->bindParam(':os', $osId );
+		$stmt->bindParam(':tecnico', $tecId );
+		$stmt->bindParam(':ativo', $ativo );
+		$stmt->execute();
+		return $stmt->fetchAll();
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}

@@ -172,7 +172,6 @@ if($action == 'osTecDel'):
   }
 endif;
 
-
 #DESLOCAMENTO----------------------------------------------------------------------
 if($action == 'deslocamento'):
   $arMods = array();
@@ -441,11 +440,78 @@ endif;
 #ATUALIZAR
 if($action == 'teste'):
     
-    $dt1 = '1';
-    $dt2  = date("2018-01-02 10:10:00");
-    
-    $data = $deslocStatus->findAll();    
-    $res['error'] = false;
+  $dt1 = '1';
+  $dtFinal  = date("2018-03-01 10:10:00");
+  $kmFinal = '30';
+  $osId = '1';
+  $tecId = '1';
+  $ativo = '0';
+  $tipoId         = '1';
+  $tipoValor      = '0.85';
+  $statusId       = '4';
+  $status['categoria']= '2';
+  $status['processo'] = '4';
+  $status['id']       = '1';
+  $status['categoria']= '1';
+  $status['processo'] = '1';
+  $date               = date("2018-03-01 07:30:00");
+  $km                 = '1';
+  //$status['id']       = '4';
+  //$status['categoria']= '2';
+  //$status['processo'] = '4';
+  //$date               = date("2018-03-01 08:00:00");
+  //$km                 = '30';
+    //$data = $mods->findOsTecAtiv( $osId, $tecId, $ativo );
+
+			#MODS--------------------------------------------------------------------------------------------
+			$ativo = '0';
+			$arMods = array();
+			$res['error'] = false;
+      $arMods['data'] = array();
+      $res['message'] = array();
+			foreach($mods->findOsTecAtiv( $osId, $tecId, $ativo ) as $key => $value): {
+				$arItem 	= (array) $value;
+    		$idMod		= $value->id;
+				echo $dtInicio = $value->dtInicio;
+				echo $kmInicio = $value->kmInicio;
+				# validar Status
+				if( $value->status ==  $statusId ){
+					$res['error'] = true;
+					array_push($res['message'], 'Error, exite um deslocamento aberto com esse mesmo Status');
+				}
+				# validar data
+				$tempo = $osFunction->dtDiff($dtInicio, $dtFinal);
+				if( $tempo['error'] ){
+					$res['error'] =  $tempo['error'];
+					array_push($res['message'], $tempo['message']);
+				}		
+				# validar TipoTrajeto
+				if( $value->tipoTrajeto != $tipoId){
+					$stTeste = true;
+					array_push($arErros, 'Error, Tipo de trajeto é diferente do inicial');
+				}else{
+					# validar KM
+					$valor = $osFunction->somarValorKm($kmInicio, $kmFinal, $tipoValor);
+					if( $valor['error'] ){
+						$res['error'] =  $valor['error'];
+						array_push($res['message'], $valor['message']);
+					}
+				}
+				$arItem['tempo'] = $tempo;
+				$arItem['valor'] = $valor;
+				$arItem['error'] = false;
+				array_push($arMods['data'], $arItem);
+			}endforeach;
+
+			if($res['error']){
+				$data = $res;
+			}else{
+				$arMods['error'] = false;
+				$data = $arMods;
+			}
+			#MODS--------------------------------------------------------------------------------------------
+    //$data = $deslocStatus->findAll();    
+    //$res['error'] = false;
     $res['message']= $data;
     
   
