@@ -215,34 +215,34 @@ endif;
 if($action == 'teste'):
     
   $dt1 = '1';
-  $dtFinal  = date("2018-03-01 10:10:00");
-  $kmFinal = '30';
+  $dtFinal  = date("2018-03-02 10:10:00");
+  $kmFinal = '21';
   $osId = '1';
   $tecId = '1';
   $ativo = '0';
+  $valor          = '1';
   $tipoId         = '1';
   $tipoValor      = '0.85';
-  $statusId       = '4';
-  $status['categoria']= '2';
-  $status['processo'] = '4';
-  $status['id']       = '1';
+  $statusId       = '2';
   $status['categoria']= '1';
-  $status['processo'] = '1';
+  $status['processo'] = '4';
   $date               = date("2018-03-01 07:30:00");
-  $km                 = '1';
+  $km                 = '0';
   //$status['id']       = '4';
   //$status['categoria']= '2';
   //$status['processo'] = '4';
   //$date               = date("2018-03-01 08:00:00");
   //$km                 = '30';
     //$data = $mods->findOsTecAtiv( $osId, $tecId, $ativo );
-    $stTeste = listOsTecModValidacao( $osId, $tecId, $statusId, $dtFinal, $tipoId, $tipoValor, $kmFinal, $valor );
+    $data = $osFunction->listOsTecModValidacao( $osId, $tecId, $statusId, $dtFinal, $tipoId, $tipoValor, $kmFinal, $valor );
 			#MODS--------------------------------------------------------------------------------------------
 			
 			#MODS--------------------------------------------------------------------------------------------
     //$data = $deslocStatus->findAll();    
     //$res['error'] = false;
-    $res['message']= $data;
+    $res['error']   = $data['error'];
+    //$res['message'] = $data['message'];
+    $res['outro']   = $data;
     
   
 endif;
