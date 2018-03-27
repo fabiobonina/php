@@ -67,18 +67,18 @@ class Mod extends Crud{
 	}
 	public function insertInicio(){
 		try{
-		$sql  = "INSERT INTO $this->table (os, tecnico, dtInicio, kmInicio, valor, tipoTrajeto, status) ";
-		$sql .= "VALUES (:os, :tecnico, :dtIncio, :kmInicio, :valor, :tipoTrajeto, :status)";
-		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':os', 	 	 $this->os);
-		$stmt->bindParam(':tecnico', 	 $this->tecnico);
-		$stmt->bindParam(':dtIncio',  	 $this->dtIncio);
-		$stmt->bindParam(':kmInicio', 	 $this->kmInicio);
-		$stmt->bindParam(':valor',    	 $this->valor);
-		$stmt->bindParam(':tipoTrajeto', $this->tipoTrajeto);
-		$stmt->bindParam(':status', 	 $this->status);
-
-		return $stmt->execute();
+			$sql  = "INSERT INTO $this->table (os, tecnico, dtInicio, kmInicio, valor, tipoTrajeto, status) ";
+			$sql .= "VALUES (:os, :tecnico, :dtIncio, :kmInicio, :valor, :tipoTrajeto, :status)";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':os', 	 	 $this->os);
+			$stmt->bindParam(':tecnico', 	 $this->tecnico);
+			$stmt->bindParam(':dtIncio',  	 $this->dtIncio);
+			$stmt->bindParam(':kmInicio', 	 $this->kmInicio);
+			$stmt->bindParam(':valor',    	 $this->valor);
+			$stmt->bindParam(':tipoTrajeto', $this->tipoTrajeto);
+			$stmt->bindParam(':status', 	 $this->status);
+			return $stmt->execute();
+			
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
@@ -86,7 +86,7 @@ class Mod extends Crud{
 	}
 	public function insertFinal($id){
 		try{
-			$sql  = "UPDATE $this->table SET os = :os, tecnico = :tecnico, dtFinal = :dtFinal, kmFinal = :kmFinal, tempo = :tempo, valor = :valor, tipoTrajeto = :tipoTrajeto, status = :status, ativo = :ativo WHERE id = :id ";
+			$sql  = "UPDATE $this->table SET os = :os, tecnico = :tecnico, dtFinal = :dtFinal, kmFinal = :kmFinal, tempo = :tempo, valor = :valor, tipoTrajeto = :tipoTrajeto, ativo = :ativo WHERE id = :id ";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':os', 	 	$this->os);
 			$stmt->bindParam(':tecnico', 	$this->tecnico);
@@ -95,7 +95,6 @@ class Mod extends Crud{
 			$stmt->bindParam(':tempo',    	$this->tempo);
 			$stmt->bindParam(':valor',    	$this->valor);
 			$stmt->bindParam(':tipoTrajeto',$this->tipoTrajeto);
-			$stmt->bindParam(':status', 	$this->status);
 			$stmt->bindParam(':ativo', 	 	$this->ativo);
 			$stmt->bindParam(':id', 		$id);
 			return $stmt->execute();

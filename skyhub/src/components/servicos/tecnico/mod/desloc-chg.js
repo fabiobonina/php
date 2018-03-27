@@ -1,6 +1,6 @@
-Vue.component('desloc-add', {
-  name: 'desloc-add',
-  template: '#desloc-add',
+Vue.component('desloc-chg', {
+  name: 'desloc-chg',
+  template: '#desloc-chg',
   props: {
     data: Object
   },
@@ -8,7 +8,6 @@ Vue.component('desloc-add', {
     return {
       errorMessage: [],
       successMessage: [],
-      tecnico: null,
       tecnicos: null,
       status: null,
       tipo: null,
@@ -32,25 +31,11 @@ Vue.component('desloc-add', {
       return store.state.deslocTipos;
     },
     deslocStatus: function () {
-      //var filterKey = this.data.processo
-      return data = store.state.deslocStatus;
-      /*return data = data.filter(function (row) {
-        if( filterKey == '0') {
-          return row.processo == '1';
-        }
-        if( filterKey == '1') {
-          return Number(row.processo) < 4 && Number(row.processo) >0 || Number(row.processo) == 10;
-        }
-        if( filterKey == '2') {
-          return Number(row.processo) < 2 ;
-        }
-        if( filterKey == '3') {
-          return Number(row.categoria) == 1 ;
-        }
-        if( filterKey == '4') {
-          return Number(row.processo) < 4 ;
-        }
-      });*/
+      var filterKey = this.data.processo
+      var data = store.state.deslocStatus
+      return data = data.filter(function (row) {
+        return row.categoria <= filterKey;
+      });
     }
   },
   methods: {
@@ -65,7 +50,6 @@ Vue.component('desloc-add', {
         }
         var postData = {
           os: this.data.id,
-          tecnico: this.tecnico,
           tecnicos: this.tecnicos,
           tipo: this.tipo,
           status: this.status,
@@ -73,10 +57,10 @@ Vue.component('desloc-add', {
           km: this.km,
           valor: this.valor
         };
-        //console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=desloc', postData)
+        console.log(postData);
+        this.$http.post('./config/api/apiOs.php?action=deslocamento', postData)
           .then(function(response) {
-            console.log(response);
+            alert(response.data);
             if(response.data.error){
               this.errorMessage.push(response.data.message);
               this.isLoading = false;
@@ -98,7 +82,7 @@ Vue.component('desloc-add', {
     },
     checkForm:function(e) {
       this.errorMessage = [];
-      if(!this.tecnico) this.errorMessage.push("Tecnicos necessário.");
+      if(!this.tecnicos) this.errorMessage.push("Tecnicos necessário.");
       if(!this.status) this.errorMessage.push("Status necessário.");
       if(!this.dtInicio) this.errorMessage.push("Data necessário.");
       if(!this.km && !this.valor) this.errorMessage.push("Km ou Valor necessário.");

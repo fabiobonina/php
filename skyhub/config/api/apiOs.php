@@ -26,7 +26,7 @@ $res    = array('error' => true);
 $res['message']    = array();
 $arDados= array();
 $arErros= array();
-$action = 'desloc2';
+$action = 'desloc';
 
 //$res['user'] = $user;
 $acessoNivel        = $user['nivel'];// $user >  include("_chave.php");
@@ -542,65 +542,83 @@ if($action == 'deslocamento'):
 endif;
 #DESLOCAMENTO----------------------------------------------------------------------
 #DESLOCAMENTO----------------------------------------------------------------------
-if($action == 'desloc2'):
+if($action == 'desloc'):
   #Novo
-  //$osId     = $_POST['os'];
-  //$tecnico  = $_POST['tecnico'];
-  //$tecnicos = $_POST['tecnicos'];
-  //$tipo     = $_POST['tipo'];
-  //$status   = $_POST['status'];
-  //$date     = $_POST['date'];
-  //$km       = $_POST['km'];
-  //$valor    = $_POST['valor'];
+  $osId     = $_POST['os'];
+  $tecnico  = $_POST['tecnico'];
+  $tecnicos = $_POST['tecnicos'];
+  $tipo     = $_POST['tipo'];
+  $status   = $_POST['status'];
+  $date     = $_POST['date'];
+  $km       = $_POST['km'];
+  $valor    = $_POST['valor'];
   
-  $osId               = '1';
-  $tecnico['id']      = '1';
-  $tecnico2['id']     = '2';
-  $tecnicos[0]        = $tecnico;
-  $tecnicos[1]        = $tecnico2;
-  $tipo['id']         = '1';
-  $tipo['valor']      = '0.85';
+  //$osId               = '1';
+  //$tecnico['id']      = '1';
+  //$tecnico2['id']     = '2';
+  //$tecnicos[1]        = $tecnico2;
+  //$tipo['id']         = '1';
+  //$tipo['valor']      = '0.85';
+  #inicil
   //$status['id']       = '1';
   //$status['categoria']= '1';
   //$status['processo'] = '1';
   //$date               = date("2018-03-01 07:30:00");
   //$km                 = '1';
-  $status['id']       = '4';
-  $status['categoria']= '2';
-  $status['processo'] = '4';
-  $date               = date("2018-03-01 08:00:00");
-  $km                 = '30';
-  $valor              = '0';
+  #serviço
+  //$status['id']       = '4';
+  //$status['categoria']= '2';
+  //$status['processo'] = '4';
+  //$date               = date("2018-03-01 09:00:00");
+  //$km                 = '30';
+  #retorno
+  //$status['id']       = '8';
+  //$status['categoria']= '2';
+  //$status['processo'] = '8';
+  //$date               = date("2018-03-01 13:00:00");
+  //$km                 = '30';
+
+  #retorno
+  //$status['id']       = '11';
+  //$status['categoria']= '0';
+  //$status['processo'] = '11';
+  //$date               = date("2018-03-01 14:00:00");
+  //$km                 = '50';
+  
+  //$valor              = '0';
+  //$res['outros'] = $_POST;
 
   #tecnicoI----------------------------------------------------------------------------------------------------------------------------
-  $tecI = array();
   $tecNivel = '0';
-  $tecI = $osFunction->insertTecMod( $osId, $tecnico['id'], $status['id'], $status['processo'], $status['categoria'], $tipo['id'], $tipo['valor'], $date, $km, $valor, $tecNivel );
+  $tecI = $osFunction->insertTecMod( $osId, $tecnico['tecnico'], $status['id'], $status['processo'], $status['categoria'], $tipo['id'], $tipo['valor'], $date, $km, $valor, $tecNivel );
   //$res['outros'] = $tecI;
   if( $tecI['error'] ){
     $res['error']     = $tecI['error'];
-    $res['message']   = $tecI['message'];
+    array_push($res['message'], $tecI['message']);
   }else{
     #tecnicos----------------------------------------------------------------------------------------------------------------------------
-    foreach ( $tecnicos as $data){
-      $itemId   = $data['id'];
-      $arMods   = array();
-      if( $itemId != $tecnico['id'] ){
-        $tecNivel = '1';
-        $tecII = $osFunction->insertTecMod( $osId, $tecnico['id'], $status['id'], $status['processo'], $status['categoria'], $tipo['id'], $tipo['valor'], $date, $km, $valor, $tecNivel );
-        #tecnicos----------------------------------------------------------------------------------------------------------------------------
-        if( $tecII['error'] ){
-          $res['error']   = $tecII['error'];
-          $res['message'] = $tecII['message'];
-        }else{
-          #desloc aberto
-          $res['error']               = $tecII['error'];
-          array_push( $res['message'] = $tecII['message'] );
+    if(isset($tecnicos)){
+      foreach ( $tecnicos as $data){
+        $tecId   = $data['tecnico'];
+        $arMods   = array();
+        if( $tecId != $tecnico['tecnico'] ){
+          $tecNivel = '1';
+          $tecII = $osFunction->insertTecMod( $osId, $tecId, $status['id'], $status['processo'], $status['categoria'], $tipo['id'], $tipo['valor'], $date, $km, $valor, $tecNivel );
+          //$res['outro'] = $tecII;
+          if( $tecII['error'] ){
+            $res['error']   = $tecII['error'];
+            array_push( $res['message'], $tecII['message'] );
+          }else{
+            #desloc aberto
+            $res['error']   = $tecII['error'];
+            array_push( $res['message'], $tecII['message'] );
+          }
         }
       }
+      #tecnicos----------------------------------------------------------------------------------------------------------------------------
     }
-    #tecnicos----------------------------------------------------------------------------------------------------------------------------
   }
+  $res['outros'] = $_POST;
 endif;
 #DESLOCAMENTO----------------------------------------------------------------------
 

@@ -4,17 +4,17 @@
 			
 		public function dtDiff($dtInicial, $dtFinal){
 			# validar data
-			if( strtotime($dtInicial) > strtotime($dtInicial) ){
+			if( strtotime($dtInicial) > strtotime($dtFinal) ){
 				$res['error'] = true;
-				$res['message'] = 'Error, dataFinal('.$dtInicial.') menor que dataInicio('.$dtInicial.')';
+				$res['message'] = 'Error, dataFinal('.$dtFinal.') menor que dataInicio('.$dtInicial.')';
 				return $res;
 			}else{
 				$dtInicial = new DateTime($dtInicial);
 				$dtFinal  = new DateTime($dtFinal);
 				$diff   = $dtInicial->diff($dtFinal);
-				$tempo  = $diff->h + ($diff->days * 24);
-						
-				return $tempo;
+				$tempo  = $diff->h + ($diff->days * 24) + ($diff->i /60);
+				//$diff->format('%H, %i');
+				return number_format($tempo, 2);
 			}
 			
 		}

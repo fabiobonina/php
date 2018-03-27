@@ -24,6 +24,7 @@ $res     = array('error' => true);
 $arDados = array();
 $arErros = array();
 $action  = 'teste';
+$res['message'] = array();
 
 //$res['user'] = $user;
 $acessoNivel = $user['nivel'];// $user >  include("_chave.php");
@@ -214,35 +215,70 @@ endif;
 #ATUALIZAR
 if($action == 'teste'):
     
-  $dt1 = '1';
-  $dtFinal  = date("2018-03-02 10:10:00");
-  $kmFinal = '21';
-  $osId = '1';
-  $tecId = '1';
-  $ativo = '0';
-  $valor          = '1';
-  $tipoId         = '1';
-  $tipoValor      = '0.85';
-  $statusId       = '2';
-  $status['categoria']= '1';
-  $status['processo'] = '4';
-  $date               = date("2018-03-01 07:30:00");
-  $km                 = '0';
+  $osId               = '1';
+  $tecnico['id']      = '1';
+  $tecnico2['id']     = '2';
+  $tecnicos[0]        = $tecnico2;
+  $tipo['id']         = '1';
+  $tipo['valor']      = '0.85';
+  #inicil
+  $status['id']       = '2';
+  $status['categoria']= '0';
+  $status['processo'] = '2';
+  $date               = date("2018-03-27 15:45:00");
+  $km                 = '10';
+  #serviço
   //$status['id']       = '4';
   //$status['categoria']= '2';
   //$status['processo'] = '4';
-  //$date               = date("2018-03-01 08:00:00");
+  //$date               = date("2018-03-01 09:00:00");
   //$km                 = '30';
-    //$data = $mods->findOsTecAtiv( $osId, $tecId, $ativo );
-    $data = $osFunction->listOsTecModValidacao( $osId, $tecId, $statusId, $dtFinal, $tipoId, $tipoValor, $kmFinal, $valor );
-			#MODS--------------------------------------------------------------------------------------------
-			
-			#MODS--------------------------------------------------------------------------------------------
-    //$data = $deslocStatus->findAll();    
-    //$res['error'] = false;
-    $res['error']   = $data['error'];
-    //$res['message'] = $data['message'];
-    $res['outro']   = $data;
+  #retorno
+  //$status['id']       = '8';
+  //$status['categoria']= '2';
+  //$status['processo'] = '8';
+  //$date               = date("2018-03-01 13:00:00");
+  //$km                 = '30';
+
+  #retorno
+  //$status['id']       = '11';
+  //$status['categoria']= '0';
+  //$status['processo'] = '11';
+  //$date               = date("2018-03-01 14:00:00");
+  //$km                 = '50';
+  
+  $valor              = '0';
+  //$res['outros'] = $_POST;
+  #tecnicoI----------------------------------------------------------------------------------------------------------------------------
+  $tecI = array();
+  $tecNivel = '0';
+  $tecI = $osFunction->insertTecMod( $osId, $tecnico['id'], $status['id'], $status['processo'], $status['categoria'], $tipo['id'], $tipo['valor'], $date, $km, $valor, $tecNivel );
+  //$res['outros'] = $tecI;
+  if( $tecI['error'] ){
+    $res['error']     = $tecI['error'];
+    array_push($res['message'], $tecI['message']['0']);
+  }else{
+    #tecnicos----------------------------------------------------------------------------------------------------------------------------
+    foreach ( $tecnicos as $data){
+      $tecId   = $data['id'];
+      $arMods   = array();
+      if( $tecId != $tecnico['id'] ){
+        $tecNivel = '1';
+        $tecII = $osFunction->insertTecMod( $osId, $tecId, $status['id'], $status['processo'], $status['categoria'], $tipo['id'], $tipo['valor'], $date, $km, $valor, $tecNivel );
+        //$res['outro'] = $tecII;
+        if( $tecII['error'] ){
+          $res['error']   = $tecII['error'];
+          array_push( $res['message'], $tecII['message']['0'] );
+        }else{
+          #desloc aberto
+          $res['error']   = $tecII['error'];
+          array_push( $res['message'], $tecII['message']['0'] );
+        }
+      }
+    }
+    #tecnicos----------------------------------------------------------------------------------------------------------------------------
+  }
+  
     
   
 endif;

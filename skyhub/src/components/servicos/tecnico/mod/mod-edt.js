@@ -1,6 +1,6 @@
-Vue.component('desloc-add', {
-  name: 'desloc-add',
-  template: '#desloc-add',
+Vue.component('mod-edt', {
+  name: 'mod-edt',
+  template: '#mod-edt',
   props: {
     data: Object
   },
@@ -14,13 +14,17 @@ Vue.component('desloc-add', {
       tipo: null,
       km: '',
       date: '',
+      dtFinal:'',
       dtInicio: '', kmInicio:'', kmFinal:'',  dtDesloc: '', valor: '', tempo: '',
       isLoading: false,
     };
   },
   
   created: function() {
-    this.dataT()
+    this.dataAjuste();
+  },
+  mounted: function() {
+    //this.dataAjuste();
   },
   computed: {
     temMessage () {
@@ -106,14 +110,23 @@ Vue.component('desloc-add', {
       if(!this.errorMessage.length) return true;
       e.preventDefault();
     },
-    dataT() {
-      var datetime = new Date().toLocaleString();
-      var res = datetime.split(" ");
-      var date = res[0].split("/");
+    dataT(data) {
+      //var datetime = new Date().toLocaleString();
+      
+      var res = data.split(" ");
+      console.log(res);
+      var date = res[0];
       var time = res[1].slice(0, -3);
-      var dtTime = date[2] + "-" + date[1] + "-" + date[0] + "T" + time;
-      this.dtInicio = dtTime;
-      this.date = dtTime;
+      var dtTime = date + "T" + time;
+      //this.dtInicio = dtTime;
+      //this.date = dtTime;
+      //console.log(dtTime);
+      return dtTime;
+    },
+    dataAjuste: function(){
+      //console.log('data');
+      this.data.dtInicio = this.dataT(this.data.dtInicio );
+      this.data.dtFinal = this.dataT(this.data.dtFinal);
     },
   },
 });

@@ -10,8 +10,9 @@ var Os = Vue.extend({
       modalDeslocAdd: false,
       modalDeslocChg: false,
       modalDeslocEdt: false,
-      modalNotaAdd: false,
-      modalNotaEdt: false,
+      modalModEdt:    false,
+      modalNotaAdd:   false,
+      modalNotaEdt:   false,
       selectedCategoria: 'All',
       active: '1',
     };
@@ -20,6 +21,7 @@ var Os = Vue.extend({
     this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
       console.log("Buscando dados das locais!")
     });
+    
   },
   mounted: function() {
     //this.modalDeslocAdd = true;

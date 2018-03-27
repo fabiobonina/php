@@ -148,14 +148,19 @@
                 <div v-for="tecnico in _os.tecnicos">
                 <p> <a>@{{tecnico.user}} &nbsp;</a><p>
                   <p v-for="mod in tecnico.mods">
-                  
-                  <th>{{ mod.dtInicio }} </th>
+                  <span class="mdi mdi-calendar"></span>
+                  <th>{{ mod.dtInicio }} </th><span class="mdi mdi-ray-start-arrow"></span>
                   <td>{{ mod.dtFinal }}</td>
+                  <span class="mdi mdi-clock"></span>
                   <td>{{ mod.tempo }}</td>
-                  <td>{{ mod.kmInicio }}</td>
+                  <span class="mdi mdi-road-variant"></span>
+                  <td>{{ mod.kmInicio }}</td><span class="mdi mdi-ray-start-arrow"></span>
                   <td>{{ mod.kmFinal }}</td>
+                  <span class="mdi mdi-cash-usd"></span>
                   <td>{{ mod.valor }}</td>
+                  <a v-on:click="modalModEdt = true; selecItem(mod)" class="button is-link is-small is-al"><span class="mdi mdi-transit-transfer"></span></a>
                   </p>
+                  
                 </div>
               </div>
               <div class="column">
@@ -214,6 +219,7 @@
         <desloc-add v-if="modalDeslocAdd" v-on:close="modalDeslocAdd = false" :data="_os"></desloc-add>
         <desloc-edt v-if="modalDeslocChg" v-on:close="modalDeslocChg = false" :data="modalItem"></desloc-edt>
         <desloc-chg v-if="modalDeslocEdt" v-on:close="modalDeslocEdt = false" :data="modalItem"></desloc-chg>
+        <mod-edt v-if="modalModEdt" v-on:close="modalModEdt = false" :data="modalItem"></mod-edt>
         <nota-add v-if="modalNotaAdd" v-on:close="modalNotaAdd = false" :data="_os"></nota-add>
       </div>
       <!-- /.box -->

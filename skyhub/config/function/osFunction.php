@@ -88,43 +88,52 @@
 			#MODS--------------------------------------------------------------------------------------------
 			
 		}
-		public function listOsTecModValidacao( $osId, $tecId, $statusId, $dtFinal, $tipoId, $tipoValor, $kmFinal, $valor ){
+		public function listOsTecModValidacao( $osId, $tecId, $statusId, $tipoId, $tipoValor, $dtFinal, $kmFinal, $valor ){
 			$mods = new Mod();
-			#MODS--------------------------------------------------------------------------------------------
+			
 			$ativo = '0';
 			$res['error'] = false;
-			$res['message'] = array();
-			$datas['error'] = false;
-			$datas['data'] = array();
-			foreach($mods->findOsTecAtiv( $osId, $tecId, $ativo ) as $key => $value): {
-				$arItem 		= (array) $value;
-    			$res['modId']	= $value->id;
+			$arErros = array();
+			#MODS.................................
+			$data = $mods->findOsTecAtiv( $osId, $tecId, $ativo );
+
+			if( count($data) > '1' ){
+				$res['error'] 	= true;
+				$res['message'] ='Error, Mais de 1 trajeto aberto!';
+				return $res;
+			}elseif( count($data) == '0' ){
+				$res['error'] = false;
+				$res['data'] = '0';
+				return $res;
+			}else{
+				$value   = $data['0'];
+				$datas['modId']	= $value->id;
 				$dtInicio 		= $value->dtInicio;
 				$kmInicio 		= $value->kmInicio;
 				# validar Status
-				if( $value->status ==  $statusId ){
+				if( $value->status == $statusId ){
 					$res['error'] = true;
-					array_push($res['message'], 'Error, exite um deslocamento aberto com esse mesmo Status');
+					array_push($arErros, 'Error, exite um deslocamento aberto com esse mesmo Status');
 				}
 				# validar data
 				$tempo = $this->dtDiff($dtInicio, $dtFinal);
-				if( $tempo['error'] ){
+				if( isset($tempo['error']) && $tempo['error'] == true ){
 					$res['error'] =  $tempo['error'];
-					array_push($res['message'], $tempo['message']);
+					array_push($arErros, $tempo['message']);
 				}else{
 					$datas['tempo'] = $tempo;
 				}	
 				# validar TipoTrajeto
 				if( $value->tipoTrajeto != $tipoId){
 					$res['error'] = true;
-					array_push($res['message'], 'Error, Tipo de trajeto é diferente do inicial');
+					array_push($arErros, 'Error, Tipo de trajeto é diferente do inicial');
 				}else{
 					# validar KM
 					if( $tipoId == '1'){
 						$valor = $this->somarValorKm($kmInicio, $kmFinal, $tipoValor);
-						if( $valor['error'] ){
+						if( isset($valor['error']) && $valor['error'] == true ){
 							$res['error'] =  $valor['error'];
-							array_push($res['message'], $valor['message']);
+							array_push($arErros, $valor['message']);
 						}else{
 							$datas['valor'] = $valor;
 						}
@@ -134,26 +143,24 @@
 						$datas['valor'] = '0';
 					}
 				}
-				array_push($datas['data'], $arItem);
-			}endforeach;
-
-			if( count($datas['data']) > '1' ){
-				$res['error'] = true;
-				array_push($res['message'], 'Error, Mais de 1 trajeto aberto!');
-				return $res;
-
-			}elseif($res['error']){
+			}
+			if($res['error']){
+				$res['message'] = $arErros;
 				return $res;
 			}else{
+				$datas['error'] = false;
+				$datas['data'] = '1';
 				return $datas;
 			}
-			#MODS--------------------------------------------------------------------------------------------
+	
 		}
 		public function modAdd( $osId, $tecId, $tipoId, $statusId, $statusProcesso, $date, $km, $valor ){
-			
-			$mods = new Mod();
-			$oss = new Os();
-			$ativo = '0';
+			$mods 			= new Mod();
+			$oss 			= new Os();
+			$ativo 			= '0';
+			$res['error'] = false;
+			$arSucesso 		= array();
+			$arErros 		= array();
 			if( count( $mods->findOsTecAtiv( $osId, $tecId, $ativo )) == '0'){
 				$res['message'] = array();
 				$mods->setOs($osId);
@@ -166,31 +173,41 @@
 				
 				# InsertFinal
 				if( $mods->insertInicio() ){
-					$res['error']	= false;
-					$res['message']	= "OK, deslocamento salvo com sucesso";
+					array_push($arSucesso, "OK, deslocamento salvo com sucesso");
 					if( $oss->upProcesso($osId, $statusProcesso )){
-						$res['error'] = false;
-						array_push($res['message'], "OK, processo da OS alterado com sucesso");
+						array_push($arSucesso, "OK, processo da OS alterado com sucesso");
 					}else{
 						$res['error'] = true;
 						array_push($arErros, "Error, nao foi possivel mudar processo OS");
 					}
 				}else{
 					$res['error']	= true;
-					$res['message'] = "Error, nao foi possivel iniciar deslocamento";
+					array_push($arErros, "Error, nao foi possivel iniciar deslocamento");
 				}
 			}else{
 				$res['error']	= true;
-				$res['message'] = "Error, exite um deslocamento em aberto";
+				array_push($arErros, "Error, exite um deslocamento em aberto");
 			}
+			if($res['error']){
+				$res['message'] = $arErros;
+				return $res;
+			}else{
+				$res['message'] = $arSucesso;
+				return $res;
+			}
+			
 		}
-		public function modUp( $osId, $tecId, $tipoId, $statusId, $statusProcesso, $date, $km, $tempo, $valor, $modId ){
-			$mods = new Mod();
-			$oss = new Os();
+		public function modUp( $osId, $tecId, $tipoId, $statusProcesso, $date, $km, $tempo, $valor, $modId ){
+			$mods 			= new Mod();
+			$oss 			= new Os();
+
+			$res['error'] 	= false;
+			$arSucesso 		= array();
+			$arErros 		= array();
+
 			$mods->setOs($osId);
 			$mods->setTecnico($tecId);
 			$mods->setTipoTrajeto($tipoId);
-			$mods->setStatus($statusId);
 			$mods->setDtFinal($date);
 			$mods->setKmFinal($km);
 			$mods->setTempo($tempo);
@@ -199,18 +216,23 @@
 			
 			# InsertFinal
 			if( $mods->insertFinal($modId) ){
-				$res['error']	= false;
-				array_push($res['message'], "OK, dados salvo com sucesso");
+				array_push($arSucesso, "OK, deslocamento salvo com sucesso");
 				if( $oss->upProcesso($osId, $statusProcesso )){
-					$res['error'] = false;
-					array_push($res['message'], "OK, processo da OS alterado com sucesso");
+					array_push($arSucesso, "OK, processo da OS alterado com sucesso");
 				}else{
 					$res['error'] = true;
 					array_push($arErros, "Error, nao foi possivel mudar processo OS");
 				}
 			}else{
 				$res['error']	= true;
-				array_push($res['message'], 'Error, não foi possivel fechar o deslocamento( '.$modId.' )');
+				array_push($arErros, 'Error, não foi possivel fechar o deslocamento( '.$modId.' )');
+			}
+			if($res['error']){
+				$res['message'] = $arErros;
+				return $res;
+			}else{
+				$res['message'] = $arSucesso;
+				return $res;
 			}
 		}
 		public function listOsNota( $osId ){
@@ -226,39 +248,35 @@
 		}
 		public function insertTecMod( $osId, $tecId, $statusId, $statusProcesso, $statusCategoria, $tipoId, $tipoValor, $date, $km, $valor, $tecNivel ){
 			$res['error']   = false;
-			$res['message'] = array();
 			if( $tipoId == '1' && $tecNivel == '1'){
 				$tipoId 	= '3';
 				$tipoValor	= '0';
 				$km     	= '0';
 			}
 			#validar informações
-			$tec = $this->listOsTecModValidacao( $osId, $tecId, $statusId, $date, $tipoId, $tipoValor, $km, $valor );
+			$tec = $this->listOsTecModValidacao( $osId, $tecId, $statusId, $tipoId, $tipoValor, $date, $km, $valor );
 			if( $tec['error'] ){
-				$res['error'] 	= $tec['error'];
+				$res['error'] = $tec['error'];
 				$res['message'] = $tec['message'];
 			}else{
 				#desloc aberto
-				if ( count($tec['data']) == '1' ) {
-					$tempo = $tec['tempo'];
-					$valor = $tec['valor'];
-					$modId = $tec['modId'];
+				if ( $tec['data'] == '1' ) {
 					# InsertFinal
-					$item = $this->modUp( $osId, $tecId, $tipoId, $statusId, $statusProcesso, $date, $km, $tempo, $valor, $modId);
+					$item = $this->modUp( $osId, $tecId, $tipoId, $statusProcesso, $date, $km, $tec['tempo'], $tec['valor'], $tec['modId']);
 					if( $item['error'] ){
 						$res['error'] = $item['error'];
-						array_push( $res['message']= $item['message'] );
+						$res['message']= $item['message'];
 					}else{
 						$res['error'] = $item['error']; 
-						array_push( $res['message']= $item['message'] );
+						$res['message'] = $item['message'];
 					}
 				}
-				if ( count($tec['data']) == '0' || $statusCategoria == '2' && !$res['error'] ) {
+				if ( $tec['data'] == '0' || $statusCategoria == '2') {
 					#desloc inicial
 					$item =  $this->modAdd( $osId, $tecId, $tipoId, $statusId, $statusProcesso, $date, $km, $valor );
 					if( $item['error'] ){
 						$res['error'] = $item['error'];
-						array_push( $res['message']= $item['message'] );
+						$res['message'] = $item['message'];
 					}else{
 						$res['error'] = $item['error']; 
 						$res['message'] = $item['message'];
@@ -267,5 +285,6 @@
 			}
 
 			return $res;
+			
 		}
 	}

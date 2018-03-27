@@ -71,6 +71,7 @@
     <?php include("src/components/servicos/tecnico/deslocamento/desloc-add.php");?>
     <?php include("src/components/servicos/tecnico/deslocamento/desloc-chg.php");?>
     <?php include("src/components/servicos/tecnico/deslocamento/desloc-edt.php");?>
+    <?php include("src/components/servicos/tecnico/mod/mod-edt.php");?>
     <?php include("src/components/servicos/tecnico/tecnico.php");?>
     <!-- /components servicos -->
 
@@ -140,6 +141,7 @@
 <script src="src/components/servicos/tecnico/deslocamento/desloc-add.js"></script>
 <script src="src/components/servicos/tecnico/deslocamento/desloc-chg.js"></script>
 <script src="src/components/servicos/tecnico/deslocamento/desloc-edt.js"></script>
+<script src="src/components/servicos/tecnico/mod/mod-edt.js"></script>
 <script src="src/components/servicos/tecnico/tecnico.js"></script>
 <!-- /components servicos -->
 
