@@ -12,9 +12,7 @@
         <div class="field">
           <label class="label">Nota do Serviço</label>
           <div class="control">
-            <textarea v-model="descricao" class="textarea" placeholder="Nota do Serviço">
-              {{ causa }}
-            </textarea>
+            <textarea v-model="descricao" class="textarea" placeholder="Nota do Serviço" rows="10"></textarea>
           </div>
         </div>
         <!--#CONTEUDO -->

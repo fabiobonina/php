@@ -15,18 +15,18 @@ $locais       = new Locais();
 $oss          = new Os();
 $bens         = new Bens();
 $servicos     = new Servicos();
+$categorias   = new Categorias();
 $mods         = new Mod();
 $osTecnicos   = new OsTecnicos();
 $notas        = new Nota();
 
 $osFunction = new OsFunction();
 
-
 $res    = array('error' => true);
 $res['message']    = array();
 $arDados= array();
 $arErros= array();
-$action = 'desloc';
+$action = 'read';
 
 //$res['user'] = $user;
 $acessoNivel        = $user['nivel'];// $user >  include("_chave.php");
@@ -71,6 +71,7 @@ if($action == 'read'):
         $localId = $value->local;
         $bemId = $value->bem;
         $servId = $value->servico;
+        $catId = $value->categoria;
         
         $contPp_OsTt++;
         $contLj_OsTt++;
@@ -85,6 +86,9 @@ if($action == 'read'):
 
         #SERVICOS----------------------------------------------------------------------------------------
         $arOs['servico'] = $servicos->find( $servId );
+        #SERVICOS----------------------------------------------------------------------------------------
+        #SERVICOS----------------------------------------------------------------------------------------
+        $arOs['categoria'] = $categorias->find( $catId );
         #SERVICOS----------------------------------------------------------------------------------------
 
         #OSTECNICOS--------------------------------------------------------------------------------------------
@@ -102,7 +106,13 @@ if($action == 'read'):
         #OSTECNICOS--------------------------------------------------------------------------------------------
 
         #OSNOTAS--------------------------------------------------------------------------------------------
-        $arOs['notas'] = $osFunction->listOsNota( $osId );
+        $nota = $osFunction->listOsNota( $osId );
+
+        if( count($nota) > '0'){
+          $arOs['notas'] = $nota['0'];
+        }else{
+          $arOs['notas'] = '';
+        }
         #OSNOTAS--------------------------------------------------------------------------------------------
         array_push($arOss, $arOs);
       }endforeach;
@@ -251,33 +261,80 @@ if($action =='osNotaEdt'):
   
 endif;
 
-#RETORNAR
-if(isset($_POST['fechar'])):
-  if(!isset($_POST['oat'])){
-    echo '<div class="alert alert-danger">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>Dados incompletos!</strong> Os dados estão incorretos.
-          </div>';
+#CONCLUIR
+if($action == 'osConcluir'):
+  
+  $osId       = $_POST['os'];
+  $processo   = $_POST['processo'];
+  $status     = $_POST['status'];
+  $dtConcluido= date("Y-m-d H:i:s");
+
+  $oss->setProcesso($processo);
+  $oss->setStatus($status);
+  $oss->setDtConcluido($dtConcluido);
+  
+  if($oss->concluir($osId)){
+      $res['error']   = false;
+      $res['message'] = 'OK, OS concluida com sucesso';
   }else{
-    $id = $_POST['oat'];
-    $dataFech = date("Y-m-d H:i:s");
-    $status = "2";
-
-    $oats->setDataFech($dataFech);
-    $oats->setStatus($status);
-
-    if($oats->retorno($id)){
-      echo '<div class="alert alert-success">
-          <button type="button" class="close" data-dismiss="alert">×</button>
-          <strong>OAT Fechada!</strong> Redirecionando ...
-          </div>';
-      header("Refresh: 1, oat-operacao.php?acao=retorno");	
-    }
+      $res['error']   = true;
+      $res['message'] = 'Error, não foi possivel concluir a OS';
   }
   
 endif;
 
+#REABRIR
+if($action == 'osReabrir'):
+  
+  $osId     = $_POST['os'];
+  $status   = $_POST['status'];
 
+  $oss->setStatus($status);
+  
+  if($oss->reabrir($osId)){
+    $res['error']   = false;
+    $res['message'] = 'OK, OS foi reaberta';
+  }else{
+    $res['error']   = true;
+    $res['message'] = 'Error, não foi possivel rabrir a OS';
+  }
+  
+endif;
+#CONCLUIR
+if($action == 'osFechar'):
+  
+  $osId     = $_POST['os'];
+  $status   = $_POST['status'];
+  $dtFech = date("Y-m-d H:i:s");
+
+  $oss->setStatus($status);
+  $oss->setDtFech($dtFech);
+  
+  if($oss->fechar($osId)){
+    $res['error']   = false;
+    $res['message'] = 'OK, OS fechada com sucesso';
+  }else{
+    $res['error']   = true;
+    $res['message'] = 'Error, não foi possivel fechar a OS';
+  }
+  
+endif;
+if($action == 'osValidar'):
+  
+  $osId     = $_POST['os'];
+  $status   = $_POST['status'];
+
+  $oss->setStatus($status);
+  
+  if($oss->avalidar($osId)){
+    $res['error']   = false;
+    $res['message'] = 'OK, OS aprovada com sucesso';
+  }else{
+    $res['error']   = true;
+    $res['message'] = 'Error, não foi possivel validar a OS';
+  }
+  
+endif;
 #DESLOCAMENTO----------------------------------------------------------------------
 if($action == 'deslocamento'):
   $arMods = array();

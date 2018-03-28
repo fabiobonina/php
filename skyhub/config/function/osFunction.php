@@ -1,5 +1,4 @@
 <?php
-
 	include( '_usoFunction.php');
 	include('../classes/Os.php');
 	include('../classes/osTecnicos.php');

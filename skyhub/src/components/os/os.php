@@ -49,15 +49,13 @@
           <ul class="steps is-small">
             <li :class="_os.processo > 0 ?
                           'step-item is-completed is-info' : 'step-item'">
-              <div class="step-marker">
-                <span class="mdi mdi-arrow-right-bold"></span>
-              </div>
+              <div class="step-marker"><span class="mdi mdi-arrow-right-bold"></span></div>
               <div class="step-details is-primary is-completed">
                 <p class="step-title">Em Transito</p>
               </div>
             </li>
             <li :class="_os.processo >= 1 ?
-                          _os.processo == 1 || _os.processo == 3 ? 'step-item is-completed is-success' :
+                          _os.processo == 1 ? 'step-item is-completed is-success' :
                           _os.processo == 2  ? 'step-item is-completed is-warning' : 'step-item is-completed is-info' 
                         : 'step-item'">
               <div class="step-marker">
@@ -67,9 +65,9 @@
                 <p class="step-title">Atendendo</p>
               </div>
             </li>
-            <li :class="_os.processo >= 4 ?
-                          _os.processo == 4 || _os.processo == 6 ? 'step-item is-completed is-success' :
-                          _os.processo == 5  ? 'step-item is-completed is-warning' : 'step-item is-completed is-info' 
+            <li :class="_os.processo >= 3 ?
+                          _os.processo == 3 ? 'step-item is-completed is-success' :
+                          _os.processo == 4  ? 'step-item is-completed is-warning' : 'step-item is-completed is-info' 
                         : 'step-item'">
               <div class="step-marker">
                 <span class="mdi mdi-redo-variant"></span>
@@ -78,9 +76,9 @@
                 <p class="step-title">Retorno</p>
               </div>
             </li>
-            <li :class="_os.processo >= 7 ?
-                          _os.processo == 7 || _os.processo == 9 ? 'step-item is-completed is-success' :
-                          _os.processo == 8  ? 'step-item is-completed is-warning' : 'step-item is-completed is-info' 
+            <li :class="_os.processo >= 5 ?
+                          _os.processo == 5 ? 'step-item is-completed is-success' :
+                          _os.processo == 6  ? 'step-item is-completed is-warning' : 'step-item is-completed is-info' 
                         : 'step-item'">
               <div class="step-marker">
                 <span class="icon mdi mdi-check"></span>
@@ -121,15 +119,27 @@
           <a class="button is-info"><span class="mdi mdi-magnify"></span></a>
         </div>
         &nbsp;
-        <div class="control">
-          <a v-on:click="modalDeslocAdd = true" class="button is-link is-al">
+        <div v-if="user.nivel > 1 && user.grupo == 'P'" class="control">
+          <a v-if="_os.status <= 1 " v-on:click="modalDeslocAdd = true" class="button is-link is-al">
             <span class="mdi mdi-walk"></span> Desloc.
+          </a>
+          <a v-if="!_os.notas" v-on:click="modalNotaAdd = true" class="button is-link is-al">
+            <span class="mdi mdi-note-text"></span> Nota
+          </a>
+          <a v-if="_os.notas && _os.processo >= 4 && _os.status == 1" v-on:click="osConcluir()" class="button is-info is-al">
+            <span class="mdi mdi-check"></span> Concluir OS
           </a>
         </div>
         &nbsp;
-        <div class="control">
-          <a v-on:click="modalNotaAdd = true" class="button is-link is-al">
-            <span class="mdi mdi-note-text"></span> Nota
+        <div v-if="user.nivel > 2 && user.grupo == 'P'" class="control">
+          <a v-if="_os.status == 2" v-on:click="osReabrir()" class="button is-warning is-al">
+            <span class="mdi mdi-reply"></span> Reabrir OS
+          </a>
+          <a v-if="_os.status == 2"  v-on:click="osFechar()" class="button is-info is-al">
+            <span class="mdi mdi-check"></span> Fechar OS
+          </a>
+          <a v-if="user.nivel > 3 && _os.status == 3"  v-on:click="osValidar()" class="button is-primary is-al">
+            <span class="mdi mdi-check"></span> Validar OS
           </a>
         </div>
       </div>
@@ -150,7 +160,8 @@
                   <a>@{{tecnico.user}} &nbsp;</a>
               </p>
               <div v-for="mod in tecnico.mods">
-                <p class="panel-block is-active">
+                <p class="panel-block">
+                  {{ mod.status.tipo }}
                   <span class="mdi mdi-calendar"></span>
                   <strong>
                     <a> {{ mod.dtInicio }} </a><br>
@@ -179,7 +190,22 @@
             </div>    
           </div>
           <div class="column">
-            <p v-for="nota in _os.notas">{{ nota.descricao}}</p>
+            <div class="box">
+              <article class="media">
+                <div class="media-content">
+                  <div class="content">
+                    <p>{{ _os.notas.descricao}}</p>
+                  </div>
+                  <nav class="level is-mobile">
+                    <div class="level-left">
+                      <a v-if="_os.notas" v-on:click="modalNotaEdt = true" class="level-item">
+                        <span class="mdi mdi-note-text"></span> Editar
+                      </a>
+                    </div>
+                  </nav>
+                </div>
+              </article>
+            </div>
           </div>
         </div>
       <div>
@@ -199,33 +225,6 @@
             </a>
             </div>
            
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>DataInicio</th>
-                  <th>DataFinal</th>
-                  <th>Tempo</th>
-                  <th>KmInicio</th>
-                  <th>KmFinal</th>
-                  <th>Valor</th>
-                  <th>Ação</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="mod in tecnico.mods">
-                  <th>{{ mod.dtInicio }} </th>
-                  <td>{{ mod.dtFinal }}</td>
-                  <td>{{ mod.tempo }}</td>
-                  <td>{{ mod.kmInicio }}</td>
-                  <td>{{ mod.kmFinal }}</td>
-                  <td>{{ mod.valor }}</td>
-                  <td>
-                    <a v-on:click="modalDeslocAdd = true; selecItem(mod)" class="button is-primary is-al">Editar</a>
-                    <a v-on:click="modalDeslocAdd = true; selecItem(mod)" class="button is-primary is-al">Chegada</a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
             
           </div>
           </div>
@@ -235,6 +234,7 @@
         <desloc-chg v-if="modalDeslocEdt" v-on:close="modalDeslocEdt = false" :data="modalItem"></desloc-chg>
         <mod-edt v-if="modalModEdt" v-on:close="modalModEdt = false" :data="modalItem"></mod-edt>
         <nota-add v-if="modalNotaAdd" v-on:close="modalNotaAdd = false" :data="_os"></nota-add>
+        <nota-edt v-if="modalNotaEdt" v-on:close="modalNotaEdt = false" :data="_os"></nota-edt>
       </div>
       <!-- /.box -->
     </section>

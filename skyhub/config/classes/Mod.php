@@ -35,8 +35,8 @@ class Mod extends Crud{
 	public function setValor($valor){
 		$this->valor = $valor;
 	}
-	public function setTipoTrajeto($tipoTrajeto){
-		$this->tipoTrajeto = $tipoTrajeto;
+	public function setTrajeto($trajeto){
+		$this->trajeto = $trajeto;
 	}
 	public function setStatus($status){
 		$this->status = $status;
@@ -51,8 +51,8 @@ class Mod extends Crud{
 
 	public function insert(){
 		try{
-		$sql  = "INSERT INTO $this->table (os, tecnico, dtInicio, dtFinal, tempo, kmInicio, kmFinal, valor, tipoTrajeto, status) ";
-		$sql .= "VALUES (:os, :tecnico, :dtIncio, :dtFinal, :tempo, :kmInicio, :kmFinal, :valor, :tipoTrajeto, :status)";
+		$sql  = "INSERT INTO $this->table (os, tecnico, dtInicio, dtFinal, tempo, kmInicio, kmFinal, valor, trajeto, status) ";
+		$sql .= "VALUES (:os, :tecnico, :dtIncio, :dtFinal, :tempo, :kmInicio, :kmFinal, :valor, :trajeto, :status)";
 		$stmt = DB::prepare($sql);
 		$stmt->bindParam(':os',$this->os);
 		$stmt->bindParam(':tecnico',$this->tecnico);
@@ -67,15 +67,15 @@ class Mod extends Crud{
 	}
 	public function insertInicio(){
 		try{
-			$sql  = "INSERT INTO $this->table (os, tecnico, dtInicio, kmInicio, valor, tipoTrajeto, status) ";
-			$sql .= "VALUES (:os, :tecnico, :dtIncio, :kmInicio, :valor, :tipoTrajeto, :status)";
+			$sql  = "INSERT INTO $this->table (os, tecnico, dtInicio, kmInicio, valor, trajeto, status) ";
+			$sql .= "VALUES (:os, :tecnico, :dtIncio, :kmInicio, :valor, :trajeto, :status)";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':os', 	 	 $this->os);
 			$stmt->bindParam(':tecnico', 	 $this->tecnico);
 			$stmt->bindParam(':dtIncio',  	 $this->dtIncio);
 			$stmt->bindParam(':kmInicio', 	 $this->kmInicio);
 			$stmt->bindParam(':valor',    	 $this->valor);
-			$stmt->bindParam(':tipoTrajeto', $this->tipoTrajeto);
+			$stmt->bindParam(':trajeto', 	$this->trajeto);
 			$stmt->bindParam(':status', 	 $this->status);
 			return $stmt->execute();
 			
@@ -86,7 +86,7 @@ class Mod extends Crud{
 	}
 	public function insertFinal($id){
 		try{
-			$sql  = "UPDATE $this->table SET os = :os, tecnico = :tecnico, dtFinal = :dtFinal, kmFinal = :kmFinal, tempo = :tempo, valor = :valor, tipoTrajeto = :tipoTrajeto, ativo = :ativo WHERE id = :id ";
+			$sql  = "UPDATE $this->table SET os = :os, tecnico = :tecnico, dtFinal = :dtFinal, kmFinal = :kmFinal, tempo = :tempo, valor = :valor, trajeto = :trajeto, ativo = :ativo WHERE id = :id ";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':os', 	 	$this->os);
 			$stmt->bindParam(':tecnico', 	$this->tecnico);
@@ -94,7 +94,7 @@ class Mod extends Crud{
 			$stmt->bindParam(':kmFinal', 	$this->kmFinal);
 			$stmt->bindParam(':tempo',    	$this->tempo);
 			$stmt->bindParam(':valor',    	$this->valor);
-			$stmt->bindParam(':tipoTrajeto',$this->tipoTrajeto);
+			$stmt->bindParam(':trajeto',	$this->trajeto);
 			$stmt->bindParam(':ativo', 	 	$this->ativo);
 			$stmt->bindParam(':id', 		$id);
 			return $stmt->execute();

@@ -38,7 +38,7 @@
             <div class="field">
               <label class="label">Tipo Trajeto</label>
               <p class="control">
-                <v-select label="name" v-model="trajeto" :options="deslocTipos"></v-select>
+                <v-select label="name" v-model="trajeto" :options="deslocTrajetos"></v-select>
               </p>
             </div>     
           </div>

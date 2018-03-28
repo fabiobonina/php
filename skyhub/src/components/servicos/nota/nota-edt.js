@@ -1,47 +1,38 @@
 Vue.component('nota-edt', {
   name: 'nota-edt',
   template: '#nota-edt',
+  props: {
+    data: {}
+  },
   data() {
     return {
       errorMessage: [],
       successMessage: [],
-      coordenadas:'',
       isLoading: false
     };
   },
-  props: {
-    title: { type: String, default: '' },
-    message: { type: String, default: 'Confirm' },
-    data: {}
-  },
   computed: {
-    temErros () {
-      return this.errorMessage.length > 0
-    },
-    temMessage () {
-      if(this.errorMessage.length > 0){
-        return true
-      }
-      if(this.successMessage.length > 0){
-        return true
-      }
+    temMessage() {
+      if(this.errorMessage.length > 0) return true
+      if(this.successMessage.length > 0) return true
       return false
-    }
+    },
+    _os() {
+      return store.getters.getOsId(this.data.id);
+    },
   },
   methods: {
     saveItem: function(){
       this.errorMessage = []
-      if(this.formValido()){
+
+      if(this.checkForm()){
         this.isLoading = true
-        //const data = {'id': this.data.id, 'geolocalizacao': this.geolocalizacao
-        //'cadastro': new Date().toJSON() }
-        var geoposicao = this.coordenadas .split(",");
         var postData = {
-          id: this.data.id,
-          latitude: geoposicao[0],
-          longitude: geoposicao[1]
-        };        
-        this.$http.post('./config/api/apiLocalFull.php?action=coordenadas', postData)
+          id: this.data.notas.id,
+          descricao: this.data.notas.descricao,
+        };
+        //console.log(postData);
+        this.$http.post('./config/api/apiOs.php?action=osNotaEdt', postData)
           .then(function(response) {
             //console.log(response);
             if(response.data.error){
@@ -49,33 +40,34 @@ Vue.component('nota-edt', {
               this.isLoading = false;
             } else{
               this.successMessage.push(response.data.message);
+              this.atualizacao();
               this.isLoading = false;
               setTimeout(() => {
-                this.$emit('atualizar');
-              }, 2000);  
+                this.errorMessage = [];
+                this.successMessage = [];
+              }, 2000);
             }
           })
           .catch(function(error) {
             console.log(error);
           });
+          //this.$store.state.create(data)
       }
     },
-    ehVazia () {
-      if(this.coordenadas.length == 0){
-          this.errorMessage.push('Por favor, preencha todos os campos')
-          return true
+    checkForm:function(e) {
+      this.errorMessage = [];
+      if(!this.data.notas.descricao){
+        this.errorMessage.push("Nota necessário.");
+      } else if(this.data.notas.descricao.length < 100) {
+        this.errorMessage.push("Descrição curta.");
       }
-      if(this.coordenadas.length < 17){
-        this.errorMessage.push('Coordenadas incorretas')
-        return true
-      }
-      return false
+      if(!this.errorMessage.length) return true;
+      e.preventDefault();
     },
-    formValido(){
-        if(this.ehVazia()){
-            return false
-        }
-        return true
-    }
+    atualizacao: function(){
+      this.$store.dispatch("fetchOs").then(() => {
+        console.log("Atualizando dados OS!")
+      });
+    },
   },
 });

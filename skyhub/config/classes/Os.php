@@ -23,7 +23,7 @@ class Os extends Crud{
 	private $dtUltimoMan;
 	private $dtOS;
 	private $dtFech;
-	private $dtTerm;
+	private $dtConcluido;
 	private $estado;
 	private $processo;
 	private $status;
@@ -74,8 +74,8 @@ class Os extends Crud{
 	public function setDtFech($dtFech){
 		$this->dtFech = $dtFech;
 	}
-	public function setDataTerm($dtTerm){
-		$this->dtTerm = $dtTerm;
+	public function setDtConcluido($dtConcluido){
+		$this->dtConcluido = $dtConcluido;
 	}
 	public function setEstado($estado){
 		$this->estado = $estado;
@@ -202,38 +202,48 @@ class Os extends Crud{
 			echo 'ERROR: ' . $e->getMessage();
 		}
 	}
-	public function retorno($id){
+	public function concluir($id){
 		try{
-			$sql  = "UPDATE $this->table SET dtFech = :dtFech, status = :status WHERE id = :id";
+			$sql  = "UPDATE $this->table SET processo = :processo, status = :status, dtConcluido = :dtConcluido WHERE id = :id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':dtFech',$this->dtFech);
-			$stmt->bindParam(':status',$this->status);
-			$stmt->bindParam(':id', $id);
+			$stmt->bindParam(':processo',		$this->processo);
+			$stmt->bindParam(':status',			$this->status);
+			$stmt->bindParam(':dtConcluido',	$this->dtConcluido);
+			$stmt->bindParam(':id',				$id);
 			return $stmt->execute();
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
-		}	
+		}
 	}
-
-
-	public function finalizar($id){
-		try{
-			$sql  = "UPDATE $this->table SET dtTerm = :dtTerm, status = :status WHERE id = :id";
-			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':dtTerm',$this->dtTerm);
-			$stmt->bindParam(':status',$this->status);
-			$stmt->bindParam(':id', $id);
-			return $stmt->execute();
-		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
-		}	
-	}
-	public function concluidas($id){
+	public function reabrir($id){
 		try{
 			$sql  = "UPDATE $this->table SET status = :status WHERE id = :id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':status',$this->status);
-			$stmt->bindParam(':id', $id);
+			$stmt->bindParam(':status',			$this->status);
+			$stmt->bindParam(':id',				$id);
+			return $stmt->execute();
+		} catch(PDOException $e) {
+			echo 'ERROR: ' . $e->getMessage();
+		}
+	}
+	public function fechar($id){
+		try{
+			$sql  = "UPDATE $this->table SET dtFech = :dtFech, status = :status WHERE id = :id";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':dtFech',	$this->dtFech);
+			$stmt->bindParam(':status',	$this->status);
+			$stmt->bindParam(':id', 	$id);
+			return $stmt->execute();
+		} catch(PDOException $e) {
+			echo 'ERROR: ' . $e->getMessage();
+		}	
+	}
+	public function avalidar($id){
+		try{
+			$sql  = "UPDATE $this->table SET status = :status WHERE id = :id";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':status',	$this->status);
+			$stmt->bindParam(':id', 	$id);
 			return $stmt->execute();
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();

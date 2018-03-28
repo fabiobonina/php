@@ -1,5 +1,5 @@
 <?php
-
+	date_default_timezone_set('America/Recife');
 	class UsoFunction {
 			
 		public function dtDiff($dtInicial, $dtFinal){
