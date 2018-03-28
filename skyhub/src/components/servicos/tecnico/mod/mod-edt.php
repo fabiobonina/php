@@ -11,23 +11,6 @@
         <message :success="successMessage" :error="errorMessage"></message>
         <!--#INICIO -->
         <div class="field is-horizontal">
-          <div class="field-label">
-            <label class="label">Data</label>
-          </div>
-          <div class="field-body">
-            <div class="field has-addons">
-              <p class="control">
-                <a class="button is-static">
-                  <span class="mdi mdi-calendar-clock"></span>
-                </a>
-              </p>
-              <p class="control">
-                <input v-model="date" class="input" type="datetime-local"  placeholder="Informe data">
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="field is-horizontal">
           <div class="field-body">
             <div class="field">
               <label class="label">Data Inicio</label>
@@ -61,16 +44,16 @@
         </div>
         <div class="field is-horizontal">
           <div class="field-body">
-            <div class="field">
-              <label class="label">Tecnico</label>
+          <div class="field">
+              <label class="label">Status</label>
               <p class="control">
-                <v-select label="user" v-model="tecnico" :options="data.tecnicos"></v-select>
+                <v-select label="name" v-model="data.status" :options="deslocStatus"></v-select>
               </p>
             </div>
             <div class="field">
               <label class="label">Tipo Trajeto</label>
               <p class="control">
-                <v-select label="name" v-model="tipo" :options="deslocTipos"></v-select>
+                <v-select label="name" v-model="data.trajeto" :options="deslocTrajetos"></v-select>
               </p>
             </div>     
           </div>
@@ -80,7 +63,7 @@
             <div class="field">
               <label class="label">Status</label>
               <p class="control">
-                <v-select label="name" v-model="status" :options="deslocStatus"></v-select>
+                <v-select label="name" v-model="data.status" :options="deslocStatus"></v-select>
               </p>
             </div>
             <div v-if="tipo != null && tipo.categoria == 0" class="field">

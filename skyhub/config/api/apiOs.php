@@ -547,7 +547,7 @@ if($action == 'desloc'):
   $osId     = $_POST['os'];
   $tecnico  = $_POST['tecnico'];
   $tecnicos = $_POST['tecnicos'];
-  $tipo     = $_POST['tipo'];
+  $trajeto  = $_POST['trajeto'];
   $status   = $_POST['status'];
   $date     = $_POST['date'];
   $km       = $_POST['km'];
@@ -557,8 +557,8 @@ if($action == 'desloc'):
   //$tecnico['id']      = '1';
   //$tecnico2['id']     = '2';
   //$tecnicos[1]        = $tecnico2;
-  //$tipo['id']         = '1';
-  //$tipo['valor']      = '0.85';
+  //$trajeto['id']         = '1';
+  //$trajeto['valor']      = '0.85';
   #inicil
   //$status['id']       = '1';
   //$status['categoria']= '1';
@@ -590,7 +590,7 @@ if($action == 'desloc'):
 
   #tecnicoI----------------------------------------------------------------------------------------------------------------------------
   $tecNivel = '0';
-  $tecI = $osFunction->insertTecMod( $osId, $tecnico['tecnico'], $status['id'], $status['processo'], $status['categoria'], $tipo['id'], $tipo['valor'], $date, $km, $valor, $tecNivel );
+  $tecI = $osFunction->insertTecMod( $osId, $tecnico['tecnico'], $status['id'], $status['processo'], $status['categoria'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
   //$res['outros'] = $tecI;
   if( $tecI['error'] ){
     $res['error']     = $tecI['error'];
@@ -603,7 +603,7 @@ if($action == 'desloc'):
         $arMods   = array();
         if( $tecId != $tecnico['tecnico'] ){
           $tecNivel = '1';
-          $tecII = $osFunction->insertTecMod( $osId, $tecId, $status['id'], $status['processo'], $status['categoria'], $tipo['id'], $tipo['valor'], $date, $km, $valor, $tecNivel );
+          $tecII = $osFunction->insertTecMod( $osId, $tecId, $status['id'], $status['processo'], $status['categoria'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
           //$res['outro'] = $tecII;
           if( $tecII['error'] ){
             $res['error']   = $tecII['error'];

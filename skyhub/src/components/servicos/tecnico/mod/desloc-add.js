@@ -28,8 +28,8 @@ Vue.component('desloc-add', {
       if(this.successMessage.length > 0) return true
       return false
     },
-    deslocTipos() {
-      return store.state.deslocTipos;
+    deslocTrajetos() {
+      return store.state.deslocTrajetos;
     },
     deslocStatus: function () {
       //var filterKey = this.data.processo

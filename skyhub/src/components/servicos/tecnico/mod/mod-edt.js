@@ -11,7 +11,7 @@ Vue.component('mod-edt', {
       tecnico: null,
       tecnicos: null,
       status: null,
-      tipo: null,
+      trajeto: null,
       km: '',
       date: '',
       dtFinal:'',
@@ -32,8 +32,8 @@ Vue.component('mod-edt', {
       if(this.successMessage.length > 0) return true
       return false
     },
-    deslocTipos() {
-      return store.state.deslocTipos;
+    deslocTrajetos() {
+      return store.state.deslocTrajetos;
     },
     deslocStatus: function () {
       //var filterKey = this.data.processo
@@ -62,7 +62,7 @@ Vue.component('mod-edt', {
       this.errorMessage = []
       if(this.checkForm()){
         this.isLoading = true
-        if(this.tipo.categoria == '0'){
+        if(this.trajeto.categoria == '0'){
           this.valor = '0';
         }else{
           this.km = '0';
@@ -71,7 +71,7 @@ Vue.component('mod-edt', {
           os: this.data.id,
           tecnico: this.tecnico,
           tecnicos: this.tecnicos,
-          tipo: this.tipo,
+          trajeto: this.trajeto,
           status: this.status,
           date: this.date,
           km: this.km,
@@ -106,7 +106,7 @@ Vue.component('mod-edt', {
       if(!this.status) this.errorMessage.push("Status necessário.");
       if(!this.dtInicio) this.errorMessage.push("Data necessário.");
       if(!this.km && !this.valor) this.errorMessage.push("Km ou Valor necessário.");
-      if(!this.tipo) this.errorMessage.push("Tipo necessário.");
+      if(!this.trajeto) this.errorMessage.push("Tipo necessário.");
       if(!this.errorMessage.length) return true;
       e.preventDefault();
     },

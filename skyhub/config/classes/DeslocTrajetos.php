@@ -2,11 +2,11 @@
 require_once '_crud.php';
 
 try {
-class DeslocTipos extends Crud{
+class DeslocTrajetos extends Crud{
 	
 
 	
-	protected $table = 'tb_desloc_tipo';
+	protected $table = 'tb_desloc_trajeto';
 	private $cliente;
 	private $localida;
 	private $plaqueta;

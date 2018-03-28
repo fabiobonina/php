@@ -144,30 +144,44 @@
     <section class="container">
 
        <div class="columns">
-              <div class="column">
-                <div v-for="tecnico in _os.tecnicos">
-                <p> <a>@{{tecnico.user}} &nbsp;</a><p>
-                  <p v-for="mod in tecnico.mods">
+          <div class="column">
+            <div v-for="tecnico in _os.tecnicos">
+              <p class="panel-heading is-small" >
+                  <a>@{{tecnico.user}} &nbsp;</a>
+              </p>
+              <div v-for="mod in tecnico.mods">
+                <p class="panel-block is-active">
                   <span class="mdi mdi-calendar"></span>
-                  <th>{{ mod.dtInicio }} </th><span class="mdi mdi-ray-start-arrow"></span>
-                  <td>{{ mod.dtFinal }}</td>
-                  <span class="mdi mdi-clock"></span>
-                  <td>{{ mod.tempo }}</td>
-                  <span class="mdi mdi-road-variant"></span>
-                  <td>{{ mod.kmInicio }}</td><span class="mdi mdi-ray-start-arrow"></span>
-                  <td>{{ mod.kmFinal }}</td>
-                  <span class="mdi mdi-cash-usd"></span>
+                  <strong>
+                    <a> {{ mod.dtInicio }} </a><br>
+                    <a> {{ mod.dtFinal }} </a>
+                  </strong> 
+                    <span class="mdi mdi-ray-start-arrow"></span>&nbsp; 
+                  <strong>
+                    {{ mod.tempo }} <span class="mdi mdi-clock"></span>
+                  </strong>&nbsp;|
+                  <span class="mdi mdi-road-variant"></span>&nbsp;
+                  <strong>
+                    <a>{{ mod.kmInicio }}</a><br>
+                    <a>{{ mod.kmFinal }}</a>
+                  </strong>
+                  <span class="mdi mdi-ray-start-arrow"></span>&nbsp;
+                  <strong>
+                    {{ mod.kmFinal - mod.kmInicio }}
+                  </strong>&nbsp;
                   <td>{{ mod.valor }}</td>
-                  <a v-on:click="modalModEdt = true; selecItem(mod)" class="button is-link is-small is-al"><span class="mdi mdi-transit-transfer"></span></a>
-                  </p>
-                  
-                </div>
+                  <span class="mdi mdi-cash-usd"></span>&nbsp;
+                  <a v-on:click="modalModEdt = true; selecItem(mod)" class="button is-link is-small is-al">
+                    <span class="mdi mdi-transit-transfer"></span>
+                  </a>
+                </p>    
               </div>
-              <div class="column">
-                <p v-for="nota in _os.notas">{{ nota.descricao}}</p>
-              </div>
-
-            </div>
+            </div>    
+          </div>
+          <div class="column">
+            <p v-for="nota in _os.notas">{{ nota.descricao}}</p>
+          </div>
+        </div>
       <div>
         <section class="container">
           <div>

@@ -6,10 +6,20 @@
 	include('../classes/Mod.php');
 	include('../classes/Nota.php');
 	include('../classes/DeslocStatus.php');
-	require_once '../classes/DeslocTrajetos.php';
 
-	class OsFunction extends UsoFunction {
 
+	class TecFunction extends OsFunction {
+
+		public function listOsTec2( $osId, $tecId ){
+			$osTecnicos   = new OsTecnicos();
+			$arTecnicos = array();
+			foreach($osTecnicos->findAll() as $key => $value):if($value->os == $osId && $value->tecnico == $tecId)  {
+			$arTecnico = (array) $value;
+			array_push($arTecnicos, $arTecnico);
+			}endforeach;
+			
+			return $arTecnicos;
+		}
 		public function insertOsTec($tecnicos, $osId, $idLoja){
 		
 			$cont1 = '0';
@@ -75,25 +85,25 @@
 			
 			return $arTecnicos;
 		}
-		public function listOsTecMod( $osId, $tecId ){
+		public function listOsTecMod( ){
 			$mods 			= new Mod();
 			$deslocStatus 	= new DeslocStatus();
-			$deslocTrajetos 	= new DeslocTrajetos();
+			$deslocTipos 	= new DeslocTipo();
 			$osTecnicos 	= new OsTecnicos();
 			#MODS--------------------------------------------------------------------------------------------
 			$arMods = array();
 			foreach($mods->findOsTec( $osId, $tecId ) as $key => $value):{
 				$arItem =(array) $value;
-				$arItem['tecnico']	= $osTecnicos->find($value->tecnico);
-				$arItem['status'] 	= $deslocStatus->find($value->status);
-				$arItem['trajeto'] 	= $deslocTrajetos->find($value->trajeto);
+				$arItem['tecnico'] = $osTecnicos->find($value->tecnico);
+				$arItem['status'] = $osTecnicos->find($value->status);
+				$arItem['tipoTrajeto'] = $osTecnicos->find($value->tipoTrajeto);
 				array_push($arMods, $arItem);
 			}endforeach;
 			return  $arMods;
 			#MODS--------------------------------------------------------------------------------------------
 			
 		}
-		public function listOsTecModValidacao( $osId, $tecId, $statusId, $trajetoId, $tipoValor, $dtFinal, $kmFinal, $valor ){
+		public function listOsTecModValidacao( $osId, $tecId, $statusId, $tipoId, $tipoValor, $dtFinal, $kmFinal, $valor ){
 			$mods = new Mod();
 			
 			$ativo = '0';
@@ -129,12 +139,12 @@
 					$datas['tempo'] = $tempo;
 				}	
 				# validar TipoTrajeto
-				if( $value->trajeto != $trajetoId){
+				if( $value->tipoTrajeto != $tipoId){
 					$res['error'] = true;
 					array_push($arErros, 'Error, Tipo de trajeto é diferente do inicial');
 				}else{
 					# validar KM
-					if( $trajetoId == '1'){
+					if( $tipoId == '1'){
 						$valor = $this->somarValorKm($kmInicio, $kmFinal, $tipoValor);
 						if( isset($valor['error']) && $valor['error'] == true ){
 							$res['error'] =  $valor['error'];
@@ -142,7 +152,7 @@
 						}else{
 							$datas['valor'] = $valor;
 						}
-					}elseif( $trajetoId == '2'){
+					}elseif( $tipoId == '2'){
 						$datas['valor'] = $value->valor + $valor;
 					}else{
 						$datas['valor'] = '0';
@@ -159,7 +169,7 @@
 			}
 	
 		}
-		public function modAdd( $osId, $tecId, $trajetoId, $statusId, $statusProcesso, $date, $km, $valor ){
+		public function modAdd( $osId, $tecId, $tipoId, $statusId, $statusProcesso, $date, $km, $valor ){
 			$mods 			= new Mod();
 			$oss 			= new Os();
 			$ativo 			= '0';
@@ -170,7 +180,7 @@
 				$res['message'] = array();
 				$mods->setOs($osId);
 				$mods->setTecnico($tecId);
-				$mods->setTrajeto($trajetoId);
+				$mods->setTipoTrajeto($tipoId);
 				$mods->setStatus($statusId);
 				$mods->setDtInicio($date);
 				$mods->setKmInicio($km);
@@ -202,7 +212,7 @@
 			}
 			
 		}
-		public function modUp( $osId, $tecId, $trajetoId, $statusProcesso, $date, $km, $tempo, $valor, $modId ){
+		public function modUp( $osId, $tecId, $tipoId, $statusProcesso, $date, $km, $tempo, $valor, $modId ){
 			$mods 			= new Mod();
 			$oss 			= new Os();
 
@@ -212,7 +222,7 @@
 
 			$mods->setOs($osId);
 			$mods->setTecnico($tecId);
-			$mods->setTrajeto($trajetoId);
+			$mods->setTipoTrajeto($tipoId);
 			$mods->setDtFinal($date);
 			$mods->setKmFinal($km);
 			$mods->setTempo($tempo);
@@ -251,15 +261,15 @@
 			return  $arDatas;
 			#MODS--------------------------------------------------------------------------------------------
 		}
-		public function insertTecMod( $osId, $tecId, $statusId, $statusProcesso, $statusCategoria, $trajetoId, $tipoValor, $date, $km, $valor, $tecNivel ){
+		public function insertTecMod( $osId, $tecId, $statusId, $statusProcesso, $statusCategoria, $tipoId, $tipoValor, $date, $km, $valor, $tecNivel ){
 			$res['error']   = false;
-			if( $trajetoId == '1' && $tecNivel == '1'){
-				$trajetoId 	= '3';
+			if( $tipoId == '1' && $tecNivel == '1'){
+				$tipoId 	= '3';
 				$tipoValor	= '0';
 				$km     	= '0';
 			}
 			#validar informações
-			$tec = $this->listOsTecModValidacao( $osId, $tecId, $statusId, $trajetoId, $tipoValor, $date, $km, $valor );
+			$tec = $this->listOsTecModValidacao( $osId, $tecId, $statusId, $tipoId, $tipoValor, $date, $km, $valor );
 			if( $tec['error'] ){
 				$res['error'] = $tec['error'];
 				$res['message'] = $tec['message'];
@@ -267,7 +277,7 @@
 				#desloc aberto
 				if ( $tec['data'] == '1' ) {
 					# InsertFinal
-					$item = $this->modUp( $osId, $tecId, $trajetoId, $statusProcesso, $date, $km, $tec['tempo'], $tec['valor'], $tec['modId']);
+					$item = $this->modUp( $osId, $tecId, $tipoId, $statusProcesso, $date, $km, $tec['tempo'], $tec['valor'], $tec['modId']);
 					if( $item['error'] ){
 						$res['error'] = $item['error'];
 						$res['message']= $item['message'];
@@ -278,7 +288,7 @@
 				}
 				if ( $tec['data'] == '0' || $statusCategoria == '2') {
 					#desloc inicial
-					$item =  $this->modAdd( $osId, $tecId, $trajetoId, $statusId, $statusProcesso, $date, $km, $valor );
+					$item =  $this->modAdd( $osId, $tecId, $tipoId, $statusId, $statusProcesso, $date, $km, $valor );
 					if( $item['error'] ){
 						$res['error'] = $item['error'];
 						$res['message'] = $item['message'];

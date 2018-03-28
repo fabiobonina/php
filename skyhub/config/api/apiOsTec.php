@@ -252,33 +252,9 @@ if($action == 'teste'):
   #tecnicoI----------------------------------------------------------------------------------------------------------------------------
   $tecI = array();
   $tecNivel = '0';
-  $tecI = $osFunction->insertTecMod( $osId, $tecnico['id'], $status['id'], $status['processo'], $status['categoria'], $tipo['id'], $tipo['valor'], $date, $km, $valor, $tecNivel );
-  //$res['outros'] = $tecI;
-  if( $tecI['error'] ){
-    $res['error']     = $tecI['error'];
-    array_push($res['message'], $tecI['message']['0']);
-  }else{
-    #tecnicos----------------------------------------------------------------------------------------------------------------------------
-    foreach ( $tecnicos as $data){
-      $tecId   = $data['id'];
-      $arMods   = array();
-      if( $tecId != $tecnico['id'] ){
-        $tecNivel = '1';
-        $tecII = $osFunction->insertTecMod( $osId, $tecId, $status['id'], $status['processo'], $status['categoria'], $tipo['id'], $tipo['valor'], $date, $km, $valor, $tecNivel );
-        //$res['outro'] = $tecII;
-        if( $tecII['error'] ){
-          $res['error']   = $tecII['error'];
-          array_push( $res['message'], $tecII['message']['0'] );
-        }else{
-          #desloc aberto
-          $res['error']   = $tecII['error'];
-          array_push( $res['message'], $tecII['message']['0'] );
-        }
-      }
-    }
-    #tecnicos----------------------------------------------------------------------------------------------------------------------------
-  }
-  
+  $tecI = $osFunction->listOsTecMod( $osId, $tecnico['id']);
+  $res['outros'] = $tecI;
+ 
     
   
 endif;

@@ -7,7 +7,7 @@
 Vue.http.options.emulateJSON = true;
 
 const state = {
-  deslocTipos: [],
+  deslocTrajetos: [],
   deslocStatus: [],
   proprietario:{},
   lojas: [],
@@ -96,8 +96,8 @@ const mutations = {
   SET_GRUPOS(state, grupos) {
     state.grupos = grupos
   },
-  SET_DESLOC_TIPOS(state, deslocTipos) {
-    state.deslocTipos = deslocTipos
+  SET_DESLOC_TRAJETOS(state, deslocTrajetos) {
+    state.deslocTrajetos = deslocTrajetos
   },
   SET_DESLOC_STATUS(state, deslocStatus) {
     state.deslocStatus = deslocStatus
@@ -189,7 +189,7 @@ const actions = {
           commit("SET_SEGUIMENTOS", response.body.seguimentos);
           commit("SET_GRUPOS", response.body.grupos);
           commit("SET_DESLOC_STATUS", response.body.deslocStatus);
-          commit("SET_DESLOC_TIPOS", response.body.deslocTipos);
+          commit("SET_DESLOC_TRAJETOS", response.body.deslocTrajetos);
           resolve();
         }
       })

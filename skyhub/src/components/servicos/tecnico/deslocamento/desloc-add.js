@@ -11,7 +11,7 @@ Vue.component('desloc-add', {
       tecnico: null,
       tecnicos: null,
       status: null,
-      tipo: null,
+      trajeto: null,
       km: '',
       date: '',
       dtInicio: '', kmInicio:'', kmFinal:'',  dtDesloc: '', valor: '', tempo: '',
@@ -28,8 +28,8 @@ Vue.component('desloc-add', {
       if(this.successMessage.length > 0) return true
       return false
     },
-    deslocTipos() {
-      return store.state.deslocTipos;
+    deslocTrajetos() {
+      return store.state.deslocTrajetos;
     },
     deslocStatus: function () {
       //var filterKey = this.data.processo
@@ -58,7 +58,7 @@ Vue.component('desloc-add', {
       this.errorMessage = []
       if(this.checkForm()){
         this.isLoading = true
-        if(this.tipo.categoria == '0'){
+        if(this.trajeto.categoria == '0'){
           this.valor = '0';
         }else{
           this.km = '0';
@@ -67,7 +67,7 @@ Vue.component('desloc-add', {
           os: this.data.id,
           tecnico: this.tecnico,
           tecnicos: this.tecnicos,
-          tipo: this.tipo,
+          trajeto: this.trajeto,
           status: this.status,
           date: this.date,
           km: this.km,
@@ -102,7 +102,7 @@ Vue.component('desloc-add', {
       if(!this.status) this.errorMessage.push("Status necessário.");
       if(!this.dtInicio) this.errorMessage.push("Data necessário.");
       if(!this.km && !this.valor) this.errorMessage.push("Km ou Valor necessário.");
-      if(!this.tipo) this.errorMessage.push("Tipo necessário.");
+      if(!this.trajeto) this.errorMessage.push("Tipo necessário.");
       if(!this.errorMessage.length) return true;
       e.preventDefault();
     },

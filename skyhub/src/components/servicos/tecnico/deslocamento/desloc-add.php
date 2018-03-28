@@ -38,7 +38,7 @@
             <div class="field">
               <label class="label">Tipo Trajeto</label>
               <p class="control">
-                <v-select label="name" v-model="tipo" :options="deslocTipos"></v-select>
+                <v-select label="name" v-model="trajeto" :options="deslocTipos"></v-select>
               </p>
             </div>     
           </div>
@@ -51,13 +51,13 @@
                 <v-select label="name" v-model="status" :options="deslocStatus"></v-select>
               </p>
             </div>
-            <div v-if="tipo != null && tipo.categoria == 0" class="field">
+            <div v-if="trajeto != null && trajeto.categoria == 0" class="field">
               <label class="label">Km</label>
               <div class="control">
                 <input v-model="km" class="input" type="text" placeholder="Km">
               </div>
             </div>
-            <div v-if="tipo != null &&  tipo.categoria == 1 "class="field">
+            <div v-if="trajeto != null &&  trajeto.categoria == 1 "class="field">
               <label class="label">Valor</label>
               <div class="control">
                 <input v-model="valor" class="input" type="text" placeholder="Valor">
@@ -65,7 +65,7 @@
             </div>    
           </div>
         </div>
-        <div v-if="tipo != null && tipo.categoria == 0" class="field is-horizontal">
+        <div v-if="trajeto != null && trajeto.categoria == 0" class="field is-horizontal">
           <div class="field-label">
             <label class="label">Outros Tecnicos</label>
           </div>
@@ -114,20 +114,20 @@
               <label class="label">Tipo Trajeto</label>
               <p class="control is-expanded has-icons-left has-icons-right">
                 <div class="select">
-                  <select v-model="tipo">
+                  <select v-model="trajeto">
                     <option>Select</option>
-                    <option v-for="option in tipoDeslocamentos" v-bind:value="option">{{ option.name }}</option>
+                    <option v-for="option in trajetoDeslocamentos" v-bind:value="option">{{ option.name }}</option>
                   </select>
                 </div>
               </p>
             </div>
-            <div v-if="tipo.categoria == 0 "class="field">
+            <div v-if="trajeto.categoria == 0 "class="field">
               <label class="label">Km</label>
               <div class="control">
                 <input v-model="kmFinal" class="input" type="text" placeholder="Km">
               </div>
             </div>
-            <div v-if="tipo.categoria == 1 "class="field">
+            <div v-if="trajeto.categoria == 1 "class="field">
               <label class="label">Valor</label>
               <div class="control">
                 <input v-model="valor" class="input" type="text" placeholder="Valor">
