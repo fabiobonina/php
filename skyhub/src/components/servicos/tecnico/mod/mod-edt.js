@@ -19,7 +19,28 @@ Vue.component('mod-edt', {
       isLoading: false,
     };
   },
-  
+  watch: {
+    'data.kmFinal': function (newQuestion, oldQuestion) {
+      setTimeout(() => {
+        this.validarKm()
+      }, 700);
+    },
+    'data.kmInicio': function (newQuestion, oldQuestion) {
+      setTimeout(() => {
+        this.validarKm()
+      }, 700);
+    },
+    'data.dtFinal': function (newQuestion, oldQuestion) {
+      setTimeout(() => {
+        this.validarDate()
+      }, 700);
+    },
+    'data.dtInicio': function (newQuestion, oldQuestion) {
+      setTimeout(() => {
+        this.validarDate()
+      }, 700);
+    },
+  },
   created: function() {
     this.dataAjuste();
   },
@@ -60,7 +81,7 @@ Vue.component('mod-edt', {
   methods: {
     saveItem: function(){
       this.errorMessage = []
-      if(this.checkForm()){
+      if(this.checkForm() ){
         this.isLoading = true
         if(this.trajeto.categoria == '0'){
           this.valor = '0';
@@ -68,17 +89,16 @@ Vue.component('mod-edt', {
           this.km = '0';
         }
         var postData = {
-          os: this.data.id,
+          modId: this.data.id,
           tecnico: this.tecnico,
-          tecnicos: this.tecnicos,
           trajeto: this.trajeto,
           status: this.status,
-          date: this.date,
+          dtInicio: this.dte,
           km: this.km,
           valor: this.valor
         };
         //console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=desloc', postData)
+        this.$http.post('./config/api/apiOs.php?action=modEdt', postData)
           .then(function(response) {
             console.log(response);
             if(response.data.error){
@@ -102,25 +122,50 @@ Vue.component('mod-edt', {
     },
     checkForm:function(e) {
       this.errorMessage = [];
-      if(!this.tecnico) this.errorMessage.push("Tecnicos necessário.");
-      if(!this.status) this.errorMessage.push("Status necessário.");
-      if(!this.dtInicio) this.errorMessage.push("Data necessário.");
-      if(!this.km && !this.valor) this.errorMessage.push("Km ou Valor necessário.");
-      if(!this.trajeto) this.errorMessage.push("Tipo necessário.");
+      if(!this.data.status) this.errorMessage.push("Status necessário.");
+      if(!this.data.dtInicio) this.errorMessage.push("Data Inicial necessário.");
+      if(!this.data.dtFinal) this.errorMessage.push("Data Final necessário.");
+      if(!this.data.trajeto) this.errorMessage.push("Trajeto necessário.");
+      if(this.data.trajeto.categoria == '0'){
+        if( !this.data.kmInicio )this.errorMessage.push("Para o Trajeto escolhido o Km Inicial é necessário.");
+        if( !this.data.kmFinal )this.errorMessage.push("Para o Trajeto escolhido o Km Final é necessário.");
+      }else if ( this.data.trajeto.categoria == '1' ) {
+        if( !this.data.valor )this.errorMessage.push("Para o Trajeto escolhido o Valor é necessário.");
+      }
       if(!this.errorMessage.length) return true;
       e.preventDefault();
     },
+    validarKm() {
+      if(this.data.trajeto.categoria == '0'){
+        if( Number(this.data.kmFinal) < Number(this.data.kmInicio) ){
+         this.errorMessage.push("Km Inicio não pode ser maior que Km Final!");
+         return false
+        }else{
+          this.data.valor = ( Number(this.data.kmFinal) - Number(this.data.kmInicio) )* this.data.trajeto.valor;
+          this.errorLimpar();
+        }
+      }
+    },
+    validarDate() {
+          var data1 = new Date( this.data.dtInicio );
+          var data2 = new Date( this.data.dtFinal );
+        if( data1 > data2 ){
+         this.errorMessage.push("Data Inicio não pode ser maior que Data Final!");
+         return false
+        }else{
+          var timeDiff = Math.abs(data1.getTime() - data2.getTime());
+          var diffDays = (timeDiff /1000 / 60 / 60 ).toFixed(2);   
+          this.data.tempo = diffDays;
+          //console.log(diffDays);
+          this.errorLimpar();
+        } 
+    },
     dataT(data) {
-      //var datetime = new Date().toLocaleString();
-      
       var res = data.split(" ");
-      console.log(res);
+      //console.log(res);
       var date = res[0];
       var time = res[1].slice(0, -3);
       var dtTime = date + "T" + time;
-      //this.dtInicio = dtTime;
-      //this.date = dtTime;
-      //console.log(dtTime);
       return dtTime;
     },
     dataAjuste: function(){
@@ -128,5 +173,10 @@ Vue.component('mod-edt', {
       this.data.dtInicio = this.dataT(this.data.dtInicio );
       this.data.dtFinal = this.dataT(this.data.dtFinal);
     },
+    errorLimpar(){
+      setTimeout(() => {
+        this.errorMessage = [];
+      }, 2000);
+    }
   },
 });

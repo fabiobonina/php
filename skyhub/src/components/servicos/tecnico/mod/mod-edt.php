@@ -3,45 +3,13 @@
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">Deslocamento: {{data.name}}, {{data.municipio}} /{{data.uf}}</p>
+        <p class="modal-card-title">Deslocamento: {{data.tecnico.user}} </p>
         <button class="delete" aria-label="close" v-on:click="$emit('close')"></button>
       </header>
       <section class="modal-card-body">
         <!--#CONTEUDO -->
         <message :success="successMessage" :error="errorMessage"></message>
         <!--#INICIO -->
-        <div class="field is-horizontal">
-          <div class="field-body">
-            <div class="field">
-              <label class="label">Data Inicio</label>
-              <p class="control">
-                <input v-model="data.dtInicio" class="input" type="datetime-local"  placeholder="Informe data">
-              </p>
-            </div>
-            <div class="field">
-              <label class="label">Km Inicio</label>
-              <p class="control">
-                <input v-model="data.kmInicio" class="input" type="text"  placeholder="Informe data">
-              </p>
-            </div>     
-          </div>
-        </div>
-        <div class="field is-horizontal">
-          <div class="field-body">
-            <div class="field">
-              <label class="label">Data Final</label>
-              <p class="control">
-                <input v-model="data.dtFinal" class="input" type="datetime-local"  placeholder="Informe data">
-              </p>
-            </div>
-            <div class="field">
-              <label class="label">Km Final</label>
-              <p class="control">
-                <input v-model="data.kmFinal" class="input" type="text"  placeholder="Informe data">
-              </p>
-            </div>     
-          </div>
-        </div>
         <div class="field is-horizontal">
           <div class="field-body">
           <div class="field">
@@ -61,40 +29,49 @@
         <div class="field is-horizontal">
           <div class="field-body">
             <div class="field">
-              <label class="label">Status</label>
+              <label class="label">Data Inicio</label>
               <p class="control">
-                <v-select label="name" v-model="data.status" :options="deslocStatus"></v-select>
+                <input v-model="data.dtInicio" class="input" type="datetime-local">
               </p>
             </div>
-            <div v-if="tipo != null && tipo.categoria == 0" class="field">
-              <label class="label">Km</label>
-              <div class="control">
-                <input v-model="km" class="input" type="text" placeholder="Km">
-              </div>
-            </div>
-            <div v-if="tipo != null &&  tipo.categoria == 1 "class="field">
-              <label class="label">Valor</label>
-              <div class="control">
-                <input v-model="valor" class="input" type="text" placeholder="Valor">
-              </div>
-            </div>    
+            <div class="field">
+              <label class="label">Km Inicio</label>
+              <p class="control">
+                <input v-model="data.kmInicio" :disabled="data.trajeto.categoria > 0" class="input" type="number" >
+              </p>
+            </div>     
           </div>
         </div>
-        <div v-if="tipo != null && tipo.categoria == 0" class="field is-horizontal">
-          <div class="field-label">
-            <label class="label">Outros Tecnicos</label>
-          </div>
+        <div class="field is-horizontal">
           <div class="field-body">
-            <div class="field has-addons">
+            <div class="field">
+              <label class="label">Data Final</label>
               <p class="control">
-                <a class="button is-static">
-                  <span class="mdi mdi-worker"></span>
-                </a>
-              </p>
-              <p class="control">
-                <v-select multiple label="user" v-model="tecnicos" :options="data.tecnicos"></v-select>
+                <input v-model="data.dtFinal" class="input" type="datetime-local" >
               </p>
             </div>
+            <div class="field">
+              <label class="label">Km Final</label>
+              <p class="control">
+                <input v-model="data.kmFinal" :disabled="data.trajeto.categoria > 0" class="input" type="number">
+              </p>
+            </div>     
+          </div>
+        </div>
+        <div class="field is-horizontal">
+          <div class="field-body">
+            <div class="field">
+              <label class="label">Valor</label>
+              <div class="control">
+                <input v-model="data.valor" :disabled="data.trajeto.categoria != 1" class="input" type="number" placeholder="Valor">
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Tempo</label>
+              <div class="control">
+                <input v-model="data.tempo" disabled class="input" type="number" placeholder="tempo">
+              </div>
+            </div> 
           </div>
         </div>
         <br>

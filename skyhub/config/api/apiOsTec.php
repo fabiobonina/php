@@ -225,34 +225,17 @@ if($action == 'teste'):
   $status['id']       = '2';
   $status['categoria']= '0';
   $status['processo'] = '2';
-  $date               = date("2018-03-27 15:45:00");
+  $date1               = "2018-03-27 08:59:00";
+  $date2               = "2018-03-27T09:23";
   $km                 = '10';
-  #serviço
-  //$status['id']       = '4';
-  //$status['categoria']= '2';
-  //$status['processo'] = '4';
-  //$date               = date("2018-03-01 09:00:00");
-  //$km                 = '30';
-  #retorno
-  //$status['id']       = '8';
-  //$status['categoria']= '2';
-  //$status['processo'] = '8';
-  //$date               = date("2018-03-01 13:00:00");
-  //$km                 = '30';
 
-  #retorno
-  //$status['id']       = '11';
-  //$status['categoria']= '0';
-  //$status['processo'] = '11';
-  //$date               = date("2018-03-01 14:00:00");
-  //$km                 = '50';
   
   $valor              = '0';
   //$res['outros'] = $_POST;
   #tecnicoI----------------------------------------------------------------------------------------------------------------------------
   $tecI = array();
   $tecNivel = '0';
-  $tecI = $osFunction->listOsTecMod( $osId, $tecnico['id']);
+  $tecI = $osFunction->dtDiff( $date1, $date2);
   $res['outros'] = $tecI;
  
     
