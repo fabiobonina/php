@@ -9,7 +9,7 @@ class Mod extends Crud{
 	protected 	$table = 'tb_mod';
 	private 	$os;
 	private 	$tecnico;
-	private 	$dtIncio;
+	private 	$dtInicio;
 
 	public function setOs($os){
 		$this->os = $os;
@@ -17,8 +17,8 @@ class Mod extends Crud{
 	public function setTecnico($tecnico){
 		$this->tecnico = $tecnico;
 	}
-	public function setDtInicio($dtIncio){
-		$this->dtIncio = $dtIncio;
+	public function setDtInicio($dtInicio){
+		$this->dtInicio = $dtInicio;
 	}
 	public function setDtFinal($dtFinal){
 		$this->dtFinal = $dtFinal;
@@ -31,6 +31,9 @@ class Mod extends Crud{
 	}
 	public function setKmFinal($kmFinal){
 		$this->kmFinal = $kmFinal;
+	}
+	public function setHhValor($hhValor){
+		$this->hhValor = $hhValor;
 	}
 	public function setValor($valor){
 		$this->valor = $valor;
@@ -52,11 +55,11 @@ class Mod extends Crud{
 	public function insert(){
 		try{
 		$sql  = "INSERT INTO $this->table (os, tecnico, dtInicio, dtFinal, tempo, kmInicio, kmFinal, valor, trajeto, status) ";
-		$sql .= "VALUES (:os, :tecnico, :dtIncio, :dtFinal, :tempo, :kmInicio, :kmFinal, :valor, :trajeto, :status)";
+		$sql .= "VALUES (:os, :tecnico, :dtInicio, :dtFinal, :tempo, :kmInicio, :kmFinal, :valor, :trajeto, :status)";
 		$stmt = DB::prepare($sql);
 		$stmt->bindParam(':os',$this->os);
 		$stmt->bindParam(':tecnico',$this->tecnico);
-		$stmt->bindParam(':dtIncio',$this->dtIncio);
+		$stmt->bindParam(':dtInicio',$this->dtInicio);
 		$stmt->bindParam(':data',$this->data);
 
 		return $stmt->execute();
@@ -67,12 +70,12 @@ class Mod extends Crud{
 	}
 	public function insertInicio(){
 		try{
-			$sql  = "INSERT INTO $this->table (os, tecnico, dtInicio, kmInicio, valor, trajeto, status) ";
-			$sql .= "VALUES (:os, :tecnico, :dtIncio, :kmInicio, :valor, :trajeto, :status)";
+			$sql  = "INSERT INTO $this->table ( os, tecnico, dtInicio, kmInicio, valor, trajeto, status) ";
+			$sql .= "VALUES ( :os, :tecnico, :dtInicio, :kmInicio, :valor, :trajeto, :status)";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':os', 	 	 $this->os);
-			$stmt->bindParam(':tecnico', 	 $this->tecnico);
-			$stmt->bindParam(':dtIncio',  	 $this->dtIncio);
+			$stmt->bindParam(':os', 	 	$this->os);
+			$stmt->bindParam(':tecnico', 	$this->tecnico);
+			$stmt->bindParam(':dtInicio',  	 $this->dtInicio);
 			$stmt->bindParam(':kmInicio', 	 $this->kmInicio);
 			$stmt->bindParam(':valor',    	 $this->valor);
 			$stmt->bindParam(':trajeto', 	$this->trajeto);
@@ -86,37 +89,54 @@ class Mod extends Crud{
 	}
 	public function insertFinal($id){
 		try{
-			$sql  = "UPDATE $this->table SET os = :os, tecnico = :tecnico, dtFinal = :dtFinal, kmFinal = :kmFinal, tempo = :tempo, valor = :valor, trajeto = :trajeto, ativo = :ativo WHERE id = :id ";
+			$sql  = "UPDATE $this->table SET  dtFinal = :dtFinal, kmFinal = :kmFinal, tempo = :tempo, hhValor = :hhValor, valor = :valor, status = :status, trajeto = :trajeto, ativo = :ativo WHERE id = :id ";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':os', 	 	$this->os);
-			$stmt->bindParam(':tecnico', 	$this->tecnico);
 			$stmt->bindParam(':dtFinal',  	$this->dtFinal);
 			$stmt->bindParam(':kmFinal', 	$this->kmFinal);
 			$stmt->bindParam(':tempo',    	$this->tempo);
+			$stmt->bindParam(':hhValor',    $this->hhValor);
 			$stmt->bindParam(':valor',    	$this->valor);
+			$stmt->bindParam(':status',		$this->status);
 			$stmt->bindParam(':trajeto',	$this->trajeto);
 			$stmt->bindParam(':ativo', 	 	$this->ativo);
 			$stmt->bindParam(':id', 		$id);
-			return $stmt->execute();
+			$stmt->execute();
 
+			$res['message'] = false;
+			$res['message'] = "OK, deslocamento fechado com sucesso";
+			return $res;
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 
 	}
 
 	public function update($id){
 		try{
-		$sql  = "UPDATE $this->table SET os = :os, tecnico = :tecnico, dtIncio = :dtIncio, data = :data WHERE id = :id ";
-		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':os',$this->os);
-		$stmt->bindParam(':tecnico', $this->tecnico);
-		$stmt->bindParam(':dtIncio',$this->dtIncio);
-		$stmt->bindParam(':data',$this->data);
-		$stmt->bindParam(':id', $id);
-		return $stmt->execute();
+			$sql  = "UPDATE $this->table SET dtInicio = :dtInicio, dtFinal = :dtFinal, kmInicio = :kmInicio, kmFinal = :kmFinal, tempo = :tempo, hhValor = :hhValor, valor = :valor, trajeto = :trajeto, status = :status, ativo = :ativo WHERE id = :id ";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':dtInicio',  	$this->dtInicio);
+			$stmt->bindParam(':dtFinal',  	$this->dtFinal);
+			$stmt->bindParam(':kmInicio', 	$this->kmInicio);
+			$stmt->bindParam(':kmFinal', 	$this->kmFinal);
+			$stmt->bindParam(':tempo',    	$this->tempo);
+			$stmt->bindParam(':hhValor',    $this->hhValor);
+			$stmt->bindParam(':valor',    	$this->valor);
+			$stmt->bindParam(':trajeto',	$this->trajeto);
+			$stmt->bindParam(':ativo', 	 	$this->ativo);
+			$stmt->bindParam(':status', 	$this->status);
+			$stmt->bindParam(':id', 		$id);
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, atividade alterado com sucesso";
+			return $res;
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 		
 	}

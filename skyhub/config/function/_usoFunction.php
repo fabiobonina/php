@@ -29,5 +29,10 @@
 				
 			}
 		}
+		public function somarHhValor($tempo, $hh){
+			$hhValor = $tempo * $hh;
+			return number_format($hhValor,2);
+			
+		}
 		
 	}

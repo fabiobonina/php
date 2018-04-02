@@ -1,25 +1,24 @@
--- phpMyAdmin SQL Dump
--- version 4.7.4
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: 14-Mar-2018 às 20:01
--- Versão do servidor: 10.1.26-MariaDB
--- PHP Version: 7.1.9
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
+-- phpMyAdmin SQL Dump
+-- version 3.5.2.2
+-- http://www.phpmyadmin.net
+--
+-- Servidor: localhost
+-- Tempo de Geração: 01/04/2018 às 15:36:13
+-- Versão do Servidor: 10.1.24-MariaDB
+-- Versão do PHP: 5.2.17
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
--- Database: `system_tec`
+-- Banco de Dados: `u634432767_tec`
 --
 
 -- --------------------------------------------------------
@@ -28,17 +27,20 @@ SET time_zone = "+00:00";
 -- Estrutura da tabela `login`
 --
 
-CREATE TABLE `login` (
-  `id` int(11) NOT NULL,
-  `nome` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `nickuser` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `senha` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `nivel` enum('0','1','2','3') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
-  `ativo` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
-  `data_cadastro` date NOT NULL,
-  `data_ultimo_login` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE IF NOT EXISTS `login` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(150) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `nickuser` varchar(30) NOT NULL,
+  `senha` varchar(32) NOT NULL,
+  `nivel` enum('0','1','2','3') NOT NULL DEFAULT '0',
+  `ativo` enum('0','1') NOT NULL DEFAULT '0',
+  `data_cadastro` date NOT NULL DEFAULT '0000-00-00',
+  `data_ultimo_login` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `niciuser_UNIQUE` (`nickuser`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 --
 -- Extraindo dados da tabela `login`
@@ -66,7 +68,8 @@ INSERT INTO `login` (`id`, `nome`, `email`, `nickuser`, `senha`, `nivel`, `ativo
 (19, 'Ivanilson Ferreira', 'ivanilson@gruposabara.com', 'ivanilson', 'abc123', '0', '0', '2017-02-16', '0000-00-00 00:00:00'),
 (20, 'Antonio Ricardo', 'antonio.ferreira@gruposabara.com', 'antonio.ferreira', 'abc123', '0', '0', '2017-02-16', '0000-00-00 00:00:00'),
 (21, 'Jose Wilson', 'jose.wilson@gruposabara.com', 'jose.wilson', '1234ab', '0', '0', '2017-06-28', '0000-00-00 00:00:00'),
-(22, 'Cleber Souza', 'cleber.souza@gruposabara.com', 'cleber.souza', 'abc123', '0', '0', '2017-06-13', '0000-00-00 00:00:00');
+(22, 'Cleber Souza', 'cleber.souza@gruposabara.com', 'cleber.souza', 'abc123', '0', '0', '2017-06-13', '0000-00-00 00:00:00'),
+(23, 'Edson Barros', 'edson.barros@gruposabara.com', 'edson.barros', '85004610', '0', '0', '2018-03-16', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -74,13 +77,16 @@ INSERT INTO `login` (`id`, `nome`, `email`, `nickuser`, `senha`, `nivel`, `ativo
 -- Estrutura da tabela `tb_ativo`
 --
 
-CREATE TABLE `tb_ativo` (
-  `id` int(11) NOT NULL,
-  `cliente` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+CREATE TABLE IF NOT EXISTS `tb_ativo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cliente` varchar(30) NOT NULL,
   `localidade` int(11) NOT NULL,
-  `plaqueta` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
-  `data` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `plaqueta` varchar(11) NOT NULL,
+  `data` date NOT NULL DEFAULT '0000-00-00',
+  PRIMARY KEY (`id`),
+  KEY `cliente` (`cliente`),
+  KEY `localidade` (`localidade`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=500 ;
 
 --
 -- Extraindo dados da tabela `tb_ativo`
@@ -105,9 +111,13 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (15, 'CAERN', 102, '106399', '2016-11-03'),
 (16, 'CAERN', 109, '106014', '2016-11-03'),
 (17, 'CAERN', 109, '106323', '2016-11-03'),
+(262, 'CAERN', 154, ' 000308', '2016-11-10'),
+(261, 'CAERN', 111, '000282', '2016-11-10'),
 (20, 'CAERN', 114, '106545', '2016-11-03'),
 (21, 'CAERN', 114, '106601', '2016-11-03'),
 (22, 'CAERN', 121, '010498', '2016-12-16'),
+(260, 'CAERN', 101, '106022', '2016-11-10'),
+(296, 'CASAL', 394, '240', '2016-12-01'),
 (27, 'CAERN', 131, '106318', '2016-11-03'),
 (28, 'CAERN', 131, '106526', '2016-11-03'),
 (29, 'CAERN', 132, '105993', '2016-11-03'),
@@ -120,6 +130,7 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (36, 'CAERN', 144, '106186', '2016-11-03'),
 (37, 'CAERN', 148, '256', '2016-11-03'),
 (38, 'CAERN', 150, '283', '2016-11-03'),
+(409, 'CAERN', 106, '106037', '2017-06-18'),
 (40, 'CAERN', 152, '10690', '2016-11-03'),
 (41, 'CAERN', 152, '106590', '2016-11-03'),
 (42, 'CAERN', 156, '106010', '2016-11-03'),
@@ -129,6 +140,7 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (46, 'CAERN', 173, '106314', '2016-11-03'),
 (47, 'CAERN', 183, '106475', '2016-11-03'),
 (48, 'CAERN', 183, '106501', '2016-11-03'),
+(264, 'CAERN', 184, '105452', '2016-11-10'),
 (51, 'CAERN', 185, '106490', '2016-11-03'),
 (52, 'CAERN', 187, '106493', '2016-11-03'),
 (53, 'CAERN', 187, '106553', '2016-11-03'),
@@ -167,10 +179,20 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (86, 'CAGEPA', 371, '105924', '2016-11-03'),
 (87, 'CAGEPA', 371, '106310', '2016-11-03'),
 (88, 'CAGEPA', 371, '106396', '2016-11-03'),
+(438, 'CASAL', 387, '105025', '2017-08-24'),
+(433, '', 0, '459', '2017-08-11'),
+(432, '', 0, '459', '2017-08-11'),
+(441, 'CASAL', 393, '104083', '2017-08-24'),
+(429, 'CASAL', 386, '324', '2017-08-05'),
+(428, 'CASAL', 386, '451', '2017-08-05'),
+(427, 'CASAL', 386, '461', '2017-08-05'),
 (97, 'CASAL', 394, '238', '2017-02-01'),
 (98, 'CASAL', 394, '239', '2017-02-01'),
 (99, 'CASAL', 396, '412', '2017-08-05'),
 (100, 'CASAL', 396, '425', '2017-08-05'),
+(420, 'CASAL', 395, '435', '2017-08-05'),
+(435, 'CASAL', 391, '457', '2017-08-11'),
+(434, 'CASAL', 391, '411', '2017-08-11'),
 (104, 'CASAL', 398, '458', '2017-08-11'),
 (105, 'CASAL', 398, '104082', '2017-08-11'),
 (106, 'CASAL', 401, '104570', '2016-11-03'),
@@ -178,11 +200,14 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (108, 'CASAL', 401, '104613', '2016-11-03'),
 (109, 'CASAL', 401, '105056', '2016-11-03'),
 (110, 'CASAL', 404, '426', '2017-06-18'),
+(408, 'CAERN', 151, '000370', '2017-06-18'),
+(407, 'CASAL', 404, '413', '2017-06-18'),
 (113, 'CASAL', 405, '416', '2017-06-18'),
 (114, 'CASAL', 405, '429', '2017-06-18'),
 (115, 'CASAL', 405, '000234', '2017-02-09'),
 (116, 'CASAL', 405, '104086', '2016-11-03'),
 (117, 'COSANPA', 409, '10210', '2016-11-03'),
+(295, 'COSANPA', 504, '0104270', '2016-11-26'),
 (119, 'COSANPA', 436, '104224', '2016-12-09'),
 (120, 'COSANPA', 450, '105330', '2016-11-03'),
 (121, 'DESO', 523, '104469', '2016-11-03'),
@@ -196,13 +221,8 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (254, 'CASAL', 406, '0104079', '2016-11-08'),
 (255, 'CASAL', 406, '0104074', '2016-11-08'),
 (256, 'CASAL', 406, '407', '2017-08-18'),
-(257, 'CAERN', 100, 'N?O EXISTE ', '2016-11-09'),
 (258, 'CAERN', 127, '105578', '2016-11-10'),
-(260, 'CAERN', 101, '106022', '2016-11-10'),
-(261, 'CAERN', 111, '000282', '2016-11-10'),
-(262, 'CAERN', 154, ' 000308', '2016-11-10'),
 (263, 'CAERN', 149, '000343', '2017-01-30'),
-(264, 'CAERN', 184, '105452', '2016-11-10'),
 (265, 'CAERN', 184, '106176', '2016-11-10'),
 (266, 'CAGEPA', 361, '106170', '2016-11-11'),
 (267, 'CAGEPA', 336, 'N?O POSSUI', '2016-11-11'),
@@ -211,10 +231,13 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (270, 'CAERN', 157, '000298', '2016-11-15'),
 (271, 'CASAL', 384, '445', '2017-08-05'),
 (272, 'CASAL', 384, '423', '2017-08-05'),
+(421, 'CASAL', 379, '410', '2017-08-05'),
 (274, 'CASAL', 384, '0104642', '2016-11-18'),
 (275, 'CAERN', 181, '106574', '2016-11-19'),
 (276, 'CASAL', 385, '433', '2017-08-05'),
+(424, 'CASAL', 380, '104095', '2017-08-05'),
 (278, 'CAERN', 97, '106524', '2016-11-22'),
+(488, 'CAER', 60, '106206', '2018-01-29'),
 (280, 'CAERN', 95, '105582', '2016-11-22'),
 (281, 'CAERN', 84, '106317', '2016-11-28'),
 (282, 'CAERN', 84, '106525', '2016-11-28'),
@@ -230,8 +253,6 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (292, 'CAGEPA', 370, '0104575', '2016-11-25'),
 (293, 'CAGEPA', 285, '106161', '2016-11-25'),
 (294, 'COSANPA', 428, '0105309', '2016-11-26'),
-(295, 'COSANPA', 504, '0104270', '2016-11-26'),
-(296, 'CASAL', 394, '240', '2016-12-01'),
 (297, 'CAERN', 140, '106528', '2016-12-05'),
 (298, 'CASAL', 402, '0104070', '2016-12-05'),
 (299, 'CASAL', 402, '439', '2017-08-11'),
@@ -251,10 +272,13 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (314, 'CAERN', 70, '0104559', '2016-12-21'),
 (315, 'CAERN', 70, '106179', '2016-12-21'),
 (316, 'COSANPA', 510, '0104274', '2016-12-22'),
+(332, 'CAERN', 79, 'NAO EXISTE', '2016-12-27'),
 (318, 'CASAL', 407, '0102998', '2016-12-23'),
 (319, 'CASAL', 407, '0102987', '2016-12-23'),
 (320, 'CASAL', 407, '0104096', '2016-12-23'),
 (321, 'CASAL', 407, '0104100', '2016-12-23'),
+(436, 'CASAL', 406, '450', '2017-08-18'),
+(437, 'CASAL', 406, '329', '2017-08-18'),
 (325, 'CASAL', 399, '481', '2017-08-11'),
 (326, 'CASAL', 389, '417', '2017-08-05'),
 (327, 'CASAL', 389, '430', '2017-08-05'),
@@ -262,7 +286,6 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (329, 'CAERN', 196, '106331 1065', '2017-10-26'),
 (330, 'CASAL', 395, '355', '2017-08-05'),
 (331, 'COSANPA', 508, '0105311', '2016-12-26'),
-(332, 'CAERN', 79, 'NAO EXISTE', '2016-12-27'),
 (333, 'CAER', 56, '106041', '2016-12-27'),
 (335, 'CAER', 52, '106033', '2016-12-27'),
 (336, 'CAER', 57, '1060 34', '2016-12-27'),
@@ -333,9 +356,6 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (404, 'CAERN', 73, '105551', '2017-06-01'),
 (405, 'CAERN', 202, '106283', '2017-06-12'),
 (406, 'CASAL', 752, '475', '2017-06-15'),
-(407, 'CASAL', 404, '413', '2017-06-18'),
-(408, 'CAERN', 151, '000370', '2017-06-18'),
-(409, 'CAERN', 106, '106037', '2017-06-18'),
 (410, 'CAERN', 125, '105981', '2017-06-18'),
 (411, 'CAERN', 125, '000358', '2017-06-18'),
 (412, 'CAEMA', 30, 'FFCL5023', '2017-10-09'),
@@ -344,28 +364,14 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (415, 'CAERN', 73, '000397', '2017-07-17'),
 (416, 'CAERN', 770, '000269', '2017-07-17'),
 (417, 'CAERN', 63, '106181', '2017-07-17'),
-(420, 'CASAL', 395, '435', '2017-08-05'),
-(421, 'CASAL', 379, '410', '2017-08-05'),
 (422, 'CASAL', 379, '454', '2017-08-05'),
 (423, 'CASAL', 379, '104099', '2017-08-05'),
-(424, 'CASAL', 380, '104095', '2017-08-05'),
 (425, 'CASAL', 380, '418', '2017-08-05'),
 (426, 'CASAL', 380, '431', '2017-08-05'),
-(427, 'CASAL', 386, '461', '2017-08-05'),
-(428, 'CASAL', 386, '451', '2017-08-05'),
-(429, 'CASAL', 386, '324', '2017-08-05'),
 (430, 'CASAL', 386, '104097', '2017-08-05'),
 (431, 'CAERN', 138, 'NAO EXISTE', '2017-08-07'),
-(432, '', 0, '459', '2017-08-11'),
-(433, '', 0, '459', '2017-08-11'),
-(434, 'CASAL', 391, '411', '2017-08-11'),
-(435, 'CASAL', 391, '457', '2017-08-11'),
-(436, 'CASAL', 406, '450', '2017-08-18'),
-(437, 'CASAL', 406, '329', '2017-08-18'),
-(438, 'CASAL', 387, '105025', '2017-08-24'),
 (439, 'CASAL', 387, '446', '2017-08-24'),
 (440, 'CASAL', 387, '105036', '2017-08-24'),
-(441, 'CASAL', 393, '104083', '2017-08-24'),
 (442, 'CASAL', 390, '474 KIT', '2017-08-27'),
 (443, 'CASAL', 390, '424 ALARME', '2017-08-27'),
 (444, 'CASAL', 390, '104054 ROTA', '2017-08-27'),
@@ -411,151 +417,17 @@ INSERT INTO `tb_ativo` (`id`, `cliente`, `localidade`, `plaqueta`, `data`) VALUE
 (485, 'CAER', 51, '105973', '2017-12-27'),
 (486, 'CAEMA', 19, 'FFCL4961', '2018-01-03'),
 (487, 'CAEMA', 27, 'FFCL4957', '2018-01-03'),
-(488, 'CAER', 60, '106206', '2018-01-29'),
 (489, 'CAERN', 134, '106069', '2018-02-05'),
 (490, 'CAERN', 134, '106039', '2018-02-05'),
 (491, 'CAEMA', 32, 'FFCL4958', '2018-02-06'),
-(492, 'CAER', 60, '106206', '2018-02-08');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_bem`
---
-
-CREATE TABLE `tb_bem` (
-  `id` int(11) NOT NULL,
-  `produto` int(11) NOT NULL,
-  `tag` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `modelo` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `numeracao` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `fabricante` int(11) NOT NULL,
-  `fabricanteNick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `proprietario` int(11) NOT NULL,
-  `proprietarioNick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `proprietarioLocal` int(11) NOT NULL,
-  `categoria` int(11) NOT NULL,
-  `plaqueta` varchar(11) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `dataFrabricacao` date DEFAULT NULL,
-  `dataCompra` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_bem`
---
-
-INSERT INTO `tb_bem` (`id`, `produto`, `tag`, `name`, `modelo`, `numeracao`, `fabricante`, `fabricanteNick`, `proprietario`, `proprietarioNick`, `proprietarioLocal`, `categoria`, `plaqueta`, `dataFrabricacao`, `dataCompra`) VALUES
-(3, 2, 'SCL', 'SISTEMA CLORACAO', '26kg', '123', 2, 'CLORANDO', 1, 'AGESPISA', 2, 1, '101010', '2018-03-01', '2018-03-07');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_bem_componentes`
---
-
-CREATE TABLE `tb_bem_componentes` (
-  `id` int(11) NOT NULL,
-  `produto` int(11) NOT NULL,
-  `tag` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `capacidade` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `unidade` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
-  `numeracao` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `fabricante` int(11) NOT NULL,
-  `fabricanteNick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `proprietario` int(11) NOT NULL,
-  `proprietarioNick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `local` int(11) NOT NULL,
-  `categoria` int(11) NOT NULL,
-  `dataFrabricacao` date NOT NULL DEFAULT '0000-00-00',
-  `dataCompra` date NOT NULL DEFAULT '0000-00-00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_bem_localizacao`
---
-
-CREATE TABLE `tb_bem_localizacao` (
-  `id` int(11) NOT NULL,
-  `bem` int(11) NOT NULL,
-  `loja` int(11) DEFAULT NULL,
-  `local` int(11) DEFAULT NULL,
-  `dataInicial` date DEFAULT NULL,
-  `dataFinal` date DEFAULT NULL,
-  `status` enum('0','1','2','3') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_bem_localizacao`
---
-
-INSERT INTO `tb_bem_localizacao` (`id`, `bem`, `loja`, `local`, `dataInicial`, `dataFinal`, `status`) VALUES
-(1, 3, 1, 2, '2018-03-07', NULL, '1');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_bens_familia`
---
-
-CREATE TABLE `tb_bens_familia` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `tag` varchar(50) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_bens_familia`
---
-
-INSERT INTO `tb_bens_familia` (`id`, `name`, `tag`) VALUES
-(1, 'MASCARA AUTONOMA', 'MSA'),
-(2, 'Sistema Cloração', 'SCL'),
-(1, 'MASCARA AUTONOMA', 'MSA'),
-(2, 'Sistema Cloração', 'SCL');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_bens_frabricante`
---
-
-CREATE TABLE `tb_bens_frabricante` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `nick` varchar(30) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_bens_frabricante`
---
-
-INSERT INTO `tb_bens_frabricante` (`id`, `name`, `nick`) VALUES
-(1, 'MSA', 'MSA');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_categoria`
---
-
-CREATE TABLE `tb_categoria` (
-  `id` int(11) NOT NULL,
-  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `tag` varchar(30) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_categoria`
---
-
-INSERT INTO `tb_categoria` (`id`, `name`, `tag`) VALUES
-(1, 'GAS CLORO', 'GCL'),
-(2, 'SEGURACA', 'SEG'),
-(3, 'POLICLORETO ALUMINIO', 'PAC');
+(492, 'CAER', 60, '106206', '2018-02-08'),
+(493, 'CAEMA', 44, 'FFCL5021', '2018-02-23'),
+(494, 'CAERN', 869, '001970', '2018-02-28'),
+(495, 'CAERN', 869, '001972', '2018-02-28'),
+(496, 'CAERN', 869, '001971', '2018-02-28'),
+(497, 'CAERN', 869, '001969', '2018-02-28'),
+(498, 'CAEMA', 28, 'FFCL5026', '2018-03-10'),
+(499, 'CAEMA', 50, 'FFCL4963', '2018-03-21');
 
 -- --------------------------------------------------------
 
@@ -563,12 +435,14 @@ INSERT INTO `tb_categoria` (`id`, `name`, `tag`) VALUES
 -- Estrutura da tabela `tb_clientes`
 --
 
-CREATE TABLE `tb_clientes` (
-  `id` int(11) NOT NULL,
-  `nome` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `nick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `ativo` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE IF NOT EXISTS `tb_clientes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
+  `nick` varchar(30) NOT NULL,
+  `ativo` enum('0','1') NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nick` (`nick`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
 
 --
 -- Extraindo dados da tabela `tb_clientes`
@@ -608,7 +482,8 @@ INSERT INTO `tb_clientes` (`id`, `nome`, `nick`, `ativo`) VALUES
 (32, 'SANEAR RONDONOPOLIS', 'SANEAR RONDONOPOLIS', '0'),
 (33, 'SAAE DE SOBRAL', 'SAAE - SOBRAL', '0'),
 (34, 'SAAE - QUIXERAMOBIM', 'SAAE - QUIXERAMOBIM', '0'),
-(35, 'USINA CENTRAL OLHO D\'AGUA S/A', 'USINA OLHO D\'AGUA', '0');
+(35, 'USINA CENTRAL OLHO D''AGUA S/A', 'USINA OLHO D''AGUA', '0'),
+(36, 'CAESA', 'CAESA', '0');
 
 -- --------------------------------------------------------
 
@@ -616,11 +491,13 @@ INSERT INTO `tb_clientes` (`id`, `nome`, `nick`, `ativo`) VALUES
 -- Estrutura da tabela `tb_descricao`
 --
 
-CREATE TABLE `tb_descricao` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tb_descricao` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `oat` int(11) NOT NULL,
-  `descricao` varchar(800) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `descricao` varchar(800) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `tb_oat` (`oat`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2463 ;
 
 --
 -- Extraindo dados da tabela `tb_descricao`
@@ -638,8 +515,8 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (9, 32, 'OCORRENCIA:preventiva\r\nCAUSA:período de manutenção\r\nSOLUCAO:realizado manutencao\r\nDATA E HORA INICIAL:07/10/16 13:00\r\nDATA E HORA FINAL:07/10/16 17:50\r\nKM INICIAL:33020\r\nKM FINAL:33256\r\n-----GASTOS GERAIS----\r\nPECAS:não possui\r\nALIMENTACAO:não possui\r\nHOSPEDAGEM:não possui\r\nETC:\r\n                          '),
 (10, 34, 'OCORRENCIA:vazamento\r\nCAUSA:desgaste de peças\r\nSOLUCAO:troca de componente\r\nDATA E HORA INICIAL:08/10/16 06:00\r\nDATA E HORA FINAL:08/10/16 17:30\r\nKM INICIAL:33256\r\nKM FINAL:33839\r\n-----GASTOS GERAIS----\r\nPECAS:flexível de cobre de 1,2 mm\r\nALIMENTACAO:30,00R$\r\nHOSPEDAGEM:não possui\r\nETC:combustível: 200,00R$\r\n                          '),
 (11, 40, 'OCORRENCIA:vazamento\r\nCAUSA:desgastes da peça\r\nSOLUCAO:troca de componente\r\nDATA E HORA INICIAL:11/10/16 06:00\r\nDATA E HORA FINAL:11/10/16 16:00\r\nKM INICIAL:33839\r\nKM FINAL:34754\r\n-----GASTOS GERAIS----\r\nPECAS:rotametro do modulo dosador siemens de 200 libras\r\nALIMENTACAO:26,00\r\nHOSPEDAGEM:não possui\r\nETC:combustivel: 100,00\r\n                          '),
-(12, 45, 'OCORRENCIA:dosagem baixa\r\nCAUSA:perdar no sistema de vácuo\r\nSOLUCAO:troca de componente\r\nDATA E HORA INICIAL:14/10/16 12:0\r\nDATA E HORA FINAL:14/10/16 17:00\r\nKM INICIAL:34588\r\nKM FINAL:34728\r\n-----GASTOS GERAIS----\r\nPECAS:kit de reparo do injetor de 1\" fluid freeder\r\nALIMENTACAO:26,00\r\nHOSPEDAGEM:não possui\r\nETC:\r\n                          '),
-(13, 45, 'OCORRENCIA:dosagem baixa\r\nCAUSA:perdar no sistema de vácuo\r\nSOLUCAO:troca de componente\r\nDATA E HORA INICIAL:14/10/16 12:0\r\nDATA E HORA FINAL:14/10/16 17:00\r\nKM INICIAL:34588\r\nKM FINAL:34728\r\n-----GASTOS GERAIS----\r\nPECAS:kit de reparo do injetor de 1\" fluid freeder\r\nALIMENTACAO:26,00\r\nHOSPEDAGEM:não possui\r\nETC:\r\n                          '),
+(12, 45, 'OCORRENCIA:dosagem baixa\r\nCAUSA:perdar no sistema de vácuo\r\nSOLUCAO:troca de componente\r\nDATA E HORA INICIAL:14/10/16 12:0\r\nDATA E HORA FINAL:14/10/16 17:00\r\nKM INICIAL:34588\r\nKM FINAL:34728\r\n-----GASTOS GERAIS----\r\nPECAS:kit de reparo do injetor de 1" fluid freeder\r\nALIMENTACAO:26,00\r\nHOSPEDAGEM:não possui\r\nETC:\r\n                          '),
+(13, 45, 'OCORRENCIA:dosagem baixa\r\nCAUSA:perdar no sistema de vácuo\r\nSOLUCAO:troca de componente\r\nDATA E HORA INICIAL:14/10/16 12:0\r\nDATA E HORA FINAL:14/10/16 17:00\r\nKM INICIAL:34588\r\nKM FINAL:34728\r\n-----GASTOS GERAIS----\r\nPECAS:kit de reparo do injetor de 1" fluid freeder\r\nALIMENTACAO:26,00\r\nHOSPEDAGEM:não possui\r\nETC:\r\n                          '),
 (14, 33, 'OCORRENCIA:\r\nCAUSA: preventiva\r\nSOLUCAO: limpeza das válvulas redutora de pressão da pós cloração e inter, limpeza das válvulas moduladora de vácuo dos cloradores 240 kg/dia da pós cloração e inter, Limpeza dos rotâmetros e gabinetes da pós cloração e inter, trocado mangueiras dos cloradores, e feito limpeza do manifold\r\nDATA E HORA INICIAL:\r\n06/10  07:10 hs\r\n07/10  07:33 hs\r\nDATA E HORA FINAL: \r\n'),
 (15, 35, 'OCORRENCIA:\r\nCAUSA: Preventivo\r\nSOLUCAO: instalação de um outro injetor, não tivemos êxito, pois a vazão de água baixa quando fica funcionando um só bomba, quando as duas bombas estão em operação  a vazão fica normal.\r\nDATA E HORA INICIAL:\r\n07/10 12:30 hs\r\n08/10  07:15 hs\r\nDATA E HORA FINAL:\r\n07/10 17:10 hs\r\n08/10 08:40 hs\r\nKM INICIAL:\r\n07/10 44600\r\n08/10 44670\r\nKM FINAL:\r\n07/10 44670\r\n08//10 4468'),
 (16, 37, 'OCORRENCIA:\r\nCAUSA: preventiva\r\nSOLUCAO: pintura dos suporte dos manifold bateria 01 e 02, limpeza das válvulas dos manifold 01 e 02, Limpeza interna e pintura dos conjuntos de válvulas check-uinit bateria 01 e 02, Limpeza dos injetor pré cloração e pós cloração, retirado o manifold da bateria 02 lavado,secado, trocado 03 válvulas R0 S/F e colocado no suporte e feito os teste de estanquidade, não '),
@@ -660,7 +537,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (31, 86, 'OCORRENCIA: corretiva\r\nCAUSA: entrada de cloro liquido.\r\nSOLUCAO: Foi realizada a limpeza da valvula reguladora de vacuo. feita a adição da segunda valvula no sistema reserva.\r\nDATA E HORA INICIAL: 09/11/16 07:29\r\nDATA E HORA FINAL: 09/11/16 16:00\r\nKM INICIAL: 65854\r\nKM FINAL:66136\r\n-----GASTOS GERAIS----\r\nPECAS: Valvula reguladora de vacuo completa.\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (32, 67, 'OCORRENCIA:problemas no manovacometro\r\nCAUSA:desgaste de peças\r\nSOLUCAO:troca de componente\r\nDATA E HORA INICIAL:07/11/16 12:00\r\nDATA E HORA FINAL:07/11/16 18:00\r\nKM INICIAL:28449\r\nKM FINAL:28643\r\n-----GASTOS GERAIS----\r\nPECAS:manovacometro\r\nALIMENTACAO:26.00\r\nHOSPEDAGEM:não possui\r\nETC:combustível 100.00\r\n                          '),
 (33, 71, 'OCORRENCIA:vazamento\r\nCAUSA:não existia vazamento\r\nSOLUCAO:inspeção no sistema de coloração\r\nDATA E HORA INICIAL:08/11/16 16:00\r\nDATA E HORA FINAL:08/11/16 17:50\r\nKM INICIAL:28854\r\nKM FINAL:28984\r\n-----GASTOS GERAIS----\r\nPECAS:não possui\r\nALIMENTACAO: 25.00\r\nHOSPEDAGEM:não possui\r\nETC:combustível: 100,00\r\n                          '),
-(34, 97, 'OCORRENCIA: manutenção corretiva\r\nCAUSA: selo da bomba booster vazando\r\nSOLUCAO: foi realizada a substituição da bomba booster, pois a mesma estava com selo danificado; realizada a limpeza da reguladora de vácuo e repintura do dipleg; feita a substituição da base do injetor de 2\' fluidfeeder.\r\nDATA E HORA INICIAL: 10/11/16 07:00\r\nDATA E HORA FINAL: 10/11/16 09:25\r\nKM INICIAL: 66136\r\nKM FINAL: 66297\r\n-----GASTOS GERAIS----\r\nPECAS: bomba booster, base de 2\' fluidfeeder.\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
+(34, 97, 'OCORRENCIA: manutenção corretiva\r\nCAUSA: selo da bomba booster vazando\r\nSOLUCAO: foi realizada a substituição da bomba booster, pois a mesma estava com selo danificado; realizada a limpeza da reguladora de vácuo e repintura do dipleg; feita a substituição da base do injetor de 2'' fluidfeeder.\r\nDATA E HORA INICIAL: 10/11/16 07:00\r\nDATA E HORA FINAL: 10/11/16 09:25\r\nKM INICIAL: 66136\r\nKM FINAL: 66297\r\n-----GASTOS GERAIS----\r\nPECAS: bomba booster, base de 2'' fluidfeeder.\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (35, 104, 'OCORRENCIA: manutenção corretiva\r\nCAUSA:\r\nSOLUCAO: foi feita a realocação do manifold na parede, pois o mesmohavia soltado.\r\nDATA E HORA INICIAL: 28/10/16 11:09 \r\nDATA E HORA FINAL: 28/10/16 16:07\r\nKM INICIAL: 64135\r\nKM FINAL: 64272\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (36, 57, 'OCORRENCIA: operação\r\nCAUSA: reabastecimento\r\nSOLUCAO: reabastecimento de dicloro no dosador volumetrico\r\nDATA E HORA INICIAL: 04/11/16 10:31\r\nDATA E HORA FINAL: 04/11/16 13:11\r\nKM INICIAL: 65375\r\nKM FINAL:65486\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (37, 3, 'OCORRENCIA: instalação\r\nCAUSA:\r\nSOLUCAO: foi realizada a instalação de uma bomba dosadora de dicloro.\r\nDATA E HORA INICIAL: 01/11/16 08:04\r\nDATA E HORA FINAL: 01/11/16 10:35\r\nKM INICIAL: 64506\r\nKM FINAL:64537\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
@@ -704,7 +581,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (75, 20, 'OS CANCELADA NO PROTHEUS'),
 (76, 72, 'OCORRENCIA: VISITA TECNICA\r\nCAUSA:\r\nSOLUCAO:\r\nDATA E HORA INICIAL: 31/10 11:28\r\nDATA E HORA FINAL: 31/10 15:18\r\nKM INICIAL: 72036\r\nKM FINAL: 72055\r\n-----GASTOS GERAIS----\r\nPECAS: N/A\r\nALIMENTACAO: N/A\r\nHOSPEDAGEM: N/A\r\nETC: N/A\r\n                          LEVANTAMENTO DE INFORMAÇÕES PARA NOVA INSTALAÇÃO'),
 (77, 120, 'OCORRENCIA: SEM VACUO\r\nCAUSA: ENTRADA DE AR NA TUBULAÇÃO\r\nSOLUCAO: EXTRAIR O AR DE DENTRO DA TUBULAÇÃO.\r\nDATA E HORA INICIAL: 17/11 AS 09:18\r\nDATA E HORA FINAL: 17/11 AS 17:11\r\nKM INICIAL: 72758\r\nKM FINAL: 73080\r\n-----GASTOS GERAIS----\r\nPECAS: N/A\r\nALIMENTACAO: R$ 45,84\r\nHOSPEDAGEM: R$ 70,00\r\nETC:\r\n\r\nFEITO LIMPEZA NAS VALVULAS REGULADORA E R0. \r\nPROBLEMAS NA SUCCAO DA BOMBA, ADAPTADOR TRINCADO. \r\nAGUARDANDO CASAL RESOLVER.'),
-(78, 132, 'OCORRENCIA: SUBSTITUIÇÃO DE REDE \r\nCAUSA: MELHORIA\r\nSOLUCAO: SUBSTITUIÇÃO DE 32mm PARA 60mm\r\nDATA E HORA INICIAL: 18/11 AS 06:58\r\nDATA E HORA FINAL: 18/11 AS13:51\r\nKM INICIAL: 73080\r\nKM FINAL: 73326\r\n-----GASTOS GERAIS----\r\nPECAS: 01 INJETOR DE 2\'\'\r\nALIMENTACAO: R$ 23,35\r\nHOSPEDAGEM:\r\nETC: COMBUSTIVEL R$ 141,00\r\n\r\nACOMPANHAMENTO DA SUBSTITUIÇÃO DA REDE.\r\nINSTALADO 01 INJETOR DE 2\'\'\r\n                          '),
+(78, 132, 'OCORRENCIA: SUBSTITUIÇÃO DE REDE \r\nCAUSA: MELHORIA\r\nSOLUCAO: SUBSTITUIÇÃO DE 32mm PARA 60mm\r\nDATA E HORA INICIAL: 18/11 AS 06:58\r\nDATA E HORA FINAL: 18/11 AS13:51\r\nKM INICIAL: 73080\r\nKM FINAL: 73326\r\n-----GASTOS GERAIS----\r\nPECAS: 01 INJETOR DE 2''''\r\nALIMENTACAO: R$ 23,35\r\nHOSPEDAGEM:\r\nETC: COMBUSTIVEL R$ 141,00\r\n\r\nACOMPANHAMENTO DA SUBSTITUIÇÃO DA REDE.\r\nINSTALADO 01 INJETOR DE 2''''\r\n                          '),
 (79, 130, 'OCORRENCIA: VISITA TECNICA\r\nCAUSA: INSTALAÇÃO NOVA\r\nSOLUCAO:\r\nDATA E HORA INICIAL: 31/10 AS 11:28\r\nDATA E HORA FINAL: 31/10 AS 15:18\r\nKM INICIAL: 72036\r\nKM FINAL: 72055\r\n-----GASTOS GERAIS----\r\nPECAS: N/A\r\nALIMENTACAO: N/A\r\nHOSPEDAGEM: N/A\r\nETC: N/A\r\n                          VISITA PARA LEVANTAMENTO DE INFORMAÇÕES PARA INSTALAÇÃO NOVA DE SISTEMA DE PASTILHA.'),
 (80, 59, 'OCORRENCIA: operação\r\nCAUSA: reabastecimento de produto\r\nSOLUCAO: Foi reabastecido o poço com dicloro.\r\nDATA E HORA INICIAL: 04/11/16 14:05\r\nDATA E HORA FINAL: 04/11/16 14:13\r\nKM INICIAL: 65497\r\nKM FINAL: 65498\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (81, 79, 'OCORRENCIA: operação\r\nCAUSA: reabastecimento de produto\r\nSOLUCAO: Foi reabastecido o poço com dicloro.\r\nDATA E HORA INICIAL: 08/11/16 12:53\r\nDATA E HORA FINAL: 08/11/16 13:00\r\nKM INICIAL: 65826\r\nKM FINAL: 65827\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
@@ -727,12 +604,12 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (98, 148, 'OCORRENCIA:   \r\nCAUSA:\r\nSOLUCAO:\r\nDATA E HORA INICIAL:\r\nDATA E HORA FINAL:\r\nKM INICIAL:\r\nKM FINAL:\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (99, 148, 'OCORRENCIA:    Vazamento de cloro gás.\r\nCAUSA:  Válvula reguladora obstruída.\r\nSOLUCAO:  Troca da mesma com  limpeza no gabinete e mangueiras.\r\nDATA E HORA INICIAL:  18/11/16  as  14;40\r\nDATA E HORA FINAL:  18/11/16  as  17:30\r\nKM INICIAL:  23892\r\nKM FINAL:  24060\r\n-----GASTOS GERAIS----\r\nPECAS:  NT\r\nALIMENTACAO:  NT\r\nHOSPEDAGEM:  NT\r\nETC:      Telefone da Operadora (83) 9.8862-4642\r\n                                   Escritório  3290-1361     '),
 (100, 147, 'OCORRENCIA:preventiva\r\nCAUSA:periodo de manutenção\r\nSOLUCAO:realizado a manutenção preventiva\r\nDATA E HORA INICIAL:19/10/16 07:30\r\nDATA E HORA FINAL:19/10/16  16:00\r\nKM INICIAL:25280\r\nKM FINAL:25474\r\n-----GASTOS GERAIS----\r\nPECAS:não possui\r\nALIMENTACAO:25,00\r\nHOSPEDAGEM:não possui\r\nETC: combustível;50,00 \r\n                          '),
-(101, 146, 'OCORRENCIA:baixa dosagem\r\nCAUSA:injetor obstruido\r\nSOLUCAO:manutenção corretiva\r\nDATA E HORA INICIAL:20/10/16 07:00\r\nDATA E HORA FINAL:20/10/16  09:00\r\nKM INICIAL:25474\r\nKM FINAL:25586\r\n-----GASTOS GERAIS----\r\nPECAS:kit do injetor 3/4\" da fluid freed\r\nALIMENTACAO:não possui\r\nHOSPEDAGEM:nâo possui\r\nETC: combustivel: 110,00\r\n                          '),
+(101, 146, 'OCORRENCIA:baixa dosagem\r\nCAUSA:injetor obstruido\r\nSOLUCAO:manutenção corretiva\r\nDATA E HORA INICIAL:20/10/16 07:00\r\nDATA E HORA FINAL:20/10/16  09:00\r\nKM INICIAL:25474\r\nKM FINAL:25586\r\n-----GASTOS GERAIS----\r\nPECAS:kit do injetor 3/4" da fluid freed\r\nALIMENTACAO:não possui\r\nHOSPEDAGEM:nâo possui\r\nETC: combustivel: 110,00\r\n                          '),
 (102, 145, 'OCORRENCIA: baixa dosagem\r\nCAUSA: não foi encontrado nenhum problema\r\nSOLUCAO: realizado a visita técnica\r\nDATA E HORA INICIAL: 20/10/16 08:50\r\nDATA E HORA FINAL:20/10/16 09:00\r\nKM INICIAL: 25474\r\nKM FINAL:25556\r\n-----GASTOS GERAIS----\r\nPECAS: não possui\r\nALIMENTACAO: não possui\r\nHOSPEDAGEM: não possui\r\nETC:\r\n                          '),
 (103, 144, 'OCORRENCIA:preventiva\r\nCAUSA:periodo de manutenção\r\nSOLUCAO: realizado manutenção preventiva\r\nDATA E HORA INICIAL: 20/10/16 09:00\r\nDATA E HORA FINAL:20/10/16 12:20\r\nKM INICIAL: 25586\r\nKM FINAL:25736\r\n-----GASTOS GERAIS----\r\nPECAS: não possui\r\nALIMENTACAO: não possui\r\nHOSPEDAGEM: não possui\r\nETC:\r\n                          '),
 (104, 143, 'OCORRENCIA: baixa dosagem\r\nCAUSA: problema na válvula reguladora de vácuo\r\nSOLUCAO: manutenção corretiva\r\nDATA E HORA INICIAL: 20/10/16 12:20\r\nDATA E HORA FINAL:20/10/16 17:00\r\nKM INICIAL:25736\r\nKM FINAL: 25832\r\n-----GASTOS GERAIS----\r\nPECAS: não possui\r\nALIMENTACAO: 24,50\r\nHOSPEDAGEM: não possui\r\nETC:\r\n                          '),
 (105, 142, 'OCORRENCIA: preventiva\r\nCAUSA: periodo de preventiva\r\nSOLUCAO: manutenção preventiva\r\nDATA E HORA INICIAL: 21/10/16 07:00\r\nDATA E HORA FINAL:21/10/16 10:00\r\nKM INICIAL: 25832\r\nKM FINAL:25951\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO: 16,50\r\nHOSPEDAGEM:\r\nETC: combustível; 100,00\r\n                          '),
-(106, 141, 'OCORRENCIA: vazamento\r\nCAUSA: desgaste de peças\r\nSOLUCAO: troca de componente\r\nDATA E HORA INICIAL: 31/10/16 07:00\r\nDATA E HORA FINAL: 31/10/16 14:00\r\nKM INICIAL: 27420\r\nKM FINAL: 28010\r\n-----GASTOS GERAIS----\r\nPECAS: válvula fusivel de 3/4\"\r\nALIMENTACAO: 25,00\r\nHOSPEDAGEM:\r\nETC: combustível: 150,00\r\n                          '),
+(106, 141, 'OCORRENCIA: vazamento\r\nCAUSA: desgaste de peças\r\nSOLUCAO: troca de componente\r\nDATA E HORA INICIAL: 31/10/16 07:00\r\nDATA E HORA FINAL: 31/10/16 14:00\r\nKM INICIAL: 27420\r\nKM FINAL: 28010\r\n-----GASTOS GERAIS----\r\nPECAS: válvula fusivel de 3/4"\r\nALIMENTACAO: 25,00\r\nHOSPEDAGEM:\r\nETC: combustível: 150,00\r\n                          '),
 (107, 131, 'OCORRENCIA: VAZANDO CLORO, RETORNO NO ROTAMETRO\r\nCAUSA: VALVULA ABERTA / INJETOR TRINCADO\r\nSOLUCAO: APERTO DA VALVULA / SUBSTITUIÇÃO DO INJETOR\r\nDATA E HORA INICIAL: 18/11 AS 13:51\r\nDATA E HORA FINAL: 19/11 AS 11:59\r\nKM INICIAL: 73326\r\nKM FINAL: 73783\r\n-----GASTOS GERAIS----\r\nPECAS: N/A\r\nALIMENTACAO: R$ 21,00\r\nHOSPEDAGEM: R$ 70,00\r\nETC: COMBUSTIVEL R$ 138,02\r\n                          \r\nVALVULA REGISTRO DO VACUO, ESTAVA FROUCHA. REAPERTADA.\r\nINJETOR TRINCADO, SUBSTITUIDO 02 INJETORES DA PROPRIA CASAL.\r\nFEITO TESTES, SEM VAZAMENTO E SEM RETORNO DE AGUA NO ROTAMETRO.'),
 (108, 127, 'OCORRENCIA: preventiva\r\nCAUSA: periodo de preventiva\r\nSOLUCAO: realizado manutenção preventiva\r\nDATA E HORA INICIAL: 25/10/16 07:00\r\nDATA E HORA FINAL: 25/10/16 17:00\r\nKM INICIAL: 26794\r\nKM FINAL: 29132\r\n-----GASTOS GERAIS----\r\nPECAS: não possui\r\nALIMENTACAO: 26,00\r\nHOSPEDAGEM: não possui\r\nETC: combustivel : 100,00\r\n                          '),
 (109, 151, 'OCORRENCIA: SEM VACUO\r\nCAUSA: CONTRA PRESSAO\r\nSOLUCAO: SUBSTITUIDO O INJETOR (CASAL)\r\nDATA E HORA INICIAL: 21/11 AS 11:15\r\nDATA E HORA FINAL: 21/11 AS 15:12\r\nKM INICIAL: 73791\r\nKM FINAL: 73925\r\n-----GASTOS GERAIS----\r\nPECAS: 02 DIAFRAGMAS DA VALVULA REGULADORA DE VACUO\r\nALIMENTACAO: N/A\r\nHOSPEDAGEM: N/A\r\nETC:\r\n\r\nMESMO PROBLEMA DE SEMPRE, CONTRA PRESSAO. FALTA DE VACUO.\r\nFEITO LIMPEZA EM 02 ROTAMETROS, 02 VALVULAS REGULADORAS DE VACUO.\r\nVALVULA DO CILINDRO ESTA QUEBRADA, NAO ESTA VEDANDO.\r\n                          '),
@@ -742,7 +619,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (113, 150, 'OCORRENCIA:operação (desacoplar cilindro vazio)\r\nCAUSA:término do produto (cloro gás)\r\nSOLUCAO:acoplar cilindro cheio de 900 kg\r\nDATA E HORA INICIAL:06/11/16 as 07:45 hras\r\nDATA E HORA FINAL:08/11/16 as 04:25 hras\r\nKM INICIAL:*****\r\nKM FINAL:*****\r\n-----GASTOS GERAIS----\r\nPECAS:*****\r\nALIMENTACAO:R$ 57,74\r\nHOSPEDAGEM:R$ 80,00\r\nTÁXI:R$ 35,00\r\n                          '),
 (114, 139, 'OCORRENCIA: operação\r\nCAUSA: reabastecimento de produto\r\nSOLUCAO: foi realizado o reabastecimento do dosador volumetrico com dicloro.\r\nDATA E HORA INICIAL: 31/10/16 08:45\r\nDATA E HORA FINAL: 31/10/16 10:27\r\nKM INICIAL: 64375\r\nKM FINAL: 64405\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (115, 134, 'OCORRENCIA: corretiva\r\nCAUSA: entrada de cloro liquido\r\nSOLUCAO: foi realizda a substituição da parte traseira da valvula reguladora de vacuo fluidfeeder pois havia trincado provocando entrada de ar. realizada a limpeza do rotametro.\r\nDATA E HORA INICIAL: 17/11/16 08:55\r\nDATA E HORA FINAL: 17/11/16 15:39\r\nKM INICIAL: 67100\r\nKM FINAL: 67349\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
-(116, 135, 'OCORRENCIA: Visita tecnica\r\nCAUSA: Deixar reservatorio\r\nSOLUCAO: Foi entregue uma caixa D\'agua de 500 litros na ETA.\r\nDATA E HORA INICIAL: 18/11/16 06:45\r\nDATA E HORA FINAL: 18/11/16 10:49\r\nKM INICIAL: 105717\r\nKM FINAL: 105931\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC: atendimento realizado do veiculo strada de placa PUR4525\r\n                          '),
+(116, 135, 'OCORRENCIA: Visita tecnica\r\nCAUSA: Deixar reservatorio\r\nSOLUCAO: Foi entregue uma caixa D''agua de 500 litros na ETA.\r\nDATA E HORA INICIAL: 18/11/16 06:45\r\nDATA E HORA FINAL: 18/11/16 10:49\r\nKM INICIAL: 105717\r\nKM FINAL: 105931\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC: atendimento realizado do veiculo strada de placa PUR4525\r\n                          '),
 (117, 136, 'OCORRENCIA: corretiva\r\nCAUSA: entrada de cloro liquido\r\nSOLUCAO: foi realizada a limpeza da valvula reguladora de vacuo.\r\nDATA E HORA INICIAL: 18/11/16 10:49\r\nDATA E HORA FINAL: 18/11/16 16:51\r\nKM INICIAL: 105931 \r\nKM FINAL: 106300\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (118, 137, 'OCORRENCIA: corretiva\r\nCAUSA: sistema não clorando\r\nSOLUCAO: substituido o flexivel pois estava danificado. realizada a substituição também de uma mangueria que estava trincada provocado entrada de ar.\r\nDATA E HORA INICIAL: 21/11/16 06:29\r\nDATA E HORA FINAL: 21/11/16 07:51\r\nKM INICIAL: 67385\r\nKM FINAL: 67442\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (119, 158, 'OCORRENCIA:oeracao (desacoplar cilindro vazio)\r\nCAUSA:terminio do produto(cloro gas)\r\nSOLUCAO:pacoplar cilindro cheio de 900kg\r\nDATA E HORA INICIAL:11-11-16 as 07:30 hras\r\nDATA E HORA FINAL:11-11-16 as 09:40 hras\r\nKM INICIAL:*****\r\nKM FINAL:*****\r\n-----GASTOS GERAIS----\r\nPECAS:*****\r\nALIMENTACAO:*****\r\nHOSPEDAGEM:*****\r\nETC:*****\r\n                          '),
@@ -755,9 +632,9 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (126, 166, 'OCORRENCIA:operacao (desacoplar cilindro vazio)\r\nCAUSA:terminio do produto(cloro gas)\r\nSOLUCAO:acoplar(01)um cilindro cheio de 900 kg\r\nDATA E HORA INICIAL:05-11-16 as 09:30 hras\r\nDATA E HORA FINAL:05-11-16 as 17:30 hras\r\nKM INICIAL:*****\r\nKM FINAL:*****\r\n-----GASTOS GERAIS----\r\nPASSAGEM:R$ 144,96\r\nALIMENTACAO:R$ 21,75\r\nHOSPEDAGEM:R$ 83,00\r\nTAXI:R$ 55,00\r\n                          '),
 (127, 167, 'OCORRENCIA:operacao(desacoplar cilindros vazios)\r\nCAUSA:terminio do produto(cloro gas)\r\nSOLUCAO:acoplar (02) dois cilindros cheios de 900kg\r\nDATA E HORA INICIAL:03-11-16 as 18:30 hras\r\nDATA E HORA FINAL:05-11-16 as 09:30 hras\r\nKM INICIAL:*****\r\nKM FINAL:*****\r\n-----GASTOS GERAIS----\r\nPASSAGEM:R$ 144,96\r\nALIMENTACAO:R$ 21,75\r\nHOSPEDAGEM:R$ 83,00\r\nTAXI:R$ 55,00\r\n                          '),
 (128, 168, 'OCORRENCIA:operacao(desacoplar(04) cilindros vazios)\r\nCAUSA:terminio do produto(cloro gas )\r\nSOLUCAO:acoplar (04)quatros cilindros cheios de 1.000 kg\r\nDATA E HORA INICIAL:22-11-16 as 07:45 hras \r\nDATA E HORA FINAL:22-11-16 as 12:45 hras\r\nKM INICIAL:*****\r\nKM FINAL:*****\r\n-----GASTOS GERAIS----\r\nPECAS:*****\r\nALIMENTACAO:*****\r\nHOSPEDAGEM:*****\r\nETC:*****\r\n                          '),
-(129, 152, 'OCORRENCIA: ROTAMETRO SUJO, VALVULA R0 VAZANDO\r\nCAUSA: SUJEIRA\r\nSOLUCAO: LIMPEZA DO ROTAMETRO / TROCA DA VALVULA\r\nDATA E HORA INICIAL: 21/11 AS 15:15\r\nDATA E HORA FINAL: 22/11 AS 09:16\r\nKM INICIAL: 73925\r\nKM FINAL: 74099\r\n-----GASTOS GERAIS----\r\nPECAS: 01 VALVULA R0\r\nALIMENTACAO: R$ 22,00\r\nHOSPEDAGEM: R$ 70,00\r\nETC: COMBUSTIVEL R$ 141,13\r\n\r\n\r\nFEITO LIMPEZAS NO SISTEMA E SUBISTITUIDO 01 VALVULA R0.\r\nFEITO TESTES, SEM VAZAMENTO.\r\n                          '),
-(130, 169, 'OCORRENCIA: PREVENTIVA\r\nCAUSA:\r\nSOLUCAO:\r\nDATA E HORA INICIAL: 22/11 AS 13:06\r\nDATA E HORA FINAL: 22/11 AS 16:40\r\nKM INICIAL: 74142\r\nKM FINAL: 74222\r\n-----GASTOS GERAIS----\r\nPECAS: N/A\r\nALIMENTACAO: R$ 22,84\r\nHOSPEDAGEM: \r\nETC: REMENDO PNEU R$ 20,00\r\n                          \r\nLIMPEZA DE 01 VALVULA R0 E 01 REGULADORA. 01 DOSADOR.\r\nFEITO TESTES, SEM VAZAMENTO.\r\nRETIRADO O ALARME PARA MANUTENÇÃO.');
+(129, 152, 'OCORRENCIA: ROTAMETRO SUJO, VALVULA R0 VAZANDO\r\nCAUSA: SUJEIRA\r\nSOLUCAO: LIMPEZA DO ROTAMETRO / TROCA DA VALVULA\r\nDATA E HORA INICIAL: 21/11 AS 15:15\r\nDATA E HORA FINAL: 22/11 AS 09:16\r\nKM INICIAL: 73925\r\nKM FINAL: 74099\r\n-----GASTOS GERAIS----\r\nPECAS: 01 VALVULA R0\r\nALIMENTACAO: R$ 22,00\r\nHOSPEDAGEM: R$ 70,00\r\nETC: COMBUSTIVEL R$ 141,13\r\n\r\n\r\nFEITO LIMPEZAS NO SISTEMA E SUBISTITUIDO 01 VALVULA R0.\r\nFEITO TESTES, SEM VAZAMENTO.\r\n                          ');
 INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
+(130, 169, 'OCORRENCIA: PREVENTIVA\r\nCAUSA:\r\nSOLUCAO:\r\nDATA E HORA INICIAL: 22/11 AS 13:06\r\nDATA E HORA FINAL: 22/11 AS 16:40\r\nKM INICIAL: 74142\r\nKM FINAL: 74222\r\n-----GASTOS GERAIS----\r\nPECAS: N/A\r\nALIMENTACAO: R$ 22,84\r\nHOSPEDAGEM: \r\nETC: REMENDO PNEU R$ 20,00\r\n                          \r\nLIMPEZA DE 01 VALVULA R0 E 01 REGULADORA. 01 DOSADOR.\r\nFEITO TESTES, SEM VAZAMENTO.\r\nRETIRADO O ALARME PARA MANUTENÇÃO.'),
 (131, 153, 'OCORRENCIA: flexivel de cobre danificado\r\nCAUSA: desgaste da peça\r\nSOLUCAO: troca de componente\r\nDATA E HORA INICIAL: 21/11/16  07:30 DATA E HORA FINAL: 21/11/16 17:00\r\nKM INICIAL:36150\r\nKM FINAL:36490-----GASTOS GERAIS----\r\nPECAS: flexivel de cobre de 1,2mm\r\nALIMENTACAO: 26,00\r\nHOSPEDAGEM:\r\nETC:combustivel: 100.00\r\n                          '),
 (132, 175, 'OCORRENCIA: VAZANDO PELA REGULADORA DE VACUO\r\nCAUSA: SUJEIRA\r\nSOLUCAO: LIMPEZA\r\nDATA E HORA INICIAL: 23/11 AS 09:01\r\nDATA E HORA FINAL: 23/11 AS 14:08\r\nKM INICIAL: 74291\r\nKM FINAL: 74571\r\n-----GASTOS GERAIS----\r\nPECAS: 01 DIAFRAGMA DE INJETOR 3/4 \r\nALIMENTACAO: R$ 17,00\r\nHOSPEDAGEM:\r\nETC: COMBUSTIVEL R$ 100,08\r\n\r\n\r\nFEITO LIMPEZA EM 01 VÁLVULA R0 E 01 VALVULA REGULADORA DE VACUO, 01 DOSADOR.\r\nSUBSTITUIDO 01 DIAFRAGMA  DE INJETOR 3/4\r\n\r\n                          '),
 (133, 176, 'OCORRENCIA: PREVENTIVO\r\nCAUSA:\r\nSOLUCAO:\r\nDATA E HORA INICIAL: 23/11 AS 07:30\r\nDATA E HORA FINAL: 23/11 09:01\r\nKM INICIAL: 74238\r\nKM FINAL: 74291\r\n-----GASTOS GERAIS----\r\nPECAS: 01 VÁLVULA R0, 01 DIAFRAGMA DE INJETOR 3/4\r\nALIMENTACAO: R$ 19,53\r\nHOSPEDAGEM: R$ 70,00\r\nETC:\r\n\r\nFEITO LIMPEZAS EM 01 DOSADOR, 01 VÁLVULA REGULADORA DE VACUO.'),
@@ -766,7 +643,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (136, 171, 'OCORRENCIA: injetor sem funcionar\r\nCAUSA: obstrução no mesmo\r\nSOLUCAO: manutenção corretiva\r\nDATA E HORA INICIAL: 22/11/16 07:00\r\nDATA E HORA FINAL: 22/11/16 13:00\r\nKM INICIAL: 36490\r\nKM FINAL:37126\r\n-----GASTOS GERAIS----\r\nPECAS: não possui\r\nALIMENTACAO: não possui\r\nHOSPEDAGEM: não possui\r\nETC: combustivel: 150,00\r\n                          '),
 (137, 172, 'OCORRENCIA: flexivel danificado\r\nCAUSA: utilização de forma incorreta\r\nSOLUCAO: troca de componente\r\nDATA E HORA INICIAL:22/11/16 14:30\r\nDATA E HORA FINAL: 22/11/16 16:00\r\nKM INICIAL:36776\r\nKM FINAL:36927\r\n-----GASTOS GERAIS----\r\nPECAS: flexivel de cobre de 1,2mm\r\nALIMENTACAO: 21,00\r\nHOSPEDAGEM: não possui\r\nETC:\r\n                          '),
 (138, 173, 'OCORRENCIA: baixa dosagem\r\nCAUSA: tubulação obstruida\r\nSOLUCAO: manutenção na tubulação\r\nDATA E HORA INICIAL: 22/11/16 16:00\r\nDATA E HORA FINAL:22/11/16  19:40\r\nKM INICIAL:37005\r\nKM FINAL:37126\r\n-----GASTOS GERAIS----\r\nPECAS: não possui\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC: combustivel:100,00\r\n                          '),
-(139, 174, 'OCORRENCIA: vazamento na bomba de 2cv\r\nCAUSA: desgaste de peças\r\nSOLUCAO: troca de componente\r\nDATA E HORA INICIAL: 23/11/16 09:00\r\nDATA E HORA FINAL:23/11/16 14:00\r\nKM INICIAL: 37126\r\nKM FINAL:37179\r\n-----GASTOS GERAIS----\r\nPECAS: selo mecânico de 3/4\" \r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
+(139, 174, 'OCORRENCIA: vazamento na bomba de 2cv\r\nCAUSA: desgaste de peças\r\nSOLUCAO: troca de componente\r\nDATA E HORA INICIAL: 23/11/16 09:00\r\nDATA E HORA FINAL:23/11/16 14:00\r\nKM INICIAL: 37126\r\nKM FINAL:37179\r\n-----GASTOS GERAIS----\r\nPECAS: selo mecânico de 3/4" \r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (140, 182, 'OCORRENCIA: corretiva\r\nCAUSA: vazamento no flexível, e válvula redutora.\r\nSOLUCAO: trocado flexível, limpeza nas válvulas redutora de pressão, válvulas do dripleg, organização na sala de cloração, e pintura das tubulações.\r\nDATA E HORA INICIAL:  24/11/16    10:20\r\nDATA E HORA FINAL:   24/11/16      17:40\r\nKM INICIAL: 112119\r\nKM FINAL: 112307\r\n-----GASTOS GERAIS----\r\nPECAS:  01 flexivel de cobre de 1,2 metro, thinner, tinta amarela.\r\nALIMENTACAO:  20,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (141, 184, 'OCORRENCIA: Manutenção Corretiva\r\nCAUSA: Obstruição na válvula reguladora de vácuo\r\nSOLUCAO: Realizei limpeza na válvula reguladora de vácuo,rotâmetro e mangueiras \r\nDATA E HORA INICIAL: 21/11/16 09:15\r\nDATA E HORA FINAL: 21/11/16 10:18\r\nKM INICIAL: 106318\r\nKM FINAL: 106346\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (142, 185, 'OCORRENCIA: Abastecimento \r\nCAUSA: Abastecer maquina volumétrica \r\nSOLUCAO: Abasteci a maquina com 150kg de dicloro\r\nDATA E HORA INICIAL: 25/11/16 08:02\r\nDATA E HORA FINAL: 25/11/16 10:28\r\nKM INICIAL: 106514\r\nKM FINAL: 106528\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
@@ -792,7 +669,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (162, 188, 'OCORRENCIA:acoplamento de cilindros\r\nCAUSA: cilindros vazios\r\nSOLUCAO: foi substituido, acoplado e testado com solução de amônia 04 cilindros cheios\r\nDATA E HORA INICIAL:16/11/2016 07:45\r\nDATA E HORA FINAL: 16/11/2016 10:00\r\nKM INICIAL: 79337\r\nKM FINAL: 79351\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (163, 49, 'OCORRENCIA: asubstituição e acoplamento de cilindros\r\nCAUSA: cilindros vazios\r\nSOLUCAO: foi substituido, acoplada e testado com solução de amonia, 04 cilindros cheios\r\nDATA E HORA INICIAL: 28/11/2016 07:30\r\nDATA E HORA FINAL: 28/11/2016 16:30\r\nKM INICIAL: 81086\r\nKM FINAL: 81141\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (164, 189, 'OCORRENCIA: corretiva\r\nCAUSA: injetor obstruido\r\nSOLUCAO: foi desobstruido o injetor\r\nDATA E HORA INICIAL: 16/11/2016 10:00\r\nDATA E HORA FINAL: 16/11/2106 12:00\r\nKM INICIAL: 79351\r\nKM FINAL: 79429\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
-(165, 190, 'OCORRENCIA: operação\r\nCAUSA: remoção do tanque da base para reforma\r\nSOLUCAO: foi acompanhado a operação de remoção do tanque de pac da base para reforma estrutural no fundo. \r\nDATA E HORA INICIAL: 17/11/2016 07:30\r\nDATA E HORA FINAL: 17/11/2016 11:50\r\nKM INICIAL: 79429\r\nKM FINAL: 79465\r\n-----GASTOS GERAIS----\r\nPECAS: 02 luva pvc 50mm 6,07\r\n01 adaptador curto 50mm x 1 1/2\" 4,93\r\n01 cap pvc 1 1/2\" 6,31\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
+(165, 190, 'OCORRENCIA: operação\r\nCAUSA: remoção do tanque da base para reforma\r\nSOLUCAO: foi acompanhado a operação de remoção do tanque de pac da base para reforma estrutural no fundo. \r\nDATA E HORA INICIAL: 17/11/2016 07:30\r\nDATA E HORA FINAL: 17/11/2016 11:50\r\nKM INICIAL: 79429\r\nKM FINAL: 79465\r\n-----GASTOS GERAIS----\r\nPECAS: 02 luva pvc 50mm 6,07\r\n01 adaptador curto 50mm x 1 1/2" 4,93\r\n01 cap pvc 1 1/2" 6,31\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (166, 191, 'OCORRENCIA:corretiva\r\nCAUSA: água no vidro rotâmetro.\r\nSOLUCAO: foi substituido o reparo do injetor, limpeza  interna na  vál. redutora de pressão e vidro rotâmetro.\r\nDATA E HORA INICIAL: 18/11/2016 07:30\r\nDATA E HORA FINAL: 18/11/2018 10:40\r\nKM INICIAL: 79482\r\nKM FINAL: 80749\r\n-----GASTOS GERAIS----\r\nPECAS: 01 reparo do injetor 3/4 siemens\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC: combustivél 135,03\r\n                          '),
 (167, 205, 'OCORRENCIA:    ETA PARADA.\r\nCAUSA:   RECALQUE DA BOMBA AQUECIDO.\r\nSOLUCAO:  TROCAR CONECÇÕES.   \r\nDATA E HORA INICIAL:  29/11/16  AS 9:30\r\nDATA E HORA FINAL:   29/11/16  AS  13:30\r\nKM INICIAL:  25552\r\nKM FINAL:  25744\r\n-----GASTOS GERAIS----\r\nPECAS:   TROCADAS- 1 UNIÃO, 1 LUVA, 1 ADAPTADOR E 20ctm TUBO DE 20ctm.\r\nALIMENTACAO:     R$ 31,00      \r\nHOSPEDAGEM:           \r\nETC:                      \r\n                          '),
 (168, 203, 'OCORRENCIA: Sistema de PAC parado\r\nCAUSA: O produto cristalizou na parte interna da tubulação PVC\r\nSOLUCAO: Realizei manutenção e limpeza na bomba de pac e toda tubulação de PVC\r\nDATA E HORA INICIAL: 29/11/16 06:33\r\nDATA E HORA FINAL: 29/11/16 14:46\r\nKM INICIAL: 106645\r\nKM FINAL: 106915\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
@@ -840,13 +717,13 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (210, 259, 'OCORRENCIA: Vazamento de cloro gás\r\nCAUSA: O disco que trava o diafragma desgastou devido a entrada de cloro liquido\r\nSOLUCAO: Realizei limpeza na válvula reguladora de vácuo e válvulas R/0 também substitui o disco da válvula \r\nDATA E HORA INICIAL: 06/12/16 06:08\r\nDATA E HORA FINAL: 06/12/16 08:05\r\nKM INICIAL: 107494\r\nKM FINAL: 107520\r\n-----GASTOS GERAIS----\r\nPECAS: Um disco da reguladora de Vácuo\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (211, 234, 'OCORRENCIA: Abastecimento Dicloro\r\nCAUSA: Reabastecimento\r\nSOLUCAO: Não foi possível abastecer a maquina volumétrica, por motivo de testes no sistema pela equipe da CAERN\r\nDATA E HORA INICIAL: 05/12/16 08:37\r\nDATA E HORA FINAL: 05/12/16 10:34\r\nKM INICIAL:  107461\r\nKM FINAL: 107512\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (212, 277, 'OCORRENCIA: VAZAMENTO DE CLORO GAS PELO MANOMETRO\r\nCAUSA: ROMPIMENTO DO SELO\r\nSOLUCAO: RETIRADA DO MANOMETRO\r\nDATA E HORA INICIAL: 08/12 08:23\r\nDATA E HORA FINAL: 08/12 AS 12:01\r\nKM INICIAL: 76005\r\nKM FINAL: 76065\r\n-----GASTOS GERAIS----\r\nPECAS: 01 VÁLVULA R0\r\nALIMENTACAO: N/A\r\nHOSPEDAGEM: N/A\r\nETC:\r\n\r\nFEITO LIMPEZA EM TODO O SISTEMA DE CLORAÇÃO, MANIFOLD, VÁLVULAS R0, VÁLVULAS REGULADORAS DE VACUO, DOSADOR, INJETOR E FLEXIVEL.\r\nSUBSTITUIDA 01 VÁLVULA R0, NÃO ESTAVA VEDANDO.\r\nFEITO TESTES, SEM VAZAMENTO.\r\n                          '),
-(213, 272, 'OCORRENCIA: vazamento de água no injetor\r\nCAUSA: adaptador de entrada do injetor trincado \r\nSOLUCAO: foi substituido o adaptador de entrada do injetor.\r\nDATA E HORA INICIAL: 06/12/2016 14:30\r\nDATA E HORA FINAL: 06/12/2016 16:20\r\nKM INICIAL: 8778\r\nKM FINAL:8792\r\n-----GASTOS GERAIS----\r\nPECAS: um adaptador L/r 32mm X 1\"\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
+(213, 272, 'OCORRENCIA: vazamento de água no injetor\r\nCAUSA: adaptador de entrada do injetor trincado \r\nSOLUCAO: foi substituido o adaptador de entrada do injetor.\r\nDATA E HORA INICIAL: 06/12/2016 14:30\r\nDATA E HORA FINAL: 06/12/2016 16:20\r\nKM INICIAL: 8778\r\nKM FINAL:8792\r\n-----GASTOS GERAIS----\r\nPECAS: um adaptador L/r 32mm X 1"\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (214, 273, 'OCORRENCIA: vazamento de cloro gás.\r\nCAUSA: corrosão na válvula redutora de pressão\r\nSOLUCAO: foi substituido a válvula redutora.\r\nDATA E HORA INICIAL:06/12/2016 16:26\r\nDATA E HORA FINAL:06/12/2016 19:50\r\nKM INICIAL:8792\r\nKM FINAL:8838\r\n-----GASTOS GERAIS----\r\nPECAS:01 válvula redutora de pressão220 ppd\r\n1/2 metro de tubo de terflon\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (215, 252, 'OCORRENCIA Foi realizada a visita para avaliar as condições do sistema que se encontra na ETA.\r\nCAUSA:\r\nSOLUCAO:\r\nDATA E HORA INICIAL:02/12/16 as 10:30\r\nDATA E HORA FINAL:02/12/16 as 18:02\r\nKM INICIAL:71098\r\nKM FINAL:71585\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO: R$31,42\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (216, 251, 'OCORRENCIA: Vazamento de gás.\r\nCAUSA: Fadiga de Material\r\nSOLUCAO: Substituição do maniplo do módulo s10k\r\nDATA E HORA INICIAL:01/12/16 as 12:11\r\nDATA E HORA FINAL:01/12/16 as 16:10\r\nKM INICIAL:70704\r\nKM FINAL:71098\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (217, 249, 'OCORRENCIA: Vazamento de gás.\r\nCAUSA: Sujeira na válvula reguladora de vácuo.\r\nSOLUCAO: Limpeza na válvula reguladora de vácuo.\r\nDATA E HORA INICIAL: 30/11/16 as 14:38\r\nDATA E HORA FINAL:30/11/16 as 19:03\r\nKM INICIAL:70369\r\nKM FINAL:70704\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO: R$38,41\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (218, 268, 'OCORRENCIA:  EQUIPAMENTO TRABALHANDO IRREGULAR.\r\nCAUSA:  INJETOR, CLORADOR OBSTRUÍDO;\r\nSOLUCAO:  FEITA LIMPEZA NA VÁLVULA REGULADORA DE VÁCUO, INJETOR E ROTÂMETRO. \r\nDATA E HORA INICIAL:  06/01/16  as 06:00\r\nDATA E HORA FINAL:  06/01/16  as  08:36\r\nKM INICIAL:  37973\r\nKM FINAL:  38124\r\n-----GASTOS GERAIS----\r\nPECAS: NT\r\nALIMENTACAO:  NT\r\nHOSPEDAGEM:  NT\r\nETC:\r\n                          '),
-(219, 248, 'OCORRENCIA: Falha da bomba booster.\r\nCAUSA: Falta d\'água na adultora.\r\nSOLUCAO: Substituição da ponta de eixo e selo mecânico.\r\nDATA E HORA INICIAL:30/11/16 as 12:12\r\nDATA E HORA FINAL:30/11/16 as 14:38\r\nKM INICIAL:\r\nKM FINAL:\r\n-----GASTOS GERAIS----\r\nPECAS: R$20,88\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
+(219, 248, 'OCORRENCIA: Falha da bomba booster.\r\nCAUSA: Falta d''água na adultora.\r\nSOLUCAO: Substituição da ponta de eixo e selo mecânico.\r\nDATA E HORA INICIAL:30/11/16 as 12:12\r\nDATA E HORA FINAL:30/11/16 as 14:38\r\nKM INICIAL:\r\nKM FINAL:\r\n-----GASTOS GERAIS----\r\nPECAS: R$20,88\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (220, 269, 'OCORRENCIA:  REVISÃO NO CLORADOR\r\nCAUSA: LIMPAZA\r\nSOLUCAO:  FEITA LIMPEZA REGULADORA DE VÁCUO, TROCA DO DIAFRAGMA E ORINGS.  \r\nDATA E HORA INICIAL: 06/01/16  AS  9:40\r\nDATA E HORA FINAL:  06/01/16  AS  10:55\r\nKM INICIAL:  38124\r\nKM FINAL:  38160\r\n-----GASTOS GERAIS----\r\nPECAS: NT\r\nALIMENTACAO:  NT\r\nHOSPEDAGEM:  NT\r\nETC:\r\n                          '),
 (221, 274, 'OCORRENCIA:  FAZER INSTALAÇÃ0 DE UM REDUTOR\r\nCAUSA:\r\nSOLUCAO: INSTALADO\r\nDATA E HORA INICIAL:  07/01/16  AS  7:30\r\nDATA E HORA FINAL:  07/01/16  AS  10:40\r\nKM INICIAL:  38435\r\nKM FINAL:  38551\r\n-----GASTOS GERAIS----\r\nPECAS: NT\r\nALIMENTACAO  NT:\r\nHOSPEDAGEM:  NT\r\nETC:\r\n                          '),
 (222, 275, 'OCORRENCIA:  EQUIPAMENTO DESLIGADO\r\nCAUSA:  REGULADORA\r\nSOLUCAO:  LIMPEZA NA VÁLVULA REGULADORA, TROCA DOS REPAROS DO INJETOR PLANALTO.\r\nDATA E HORA INICIAL:  07/01/16  as  11:49\r\nDATA E HORA FINAL:  07/01/16  as  15:00\r\nKM INICIAL:  38551\r\nKM FINAL:38646\r\n-----GASTOS GERAIS----\r\nPECAS:  NT\r\nALIMENTACAO:  22,00\r\nHOSPEDAGEM:  NT\r\nETC:\r\n                          '),
@@ -855,7 +732,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (225, 247, 'OCORRENCIA: cilindro vazio.\r\nCAUSA: Alavanca indicadora de cilindro vazio abaixada.\r\nSOLUCAO: Substituição do cilindro.\r\nDATA E HORA INICIAL:28/11/16 as 10:11\r\nDATA E HORA FINAL:28/11/16  as 14:37\r\nKM INICIAL:69750\r\nKM FINAL:69944\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (226, 246, 'OCORRENCIA: Vazamento de gás.\r\nCAUSA: Sujeira na válvula reguladora de vácuo.\r\nSOLUCAO: Limpeza da válvula reguladora de vácuo.\r\nDATA E HORA INICIAL:28/11/16 as 14:37\r\nDATA E HORA FINAL:28/11/16 as 17:44\r\nKM INICIAL:69944\r\nKM FINAL:70246\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (227, 245, 'OCORRENCIA: Sistema não conseguia dosar.\r\nCAUSA:Obstrução no injetor.\r\nSOLUCAO: Limpeza em toda a linha de água bruta.\r\nDATA E HORA INICIAL:26/11/16 as 12:59\r\nDATA E HORA FINAL:26/11/16 as 20:02\r\nKM INICIAL:69013\r\nKM FINAL:69750\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO: R$30,00\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
-(228, 243, 'OCORRENCIA: Falha na bomba booster.\r\nCAUSA: Falta d\'água na adultora.\r\nSOLUCAO: Substituição da ponta de eixo e selo mecânico.\r\nDATA E HORA INICIAL:22/11/16 as 9:22\r\nDATA E HORA FINAL:22/11/16 as 12:58\r\nKM INICIAL:68540\r\nKM FINAL:68683\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
+(228, 243, 'OCORRENCIA: Falha na bomba booster.\r\nCAUSA: Falta d''água na adultora.\r\nSOLUCAO: Substituição da ponta de eixo e selo mecânico.\r\nDATA E HORA INICIAL:22/11/16 as 9:22\r\nDATA E HORA FINAL:22/11/16 as 12:58\r\nKM INICIAL:68540\r\nKM FINAL:68683\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (229, 244, 'OCORRENCIA: Falha na bomba booster.\r\nCAUSA: Obstrução dos rotores.\r\nSOLUCAO: Limpeza dos rotores.\r\nDATA E HORA INICIAL:22/11/16 as 12:58\r\nDATA E HORA FINAL:22/11/16 as 15:44\r\nKM INICIAL:68683\r\nKM FINAL:68814\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO: R$28,50\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (230, 242, 'OCORRENCIA: Sistema não dosava o suficiente para atingir a residual.\r\nCAUSA: Obstrução por entrada de cloro líquido.\r\nSOLUCAO: Limpeza de todo o sistema e substituição de mangueiras de pvc.\r\nDATA E HORA INICIAL:21/11/16 as 12:25\r\nDATA E HORA FINAL:21/11/16 as 18:53\r\nKM INICIAL:68262\r\nKM FINAL:68540\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO: R|$21,99\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (231, 241, 'OCORRENCIA: Falha na bomba booster.\r\nCAUSA: Fadiga do material.\r\nSOLUCAO: Substituição de rolamentos.\r\nDATA E HORA INICIAL: 21/11/16 as 8:54\r\nDATA E HORA FINAL:21/11/16 as 12:25\r\nKM INICIAL:68111\r\nKM FINAL:68262\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
@@ -878,10 +755,10 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (248, 289, 'OCORRENCIA: Abastecimento\r\nCAUSA: Reabastecimento\r\nSOLUCAO: Abasteci 10kg Dicloro\r\nDATA E HORA INICIAL: 12/12/16  09:22\r\nDATA E HORA FINAL: 12/12/16  09:28\r\nKM INICIAL: 108573\r\nKM FINAL: 108574\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (249, 208, 'OCORRENCIA: manutenção preventiva\r\nCAUSA: periodo de manutenção\r\nSOLUCAO: realizado a manutenção preventiva\r\nDATA E HORA INICIAL:29/11/16 07:30\r\nDATA E HORA FINAL: 29/11/16 16:00\r\nKM INICIAL:37500\r\nKM FINAL:37741\r\n-----GASTOS GERAIS----\r\nPECAS: união de 32mm. registro de 32mm\r\nALIMENTACAO: 26,00\r\nHOSPEDAGEM: não possui\r\nETC:\r\n                          '),
 (250, 291, 'OCORRENCIA: preventiva\r\nCAUSA: \r\nSOLUCAO: Foi realizada a limpeza e troca do diafragma da reguladora siemens; Feita a limpeza nos rotametros e R/0; feita a inspeção nos injetores.\r\nDATA E HORA INICIAL: 09/12/16 06:35\r\nDATA E HORA FINAL: 09/12/16 16:07\r\nKM INICIAL: 68814\r\nKM FINAL:69375\r\n-----GASTOS GERAIS----\r\nPECAS: diafragma reguladora siemens.\r\nALIMENTACAO: 23 R$\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
-(251, 290, 'OCORRENCIA: corretiva\r\nCAUSA: queda de energia\r\nSOLUCAO: Feita a recalibração do sistema de leitura no presys, obtendo resultados satisfatórios.\r\nDATA E HORA INICIAL: 07/12/16 08:13\r\nDATA E HORA FINAL: 07/12/16 13:17\r\nKM INICIAL: 68679 \r\nKM FINAL:68762\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
-(252, 298, 'OCORRENCIA: VAZAMENTO PELO SUSPIRO\r\nCAUSA: SUJEIRA - MANIFOLD COM LIQUIDO\r\nSOLUCAO: LIMPEZA\r\nDATA E HORA INICIAL:13/12 as 12:00\r\nDATA E HORA FINAL: 13/12 as 18:59\r\nKM INICIAL: 76217\r\nKM FINAL: 76485\r\n-----GASTOS GERAIS----\r\nPECAS: 02 KITS REPARO DE VÁLVULAS REGULADORA DE VÁCUO\r\nALIMENTACAO: N/A\r\nHOSPEDAGEM: N/A\r\nETC: N/A\r\n\r\nFEITO LIMPEZA EM TODO O SISTEMA, MANIFOLD, VÁLVULAS R0, VÁLVULAS REGULADORA DE VÁCUO, MANGUEIRAS, DOSADORES, FLEXIVEL.\r\n\r\nFEITO TESTES, SEM VAZAMENTO.\r\n                          '),
-(253, 295, 'OCORRENCIA: vazamento de Gás\r\nCAUSA: Sujeira na válvula reguladora de vácuo\r\nSOLUCAO: realizei limpeza na válvula reguladora e todo sistema de cloração\r\nDATA E HORA INICIAL: 12/12/16 10:31\r\nDATA E HORA FINAL: 12/12/16 13:43\r\nKM INICIAL: 108588\r\nKM FINAL: 108771\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          ');
+(251, 290, 'OCORRENCIA: corretiva\r\nCAUSA: queda de energia\r\nSOLUCAO: Feita a recalibração do sistema de leitura no presys, obtendo resultados satisfatórios.\r\nDATA E HORA INICIAL: 07/12/16 08:13\r\nDATA E HORA FINAL: 07/12/16 13:17\r\nKM INICIAL: 68679 \r\nKM FINAL:68762\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          ');
 INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
+(252, 298, 'OCORRENCIA: VAZAMENTO PELO SUSPIRO\r\nCAUSA: SUJEIRA - MANIFOLD COM LIQUIDO\r\nSOLUCAO: LIMPEZA\r\nDATA E HORA INICIAL:13/12 as 12:00\r\nDATA E HORA FINAL: 13/12 as 18:59\r\nKM INICIAL: 76217\r\nKM FINAL: 76485\r\n-----GASTOS GERAIS----\r\nPECAS: 02 KITS REPARO DE VÁLVULAS REGULADORA DE VÁCUO\r\nALIMENTACAO: N/A\r\nHOSPEDAGEM: N/A\r\nETC: N/A\r\n\r\nFEITO LIMPEZA EM TODO O SISTEMA, MANIFOLD, VÁLVULAS R0, VÁLVULAS REGULADORA DE VÁCUO, MANGUEIRAS, DOSADORES, FLEXIVEL.\r\n\r\nFEITO TESTES, SEM VAZAMENTO.\r\n                          '),
+(253, 295, 'OCORRENCIA: vazamento de Gás\r\nCAUSA: Sujeira na válvula reguladora de vácuo\r\nSOLUCAO: realizei limpeza na válvula reguladora e todo sistema de cloração\r\nDATA E HORA INICIAL: 12/12/16 10:31\r\nDATA E HORA FINAL: 12/12/16 13:43\r\nKM INICIAL: 108588\r\nKM FINAL: 108771\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (254, 297, 'OCORRENCIA: Preventiva\r\nCAUSA: Manutenção Preventiva\r\nSOLUCAO: Realizei limpeza nas válvulas R/0, válvula reguladora de vácuo e rotâmetro.\r\nDATA E HORA INICIAL: 12/12/16 16:55\r\nDATA E HORA FINAL: 12/12/16 20:24\r\nKM INICIAL: 108948\r\nKM FINAL: 109133\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (255, 302, 'OCORRENCIA: corretiva\r\nCAUSA: desgaste das valvulas R/0\r\nSOLUCAO: Foi realizada a troca de uma valvula R/0 e feita a limpeza nas outras duas. Feita a inspeção no restante do sistema.\r\nDATA E HORA INICIAL: 13/12/16 07:59\r\nDATA E HORA FINAL: 13/12/16 12:59\r\nKM INICIAL: 69375\r\nKM FINAL: 69472\r\n-----GASTOS GERAIS----\r\nPECAS: Valvula R/0\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (256, 292, 'OCORRENCIA: corretiva\r\nCAUSA:  vazão do clorador está diferente em relação ao consumo.\r\nSOLUCAO: limpeza nas válvulas do manifold, clorador, mangueiras. resultado fina: Sistema de cloração operando normal e sem vazamento ATIVO: 106202\r\nDATA E HORA INICIAL:13/12/16  07:00\r\nDATA E HORA FINAL:13/12/16   17:45\r\nKM INICIAL :38648\r\nKM FINAL: 39187\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO: R$ 39,00\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
@@ -891,7 +768,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (260, 308, 'OCORRENCIA: corretivo\r\nCAUSA: vazamento de cloro gás\r\nSOLUCAO: foi realizada a troca do manipulo de regulagem de cloro do S10K e feita a limpeza de todas as valvulas R/0.\r\nDATA E HORA INICIAL: 14/12/16 05:35\r\nDATA E HORA FINAL: 14/12/16 11:39\r\nKM INICIAL: 69472\r\nKM FINAL: 69894\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (261, 309, 'OCORRENCIA: preventiva\r\nCAUSA: \r\nSOLUCAO: Foi realizada a limpeza da reguladora de vacuo como também a troca do diafragma; Foi realizada a limpeza do rotâmetro e mangueiras; Feita a inspeção do injetor.\r\nDATA E HORA INICIAL: 14/12/16 11:35\r\nDATA E HORA FINAL: 14/12/16 12:47\r\nKM INICIAL:69894\r\nKM FINAL: 69895\r\n-----GASTOS GERAIS----\r\nPECAS: Diafragma da reguladora fluidfeeder.\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (262, 310, 'OCORRENCIA: Corretiva\r\nCAUSA: falta de vacuo\r\nSOLUCAO: Foi realizada a limpeza das reguladoras de vacuo siemens; Feita a limpeza nos rotametros e desobstrução do injetor, ocasionando vacuo novamente no sistema.\r\nDATA E HORA INICIAL: 14/12/16 12:47\r\nDATA E HORA FINAL: 14/12/16 20:48\r\nKM INICIAL: 69895\r\nKM FINAL: 70479\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
-(263, 296, 'OCORRENCIA:  Sistema parado\r\nCAUSA: Quebra da tubulação de PVC do sistema de cloração e Injetor reserva na posição errada\r\nSOLUCAO: Substitui parte da tubulação de PVC e corrigi o injetor reserva.\r\nDATA E HORA INICIAL:  12/12/16 13:43\r\nDATA E HORA FINAL: 12/12/16 16:55\r\nKM INICIAL: 108771\r\nKM FINAL: 108948\r\n-----GASTOS GERAIS----\r\nPECAS: 1/2 de PVC de 20\'\', um joelho PVC de 20\'\' e uma luva PVC de 20\'\'.\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
+(263, 296, 'OCORRENCIA:  Sistema parado\r\nCAUSA: Quebra da tubulação de PVC do sistema de cloração e Injetor reserva na posição errada\r\nSOLUCAO: Substitui parte da tubulação de PVC e corrigi o injetor reserva.\r\nDATA E HORA INICIAL:  12/12/16 13:43\r\nDATA E HORA FINAL: 12/12/16 16:55\r\nKM INICIAL: 108771\r\nKM FINAL: 108948\r\n-----GASTOS GERAIS----\r\nPECAS: 1/2 de PVC de 20'''', um joelho PVC de 20'''' e uma luva PVC de 20''''.\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (264, 306, 'OCORRENCIA: Flutuador ficando preso\r\nCAUSA: Sujeira no rotâmetro \r\nSOLUCAO: Realizei limpeza no Rotâmetro e válvulas R/0\r\nDATA E HORA INICIAL: 15/12/16 07:07\r\nDATA E HORA FINAL: 15/12/16 08:41\r\nKM INICIAL: 109350\r\nKM FINAL: 109367\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (265, 299, 'OCORRENCIA:   Máquina Dióxido parada.\r\nCAUSA:  Vazamento de ácido.\r\nSOLUCAO:  Troca do elemento tubular, lubrificação dos roletes, funcionamento perfeito.\r\nDATA E HORA INICIAL:  13/12/16  as  10:00\r\nDATA E HORA FINAL:  13/12/16  as  22:00\r\nKM INICIAL:  27921\r\nKM FINAL:  28032\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:  \r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (266, 312, 'OCORRENCIA: Reabastecimento\r\nCAUSA: Abastecimento\r\nSOLUCAO: Abasteci 5kg Dicloro o P1 San Vale\r\nDATA E HORA INICIAL:\r\nDATA E HORA FINAL:\r\nKM INICIAL:\r\nKM FINAL:\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
@@ -922,7 +799,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (291, 228, 'OCORRENCIA: sistema reserva parado \r\nCAUSA: um flexível quebrado\r\nSOLUCAO:foi trocado flexível\r\nDATA E HORA INICIAL:01/12  06:40\r\nDATA E HORA FINAL:01/12   08:49\r\nKM INICIAL:49028\r\nKM FINAL:49099\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:                  '),
 (292, 228, 'OCORRENCIA:um cilindro de 900 kg desativado do sistema\r\nCAUSA: flexível danificado com rachadura \r\nSOLUCAO: foi trocado flexível, sistema voltou operar normalmente \r\nDATA E HORA INICIAL:01/12  06:40\r\nDATA E HORA FINAL:  01/12  08:49\r\nKM INICIAL:49028\r\nKM FINAL:49099\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (293, 229, 'OCORRENCIA: sistema operando sem válvula raio zero , válvula redutora , \r\nCAUSA: válvulas totalmente desgastadas mangueiras ressecadas e  rachadas \r\nSOLUCAO: foi feito uma adaptação com outro tipo de mangueira , sistema operando mais tem que colocar os equipamento novo \r\nDATA E HORA INICIAL:01/12/016 - 13:35\r\nDATA E HORA FINAL:02/12/016-10:27\r\nKM INICIAL:49214\r\nKM FINAL:49412\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
-(294, 333, 'OCORRENCIA:Vazamento de cloro gás\r\nCAUSA: Sujo no obturador das válvula, vácuo deficiente.\r\nSOLUCAO: Foi substituido reparo da válvula redutora de  pressão e adequação da saida do injetor.\r\nDATA E HORA INICIAL: 20/12/2016 10:13\r\nDATA E HORA FINAL: 20/12/2016 19:00\r\nKM INICIAL: 81896\r\nKM FINAL: 82003\r\n-----GASTOS GERAIS----\r\nPECAS: 01 UNIÃO SOLDAVÉL PVC 32mm R$6,20\r\n01 LUVA PVC SOLDAVÉL L/R 32mm X 1\" R$7,24\r\n01 BUCHA DE REDUÇÃO PVC 1\" X 3/4\" R$2,15\r\n02 LUVA SOLDAVÉL PVC 32mm R$1,20\r\n01 CURVA PVC SOLDAVÉL 90° X 32mm R$2,60\r\n01 LÂMINA DE SERRA STARRET R$4,50\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
+(294, 333, 'OCORRENCIA:Vazamento de cloro gás\r\nCAUSA: Sujo no obturador das válvula, vácuo deficiente.\r\nSOLUCAO: Foi substituido reparo da válvula redutora de  pressão e adequação da saida do injetor.\r\nDATA E HORA INICIAL: 20/12/2016 10:13\r\nDATA E HORA FINAL: 20/12/2016 19:00\r\nKM INICIAL: 81896\r\nKM FINAL: 82003\r\n-----GASTOS GERAIS----\r\nPECAS: 01 UNIÃO SOLDAVÉL PVC 32mm R$6,20\r\n01 LUVA PVC SOLDAVÉL L/R 32mm X 1" R$7,24\r\n01 BUCHA DE REDUÇÃO PVC 1" X 3/4" R$2,15\r\n02 LUVA SOLDAVÉL PVC 32mm R$1,20\r\n01 CURVA PVC SOLDAVÉL 90° X 32mm R$2,60\r\n01 LÂMINA DE SERRA STARRET R$4,50\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (295, 320, 'OCORRENCIA: corretiva\r\nCAUSA: Entrada de cloro liquido no sistema\r\nSOLUCAO: Foi realizada a substituição do disco e do diafragma da reguladora de vacuo, ambos danificados; Feita a limpeza nos rotâmetros e inspeção nos injetores.\r\nDATA E HORA INICIAL: 15/12/16 09:35\r\nDATA E HORA FINAL: 15/12/16 14:21\r\nKM INICIAL: 70479\r\nKM FINAL: 70962\r\n-----GASTOS GERAIS----\r\nPECAS: disco e diafragma da reguladora fluidfeeder.\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (296, 230, 'OCORRENCIA:  clorador com defeito, foi retirado o reserva da eta de pedreiras  \r\nCAUSA: aparte onde onde conecta  a mangueira  no clorador esta quebrada \r\nSOLUCAO: feito a troca da peça , sistema operando normalmente  \r\nDATA E HORA INICIAL:02/12  14:05\r\nDATA E HORA FINAL: 02/12   14:43\r\nKM INICIAL:49412\r\nKM FINAL:49415\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC:\r\n                          '),
 (297, 231, 'OCORRENCIA :retirado clorador reserva retirado para ser usado em trizidela  do vale do vale\r\nCAUSA:  o clorador de trizidela do vale esta com defeito \r\nSOLUCAO: foi retirado o defeito do clorador de trizidela do vale e colocado de voltou  o da eta de pedreiras , sistema voutou a operar normalmente\r\nDATA E HORA INICIAL:02/12 15:17\r\nDATA E HORA FINAL:02/12   15:45\r\nKM INICIAL:49417\r\nKM FINAL: 49417\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:\r\nHOSPEDAGEM:\r\nETC: 91 ,05\r\n                          '),
@@ -965,7 +842,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (334, 346, 'OCORRENCIA: visita técnica.\r\nCAUSA: levantamento do equipamento de cloro gás.\r\nSOLUCAO: feito levantamento.\r\nDATA E HORA INICIAL: 19/12/16 as 16:20 \r\nDATA E HORA FINAL: 19/12/16 as 17:00\r\nKM INICIAL: \r\nKM FINAL: \r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC:van 20 reais.\r\n                          '),
 (335, 346, 'OCORRENCIA: visita técnica.\r\nCAUSA: levantamento do equipamento de cloro gás.\r\nSOLUCAO: feito levantamento.\r\nDATA E HORA INICIAL: 19/12/16 as 16:20 \r\nDATA E HORA FINAL: 19/12/16 as 17:00\r\nKM INICIAL: \r\nKM FINAL: \r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC:van 20 reais.\r\n                          '),
 (336, 346, 'OCORRENCIA: visita técnica.\r\nCAUSA: levantamento do equipamento de cloro gás.\r\nSOLUCAO: feito levantamento.\r\nDATA E HORA INICIAL: 19/12/16 as 16:20 \r\nDATA E HORA FINAL: 19/12/16 as 17:00\r\nKM INICIAL: \r\nKM FINAL: \r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC:van 20 reais.\r\n                          '),
-(337, 371, 'OCORRENCIA: corretiva\r\nCAUSA: sujo nas saidas das valvulas redutoras de pressao (resido de cloro\r\nSOLUCAO: limpeza nas valvulas red.de pressao e substituiçao de uma por motivo que apresentou vazamento irregular na saida ,foi colocado uma do modelo fluideefideer,substituido um o-ring interno de uma valvula red.de pressao,um adaptador de pvc e uma luva 1/2 1\".\r\n\r\nDATA E HORA INICIAL: 22-12-16 as 14:15 hras\r\nDATA E HORA FINAL: 24-12-16 as 17:30\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM:R$ 313,00 \r\nALIMENTACAO:R$ 85,70 \r\nHOSPEDAGEM: R$ 140,50\r\nTAXI:R$ 30,00 \r\n                          '),
+(337, 371, 'OCORRENCIA: corretiva\r\nCAUSA: sujo nas saidas das valvulas redutoras de pressao (resido de cloro\r\nSOLUCAO: limpeza nas valvulas red.de pressao e substituiçao de uma por motivo que apresentou vazamento irregular na saida ,foi colocado uma do modelo fluideefideer,substituido um o-ring interno de uma valvula red.de pressao,um adaptador de pvc e uma luva 1/2 1".\r\n\r\nDATA E HORA INICIAL: 22-12-16 as 14:15 hras\r\nDATA E HORA FINAL: 24-12-16 as 17:30\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM:R$ 313,00 \r\nALIMENTACAO:R$ 85,70 \r\nHOSPEDAGEM: R$ 140,50\r\nTAXI:R$ 30,00 \r\n                          '),
 (338, 377, 'OCORRENCIA:  Reabastecimento\r\nCAUSA: Abastecimento\r\nSOLUCAO:  Abasteci 5kg Dicloro o P1 San Vale\r\nDATA E HORA INICIAL:  26/12/16 12:36\r\nDATA E HORA FINAL:  26/12/16 13:23\r\nKM INICIAL:  110397\r\nKM FINAL:  110410\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (339, 378, 'OCORRENCIA:  Reabastecimento\r\nCAUSA:  Abastecimento\r\nSOLUCAO:  Abastecimento\r\nDATA E HORA INICIAL:  26/12/16 12:16\r\nDATA E HORA FINAL:  26/12/16 12:26\r\nKM INICIAL:  110396\r\nKM FINAL:  110396\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (340, 379, 'OCORRENCIA:  Reabastecimento\r\nCAUSA:  Abastecimento\r\nSOLUCAO:  Abasteci 5kg Dicloro o P4 Guarapes\r\nDATA E HORA INICIAL:  26/12/16 12:19\r\nDATA E HORA FINAL:  26/12/16 12:56\r\nKM INICIAL:  110396\r\nKM FINAL:  110410\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -975,12 +852,12 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (344, 388, 'OCORRENCIA: FLEXIVEL TRINCANDO\r\nCAUSA: MAL USO\r\nSOLUCAO: TROCA DE FLEXIVEL\r\nDATA E HORA INICIAL: 28/12 07:46\r\nDATA E HORA FINAL: 28/12 12:12\r\nKM INICIAL: 78258\r\nKM FINAL: 78299\r\n-----GASTOS GERAIS----\r\nPECAS: 01 FLEXIVEL\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n\r\nSUBSTITUIDO 01 FLEXIVEL PEQUENO\r\nLIMPEZA DE 02 DOSADORES 2000LBS\r\nLIMPEZA DE 01 DOSADOR DE 104KG\r\n\r\nFEITO TESTES, SEM VAZAMENTO. '),
 (345, 382, 'OCORRENCIA:   Máquina dióxido parando.  \r\nCAUSA:   Máquina dióxido entrando em lavagem direto.\r\nSOLUCAO:  Calibração do quadro elétrico .   \r\nDATA E HORA INICIAL  :  19/12/16  as  06:30      \r\nDATA E HORA FINAL:   21/12/16  as  20;30\r\nKM INICIAL:   29289\r\nKM FINAL:   30124\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO:   221,00\r\nHOSPEDAGEM:   243,00\r\nETC: \r\n                          '),
 (346, 383, 'OCORRENCIA:   Máquina de dióxido com problema.\r\nCAUSA:   Obstrução do flutuador de ar. \r\nSOLUCAO:   Feita limpeza do mesmo, voltando a funciona bem.\r\nDATA E HORA INICIAL:  22/12/16  as  19:00  \r\nDATA E HORA FINAL:   22/12/16  as  19:50\r\nKM INICIAL:   30071\r\nKM FINAL: 30256\r\n-----GASTOS GERAIS----\r\nPECAS:  NT\r\nALIMENTACAO:  NT \r\nHOSPEDAGEM:   NT\r\nETC: \r\n                          '),
-(347, 363, 'OCORRENCIA: vazamento\r\nCAUSA: desgaste de pecas\r\nSOLUCAO: troca de componente\r\nDATA E HORA INICIAL: 21/12/16 16:00\r\nDATA E HORA FINAL: 21/12/16 22:30\r\nKM INICIAL: 39920\r\nKM FINAL: 40141\r\n-----GASTOS GERAIS----\r\nPECAS: válvula de 3/4\" e flexível de 1.2 de cobre\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(347, 363, 'OCORRENCIA: vazamento\r\nCAUSA: desgaste de pecas\r\nSOLUCAO: troca de componente\r\nDATA E HORA INICIAL: 21/12/16 16:00\r\nDATA E HORA FINAL: 21/12/16 22:30\r\nKM INICIAL: 39920\r\nKM FINAL: 40141\r\n-----GASTOS GERAIS----\r\nPECAS: válvula de 3/4" e flexível de 1.2 de cobre\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (348, 365, 'OCORRENCIA: tubulação danificada\r\nCAUSA: erro operacional\r\nSOLUCAO: troca de componente\r\nDATA E HORA INICIAL: 22/12/16 07:00\r\nDATA E HORA FINAL: 22/12/16 14:00\r\nKM INICIAL: 40141\r\nKM FINAL: 40324\r\n-----GASTOS GERAIS----\r\nPECAS: regitros de 32mm. Luva de 32mm. União de 32mm\r\nALIMENTACAO:  26.00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (349, 364, 'OCORRENCIA: baixa dosagem\r\nCAUSA: água nos equipamentos\r\nSOLUCAO: manutenção corretiva\r\nDATA E HORA INICIAL: 22/12/16 16:00\r\nDATA E HORA FINAL: 22/12/16 17:30\r\nKM INICIAL: 40323\r\nKM FINAL: 40583\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (350, 366, 'OCORRENCIA: baixa dosagem\r\nCAUSA: água nos equipamentos\r\nSOLUCAO: manutenção corretiva\r\nDATA E HORA INICIAL: 22/12/16 17:30\r\nDATA E HORA FINAL: 22/12/16 20:00\r\nKM INICIAL:40553 \r\nKM FINAL: 40583\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 29.00\r\nHOSPEDAGEM: 60.00\r\nETC: \r\n                          '),
 (351, 373, 'OCORRENCIA: instalação\r\nCAUSA: retirar de um local para outro\r\nSOLUCAO: realizado à instalação\r\nDATA E HORA INICIAL: 23/12/16 07:00\r\nDATA E HORA FINAL: 23/ 12/16 19:00\r\nKM INICIAL: 40583\r\nKM FINAL: 41048\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 26.00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(352, 385, 'OCORRENCIA: problema na bomba de 2cv\r\nCAUSA: desgaste de peças\r\nSOLUCAO: troca de componente\r\nDATA E HORA INICIAL: 26/12/16 07:00 \r\nDATA E HORA FINAL: 28/12/16 22:00\r\nKM INICIAL: 41289\r\nKM FINAL: 41751\r\n-----GASTOS GERAIS----\r\nPECAS: rolamento. Selo de 3/4\"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(352, 385, 'OCORRENCIA: problema na bomba de 2cv\r\nCAUSA: desgaste de peças\r\nSOLUCAO: troca de componente\r\nDATA E HORA INICIAL: 26/12/16 07:00 \r\nDATA E HORA FINAL: 28/12/16 22:00\r\nKM INICIAL: 41289\r\nKM FINAL: 41751\r\n-----GASTOS GERAIS----\r\nPECAS: rolamento. Selo de 3/4"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (353, 386, 'OCORRENCIA: preventiva\r\nCAUSA: período de manutenção\r\nSOLUCAO: realizado à manutenção preventiva\r\nDATA E HORA INICIAL: 27/12/16 08:00\r\nDATA E HORA FINAL: 27/12/16 16:00\r\nKM INICIAL: 41751\r\nKM FINAL: 41935\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 26.00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (354, 376, 'OCORRENCIA: sistema de cloro interrumpido.\r\nCAUSA:  sujo no sistema\r\nSOLUCAO:  foi feito limpesa interna no manifold, flexiveis,válvula raios , válvula redutora de pressão. e foi substituido o dosador de 200n libras para outro dosador de 26 kg/d devido que a dosagem foi redusida para 5 libras e para melhor leitura do rotâmetro.\r\nDATA E HORA INICIAL:  26/12/2016 08:00\r\nDATA E HORA FINAL: 26/12/2016 10:40\r\nKM INICIAL:  82346\r\nKM FINAL: 82364\r\n-----GASTOS GERAIS----\r\nPECAS:  \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (355, 398, 'OCORRENCIA:  acoplamento de cilindros\r\nCAUSA:  cilindros vazios\r\nSOLUCAO:  foi substituido, acoplado e testado  com solução de amônia 04 cilindros cheios, foi removido a bomba de recirculação de água do evaporador para manutenção.\r\nDATA E HORA INICIAL: 27/12/2016 09:00\r\nDATA E HORA FINAL: 27/12/2016 16:00\r\nKM INICIAL: 82435 \r\nKM FINAL: 82461\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -999,11 +876,11 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (368, 389, 'OCORRENCIA:  Instalação nova Sistema Dicloro\r\nCAUSA:  Instalação de uma Dosadora\r\nSOLUCAO:  Instalei uma dosadora ECOSUS Orange 220V Ativo 336\r\nDATA E HORA INICIAL:  28/12/16 11:56\r\nDATA E HORA FINAL:  28/12/16 13:33\r\nKM INICIAL:  110474\r\nKM FINAL:  110510\r\n-----GASTOS GERAIS----\r\nPECAS:  Dosadora ECOSUS Orange 220V\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (369, 400, 'OCORRENCIA: correiva\r\nCAUSA: \r\nSOLUCAO: Foi realizada a substituição do detector de cloro pois o mesmo havia queimado devido a uma descarga eletrica. o novo detector funciona normalmente.\r\nDATA E HORA INICIAL: 21/12/16 08:40\r\nDATA E HORA FINAL:  21/12/16 11:34\r\nKM INICIAL: 71851\r\nKM FINAL:  72041\r\n-----GASTOS GERAIS----\r\nPECAS:  detector e cloro clorando.\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (370, 390, 'OCORRENCIA:  Instalação nova sistema Dicloro\r\nCAUSA:  Instalação de uma dosadora\r\nSOLUCAO:  Instalei uma dosadora ECOSUS Orange 220V Ativo 331\r\nDATA E HORA INICIAL: 28/12/16 09:31\r\nDATA E HORA FINAL:  28/12/16 11:56\r\nKM INICIAL:  110464\r\nKM FINAL:  110510\r\n-----GASTOS GERAIS----\r\nPECAS:  Dosadora ECOSUS Orange 220V\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(371, 391, 'OCORRENCIA:  Instalção nova sistema Dicloro\r\nCAUSA:  Instalação de uma dosadora\r\nSOLUCAO:  Instalei uma dosadora ECOSUS Orange 220V Ativo 347\r\nDATA E HORA INICIAL:  28/12/16 06:40\r\nDATA E HORA FINAL:  28/12/16 11:21\r\nKM INICIAL:  110510\r\nKM FINAL:  110516\r\n-----GASTOS GERAIS----\r\nPECAS:  Dosadora ECOSUS Orange 220V\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(371, 391, 'OCORRENCIA:  Instalção nova sistema Dicloro\r\nCAUSA:  Instalação de uma dosadora\r\nSOLUCAO:  Instalei uma dosadora ECOSUS Orange 220V Ativo 347\r\nDATA E HORA INICIAL:  28/12/16 06:40\r\nDATA E HORA FINAL:  28/12/16 11:21\r\nKM INICIAL:  110510\r\nKM FINAL:  110516\r\n-----GASTOS GERAIS----\r\nPECAS:  Dosadora ECOSUS Orange 220V\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
+INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (372, 406, 'OCORRENCIA: acoplamento  de cilindros \r\nCAUSA:  cilindro reserva descolado \r\nSOLUCAO:  foi acoplado e testado com solução  de amônia 01 cilindro  cheio.\r\nDATA E HORA INICIAL: 02/01/2017 08:30\r\nDATA E HORA FINAL: 02/01/2017 09:00\r\nKM INICIAL: 82866\r\nKM FINAL: 82871\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (373, 417, 'OCORRENCIA: Corretiva ( substituição do adisivo de identificação de produtos químicos nos tanque de pac.\r\nCAUSA:  Reforma dos tanques que pac\r\nSOLUCAO:  Foi substituido os adesivo de identificação de produtos químicos nos tanques de pac da ETA bolonha. \r\nDATA E HORA INICIAL: 04/01/2017 10:00 \r\nDATA E HORA FINAL:  04/01/2017 12:30\r\nKM INICIAL: 82996\r\nKM FINAL: 83020\r\n-----GASTOS GERAIS----\r\nPECAS:  02 adesivos de aviso de risco quimico corrosivo  e 02 adesivo de identificação do produto\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(374, 405, 'OCORRENCIA:  Operação ( acoplamento de cilindros)\r\nCAUSA: Cilindros vazios\r\nSOLUCAO:  Foi substituido, acoplado e testado com solução de amônia, 04 cilindros cheios. \r\nDATA E HORA INICIAL: 02/01/2017 09:00\r\nDATA E HORA FINAL: 02/01/2017 11:40\r\nKM INICIAL:  82871\r\nKM FINAL: 82896\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
-INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
+(374, 405, 'OCORRENCIA:  Operação ( acoplamento de cilindros)\r\nCAUSA: Cilindros vazios\r\nSOLUCAO:  Foi substituido, acoplado e testado com solução de amônia, 04 cilindros cheios. \r\nDATA E HORA INICIAL: 02/01/2017 09:00\r\nDATA E HORA FINAL: 02/01/2017 11:40\r\nKM INICIAL:  82871\r\nKM FINAL: 82896\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (375, 416, 'OCORRENCIA: Corretiva ( atendimento no sistema de cloro gás)\r\nCAUSA:  Suposto problema não identificado pelo gestor responsavél.\r\nSOLUCAO:  Foi feito testes no sistema e não foi encontrado nem uma anormalidade de não funcionamento do equipameno. \r\nFoi detectado que os cilindros foram equalizados e ambos estão com a preção de 640 kgf/cm²\r\nDATA E HORA INICIAL: 03/01/2017 08:30\r\nDATA E HORA FINAL: 03/01/2107 10:00\r\nKM INICIAL:  82986\r\nKM FINAL: 83996\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (376, 420, 'OCORRENCIA:  Operação ( Acoplamento  de cilindros )\r\nCAUSA:  Cilindros vazios\r\nSOLUCAO:  Foi acoplado e testado com solução de amônia 02 cilindros cheios.\r\nDATA E HORA INICIAL:  04/01/2017  14:42\r\nDATA E HORA FINAL:  04/01/2017 16:30\r\nKM INICIAL:  83020\r\nKM FINAL: 83053\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n\r\nBos: Os cilindros de 900 kg de número de série 6734 e 4189. Foram coletados para serem substituidos por outros cheios com a ordem da logistica.                          '),
 (377, 429, 'OCORRENCIA:  Operação ( Acoplamento de cilendros )\r\nCAUSA: Cilindros vazios\r\nSOLUCAO:  Foi substituido, acoplado e testado com solução de amônia 04 cilindros cheios.\r\nDATA E HORA INICIAL: 05/01/2017  08:30\r\nDATA E HORA FINAL: 05/01/2017  13:00\r\nKM INICIAL: 83053\r\nKM FINAL: 83080\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1052,12 +929,12 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (420, 432, 'OCORRENCIA: operação (desacoplar cilindros vazios)\r\nCAUSA:  término do produto( cloro gás)\r\nSOLUCAO: acoplar (02)dois cilindros cheios de 900 kg\r\nDATA E HORA INICIAL: 06/01/17 as 11:20 hras\r\nDATA E HORA FINAL: 06/01/17 as 12:45 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
 (421, 432, 'OCORRENCIA: operação (desacoplar cilindros vazios)\r\nCAUSA:  término do produto( cloro gás)\r\nSOLUCAO: acoplar (02)dois cilindros cheios de 900 kg\r\nDATA E HORA INICIAL: 06/01/17 as 11:20 hras\r\nDATA E HORA FINAL: 06/01/17 as 12:45 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
 (422, 452, 'OCORRENCIA: baixa dosagem\r\nCAUSA: erro operacional\r\nSOLUCAO: repassado informações de funcionamento do clorador\r\nDATA E HORA INICIAL: 11/01/17 08:00\r\nDATA E HORA FINAL: 11/01/17 12:40\r\nKM INICIAL: 13500\r\nKM FINAL: 13686\r\n-----GASTOS GERAIS----\r\nPECAS: nao possui\r\nALIMENTACAO: 26,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(423, 455, 'OCORRENCIA: vazamento\r\nCAUSA: desgaste de peças\r\nSOLUCAO: troca de componente\r\nDATA E HORA INICIAL: 11/01/17 13:00\r\nDATA E HORA FINAL: 11/01/17\r\nKM INICIAL: 13686\r\nKM FINAL: 13940\r\n-----GASTOS GERAIS----\r\nPECAS: valvula fusivel de 3/4\"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: combustivel:100,00\r\n                          '),
-(424, 457, 'OCORRENCIA: peça danificada\r\nCAUSA: desgaste da peça\r\nSOLUCAO: troca de componente\r\nDATA E HORA INICIAL: 12/01/17 08:00\r\nDATA E HORA FINAL: 12/01/17 17:00\r\nKM INICIAL: 14060\r\nKM FINAL: 14497\r\n-----GASTOS GERAIS----\r\nPECAS: valvula fusivel 3/4\'\r\nALIMENTACAO: 25,00\r\nHOSPEDAGEM: \r\nETC: combustivel:150,00\r\n                          '),
+(423, 455, 'OCORRENCIA: vazamento\r\nCAUSA: desgaste de peças\r\nSOLUCAO: troca de componente\r\nDATA E HORA INICIAL: 11/01/17 13:00\r\nDATA E HORA FINAL: 11/01/17\r\nKM INICIAL: 13686\r\nKM FINAL: 13940\r\n-----GASTOS GERAIS----\r\nPECAS: valvula fusivel de 3/4"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: combustivel:100,00\r\n                          '),
+(424, 457, 'OCORRENCIA: peça danificada\r\nCAUSA: desgaste da peça\r\nSOLUCAO: troca de componente\r\nDATA E HORA INICIAL: 12/01/17 08:00\r\nDATA E HORA FINAL: 12/01/17 17:00\r\nKM INICIAL: 14060\r\nKM FINAL: 14497\r\n-----GASTOS GERAIS----\r\nPECAS: valvula fusivel 3/4''\r\nALIMENTACAO: 25,00\r\nHOSPEDAGEM: \r\nETC: combustivel:150,00\r\n                          '),
 (425, 460, 'OCORRENCIA: MANGUEIRA QUEBRADA\r\nCAUSA: DESGASTE\r\nSOLUCAO: TROCA\r\nDATA E HORA INICIAL: 13/01 AS 07:00\r\nDATA E HORA FINAL: 13/01 AS 15:29\r\nKM INICIAL: 80036\r\nKM FINAL: 80299\r\n-----GASTOS GERAIS----\r\nPECAS: MANGUEIRA\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                      \r\nSUBSTITUIÇÃO DAS MANGUEIRAS\r\nLIMPEZA DAS VALVULAS\r\nFEITO TESTES, SEM VAZAMENTO'),
 (426, 413, 'OCORRENCIA: corretiva\r\nCAUSA: leitura anormal\r\nSOLUCAO: foi realizada a limpeza das sondas; ajuste da vazão de agua que passa pelas sondas; feita a recalibração das leituras.\r\nDATA E HORA INICIAL: 03/01/17 08:13\r\nDATA E HORA FINAL:  03/01/17 11:10\r\nKM INICIAL: 72708 \r\nKM FINAL:  72739\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (427, 414, 'OCORRENCIA: corretiva\r\nCAUSA: flexivel danificado\r\nSOLUCAO:  foi feita a substituição de um flexivel, pois o mesmo estava danificado; flexivel de 3,5 metros.\r\nDATA E HORA INICIAL: 03/01/17 11:10 \r\nDATA E HORA FINAL:  03/01/17 13:41\r\nKM INICIAL:  72739\r\nKM FINAL:  72790\r\n-----GASTOS GERAIS----\r\nPECAS:  flexivel de 3,5 metros.\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(428, 447, 'OCORRENCIA:  corretiva\r\nCAUSA: entrada de cloro liquido no sistema.\r\nSOLUCAO: foi feita a limpeza da reguladora de vacuo, como também a troca do jogo de oring\'s da mesma; feita a limpeza do rotâmetro; sistema funcionando normalmente.\r\nDATA E HORA INICIAL: 05/01/17 07:18\r\nDATA E HORA FINAL:  05/01/17 14:38\r\nKM INICIAL: 72790\r\nKM FINAL:  73027\r\n-----GASTOS GERAIS----\r\nPECAS: jogo de oring reguladora fluidfeeder.\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(428, 447, 'OCORRENCIA:  corretiva\r\nCAUSA: entrada de cloro liquido no sistema.\r\nSOLUCAO: foi feita a limpeza da reguladora de vacuo, como também a troca do jogo de oring''s da mesma; feita a limpeza do rotâmetro; sistema funcionando normalmente.\r\nDATA E HORA INICIAL: 05/01/17 07:18\r\nDATA E HORA FINAL:  05/01/17 14:38\r\nKM INICIAL: 72790\r\nKM FINAL:  73027\r\n-----GASTOS GERAIS----\r\nPECAS: jogo de oring reguladora fluidfeeder.\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (429, 448, 'OCORRENCIA:  corretiva\r\nCAUSA: sujeira na valvula reguladora de vacuo.\r\nSOLUCAO: foi realizada a limpeza nas valvulas R/0, como também feita a inspeção nos demais componentes do sistema.\r\nDATA E HORA INICIAL: 09/01/17 08:35\r\nDATA E HORA FINAL:  09/01/17 11:22\r\nKM INICIAL: 73304\r\nKM FINAL:  73360\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (430, 451, 'OCORRENCIA: corretiva\r\nCAUSA:  entrada de agua no sistema\r\nSOLUCAO: foi realizada a limpeza do rotâmetro e da valvula reguladora de vacuo, ambos da clorando; feita a inspeção no injetor e valvulas R/0; sistema funcionando normalmente.\r\nDATA E HORA INICIAL: 11/01/17 07:15\r\nDATA E HORA FINAL:  11/01/17 11:34\r\nKM INICIAL: 73376\r\nKM FINAL:  73421\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: '),
 (431, 458, 'OCORRENCIA:  Corretiva \r\nCAUSA: Dosador vazando pela tampa \r\nSOLUCAO:  Foi feito limpeza interna, substituição de doi oringues da tampa do dosador epex t20 e 01 maniplo.\r\nDATA E HORA INICIAL: 12/01/2017 14:20 \r\nDATA E HORA FINAL: 12/01/2017  16:30\r\nKM INICIAL:  83684\r\nKM FINAL: 83711\r\n-----GASTOS GERAIS----\r\nPECAS: 0,80 cm de cordão oringue de 7mm = 7,35\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1072,7 +949,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (440, 463, 'OCORRENCIA: Manutenção preventiva \r\nCAUSA:  troca de oringue de vedação\r\nSOLUCAO:  Foi feito limpeza interna e substituição de 01 oringue de vedação da tampa do dosador Epex T20\r\nDATA E HORA INICIAL:  13/01/2017  13:51 \r\nDATA E HORA FINAL:  13/01/2017 16:11\r\nKM INICIAL:  83982\r\nKM FINAL: 84060\r\n-----GASTOS GERAIS----\r\nPECAS:  40 cm de cordão oringue de 7 mm \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (441, 466, 'OCORRENCIA:  Manutenção preventiva\r\nCAUSA:  Vazamento pela tampa do dosador\r\nSOLUCAO:  Foi substituido o oringue da tampa do dosador  do sistema do escritório e vila nova.\r\nDATA E HORA INICIAL: 13/01/2017 16:11\r\nDATA E HORA FINAL: 13/01/2017 20:00\r\nKM INICIAL: 84060\r\nKM FINAL: 84224\r\n-----GASTOS GERAIS----\r\nPECAS:  0,80 cm de cordão oringue  de 7 mm\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (442, 481, 'OCORRENCIA: Operação ( acoplamento de cilindros)\r\nCAUSA:  Cilindro vazios\r\nSOLUCAO:  Foi subustituido, acoplado e testado com solução de amônia 04 cilindros cheios.\r\nDATA E HORA INICIAL: 16/01/2017 08:00\r\nDATA E HORA FINAL: 16/01/2017 13:30\r\nKM INICIAL:  84340\r\nKM FINAL: 84387\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(443, 468, 'OCORRENCIA: instalação\r\nCAUSA: eta nova\r\nSOLUCAO: realizado instalação do clorador\r\nDATA E HORA INICIAL: 15/01/17 05:30\r\nDATA E HORA FINAL: 15/01/17 14:39\r\nKM INICIAL: 14497\r\nKM FINAL: 14911\r\n-----GASTOS GERAIS----\r\nPECAS: válvula reguladora de vácuo completa de 3/4\"\r\nALIMENTACAO: 26,00\r\nHOSPEDAGEM: \r\nETC: combustível 100,00\r\n                          '),
+(443, 468, 'OCORRENCIA: instalação\r\nCAUSA: eta nova\r\nSOLUCAO: realizado instalação do clorador\r\nDATA E HORA INICIAL: 15/01/17 05:30\r\nDATA E HORA FINAL: 15/01/17 14:39\r\nKM INICIAL: 14497\r\nKM FINAL: 14911\r\n-----GASTOS GERAIS----\r\nPECAS: válvula reguladora de vácuo completa de 3/4"\r\nALIMENTACAO: 26,00\r\nHOSPEDAGEM: \r\nETC: combustível 100,00\r\n                          '),
 (444, 467, 'OCORRENCIA: baixa dosagem\r\nCAUSA: necessidade do aumento de cloro gás\r\nSOLUCAO: substituido o T do injetor.\r\nDATA E HORA INICIAL: 15/01/17 14:30\r\nDATA E HORA FINAL: 15/01/17 19:30\r\nKM INICIAL: 15131\r\nKM FINAL: 15240\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC:combustível: 202,00 \r\n                          '),
 (445, 477, 'OCORRENCIA: VAZAMENTO DE ACIDO\r\nCAUSA: CONECTOR QUEBRADO\r\nSOLUCAO: TROCA DO CONECTOR\r\nDATA E HORA INICIAL: 16/01 13:50\r\nDATA E HORA FINAL: 17/01 17:53\r\nKM INICIAL: 80462\r\nKM FINAL: 81135\r\n-----GASTOS GERAIS----\r\nPECAS: CONEXÕES AQUATHERM R$ 64,76\r\nALIMENTACAO: R$ 53,00\r\nHOSPEDAGEM: R$ 60,00\r\nETC: COMBUSTIVEL R$ 314,57\r\n\r\nCONECTOR DE ENTRADA DA RESISTENCIA, DO ACIDO ESTAVA QUEBRADO, FEITO SUBSTITUIÇÃO DO MESMO.\r\nSUBSTITUIDO 01 FILTRO DE AR.                          '),
 (446, 480, 'OCORRENCIA:  Vista técnica\r\nCAUSA:  Correção no sistema \r\nSOLUCAO:  Corrigi e substitui a mangueira da dosadora\r\nDATA E HORA INICIAL:  18/01/17 07:41\r\nDATA E HORA FINAL:  18/01/17 09:09\r\nKM INICIAL:  113327\r\nKM FINAL:  113342\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1094,14 +971,14 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (462, 490, 'OCORRENCIA: corretiva\r\nCAUSA: vazamento de gás\r\nSOLUCAO: foi feita a limpeza da reguladora de vacuo pois havia entrado agua no sistema; feita a imspeção nos outros componentes do sistema; sistema funcionando normalmente.\r\nDATA E HORA INICIAL: 18/01/17 13:00\r\nDATA E HORA FINAL:  18/01/17 15:21\r\nKM INICIAL: 74013\r\nKM FINAL: 74061\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (463, 494, 'OCORRENCIA: preventiva( vazamento irregular no sistema cloro gás)\r\nCAUSA:(02)dois nipler de metal de1/2 x1/4 da entrada do injetor com produto encontravam-se quebrados por tempo de uso.\r\nSOLUCAO: substituir os mesmo por novos\r\nDATA E HORA INICIAL: 23/01/17 as 07:00 hras\r\nDATA E HORA FINAL: 23/01/17 as 20:00 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: R$ 10,00\r\nALIMENTACAO:R$ 20,00\r\nTÁXI:R$ 15,00\r\nPASSAGEM:R$ 35,10\r\n                          '),
 (464, 512, 'OCORRENCIA: operação (desacoplar cilindros vazios)\r\nCAUSA: término do produto ( cloro gás)\r\nSOLUCAO: acoplar (04)cilindros cheios de 1000 kg na bateria (A).\r\nDATA E HORA INICIAL: 24/01/17 as 13:00 hras\r\nDATA E HORA FINAL: 24/01/17 as 17:40 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: ******\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
-(465, 500, 'OCORRENCIA:  Corretiva (vazamento de cl²  gás)\r\nCAUSA:  Vazamento na válvula raio de acoplamento da vál. redutora de pressão.\r\nSOLUCAO: Foi substituido a válvula raio e feito limpeza interna das válv. redutora, injetor e vidro rotâmetro do dosador E10K\r\nDATA E HORA INICIAL:  23/01/2017 14:19\r\nDATA E HORA FINAL: 23/01/2017 19:30\r\nKM INICIAL: 84859\r\nKM FINAL: 85004\r\n-----GASTOS GERAIS----\r\nPECAS:  01 válvua raio 3/4\" \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC:  combustivél = 125,03\r\n                          '),
+(465, 500, 'OCORRENCIA:  Corretiva (vazamento de cl²  gás)\r\nCAUSA:  Vazamento na válvula raio de acoplamento da vál. redutora de pressão.\r\nSOLUCAO: Foi substituido a válvula raio e feito limpeza interna das válv. redutora, injetor e vidro rotâmetro do dosador E10K\r\nDATA E HORA INICIAL:  23/01/2017 14:19\r\nDATA E HORA FINAL: 23/01/2017 19:30\r\nKM INICIAL: 84859\r\nKM FINAL: 85004\r\n-----GASTOS GERAIS----\r\nPECAS:  01 válvua raio 3/4" \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC:  combustivél = 125,03\r\n                          '),
 (466, 518, 'OCORRENCIA: Visita técnica / Instalação\r\nCAUSA:  Solicitação de laudo para a base do tanque e acoplamento de contentores.\r\nSOLUCAO: Foi realizado visita técnica do engenheiro civil, para fornecer orçamento do laudo técnico da base do tanque de pac e conectado 05 contentores à linha da bomba dosadora.\r\nDATA E HORA INICIAL: 24/01/2107 06:45\r\nDATA E HORA FINAL: 25/01/2017 11:20\r\nKM INICIAL: 85004\r\nKM FINAL: 85596\r\n-----GASTOS GERAIS----\r\nPECAS:\r\n 01 tê de 32 mm pvc soldavél R$3,00\r\n01 bucha de redução 32 X 25 mm pvc soldavél R$1,00\r\n01 registro esfera pvc soldavél 25mm R$9,00\r\n\r\nALIMENTACAO: R$48,00\r\nHOSPEDAGEM: \r\nETC: combustivél R$ 157,02\r\nTransporte de balça R$ 37,88\r\n                          '),
 (467, 519, 'OCORRENCIA: Operação (acoplamento de cilindro)\r\nCAUSA: Cilindro vazio\r\nSOLUCAO: Foi desacoplado dois cilindros vazios e acoplado um cilindro cheio e retornado para Belém.\r\nDATA E HORA INICIAL: 25/01/2017 11:20\r\nDATA E HORA FINAL: 25/01/2017 22:15\r\nKM INICIAL: 85596\r\nKM FINAL: 86088\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 76,50\r\nHOSPEDAGEM: 82,00\r\nETC: copia de uma chave do portão de acesso à eta 6,00\r\ncombustivél 243,06\r\n\r\n                          '),
 (468, 510, 'OCORRENCIA: manutenção preventiva e válvula emperrada.\r\nCAUSA: válvula em Perrães e corroída com vazamento. \r\nSOLUCAO: feito a limpeza da válvula reguladora de vácuo de uma válvula header as substituição de uma válvula header. \r\nDATA E HORA INICIAL: 25/01/17 as 07:30 \r\nDATA E HORA FINAL: 25/01/17 as 18:30\r\nKM INICIAL: \r\nKM FINAL: \r\n-----GASTOS GERAIS----\r\nPECAS: 106041\r\nALIMENTACAO: 30,00\r\nHOSPEDAGEM: 80,00\r\nETC: \r\n                          '),
 (469, 505, 'OCORRENCIA: PREVENTIVO\r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 25/01 AS 07:07\r\nDATA E HORA FINAL: 25/01 AS 13:20\r\nKM INICIAL: 81313\r\nKM FINAL: 81417\r\n-----GASTOS GERAIS----\r\nPECAS: 1 DOSADOR CLORANDO DE 15KG\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n\r\nFEITO LIMPEZA GERAL E PINTURA GERAL NO SISTEMA DE CLORO GAS, SUBSTITUIDO 01 DOSADOR DE 104KG DA FLUID FEEDER, POR 01 DE 15KG DA CLORANDO.                          '),
 (470, 521, 'OCORRENCIA: PREVENTIVA\r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 25/01 AS 13:20\r\nDATA E HORA FINAL: 25/01 AS 18:45\r\nKM INICIAL: 81417\r\nKM FINAL: 81531\r\n-----GASTOS GERAIS----\r\nPECAS: 01 DOSADOR DE 15KG DA CLORANDO\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n \r\nFEITO LIMPEZA E PINTURA GERAL DO SISTEMA DE CLORO GAS, SUBSTITUIDO 01 DOSADOR DE 26KG DA FLUID FEEDER, POR 01 DE 26KG DA CLORANDO.                         '),
 (471, 526, 'OCORRENCIA: Operação ( acoplamento de cilindro)\r\nCAUSA:  Cilindros vazios\r\nSOLUCAO:  foi substitui, acoplado e testado com solução de amônia 08 cilindros cheios\r\nDATA E HORA INICIAL: 28/01/2017 08:41\r\nDATA E HORA FINAL: 28/01/2017 12:40\r\nKM INICIAL:  86195\r\nKM FINAL: 86208\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(472, 482, 'OCORRENCIA:  instalação \r\nCAUSA:  inicialização da instalação do injetor reserva.\r\nSOLUCAO:  foi inicializado a instalação do injetor reserva na eta bolonha.\r\nDATA E HORA INICIAL: 17/01/2017 07:50\r\nDATA E HORA FINAL: 17/01/2017 17:20\r\nKM INICIAL: 84391\r\nKM FINAL: 84391\r\n-----GASTOS GERAIS----\r\nPECAS:  01 tê pvc 50mm soldavél 20,83\r\n01 união pvc 50mm soldavél\r\n02 registro esfara vs pvc soldavél 50mm\r\n03 curva 90 º x 50mm pvc soldavél 28,77\r\n04 curva 90º x 110mm pvc soldavél 356,40\r\n01 registro esfera 110mm pvc soldavél 347,50\r\n03 adaptador curto 110mm x 4\" pvc soldavél 95,70\r\n02 tê 110mm pvc soldavél 214,38\r\n01 registro gaveta  liga bronze 4\"  634,88\r\n17 parafusos 5/8 x 3 1/2\" 43,18 \r\n17 porcas 5/8\"\r\n34 arruela liza 3/8\"  6,80\r\n01 broca sds  21,93\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n      '),
+(472, 482, 'OCORRENCIA:  instalação \r\nCAUSA:  inicialização da instalação do injetor reserva.\r\nSOLUCAO:  foi inicializado a instalação do injetor reserva na eta bolonha.\r\nDATA E HORA INICIAL: 17/01/2017 07:50\r\nDATA E HORA FINAL: 17/01/2017 17:20\r\nKM INICIAL: 84391\r\nKM FINAL: 84391\r\n-----GASTOS GERAIS----\r\nPECAS:  01 tê pvc 50mm soldavél 20,83\r\n01 união pvc 50mm soldavél\r\n02 registro esfara vs pvc soldavél 50mm\r\n03 curva 90 º x 50mm pvc soldavél 28,77\r\n04 curva 90º x 110mm pvc soldavél 356,40\r\n01 registro esfera 110mm pvc soldavél 347,50\r\n03 adaptador curto 110mm x 4" pvc soldavél 95,70\r\n02 tê 110mm pvc soldavél 214,38\r\n01 registro gaveta  liga bronze 4"  634,88\r\n17 parafusos 5/8 x 3 1/2" 43,18 \r\n17 porcas 5/8"\r\n34 arruela liza 3/8"  6,80\r\n01 broca sds  21,93\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n      '),
 (473, 524, 'OCORRENCIA: operação (desacoplar cilindro vazio)\r\nCAUSA: término do produto(cloro gás)\r\nSOLUCAO: acoplar cilindro cheio de 900kg\r\nDATA E HORA INICIAL: 27/01/17 as 09:00 hras\r\nDATA E HORA FINAL: 27/01/17 as 20:40 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM: R$ 69,14\r\nALIMENTACAO: R$ 20,00\r\nTÁXI: R$ 70,00\r\nETC: *****\r\n                          '),
 (474, 508, 'OCORRENCIA: corretiva\r\nCAUSA: \r\nSOLUCAO: foi realizada a substituição da dosadora emec 10 l/h por outra de mesmo modelo, pois a mesma havia queimado.\r\nDATA E HORA INICIAL: 24/01/17 06:38\r\nDATA E HORA FINAL:  24/01/17 11:17\r\nKM INICIAL: 74201 \r\nKM FINAL:  74497\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (475, 509, 'OCORRENCIA:  corretiva\r\nCAUSA:  pouco vácuo no sistema\r\nSOLUCAO:  foi realizada a substituição do diafragma e da base do injetor fluidfeeder pois ambos estavam danificados. A dosagem maxima é de cerca de 80 kg/dia. Sistema funcionando normalmente.\r\nDATA E HORA INICIAL:  24/01/17 11:17 \r\nDATA E HORA FINAL: 24/01/17 17:38\r\nKM INICIAL: 74497\r\nKM FINAL:  74865\r\n-----GASTOS GERAIS----\r\nPECAS: base do injetor e diafragma do injetor.\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1114,12 +991,12 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (482, 515, 'OCORRENCIA:  Reabastecimento\r\nCAUSA:  Abastecimento\r\nSOLUCAO:  Abasteci 5kg Dicloro o P4 Guarapes\r\nDATA E HORA INICIAL:  26/01/17 09:01\r\nDATA E HORA FINAL:  26/01/17 09:34\r\nKM INICIAL:  113698\r\nKM FINAL:  113713\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (483, 514, 'OCORRENCIA:  Reabastecimento\r\nCAUSA:  Abastecimento\r\nSOLUCAO:  Abasteci 5kg Dicloro o P2 Rio Bahia\r\nDATA E HORA INICIAL:  26/01/17 09:32\r\nDATA E HORA FINAL:  26/01/17 09:43\r\nKM INICIAL:  113713\r\nKM FINAL:  113714\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (484, 513, 'OCORRENCIA:  Reabastecimento\r\nCAUSA: Abastecimento\r\nSOLUCAO:  Abasteci 5kg Dicloro o P1 San Vale\r\nDATA E HORA INICIAL:  26/01/17 09:47\r\nDATA E HORA FINAL:  26/01/17 10:13\r\nKM INICIAL:  113715\r\nKM FINAL:  113727\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(485, 511, 'OCORRENCIA:  Manutenção Corretiva na Maquina Volumétrica \r\nCAUSA:  A maquina não estava dosando o produto\r\nSOLUCAO:  Realizei manutenção e limpeza no eixo de rosca  sem fim \r\nDATA E HORA INICIAL:  31/01/17 12:07\r\nDATA E HORA FINAL:  31/01/17 13:15\r\nKM INICIAL:  114078\r\nKM FINAL:  114090\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(485, 511, 'OCORRENCIA:  Manutenção Corretiva na Maquina Volumétrica \r\nCAUSA:  A maquina não estava dosando o produto\r\nSOLUCAO:  Realizei manutenção e limpeza no eixo de rosca  sem fim \r\nDATA E HORA INICIAL:  31/01/17 12:07\r\nDATA E HORA FINAL:  31/01/17 13:15\r\nKM INICIAL:  114078\r\nKM FINAL:  114090\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
+INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (486, 525, 'OCORRENCIA:  Manutenção preventiva\r\nCAUSA:  Manutenção\r\nSOLUCAO:  Realizei manutenção e limpeza em válvula reguladora de vácuo, válvula R/0 e Rotâmetro\r\nDATA E HORA INICIAL:  27/01/17 09:27\r\nDATA E HORA FINAL:  27/01/17 13:54\r\nKM INICIAL:  113775\r\nKM FINAL:  113915\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (487, 502, 'OCORRENCIA:  Reabastecimento\r\nCAUSA:  Abastecimento\r\nSOLUCAO:  Abasteci 5kg Dicloro o P2 Rio Bahia\r\nDATA E HORA INICIAL:  24/01/17 11:43\r\nDATA E HORA FINAL:  24/01/17 11:51\r\nKM INICIAL:  113648\r\nKM FINAL:  113649\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(488, 482, 'OCORRENCIA: Instalção\r\nCAUSA:  Equipamento reserva\r\nSOLUCAO:  Foi iniciado a instalação do injetor reseva do sistema de cloro gás na ETA bolonha.\r\nDATA E HORA INICIAL: 17/01/2017 07:50\r\nDATA E HORA FINAL: 19/01/2017 17:20\r\nKM INICIAL:  84391\r\nKM FINAL:  84475\r\n-----GASTOS GERAIS----\r\nPECAS:\r\n01 TÊ 50mm pvc soldável = 7,00\r\n01 união pvc soldável 50 mm = 20,83\r\n02 registro pvc vs soldável 50mm = 69,42\r\n03 curva 90º x 50 mm pvc soldável = 28,77\r\n06 parafuso sx rs 5/16 x 60mm = 3,48\r\n04 curva 90º x 110 mm pvc soldável = 356,40\r\n01 registro esfera pvc soldável 110mm =347,50\r\n03 adaptador curto pvc 4\" x 110 mm = 95,70\r\n02 tê pvc soldável 110 mm = 214,38\r\n01 registro gaveta metal 4\"  dacol = 634,88\r\n06 arruela lisa 5/16 = 0,84\r\n17 parafuso sx zb rp unc 5/8 x 3,1/2 = 43,18\r\n17 porcas  sx zb unc 5/'),
-(489, 531, 'OCORRENCIA: Corretiva (sem cloração)\r\nCAUSA: Valvula redutora obstruida\r\nSOLUCAO:  Foi iniciado a limpesa na válvula redutora, mas teve que paralizar para poder a eta de são brás.\r\nDATA E HORA INICIAL: 30/01/2017 08:00\r\nDATA E HORA FINAL: 30/01/2017 19:00\r\nKM INICIAL: 86227\r\nKM FINAL: 86248\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
-INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
+(488, 482, 'OCORRENCIA: Instalção\r\nCAUSA:  Equipamento reserva\r\nSOLUCAO:  Foi iniciado a instalação do injetor reseva do sistema de cloro gás na ETA bolonha.\r\nDATA E HORA INICIAL: 17/01/2017 07:50\r\nDATA E HORA FINAL: 19/01/2017 17:20\r\nKM INICIAL:  84391\r\nKM FINAL:  84475\r\n-----GASTOS GERAIS----\r\nPECAS:\r\n01 TÊ 50mm pvc soldável = 7,00\r\n01 união pvc soldável 50 mm = 20,83\r\n02 registro pvc vs soldável 50mm = 69,42\r\n03 curva 90º x 50 mm pvc soldável = 28,77\r\n06 parafuso sx rs 5/16 x 60mm = 3,48\r\n04 curva 90º x 110 mm pvc soldável = 356,40\r\n01 registro esfera pvc soldável 110mm =347,50\r\n03 adaptador curto pvc 4" x 110 mm = 95,70\r\n02 tê pvc soldável 110 mm = 214,38\r\n01 registro gaveta metal 4"  dacol = 634,88\r\n06 arruela lisa 5/16 = 0,84\r\n17 parafuso sx zb rp unc 5/8 x 3,1/2 = 43,18\r\n17 porcas  sx zb unc 5/'),
+(489, 531, 'OCORRENCIA: Corretiva (sem cloração)\r\nCAUSA: Valvula redutora obstruida\r\nSOLUCAO:  Foi iniciado a limpesa na válvula redutora, mas teve que paralizar para poder a eta de são brás.\r\nDATA E HORA INICIAL: 30/01/2017 08:00\r\nDATA E HORA FINAL: 30/01/2017 19:00\r\nKM INICIAL: 86227\r\nKM FINAL: 86248\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (490, 529, 'OCORRENCIA:  corretiva\r\nCAUSA: entrada de cloro liquido\r\nSOLUCAO: Foi realizada a substituição do disco da reguladora de vacuo, pois o mesmo estragou pela ação do cloro liquido;feita a limpeza das valvulas R/0 e do flexivel; Feita a rotação no cilindro para evitar entrada de cloro liquido; devido a constantes quedas de energia sempre ocorre entrada de cloro liquido, pois infelizmente o cilindro nem todas as vezes é fechado.\r\nDATA E HORA INICIAL: 16/01/17 12:27\r\nDATA E HORA FINAL:  16/01/17 16:34\r\nKM INICIAL: 74871\r\nKM FINAL:  75046\r\n-----GASTOS GERAIS----\r\nPECAS: disco do diafragma fluidfeeder.\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (491, 530, 'OCORRENCIA: corretiva\r\nCAUSA: parada no sistema e o operador não fechou cilindro.\r\nSOLUCAO:  foi realizada a limpeza das reguladoras de vacuo, valvulas R/0 e rotametro. pois haia entrado cloro liquido proveniente do pescador do cilindro; sistema não apresenta qualquer vazamento, funcionando normalmente.\r\nDATA E HORA INICIAL: 27/01/17 07:54\r\nDATA E HORA FINAL:  27/01/17 12:42\r\nKM INICIAL: 75040\r\nKM FINAL:  75120\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (492, 534, 'OCORRENCIA:  operação (acoplamento  de cilindros)\r\nCAUSA:  cilindros  vazios \r\nSOLUCAO:  foi acoplado  e testado com solução  de amônia  02 cilindros  cheios. \r\nDATA E HORA INICIAL: 30/01/2017 10:00\r\nDATA E HORA FINAL: 30/01/2017 12:03\r\nKM INICIAL: 86248\r\nKM FINAL: 86256\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1198,13 +1075,13 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (565, 574, 'OCORRENCIA: operação (desacoplar cilindros vazios)\r\nCAUSA: término do produto ( cloro gás) \r\nSOLUCAO: acoplar (02)dois cilindros cheios de 900 kg\r\nDATA E HORA INICIAL: 07/02/17 as 07:45 hras\r\nDATA E HORA FINAL: 11/02/17 as 17:45 hras\r\nKM INICIAL: *****\r\nKM FINAL: ******\r\n-----GASTOS GERAIS----\r\nPASSAGEM: R$ 598,00\r\nALIMENTACAO: R$ 192,80\r\nHOSPEDAGEM: R$ 354,00\r\nTAXI: R$ 115,00\r\n                          '),
 (566, 598, 'OCORRENCIA:  Instalação nova\r\nCAUSA: Instalar novo sistema DIcloro\r\nSOLUCAO:  Instalei um dosadora EMEC Orange\r\nDATA E HORA INICIAL:  11/02/17 11:49\r\nDATA E HORA FINAL:  11/02/17 12:03\r\nKM INICIAL:  116075\r\nKM FINAL:  116084\r\n-----GASTOS GERAIS----\r\nPECAS: Um reservatório de 500lt com boia e uma dosadora EMEC Orange\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (567, 589, 'OCORRENCIA: Instalação nova\r\nCAUSA:  Instalação de uma dosadora em sistema Dicloro\r\nSOLUCAO:  Instalei uma dosadora EMEC Orange \r\nDATA E HORA INICIAL: 11/02/17 14:02\r\nDATA E HORA FINAL:  11/02/17 14:31\r\nKM INICIAL:  116084\r\nKM FINAL:  116097\r\n-----GASTOS GERAIS----\r\nPECAS:  Um reservatório de 500lt com boia e uma dosadora EMEC Orange\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(568, 590, 'OCORRENCIA: vazamento na bomba\r\nCAUSA: desgaste de peças\r\nSOLUCAO: troca de componentes\r\nDATA E HORA INICIAL: 09/02/17 06:00\r\nDATA E HORA FINAL: 09/02/17 17:00\r\nKM INICIAL: 18880\r\nKM FINAL: 19546\r\n-----GASTOS GERAIS----\r\nPECAS: selo mecânico de 3/4\"\r\nALIMENTACAO: 26,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(568, 590, 'OCORRENCIA: vazamento na bomba\r\nCAUSA: desgaste de peças\r\nSOLUCAO: troca de componentes\r\nDATA E HORA INICIAL: 09/02/17 06:00\r\nDATA E HORA FINAL: 09/02/17 17:00\r\nKM INICIAL: 18880\r\nKM FINAL: 19546\r\n-----GASTOS GERAIS----\r\nPECAS: selo mecânico de 3/4"\r\nALIMENTACAO: 26,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (569, 591, 'OCORRENCIA: baixa dosagem\r\nCAUSA: baixa vazão de água\r\nSOLUCAO: troca de componentes\r\nDATA E HORA INICIAL: 09/02/17 15:00\r\nDATA E HORA FINAL: 09/02/17 17:00\r\nKM INICIAL: 19350\r\nKM FINAL: 19546\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (570, 606, 'OCORRENCIA: peças danificada do Banco de cilindro\r\nCAUSA: desgaste das peças\r\nSOLUCAO: troca de componentes\r\nDATA E HORA INICIAL: 13/02/17 07:00\r\nDATA E HORA FINAL: 13/02/17 10:00\r\nKM INICIAL: 19740\r\nKM FINAL: 19970\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (571, 607, 'OCORRENCIA: baixa dosagem\r\nCAUSA: oscilação na vazão de água do injetor\r\nSOLUCAO: manutenção corretiva\r\nDATA E HORA INICIAL: 13/02/17 10:00\r\nDATA E HORA FINAL: 13/02/17 17:00\r\nKM INICIAL: 19876\r\nKM FINAL: 19970\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (572, 566, 'OCORRENCIA: corretiva\r\nCAUSA:  bomba sem dosar\r\nSOLUCAO: foi realizada a substituição do anel de encosto da bomba dosadora nemo, pois o mesmo estav danificado fazndo com que a dosadora sucssionasse ar.\r\nDATA E HORA INICIAL: 04/02/17 12:04\r\nDATA E HORA FINAL:  04/02/17 14:21\r\nKM INICIAL: 75549\r\nKM FINAL: 75568\r\n-----GASTOS GERAIS----\r\nPECAS:  anel de encosto nm008\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(573, 599, 'OCORRENCIA: preventiva\r\nCAUSA: \r\nSOLUCAO: Foi realizada a substituição do diafragma do injetor siemens, feita a realocação do dipleg; feita a substituição do disco que prende o diafragma da reguladora fluidfeeder; sistema com dosagem satisfatória com o máximo de dosagem de 104 kg/dia.\r\nDATA E HORA INICIAL: 09/02/17 08:30\r\nDATA E HORA FINAL:  09/02/17 14:09\r\nKM INICIAL: 115318\r\nKM FINAL:  115517\r\n-----GASTOS GERAIS----\r\nPECAS:  diafragma injetor siemens 3/4\'; disco do diafragma da reguladora fluidfeeder.\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(574, 600, 'OCORRENCIA:  corretiva\r\nCAUSA:  pouco vacuo no injetor\r\nSOLUCAO:  foi realizada a troca do diafragma da siemens 1\'; a dosagem maxima que era de 120 kg passou a ser de 165 kg, sendo satisfatória. sistema funcionando normalmente\r\nDATA E HORA INICIAL: 10/02/17 08:16\r\nDATA E HORA FINAL:  10/02/17 18:31\r\nKM INICIAL: 115517\r\nKM FINAL:  116040\r\n-----GASTOS GERAIS----\r\nPECAS: diafragma injetor siemens 1\'.\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(573, 599, 'OCORRENCIA: preventiva\r\nCAUSA: \r\nSOLUCAO: Foi realizada a substituição do diafragma do injetor siemens, feita a realocação do dipleg; feita a substituição do disco que prende o diafragma da reguladora fluidfeeder; sistema com dosagem satisfatória com o máximo de dosagem de 104 kg/dia.\r\nDATA E HORA INICIAL: 09/02/17 08:30\r\nDATA E HORA FINAL:  09/02/17 14:09\r\nKM INICIAL: 115318\r\nKM FINAL:  115517\r\n-----GASTOS GERAIS----\r\nPECAS:  diafragma injetor siemens 3/4''; disco do diafragma da reguladora fluidfeeder.\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(574, 600, 'OCORRENCIA:  corretiva\r\nCAUSA:  pouco vacuo no injetor\r\nSOLUCAO:  foi realizada a troca do diafragma da siemens 1''; a dosagem maxima que era de 120 kg passou a ser de 165 kg, sendo satisfatória. sistema funcionando normalmente\r\nDATA E HORA INICIAL: 10/02/17 08:16\r\nDATA E HORA FINAL:  10/02/17 18:31\r\nKM INICIAL: 115517\r\nKM FINAL:  116040\r\n-----GASTOS GERAIS----\r\nPECAS: diafragma injetor siemens 1''.\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (575, 626, 'OCORRENCIA: operação (desacoplar cilindros vazios)\r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (02) dois cilindros cheios de 900 kg\r\nDATA E HORA INICIAL: 17/02/17 as 15:20 hras\r\nDATA E HORA FINAL: 17/02/17 as 17:40 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
 (576, 464, 'OCORRÊNCIA: preventiva\r\nCAUSA: manutenção e limpeza dos equipamentos de coração\r\nSOLUÇÃO:  sistema de cloração operando normal, sem problema operacional e sem vazamento \r\nDATA E HORA INICIAL: 04/01/17 15:40 horas\r\nDATA E HORA FINAL:  04/01/17  17;10 horas\r\nKM INICIAL: 83211\r\nKM FINAL: 83767\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTAÇÃO : 42,34\r\nHOSPEDAGEM: 174,00\r\nCOMBUSTÍVEL: 175,66\r\nETC: \r\n                          '),
 (577, 465, 'OCORRÊNCIA: Preventiva\r\nCAUSA: Vazamento pelo Sêlo mecânico, e Instalação, montagem de equipamentos da pré-cloração\r\nSOLUÇÃO: Trocado o manômetro, e feito montagem do manifold da Pré-cloração\r\nDATA E HORA INICIAL: 13/01/17 \r\nDATA E HORA FINAL: 13/01/17\r\nKM INICIAL: 112333\r\nKM FINAL: 112509\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTAÇÃO: 24,50\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1214,7 +1091,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (581, 608, 'OCORRENCIA: operação (desacoplar cilindros vazios)\r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (02)dois cilindros cheios de 900 kg \r\nDATA E HORA INICIAL: 13/02/17 as 21:00 hras\r\nDATA E HORA FINAL: 14/02/17 as 23:40 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM: R$ 172,20\r\nALIMENTACAO: R$ 35,41\r\nTÁXI: R$ 120,00\r\nETC: *****\r\n                          '),
 (582, 612, 'OCORRENCIA: Manutenção corretiva\r\nCAUSA:  Sistema com vácuo baixo\r\nSOLUCAO:  Substitui o injetor de 3/4 pelo reserva\r\nDATA E HORA INICIAL:  16/02/17 07:58\r\nDATA E HORA FINAL:  17/02/17  12:16\r\nKM INICIAL: 116320\r\nKM FINAL:  116864\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (583, 620, 'OCORRENCIA:  Manutenção corretiva\r\nCAUSA: Válvula reguladora de vácuo muito velha e danificada\r\nSOLUCAO: Substitui a válvula da SIEMENS por uma da FLUID FEEDER\r\nDATA E HORA INICIAL:  15/02/17 15:18\r\nDATA E HORA FINAL:  15/02/17 16:43\r\nKM INICIAL:  116570\r\nKM FINAL:  116696\r\n-----GASTOS GERAIS----\r\nPECAS:  reguladora de vácuo da FLUID FEEDER\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(584, 613, 'OCORRENCIA: Manutenção corretiva\r\nCAUSA:  Injetor obstruído com uma pedra\r\nSOLUCAO:  Retirei a pedra e realizei manutenção em injetor de 1\'\'\r\nDATA E HORA INICIAL:  16/02/17 07:22\r\nDATA E HORA FINAL:  16/02/17 10:23\r\nKM INICIAL: 116696\r\nKM FINAL:  116776\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(584, 613, 'OCORRENCIA: Manutenção corretiva\r\nCAUSA:  Injetor obstruído com uma pedra\r\nSOLUCAO:  Retirei a pedra e realizei manutenção em injetor de 1''''\r\nDATA E HORA INICIAL:  16/02/17 07:22\r\nDATA E HORA FINAL:  16/02/17 10:23\r\nKM INICIAL: 116696\r\nKM FINAL:  116776\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (585, 622, 'OCORRENCIA:  Manutenção corretiva\r\nCAUSA:  Rotâmetro quebrado\r\nSOLUCAO:  Substitui o Rotâmetro de 2kg\r\nDATA E HORA INICIAL:  17/02/17 06:28\r\nDATA E HORA FINAL:  17/02/17 16:24\r\nKM INICIAL:  116864\r\nKM FINAL:  117116\r\n-----GASTOS GERAIS----\r\nPECAS:  Um rotâmetro de 2kg\r\nALIMENTACAO:  R$30,00\r\nHOSPEDAGEM: R$45,00\r\nETC: \r\n                          '),
 (586, 629, 'OCORRENCIA: Manutenção corretiva\r\nCAUSA:  Obstrução na dosagem da maquina volumétrica \r\nSOLUCAO:  Realizei manutenção e limpeza em eixo de rosca sem fim da bomba NEMO da maquina volumétrica .\r\nDATA E HORA INICIAL:  20/02/17 13:43\r\nDATA E HORA FINAL:  20/02/17 14:59\r\nKM INICIAL:  117932\r\nKM FINAL:  118015\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (587, 633, 'OCORRENCIA:  Manutenção corretiva\r\nCAUSA:  válvula R/0 sem funcionar\r\nSOLUCAO:  Substitui a mesma\r\nDATA E HORA INICIAL: 21/02/17 08:31\r\nDATA E HORA FINAL:  21/02/17 10:57\r\nKM INICIAL:  118015\r\nKM FINAL:  118028\r\n-----GASTOS GERAIS----\r\nPECAS:  Uma válvula R/0\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1222,7 +1099,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (589, 647, 'OCORRENCIA: PREVENTIVA\r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 20/02 AS 04:26\r\nDATA E HORA FINAL: 22/02 AS 10:33\r\nKM INICIAL: 84300\r\nKM FINAL: 84815\r\n-----GASTOS GERAIS----\r\nPECAS: 02 ELEMENTOS TUBULAR DE 03mm\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n          \r\nFEITO LUBRIFICAÇÃO DOS ROLETES DAS 02 BOMBAS\r\nPARAMETRIZAÇÃO DO SISTEMA\r\nSUBSTITUIÇÃO DE 02 ELEMENTOS TUBULAR                '),
 (590, 646, 'OCORRENCIA: PREVENTIVA\r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 22/02 AS 10:33\r\nDATA E HORA FINAL: 23/02 AS 08:30\r\nKM INICIAL: 84815\r\nKM FINAL: 85199\r\n-----GASTOS GERAIS----\r\nPECAS: 02 ELEMENTOS TUBULARES DE 03mm\r\nALIMENTACAO: R$ 60\r\nHOSPEDAGEM: R$ 95\r\nETC: \r\n \r\nFEITO LUBRIFICAÇÃO DOS ROLETES DAS 02 BOMBAS\r\nPARAMETRIZAÇÃO DO SISTEMA\r\nSUBSTITUIÇÃO DE 02 ELEMENTOS TUBULARES DE 03mm         '),
 (591, 621, 'OCORRENCIA: peças danificada\r\nCAUSA: período de substituição\r\nSOLUCAO: troca de componentes\r\nDATA E HORA INICIAL: 10/02/17 08:00\r\nDATA E HORA FINAL: 10/02/17 16:00\r\nKM INICIAL: 19630\r\nKM FINAL: 19740\r\n-----GASTOS GERAIS----\r\nPECAS: 5 metros de mangueira\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(592, 610, 'OCORRENCIA: vazamento\r\nCAUSA: desgaste de peça\r\nSOLUCAO: troca de componentes\r\nDATA E HORA INICIAL:14/02/17 05:00\r\nDATA E HORA FINAL: 14/02/17 14:00\r\nKM INICIAL: 19970\r\nKM FINAL:20270 \r\n-----GASTOS GERAIS----\r\nPECAS: válvula fusível R/0 3/4\"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(592, 610, 'OCORRENCIA: vazamento\r\nCAUSA: desgaste de peça\r\nSOLUCAO: troca de componentes\r\nDATA E HORA INICIAL:14/02/17 05:00\r\nDATA E HORA FINAL: 14/02/17 14:00\r\nKM INICIAL: 19970\r\nKM FINAL:20270 \r\n-----GASTOS GERAIS----\r\nPECAS: válvula fusível R/0 3/4"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (593, 614, 'OCORRENCIA: problema no sistema de cloracão\r\nCAUSA: não foi encontrado problema\r\nSOLUCAO: realizado manutenção preventiva\r\nDATA E HORA INICIAL: 14/02/17 14:00\r\nDATA E HORA FINAL: 14/02/17 18:00\r\nKM INICIAL: 20270\r\nKM FINAL: 20456\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 25,00\r\nHOSPEDAGEM: 60,00\r\nETC: \r\n                          '),
 (594, 615, 'OCORRENCIA: retorno de água no rotametro\r\nCAUSA: erro operacional\r\nSOLUCAO: modificado à estrutura do injetor\r\nDATA E HORA INICIAL: 15/02/17 07:00\r\nDATA E HORA FINAL: 15/02/17 17:00 \r\nKM INICIAL: 20456\r\nKM FINAL: 20809\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (595, 628, 'OCORRENCIA: vazamento\r\nCAUSA: problema na válvula reguladora de vácuo\r\nSOLUCAO: manutenção corretiva\r\nDATA E HORA INICIAL: 20/02/17 07:30\r\nDATA E HORA FINAL: 20/02/17 16:50\r\nKM INICIAL: 43926\r\nKM FINAL: 44103\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1232,15 +1109,15 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (599, 624, 'OCORRENCIA: corretiva\r\nCAUSA: valvula R/0 com defeito\r\nSOLUCAO: fi feita a substituição de uma valvula Header do grupo 01. Foi realizada a limpeza e lubrificação das outras deste grupo.\r\nDATA E HORA INICIAL: 16/02/17 14:37 \r\nDATA E HORA FINAL:  16/02/17 16:21\r\nKM INICIAL: 77078\r\nKM FINAL:  77101\r\n-----GASTOS GERAIS----\r\nPECAS: valvula header\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (600, 641, 'OCORRENCIA: preventiva\r\nCAUSA: \r\nSOLUCAO:  Foi realizada a substituição do dipleg unico por um manifold com 03 pontos. com isso foi possivel instalar uma valvula reguladora modelo clorando, concluindo o acoplamento do sistema reserva de cloração. os dois sistemas funcionam normalmente.\r\nDATA E HORA INICIAL: 20/02/17 12:48\r\nDATA E HORA FINAL:  20/02/17 17:51\r\nKM INICIAL: 77500\r\nKM FINAL: 77641\r\n-----GASTOS GERAIS----\r\nPECAS: manifold e valvula reguladora clorando\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (601, 642, 'OCORRENCIA: instalação\r\nCAUSA: solicitação do cliente\r\nSOLUCAO: foi realizada a instalação de um sistema isolado de cloração para a cidade de guamaré. Agora a eta opera dois sistemas de cloro gás uma para macau e o outro para guamaré. feita a inspeção em todos os componentes do sistema. sistemas funcionando normalmente.\r\nDATA E HORA INICIAL: 22/02/17 07:44\r\nDATA E HORA FINAL:  22/02/ 17:45\r\nKM INICIAL:  77683\r\nKM FINAL:  77955\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(602, 642, 'OCORRENCIA: instalação\r\nCAUSA: solicitação do cliente\r\nSOLUCAO: foi realizada a instalação de um sistema isolado de cloração para a cidade de guamaré. Agora a eta opera dois sistemas de cloro gás uma para macau e o outro para guamaré. feita a inspeção em todos os componentes do sistema. sistemas funcionando normalmente.\r\nDATA E HORA INICIAL: 22/02/17 07:44\r\nDATA E HORA FINAL:  22/02/ 17:45\r\nKM INICIAL:  77683\r\nKM FINAL:  77955\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(602, 642, 'OCORRENCIA: instalação\r\nCAUSA: solicitação do cliente\r\nSOLUCAO: foi realizada a instalação de um sistema isolado de cloração para a cidade de guamaré. Agora a eta opera dois sistemas de cloro gás uma para macau e o outro para guamaré. feita a inspeção em todos os componentes do sistema. sistemas funcionando normalmente.\r\nDATA E HORA INICIAL: 22/02/17 07:44\r\nDATA E HORA FINAL:  22/02/ 17:45\r\nKM INICIAL:  77683\r\nKM FINAL:  77955\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
+INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (603, 636, 'OCORRENCIA:  Visita técnica\r\nCAUSA:  manutenção preventiva\r\nSOLUCAO:  Realizei manutenção em válvula reguladora de vácuo, válvula R/0 e rotâmetro.\r\nDATA E HORA INICIAL:  22/02/17 08:48\r\nDATA E HORA FINAL:  22/02/17 11:01\r\nKM INICIAL:  118079\r\nKM FINAL:  118104\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (604, 643, 'OCORRENCIA:  Reabastecimento\r\nCAUSA:  Abastecimento\r\nSOLUCAO:  Abasteci 5kg o P1 San Vale\r\nDATA E HORA INICIAL:  23/02/17 10:22\r\nDATA E HORA FINAL:  23/02/17 11:18\r\nKM INICIAL:  118202\r\nKM FINAL:  118214\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (605, 644, 'OCORRENCIA:  Reabastecimento\r\nCAUSA:  Abastecimento\r\nSOLUCAO:  abasteci \r\nDATA E HORA INICIAL:  23/02/17 09:58\r\nDATA E HORA FINAL:  23/02/17 10:08\r\nKM INICIAL:  118200\r\nKM FINAL:  118200\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (606, 652, 'OCORRENCIA:  Reabastecimento\r\nCAUSA:  Abastecimento\r\nSOLUCAO:  Abasteci 5kg Dicloro o P2 Rio Bahia\r\nDATA E HORA INICIAL:  24/02/17 09:58\r\nDATA E HORA FINAL:  24;02/17 10:08\r\nKM INICIAL: 118305\r\nKM FINAL:  118330\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (607, 653, 'OCORRENCIA:  Reabastecimento\r\nCAUSA:  Abastecimento\r\nSOLUCAO:  Abasteci 5kg o P5 Torres\r\nDATA E HORA INICIAL:  24/02/17 10:53\r\nDATA E HORA FINAL:  24/02/17 12:24\r\nKM INICIAL:  118305\r\nKM FINAL:  118330\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (608, 617, 'OCORRENCIA: PREVENTIVA\r\nCAUSA: \r\nSOLUCAO: LIMPEZA EM GABINETE E ROTÂMETRO.\r\nDATA E HORA INICIAL: 14/02/17 as 12:35\r\nDATA E HORA FINAL: 14/02/17 as 13:17\r\nKM INICIAL:  116383\r\nKM FINAL:  116405\r\n-----GASTOS GERAIS----\r\nPECAS: NT\r\nALIMENTACAO:   NT \r\nHOSPEDAGEM: NT\r\nETC: \r\n                          '),
-(609, 616, 'OCORRENCIA: Vazamento de cloro.\r\nCAUSA:  Uma ruptura na tubulação.\r\nSOLUCAO:   Feito os reparos, equipamentos funcionando bem.\r\nDATA E HORA INICIAL:   14/02/17  as  13:40\r\nDATA E HORA FINAL:   14/02/17  as  15:00\r\nKM INICIAL:   116405\r\nKM FINAL:      116419\r\n-----GASTOS GERAIS----\r\nPECAS: NT\r\nALIMENTACAO:  NT \r\nHOSPEDAGEM: NT\r\nETC: \r\n                          ');
-INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
+(609, 616, 'OCORRENCIA: Vazamento de cloro.\r\nCAUSA:  Uma ruptura na tubulação.\r\nSOLUCAO:   Feito os reparos, equipamentos funcionando bem.\r\nDATA E HORA INICIAL:   14/02/17  as  13:40\r\nDATA E HORA FINAL:   14/02/17  as  15:00\r\nKM INICIAL:   116405\r\nKM FINAL:      116419\r\n-----GASTOS GERAIS----\r\nPECAS: NT\r\nALIMENTACAO:  NT \r\nHOSPEDAGEM: NT\r\nETC: \r\n                          '),
 (610, 631, 'OCORRENCIA: Flexível Danificado \r\nCAUSA: Corrosão\r\nSOLUCAO: Troca do flexível \r\nDATA E HORA INICIAL: 02/03/2017 as 08:40\r\nDATA E HORA FINAL: 02/03/2017 as 15:50\r\nKM INICIAL: 120\r\nKM FINAL: 230\r\n-----GASTOS GERAIS----\r\nPECAS: 1 flexível \r\nALIMENTACAO: 26,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (611, 637, 'OCORRENCIA: instalação\r\nCAUSA: eta nova\r\nSOLUCAO: realizado à instalação de equipamentos de cloracão\r\nDATA E HORA INICIAL: 22/02/17 05:00\r\nDATA E HORA FINAL: 22/02/17 14:30\r\nKM INICIAL: 44536\r\nKM FINAL: 44674\r\n-----GASTOS GERAIS----\r\nPECAS: clorador completo\r\nALIMENTACAO: 26,00\r\nHOSPEDAGEM: 30,00\r\nETC: \r\n                          '),
 (612, 637, 'OCORRENCIA: instalação\r\nCAUSA: eta nova\r\nSOLUCAO: realizado à instalação de equipamentos de cloracão\r\nDATA E HORA INICIAL: 22/02/17 05:00\r\nDATA E HORA FINAL: 22/02/17 14:30\r\nKM INICIAL: 44536\r\nKM FINAL: 44674\r\n-----GASTOS GERAIS----\r\nPECAS: clorador completo\r\nALIMENTACAO: 26,00\r\nHOSPEDAGEM: 30,00\r\nETC: \r\n                          '),
@@ -1256,7 +1133,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (622, 678, 'OCORRENCIA: FALTA DE VACUO\r\nCAUSA: FALTA DE AGUA NA BOMBA\r\nSOLUCAO: MUDANÇA DA CAPTAÇÃO DE AGUA\r\nDATA E HORA INICIAL: 03/03 AS 07:20\r\nDATA E HORA FINAL: 03/03 AS 13:25\r\nKM INICIAL: 85670\r\nKM FINAL: 85799\r\n-----GASTOS GERAIS----\r\nPECAS: 01 BOMBA BOOSTER KSB WEG DE 1CV\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                    \r\nSEM VAZAMENTOS.      '),
 (623, 679, 'OCORRENCIA: DOSADOR MARCANDO ERRADO A DOSAGEM\r\nCAUSA: DESCONHECIDA\r\nSOLUCAO: LIMPEZA\r\nDATA E HORA INICIAL: 03/03 AS 13:25\r\nDATA E HORA FINAL: 03/03 AS 17:51\r\nKM INICIAL: 85799\r\nKM FINAL: 85896\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: COMBUSTIVEL R$ 177,57\r\n                          \r\nFEITO LIMPEZA NOS DOSADORES\r\nSEM VAZAMENTOS.'),
 (624, 611, 'OCORRENCIA: Sistema de cloração não atingindo residual desejado.\r\nCAUSA:  Desgaste de reparos.\r\nSOLUCAO:  Troca de reparos das astes e limpeza nos dois cloradores V-2000\r\nDATA E HORA INICIAL:  14/02/17  as 16:36\r\nDATA E HORA FINAL:     14/02/17  as  17:48 \r\nKM 116499 a 116643\r\n-----GASTOS GERAIS----\r\nPECAS:  NT\r\nALIMENTACAO:  NT \r\nHOSPEDAGEM: NT\r\nETC: \r\n                          '),
-(625, 665, 'OCORRENCIA: Conecção trincada;\r\nCAUSA:  Ressecamento.\r\nSOLUCAO:  Troca de uma luva em pvc de 2\"\r\nDATA E HORA INICIAL:  24/02/17  as 14:40\r\nDATA E HORA FINAL:  24/02/17  as  16:31\r\nKM INICIAL:  33906\r\nKM FINAL:    34063\r\n-----GASTOS GERAIS----\r\nPECAS:  NT\r\nALIMENTACAO:  NT\r\nHOSPEDAGEM:  NT  \r\nETC: \r\n                          '),
+(625, 665, 'OCORRENCIA: Conecção trincada;\r\nCAUSA:  Ressecamento.\r\nSOLUCAO:  Troca de uma luva em pvc de 2"\r\nDATA E HORA INICIAL:  24/02/17  as 14:40\r\nDATA E HORA FINAL:  24/02/17  as  16:31\r\nKM INICIAL:  33906\r\nKM FINAL:    34063\r\n-----GASTOS GERAIS----\r\nPECAS:  NT\r\nALIMENTACAO:  NT\r\nHOSPEDAGEM:  NT  \r\nETC: \r\n                          '),
 (626, 659, 'OCORRENCIA:  Corretiva.\r\nCAUSA: \r\nSOLUCAO:  Limpeza da valv. reguladora de vácuo e injetor. \r\nDATA E HORA INICIAL: 09/02/17 as 9:35\r\nDATA E HORA FINAL:  09/02/17 as 15:45\r\nKM INICIAL:  8568   \r\nKM FINAL:   8799\r\n-----GASTOS GERAIS----\r\nPECAS:  22,00\r\nALIMENTACAO:  23,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (627, 661, 'OCORRENCIA:  PREVENTIVA.\r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 22/02/17  as  9:20\r\nDATA E HORA FINAL:  22/02/17  as  22:10\r\nKM INICIAL:  33494\r\nKM FINAL:  33578\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO:   20,00\r\nHOSPEDAGEM:  50,00\r\nETC: \r\n                          '),
 (628, 664, 'OCORRENCIA: Residual baixo.\r\nCAUSA: Desgastes de reparos.\r\nSOLUCAO: Troca da agulha reguladora de vácuo e seus reparos.\r\nDATA E HORA INICIAL:   24/02/17  as  11:05\r\nDATA E HORA FINAL:   24/02/17  as  14:00\r\nKM INICIAL:   33701\r\nKM FINAL:     33906\r\n-----GASTOS GERAIS----\r\nPECAS: NT\r\nALIMENTACAO: 20,00\r\nHOSPEDAGEM: NT\r\nETC: \r\n                          '),
@@ -1275,13 +1152,13 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (641, 648, 'OCORRENCIA: operação (desacoplar cilindros vazios)\r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (02) dois cilindros cheios de 900 kg \r\nDATA E HORA INICIAL: 23/02/17 as 14:00 hras\r\nDATA E HORA FINAL: 23/02/17 as 17:30 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
 (642, 705, 'OCORRENCIA: não estava com capacidada de cloração.\r\nCAUSA: oringuis ressecados. \r\nSOLUCAO: a substituição dos oringuis \r\nDATA E HORA INICIAL: 06/03/2017 as 15:20hs\r\nDATA E HORA FINAL: 06/03/17 as 17:20hs\r\nKM INICIAL: \r\nKM FINAL: \r\n-----GASTOS GERAIS----\r\nPECAS: FFCL4013\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (643, 718, 'OCORRENCIA: operação ( desacoplar cilindro vazio)\r\nCAUSA: término do produto ( cloro gás)\r\nSOLUCAO: acoplar (01)um cilindro cheio de 68 kg\r\nDATA E HORA INICIAL: 08/03/17 as 07:45 hras\r\nDATA E HORA FINAL: 08/03/17 as 09:00 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
-(644, 715, 'OCORRENCIA:  sistema de cloro parado\r\nCAUSA: injetor obstruido\r\nSOLUCAO: foi desobstruido o injetor\r\nDATA E HORA INICIAL: 07/03/2017 às 14:00\r\nDATA E HORA FINAL: o7/03/2017 ás 17:35\r\nKM INICIAL: 89209 \r\nKM FINAL: 89267\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: 1,20 mt de tubo de polietileno de 1/2\"\r\n                          '),
+(644, 715, 'OCORRENCIA:  sistema de cloro parado\r\nCAUSA: injetor obstruido\r\nSOLUCAO: foi desobstruido o injetor\r\nDATA E HORA INICIAL: 07/03/2017 às 14:00\r\nDATA E HORA FINAL: o7/03/2017 ás 17:35\r\nKM INICIAL: 89209 \r\nKM FINAL: 89267\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: 1,20 mt de tubo de polietileno de 1/2"\r\n                          '),
 (645, 651, 'OCORRENCIA: operação (desacoplar cilindros vazios)\r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (02)dois cilindros cheios de 900kg\r\nDATA E HORA INICIAL: 23/02/17 as 21:15 hras\r\nDATA E HORA FINAL: 24/02/17 as 08:00 hras\r\nKM INICIAL: *****\r\nKM FINAL:***** \r\n-----GASTOS GERAIS----\r\nPASSAGEM: R$ 86,10\r\nALIMENTACAO: R$ 15,50\r\nHOSPEDAGEM: *****\r\nTáxi: R$ 50,00\r\n                          '),
 (646, 706, 'OCORRENCIA:  sistema de cloro parado\r\nCAUSA:  O sistema da eta estava inoperante, mas voltou a operar e foi retomado a operação do sistema de cloro.\r\nSOLUCAO:  Foi  dado a partida no sistema de cloro gás, testes de estanquedade e instrução de operação para o operador.\r\nDATA E HORA INICIAL: 06/03/2017 ás 14:40\r\nDATA E HORA FINAL: 06/03/2017 ás 16:26\r\nKM INICIAL: 89115\r\nKM FINAL: 89140\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (647, 655, 'OCORRENCIA: operação (desacoplar cilindro vazio)\r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (01)um cilindro cheio de 900 kg\r\nDATA E HORA INICIAL: 24/02/17 as 08:00 hras\r\nDATA E HORA FINAL: 24/02/17 as 22:00\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM: R$ 86,10\r\nALIMENTACAO: R$ 15,50\r\nTáxi: R$ 50,00\r\nETC: *****\r\n                          '),
 (648, 702, 'OCORRENCIA: bomba dosadora de pac com vazamento\r\nCAUSA: vazamento pelo selo mecânico\r\nSOLUCAO:  Foi substituido o selo mecânico e o anel de encosto do selo.\r\nDATA E HORA INICIAL: 06/03/2017 às 07:50 \r\nDATA E HORA FINAL: 06/03/2017 às 12:45\r\nKM INICIAL: 89027\r\nKM FINAL: 89115\r\n-----GASTOS GERAIS----\r\nPECAS:  01 selo mecânico\r\n               01 anel de encosto do selo\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (649, 700, 'OCORRENCIA: corretiva\r\nCAUSA: tubo Poly flo partido\r\nSOLUCAO: substituição do tubo Poly flo 6,00 M\r\nDATA E HORA INICIAL: 04/03/17 as 07:45 hras\r\nDATA E HORA FINAL: 05/03/17 as 06:30 hras \r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM: R$ 156,54\r\nALIMENTACAO: R$ 23,17\r\nTáxi: R$ 60,00\r\nETC: *****\r\n                          '),
-(650, 707, 'OCORRENCIA:  sistema de cloração parado.\r\nCAUSA: vazamento pela vàlvula redutora de pressão.\r\nSOLUCAO:  Foi substituído o reparo da válvula redutora, limpeza interna na válvula redutora, injetor, vidro rotâmetro, teste de estanquidade e colocado em operação o sistema.\r\nDATA E HORA INICIAL: 06/03/2017 às 16:26\r\nDATA E HORA FINAL: 06/03/2017 às 18:30\r\nKM INICIAL: 89140\r\nKM FINAL: 89166\r\n-----GASTOS GERAIS----\r\nPECAS:  01 kite de reparos FF 23841 Ref. do kit. FF105159\r\n    1,20 mt. de tubo de polietileno de 1/2\"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(650, 707, 'OCORRENCIA:  sistema de cloração parado.\r\nCAUSA: vazamento pela vàlvula redutora de pressão.\r\nSOLUCAO:  Foi substituído o reparo da válvula redutora, limpeza interna na válvula redutora, injetor, vidro rotâmetro, teste de estanquidade e colocado em operação o sistema.\r\nDATA E HORA INICIAL: 06/03/2017 às 16:26\r\nDATA E HORA FINAL: 06/03/2017 às 18:30\r\nKM INICIAL: 89140\r\nKM FINAL: 89166\r\n-----GASTOS GERAIS----\r\nPECAS:  01 kite de reparos FF 23841 Ref. do kit. FF105159\r\n    1,20 mt. de tubo de polietileno de 1/2"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (651, 699, 'OCORRENCIA: acompanhar a transferência de pac feita pela logística da eta do 5º setor para o Bolonha.\r\nCAUSA: Falta de pac na eta\r\nSOLUCAO:  Foi realizado o acompanhamento da transferência de 2 mil litros pac da eta do 5 setor para o bolonha. \r\nHouve um contra tempo devido que o caminhão da transportadora apresentou defeito na bateria e teve que aguarda a chegada do outro caminhão para socorre-lo\r\nDATA E HORA INICIAL:  24/02/2017 às 17:45\r\nDATA E HORA FINAL: 24/02/2017 às 00:16 \r\nKM INICIAL: 88351\r\nKM FINAL: 88378\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (652, 698, 'OCORRENCIA:  substituição e acoplamento de cilindros.\r\nCAUSA: cilindros vazios\r\nSOLUCAO:  Foi substituído, acoplado e testado com solução de amônia 04 cilindros cheios.\r\nDATA E HORA INICIAL: 23/02/2017 às 08:00\r\nDATA E HORA FINAL:  23/02/2017 às 11:00\r\nKM INICIAL: 88244\r\nKM FINAL: 88272\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (653, 714, 'OCORRENCIA:  Substituição e acoplamento de cilindros.\r\nCAUSA: Cilindros vazios.\r\nSOLUCAO: Foi substituído, acoplado e testado com solução de amônia 04 cilindros cheios.\r\nDATA E HORA INICIAL:  07/03/2017 às 08:00\r\nDATA E HORA FINAL: 07/03/2017 às 12:45\r\nKM INICIAL: 89167\r\nKM FINAL: 89209\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1296,7 +1173,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (662, 688, 'OCORRENCIA: Sistema sem dosar\r\nCAUSA: Niple do módulo dosador quebrado\r\nSOLUCAO: Substituição do niple do módulo dosador e limpeza do sistema\r\nDATA E HORA INICIAL: 10/01/17 as 11:00\r\nDATA E HORA FINAL: 10/01/17 as 22:53\r\nKM INICIAL: 74251\r\nKM FINAL: 75232\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: R$ 33,50\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (663, 656, 'OCORRENCIA: corretiva\r\nCAUSA: \r\nSOLUCAO: foi feita a limpeza do flexível e do rotametro; realizada a inspeção nos outros componentes; sistema funcionando normalmente.\r\nDATA E HORA INICIAL: 20/02/17 10:01\r\nDATA E HORA FINAL: 20/02/17 12:48\r\nKM INICIAL: 77383\r\nKM FINAL:  77500\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (664, 657, 'OCORRENCIA: corretiva\r\nCAUSA:  vacúo prejudicado\r\nSOLUCAO:  foi realizada a desobstrução do injetor, o mesmo estava com material plástico no estrangulador; a dosagem satisfatória foi atingida; sistema funcioanndo normalmente\r\nDATA E HORA INICIAL:  23/02/17 08:11\r\nDATA E HORA FINAL: 23/02/17 12:37\r\nKM INICIAL: 77955\r\nKM FINAL: 77972\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(665, 709, 'OCORRENCIA: corretiva\r\nCAUSA:  sistema com vazamento\r\nSOLUCAO: foi realizada a substituição do disco no injetor siemens 3/4\', o mesmo estava quebrado; foi realizada a substituição do disco da reguladora fluidfeeder, o mesmo estava danificado pela ação do cloro liquido.\r\nDATA E HORA INICIAL: 06/03/17 15:08\r\nDATA E HORA FINAL:  06/03/17 20:45\r\nKM INICIAL:  79109\r\nKM FINAL:  79542\r\n-----GASTOS GERAIS----\r\nPECAS: disco do injetor siemens 3/4\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(665, 709, 'OCORRENCIA: corretiva\r\nCAUSA:  sistema com vazamento\r\nSOLUCAO: foi realizada a substituição do disco no injetor siemens 3/4'', o mesmo estava quebrado; foi realizada a substituição do disco da reguladora fluidfeeder, o mesmo estava danificado pela ação do cloro liquido.\r\nDATA E HORA INICIAL: 06/03/17 15:08\r\nDATA E HORA FINAL:  06/03/17 20:45\r\nKM INICIAL:  79109\r\nKM FINAL:  79542\r\n-----GASTOS GERAIS----\r\nPECAS: disco do injetor siemens 3/4\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (666, 710, 'OCORRENCIA: corretiva\r\nCAUSA: sistema com vazamento\r\nSOLUCAO: foi realizada a limpeza da base da reguladora de vácuo fluidfeeder, o mesmo estava com a agulha travada provocando vazamento de cloro gás;\r\nDATA E HORA INICIAL: 07/03/17 08:17\r\nDATA E HORA FINAL:  07/03/17 16:35\r\nKM INICIAL: 79542\r\nKM FINAL: 79664\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (667, 717, 'OCORRENCIA:   \r\nCAUSA:   \r\nSOLUCAO:   Feita limpeza no tanque de clorato com sua resinagem e pintura nas tubulações. \r\nDATA E HORA INICIAL:   08/03/17  as  20:00\r\nDATA E HORA FINAL:    10/03/17  as  17:50\r\nKM INICIAL:   35095\r\nKM FINAL:      36053\r\n-----GASTOS GERAIS----\r\nPECAS:   77,50\r\nALIMENTACAO    191,48: \r\nHOSPEDAGEM:   180,00\r\nETC: \r\n                          '),
 (668, 749, 'OCORRENCIA:    Chamado para colocar equipamento reserva para funcionar.\r\nCAUSA:  Operador da eta não conseguiu colocar\r\nSOLUCAO:   Não foi possível fazer os testes pois adutora estava rompida.\r\nDATA E HORA INICIAL:    08/03/17  as  14:40 \r\nDATA E HORA FINAL:   08/03/17  as  15:10\r\nKM INICIAL:   34750\r\nKM FINAL: 35095\r\n-----GASTOS GERAIS----\r\nPECAS:  5,90\r\nALIMENTACAO:    44,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1307,7 +1184,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (673, 775, 'OCORRENCIA: VISITA TECNICA\r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 17/03 AS 07:50\r\nDATA E HORA FINAL: 17/03 AS 10:21\r\nKM INICIAL: 87676\r\nKM FINAL:  87738\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n  \r\nVISITA TECNICA PARA VERIFICAÇÃO DO SISTEMA DE CLORO GAS,\r\nFEITO PINTURA NO ARRASTE E RECALQUE DA BOOSTER.\r\nSEM VAZAMENTOS.                       '),
 (674, 672, 'OCORRENCIA: preventiva\r\nCAUSA: período de preventiva\r\nSOLUCAO: realizado manutenção preventiva\r\nDATA E HORA INICIAL: 01/02/17 08:00\r\nDATA E HORA FINAL: 01/02/17 11:00\r\nKM INICIAL: 45302\r\nKM FINAL: 45352\r\n-----GASTOS GERAIS----\r\nPECAS: não possui\r\nALIMENTACAO: 26,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (675, 671, 'OCORRENCIA: vazamento\r\nCAUSA: desgaste da peça\r\nSOLUCAO: troca de componentes\r\nDATA E HORA INICIAL: 02/03/17 07:00\r\nDATA E HORA FINAL: 02/03/17 10:00\r\nKM INICIAL: 45706\r\nKM FINAL: 45885\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 26,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(676, 675, 'OCORRENCIA: sistema parado\r\nCAUSA: problema com a bomba de 2cv\r\nSOLUCAO: troca de componente\r\nDATA E HORA INICIAL: 01/03/17 14:00\r\nDATA E HORA FINAL: 01/03/17 17:40\r\nKM INICIAL: 45626\r\nKM FINAL:45706\r\n-----GASTOS GERAIS----\r\nPECAS: selo mecânicos de 3/4\"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(676, 675, 'OCORRENCIA: sistema parado\r\nCAUSA: problema com a bomba de 2cv\r\nSOLUCAO: troca de componente\r\nDATA E HORA INICIAL: 01/03/17 14:00\r\nDATA E HORA FINAL: 01/03/17 17:40\r\nKM INICIAL: 45626\r\nKM FINAL:45706\r\n-----GASTOS GERAIS----\r\nPECAS: selo mecânicos de 3/4"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (677, 791, 'OCORRENCIA: pressão do injetor não estava jerando vácuo usuficiente.\r\nCAUSA: um registro de 25mm estava rachado. \r\nSOLUCAO: troca do registro. \r\nDATA E HORA INICIAL: 20/03/2017 as 14:50hs.\r\nDATA E HORA FINAL: 20/03/2017 as 17:20\r\nKM INICIAL: \r\nKM FINAL: \r\n-----GASTOS GERAIS----\r\nPECAS: FFCL4013\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (678, 777, 'OCORRENCIA: operação (desacoplar cilindros vazios)\r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (04) quatros cilindros cheios de 900 kg\r\nDATA E HORA INICIAL: 17/03/17 as 10:35 hras\r\nDATA E HORA FINAL: 17/04/17 as 13:30 hras\r\nKM INICIAL: *****\r\nKM FINAL:***** \r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
 (679, 770, 'OCORRENCIA: OAT equivocada, favor cancelar\r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: \r\nDATA E HORA FINAL: \r\nKM INICIAL: \r\nKM FINAL: \r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1319,10 +1196,10 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (685, 748, 'OCORRENCIA: Acoplamento de cilindros\r\nCAUSA: Cilindros vazios\r\nSOLUCAO: Foi substituído, acoplado e testado com solução de amônia 04 cilindros cheios. \r\nDATA E HORA INICIAL: 08/03/2017 ás 08:00 \r\nDATA E HORA FINAL: 08/03/2017  ás 12:00\r\nKM INICIAL: 89267\r\nKM FINAL: 89296\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (686, 796, 'OCORRENCIA: vazamento de cloro gás. \r\nCAUSA: por constante queda de de energia eletrônica .\r\nSOLUCAO: feita manutenção na válvula reguladora de vácuo e no colorado de controle manual.\r\nDATA E HORA INICIAL: 21/03/2017 as 06:20hs.\r\nDATA E HORA FINAL: 21/03/2017  as 18:50hs.\r\nKM INICIAL: \r\nKM FINAL: \r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: passagem de ônibus 56 reais.\r\n                          '),
 (687, 778, 'OCORRENCIA: obstrução no ibjetor\r\nCAUSA: fragmento obstruindo a passagem de água\r\nSOLUCAO: realizado manutenção no injetor\r\nDATA E HORA INICIAL: 03/03/17 06:00\r\nDATA E HORA FINAL: 03/03/17 14:00\r\nKM INICIAL: 45940\r\nKM FINAL: 46336\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 23,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(688, 779, 'OCORRENCIA: vazamento\r\nCAUSA: desgaste da peça\r\nSOLUCAO: troca de componente\r\nDATA E HORA INICIAL: 03/03/17 14:00\r\nDATA E HORA FINAL: 03/03/17 16:00\r\nKM INICIAL: 46330\r\nKM FINAL: 46336\r\n-----GASTOS GERAIS----\r\nPECAS: válvula R/0 de 3/4\"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(688, 779, 'OCORRENCIA: vazamento\r\nCAUSA: desgaste da peça\r\nSOLUCAO: troca de componente\r\nDATA E HORA INICIAL: 03/03/17 14:00\r\nDATA E HORA FINAL: 03/03/17 16:00\r\nKM INICIAL: 46330\r\nKM FINAL: 46336\r\n-----GASTOS GERAIS----\r\nPECAS: válvula R/0 de 3/4"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (689, 780, 'OCORRENCIA: instalação\r\nCAUSA: instalação nova para sistema de pré-cloracao\r\nSOLUCAO: realizado à instalação das tubulações\r\nDATA E HORA INICIAL: 06/03/17 07:00\r\nDATA E HORA FINAL: 06/03/17 15:50\r\nKM INICIAL: 46697\r\nKM FINAL: 47030\r\n-----GASTOS GERAIS----\r\nPECAS: 2 registros de 25mm\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (690, 781, 'OCORRENCIA: retorno de água\r\nCAUSA: erro operacional\r\nSOLUCAO: realizado à manutenção corretiva\r\nDATA E HORA INICIAL: 09/03/17 07:00\r\nDATA E HORA FINAL: 09/03/17 17:00\r\nKM INICIAL: 47030\r\nKM FINAL: 47210\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(691, 782, 'OCORRENCIA: bomba com vazamento\r\nCAUSA: desgaste de peças\r\nSOLUCAO: troca de componentes\r\nDATA E HORA INICIAL: 10/03/17 06:00\r\nDATA E HORA FINAL: 10/03/17 12:00\r\nKM INICIAL: 47210\r\nKM FINAL: 47552\r\n-----GASTOS GERAIS----\r\nPECAS: selo mecânico de 3/4\".eixo de bronze\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(691, 782, 'OCORRENCIA: bomba com vazamento\r\nCAUSA: desgaste de peças\r\nSOLUCAO: troca de componentes\r\nDATA E HORA INICIAL: 10/03/17 06:00\r\nDATA E HORA FINAL: 10/03/17 12:00\r\nKM INICIAL: 47210\r\nKM FINAL: 47552\r\n-----GASTOS GERAIS----\r\nPECAS: selo mecânico de 3/4".eixo de bronze\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (692, 783, 'OCORRENCIA: vazamento\r\nCAUSA: desgaste de peças\r\nSOLUCAO: troca de componentes\r\nDATA E HORA INICIAL: 10/03/17 12:00\r\nDATA E HORA FINAL: 10/03/17 14:50\r\nKM INICIAL: 47552\r\nKM FINAL: 47675\r\n-----GASTOS GERAIS----\r\nPECAS: 6 metros de mabgueira de polietileno\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (693, 784, 'OCORRENCIA: nova instalação\r\nCAUSA: instalaçãobdo sistema de pré-cloracao \r\nSOLUCAO: realizado a instalação\r\nDATA E HORA INICIAL: 15/03/17 06:00\r\nDATA E HORA FINAL: 15/03/17 15:30\r\nKM INICIAL: 48304\r\nKM FINAL: 48400\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (694, 785, 'OCORRENCIA: vazamento\r\nCAUSA: desgaste de peça\r\nSOLUCAO: troca de componentes\r\nDATA E HORA INICIAL: 15/03/17 15:40\r\nDATA E HORA FINAL: 15/03/17 18:50\r\nKM INICIAL: 48400\r\nKM FINAL: 48510\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1332,8 +1209,8 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (698, 789, 'OCORRENCIA: retorno de água\r\nCAUSA: erro operacional\r\nSOLUCAO: realizado manutenção corretiva\r\nDATA E HORA INICIAL: 17/03/17 14:00\r\nDATA E HORA FINAL: 17/03/17 20:00\r\nKM INICIAL: 48136\r\nKM FINAL: 49365\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (699, 797, 'OCORRENCIA: retorno de água\r\nCAUSA: erro operacional\r\nSOLUCAO: realizado manutenção corretiva\r\nDATA E HORA INICIAL: 20/03/17 06:00\r\nDATA E HORA FINAL: 20/03/17 12:00\r\nKM INICIAL: 49365\r\nKM FINAL: 49590\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (700, 798, 'OCORRENCIA: vazamento\r\nCAUSA: desgaste de peça\r\nSOLUCAO: realizado manutenção corretiva\r\nDATA E HORA INICIAL: 20/03/17 12:00\r\nDATA E HORA FINAL: 20/03/17 19:10\r\nKM INICIAL: 49590\r\nKM FINAL: 49976\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(701, 792, 'OCORRENCIA: FALTA DE VACUO\r\nCAUSA: FALTA DE AGUA\r\nSOLUCAO: AUMENTAR REDE DE ARRASTO\r\nDATA E HORA INICIAL: 21/03 AS 06:55\r\nDATA E HORA FINAL: 21/03 AS 16:38\r\nKM INICIAL: 87880\r\nKM FINAL: 88090\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n\r\nREFEITO BARRILETE DO INJETOR DE 3/4 POR 1\".  FEITO TESTES COM OUTRA BOMBA. RETIRADO METADE DA CONTRA PRESSÃO EXISTENTE.   \r\nPOUCA VAZÃO, DEVIDO A SUCÇÃO DA BOMBA SER DE 40mm E A SAIDA DA ADUTORA SER MENOS DE 3/4.                       '),
-(702, 792, 'OCORRENCIA: FALTA DE VACUO\r\nCAUSA: FALTA DE AGUA\r\nSOLUCAO: AUMENTAR REDE DE ARRASTO\r\nDATA E HORA INICIAL: 21/03 AS 06:55\r\nDATA E HORA FINAL: 21/03 AS 16:38\r\nKM INICIAL: 87880\r\nKM FINAL: 88090\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n\r\nREFEITO BARRILETE DO INJETOR DE 3/4 POR 1\".  FEITO TESTES COM OUTRA BOMBA. RETIRADO METADE DA CONTRA PRESSÃO EXISTENTE.   \r\nPOUCA VAZÃO, DEVIDO A SUCÇÃO DA BOMBA SER DE 40mm E A SAIDA DA ADUTORA SER MENOS DE 3/4.                       '),
+(701, 792, 'OCORRENCIA: FALTA DE VACUO\r\nCAUSA: FALTA DE AGUA\r\nSOLUCAO: AUMENTAR REDE DE ARRASTO\r\nDATA E HORA INICIAL: 21/03 AS 06:55\r\nDATA E HORA FINAL: 21/03 AS 16:38\r\nKM INICIAL: 87880\r\nKM FINAL: 88090\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n\r\nREFEITO BARRILETE DO INJETOR DE 3/4 POR 1".  FEITO TESTES COM OUTRA BOMBA. RETIRADO METADE DA CONTRA PRESSÃO EXISTENTE.   \r\nPOUCA VAZÃO, DEVIDO A SUCÇÃO DA BOMBA SER DE 40mm E A SAIDA DA ADUTORA SER MENOS DE 3/4.                       '),
+(702, 792, 'OCORRENCIA: FALTA DE VACUO\r\nCAUSA: FALTA DE AGUA\r\nSOLUCAO: AUMENTAR REDE DE ARRASTO\r\nDATA E HORA INICIAL: 21/03 AS 06:55\r\nDATA E HORA FINAL: 21/03 AS 16:38\r\nKM INICIAL: 87880\r\nKM FINAL: 88090\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n\r\nREFEITO BARRILETE DO INJETOR DE 3/4 POR 1".  FEITO TESTES COM OUTRA BOMBA. RETIRADO METADE DA CONTRA PRESSÃO EXISTENTE.   \r\nPOUCA VAZÃO, DEVIDO A SUCÇÃO DA BOMBA SER DE 40mm E A SAIDA DA ADUTORA SER MENOS DE 3/4.                       '),
 (703, 806, 'OCORRENCIA: INSTALAÇAÕ DE 01 BOOSTER KSB WEG 1 CV\r\nCAUSA: CONTRATO\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 22/03 AS 07:30\r\nDATA E HORA FINAL: 22/03 AS 14:00\r\nKM INICIAL: 88090\r\nKM FINAL: 88511\r\n-----GASTOS GERAIS----\r\nPECAS: 01 BOOSTER WEG KSB 1 CV\r\nALIMENTACAO: 22,22 \r\nHOSPEDAGEM: \r\nETC: 24,75 CONEXOES PVC\r\n                          '),
 (704, 793, 'OCORRENCIA: INICIO DA INSTALAÇÃO DO SISTEMA DA ETA\r\nCAUSA: ETA NOVA\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 20/03 AS 08:09\r\nDATA E HORA FINAL: 20/03 AS 16:22\r\nKM INICIAL: 87804\r\nKM FINAL: 87878\r\n-----GASTOS GERAIS----\r\nPECAS: 02 DOSADORES DE 50KG. 01 SENSOR DE VAZAMENTO, 02 INJETORES, 01 CHAVE MAGNETICA. TODOS DA CLORANDO.\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\nFICOU FALTANDO A BOMBA E O MANIFOLD.                         '),
 (705, 820, 'OCORRENCIA: VAZAMENTO\r\nCAUSA: FLEXIVEL QUEBRADO\r\nSOLUCAO: TROCA DO FLEXIVEL\r\nDATA E HORA INICIAL: 25/03 AS 07:01\r\nDATA E HORA FINAL: 25/03 AS 18:41\r\nKM INICIAL: 88854\r\nKM FINAL: 89444\r\n-----GASTOS GERAIS----\r\nPECAS: FLEXIVEL GRANDE\r\nALIMENTACAO: 29,00\r\nHOSPEDAGEM: \r\nETC: 177,01 COMBUSTIVEL   \r\n\r\n LIMPEZA DAS VALVULAS REGULADORA DE VACUO E R0, 01 DOSADOR DE 240KG     '),
@@ -1355,15 +1232,15 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (721, 750, 'OCORRENCIA: Cilindros vazios\r\nCAUSA: Cilindros vazios\r\nSOLUCAO: Reabastecimento de produto\r\nDATA E HORA INICIAL: 09/03/17 08:20\r\nDATA E HORA FINAL: 09/03/17 10:30\r\nKM INICIAL: 3.906\r\nKM FINAL: 3.956\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (722, 751, 'OCORRENCIA: Conexão dos cilindros\r\nCAUSA: Conexão dos cilindros\r\nSOLUCAO: Realizado a conexão na bateria de cilindros cheios\r\nDATA E HORA INICIAL: 09/03/17 08:20\r\nDATA E HORA FINAL: 09/03/17 10:30\r\nKM INICIAL: 3.906\r\nKM FINAL: 3.956\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (723, 772, 'OCORRENCIA: Cilindros vazios\r\nCAUSA:  Cilindros vazios\r\nSOLUCAO: Reabastecimento de produto\r\nDATA E HORA INICIAL:15/03/17 10:00\r\nDATA E HORA FINAL: 15/03/17 11:45\r\nKM INICIAL: 4.021\r\nKM FINAL: 4.073\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(724, 773, 'OCORRENCIA: Conexão de cilindros\r\nCAUSA: Conexão de cilindros\r\nSOLUCAO: Realizado o acoplamento na bateria de cilindros cheios\r\nDATA E HORA INICIAL: 15/03/17 10:00\r\nDATA E HORA FINAL: 15/03/17 11:45\r\nKM INICIAL: 4.021\r\nKM FINAL: 4.073\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(724, 773, 'OCORRENCIA: Conexão de cilindros\r\nCAUSA: Conexão de cilindros\r\nSOLUCAO: Realizado o acoplamento na bateria de cilindros cheios\r\nDATA E HORA INICIAL: 15/03/17 10:00\r\nDATA E HORA FINAL: 15/03/17 11:45\r\nKM INICIAL: 4.021\r\nKM FINAL: 4.073\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
+INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (725, 808, 'OCORRENCIA:    Clorador reserva com residual baixo.\r\nCAUSA:     Pouco vácuo.\r\nSOLUCAO:  Troca da reguladora de pressão, atingindo residual entre 2.000 e 2.100 kg/dia.\r\nDATA E HORA INICIAL:   21/03/17  as  13:00\r\nDATA E HORA FINAL:    21/03/17   as   17:20\r\nKM INICIAL:   36923\r\nKM FINAL:      37137\r\n-----GASTOS GERAIS----\r\nPECAS:               \r\nALIMENTACAO:   44,00\r\nHOSPEDAGEM:   60,00\r\nETC: \r\n                          '),
 (726, 790, 'OCORRENCIA:    Vazamento de cloro gás.\r\nCAUSA:      Vazamento pela mangueira.\r\nSOLUCAO:  Troca da mesma com seus reparos.\r\nDATA E HORA INICIAL:  20/03/17  as  12:30\r\nDATA E HORA FINAL:   20/03/17  as  13:50\r\nKM INICIAL:  36778\r\nKM FINAL:     36919\r\n-----GASTOS GERAIS----\r\nPECAS:                 \r\nALIMENTACAO:  6,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (727, 774, 'OCORRENCIA:    Sem clorar.\r\nCAUSA:      Manifold intupido.\r\nSOLUCAO:    Lavagem do mesmo,com suas peças,com troca das mangueiras.\r\nDATA E HORA INICIAL:   16/03/17  as  20:30\r\nDATA E HORA FINAL:      17/03/17  as  01:00\r\nKM INICIAL:   117753\r\nKM FINAL:      118285\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO:     29,50\r\nHOSPEDAGEM:     80,00\r\nETC: \r\n                          '),
 (728, 771, 'OCORRENCIA:    \r\nCAUSA: \r\nSOLUCAO:     Foi entregue dois flexíveis e duas chaves YOK. \r\nDATA E HORA INICIAL:   15/03/17  as  17:50\r\nDATA E HORA FINAL:      15/03/17  as  18:20\r\nKM INICIAL:      36462\r\nKM FINAL:        36641\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO:       18,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (729, 769, 'OCORRENCIA:     Vazamento de cloro gás.\r\nCAUSA:   Vazamento nas valv. reguladora de vácuo.\r\nSOLUCAO:     Foi substituídas as mesmas com duas valv. R-0 \r\nDATA E HORA INICIAL:   15/03/17  as  11:45\r\nDATA E HORA FINAL:      15/03/17  as  15:00\r\nKM INICIAL:   36438\r\nKM FINAL:     36463\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO:   31,68\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (730, 768, 'OCORRENCIA:   Vazamento.\r\nCAUSA:     Vazamento pelo selo mecânico.\r\nSOLUCAO:   Troca da mesma com limpeza da valv reguladora, injetor e gabinete 26kg/dia.\r\nDATA E HORA INICIAL: 15/03/17  as  08:00\r\nDATA E HORA FINAL:    15/03/17  as  10:15\r\nKM INICIAL:   46412\r\nKM FINAL:     46438\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 19,84\r\nHOSPEDAGEM: 110,00\r\nETC: \r\n                          '),
-(731, 766, 'OCORRENCIA:   Vazamento de cloro gás.\r\nCAUSA:   Vazamento pelo niple que liga o flexível ao T do diplegue\r\nSOLUCAO:   Troca do menmo, mais a valv. reguladora com limpeza no gabinete 104kg/dia.\r\nDATA E HORA INICIAL:   14/03/17  as  13:00\r\nDATA E HORA FINAL:      14/03/17  as  14:37\r\nKM INICIAL:   36132\r\nKM FINAL:     36285\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 21,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
-INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
+(731, 766, 'OCORRENCIA:   Vazamento de cloro gás.\r\nCAUSA:   Vazamento pelo niple que liga o flexível ao T do diplegue\r\nSOLUCAO:   Troca do menmo, mais a valv. reguladora com limpeza no gabinete 104kg/dia.\r\nDATA E HORA INICIAL:   14/03/17  as  13:00\r\nDATA E HORA FINAL:      14/03/17  as  14:37\r\nKM INICIAL:   36132\r\nKM FINAL:     36285\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 21,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (732, 764, 'OCORRENCIA:    \r\nCAUSA: \r\nSOLUCAO:  Devolvida a valv. reguladora de vácuo que foi  tirada para atender Lucena.\r\nDATA E HORA INICIAL:   14/03/17  as  9:10\r\nDATA E HORA FINAL:     14/03/17  as  10:00\r\nKM INICIAL:   36053\r\nKM FINAL:      36132\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO:   \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (733, 814, 'OCORRENCIA:    Vazamento de cloro gás.\r\nCAUSA: Ruptura pelo flexível.\r\nSOLUCAO:   Chegando no local o operador já tinha ido repor um em souza.  Funcionando bem equipamento sem nenhum vazamento. \r\nDATA E HORA INICIAL:   23/03/17  as  18:10\r\nDATA E HORA FINAL:     23/03/17  as  18:40\r\nKM INICIAL:   37827\r\nKM FINAL:     37842\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO:   27,50\r\nHOSPEDAGEM:   70,00\r\nETC: \r\n                          '),
 (734, 813, 'OCORRENCIA:   Instalação de cloro gás.\r\nCAUSA: \r\nSOLUCAO:   Foi instalado dois clorador E 10-K 100 e 200 kg/dia,com dois injetor de 3/4 da fluidfeed, flexível de 1,5, com duas valv. R-0, com abraçadeira e chave YOK e mais suas mangueiras.      Equipamento funcionando testado e aprovado pelo operador de plantão.\r\nDATA E HORA INICIAL:   22/03/17  as  16:37\r\nDATA E HORA FINAL:     23/03/17  as  15:40\r\nKM INICIAL:    37411\r\nKM FINAL:      37827\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO:    60,00\r\nHOSPEDAGEM:    100,00\r\nETC: \r\n                          '),
@@ -1402,7 +1279,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (767, 817, 'OCORRENCIA: Cilindros vazios\r\nCAUSA: Cilindros vazios\r\nSOLUCAO: Acoplamento e e troca de operação da bateria de cilindros\r\nDATA E HORA INICIAL: 23/03/17 13:00 \r\nDATA E HORA FINAL: 23/03/17 14:00\r\nKM INICIAL: 4.425\r\nKM FINAL: 4.472\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (768, 826, 'OCORRENCIA: Cilindros vazios\r\nCAUSA: Cilindros vazios\r\nSOLUCAO: Reabastecimento de produto\r\nDATA E HORA INICIAL: 25/03/17 09:00 \r\nDATA E HORA FINAL: 25/03/17 10:30\r\nKM INICIAL: 4.497\r\nKM FINAL: 4.544\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (769, 848, 'OCORRENCIA: manutenção preventiva\r\nCAUSA:  manutenção preventiva\r\nSOLUCAO:  foi desobstruído uma conexão da válvula de purga, limpedza interna de um flexível, foi substituído o interno de  02 válvulas esfera valmicro, desconectado 02 cilindros vazios e conectado 02 cilindros cheios, limpeza externa nas válvulas esfera da central de cloro e foi passado vaselina neutra nas mesmas, limpeza externa nos flexíveis do dosador 01 e foi passado vaselina para proteger os mesmos.\r\nFoi feito testes de estanqueidade no sistema  com nitrogênio / purga e pressurizado com cloro e colocado em operação.  \r\nDATA E HORA INICIAL: 29/03/2017 às 05:30\r\nDATA E HORA FINAL: 29/03/2017 às 21:48\r\nKM INICIAL: 72 \r\nKM FINAL:  296\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 36,97 \r\nHOSPEDAGEM: \r\nETC: \r\n              '),
-(770, 850, 'OCORRENCIA:  vazamento de cloro gàs\r\nCAUSA:  Válvula raio corroida\r\nSOLUCAO: Foi eliminado o vazamento com a substituição da válvula raio 3/4 do manifold limpeza nas válvulas redutora de pressão, injetor e vidro rotâmetro do dosador.  \r\nDATA E HORA INICIAL: 24/03/2017 07:10\r\nDATA E HORA FINAL:  24/03/2017 16:00\r\nKM INICIAL: 92394\r\nKM FINAL: 92643\r\n-----GASTOS GERAIS----\r\nPECAS:  01 válvula raio 3/4\"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(770, 850, 'OCORRENCIA:  vazamento de cloro gàs\r\nCAUSA:  Válvula raio corroida\r\nSOLUCAO: Foi eliminado o vazamento com a substituição da válvula raio 3/4 do manifold limpeza nas válvulas redutora de pressão, injetor e vidro rotâmetro do dosador.  \r\nDATA E HORA INICIAL: 24/03/2017 07:10\r\nDATA E HORA FINAL:  24/03/2017 16:00\r\nKM INICIAL: 92394\r\nKM FINAL: 92643\r\n-----GASTOS GERAIS----\r\nPECAS:  01 válvula raio 3/4"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (771, 803, 'OCORRENCIA:  corretiva (tanque obstruído com resíduo)\r\nCAUSA: obstrução\r\nSOLUCAO: Foi realizado a limpeza interna no tanque de pac , retirado o resíduo e condicionado em um contentor.\r\nFoi substituido os reparos das bombas dosadoras 2, 3 e 4 foi corregido a conexão de saida da bomba 01.\r\nFoi transferido os contentores para proximo das bombas e foi interligado com a rede de alimentação das bombas, ficou 10 contentores interligados. \r\nDATA E HORA INICIAL: 17/03/2017 às 05:00\r\nDATA E HORA FINAL: 18/03/2017 às 13:00\r\nKM INICIAL: 90222\r\nKM FINAL: 91647\r\n-----GASTOS GERAIS----\r\nPECAS: 136,66\r\nALIMENTACAO: 129,74: \r\nHOSPEDAGEM: 220,00\r\nETC: combustivel 295,02 \r\n                          '),
 (772, 804, 'OCORRENCIA: corretiva ( água no vidro rotâmetro)\r\nCAUSA: reparo do injetor danificado\r\nSOLUCAO:  Foi substituido o reparo interno do injetor, limpeza no vidro rotâmetro e retirado água da linha de vácuo.\r\nDATA E HORA INICIAL:  20/03/2017 às 10:15 \r\nDATA E HORA FINAL: 20/03/2017 às 22:30\r\nKM INICIAL: 91840\r\nKM FINAL: 92290\r\n-----GASTOS GERAIS----\r\nPECAS: kit. reparo do injetor\r\nALIMENTACAO: 12,00\r\nHOSPEDAGEM: \r\nETC: combustivel 217,85\r\n                          '),
 (773, 811, 'OCORRENCIA: operação (desacoplar cilindros vazios)\r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (02)dois cilindros cheios de 900 kg \r\nDATA E HORA INICIAL: 23/03/17 as 15:30 hras\r\nDATA E HORA FINAL: 23/03/17 as 17:30 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC:***** \r\n                          '),
@@ -1414,7 +1291,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (779, 842, 'OCORRENCIA: VAZAMENTO DE CLORATO\r\nCAUSA: CONEXÃO TRINCADA\r\nSOLUCAO: SUBSTITUIÇÃO DA CONEXÃO\r\nDATA E HORA INICIAL: 27/03 AS 08:00\r\nDATA E HORA FINAL: 27/03 AS 14:15\r\nKM INICIAL: 89486\r\nKM FINAL: 89868\r\n-----GASTOS GERAIS----\r\nPECAS: N/A\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n    OPERADOR JÁ HAVIA FEITO O SERVIÇO.            \r\n\r\nESSA OS 1377 É NA VERDADE A 1376          '),
 (780, 875, 'OCORRENCIA: VAZAMENTO DE CLORO\r\nCAUSA: SUJEIRA\r\nSOLUCAO: LIMPEZA\r\nDATA E HORA INICIAL: 03/04 AS 13:30\r\nDATA E HORA FINAL: 04/04 AS 13:27\r\nKM INICIAL: 90679\r\nKM FINAL: 91005\r\n-----GASTOS GERAIS----\r\nPECAS: 1 BOOSTER WEG KSB 1 CV, 1 CHAVE MAGNÉTICA, E 1 DETECTOR DE VAZAMENTOS\r\nALIMENTACAO: 16,00\r\nHOSPEDAGEM: 78,00\r\nETC: \r\n FEITO LIMPEZA EM TODO O SISTEMA DE CLORO GAS, INSTALAÇÃO DE 01 BOOSTER COM CHAVE MAGNETICA, 01 DETECTOR DE VAZAMENTOS. FEITO PINTURAS, SEM VAZAMENTOS.                         '),
 (781, 870, 'OCORRENCIA: PREVENTIVA\r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 03/04 AS 07:00\r\nDATA E HORA FINAL: 03/04 AS 12:00\r\nKM INICIAL: 90631\r\nKM FINAL: 90679\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n   LIMPEZA DE 03 DOSADORES\r\n02 DOSADORES DE 2000LBS\r\n01 DOSADOR DE 104KG\r\nSEM VAZAMENTOS...'),
-(782, 809, 'OCORRENCIA: reativação da eta\r\nCAUSA: voltou a funcionar\r\nSOLUCAO: realizado manutenções corretiva\r\nDATA E HORA INICIAL: 21/03/17 06:00\r\nDATA E HORA FINAL: 21/03/17 18:00\r\nKM INICIAL: 49976\r\nKM FINAL: 50761\r\n-----GASTOS GERAIS----\r\nPECAS: válvula R/0 de 3/4\"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(782, 809, 'OCORRENCIA: reativação da eta\r\nCAUSA: voltou a funcionar\r\nSOLUCAO: realizado manutenções corretiva\r\nDATA E HORA INICIAL: 21/03/17 06:00\r\nDATA E HORA FINAL: 21/03/17 18:00\r\nKM INICIAL: 49976\r\nKM FINAL: 50761\r\n-----GASTOS GERAIS----\r\nPECAS: válvula R/0 de 3/4"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (783, 858, 'OCORRENCIA: continuação da instalação do sistema de cloro gás. \r\nCAUSA: dando continuidade na istalaçã do sistema  \r\nSOLUCAO: finalizada a instalação do sistema de cloro gás. \r\nDATA E HORA INICIAL: 03/04/17 às 07:20hs\r\nDATA E HORA FINAL: 03/04/17 às 12:00hs\r\nKM INICIAL: \r\nKM FINAL: \r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (784, 819, 'OCORRENCIA: baixa dosagem\r\nCAUSA: obstrução\r\nSOLUCAO: substituído o flexível\r\nDATA E HORA INICIAL: 24/03/17 07:30\r\nDATA E HORA FINAL: 24/03/17 13:00\r\nKM INICIAL: 50761\r\nKM FINAL: 50904\r\n-----GASTOS GERAIS----\r\nPECAS: flexível de cobre de 3,5mm\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (785, 903, 'OCORRENCIA: BOMBA QUEIMADA\r\nCAUSA: CURTO CIRCUITO INTERNO\r\nSOLUCAO: SUBSTITUIÇÃO DA BOMBA\r\nDATA E HORA INICIAL: 05/04 AS 15:00\r\nDATA E HORA FINAL: 05/04 AS 19:32\r\nKM INICIAL: 91234\r\nKM FINAL: 91414\r\n-----GASTOS GERAIS----\r\nPECAS: 1 BOOSTER WEG KSB 1 CV\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\nSUBSTITUIÇÃO DE 01 BOOSTER                          '),
@@ -1425,9 +1302,9 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (790, 886, 'OCORRENCIA: operação ( substituição e acoplamento de cilindros)\r\nCAUSA: bateria de cilindros vazia\r\nSOLUCAO:  Foi substituido, acoplado e testado com solução de amônia, 08 cilindros cheios.\r\nA bateria A está em operação e tem 04 cilindros cheios na baretia B.\r\nDATA E HORA INICIAL: 30/03/2017 às 08:00\r\nDATA E HORA FINAL: 30/03/2017 às 09:58\r\nKM INICIAL: 312\r\nKM FINAL: 324\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (791, 887, 'OCORRENCIA: Operação ( Acoplamento de cilindros)\r\nCAUSA:  Cilindros vazios\r\nSOLUCAO: Foi acoplado e testado com solução de amônia 02 cilindros cheios\r\nDATA E HORA INICIAL:  30/03/2017 às 11:09\r\nDATA E HORA FINAL:  30/03/2017 às 13:00 \r\nKM INICIAL: 336\r\nKM FINAL: 349\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (792, 888, 'OCORRENCIA:  vazamento de cloro gás\r\nCAUSA: Válvula redutora de pressão com defeito.\r\nSOLUCAO: Foi substituído a válvula redutora de pressão, limpeza no injetor,substituição de 02 flexível  que estava com o engate danificado e acoplado 01 cilindro cheio.\r\nDATA E HORA INICIAL: 01/04/2107 às 09:55\r\nDATA E HORA FINAL:  02/04/2017 às 12:00\r\nKM INICIAL:  445\r\nKM FINAL: 595\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(793, 889, 'OCORRENCIA:  sistema obstruido\r\nCAUSA: sujo no manifolde\r\nSOLUCAO: Foi realizado lavagem interna no manifolde, flexíveis e vidro dosador rotâmetro.\r\nFoi substituído 01 válvula raio do manifold e 01 reguladora de pressão.\r\no sistema esta em operação com o cilindro 40375 \r\nDATA E HORA INICIAL: 04/04/2107 às 07:45\r\nDATA E HORA FINAL:  04/04/2017  às 12:24\r\nKM INICIAL:  1147\r\nKM FINAL: 1160\r\n-----GASTOS GERAIS----\r\nPECAS:  01 válvula redutora de pressão fluideefer, 01 vál vaio  0 3/4\"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(793, 889, 'OCORRENCIA:  sistema obstruido\r\nCAUSA: sujo no manifolde\r\nSOLUCAO: Foi realizado lavagem interna no manifolde, flexíveis e vidro dosador rotâmetro.\r\nFoi substituído 01 válvula raio do manifold e 01 reguladora de pressão.\r\no sistema esta em operação com o cilindro 40375 \r\nDATA E HORA INICIAL: 04/04/2107 às 07:45\r\nDATA E HORA FINAL:  04/04/2017  às 12:24\r\nKM INICIAL:  1147\r\nKM FINAL: 1160\r\n-----GASTOS GERAIS----\r\nPECAS:  01 válvula redutora de pressão fluideefer, 01 vál vaio  0 3/4"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (794, 890, 'OCORRENCIA: operação (acoplamento de cilindro)\r\nCAUSA: cilindros vazio\r\nSOLUCAO:  Foi acopla e testado com solução de amônia 01 cilindros cheio.\r\nDATA E HORA INICIAL:04/04/2017 12:24 \r\nDATA E HORA FINAL: 04/04/2017 13:32\r\nKM INICIAL:  1160\r\nKM FINAL: 1180\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(795, 884, 'OCORRENCIA: operação (desacoplar cilindros vazios)\r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (04)quatros cilindros cheios de 900 kg\r\nDATA E HORA INICIAL: 04/04/17 as 07:45 hras\r\nDATA E HORA FINAL: 04/04/17 as 10:05 hras\r\nKM INICIAL: ****\"\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
+(795, 884, 'OCORRENCIA: operação (desacoplar cilindros vazios)\r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (04)quatros cilindros cheios de 900 kg\r\nDATA E HORA INICIAL: 04/04/17 as 07:45 hras\r\nDATA E HORA FINAL: 04/04/17 as 10:05 hras\r\nKM INICIAL: ****"\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
 (796, 891, 'OCORRENCIA: operação \r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (01)um cilindro cheio de 900 kg\r\nDATA E HORA INICIAL: 04/04/17 as 10:05 hras\r\nDATA E HORA FINAL: 04/04/17 as 17:30 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
 (797, 895, 'OCORRENCIA: operação\r\nCAUSA: término do produto (cloro gás )\r\nSOLUCAO: acoplar (01)um cilindro cheio de 68 kg\r\nDATA E HORA INICIAL: 05/04/17 as 07:45 hras\r\nDATA E HORA FINAL: 05/04/17 as 15:25 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
 (798, 911, 'OCORRENCIA: operação \r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (01)um cilindro cheio de 900 kg\r\nDATA E HORA INICIAL:07/04/17 as 07:45 hras  \r\nDATA E HORA FINAL: 07/04/17 as 09:45 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
@@ -1441,7 +1318,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (806, 908, 'OCORRENCIA: \r\nCAUSA: \r\nSOLUCAO:  Por favor cancelar esta OS não houve atendimento .\r\nDATA E HORA INICIAL: \r\nDATA E HORA FINAL: \r\nKM INICIAL: \r\nKM FINAL: \r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (807, 909, 'OCORRENCIA:  Reabastecimento\r\nCAUSA:  Abastecimento\r\nSOLUCAO:  Abasteci 5kg Dicloro o P4 Guarapes\r\nDATA E HORA INICIAL:  07/04/17 09:21\r\nDATA E HORA FINAL:  07/04/17 09:43\r\nKM INICIAL:  1578\r\nKM FINAL:  1579\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (808, 910, 'OCORRENCIA:  Reabastecimento\r\nCAUSA:  Abastecimento\r\nSOLUCAO:  Abasteci 5kg Dicloro o P5 Torres\r\nDATA E HORA INICIAL: 07/04/17 07:58\r\nDATA E HORA FINAL:  07/04/17 09:24\r\nKM INICIAL:  1495\r\nKM FINAL:  1578\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(809, 857, 'OCORRENCIA:  Instalação Nova\r\nCAUSA:  Instalação de um clorador reserva de 1000kg\r\nSOLUCAO:  Instalei um novo clorador de 1000kg \r\nDATA E HORA INICIAL:  31/03/17 07:40\r\nDATA E HORA FINAL:  03/04/17 12:49\r\nKM INICIAL: 351\r\nKM FINAL:  763\r\n-----GASTOS GERAIS----\r\nPECAS: 3 varas de 1\'\' PVC, 3 registro 50\'\' PVC, 3 joelhos 1\'\' PVC, 1 União 1\'\' PVC, 1 redução 50x1\'\' PVC, 2 Colas, ! veda rosca.\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(809, 857, 'OCORRENCIA:  Instalação Nova\r\nCAUSA:  Instalação de um clorador reserva de 1000kg\r\nSOLUCAO:  Instalei um novo clorador de 1000kg \r\nDATA E HORA INICIAL:  31/03/17 07:40\r\nDATA E HORA FINAL:  03/04/17 12:49\r\nKM INICIAL: 351\r\nKM FINAL:  763\r\n-----GASTOS GERAIS----\r\nPECAS: 3 varas de 1'''' PVC, 3 registro 50'''' PVC, 3 joelhos 1'''' PVC, 1 União 1'''' PVC, 1 redução 50x1'''' PVC, 2 Colas, ! veda rosca.\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (810, 872, 'OCORRENCIA:  Eta parada.\r\nCAUSA:  Ligação do clorador.\r\nSOLUCAO:   Feita ligação do clorador 26kg/dia da fluidfeed.\r\nDATA E HORA INICIAL:   30/03/17  as  9:45\r\nDATA E HORA FINAL:   30/03/17  as  14:55\r\nKM INICIAL:   575\r\nKM FINAL:     668\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO:   24,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (811, 873, 'OCORRENCIA:   Bombas dosadoras sem dosar.\r\nCAUSA:   Sujeira e troca de reparos.\r\nSOLUCAO:   Feita limpeza e troca dos reparos com testes no local, dosadoras funcionando bem sem nenhum vazamento.\r\nDATA E HORA INICIAL:    30/03/17  as  18:05\r\nDATA E HORA FINAL:   31/03/17  as  9:20\r\nKM INICIAL:   668\r\nKM FINAL:     828\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO:   32,00\r\nHOSPEDAGEM:   60,00\r\nETC: \r\n                          '),
 (812, 874, 'OCORRENCIA:    Equipamento sem dosar.\r\nCAUSA:   Sujeira e troca de reparos.\r\nSOLUCAO  :    Feita limpeza e troca dos reparos com troca das mangueiras e limpeza no injetor,  limpeza também no gabinete 104kg/dia com troca de uma valv. R-0. \r\nDATA E HORA INICIAL:   31/03/17  as  10:45\r\nDATA E HORA FINAL:   31/03/17  as  12:30\r\nKM INICIAL:   828\r\nKM FINAL:      930\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO:   15,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1469,8 +1346,9 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (834, 906, 'OCORRÊNCIA: sistemas de cloraçao com defeito.\r\nCAUSA:   uma válvula redutora colocada com silicone, injetor colado, manifolder com muita sujeira interna.\r\nSOLUÇÃO:  foi trocado a válvula redutora, foi trocado o injetor feita manutenção no manifolder e Clorador, feita a pintura de toda tubulação idraulica e manifolder.\r\nSistema voltou a funcionar normalmente.\r\nDATA E HORA INICIAL:  05/04 12:16 horas.\r\nDATA E HORA FINAL:  05/04 15:30 horas.\r\nKM INICIAL:  2067 \r\nKM FINAL: 2349\r\n-----GASTOS GERAIS----\r\nPECAS:  uma válvula redutora, um injetor.\r\nALIMENTAÇÃO:  \r\nHOSPEDAGEM:  \r\nETC: \r\n                          '),
 (835, 917, 'OCORRENCIA: sistema de cloração parado.\r\nCAUSA: válvula redutora com vazamento, injetor com a peça que encaixa a mangueira quebrada, flexível rachado, válvula raio zero, com desgastado na rosca, Clorador com sujeira, \r\nSOLUCAO:  feita manutenção no Clorador, na válvula redutora foi trocado a válvula raio zero, 75cm de mangueira, foi trocado a peça onde encaixa a mangueira no injetor e o flexível, feita a manutenção no manifolder.\r\nSistema voltou a funcionar normalmente.\r\nDATA E HORA INICIAL:  07/04 17:00 horas\r\nDATA E HORA FINAL:  08/04  07:40 horas\r\nKM INICIAL:  2800 \r\nKM FINAL:  2871\r\n-----GASTOS GERAIS----\r\nPECAS:  \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (836, 919, 'OCORRENCIA:  sistema parado.\r\nCAUSA:  válvula redutora com folga e água na parte interna, injetor com diafragma furado e horing estragadas, Clorador cheio de agua, mangueira ressecada.\r\nSOLUCAO:  foi trocado o diagrama e todo hourings do injetor feito a manutenção na válvula redutora e Clorador, pintura do manifolder e tubulação.\r\nSistema testado, voltou operar normalmente.\r\nDATA E HORA INICIAL:  08/04 07:40\r\nDATA E HORA FINAL:  08/04 10:49\r\nKM INICIAL:  2871\r\nKM FINAL:  3246\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(837, 923, 'OCORRENCIA:  serviço que ficou pendente des s da última visita \r\nCAUSA: manifolder com desgaste pelo tempo de uso \r\nSOLUCAO: foi trocado todo manifolder da bateria 01 foi feito a pintura do mesmo, foi usado  nipre de 15cm do manifolder anterior porque não veio novo,foi feito limpeza no rotamentro da bateria 01 e trocado uma união de 32mm é uma luva ficou na Eta 4 válvulas mga de 1\" ,3 flexível de 1m , 3chaves de operação, e 3 abraçadeira s York.foi testado , normal sem nenhuma anormalidade.\r\nDATA E HORA INICIAL: 09/04   15:23\r\nDATA E HORA FINALMENTE?: 11/04     13:00\r\nKM INICIAL: 3477\r\nKM FINAL: 3569\r\n-----GASTOS GERAIS----\r\nPECAS: pincéis 2, cola 3m 1, lata de tinta amarela 1, fita veda rosca 18mmx50mmm 6, um litro de thinner ,luva de PVC 32mm 1,cola para cano de pvc 1, união de pvc 32mm '),
-(838, 939, 'OCORRENCIA: sistema clorando ,porém paramos para fazer manutenção \r\nCAUSA: retorno , e sujeita\r\nSOLUCAO: troca de uma válvula redutora ,e raio zero , limpeza no manifolder e espessaõ nas outras válvula raio zero \r\nDATA E HORA INICIAL: 11/04/017.  16:01\r\nDATA E HORA FINAL: 12/04/017.     10:20\r\nKM INICIAL3658\r\nKM FINAL: 3666\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 30+35\r\nHOSPEDAGEM: dia 11/04/017-12/04/207,35reais\r\nETC: \r\n                          '),
+(837, 923, 'OCORRENCIA:  serviço que ficou pendente des s da última visita \r\nCAUSA: manifolder com desgaste pelo tempo de uso \r\nSOLUCAO: foi trocado todo manifolder da bateria 01 foi feito a pintura do mesmo, foi usado  nipre de 15cm do manifolder anterior porque não veio novo,foi feito limpeza no rotamentro da bateria 01 e trocado uma união de 32mm é uma luva ficou na Eta 4 válvulas mga de 1" ,3 flexível de 1m , 3chaves de operação, e 3 abraçadeira s York.foi testado , normal sem nenhuma anormalidade.\r\nDATA E HORA INICIAL: 09/04   15:23\r\nDATA E HORA FINALMENTE?: 11/04     13:00\r\nKM INICIAL: 3477\r\nKM FINAL: 3569\r\n-----GASTOS GERAIS----\r\nPECAS: pincéis 2, cola 3m 1, lata de tinta amarela 1, fita veda rosca 18mmx50mmm 6, um litro de thinner ,luva de PVC 32mm 1,cola para cano de pvc 1, união de pvc 32mm '),
+(838, 939, 'OCORRENCIA: sistema clorando ,porém paramos para fazer manutenção \r\nCAUSA: retorno , e sujeita\r\nSOLUCAO: troca de uma válvula redutora ,e raio zero , limpeza no manifolder e espessaõ nas outras válvula raio zero \r\nDATA E HORA INICIAL: 11/04/017.  16:01\r\nDATA E HORA FINAL: 12/04/017.     10:20\r\nKM INICIAL3658\r\nKM FINAL: 3666\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 30+35\r\nHOSPEDAGEM: dia 11/04/017-12/04/207,35reais\r\nETC: \r\n                          ');
+INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (839, 941, 'OCORRENCIA: sistema clorando com retorno\r\nCAUSA: baixa pressão e injetor desregulado\r\nSOLUCAO:  foi feita manutenção no injetor,troca do diafragma e horings do mesmo, sistema sem pressão para o injetor . Sistema operando normalmente\r\nDATA E HORA INICIAL: 12/04/017. 10:50 \r\nDATA E HORA FINAL: 12/04/017.   12:21\r\nKM INICIAL: 3669\r\nKM FINAL: 3880\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 35\r\nHOSPEDAGEM: 70\r\nETC: \r\n                          '),
 (840, 869, 'OCORRENCIA: vasamnto de cloro gás. \r\nCAUSA: vazamento de gás na parte de trás do cilindro em um dos quatro parafusos do cilindro de 1000kg.\r\nSOLUCAO: uso do KTI de emergência. \r\nDATA E HORA INICIAL: 15/04/17 às 12:00\r\nDATA E HORA FINAL: 15/04/17 às 14:00\r\nKM INICIAL: \r\nKM FINAL: \r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (841, 920, 'OCORRENCIA:  Operação ( acoplamento de cilindros)\r\nCAUSA: cilindros vazios\r\nSOLUCAO: foi substituido, acoplado e teastado com solução de amônia 04 cilindros cheios.\r\nDATA E HORA INICIAL: 06/04/2017 às 13:30\r\nDATA E HORA FINAL: 06/04/2017 às 16:00\r\nKM INICIAL:  1317\r\nKM FINAL: 1345\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1478,8 +1356,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (843, 916, 'OCORRENCIA:  Vazamento de cloro gás\r\nCAUSA:  Flexível com o engate folgado\r\nSOLUCAO:  Apertei o flexível \r\nDATA E HORA INICIAL: 07/04/17 14:14\r\nDATA E HORA FINAL:  07/04/17 17:45\r\nKM INICIAL:  1644\r\nKM FINAL:  1738\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (844, 922, 'OCORRENCIA:  Reabastecimento\r\nCAUSA:  Abastecimento\r\nSOLUCAO:  Abasteci 150kg Dicloro a maquina volumétrica \r\nDATA E HORA INICIAL:  10/04/17 08:25\r\nDATA E HORA FINAL:  10/04/17 10:23\r\nKM INICIAL:  1870\r\nKM FINAL: 1917\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (845, 926, 'OCORRENCIA:  Vazamento de pac\r\nCAUSA:  A mangueira que sai da bomba estavaestorada\r\nSOLUCAO:  substitui a mangueira por uma nova\r\nDATA E HORA INICIAL:  10/04/17 10:23\r\nDATA E HORA FINAL:  10/04/17 11:33\r\nKM INICIAL:  1917\r\nKM FINAL:  1965\r\n-----GASTOS GERAIS----\r\nPECAS:  10mt de mangueira de 1/2\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(846, 930, 'OCORRENCIA:  Preventiva\r\nCAUSA:  sistema com os rotâmetros e válvulas reguladoras de vácuo sujos \r\nSOLUCAO:  Realizei limpeza em rotâmetros, vávulas reguladoras e válvulas R/0\r\nDATA E HORA INICIAL:  11/04/17 07:38\r\nDATA E HORA FINAL:  11/04/17 10:21\r\nKM INICIAL:  2035\r\nKM FINAL:  2052\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
-INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
+(846, 930, 'OCORRENCIA:  Preventiva\r\nCAUSA:  sistema com os rotâmetros e válvulas reguladoras de vácuo sujos \r\nSOLUCAO:  Realizei limpeza em rotâmetros, vávulas reguladoras e válvulas R/0\r\nDATA E HORA INICIAL:  11/04/17 07:38\r\nDATA E HORA FINAL:  11/04/17 10:21\r\nKM INICIAL:  2035\r\nKM FINAL:  2052\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (847, 942, 'OCORRENCIA: Vazamento de cloro gás\r\nCAUSA: Entrada de cloro liquido no sistema de cloração\r\nSOLUCAO:  realizei limpeza na reguladora de vácuo, rotâmetro e válvulas R/0\r\nDATA E HORA INICIAL:  12/04/17 14:57\r\nDATA E HORA FINAL: 12/04/17  15:45\r\nKM INICIAL:  2418\r\nKM FINAL:  2429\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (848, 943, 'OCORRENCIA:  Reabastecimento\r\nCAUSA:  Abastecimento\r\nSOLUCAO:  Abasteci 150kg Diclro a maquina volumétrica \r\nDATA E HORA INICIAL:  13/04/17 07:58\r\nDATA E HORA FINAL:  13/04/17 09:21\r\nKM INICIAL:  2509\r\nKM FINAL:  2518\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (849, 944, 'OCORRENCIA:  Reabastecimento\r\nCAUSA:  Abastecimento\r\nSOLUCAO:  Abasteci 5kg Dicloro o P1 San Vale\r\nDATA E HORA INICIAL:  13/04/17 07:26\r\nDATA E HORA FINAL:  13/04/17 07:58\r\nKM INICIAL:  2497\r\nKM FINAL:  2509\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1495,7 +1372,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (859, 928, 'OCORRENCIA: Acoplamento de cilindro\r\nCAUSA: Cilindros vazios\r\nSOLUCAO: Acoplamento de cilindro\r\nDATA E HORA INICIAL: 08/04/17 14:20\r\nDATA E HORA FINAL: 08/04/17 16:20\r\nKM INICIAL: 5.261\r\nKM FINAL: 5.305\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (860, 956, 'OCORRENCIA: cilindro na posição incorreta .\r\nCAUSA: cilindro na posiçãoincorreta. \r\nSOLUCAO: feita à organização do cilinro que está com um copo de segurança pois o mesmo testava com vazamento. \r\nDATA E HORA INICIAL: 16/04/17 às 09:30hs.\r\nDATA E HORA FINAL: 16/04/17 às 11:20hs\r\nKM INICIAL: \r\nKM FINAL: \r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (861, 958, 'OCORRENCIA: fazer a conferência do material que chego para montagem dos cloradores nas localidades. \r\nCAUSA: fazer a conferência do material ea montagem .\r\nSOLUCAO: feita à montagem de 03 três manifold completo.\r\nDATA E HORA INICIAL: 17/04/17 às 07:20hs.\r\nDATA E HORA FINAL: 17/04/17 às 19:00 hs.\r\nKM INICIAL: \r\nKM FINAL: \r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: foram gastos (34,18)reais com fita veda rosca para montagem dos manifold. \r\n                          '),
-(862, 966, 'OCORRENCIA: montagem de manifold e istalaçã na ETA de Mucajaí. \r\nCAUSA: montar manifold para intalar na ETA Mucajaí. \r\nSOLUCAO: feita instalação do sistema de cloro gás na ETA Mucajaí com um manifold completo (04)quatro válvulas 3/4\" R-0 S/Fusível header, (02)tubo flexível de cobre med:7/16\" ×1,20MT,(02)dois cloradores modelo FFCL1 50kg/dia fluidfeeder, (02)injetores fluidfeeder,(02)chave para válvula CILS, (02)duas abraçadeiras York P/cilinro. \r\nDATA E HORA INICIAL: 18/04/17 às 07:10hs.\r\nDATA E HORA FINAL: 18/04/17 às 19:40hs.\r\nKM INICIAL: \r\nKM FINAL: \r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 23,00 reais.\r\nHOSPEDAGEM: \r\nETC: foram gastos(130.22)reais com conequições e tintas e fita veda rosca e parafusos com buchas.\r\n                          '),
+(862, 966, 'OCORRENCIA: montagem de manifold e istalaçã na ETA de Mucajaí. \r\nCAUSA: montar manifold para intalar na ETA Mucajaí. \r\nSOLUCAO: feita instalação do sistema de cloro gás na ETA Mucajaí com um manifold completo (04)quatro válvulas 3/4" R-0 S/Fusível header, (02)tubo flexível de cobre med:7/16" ×1,20MT,(02)dois cloradores modelo FFCL1 50kg/dia fluidfeeder, (02)injetores fluidfeeder,(02)chave para válvula CILS, (02)duas abraçadeiras York P/cilinro. \r\nDATA E HORA INICIAL: 18/04/17 às 07:10hs.\r\nDATA E HORA FINAL: 18/04/17 às 19:40hs.\r\nKM INICIAL: \r\nKM FINAL: \r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 23,00 reais.\r\nHOSPEDAGEM: \r\nETC: foram gastos(130.22)reais com conequições e tintas e fita veda rosca e parafusos com buchas.\r\n                          '),
 (863, 960, 'OCORRENCIA: NOVA INSTALAÇÃO\r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 18/04 AS 07:11\r\nDATA E HORA FINAL: 18/04 AS 20:39\r\nKM INICIAL: 93073\r\nKM FINAL: 93242\r\n-----GASTOS GERAIS----\r\nPECAS: 01 BOOSTER + CHAVE, 01 PRESYS + SONDA\r\nALIMENTACAO: \r\nHOSPEDAGEM: R$ 60,00\r\nETC: \r\n    SUBSTITUIDO 01 CARTUCHO QUEIXO, MANGUEIRAS. INSTALADO 01 BOOSTER 1 CV WEG, 01 CHAVE MAGNETICA, 01 PRESYS 2030 LIGTH, 01 SONDA DIGIMED                      '),
 (864, 961, 'OCORRENCIA: VAZAMENTO\r\nCAUSA: DESGASTE DE VÁLVULA R0\r\nSOLUCAO: SUBSTITUIÇÃO\r\nDATA E HORA INICIAL: 17/04 AS 13:49\r\nDATA E HORA FINAL: 17/04 AS 19:42\r\nKM INICIAL: 92879\r\nKM FINAL: 93073\r\n-----GASTOS GERAIS----\r\nPECAS: 01 MANIFOLD\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n   SUBSTITUIDO 01 MANIFOLD DE 07 VALVULAS POR 01 DE 03 VÁLVULAS.                       '),
 (865, 959, 'OCORRENCIA: VAZAMENTO PELA VÁLVULA R0\r\nCAUSA: LIQUIDO DENTRO DO MANIFOLD\r\nSOLUCAO: SUBSTITUIÇÃO DA VÁLVULA R0\r\nDATA E HORA INICIAL: 17/04 AS 07:05\r\nDATA E HORA FINAL: 17/04 AS 13:49\r\nKM INICIAL: 92612\r\nKM FINAL: 92879\r\n-----GASTOS GERAIS----\r\nPECAS: 01 CHAVE MAGNETICA, 01 MASCARA DE FUGA, 01 VÁLVULA R0\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n HOUVE QUEDA DE ENERGIA NA ETA, DANIFICANDO VARIOS ELETROS DA ETA, E A CHAVE DE PARTIDA DA BOMBA.                          '),
@@ -1531,10 +1408,10 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (895, 982, 'OCORRENCIA: corretiva \r\nCAUSA: vazamento irregular na válvula redutora de pressão\r\nSOLUCAO: retirada a mesma e colocada a reserva para operação\r\nDATA E HORA INICIAL: 21/04/17 as 05:40 hras\r\nDATA E HORA FINAL: 21/04/17 as 13:40 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM:R$ 40,00\r\nALIMENTACAO: R$ 6,00\r\nTÁXI: R$ 185,00\r\nETC: *****\r\n                          '),
 (896, 987, 'OCORRENCIA: fatura para compra de material.\r\nCAUSA: fatura de material \r\nSOLUCAO: fatura de material para instalação de cloradores. \r\nDATA E HORA INICIAL: 24/04/17 às 7:20hs.\r\nDATA E HORA FINAL: 24/04/17 às 17:00\r\nKM INICIAL: 6920.1km.\r\nKM FINAL: 7020.0km\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (897, 1000, 'OCORRENCIA: substituição do sistema de gás cloro. \r\nCAUSA: substituição do sistema de gás cloro. \r\nSOLUCAO: Feito a instalação do novo sistema de gás cloro. Composto por 01um manifold com quatro pontos um ,01manometro,02 abrçadeira para cilindro,02 chave para válvula Vila.02clorador modelo ffcl01 100kg/dia,01detector de gás cloro, 02flexivel 1,20MT,02suporte em cantoneira 02 injetores. Tudo fluedfeeder.\r\nDATA E HORA INICIAL: 25/04/17 às 07:10hs.\r\nDATA E HORA FINAL: 26/04/17 às 10:50hs.\r\nKM INICIAL: 7366.3km\r\nKM FINAL: 7368.2km\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: 80,00 reais.\r\nETC:( 95,98)reais gastos com conexões de pvc e parafusos). E (185,03)com combustível \r\n                          '),
-(898, 1015, 'OCORRENCIA: substituição do sistema de gás cloro. \r\nCAUSA: substituição do sistema de gás cloro. \r\nSOLUCAO: feita à substituição do sistema por um outro que é composto por um manifold de quarto pontos com quatro válvula 3/4\" R-0 s/Fusível, um manometro  um filtro em y  ,duas válvula reguladora de vácuo,dois clorador com capacidade 100kg/dia ,dois flexível, duas abraçadeiras York p/ cilindro ,duas chaves para válvula clls ,dois suportes para manifold dois injetor  \r\nDATA E HORA INICIAL: 26/04/17 às 10:50hs.\r\nDATA E HORA FINAL: 26/04/17 às 20:40hs.\r\nKM INICIAL: 7366.3km\r\nKM FINAL: 7655.4km\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 20,00 reais. \r\nHOSPEDAGEM: \r\nETC: 25,00 reais com conexões de pvc.\r\n                          '),
+(898, 1015, 'OCORRENCIA: substituição do sistema de gás cloro. \r\nCAUSA: substituição do sistema de gás cloro. \r\nSOLUCAO: feita à substituição do sistema por um outro que é composto por um manifold de quarto pontos com quatro válvula 3/4" R-0 s/Fusível, um manometro  um filtro em y  ,duas válvula reguladora de vácuo,dois clorador com capacidade 100kg/dia ,dois flexível, duas abraçadeiras York p/ cilindro ,duas chaves para válvula clls ,dois suportes para manifold dois injetor  \r\nDATA E HORA INICIAL: 26/04/17 às 10:50hs.\r\nDATA E HORA FINAL: 26/04/17 às 20:40hs.\r\nKM INICIAL: 7366.3km\r\nKM FINAL: 7655.4km\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 20,00 reais. \r\nHOSPEDAGEM: \r\nETC: 25,00 reais com conexões de pvc.\r\n                          '),
 (899, 689, 'OCORRENCIA: Vazamento na bomba dosadora de Dicloro.\r\nCAUSA: Rompimento do diafragma.\r\nSOLUCAO: Substituição do diafragma.\r\nDATA E HORA INICIAL: 11/01/17 as 8:40\r\nDATA E HORA FINAL: 11/01/17 as 10:32\r\nKM INICIAL: 75511\r\nKM FINAL: 75598\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (900, 690, 'OCORRENCIA: Vazamento na bomba booster.\r\nCAUSA: Desgaste do selo mecânico.\r\nSOLUCAO: Substituição do selo mecânico.\r\nDATA E HORA INICIAL: 11/01/17 as 10:32\r\nDATA E HORA FINAL: 11/01/17 as 17:32\r\nKM INICIAL: 75598\r\nKM FINAL: 75850\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(901, 691, 'OCORRENCIA: Parada no funcionamento da bomba booster.\r\nCAUSA: Falta d\'água no sistema.\r\nSOLUCAO: Substituição da ponta de eixo, selo mecânico e um dos rotores.\r\nDATA E HORA INICIAL: 12/01/17 as 8:50\r\nDATA E HORA FINAL: 12/01/17 as 14:20\r\nKM INICIAL: 75850\r\nKM FINAL: 76182\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: R$ 28,50\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(901, 691, 'OCORRENCIA: Parada no funcionamento da bomba booster.\r\nCAUSA: Falta d''água no sistema.\r\nSOLUCAO: Substituição da ponta de eixo, selo mecânico e um dos rotores.\r\nDATA E HORA INICIAL: 12/01/17 as 8:50\r\nDATA E HORA FINAL: 12/01/17 as 14:20\r\nKM INICIAL: 75850\r\nKM FINAL: 76182\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: R$ 28,50\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (902, 692, 'OCORRENCIA: Vazamento de cloro gás.\r\nCAUSA: Desgaste por corrosão da válvula raio zero.\r\nSOLUCAO: Substituição da válvula raio zero e reparo da válvula reguladora de vácuo siemens.\r\nDATA E HORA INICIAL:17/01/17 as 9:16 \r\nDATA E HORA FINAL: 17/01/17 as 16:07\r\nKM INICIAL: 76211\r\nKM FINAL: 76603\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: R$35,50\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (903, 1002, 'OCORRENCIA: retirada de equipamentos\r\nCAUSA: segurança para o operador\r\nSOLUCAO: realizado à retirada dos injetores da parte externa da casa de cloro e recolocado na parte interna\r\nDATA E HORA INICIAL: 25/04/16 07:00\r\nDATA E HORA FINAL: 25/04/17 13:00\r\nKM INICIAL: 55578\r\nKM FINAL: 55802\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (904, 1003, 'OCORRENCIA: sistema parado\r\nCAUSA: reativação do sistema\r\nSOLUCAO: manutenção corretiva\r\nDATA E HORA INICIAL: 25/04/17 13:00\r\nDATA E HORA FINAL: 25/04/17 17:20\r\nKM INICIAL: 55802\r\nKM FINAL: 56042\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1544,14 +1421,14 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (908, 1007, 'OCORRENCIA: obstrução no rotametro\r\nCAUSA: retorno de água\r\nSOLUCAO: realizado manutenção corretiva\r\nDATA E HORA INICIAL: 17/04/17 13:00\r\nDATA E HORA FINAL: 17/04/17 17:30\r\nKM INICIAL: 54149\r\nKM FINAL: 54246\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (909, 1008, 'OCORRENCIA: obstrução\r\nCAUSA: válvula reguladora de vácuo\r\nSOLUCAO: realizado manutenção nas válvulas\r\nDATA E HORA INICIAL: 18/04/17 07:00\r\nDATA E HORA FINAL: 18/04/17 13:00\r\nKM INICIAL: 54296\r\nKM FINAL: 54564\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (910, 1009, 'OCORRENCIA: problema de vácuo\r\nCAUSA: injetor sem funcionar\r\nSOLUCAO: substituído o injetor\r\nDATA E HORA INICIAL: 18/04/17 13:00\r\nDATA E HORA FINAL: 18/04/17 18:00\r\nKM INICIAL: 54700\r\nKM FINAL: 54730\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(911, 1010, 'OCORRENCIA: vazamento na bomba de 2 cv\r\nCAUSA: desgaste de peças\r\nSOLUCAO:troca de componentes \r\nDATA E HORA INICIAL: 19/04/17 07:00\r\nDATA E HORA FINAL: 19/04/17 13:00\r\nKM INICIAL: 54730\r\nKM FINAL: 54903\r\n-----GASTOS GERAIS----\r\nPECAS: selo mecânico de 3/4\"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(911, 1010, 'OCORRENCIA: vazamento na bomba de 2 cv\r\nCAUSA: desgaste de peças\r\nSOLUCAO:troca de componentes \r\nDATA E HORA INICIAL: 19/04/17 07:00\r\nDATA E HORA FINAL: 19/04/17 13:00\r\nKM INICIAL: 54730\r\nKM FINAL: 54903\r\n-----GASTOS GERAIS----\r\nPECAS: selo mecânico de 3/4"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (912, 1011, 'OCORRENCIA: baixa dosagem\r\nCAUSA: problema no diafragma do injetor\r\nSOLUCAO: realizado à manutenção corretiva\r\nDATA E HORA INICIAL: 19/04/17 13:00\r\nDATA E HORA FINAL: 19/04/16 17:30\r\nKM INICIAL: 54903\r\nKM FINAL: 55200\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (913, 1012, 'OCORRENCIA: problema na bomba de 2 cv\r\nCAUSA: desgaste de parafuso de fixação\r\nSOLUCAO: realizado manutenção corretiva\r\nDATA E HORA INICIAL: 23/04/17 06:00\r\nDATA E HORA FINAL: 23/04/17 14:00\r\nKM INICIAL: 55300\r\nKM FINAL: 55578\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (914, 1020, 'OCORRENCIA: baixa dosagem\r\nCAUSA: vazão de água no injetor\r\nSOLUCAO: manutenção corretiva\r\nDATA E HORA INICIAL: 26/04/17 10:40\r\nDATA E HORA FINAL: 26/04/17 14:00\r\nKM INICIAL: 56195\r\nKM FINAL: 56405\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (915, 1021, 'OCORRENCIA: problema no injetor\r\nCAUSA: obstrucao\r\nSOLUCAO: realizado à substituição do injetor\r\nDATA E HORA INICIAL: 26/04/17 14:00\r\nDATA E HORA FINAL: 26/04/17 18:00 \r\nKM INICIAL: 56405\r\nKM FINAL: 56703\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(916, 1024, 'OCORRENCIA: Sistema sem vácuo.\r\nCAUSA: Rompimento do diafragma do injetor siemens 1\".\r\nSOLUCAO: Substituição do reparo do injetor\r\nDATA E HORA INICIAL: 23/01/17 as 10:06\r\nDATA E HORA FINAL: 23/01/17 as 15:30\r\nKM INICIAL: 76698\r\nKM FINAL: 77117\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(916, 1024, 'OCORRENCIA: Sistema sem vácuo.\r\nCAUSA: Rompimento do diafragma do injetor siemens 1".\r\nSOLUCAO: Substituição do reparo do injetor\r\nDATA E HORA INICIAL: 23/01/17 as 10:06\r\nDATA E HORA FINAL: 23/01/17 as 15:30\r\nKM INICIAL: 76698\r\nKM FINAL: 77117\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (917, 1025, 'OCORRENCIA: Dosagem não atingia o ideal.\r\nCAUSA: Queda na vazão do ramal.\r\nSOLUCAO: Ajustes no clorador v2000\r\nDATA E HORA INICIAL: 27/01/17 as 12:48\r\nDATA E HORA FINAL: 27/01/17 as 16:11\r\nKM INICIAL: 77196\r\nKM FINAL: 77381\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: R$ 16,49\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(918, 1026, 'OCORRENCIA: Sistema com vazamento de água.\r\nCAUSA: Quebra da base do injetor fluidfeeder 3/4\".\r\nSOLUCAO: Substituição da base.\r\nDATA E HORA INICIAL: 31/01/17 as 8:10\r\nDATA E HORA FINAL: 31/01/17 as 12:13\r\nKM INICIAL: 77381\r\nKM FINAL: 77582\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: R$33,50\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(918, 1026, 'OCORRENCIA: Sistema com vazamento de água.\r\nCAUSA: Quebra da base do injetor fluidfeeder 3/4".\r\nSOLUCAO: Substituição da base.\r\nDATA E HORA INICIAL: 31/01/17 as 8:10\r\nDATA E HORA FINAL: 31/01/17 as 12:13\r\nKM INICIAL: 77381\r\nKM FINAL: 77582\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: R$33,50\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (919, 1027, 'OCORRENCIA: Queda na dosagem de cloro gás.\r\nCAUSA: Obstrução do sistema.\r\nSOLUCAO: Limpeza em todo o sistema do clorador v2000\r\nDATA E HORA INICIAL: 31/01/17 as 12:13\r\nDATA E HORA FINAL: 31/01/17 as 16:44\r\nKM INICIAL: 77582\r\nKM FINAL: 77721\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (920, 1030, 'OCORRENCIA: Sisitema sem vácuo.\r\nCAUSA: Quebra da bomba booster.\r\nSOLUCAO: Substituição de dois rotores e selo mecânico.\r\nDATA E HORA INICIAL: 02/02/17 as 8:49\r\nDATA E HORA FINAL: 02/02/17 as 13:40\r\nKM INICIAL: 77812\r\nKM FINAL: 78003\r\n-----GASTOS GERAIS----\r\nPECAS: R$18,46\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (921, 1029, 'OCORRENCIA: Vazamento de cloro gás.\r\nCAUSA: trinca na válvula reguladora de vácuo fluidfeeder.\r\nSOLUCAO: Substituição da válvula.\r\nDATA E HORA INICIAL: 02/02/17 as 13:40\r\nDATA E HORA FINAL: 02/02/17 as 15:52\r\nKM INICIAL: 78003\r\nKM FINAL: 78152\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1592,7 +1469,8 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (956, 1049, 'OCORRENCIA: Reabastecimento\r\nCAUSA:  Abastecimento\r\nSOLUCAO:  Abasteci 5kg Dicloro o P2 \r\nDATA E HORA INICIAL:  02/05/17 09:15\r\nDATA E HORA FINAL:  09:40\r\nKM INICIAL:  45887\r\nKM FINAL:  4588\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (957, 1050, 'OCORRENCIA:  Reabastecimento\r\nCAUSA:  Abastecimento\r\nSOLUCAO:  Abasteci 5kg o P4\r\nDATA E HORA INICIAL:  02/05/17 09:09\r\nDATA E HORA FINAL:  02/05/17 09:15\r\nKM INICIAL:  4585\r\nKM FINAL:  4587\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (958, 1051, 'OCORRENCIA:  Reabastecimento\r\nCAUSA:  Abastecimento\r\nSOLUCAO:  Abasteci 5kg Dicloro o P5\r\nDATA E HORA INICIAL:  02/05/17 08:41\r\nDATA E HORA FINAL:  02/05/17 09:09\r\nKM INICIAL: 4571\r\nKM FINAL:  4585\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(959, 1070, 'OCORRENCIA: Poço parado\r\nCAUSA:  Mangueira ressecada e estourada \r\nSOLUCAO:  Substitui a mangueira\r\nDATA E HORA INICIAL:  03/05/17 10:26\r\nDATA E HORA FINAL:  03/05/17 11:58\r\nKM INICIAL:  4712\r\nKM FINAL:  4730\r\n-----GASTOS GERAIS----\r\nPECAS: 8mt de mangueira\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(959, 1070, 'OCORRENCIA: Poço parado\r\nCAUSA:  Mangueira ressecada e estourada \r\nSOLUCAO:  Substitui a mangueira\r\nDATA E HORA INICIAL:  03/05/17 10:26\r\nDATA E HORA FINAL:  03/05/17 11:58\r\nKM INICIAL:  4712\r\nKM FINAL:  4730\r\n-----GASTOS GERAIS----\r\nPECAS: 8mt de mangueira\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
+INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (960, 1071, 'OCORRENCIA:  Reabastecimento\r\nCAUSA:  Abastecimento\r\nSOLUCAO:  Abasteci 100kg Dicloro a maquina volumétrica\r\nDATA E HORA INICIAL:  03/05/17 07:35\r\nDATA E HORA FINAL:  03/05/17 09:35\r\nKM INICIAL:  4669\r\nKM FINAL:  4682\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (961, 1072, 'OCORRENCIA:  ETA parada\r\nCAUSA:  Entra de cloro liquido\r\nSOLUCAO:  Realizei limpeza em rotâmetro,válvula reguladora de vácuo e mangueira ao termino da manutenção o sistema de cloração ficou funcionando normalmente.\r\nDATA E HORA INICIAL:  03/05/17 15:53\r\nDATA E HORA FINAL:  03/05/17 16:31\r\nKM INICIAL:  4760\r\nKM FINAL:  4771\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (962, 1074, 'OCORRENCIA:  Clorador reserva indisponivel\r\nCAUSA:  Mangueiras ressecadas e registro de 3/4 pvc quebrado\r\nSOLUCAO:  Substitui as mangueiras e o registro de 3/4\r\nDATA E HORA INICIAL:  04/05/17 07:06\r\nDATA E HORA FINAL:  03/05/17  10:06\r\nKM INICIAL:  4779\r\nKM FINAL:  4914\r\n-----GASTOS GERAIS----\r\nPECAS:  6mt de mangueiras e um registro pvc 3/4\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1601,8 +1479,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (965, 1067, 'OCORRENCIA: sem cloração\r\nCAUSA:  Cilindros vazios\r\nSOLUCAO:  Foi substituido, acoplado e testado 01 cilindro cheio.\r\ntem 01 cilindro em uso e 02 vazios.\r\nDATA E HORA INICIAL:  02/05/2017 às 08:00\r\nDATA E HORA FINAL: 02/05/2017 às 12:00\r\nKM INICIAL:  4255\r\nKM FINAL: 4309\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (966, 1066, 'OCORRENCIA: sistema de cloro parado.\r\nCAUSA:  vazamento e baixa pressão da água de processo no injetor.\r\nSOLUCAO:  Foi substituido reparos da válvulas redutora de pressão, limpeza no vidro rotâmetro e injetor. \r\nFoi observado que na linha de água de processo ha uma derivação, que quando usado, a pressão diminui, ocasionado deficiência na produção de vácuo. e foi detectado também que um cilindro estava acoplado sem a junta de vedação e o flexível foi danificado por corrosão.    \r\nDATA E HORA INICIAL: 30/04/2017 às 04:00\r\nDATA E HORA FINAL:  01/05/2017 às 01:30\r\nKM INICIAL: 3102\r\nKM FINAL: 4226\r\n-----GASTOS GERAIS----\r\nPECAS:  \r\nALIMENTACAO: 3,98 \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (967, 1062, 'OCORRENCIA: acoplamento de cilindro\r\nCAUSA: cilindro vazio\r\nSOLUCAO:  foi acoplado e testado com solução de amônia 01 cilindro cheio.\r\nDATA E HORA INICIAL: 25/04/2017 às 07:00\r\nDATA E HORA FINAL: 25/04/2017 às 07:45\r\nKM INICIAL: 5877\r\nKM FINAL: 5895\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(968, 1060, 'OCORRENCIA: corretiva ( drenagem do tanque de pac)\r\nCAUSA:  teste de estanquedade\r\nSOLUCAO:  Foi drenado a água que estava no tanque de pac para teste de estanquedade.\r\nDATA E HORA INICIAL: 25/04/2017 às 07:45\r\nDATA E HORA FINAL: 26/04/2017 às 09:59\r\nKM INICIAL: 5895\r\nKM FINAL: 6457\r\n-----GASTOS GERAIS----\r\nPECAS: 8,00\r\nALIMENTACAO: 51,00\r\nHOSPEDAGEM: 92,00\r\nETC:  ( combustivel )  393,46\r\n                          ');
-INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
+(968, 1060, 'OCORRENCIA: corretiva ( drenagem do tanque de pac)\r\nCAUSA:  teste de estanquedade\r\nSOLUCAO:  Foi drenado a água que estava no tanque de pac para teste de estanquedade.\r\nDATA E HORA INICIAL: 25/04/2017 às 07:45\r\nDATA E HORA FINAL: 26/04/2017 às 09:59\r\nKM INICIAL: 5895\r\nKM FINAL: 6457\r\n-----GASTOS GERAIS----\r\nPECAS: 8,00\r\nALIMENTACAO: 51,00\r\nHOSPEDAGEM: 92,00\r\nETC:  ( combustivel )  393,46\r\n                          '),
 (969, 1065, 'OCORRENCIA: sistema de cloro gás parado\r\nCAUSA: vazamento na válvula redutora de pressão\r\nSOLUCAO:  Foi substituido reparo da válvula redutora de pressão.\r\nDATA E HORA INICIAL: 10/04/2017 às 07:45\r\nDATA E HORA FINAL: 10/04/2017 às 12:00\r\nKM INICIAL: 1703\r\nKM FINAL: 1731\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (970, 1064, 'OCORRENCIA: sistema de cloro gás parado\r\nCAUSA: injetor obstruido\r\nSOLUCAO:  foi realizado limpeza no injetor inspeção e testes nas válvulas redutora de pressão, substituição da porca do conector de entrada do gabinete do dosador  fluidfeed, teste de estanqueidade e instrução de operação para o operador de plantão. Sr. Gideão \r\nDATA E HORA INICIAL:  11/04/2017 às 04:30\r\nDATA E HORA FINAL: 14/04/2017 às 15:30\r\nKM INICIAL: 1731\r\nKM FINAL: 4182\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 142,30\r\nHOSPEDAGEM: 238,00\r\nETC:  combustivel 812,16\r\n                          '),
 (971, 1063, 'OCORRENCIA: operação substituição de cilindros\r\nCAUSA:  cilindros vazios\r\nSOLUCAO:  foi substituido, acoplado e testado com solução de amônia 04 cilindros cheios.\r\nDATA E HORA INICIAL:  17/04/2017 às 08:00\r\nDATA E HORA FINAL: 17/04/2017 às 11:30\r\nKM INICIAL: 4275\r\nKM FINAL: 4301\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1706,7 +1583,8 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1069, 994, 'OCORRENCIA: corretiva\r\nCAUSA: peças corroídas pelo produto por tempo de uso\r\nSOLUCAO: substituição das peças danificadas ( anel de vedação, rotor de 10/L hras,estator, eixo de acoplamento,pinos e adaptador de PVC de 1/2 dá saída dá bomba.\r\nDATA E HORA INICIAL: 24/04/17 as 21:15 hras\r\nDATA E HORA FINAL: 29/04/17 as 03:40 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: R$ 27,00\r\nALIMENTACAO: R$ 168,38\r\nHOSPEDAGEM: R$ 118,00\r\nTáxi: R$ 90,00\r\n PASSAGEM:R$ 647,20                         '),
 (1070, 1082, 'OCORRENCIA: operação (desacoplar cilindro vazio)\r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (01) um cilindro cheio de 900 kg\r\nDATA E HORA INICIAL: 04/05/17 as 15:19 hras\r\nDATA E HORA FINAL: 04/05/17 as 17:30 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
 (1071, 891, 'OCORRENCIA: operação (desacoplar cilindro vazio)\r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (01) cilindro cheio de 900 kg\r\nDATA E HORA INICIAL: 04/04/17 as 10:05 hras\r\nDATA E HORA FINAL: 04/04/17 as 17:30 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
-(1072, 1083, 'OCORRENCIA: operação (desacoplar cilindros vazios)\r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (01) um cilindro cheio de 900 kg\r\nDATA E HORA INICIAL: 04/05/17 as 13:00 hras\r\nDATA E HORA FINAL: 04/05/17 as 15:19 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
+(1072, 1083, 'OCORRENCIA: operação (desacoplar cilindros vazios)\r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (01) um cilindro cheio de 900 kg\r\nDATA E HORA INICIAL: 04/05/17 as 13:00 hras\r\nDATA E HORA FINAL: 04/05/17 as 15:19 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          ');
+INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1073, 1117, 'OCORRENCIA: operação (desacoplar cilindros vazios)\r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (04) quatros cilindros cheios de 1000 kg\r\nDATA E HORA INICIAL: 10/05/17 as 07:45 hras\r\nDATA E HORA FINAL: 10/05/17 as 10:30 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
 (1074, 1120, 'OCORRENCIA: operação\r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (01) um cilindro cheio de 900 kg\r\nDATA E HORA INICIAL: 10/05/17 as 10:30 hras\r\nDATA E HORA FINAL: 10/05/17 as 17:30 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
 (1075, 1121, 'OCORRENCIA: operação \r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (01) um cilindro cheio de 900 kg\r\nDATA E HORA INICIAL: 10/05/17 as 10:30 hras\r\nDATA E HORA FINAL: 10/05/17 as 12:00 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
@@ -1717,8 +1595,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1080, 1186, 'OCORRENCIA: operação (desacoplar cilindro vazio)\r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (01) um cilindro cheio de 900 kg\r\nDATA E HORA INICIAL: 19/05/17 as 13:40 hras\r\nDATA E HORA FINAL: 19/05/17 as 17:30 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
 (1081, 1147, 'OCORRENCIA:  Manutenção preventiva\r\nCAUSA:  Solicitação da UFRN\r\nSOLUCAO:  Realizei limpeza nos dois rotâmetros, na válvula reguladora de vácuo e válvulas R/0.\r\nDATA E HORA INICIAL:  16/05/17 07:41\r\nDATA E HORA FINAL:  16/05/17 08:58\r\nKM INICIAL:  6629\r\nKM FINAL:  6641\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1082, 1160, 'OCORRENCIA:  Corretiva\r\nCAUSA:  Entrada de cloro liquido em sistema de cloração\r\nSOLUCAO:  Realizei limpeza em válvula reguladora de vácuo, válvula R/0 e mangueiras.\r\nDATA E HORA INICIAL:  16/05/17 08:58\r\nDATA E HORA FINAL:  6/05/17 12:33\r\nKM INICIAL:  6641\r\nKM FINAL:  6738\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1083, 1161, 'OCORRENCIA:  Visita técnica\r\nCAUSA:  solicitação da CAERN\r\nSOLUCAO:  Realizei vários testes em sistema de cloração e contatei que tá funcionando normal, mas a equipe da CAERN instalou um válvula de retenção na saida do injetor diminuindo a capacidade, sendo assim passei para um gabinete de 26kg com o flutuador mais leve, a modificação da válvula de retenção ficou para a equipe da CAERN resolver, ao término da manutenção o sistema de cloração ficou funcionando normalmente.\r\nDATA E HORA INICIAL:  16/05/17 12:13 \r\nDATA E HORA FINAL:  16/05/17 15:15\r\nKM INICIAL:  6759\r\nKM FINAL:  6761\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
-INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
+(1083, 1161, 'OCORRENCIA:  Visita técnica\r\nCAUSA:  solicitação da CAERN\r\nSOLUCAO:  Realizei vários testes em sistema de cloração e contatei que tá funcionando normal, mas a equipe da CAERN instalou um válvula de retenção na saida do injetor diminuindo a capacidade, sendo assim passei para um gabinete de 26kg com o flutuador mais leve, a modificação da válvula de retenção ficou para a equipe da CAERN resolver, ao término da manutenção o sistema de cloração ficou funcionando normalmente.\r\nDATA E HORA INICIAL:  16/05/17 12:13 \r\nDATA E HORA FINAL:  16/05/17 15:15\r\nKM INICIAL:  6759\r\nKM FINAL:  6761\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1084, 1170, 'OCORRENCIA:  Reabastecimento\r\nCAUSA:  Abastecimento\r\nSOLUCAO: Abasteci 100kg Dicloro aquina volumétrica\r\nDATA E HORA INICIAL:  17/05/17 07:24\r\nDATA E HORA FINAL:  17/05/17 09:09\r\nKM INICIAL:  6893\r\nKM FINAL:  6910\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1085, 1172, 'OCORRENCIA:  Visita técnica\r\nCAUSA:  Solicitação da CAERN\r\nSOLUCAO:  Realizei manutenção e limpeza em injetor e válvula reguladora de vácuo do sistema de cloro gás da ETA de Várzea, também fiz correção na chave magnética da bomba Booster do sistema de cloro gás a mesma não estava funcionando.\r\n\r\n\r\nJuntamente com o operador Erivan da CAERN realizei vários testes em sistema de cloração e constatei que quando a tubulação estar com a vazão reduzida no ponto de injeção o sistema funciona normal com a bomba Booster, mas o operador informo-me que desta maneira não chega água em todas as casas da cidade por este motivo deixou o sistema com a vazão total, desta forma o sistema de cloro gás não vence a pressão da tubulação, a equipe da CAERN instalou um adaptador na entrada da tubulação para facilit'),
 (1086, 1179, 'OCORRENCIA:  Reabastecimento\r\nCAUSA:  Abastecimento\r\nSOLUCAO:  Abasteci 100kg Dicloro a maquina volumétrica\r\nDATA E HORA INICIAL:  19/05/17 14:29\r\nDATA E HORA FINAL:  19/05/17 15:45\r\nKM INICIAL:  7137\r\nKM FINAL:  7149\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1729,7 +1606,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1091, 1142, 'OCORRENCIA: corretiva\r\nCAUSA: vazamento irregular na bomba dosadora do PAC, peças corroídas\r\nSOLUCAO: substituição das peças corroídas (porta selo,bocal de entrada e saída é acoplamento do motor com a bomba).\r\nDATA E HORA INICIAL: 15/05/17 as 21:30 hras\r\nDATA E HORA FINAL: 19/05/17 as 01:40 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM: R$ 640,50\r\nALIMENTACAO: R$ 125,37\r\nHOSPEDAGEM: R$ 96,75\r\nTÁXI: R$ 155,00\r\n                          '),
 (1092, 1198, 'OCORRENCIA: operação (desacoplar cilindros vazios)\r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (01) um cilindro cheio de 900 kg\r\nDATA E HORA INICIAL: 09/05/17 as 15:40 hras\r\nDATA E HORA FINAL: 09/05/17 as 17:05 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
 (1093, 1199, 'OCORRENCIA: operação (desacoplar cilindro vazio)\r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (01) um cilindro cheio de 900 kg\r\nDATA E HORA INICIAL: 09/05/17 as 17:05 hras\r\nDATA E HORA FINAL: 09/05/17 as 20:15 hras\r\nKM INICIAL: *****\r\nKM FINAL:***** \r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
-(1094, 1162, 'OCORRENCIA: operação ( carregamento de pac no tanque)\r\nCAUSA:   Reforma estrutural  no tanque de pac.\r\nSOLUCAO: Foi realizado o acompanhamento de descarrego e transferência do pac no tanque.\r\nDATA E HORA INICIAL: 12/05/2017 às 12:00\r\nDATA E HORA FINAL: 13/05/2017 às 15:30\r\nKM INICIAL:  40122\r\nKM FINAL: 40707\r\n-----GASTOS GERAIS----\r\nPECAS:  02 luva de redução de 1\" X 3/3\"   01 cape de 1 1/2\"  = 7,50\r\nALIMENTACAO: 25,00\r\nHOSPEDAGEM: 80,00\r\nETC:  combustivel   203,10\r\n                          '),
+(1094, 1162, 'OCORRENCIA: operação ( carregamento de pac no tanque)\r\nCAUSA:   Reforma estrutural  no tanque de pac.\r\nSOLUCAO: Foi realizado o acompanhamento de descarrego e transferência do pac no tanque.\r\nDATA E HORA INICIAL: 12/05/2017 às 12:00\r\nDATA E HORA FINAL: 13/05/2017 às 15:30\r\nKM INICIAL:  40122\r\nKM FINAL: 40707\r\n-----GASTOS GERAIS----\r\nPECAS:  02 luva de redução de 1" X 3/3"   01 cape de 1 1/2"  = 7,50\r\nALIMENTACAO: 25,00\r\nHOSPEDAGEM: 80,00\r\nETC:  combustivel   203,10\r\n                          '),
 (1095, 1163, 'OCORRENCIA: operação ( acoplamento de cilindro)\r\nCAUSA:  cilindro cheio desacoplado\r\nSOLUCAO:  Foi acoplado e testado com solução de amônia 01 cilindro cheio. \r\nDATA E HORA INICIAL:  11/05/2017 ás 14:00\r\nDATA E HORA FINAL: 12/05/2017 ás 12:46\r\nKM INICIAL: 39568\r\nKM FINAL:  40122\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 55,22 \r\nHOSPEDAGEM:  105,00\r\nETC:  combustivel 203,11\r\n                          '),
 (1096, 1164, 'OCORRENCIA:  operação ( acoplamento de cilindros)\r\nCAUSA: bateria de cilindros vazios\r\nSOLUCAO:  Foi substituido, acoplado e testado com solução de amônia 04 cilindros cheios e substituido 02 flexiveis\r\nDATA E HORA INICIAL: 16/05/2017 às 07:50\r\nDATA E HORA FINAL: 16/05/2017 às 12:13\r\nKM INICIAL:  40746\r\nKM FINAL: 40883\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1097, 1166, 'OCORRENCIA:  operação ( acoplamento de cilindro)\r\nCAUSA:  cilindro vazio\r\nSOLUCAO: Foi acoplado e testado com solução de amônia 01 cilindro cheio \r\nDATA E HORA INICIAL:  16/05/2017 às 12:14\r\nDATA E HORA FINAL: 16/05/2017 às 13:06\r\nKM INICIAL: 40883\r\nKM FINAL: 40896\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1762,7 +1639,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1124, 1229, 'OCORRENCIA:  sistema baixa injeção de produto\r\nCAUSA:  Diafragma do injetor de 3/4 da SIEMENS estava rasgado \r\nSOLUCAO: Substitui o injetor \r\nDATA E HORA INICIAL:  26/05/17 08:18\r\nDATA E HORA FINAL:  26/05/17 13:56\r\nKM INICIAL:  7953\r\nKM FINAL:  7975\r\n-----GASTOS GERAIS----\r\nPECAS:  Um diafragma do injetor de 3/4 da SIEMENS\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1125, 1205, 'OCORRENCIA: operação ( acoplamento de cilindro)\r\nCAUSA:  cilindro em uso finalizando\r\nSOLUCAO:  foi acoplado e testado com solução de amônia 02 cilindros cheios.\r\nOs cilindros estão pronto para uso. \r\nDATA E HORA INICIAL:  24/05/2017 às 07:00\r\nDATA E HORA FINAL: 24/05/2017 às 12:00\r\nKM INICIAL: 41894\r\nKM FINAL: 42111\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 19,00 \r\nHOSPEDAGEM: \r\nETC:  combustivel 66,02\r\n                          '),
 (1126, 1212, 'OCORRENCIA:  corretiva ( clorador com vazamento)\r\nCAUSA:  o ringue de vedação gasto\r\nSOLUCAO:  Foi substituido o o-ringue de vedação, reapertado o adaptador de entrada e colado uma pequena trinca no revestimento interno de pvc. do clorador\r\nDATA E HORA INICIAL: 24/05/2017 às 13:00\r\nDATA E HORA FINAL: 24/05/2017 às 14:20\r\nKM INICIAL: 42111\r\nKM FINAL: 42168\r\n-----GASTOS GERAIS----\r\nPECAS:  01 o-ringue de vedação da tampa\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1127, 1213, 'OCORRENCIA: corretiva (troca de registros pvc)\r\nCAUSA:  registros de pvc danificados\r\nSOLUCAO:  Foi substituido 02 registros de pvcs esfera vs de entrada e saída do  clorador e reapertado os adaptadores.\r\nDATA E HORA INICIAL: 24/05/2017 às 14:20\r\nDATA E HORA FINAL: 24/05/2017 às 20:30\r\nKM INICIAL: 42168\r\nKM FINAL: 42389\r\n-----GASTOS GERAIS----\r\nPECAS: 01 niple duplo 3/4\" = 1,18\r\n01 luva L/R 3/4\" X 25mm = 0,87\r\n02 registros esfera pvc VS 25mm = 45,60\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: combustivel = 73,34\r\n                          '),
+(1127, 1213, 'OCORRENCIA: corretiva (troca de registros pvc)\r\nCAUSA:  registros de pvc danificados\r\nSOLUCAO:  Foi substituido 02 registros de pvcs esfera vs de entrada e saída do  clorador e reapertado os adaptadores.\r\nDATA E HORA INICIAL: 24/05/2017 às 14:20\r\nDATA E HORA FINAL: 24/05/2017 às 20:30\r\nKM INICIAL: 42168\r\nKM FINAL: 42389\r\n-----GASTOS GERAIS----\r\nPECAS: 01 niple duplo 3/4" = 1,18\r\n01 luva L/R 3/4" X 25mm = 0,87\r\n02 registros esfera pvc VS 25mm = 45,60\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: combustivel = 73,34\r\n                          '),
 (1128, 1223, 'OCORRENCIA: operação ( acoplamento de cilindros )\r\nCAUSA:  bateria de cilindros vazios\r\nSOLUCAO:  Foi substituido, acoplado e testado com solução de amônia 04 cilindros cheios\r\nDATA E HORA INICIAL: 25/05/2017 às 07:50\r\nDATA E HORA FINAL:  25/05/2017 às 12:00\r\nKM INICIAL: 42389\r\nKM FINAL: 42457\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1129, 1224, 'OCORRENCIA:  operação ( acoplamento de cilindro)\r\nCAUSA:  cilindro vazio\r\nSOLUCAO:  Foi acoplado e testado com solução de amônia 02 cilindros cheios, os cilindros estão pronto para uso.\r\nDATA E HORA INICIAL: 25/05/2017 às 14:00\r\nDATA E HORA FINAL: 25/05/2017 às 16:16\r\nKM INICIAL: 42457\r\nKM FINAL: 42468\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1130, 1226, 'OCORRENCIA:  operação ( acoplamento de cilindros)\r\nCAUSA:  bateria de cilindros vazia\r\nSOLUCAO: Foi substituido, acoplado e testado com solução de amônia 04 cilindros cheios, os cilindros estão pronto para operar.\r\nDATA E HORA INICIAL: 25/05/2017 às 16:20\r\nDATA E HORA FINAL: 25/05/2017 às 18:30\r\nKM INICIAL: 42468\r\nKM FINAL: 42483\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1780,9 +1657,9 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1142, 639, 'OCORRENCIA: Manutenção Preventiva\r\nCAUSA: Rotina\r\nSOLUCAO: Realizado manutenção preventiva nos cloradores\r\nDATA E HORA INICIAL: 21/02/2017 às 8:00\r\nDATA E HORA FINAL: 21/02/2017 às 16:00\r\nKM INICIAL: \r\nKM FINAL: \r\n-----GASTOS GERAIS----\r\nPECAS: Sensor de nível alto e baixo\r\nALIMENTACAO: R$10,00\r\nHOSPEDAGEM: NA\r\nETC: \r\n                          '),
 (1143, 645, 'OCORRENCIA: Instalação do A400(ponto de |Aplicação na entrada da água Bruta)\r\nCAUSA: O outro clorador estava danificado\r\nSOLUCAO: Instalação de um novo Clorador\r\nDATA E HORA INICIAL: 23/02/2017 às 7:45 \r\nDATA E HORA FINAL: 23/02/2017 às 14:00\r\nKM INICIAL: \r\nKM FINAL: \r\n-----GASTOS GERAIS----\r\nPECAS: Clorador A 400 sem bomba (Regulagem pela solenóide)\r\nALIMENTACAO: R$10,00\r\nHOSPEDAGEM: NA\r\nETC: \r\n                          '),
 (1144, 1215, 'OCORRENCIA: Acoplamento de cilindros\r\nCAUSA:  Acoplamento de cilindros\r\nSOLUCAO:  Acoplamento de cilindros\r\nDATA E HORA INICIAL: 21/05/17 09:40\r\nDATA E HORA FINAL: 21/05/17 13:20\r\nKM INICIAL: 6.622\r\nKM FINAL: 6.674\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1145, 1237, 'OCORRENCIA: instalação\r\nCAUSA:  novo sistema\r\nSOLUCAO:  Foi instalado 01 clorador EPEX T20, realizado teste de estanqueidade e instrução de operação para o operador de plantão o Sr. Lucivaldo Barros.\r\nO equipamento esta instalado e esta pedente o fornecimento pela cosanpa, da tomada de água para alimentação do clorador.   \r\nDATA E HORA INICIAL: 26/05/2017 às 07:00\r\nDATA E HORA FINAL:  26/05/2017 às 14:45 \r\nKM INICIAL: 42530\r\nKM FINAL: 42607\r\n-----GASTOS GERAIS----\r\nPECAS: 01 clorador EPEX T 20\r\n02 adaptador curto pvc 32 mm X 1\" = 2,50\r\n02 bucha de redução pvc soldável  32 mm X 25 mm = 1,00\r\n01 barra de tubo pvc 25 mm X 6 metros = 13,15\r\n03 união pvc soldável 20 mm = 12,00\r\n03 registro esfera com união pvc soldável  25 mm = 24,00\r\n 01 tê pvc soldável 25 mm = 0,60\r\n04 curva pvc soldável 90] '),
-(1146, 1237, 'OCORRENCIA: instalação\r\nCAUSA:  novo sistema\r\nSOLUCAO:  Foi instalado 01 clorador EPEX T20, realizado teste de estanqueidade e instrução de operação para o operador de plantão o Sr. Lucivaldo Barros.\r\nO equipamento esta instalado e esta pedente o fornecimento pela cosanpa, da tomada de água para alimentação do clorador.   \r\nDATA E HORA INICIAL: 26/05/2017 às 07:00\r\nDATA E HORA FINAL:  26/05/2017 às 14:45 \r\nKM INICIAL: 42530\r\nKM FINAL: 42607\r\n-----GASTOS GERAIS----\r\nPECAS: 01 clorador EPEX T 20\r\n02 adaptador curto pvc 32 mm X 1\" = 2,50\r\n02 bucha de redução pvc soldável  32 mm X 25 mm = 1,00\r\n01 barra de tubo pvc 25 mm X 6 metros = 13,15\r\n03 união pvc soldável 20 mm = 12,00\r\n03 registro esfera com união pvc soldável  25 mm = 24,00\r\n 01 tê pvc soldável 25 mm = 0,60\r\n04 curva pvc soldável 90] '),
-(1147, 1238, 'OCORRENCIA:  instalação de clorador\r\nCAUSA:  novo sistema\r\nSOLUCAO: Foi i instalado 01 clorador de pastilha EPEX T 20. Esta faltando o fornecimento pela cosanpa das tomadas de água para alimentação do dosador e tomada de aplicação.   \r\nDATA E HORA INICIAL:  26/05/2017 às 14:45\r\nDATA E HORA FINAL: 26/05/2017 às 16:48\r\nKM INICIAL:  42607\r\nKM FINAL: 42686\r\n-----GASTOS GERAIS----\r\nPECAS: 01 clorador EPEX T 20\r\n02 adaptador pvc curto 32 mm X 1\" = 2,50\r\n02 bucha pvc  soldá. red. curta 32 mm X 25 mm  = 1,00\r\n04 união pvc soldável 25 mm = 16,00\r\n03 registro esf. sold. pvc 25 mm c/ união = 24,00\r\n01 Tê  pvc soldável 25 mm = 0,60\r\n07 curva pvc soldável 90º X 25 mm = 12,25\r\n02 adaptador pvc curto  25 mm X 3/4\" = 1,00\r\n01 tubo pvc sold. 25 mm X 6 m = 13,50\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n        '),
+(1145, 1237, 'OCORRENCIA: instalação\r\nCAUSA:  novo sistema\r\nSOLUCAO:  Foi instalado 01 clorador EPEX T20, realizado teste de estanqueidade e instrução de operação para o operador de plantão o Sr. Lucivaldo Barros.\r\nO equipamento esta instalado e esta pedente o fornecimento pela cosanpa, da tomada de água para alimentação do clorador.   \r\nDATA E HORA INICIAL: 26/05/2017 às 07:00\r\nDATA E HORA FINAL:  26/05/2017 às 14:45 \r\nKM INICIAL: 42530\r\nKM FINAL: 42607\r\n-----GASTOS GERAIS----\r\nPECAS: 01 clorador EPEX T 20\r\n02 adaptador curto pvc 32 mm X 1" = 2,50\r\n02 bucha de redução pvc soldável  32 mm X 25 mm = 1,00\r\n01 barra de tubo pvc 25 mm X 6 metros = 13,15\r\n03 união pvc soldável 20 mm = 12,00\r\n03 registro esfera com união pvc soldável  25 mm = 24,00\r\n 01 tê pvc soldável 25 mm = 0,60\r\n04 curva pvc soldável 90] '),
+(1146, 1237, 'OCORRENCIA: instalação\r\nCAUSA:  novo sistema\r\nSOLUCAO:  Foi instalado 01 clorador EPEX T20, realizado teste de estanqueidade e instrução de operação para o operador de plantão o Sr. Lucivaldo Barros.\r\nO equipamento esta instalado e esta pedente o fornecimento pela cosanpa, da tomada de água para alimentação do clorador.   \r\nDATA E HORA INICIAL: 26/05/2017 às 07:00\r\nDATA E HORA FINAL:  26/05/2017 às 14:45 \r\nKM INICIAL: 42530\r\nKM FINAL: 42607\r\n-----GASTOS GERAIS----\r\nPECAS: 01 clorador EPEX T 20\r\n02 adaptador curto pvc 32 mm X 1" = 2,50\r\n02 bucha de redução pvc soldável  32 mm X 25 mm = 1,00\r\n01 barra de tubo pvc 25 mm X 6 metros = 13,15\r\n03 união pvc soldável 20 mm = 12,00\r\n03 registro esfera com união pvc soldável  25 mm = 24,00\r\n 01 tê pvc soldável 25 mm = 0,60\r\n04 curva pvc soldável 90] '),
+(1147, 1238, 'OCORRENCIA:  instalação de clorador\r\nCAUSA:  novo sistema\r\nSOLUCAO: Foi i instalado 01 clorador de pastilha EPEX T 20. Esta faltando o fornecimento pela cosanpa das tomadas de água para alimentação do dosador e tomada de aplicação.   \r\nDATA E HORA INICIAL:  26/05/2017 às 14:45\r\nDATA E HORA FINAL: 26/05/2017 às 16:48\r\nKM INICIAL:  42607\r\nKM FINAL: 42686\r\n-----GASTOS GERAIS----\r\nPECAS: 01 clorador EPEX T 20\r\n02 adaptador pvc curto 32 mm X 1" = 2,50\r\n02 bucha pvc  soldá. red. curta 32 mm X 25 mm  = 1,00\r\n04 união pvc soldável 25 mm = 16,00\r\n03 registro esf. sold. pvc 25 mm c/ união = 24,00\r\n01 Tê  pvc soldável 25 mm = 0,60\r\n07 curva pvc soldável 90º X 25 mm = 12,25\r\n02 adaptador pvc curto  25 mm X 3/4" = 1,00\r\n01 tubo pvc sold. 25 mm X 6 m = 13,50\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n        '),
 (1148, 963, 'OCORRENCIA: \r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 11/4 04:30\r\nDATA E HORA FINAL: 14/04 15:30\r\nKM INICIAL: 1731\r\nKM FINAL: 1530\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 142,30\r\nHOSPEDAGEM: 238,00\r\nETC: \r\n                          '),
 (1149, 964, 'OCORRENCIA: \r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 17/04 08:00\r\nDATA E HORA FINAL: 17/04 11:30\r\nKM INICIAL: 4275\r\nKM FINAL: 4301\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1150, 1239, 'OCORRENCIA:  reinstalação de clorador\r\nCAUSA: reforma da eta\r\nSOLUCAO:  Foi reinstalado dois cloradores de pastilhas epex t 20 do sistema dosando direto no tanque de contato.\r\nDATA E HORA INICIAL: 29/05/2017 às 07:45\r\nDATA E HORA FINAL: 29/05/2017 às 13:00\r\nKM INICIAL: 42805\r\nKM FINAL: 42827\r\n-----GASTOS GERAIS----\r\nPECAS: 01 registro pvc esf. c/ união 25 mm = 8,00\r\n02 cuva pvc sold. 90º X 25 mm = 3,50\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1814,19 +1691,19 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1176, 1252, 'OCORRENCIA:  corretiva ( clorador com vazamento)\r\nCAUSA:  o-ringue de vedação deformado e rosca do maniplo espanada.\r\nSOLUCAO:  foi substituido dois o-ringue de vedação de dois  maniplo dos cloradores.\r\nDATA E HORA INICIAL: 31/05/2017 às 07:35\r\nDATA E HORA FINAL: 31/05/2017 às 12:30\r\nKM INICIAL: 42873\r\nKM FINAL: 42876\r\n-----GASTOS GERAIS----\r\nPECAS:  02 maniplos da tampa.\r\n02 o-ringue de vedação\r\n08 ruelas lisa 3/8  R$0,80\r\n\r\nALIMENTACAO:  25,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1177, 1234, 'OCORRENCIA:       Vazamento de cloro pastilha.\r\nCAUSA:   Boias elétricas\r\nSOLUCAO: Troca das mesmas, testes no local sem nenhum vazamento.\r\nDATA E HORA INICIAL:   24/05/17  as  9:18\r\nDATA E HORA FINAL:   24/05/17  as  11:20\r\nKM INICIAL: 43985\r\nKM FINAL:    43986\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1178, 1235, 'OCORRENCIA: \r\nCAUSA: \r\nSOLUCAO:   Duplicação com maniffooud de cinco pontos, equipamentos 25kg/dia com injetor da Siemes planalto de 3/4.\r\nDATA E HORA INICIAL:   25/05/17  as  11:00\r\nDATA E HORA FINAL:   25/05/17  as  19:00\r\nKM INICIAL:   44101\r\nKM FINAL:     44290\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO:   17,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1179, 1236, 'OCORRENCIA:  Retorno para colocação do injetor reserva\r\nCAUSA: \r\nSOLUCAO:  Os dois equipamentos estão funcionando bem sem nenhum vazamento.\r\nDATA E HORA INICIAL:   26/05/17  as  12:30\r\nDATA E HORA FINAL:      26/05/17  as  15:37\r\nKM INICIAL:   7313\r\nKM FINAL:     7423\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1179, 1236, 'OCORRENCIA:  Retorno para colocação do injetor reserva\r\nCAUSA: \r\nSOLUCAO:  Os dois equipamentos estão funcionando bem sem nenhum vazamento.\r\nDATA E HORA INICIAL:   26/05/17  as  12:30\r\nDATA E HORA FINAL:      26/05/17  as  15:37\r\nKM INICIAL:   7313\r\nKM FINAL:     7423\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
+INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1180, 1272, 'OCORRENCIA: sistema parado \r\nCAUSA: sem Clorador e cilindro de 900kg/dia com vazamento na válvula raio zero \r\nSOLUCAO: desmontei dois Cloradores na tentativa de montar o terceiro ,na na tentativa indentifiquei o Clorado ( carcaca )tinha está com o mesmo problema que os outros assim ficando direto a cloração .\r\nVirei o cilindro colocando a válvula de cima para baixo , mais tem que colocar outro Clorador.\r\nSistema operando direto sem Clorador\r\nDATA E HORA INICIAL: 01/06/2017. 14:31\r\nDATA E HORA FINAL: 03/06/2017   11:17 \r\nKM INICIAL: 8586\r\nKM FINAL: 9597\r\n-----GASTOS GERAIS----\r\nPECAS:  \r\nALIMENTACAO: 25+30+30 reais\r\nHOSPEDAGEM: \r\nETC: combustível 112 ,84+152\r\n                          '),
 (1181, 1156, 'OCORRENCIA:   Separação de anbas cloração.\r\nCAUSA:   \r\nSOLUCAO:    Colocado um Maniffoud na pós-cloração e feita preventiva na pré-cloração. \r\nDATA E HORA INICIAL:   10/05/17  as  12:45\r\nDATA E HORA FINAL:   10/05/17  as  22:30\r\nKM INICIAL:   6113\r\nKM FINAL:     6264\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO:   20,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1182, 1156, 'OCORRENCIA: Colocado um manifood na pós-cloração\r\nCAUSA: \r\nSOLUCAO: Preventiva na pré-cloração com aumento de dosagem desejada.\r\nDATA E HORA INICIAL:   10/05/17  as  12:45\r\nDATA E HORA FINAL:      10/05/17   as  22:30\r\nKM INICIAL:   6113\r\nKM FINAL:      6264\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO:   20,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1183, 1273, 'OCORRENCIA: sistema funcionando com problema \r\nCAUSA: sistema funcionando somente com  uma válvula redutora e um flexivel e com válvulas raio zero com parte internas estragada e abraçadeira York estragada pelo ferrugem \r\nSOLUCAO: foi trocada as horings das válvulas redutora de vácuo ,foi trocado duas válvulas raio zero do manifolder \r\nFoi colocado um flexivel e uma abraçadeira York sistema testado .\r\nSistema funcionando mais somente com um Clorador \r\nDATA E HORA INICIAL: 02/06/2017   09:30\r\nDATA E HORA FINAL: 02/06/2017    15:00 \r\nKM INICIAL: 9014\r\nKM FINAL: 9169\r\n-----GASTOS GERAIS----\r\nPECAS: duas válvulas raio zero ,um flexível? e uma abraçadeira York \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC:\" obs\" os gastos foram feito todos em Açailândia e Buriticupu e no retorno pra base\r\n                '),
+(1183, 1273, 'OCORRENCIA: sistema funcionando com problema \r\nCAUSA: sistema funcionando somente com  uma válvula redutora e um flexivel e com válvulas raio zero com parte internas estragada e abraçadeira York estragada pelo ferrugem \r\nSOLUCAO: foi trocada as horings das válvulas redutora de vácuo ,foi trocado duas válvulas raio zero do manifolder \r\nFoi colocado um flexivel e uma abraçadeira York sistema testado .\r\nSistema funcionando mais somente com um Clorador \r\nDATA E HORA INICIAL: 02/06/2017   09:30\r\nDATA E HORA FINAL: 02/06/2017    15:00 \r\nKM INICIAL: 9014\r\nKM FINAL: 9169\r\n-----GASTOS GERAIS----\r\nPECAS: duas válvulas raio zero ,um flexível? e uma abraçadeira York \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC:" obs" os gastos foram feito todos em Açailândia e Buriticupu e no retorno pra base\r\n                '),
 (1184, 1281, 'OCORRENCIA: corretiva ( vazamento no clorado) \r\nCAUSA: oring deformado e rosca do mínimo espancado.\r\nSOLUCAO:  foi substituído  o oring de vedação.\r\nDATA E HORA INICIAL: 31/05/2017 às  11:00\r\nDATA E HORA FINAL: 31/05/2017 às  13:00\r\nKM INICIAL: 42876\r\nKM FINAL: 42988\r\n-----GASTOS GERAIS----\r\nPECAS: 01 oring \r\n04 ruela 3/8 Lisa \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1185, 1274, 'OCORRENCIA: nova instalação \r\nCAUSA: conclusão da instalação \r\nSOLUCAO:  foi concluído a instalação  do clorador  com pintura e testes do equipamento \r\nDATA E HORA INICIAL:  02/06/2018 às  08:00\r\nDATA E HORA FINAL: 02/06/2017 às  15:45\r\nKM INICIAL:  43160\r\nKM FINAL: 43491\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1186, 1282, 'OCORRENCIA: operação (acoplamento de cilindros) \r\nCAUSA:  bateria de cilindros vazios \r\nSOLUCAO:  foi substituído, acoplado e testado com solução de amônia  04 cilindros cheios. \r\nDATA E HORA INICIAL: 02/06/2017 às  15:45\r\nDATA E HORA FINAL: 02/06/2017 às  18:30\r\nKM INICIAL: 43481\r\nKM FINAL: 43495\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1187, 1278, 'OCORRENCIA:  Vazamento de cloro gás\r\nCAUSA:  Entrada de água no sistema devido os O\'Rings do injetor de 3/4 estarem ressecados \r\nSOLUCAO: Substitui os O\'Rings do injetor \r\nDATA E HORA INICIAL:  05/06/17 08:27\r\nDATA E HORA FINAL:  05/06/17 15:38\r\nKM INICIAL:  9314\r\nKM FINAL:  9667\r\n-----GASTOS GERAIS----\r\nPECAS:  Dois O\'Rings do injetor 3/4\r\nALIMENTACAO:  R$25,,91\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1187, 1278, 'OCORRENCIA:  Vazamento de cloro gás\r\nCAUSA:  Entrada de água no sistema devido os O''Rings do injetor de 3/4 estarem ressecados \r\nSOLUCAO: Substitui os O''Rings do injetor \r\nDATA E HORA INICIAL:  05/06/17 08:27\r\nDATA E HORA FINAL:  05/06/17 15:38\r\nKM INICIAL:  9314\r\nKM FINAL:  9667\r\n-----GASTOS GERAIS----\r\nPECAS:  Dois O''Rings do injetor 3/4\r\nALIMENTACAO:  R$25,,91\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1188, 1280, 'OCORRENCIA: Reabastecimento\r\nCAUSA:  Abastecimento\r\nSOLUCAO:  Abasteci 100kg Dicloro a maquina volumétrica\r\nDATA E HORA INICIAL:  06/06/17 14:13\r\nDATA E HORA FINAL:  06/06/17 16:18\r\nKM INICIAL:  10062\r\nKM FINAL:  10079\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1189, 1285, 'OCORRENCIA: AGUA NO SISTEMA\r\nCAUSA: INJETOR ABERTO\r\nSOLUCAO: LIMPEZA E REGULAGEM DO INJETOR\r\nDATA E HORA INICIAL: 07/06 AS 08:09\r\nDATA E HORA FINAL: 07/06 AS 12:33\r\nKM INICIAL: 98205\r\nKM FINAL: 98452\r\n-----GASTOS GERAIS----\r\nPECAS: 01 FLEXIVEL P\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\nFEITO LIMPEZA EM TODO SISTEMA DE CLORO GAS.MANIFOLD, VALVULAS, ROTAMETROS, SUBSTITUIDO 01 FLEXIVEL P.                         '),
-(1190, 1298, 'OCORRENCIA: FALTA DE VACUO  NA PRÉ\r\nCAUSA: INJETOR OBSTRUÍDO\r\nSOLUCAO: LIMPEZA\r\nDATA E HORA INICIAL: 08/06 AS 09:30\r\nDATA E HORA FINAL: 08/06 AS 10:38\r\nKM INICIAL: 98412\r\nKM FINAL: 98433\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n      FEITO LIMPEZA NOS ROTAMETROS E NO INJETOR DA PRÉ.                    ');
-INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
+(1190, 1298, 'OCORRENCIA: FALTA DE VACUO  NA PRÉ\r\nCAUSA: INJETOR OBSTRUÍDO\r\nSOLUCAO: LIMPEZA\r\nDATA E HORA INICIAL: 08/06 AS 09:30\r\nDATA E HORA FINAL: 08/06 AS 10:38\r\nKM INICIAL: 98412\r\nKM FINAL: 98433\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n      FEITO LIMPEZA NOS ROTAMETROS E NO INJETOR DA PRÉ.                    '),
 (1191, 1299, 'OCORRENCIA: ERRO NA TEMPERATURA\r\nCAUSA: NÃO IDENTIFICADA\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 09/06  AS 16:40\r\nDATA E HORA FINAL: 10/06 AS 13:11\r\nKM INICIAL: 98837\r\nKM FINAL: 99270\r\n-----GASTOS GERAIS----\r\nPECAS: CONECTOR DE MANGUEIRA DE AR\r\nALIMENTACAO: R$ 41,00\r\nHOSPEDAGEM: R$ 65,00\r\nETC: \r\n FORAM FEITOS TESTES, SEM OBTER EXITO. POSSIVEL PROBLEMA NO CARTÃO DO PLC.                         '),
 (1192, 1300, 'OCORRENCIA: SEM DOSAR ACIDO\r\nCAUSA: SUJEIRA NO DISTRIBUIDOR\r\nSOLUCAO: LIMPEZA\r\nDATA E HORA INICIAL: 09/06 AS 09:06\r\nDATA E HORA FINAL: 09/06 AS 16:40\r\nKM INICIAL: 98452\r\nKM FINAL: 98837\r\n-----GASTOS GERAIS----\r\nPECAS: 01 ELEMENTO TUBULAR DE 05mm VERDE\r\nALIMENTACAO: R$ 25,00\r\nHOSPEDAGEM: \r\nETC: \r\n     FEITO LIMPEZA NO DISTRIBUIDOR DO REATOR, SUBSTITUIDO 01 ELEMENTO TUBULAR DE 05mm, LUBRIFICADO OS ROLETES DA BOMBA DE ACIDO.                     '),
 (1193, 1279, 'OCORRENCIA: corretiva\r\nCAUSA: sujeira na valvula reguladora\r\nSOLUCAO: foi realizada a limpeza na reguladora de vácuo, pois havia entrado agua no sistema; feita a substituição do diafragma do injetor pois o mesmo estava danificado; sistema funcionando normalmente;\r\nDATA E HORA INICIAL: 30/05/17 08:56 \r\nDATA E HORA FINAL:  30/05/17 13:40\r\nKM INICIAL: 89162\r\nKM FINAL:  89289\r\n-----GASTOS GERAIS----\r\nPECAS: diafragma injetor fluidfeeder\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1841,7 +1718,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1202, 1321, 'OCORRENCIA: SUBSTITUIÇÃO DE SISTEMA DE CLORAÇÃO\r\nCAUSA: CONTRATO NOVO\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 16/06 13:10\r\nDATA E HORA FINAL: 16/06 15:40\r\nKM INICIAL: 99747\r\nKM FINAL: 99770\r\n-----GASTOS GERAIS----\r\nPECAS: SISTEMA DE CLORAÇÃO COMPLETO CLORANDO, DETECTOR DE VAZAMENTO, \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          FEITO TESTES, SEM VAZAMENTO.\r\n                          '),
 (1203, 1304, 'OCORRENCIA: instalação\r\nCAUSA:  solicitação do cliente\r\nSOLUCAO: foi realizada a instalação de uma dosadora emec 10 l/h orange; a bomba funciona normalmente\r\nDATA E HORA INICIAL: 07/06/17 09:00 \r\nDATA E HORA FINAL:  07/06/17 13:21\r\nKM INICIAL: 89903\r\nKM FINAL:  89978\r\n-----GASTOS GERAIS----\r\nPECAS:  bomba dosadora emec orange\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1204, 1305, 'OCORRENCIA:  corretiva\r\nCAUSA:  sujeira no rotametro\r\nSOLUCAO: foi realizada a limpeza do rotametro e inspeção nos demais quipamentos do sistema; cloração funcionando normalmente;\r\nDATA E HORA INICIAL: 07/06/17 13:21\r\nDATA E HORA FINAL:  07/06/17 15:58\r\nKM INICIAL:  89978\r\nKM FINAL:  90044\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1205, 1306, 'OCORRENCIA:  corretiva\r\nCAUSA:  cloro liquido no sistema e pouco vacuo\r\nSOLUCAO:  foi realizada a instalação de um injetor siemens 3/4\', assim pode-se melhorar a dosagem para até 104 kg/dia; feita a limpeza no rotametro e nas reguladoras de vácuo; sistema dosando normalmente;\r\nDATA E HORA INICIAL: 08/06/17 06:29 \r\nDATA E HORA FINAL:  08/06/17 11:35\r\nKM INICIAL: 90044\r\nKM FINAL: 90281\r\n-----GASTOS GERAIS----\r\nPECAS: injetor siemens 3/4\'\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1205, 1306, 'OCORRENCIA:  corretiva\r\nCAUSA:  cloro liquido no sistema e pouco vacuo\r\nSOLUCAO:  foi realizada a instalação de um injetor siemens 3/4'', assim pode-se melhorar a dosagem para até 104 kg/dia; feita a limpeza no rotametro e nas reguladoras de vácuo; sistema dosando normalmente;\r\nDATA E HORA INICIAL: 08/06/17 06:29 \r\nDATA E HORA FINAL:  08/06/17 11:35\r\nKM INICIAL: 90044\r\nKM FINAL: 90281\r\n-----GASTOS GERAIS----\r\nPECAS: injetor siemens 3/4''\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1206, 1307, 'OCORRENCIA: instalação\r\nCAUSA: solicitação do cliente\r\nSOLUCAO: foi realizada a instalação de uma bomba booster, a mesma funciona normalmente; feita a substituição das mangueiras do sistema; feita a limpeza nas valvulas R/0 e reguladora de vácuo; sistema funcionando normalmente;\r\nDATA E HORA INICIAL: 08/06/17 11:35\r\nDATA E HORA FINAL:  08/06/17 20:07\r\nKM INICIAL:  90281\r\nKM FINAL:  90721\r\n-----GASTOS GERAIS----\r\nPECAS: bomba booster, 3 metros de mangueira\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1207, 1289, 'OCORRENCIA: Visita técnica\r\nCAUSA:  Levantamento de peças para nova instalação \r\nSOLUCAO: Fiz a relação de peças para serem compradas em PE\r\nDATA E HORA INICIAL:  13:16 07/06/17\r\nDATA E HORA FINAL:  17:00 o7/06/17\r\nKM INICIAL:  10101\r\nKM FINAL:  10139\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1208, 1291, 'OCORRENCIA:  Poço parado\r\nCAUSA:  Dosadora com a bomba obstruída\r\nSOLUCAO:  Realizei limpeza na mesma ao término da manutenção o sisrwma voltou à normalidade.\r\nDATA E HORA INICIAL:  08/06/17 08:14\r\nDATA E HORA FINAL:  08/06/17 10:09\r\nKM INICIAL:  10260\r\nKM FINAL:  10302\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1918,8 +1795,8 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1279, 1308, 'OCORRENCIA: corretiva bomba dosadora parada\r\nCAUSA:  vazamento pelo estator\r\nSOLUCAO:  foi substituido o estator e o rotor da bomba dosadora\r\nDATA E HORA INICIAL:  12/06/2017 ás 07:00\r\nDATA E HORA FINAL: 12/06/2017 ás 10:30\r\nKM INICIAL: 44288\r\nKM FINAL: 44307\r\n-----GASTOS GERAIS----\r\nPECAS:  01 estator e um rotor de 10 l/h\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1280, 1290, 'OCORRENCIA:  corretiva bomba dosadora parada\r\nCAUSA:  potenciometro com defeito\r\nSOLUCAO:  foi substituido o potenciometro do painei eletrico\r\nDATA E HORA INICIAL: 07/06/2017 ás 09:52\r\nDATA E HORA FINAL: 07/06/2017 ás 13:00\r\nKM INICIAL: 44044\r\nKM FINAL: 44074\r\n-----GASTOS GERAIS----\r\nPECAS:  01 potenciometro  A5K\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1281, 1284, 'OCORRENCIA:  operação acoplamento de cilindros\r\nCAUSA:  bateria vazia\r\nSOLUCAO: Foi substituido, acoplado e testado com solução de amônia 04 cilindros cheios\r\nDATA E HORA INICIAL: 07/06/2017 ás 08:00\r\nDATA E HORA FINAL: 07/06/2017 ás 09:52\r\nKM INICIAL:  44019\r\nKM FINAL: 44044\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1282, 1354, 'OCORRENCIA: instalação\r\nCAUSA:  novo sistema\r\nSOLUCAO:  foi instalado 01 bomba dosadora de pac com autonômia  de 50 l/h e ponto para instalação de outra bomba reserva, e painel elétrico de comando. \r\nDATA E HORA INICIAL: 20/06/2017 às 22:00\r\nDATA E HORA FINAL: 24/06/2017 às 18:00\r\nKM INICIAL:   -----\r\nKM FINAL:     ------\r\n-----GASTOS GERAIS----\r\nPECAS: \r\n04 adaptador 20mm X 1/2\" = 1,88 \r\n05 união pvc soldável 20 mm = 20,60\r\n03 registro esfera soldável pvc 20 mm = 21,18\r\n06 registro esfera soldável pvc 25 mm  = 49,44\r\n07 curva pvc soldável 25 mm = 26,46\r\n03 joelho pvc soldável 25 mm = 1,77\r\n04 Tê pvc soldável 25 mm = 5,84\r\n04 bucha de redução 25mm X 20 mm pvc soldável = 4,04\r\n02 luva pvc soldável 60 mm 17,64\r\n02 luva de redução 60 X 25 mm =  doação pela empleiteira\r\n01 luva de redução 50 X'),
-(1283, 1355, 'OCORRENCIA: instalação\r\nCAUSA:  novo sistema\r\nSOLUCAO:  foi instalaçdo 02 injetor 3/4\" fluidefeeder , 02 gabinete dosador com rotâmetro de 50 kg/d, 01 manifolde de 5 pontos, 02 flexiveis 3 mts e pintura dos equipamentos.\r\nObs o sistema ainda não tem água de processo para arraste.\r\nDATA E HORA INICIAL: 24/06/2017 às 07,45\r\nDATA E HORA FINAL: 28/06/2017 às 05:30\r\nKM INICIAL:   ------\r\nKM FINAL:   ------\r\n-----GASTOS GERAIS----\r\nPECAS:  3 metros de tubo 32 mm = 17,64\r\n04 joelho pvc soldável  25 mm X 45 º = 5,00\r\n01 bucha de redução pvc soldável 20 X 25 mm = 0,50\r\n02 curva pvc soldável 20 mm X 90º = 3,00\r\n01 joelho pvc soldável 20 mm X 90º = 0,50\r\n01 Tê pvc soldável 20 mm = 0,76\r\n04 registro esfera pvc vs 20 mm = 40,36\r\n04 luva  L/R pvc 20mm X 1/2\" = 11,40\r\n04 bucha de redução latão npt 1/2\" X'),
+(1282, 1354, 'OCORRENCIA: instalação\r\nCAUSA:  novo sistema\r\nSOLUCAO:  foi instalado 01 bomba dosadora de pac com autonômia  de 50 l/h e ponto para instalação de outra bomba reserva, e painel elétrico de comando. \r\nDATA E HORA INICIAL: 20/06/2017 às 22:00\r\nDATA E HORA FINAL: 24/06/2017 às 18:00\r\nKM INICIAL:   -----\r\nKM FINAL:     ------\r\n-----GASTOS GERAIS----\r\nPECAS: \r\n04 adaptador 20mm X 1/2" = 1,88 \r\n05 união pvc soldável 20 mm = 20,60\r\n03 registro esfera soldável pvc 20 mm = 21,18\r\n06 registro esfera soldável pvc 25 mm  = 49,44\r\n07 curva pvc soldável 25 mm = 26,46\r\n03 joelho pvc soldável 25 mm = 1,77\r\n04 Tê pvc soldável 25 mm = 5,84\r\n04 bucha de redução 25mm X 20 mm pvc soldável = 4,04\r\n02 luva pvc soldável 60 mm 17,64\r\n02 luva de redução 60 X 25 mm =  doação pela empleiteira\r\n01 luva de redução 50 X'),
+(1283, 1355, 'OCORRENCIA: instalação\r\nCAUSA:  novo sistema\r\nSOLUCAO:  foi instalaçdo 02 injetor 3/4" fluidefeeder , 02 gabinete dosador com rotâmetro de 50 kg/d, 01 manifolde de 5 pontos, 02 flexiveis 3 mts e pintura dos equipamentos.\r\nObs o sistema ainda não tem água de processo para arraste.\r\nDATA E HORA INICIAL: 24/06/2017 às 07,45\r\nDATA E HORA FINAL: 28/06/2017 às 05:30\r\nKM INICIAL:   ------\r\nKM FINAL:   ------\r\n-----GASTOS GERAIS----\r\nPECAS:  3 metros de tubo 32 mm = 17,64\r\n04 joelho pvc soldável  25 mm X 45 º = 5,00\r\n01 bucha de redução pvc soldável 20 X 25 mm = 0,50\r\n02 curva pvc soldável 20 mm X 90º = 3,00\r\n01 joelho pvc soldável 20 mm X 90º = 0,50\r\n01 Tê pvc soldável 20 mm = 0,76\r\n04 registro esfera pvc vs 20 mm = 40,36\r\n04 luva  L/R pvc 20mm X 1/2" = 11,40\r\n04 bucha de redução latão npt 1/2" X'),
 (1284, 1392, 'OCORRENCIA: preventiva\r\nCAUSA: duplicaçõa de um manifold mais um clorador de 15 mais valvula redutora\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 03/07/2017-10:00\r\nDATA E HORA FINAL: 03/07/2017-15:40\r\nKM INICIAL: 10892\r\nKM FINAL: 11233\r\n-----GASTOS GERAIS----139,48\r\nPECAS: armazém   13,50\r\nALIMENTACAO: 36,00\r\nHOSPEDAGEM: 40,00\r\nETC: combustivel :49,98\r\n                          '),
 (1285, 1389, 'OCORRENCIA: sistema parado\r\nCAUSA: sistema funcionando normalmente no momento do atendimento\r\nSOLUCAO: realizado manutenção preventiva\r\nDATA E HORA INICIAL: 30/06/17 13:30\r\nDATA E HORA FINAL: 30/06:17 15:30 \r\nKM INICIAL: 67630\r\nKM FINAL: 67736\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1286, 1390, 'OCORRENCIA: problema na válvula reguladora de vácuo\r\nCAUSA: obstrução\r\nSOLUCAO: manutenção corretiva\r\nDATA E HORA INICIAL: 30/06/17 15:30\r\nDATA E HORA FINAL: 30/06/17 19:00\r\nKM INICIAL: 67730\r\nKM FINAL: 67860\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -1930,21 +1807,21 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1291, 1378, 'OCORRENCIA:  visita técnica\r\nCAUSA:  Sistema de cloração com dosagem de cloro gás insuficiente, e clorador reserva com defeito.\r\nSOLUCAO: Realizei limpeza no flexível o mesmo estava obstruído, e corrigi o clorador reserva  ao termino das correções o sistema voltou à normalidade.\r\nDATA E HORA INICIAL:  28/06/17 11:30\r\nDATA E HORA FINAL:  28/06/17 13:05\r\nKM INICIAL:  13246\r\nKM FINAL:  13365\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1292, 1392, 'OCORRENCIA: preventiva\r\nCAUSA: duplicação de um manifold mais um clorador de 15 mais um valvula redutora\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 03/07/2017-   10:00\r\nDATA E HORA FINAL: 03/07/2017-     15:40\r\nKM INICIAL: 10892\r\nKM FINAL: 11233\r\n-----GASTOS GERAIS----141,48\r\nPECAS: 13,50\r\nALIMENTACAO: 36,00\r\nHOSPEDAGEM: 42,00\r\nETC: combustivel:49,98\r\n                          '),
 (1293, 1395, 'OCORRENCIA: preventiva\r\nCAUSA: duplicação de um manifold mais um valvula redutora\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 04/07/2017 -  07:30\r\nDATA E HORA FINAL: 04/06/2017 - 12:00\r\nKM INICIAL: 11233 \r\nKM FINAL: 11452\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1294, 1406, 'OCORRENCIA: preventiva\r\nCAUSA: duplicação de um manifold\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 04/07/2017 -   13:20\r\nDATA E HORA FINAL:  04/07/2017 -     15:10\r\nKM INICIAL: 11432\r\nKM FINAL: 11475\r\n-----GASTOS GERAIS----143,00\r\nPECAS: \r\nALIMENTACAO: 51,00\r\nHOSPEDAGEM: 42,00\r\nETC: combustivel:  50,00\r\n                          '),
+(1294, 1406, 'OCORRENCIA: preventiva\r\nCAUSA: duplicação de um manifold\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 04/07/2017 -   13:20\r\nDATA E HORA FINAL:  04/07/2017 -     15:10\r\nKM INICIAL: 11432\r\nKM FINAL: 11475\r\n-----GASTOS GERAIS----143,00\r\nPECAS: \r\nALIMENTACAO: 51,00\r\nHOSPEDAGEM: 42,00\r\nETC: combustivel:  50,00\r\n                          ');
+INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1295, 1411, 'OCORRENCIA: preventiva\r\nCAUSA: valvula de foi feito limpeza  troca da  origin foi feito limpeza no clorador 240 foito troca de  gabinete de 26 por mu de 50 problema da causa:residual baixo\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 05/07/2017 -  07:00\r\nDATA E HORA FINAL:   05/07/2017 -  09:30\r\nKM INICIAL: 11452\r\nKM FINAL: 11544\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1296, 1412, 'OCORRENCIA: preventiva\r\nCAUSA: duplicação sistema de  cloro  foi colocado  um   manifold\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 05/07/2017  -  10:30\r\nDATA E HORA FINAL: 05/07/2017  -   14:00\r\nKM INICIAL: 11544\r\nKM FINAL: 11585\r\n-----GASTOS GERAIS----72,90\r\nPECAS: \r\nALIMENTACAO: 30,90\r\nHOSPEDAGEM: 42,00\r\nETC: \r\n                          '),
 (1297, 1417, 'OCORRENCIA: preventiva\r\nCAUSA: \r\nSOLUCAO: duplicação de um manifold mais um valvula de pressão\r\nDATA E HORA INICIAL: 06/07/2017-  07:30\r\nDATA E HORA FINAL:   06/07/2017 -  13:20\r\nKM INICIAL: 11620\r\nKM FINAL: 11678\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 18,00\r\nHOSPEDAGEM: \r\nETC: combustivel:145,02\r\n                          '),
 (1298, 1404, 'OCORRENCIA:  operação  Acoplamento de cilindros\r\nCAUSA:  bateria vazia\r\nSOLUCAO:  foi substituido, acoplado e testado com solução de amônia 04 cilindros cheios\r\nDATA E HORA INICIAL 12/06/2017 às 10:30: \r\nDATA E HORA FINAL: 12/06/2017 às 12:30\r\nKM INICIAL: 44307\r\nKM FINAL: 44335\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1299, 1403, 'OCORRENCIA: operação - acoplamento de cilindros\r\nCAUSA: bateria vazia\r\nSOLUCAO:  foi substituido, acoplado e testado com solução de amônia 04 cilindros cheios\r\nDATA E HORA INICIAL: 29/06/2017 às 06:00\r\nDATA E HORA FINAL: 29/06/2 às 07:31017\r\nKM INICIAL: 18993\r\nKM FINAL: 19018\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1300, 1402, 'OCORRENCIA: corretiva\r\nCAUSA:  vazamento pela tampa do clorador\r\nSOLUCAO:  foi substituido o oringue e 01 maniplo da tampa do clorador epex t 20 \r\nDATA E HORA INICIAL: 29/06/2017 às 17:22\r\nDATA E HORA FINAL: 29/06/2017 às 22:00  \r\nKM INICIAL:  19349\r\nKM FINAL: 19599\r\n-----GASTOS GERAIS----\r\nPECAS:  01 o-ringue e 01 maniplo  \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1301, 1398, 'OCORRENCIA:  corretiva \r\nCAUSA: vazamento de cloro pela válvula raio do manifolde.\r\nSOLUCAO: foi substituido 01 válvula raio do manifolde\r\nDATA E HORA INICIAL:  01/07/2017  às 16:45\r\nDATA E HORA FINAL: 01/07/2017 às 18:30\r\nKM INICIAL:  19838\r\nKM FINAL: 19865\r\n-----GASTOS GERAIS----\r\nPECAS: 01 válvula raio 3/4\"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1302, 1401, 'OCORRENCIA:  corretiva\r\nCAUSA:  registros e tubulações resequidas, vazamento pela tampa\r\nSOLUCAO: foi substituido os registros de pvc esfera, conexões danificadas, o- ringue de vedação e pintura do equipamento.\r\nDATA E HORA INICIAL: 29/06/2107 às 07:31 \r\nDATA E HORA FINAL: 29/06/2017 às 16:33\r\nKM INICIAL: 19018\r\nKM FINAL: 19337\r\n-----GASTOS GERAIS----\r\nPECAS: 02 adaptador curto 1\" X 32 mm pvc = material em estoque.\r\n02 bucha  de redução pvc soldável 32 X25 mm = 2,00\r\n02 união pvc soldávem 25 mm = 12,40\r\n03 registro esfera pvc vs soldável 25 mm= 27,90\r\n01 oringue de vedação da tampa\r\n3 metros de tubo de pvc soldável 25,mm = 6,00\r\n  \r\nALIMENTACAO:40,50 \r\nHOSPEDAGEM: \r\nETC:  combustivél 170,00\r\n                          '),
+(1301, 1398, 'OCORRENCIA:  corretiva \r\nCAUSA: vazamento de cloro pela válvula raio do manifolde.\r\nSOLUCAO: foi substituido 01 válvula raio do manifolde\r\nDATA E HORA INICIAL:  01/07/2017  às 16:45\r\nDATA E HORA FINAL: 01/07/2017 às 18:30\r\nKM INICIAL:  19838\r\nKM FINAL: 19865\r\n-----GASTOS GERAIS----\r\nPECAS: 01 válvula raio 3/4"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1302, 1401, 'OCORRENCIA:  corretiva\r\nCAUSA:  registros e tubulações resequidas, vazamento pela tampa\r\nSOLUCAO: foi substituido os registros de pvc esfera, conexões danificadas, o- ringue de vedação e pintura do equipamento.\r\nDATA E HORA INICIAL: 29/06/2107 às 07:31 \r\nDATA E HORA FINAL: 29/06/2017 às 16:33\r\nKM INICIAL: 19018\r\nKM FINAL: 19337\r\n-----GASTOS GERAIS----\r\nPECAS: 02 adaptador curto 1" X 32 mm pvc = material em estoque.\r\n02 bucha  de redução pvc soldável 32 X25 mm = 2,00\r\n02 união pvc soldávem 25 mm = 12,40\r\n03 registro esfera pvc vs soldável 25 mm= 27,90\r\n01 oringue de vedação da tampa\r\n3 metros de tubo de pvc soldável 25,mm = 6,00\r\n  \r\nALIMENTACAO:40,50 \r\nHOSPEDAGEM: \r\nETC:  combustivél 170,00\r\n                          '),
 (1303, 1400, 'OCORRENCIA:  corretiva\r\nCAUSA:  vazamento pela tampa\r\nSOLUCAO:  foi substituido o o-ringue de vedação do clorador e pintura do equipamento.\r\nDATA E HORA INICIAL: 29/06/2107 às 16:33 \r\nDATA E HORA FINAL:  29/06/2107 às 17:27\r\nKM INICIAL:  19337\r\nKM FINAL: 19349\r\n-----GASTOS GERAIS----\r\nPECAS:  01 0-ringue de vedação da tampa\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1304, 1399, 'OCORRENCIA:  manutenção preventiva\r\nCAUSA: manutenção\r\nSOLUCAO:  Foi realizado a substituição de uma válvula reguladora de pressão,  elemento filtrante do filtro de linha, desacoplado um cilindro vazio e acoplado um cilindro cheio. feito testes de estanquiedade com nitrogênio e purgas.\r\nDATA E HORA INICIAL: 30/06/2017 às 05:39\r\nDATA E HORA FINAL: 30/06/2017 às 19:45\r\nKM INICIAL: 19599\r\nKM FINAL: 19820\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 21,57\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1305, 1379, 'OCORRENCIA: Reabastecimento de produto\r\nCAUSA:  Reabastecimento de produto\r\nSOLUCAO:  Reabastecimento de produto\r\nDATA E HORA INICIAL: 22/06/17 09:03\r\nDATA E HORA FINAL: 22/06/17 12:20\r\nKM INICIAL: 7.767\r\nKM FINAL: 7.811\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1306, 1380, 'OCORRENCIA: Acoplamento de cilindros\r\nCAUSA: Acoplamento de cilindros\r\nSOLUCAO: Acoplamento de cilindros\r\nDATA E HORA INICIAL: 26/06/17 07:20\r\nDATA E HORA FINAL: 26/06/17 11:20\r\nKM INICIAL: 7.860\r\nKM FINAL: 7.934\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1307, 1397, 'OCORRENCIA:  Manutenção corretiva\r\nCAUSA:  Manutenção na maquina volumétrica e em duas bomba Plominent\r\nSOLUCAO:  Realizei manutenção e limpeza na maquina volumétrica e também substitui dois diafragma de duas dosadoras Plominent ativos 106583 e 106585\r\nDATA E HORA INICIAL:   04/07/17 08:13\r\nDATA E HORA FINAL:  04/07/17 10:15\r\nKM INICIAL:  14072\r\nKM FINAL:  14092\r\n-----GASTOS GERAIS----\r\nPECAS:  Dois diafragmas da Plominet\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
-INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
+(1307, 1397, 'OCORRENCIA:  Manutenção corretiva\r\nCAUSA:  Manutenção na maquina volumétrica e em duas bomba Plominent\r\nSOLUCAO:  Realizei manutenção e limpeza na maquina volumétrica e também substitui dois diafragma de duas dosadoras Plominent ativos 106583 e 106585\r\nDATA E HORA INICIAL:   04/07/17 08:13\r\nDATA E HORA FINAL:  04/07/17 10:15\r\nKM INICIAL:  14072\r\nKM FINAL:  14092\r\n-----GASTOS GERAIS----\r\nPECAS:  Dois diafragmas da Plominet\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1308, 1413, 'OCORRENCIA:  Vazamento de cloro gás\r\nCAUSA:   Diafragma da reguladora de vácuo muito corroído \r\nSOLUCAO:  Substitui o diafragma da reguladora de vácuo\r\nDATA E HORA INICIAL:  05/07/17 12:01\r\nDATA E HORA FINAL:  05/07/17 14:21\r\nKM INICIAL:  14166\r\nKM FINAL:  14294\r\n-----GASTOS GERAIS----\r\nPECAS:  Um diafragma 3/4 da Fluid Feeder \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1309, 1394, 'OCORRENCIA: operação\r\nCAUSA: término do produto(cloro gás)\r\nSOLUCAO: acoplar (04) quatros cilindros cheios (02) dois de 900 kg e (02) dois de 1000 kg\r\nDATA E HORA INICIAL: 03/07/17 as 07:45 hras\r\nDATA E HORA FINAL: 03/07/17 as 17:30 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
 (1310, 1396, 'OCORRENCIA: operação\r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (02)dois cilindros cheios de 900 kg\r\nDATA E HORA INICIAL: 04/07/17 as 07:45 hras\r\nDATA E HORA FINAL: 04/07/17 as 10:05 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
@@ -2010,11 +1887,11 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1370, 1490, 'OCORRENCIA: Reabastecimento de produto\r\nCAUSA: Cilindros vazios\r\nSOLUCAO:  Reabastecimento de produto\r\nDATA E HORA INICIAL: 15/07/17 09:50\r\nDATA E HORA FINAL: 15/07/17 13:25\r\nKM INICIAL: 9.163\r\nKM FINAL: 9.207\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1371, 1491, 'OCORRENCIA:  Reabastecimento de produto\r\nCAUSA: Cilindros vazios\r\nSOLUCAO:  Reabastecimento de produto\r\nDATA E HORA INICIAL: 22/07/17 07:30\r\nDATA E HORA FINAL: 22/07/17 10:25\r\nKM INICIAL: 9.343\r\nKM FINAL: 9.390\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1372, 1463, 'OCORRENCIA: baixa dosagem de cloro\r\nCAUSA: problemas na válvula reguladora de vácuo\r\nSOLUCAO: realizado a manutenção corretiva\r\nDATA E HORA INICIAL: 14/07/17 07:45\r\nDATA E HORA FINAL: 14/07/17 14:40\r\nKM INICIAL: 68399\r\nKM FINAL: 68545\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1373, 1452, 'OCORRENCIA: corretiva\r\nCAUSA: vazamento no selo da bomba\r\nSOLUCAO: troca de componentes\r\nDATA E HORA INICIAL: 13/07/17 09:00\r\nDATA E HORA FINAL: 13/07/17 16:40\r\nKM INICIAL: 68109\r\nKM FINAL: 68399\r\n-----GASTOS GERAIS----\r\nPECAS: selo mecânico de 3/4\"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1373, 1452, 'OCORRENCIA: corretiva\r\nCAUSA: vazamento no selo da bomba\r\nSOLUCAO: troca de componentes\r\nDATA E HORA INICIAL: 13/07/17 09:00\r\nDATA E HORA FINAL: 13/07/17 16:40\r\nKM INICIAL: 68109\r\nKM FINAL: 68399\r\n-----GASTOS GERAIS----\r\nPECAS: selo mecânico de 3/4"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1374, 1464, 'OCORRENCIA: baixa dosagem\r\nCAUSA: problemas na válvula reguladora de vácuo\r\nSOLUCAO: realizado a manutenção corretiva\r\nDATA E HORA INICIAL: 16/07/17 06:00\r\nDATA E HORA FINAL: 16/07/17 13:00\r\nKM INICIAL: 68545\r\nKM FINAL: 68751\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1375, 1465, 'OCORRENCIA: conexão danificada\r\nCAUSA: desgaste de peças\r\nSOLUCAO: troca de componentes\r\nDATA E HORA INICIAL: 16/07/17 13:00\r\nDATA E HORA FINAL: 16/07/17 15:40\r\nKM INICIAL: 68751\r\nKM FINAL: 69000\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1376, 1485, 'OCORRENCIA: vazamento\r\nCAUSA: desgaste de peças\r\nSOLUCAO: troca de componentes\r\nDATA E HORA INICIAL: 19/07/17 10:00\r\nDATA E HORA FINAL: 19/07/17 17:00\r\nKM INICIAL: 69000\r\nKM FINAL: 69490\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1377, 1515, 'OCORRENCIA: problema na Bomba de 2 cv\r\nCAUSA: desgaste de peças\r\nSOLUCAO: troca de componentes\r\nDATA E HORA INICIAL: 25/07/17 08:00\r\nDATA E HORA FINAL: 25/07/17 12:00\r\nKM INICIAL: 61490\r\nKM FINAL: 69607\r\n-----GASTOS GERAIS----\r\nPECAS: eixo de bronze e selo mecânico de 3/4\"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1377, 1515, 'OCORRENCIA: problema na Bomba de 2 cv\r\nCAUSA: desgaste de peças\r\nSOLUCAO: troca de componentes\r\nDATA E HORA INICIAL: 25/07/17 08:00\r\nDATA E HORA FINAL: 25/07/17 12:00\r\nKM INICIAL: 61490\r\nKM FINAL: 69607\r\n-----GASTOS GERAIS----\r\nPECAS: eixo de bronze e selo mecânico de 3/4"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1378, 1514, 'OCORRENCIA: problema de vácuo\r\nCAUSA: baixa pressão de água no injetor\r\nSOLUCAO: troca de tubulação\r\nDATA E HORA INICIAL: 25/07/17 18:00\r\nDATA E HORA FINAL: 25/07/17 22:00\r\nKM INICIAL: 69701\r\nKM FINAL: 69806\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1379, 1516, 'OCORRENCIA: baixa dosagem\r\nCAUSA: problema no injetor\r\nSOLUCAO: realizado a manutenção corretiva\r\nDATA E HORA INICIAL: 26/07/17 07:40\r\nDATA E HORA FINAL: 26/07/17 16:00\r\nKM INICIAL: 69807\r\nKM FINAL: 70100\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1380, 1466, 'OCORRENCIA: corretiva\r\nCAUSA: \r\nSOLUCAO: foi realizada a limpeza em todo o sistema de cloração devido a entrada de água no sistema; feita a devida correção no injetor que fazia com que retornasse agua para o sistema; sistema funcionando normalmente.\r\nDATA E HORA INICIAL: 28/06/17 11:22\r\nDATA E HORA FINAL:  28/06/17 16:41\r\nKM INICIAL: 93774\r\nKM FINAL:  93855\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2042,7 +1919,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1402, 1581, 'OCORRENCIA: preventiva\r\nCAUSA: entupimento na válvula de pressão água no manifold\r\nSOLUCAO: desentupi e lava todos equipamentos\r\nDATA E HORA INICIAL: 09/08/2017-  11:20\r\nDATA E HORA FINAL: 09/08/2017-  15:30\r\nKM INICIAL: 15269\r\nKM FINAL: 15566\r\n-----GASTOS GERAIS----44,00\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: gasolina   44,00\r\n                          '),
 (1403, 1582, 'OCORRENCIA: desmontagem e recolher equipamento\r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 10/08/2017 - 10:30\r\nDATA E HORA FINAL: 10/08/2017 -15:00\r\nKM INICIAL: 15586\r\nKM FINAL: 15753\r\n-----GASTOS GERAIS----115,00\r\nPECAS: \r\nALIMENTACAO: 15,00\r\nHOSPEDAGEM: \r\nETC: gasolina 100,00\r\n                          '),
 (1404, 1583, 'OCORRENCIA: preventiva\r\nCAUSA: carcaça do clorador das quebrada \r\nSOLUCAO: outra carcaça\r\nDATA E HORA INICIAL: 10/08/2017 - 05:40\r\nDATA E HORA FINAL: 10/08/2017 - 08:30\r\nKM INICIAL: 15566\r\nKM FINAL: 15586\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1405, 1438, 'OCORRENCIA Reativação e instalação\r\nCAUSA: Solicitação (CAERN)\r\nSOLUCAO:  Instalei um manifold 1\'\', um injetor 3/4, uma válvula reguladora de vácuo clorando 3/4, um flexível 1,20mt,ao termino da instalação o sistema foi testado na presença do operador da CERN Sr. Paulo onde foram positivos os testes.\r\nDATA E HORA INICIAL: 11/07/17 04:59 \r\nDATA E HORA FINAL:  11/07/117 17:49\r\nKM INICIAL: 14567\r\nKM FINAL: 15136\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1405, 1438, 'OCORRENCIA Reativação e instalação\r\nCAUSA: Solicitação (CAERN)\r\nSOLUCAO:  Instalei um manifold 1'''', um injetor 3/4, uma válvula reguladora de vácuo clorando 3/4, um flexível 1,20mt,ao termino da instalação o sistema foi testado na presença do operador da CERN Sr. Paulo onde foram positivos os testes.\r\nDATA E HORA INICIAL: 11/07/17 04:59 \r\nDATA E HORA FINAL:  11/07/117 17:49\r\nKM INICIAL: 14567\r\nKM FINAL: 15136\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1406, 1584, 'OCORRENCIA: instalação\r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 11/08/2017 - 07:20\r\nDATA E HORA FINAL: 11/08/2017 - 18:00\r\nKM INICIAL: 15018\r\nKM FINAL: 16081\r\n-----GASTOS GERAIS----209,50\r\nPECAS: \r\nALIMENTACAO: 12,00\r\nHOSPEDAGEM: \r\nETC: material       197,50\r\n                          '),
 (1407, 1584, 'OCORRENCIA: instalação\r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 11/08/2017  -  07;20\r\nDATA E HORA FINAL: 11/08/2017 - 18:00\r\nKM INICIAL: 15918\r\nKM FINAL: 16081\r\n-----GASTOS GERAIS----209,50\r\nPECAS: \r\nALIMENTACAO: 12,00\r\nHOSPEDAGEM: \r\nETC: material :  197,50\r\n                          '),
 (1408, 1489, 'OCORRENCIA:  Bomba Booster desligando\r\nCAUSA:  Chave magnética desarmando \r\nSOLUCAO: Reapertei os parafusos e também reajustei o relé da mesma , termino o sistema de cloração voltou a normalidade.\r\nDATA E HORA INICIAL: 21/07/17 12:35\r\nDATA E HORA FINAL:  21/07/17 14:39\r\nKM INICIAL:  15917\r\nKM FINAL:  15937\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2050,7 +1927,8 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1410, 1450, 'OCORRENCIA:  Sistema de cloro gás parado\r\nCAUSA:  Entrada de cloro liquido no sistema \r\nSOLUCAO: Realizei limpeza nas duas válvulas reguladoras de vácuo, e válvulas R/0, ao término das correções o sistema voltou à normalidade.\r\nDATA E HORA INICIAL: 13/0717 07:23 \r\nDATA E HORA FINAL:  13/07/17 08:38\r\nKM INICIAL:  15136\r\nKM FINAL:  15150\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1411, 1567, 'OCORRENCIA: Sistema de cloro gás vazando\r\nCAUSA:  Diafragma rasgado \r\nSOLUCAO:  Substitui o diafragma da reguladora de vácuo, ao término o sistema voltou à normalidade.\r\nDATA E HORA INICIAL:  09/08/17 07:57\r\nDATA E HORA FINAL:  09/08/17 16:21\r\nKM INICIAL:  17457\r\nKM FINAL:  17646\r\n-----GASTOS GERAIS----\r\nPECAS: Um diafragma \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1412, 1571, 'OCORRENCIA:  Sistema de cloro gás parado\r\nCAUSA: Válvula R/0 com vazamento e disco do diafragma corroído \r\nSOLUCAO:  Substitui a válvula R/0 e o disco do diafragma, ao termino o sistema voltou à normalidade.\r\nDATA E HORA INICIAL:  10/08/17 10:05\r\nDATA E HORA FINAL:  10/08/17 14:04\r\nKM INICIAL:  17825\r\nKM FINAL:  17889\r\n-----GASTOS GERAIS----\r\nPECAS: u\r\nUm válvula R/0 e um disco\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1413, 1572, 'OCORRENCIA:  Sistema de cloro gás funcionando com o reserva\r\nCAUSA: Injetor de 3/4 obstruído \r\nSOLUCAO:  realizei limpeza em injetor, ao termino da correção os dois sistemas ficaram ok.\r\nDATA E HORA INICIAL:  10/08/17 12:42\r\nDATA E HORA FINAL: 10/08/17 16:03 \r\nKM INICIAL:  17889\r\nKM FINAL 17977\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1413, 1572, 'OCORRENCIA:  Sistema de cloro gás funcionando com o reserva\r\nCAUSA: Injetor de 3/4 obstruído \r\nSOLUCAO:  realizei limpeza em injetor, ao termino da correção os dois sistemas ficaram ok.\r\nDATA E HORA INICIAL:  10/08/17 12:42\r\nDATA E HORA FINAL: 10/08/17 16:03 \r\nKM INICIAL:  17889\r\nKM FINAL 17977\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
+INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1414, 1488, 'OCORRENCIA:  Sistema de dicloro parado\r\nCAUSA: Diafragma da dosadora Prominent estava rasgado\r\nSOLUCAO: Substitui o diafragma, ao término o sistema voltou à normalidade.\r\nDATA E HORA INICIAL:  21/0717 09:56\r\nDATA E HORA FINAL:  21/07/17 11:21\r\nKM INICIAL: 15894\r\nKM FINAL:  15917\r\n-----GASTOS GERAIS----\r\nPECAS: Um diafragma\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1415, 1429, 'OCORRENCIA:  B0mba sem funcionar\r\nCAUSA:   Problema na bobina da selanoide.\r\nSOLUCAO:   Trova da mesma com revisão das bias eletricas, equipamento funcionando bem.\r\nDATA E HORA INICIAL:   23/06/17  as  9:30\r\nDATA E HORA FINAL:    23/06/17  as  11:45\r\nKM INICIAL:   100069\r\nKM FINAL:    100219\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1416, 1430, 'OCORRENCIA:   Equipamento dando retorno de água.\r\nCAUSA:   Injetor com sujeira.\r\nSOLUCAO:   Feita limpeza e troca de reparos, funcionamento com problema resolvido.\r\nDATA E HORA INICIAL:   02/07/17  as  11:30\r\nDATA E HORA FINAL:    02/07/17  as  13:30\r\nKM INICIAL:   101695\r\nKM FINAL:     101935\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2066,8 +1944,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1426, 1538, 'OCORRENCIA: preventiva\r\nCAUSA: vazamento no clorador\r\nSOLUCAO: limpeza\r\nDATA E HORA INICIAL: 04/08/17 - 11:10\r\nDATA E HORA FINAL: 0408/17- 12:30\r\nKM INICIAL: 14744\r\nKM FINAL: 14895\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1427, 1539, 'OCORRENCIA: preventiva\r\nCAUSA: vazamento na parede do tubo do manifold\r\nSOLUCAO: troca do tubo\r\nDATA E HORA INICIAL: 04/08/17 - 17:00\r\nDATA E HORA FINAL: 04/08/17 - 18:00\r\nKM INICIAL: 15057\r\nKM FINAL: 15269\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1428, 1453, 'OCORRENCIA: Corretiva\r\nCAUSA: diaphragma da válvula redutora de pressão furado\r\nSOLUCAO: substituição do diaphragma\r\nDATA E HORA INICIAL: 13/07/17 as 05:00 hras\r\nDATA E HORA FINAL: 14/07/17 as 07:40 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM: R$ 82,49\r\nALIMENTACAO: R$ 44,00\r\nHOSPEDAGEM: R$ 70,00\r\nETC: *****\r\n                          '),
-(1429, 1456, 'OCORRENCIA: operação\r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (02)dois cilindros cheios de 900 kg\r\nDATA E HORA INICIAL: 14/07/17 as 07:40 hras\r\nDATA E HORA FINAL: 14/07/17 as 17:30 horas \r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM: R$ 50,00\r\nALIMENTACAO: R$ 74,06\r\nHOSPEDAGEM: R$ 136,00\r\nTÁXI: R$ 125,00\r\n                          ');
-INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
+(1429, 1456, 'OCORRENCIA: operação\r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (02)dois cilindros cheios de 900 kg\r\nDATA E HORA INICIAL: 14/07/17 as 07:40 hras\r\nDATA E HORA FINAL: 14/07/17 as 17:30 horas \r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM: R$ 50,00\r\nALIMENTACAO: R$ 74,06\r\nHOSPEDAGEM: R$ 136,00\r\nTÁXI: R$ 125,00\r\n                          '),
 (1430, 1472, 'OCORRENCIA: operação\r\nCAUSA: terminio do produto (cloro gás)\r\nSOLUCAO: acoplar (02)dois cilindros cheios de 900 kg\r\nDATA E HORA INICIAL: 15/07/17 as 07:45 hras\r\nDATA E HORA FINAL: 17/07/17 as 13:00 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM: R$ 285,00\r\nALIMENTACAO: R$ 82,50\r\nHOSPEDAGEM: R$ 76,00\r\nTÁXI: R$ 125,00\r\n                          '),
 (1431, 1473, 'OCORRENCIA: operação\r\nCAUSA: término do produto (cloro gás)\r\nSOLUCAO: acoplar (02) dois cilindros cheios de 900 kg \r\nDATA E HORA INICIAL: 17/07/17 as 13:00 hras\r\nDATA E HORA FINAL: 18/07/17 as 17:30 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM: R$ 87,00\r\nALIMENTACAO: R$ 58,73\r\nHOSPEDAGEM: R$ 200,00\r\nTÁXI: R$ 10,00 \r\n                          '),
 (1432, 1547, 'OCORRENCIA: Acoplamento de cilindros\r\nCAUSA: Troca de operação da bateria de cilindros\r\nSOLUCAO: Acoplamento de cilindros\r\nDATA E HORA INICIAL: 29/07/17 14:26 \r\nDATA E HORA FINAL: 30/07/17 07:56\r\nKM INICIAL: 9.689\r\nKM FINAL: 9.760\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2147,7 +2024,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1506, 1651, 'OCORRENCIA: PREVENTIVA\r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 29/08 AS 10:20\r\nDATA E HORA FINAL: 29/08 AS 14:20\r\nKM INICIAL: 111387\r\nKM FINAL: 111494\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: R$ 19,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1507, 1652, 'OCORRENCIA: PREVENTIVA\r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 29/08 AS 14:20\r\nDATA E HORA FINAL: 29/08 AS 18:40\r\nKM INICIAL: 111494\r\nKM FINAL: 111708\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1508, 1661, 'OCORRENCIA: SONDA IMPRECISA\r\nCAUSA: DESCALIBROU\r\nSOLUCAO: CALIBRAÇÃO DE PRESSYS\r\nDATA E HORA INICIAL: 31/08 AS 07:10  \r\nDATA E HORA FINAL: 31/08 AS 10:27\r\nKM INICIAL: 111935\r\nKM FINAL: 111975\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1509, 1606, 'OCORRENCIA: Solicitação da CAERN\r\nCAUSA: Retirada de equipamento\r\nSOLUCAO: Retirei osistema de cloração Duas válvulas reguladoras de vácuo, dois injetores 3/4, dois gabinetes, 104kg, 50kg, um flexível 3,50m, um manifold 1\'\'\r\nDATA E HORA INICIAL: 17/08/17 08:11\r\nDATA E HORA FINAL:  17/08/17 10:14\r\nKM INICIAL:  18924\r\nKM FINAL:  18946\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1509, 1606, 'OCORRENCIA: Solicitação da CAERN\r\nCAUSA: Retirada de equipamento\r\nSOLUCAO: Retirei osistema de cloração Duas válvulas reguladoras de vácuo, dois injetores 3/4, dois gabinetes, 104kg, 50kg, um flexível 3,50m, um manifold 1''''\r\nDATA E HORA INICIAL: 17/08/17 08:11\r\nDATA E HORA FINAL:  17/08/17 10:14\r\nKM INICIAL:  18924\r\nKM FINAL:  18946\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1510, 1612, 'OCORRENCIA:  Sistema de cloração parado\r\nCAUSA:  A base da reguladora de vácuo estava danificada\r\nSOLUCAO:  Substitui a base da reguladora\r\nDATA E HORA INICIAL:   17/08/17 14:21\r\nDATA E HORA FINAL:  17/08/17 17:32\r\nKM INICIAL:  18977\r\nKM FINAL:  19099\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1511, 1623, 'OCORRENCIA:  Visita técnica\r\nCAUSA:  Bomba dosadora parada\r\nSOLUCAO: Constatei que a dosadora que estava parada não era da Sabará e sim da CAERN\r\nDATA E HORA INICIAL:  21/08/17 08:21\r\nDATA E HORA FINAL:  21/08/17 10:51\r\nKM INICIAL:  15044\r\nKM FINAL:  15078\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1512, 1627, 'OCORRENCIA: Bomba dosadora com mau funcionamento\r\nCAUSA:  Bomba obstruída\r\nSOLUCAO: Realizei manutenção e limpeza na dosadora\r\nDATA E HORA INICIAL:  23/08/17 08:42\r\nDATA E HORA FINAL:  23/08/1710:11\r\nKM INICIAL:  15179\r\nKM FINAL:  15226\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2168,7 +2045,8 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1527, 1672, 'OCORRENCIA: Trocar 2 cilindros de 900 kg/dia.\r\nCAUSA: Equipamentos de cloração parados vários dias.\r\nSOLUCAO:  Feita limpeza nos mesmos, ambos troca do disco com diafragma. Limpeza dos Injetores com pintura do manifood.  Não foi trocado os cilindros, apresentando os dois com cloro gás, não tendo certeza de quanto, pois não tem manovacometro e o cilindro em uso está com problema na valv. R O podendo ser trocado quando secar o mesmo.  Ficando então em funcionamento com um equipamento, um clorador, uma valv. reguladora com dois  injetores, ao retorno levar outra valv. reguladora de vácuo com manovacometro de -1 a 21. Referencia do cilindro para trocar a valv. 10978\r\nDATA E HORA INICIAL: 23/08/17  as  7:00\r\nDATA E HORA FINAL:   23/08/17  as  12:00\r\nKM INICIAL:   10410\r\nKM FINAL:   10444\r\n-----'),
 (1528, 1423, 'OCORRENCIA: corretivo\r\nCAUSA: vazamento pela tampa do clorador\r\nSOLUCAO:  foi substituido o o-ringue de vedação e 04 maniplos da tampa do dosador epex t20 \r\nDATA E HORA INICIAL: 07/07/2017 às 11:50\r\nDATA E HORA FINAL: 07/07/2017 às 12:30\r\nKM INICIAL: 20425\r\nKM FINAL: 20430\r\n-----GASTOS GERAIS----\r\nPECAS: 01 o-ringue \r\n04 maniplos 3/8\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1529, 1673, 'OCORRENCIA:   \r\nCAUSA: \r\nSOLUCAO:   Troca de 2 cilindros de 900kg/dia, esperando chegada de mais.\r\nDATA E HORA INICIAL:   24/08/17  as  10:26\r\nDATA E HORA FINAL:   24/08/17  as  12:00\r\nKM INICIAL:   10457\r\nKM FINAL:    10479\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1530, 1674, 'OCORRENCIA:  Clorador da Siemens com água.\r\nCAUSA:    Manuseio de registro errado.\r\nSOLUCAO:   Feita a limpeza no mesmo com limpeza também das val. reguladora de vácuo E 10-K da Siemens, voltando a funcionar perfeitamente sem nenhum vazamento.\r\nDATA E HORA INICIAL:   25/08/17  as  9:50\r\nDATA E HORA FINAL:   25/08/17  as  14:30\r\nKM INICIAL:   10487\r\nKM FINAL:    10951\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1530, 1674, 'OCORRENCIA:  Clorador da Siemens com água.\r\nCAUSA:    Manuseio de registro errado.\r\nSOLUCAO:   Feita a limpeza no mesmo com limpeza também das val. reguladora de vácuo E 10-K da Siemens, voltando a funcionar perfeitamente sem nenhum vazamento.\r\nDATA E HORA INICIAL:   25/08/17  as  9:50\r\nDATA E HORA FINAL:   25/08/17  as  14:30\r\nKM INICIAL:   10487\r\nKM FINAL:    10951\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
+INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1531, 1675, 'OCORRENCIA:   \r\nCAUSA: \r\nSOLUCAO:   Troca de 4 cilindros de 900 kg/dia.\r\nDATA E HORA INICIAL:   26/08/17  as  9:00\r\nDATA E HORA FINAL:   26/08/17  as  11:00\r\nKM INICIAL: 10951\r\nKM FINAL:   11024\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1532, 1457, 'OCORRENCIA:  acoplamento de cilindros\r\nCAUSA:  cilindros vazios\r\nSOLUCAO:  foi substituido, acoplado e testado com solução de amônia 04 cilindros cheios e trocado um flexivel. \r\nDATA E HORA INICIAL:  14/07/2017 às 08:00\r\nDATA E HORA FINAL: 14/07/2017 às 11:00\r\nKM INICIAL: 19511\r\nKM FINAL: 19540\r\n-----GASTOS GERAIS----\r\nPECAS: 01 flexivel 1,20 mts.\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1533, 1676, 'OCORRENCIA: \r\nCAUSA: \r\nSOLUCAO:   Troca de 2 cilindros de 900 kg/dia\r\nDATA E HORA INICIAL:   28/08/17  as  10:30\r\nDATA E HORA FINAL:    28/08/17  as  11:00\r\nKM INICIAL:   11024\r\nKM FINAL:    11075\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2184,14 +2062,13 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1543, 1499, 'OCORRENCIA: acoplamento de cilindros\r\nCAUSA:  cilindros vazios\r\nSOLUCAO:  foi acoplado e testado com solução de amônia 02 cilindros cheios. Os cilindros estão pronto para uso.\r\nDATA E HORA INICIAL: 24/07/2017 às 13:48\r\nDATA E HORA FINAL: 24/07/2017 às 14:51\r\nKM INICIAL: 20448\r\nKM FINAL: 20455\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1544, 1680, 'OCORRENCIA:  Sensor alarmou sem vazamento de cloro. \r\nCAUSA:   Feito o reparo do mesmo com revisão.\r\nSOLUCAO:   Limpeza das duas val. reguladora da Siemens E 10-k limpeza nos gabinetes 200 kg/dia.  Clorador atual e reserva funcionando bem sem nenhum vazamento. \r\nDATA E HORA INICIAL:   31/08/17  as  14:10\r\nDATA E HORA FINAL:   31/08/17  as  15:10\r\nKM INICIAL:   12134\r\nKM FINAL:    12379\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO:   51,90\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1545, 1500, 'OCORRENCIA:  acoplamento de cilindro\r\nCAUSA: cilindro vazio\r\nSOLUCAO: foi acoplado e testado com solução de amônia 01 cilindro cheio\r\nDATA E HORA INICIAL:  24/07/2017  às14:51\r\nDATA E HORA FINAL: 24/07/2017  às 17:45\r\nKM INICIAL: 20455\r\nKM FINAL: 20500\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1546, 1503, 'OCORRENCIA:  corretivo\r\nCAUSA: válvula obstruida\r\nSOLUCAO: Foi feito limpeza no manifolde, válvula redutora de pressão,injetor e feito teste estanquedade no sistema.\r\nDATA E HORA INICIAL: 28/07/2017 às 07:30 \r\nDATA E HORA FINAL: 28/07/2017 às 10:00\r\nKM INICIAL:  7347\r\nKM FINAL: 7353\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
-INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
+(1546, 1503, 'OCORRENCIA:  corretivo\r\nCAUSA: válvula obstruida\r\nSOLUCAO: Foi feito limpeza no manifolde, válvula redutora de pressão,injetor e feito teste estanquedade no sistema.\r\nDATA E HORA INICIAL: 28/07/2017 às 07:30 \r\nDATA E HORA FINAL: 28/07/2017 às 10:00\r\nKM INICIAL:  7347\r\nKM FINAL: 7353\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1547, 1524, 'OCORRENCIA:  acoplamento de cilindro\r\nCAUSA: cilindros vazios\r\nSOLUCAO:  foi substituido, acoplado e testado com solução de amônia 04 cilindros cheios.\r\nDATA E HORA INICIAL: 31/07/2017 às 07:45\r\nDATA E HORA FINAL: 31/07/2017 às 11:00\r\nKM INICIAL: 7403\r\nKM FINAL: 7432\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1548, 1525, 'OCORRENCIA: acoplamento de cilindros\r\nCAUSA:  cilindro vazio\r\nSOLUCAO:  foi acoplado e testado com solução de amônia 01 cilindro cheio.\r\nDATA E HORA INICIAL: 31/07/2107 às  13:00\r\nDATA E HORA FINAL:  31/07/2017 às 15:30\r\nKM INICIAL: 7432\r\nKM FINAL: 7442\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1549, 1568, 'OCORRENCIA: corretivo\r\nCAUSA: adaptador de pvc quebrado, limpeza interno no equipamneto\r\nSOLUCAO:  foi substituido um adaptador de pvc 1 X 32 mm, limpeza interna e pintura externa nos equipamentos.\r\nDATA E HORA INICIAL: 10/08/2017 às 05:50\r\nDATA E HORA FINAL: 10/08/2107 `as 09:15\r\nKM INICIAL: 9006\r\nKM FINAL: 9095\r\n-----GASTOS GERAIS----\r\nPECAS: 01 adaptador 1\" x 32 mm sodavel pvc\r\n tinta para pintura\r\nALIMENTACAO:  69,74\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1549, 1568, 'OCORRENCIA: corretivo\r\nCAUSA: adaptador de pvc quebrado, limpeza interno no equipamneto\r\nSOLUCAO:  foi substituido um adaptador de pvc 1 X 32 mm, limpeza interna e pintura externa nos equipamentos.\r\nDATA E HORA INICIAL: 10/08/2017 às 05:50\r\nDATA E HORA FINAL: 10/08/2107 `as 09:15\r\nKM INICIAL: 9006\r\nKM FINAL: 9095\r\n-----GASTOS GERAIS----\r\nPECAS: 01 adaptador 1" x 32 mm sodavel pvc\r\n tinta para pintura\r\nALIMENTACAO:  69,74\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1550, 1570, 'OCORRENCIA: corretivo\r\nCAUSA: o-ringue de vedação gasto\r\nSOLUCAO:  foi realizado limpeza interna troca do o-ringue de vedação da tampa e pintura do equipamento. \r\nDATA E HORA INICIAL: 10/08/2017 às 09:15\r\nDATA E HORA FINAL: 10/08/2017 às 10:10\r\nKM INICIAL: 9095\r\nKM FINAL: 9097\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1551, 1575, 'OCORRENCIA: corretivo\r\nCAUSA:  deficiencia na cloração\r\nSOLUCAO:  foi readequado co um cavalete externo na saida do clorado de modelo 20 mil, para melhorar o controle de vazão da solução de cloro na dosagem e e feito limpeza interna no equipamento.\r\nDATA E HORA INICIAL: 10/08/2017 às 11:03\r\nDATA E HORA FINAL: 10/08/2017 às 12:16\r\nKM INICIAL: 9101\r\nKM FINAL: 9102\r\n-----GASTOS GERAIS----\r\nPECAS: 01 registro esfera pvc soldável 25mm\r\n02 curva pvc sodável 90º X 25mm\r\n01 luva de redução 1\" x 3/4\"\r\n01 adaptador pvc 3/4 X 25mm\r\n01 luva de redução 2\" X 1\" \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1552, 1574, 'OCORRENCIA: preventiva\r\nCAUSA: maniplos espanados\r\nSOLUCAO:  foi substituido 04 maniplos e colocado 08 arruelas de 3/8\" e pintura dos equipamentos.\r\nDATA E HORA INICIAL: 10/08/2017 às 10:10\r\nDATA E HORA FINAL: 10/08/2017 às 11:00\r\nKM INICIAL: 9997\r\nKM FINAL: 9101\r\n-----GASTOS GERAIS----\r\nPECAS: 04 maniplos 3/8\r\n08 arruela liza 3/8\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1551, 1575, 'OCORRENCIA: corretivo\r\nCAUSA:  deficiencia na cloração\r\nSOLUCAO:  foi readequado co um cavalete externo na saida do clorado de modelo 20 mil, para melhorar o controle de vazão da solução de cloro na dosagem e e feito limpeza interna no equipamento.\r\nDATA E HORA INICIAL: 10/08/2017 às 11:03\r\nDATA E HORA FINAL: 10/08/2017 às 12:16\r\nKM INICIAL: 9101\r\nKM FINAL: 9102\r\n-----GASTOS GERAIS----\r\nPECAS: 01 registro esfera pvc soldável 25mm\r\n02 curva pvc sodável 90º X 25mm\r\n01 luva de redução 1" x 3/4"\r\n01 adaptador pvc 3/4 X 25mm\r\n01 luva de redução 2" X 1" \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1552, 1574, 'OCORRENCIA: preventiva\r\nCAUSA: maniplos espanados\r\nSOLUCAO:  foi substituido 04 maniplos e colocado 08 arruelas de 3/8" e pintura dos equipamentos.\r\nDATA E HORA INICIAL: 10/08/2017 às 10:10\r\nDATA E HORA FINAL: 10/08/2017 às 11:00\r\nKM INICIAL: 9997\r\nKM FINAL: 9101\r\n-----GASTOS GERAIS----\r\nPECAS: 04 maniplos 3/8\r\n08 arruela liza 3/8\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1553, 1577, 'OCORRENCIA:  corretivo\r\nCAUSA: o-ringue e  maniplos desgastados\r\nSOLUCAO: Foi substituido om o-ringue de vedação e 02 maniplos da tampa do clorador epex t20\r\nDATA E HORA INICIAL:  10/08/2017  às 13:20\r\nDATA E HORA FINAL: 10/08/2017 às 14:00\r\nKM INICIAL: 9102\r\nKM FINAL: 9110\r\n-----GASTOS GERAIS----\r\nPECAS: 01 o-ringue \r\n02 maniplos 3/8\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC:  combustivel 161,03\r\n                          '),
 (1554, 1578, 'OCORRENCIA: corretivo\r\nCAUSA: injetor danificado\r\nSOLUCAO:  foi removido o injetor para manutenção externa e recolocado posteriormente.\r\nDATA E HORA INICIAL: 10/08/2107 às 14:00\r\nDATA E HORA FINAL: 10/08/2017 às 15:24\r\nKM INICIAL:  9110\r\nKM FINAL: 9119\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1555, 1578, 'OCORRENCIA: corretivo\r\nCAUSA: injetor danificado\r\nSOLUCAO:  foi removido o injetor para manutenção externa e recolocado posteriormente.\r\nDATA E HORA INICIAL: 10/08/2107 às 14:00\r\nDATA E HORA FINAL: 10/08/2017 às 15:24\r\nKM INICIAL:  9110\r\nKM FINAL: 9119\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2227,7 +2104,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1585, 1721, 'OCORRENCIA: NOVO PONTO DE INSTALAÇÃO DE CLORO GAS\r\nCAUSA: MUDANÇA DE PADRÃO, DE 65KG PARA 900KG.\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 14/09 AS 07:08\r\nDATA E HORA FINAL: 14/09 AS 19:15\r\nKM INICIAL: 112618\r\nKM FINAL: 112884\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          FEITO LIMPEZA DE 02 ROTAMETROS. SISTEMA OK.'),
 (1586, 1641, 'OCORRENCIA: Cilindros vazios\r\nCAUSA: Cilindros vazios\r\nSOLUCAO: Reabastecimento de produto e troca de yoks\r\nDATA E HORA INICIAL: 19/08/17 07:40\r\nDATA E HORA FINAL: 19/08/17 11:00\r\nKM INICIAL: 41.300\r\nKM FINAL: 41,342\r\n-----GASTOS GERAIS----\r\nPECAS: 04 yoks para bateria de cilindros do manifold 01\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1587, 1642, 'OCORRENCIA: Limpeza e pintura\r\nCAUSA: Limpeza e pintura\r\nSOLUCAO: Limpeza em todo galpão dos cilindros e área dos gabinetes, pintura nos manifolds 01 e 02.\r\nDATA E HORA INICIAL: 24/08/17 07:40 \r\nDATA E HORA FINAL: 24/08/17 12:35\r\nKM INICIAL: 8.518\r\nKM FINAL: 8.558\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1588, 1716, 'OCORRENCIA: preventivo\r\nCAUSA: \r\nSOLUCAO: troca do clorador de 960kg/dia por um de 2000 LBS.\r\nTroca do injetor 2\"  ,substituição da valvula  reg. de vacuo e valvula reg.de pressao do conjunto chek unit, substituicão de um flexivel de cobre.\r\npintura das tubulações.\r\nDATA E HORA INICIAL: 12/09/17 ás 10:47hs\r\nDATA E HORA FINAL: 15/09/17 ás 11:38hs\r\nKM INICIAL: 22128\r\nKM FINAL: 22884\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:$ 24,75 reais dia 15/09/17\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1588, 1716, 'OCORRENCIA: preventivo\r\nCAUSA: \r\nSOLUCAO: troca do clorador de 960kg/dia por um de 2000 LBS.\r\nTroca do injetor 2"  ,substituição da valvula  reg. de vacuo e valvula reg.de pressao do conjunto chek unit, substituicão de um flexivel de cobre.\r\npintura das tubulações.\r\nDATA E HORA INICIAL: 12/09/17 ás 10:47hs\r\nDATA E HORA FINAL: 15/09/17 ás 11:38hs\r\nKM INICIAL: 22128\r\nKM FINAL: 22884\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO:$ 24,75 reais dia 15/09/17\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1589, 1686, 'OCORRENCIA: Maquina volumétrica parada\r\nCAUSA:  Eixo de rosca sem fim quebrado\r\nSOLUCAO:  Substitui o eixo\r\nDATA E HORA INICIAL: 04/09/17 12:01\r\nDATA E HORA FINAL:  04/0917 14:24\r\nKM INICIAL:  16471\r\nKM FINAL:  16528\r\n-----GASTOS GERAIS----\r\nPECAS: Umeixo de rosca sem fim\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1590, 1711, 'OCORRENCIA: vazamento\r\nCAUSA: problemas no modulo dosador\r\nSOLUCAO: realizado a manutenção\r\nDATA E HORA INICIAL: 01/09/17 08:00\r\nDATA E HORA FINAL: 01/09/17 14:30\r\nKM INICIAL: 76800\r\nKM FINAL: 76900\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1591, 1712, 'OCORRENCIA: preventiva\r\nCAUSA: periodo de manutemção\r\nSOLUCAO: realizado a manutenção\r\nDATA E HORA INICIAL: 06/09/17 14:00\r\nDATA E HORA FINAL: 06/09/17 18:00\r\nKM INICIAL: 76413\r\nKM FINAL: 76659\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2273,7 +2150,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1631, 1787, 'OCORRENCIA: AGUA NO ROTAMETRO\r\nCAUSA: RETORNO PELO INJETOR\r\nSOLUCAO: LIMPEZA DO ROTAMETRO\r\nDATA E HORA INICIAL: 05/10 AS 07:16\r\nDATA E HORA FINAL: 05/10 AS 08:22\r\nKM INICIAL: 115006\r\nKM FINAL: 115021\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: R$ 15.00\r\nHOSPEDAGEM: R$ 85.00\r\nETC: \r\n                    FEITO LIMPEZA DO ROTAMETRO, SISTEMA OK.      '),
 (1632, 1786, 'OCORRENCIA: preventiva\r\nCAUSA: \r\nSOLUCAO: duplicação do clorador de 100kg/dia\r\nDATA E HORA INICIAL: 04/10/17ás 10;22hs\r\nDATA E HORA FINAL: 04/10/17 ás 12:05hs\r\nKM INICIAL: 25223\r\nKM FINAL: 25340\r\n-----GASTOS GERAIS----\r\nPECAS: 01 clorador de 100kg/dia , 01 valvula reg.,01 injetor de 3/4\r\nALIMENTACAO:uma reifeição $ 28,30\r\nHOSPEDAGEM: não\r\nETC: \r\n                          '),
 (1633, 1785, 'OCORRENCIA: PREVENTIVA\r\nCAUSA: \r\nSOLUCAO: LIMPEZA DO CLORADOR EXTERNO ,LIMPEZA DO ROTÂMETRO ,SUBSTITUIÇAO DA MANGUEIRA , SUBSTITUIÇÃO DO INJETOR DE 3/4 ,SUBSTITUIÇÃO DO FLEXIVEL DE COBRE  E SUBST. DO GRAMPO YOKE (SARGENTO)\r\nDATA E HORA INICIAL:04/10/17 ÁS 13:59HS \r\nDATA E HORA FINAL: 04/10/17 ÁS 16:07HS\r\nKM INICIAL: 25340\r\nKM FINAL: 25587\r\n-----GASTOS GERAIS----\r\nPECAS:  mangueira,01 injetor de 3/4, 01 flexivel de cobre de 1,5mt, 01 válvula reg.,01 grampo yoke\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1634, 1771, 'OCORRENCIA:    Vazamento no Manifood.\r\nCAUSA:   Vazamento pelo frange do regulador do gás.\r\nSOLUCAO:   Troca do joelho de 1\" galv, com limpeza e regulagem do frange.\r\nDATA E HORA INICIAL:   29/09/17  as  15:20\r\nDATA E HORA FINAL:     29/09/17  as  16:25\r\nKM INICIAL:    23720\r\nKM FINAL:      23788\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1634, 1771, 'OCORRENCIA:    Vazamento no Manifood.\r\nCAUSA:   Vazamento pelo frange do regulador do gás.\r\nSOLUCAO:   Troca do joelho de 1" galv, com limpeza e regulagem do frange.\r\nDATA E HORA INICIAL:   29/09/17  as  15:20\r\nDATA E HORA FINAL:     29/09/17  as  16:25\r\nKM INICIAL:    23720\r\nKM FINAL:      23788\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1635, 1772, 'OCORRENCIA: \r\nCAUSA: \r\nSOLUCAO:    Troca do cilindro de ar.\r\nDATA E HORA INICIAL:   22/09/17  as  16:30\r\nDATA E HORA FINAL:    22/09/17  as  16:50\r\nKM INICIAL: 56271\r\nKM FINAL:   56294\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1636, 1751, 'OCORRENCIA: \r\nCAUSA: \r\nSOLUCAO:     Troca do cilindro de ar.\r\nDATA E HORA INICIAL:   22/09/17  as  15:30\r\nDATA E HORA FINAL:    22/09/17  as  15:48\r\nKM INICIAL:   56138\r\nKM FINAL:      56271\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1637, 1739, 'OCORRENCIA:  ETE parada\r\nCAUSA:  Retorno de água no sistema de cloração\r\nSOLUCAO:  Realizei limpeza em reguladora de vácuo,mangueiras,rotâmetro.\r\nDATA E HORA INICIAL: 19/09/17 14:06\r\nDATA E HORA FINAL: 19/09/17 15:25\r\nKM INICIAL:  18412\r\nKM FINAL:  18465\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2285,7 +2162,8 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1643, 1778, 'OCORRENCIA:  Bomba Booster parada\r\nCAUSA:   Bomba queimada\r\nSOLUCAO:  Substitui a bomba\r\nDATA E HORA INICIAL:  04/10/17 15:36\r\nDATA E HORA FINAL:  05/10/17 09:34\r\nKM INICIAL:  20782\r\nKM FINAL:  20815\r\n-----GASTOS GERAIS----\r\nPECAS:  Uma bomba Booster 220v\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1644, 1761, 'OCORRENCIA:  V2000 impossibilitado de ajuste\r\nCAUSA:  Controlador travado\r\nSOLUCAO:  Realizei limpeza e manutenção no controlador ao término o mesmo voltou à normalidade\r\nDATA E HORA INICIAL:  26/09/17 14:57\r\nDATA E HORA FINAL:  26/09/17 15:56\r\nKM INICIAL:  19177\r\nKM FINAL:  19221\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1645, 1779, 'OCORRENCIA:  Dosadora parada\r\nCAUSA:  Diafragma rasgado\r\nSOLUCAO:  Substitui o diafragma\r\nDATA E HORA INICIAL:  04/10/17 14:10\r\nDATA E HORA FINAL:  04/10/17 15:36\r\nKM INICIAL:  20743\r\nKM FINAL:  20782\r\n-----GASTOS GERAIS----\r\nPECAS:  Um diafragma da Prominet\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1646, 1743, 'OCORRENCIA:  Maquina volumétrica parando\r\nCAUSA:  Eixo de rosca sem fim travado\r\nSOLUCAO:  Realizei limpeza e manutenção em eixo ao término voltou à normaalidade\r\nDATA E HORA INICIAL:  20/09/17 14:57\r\nDATA E HORA FINAL:  20/09/17 15:59\r\nKM INICIAL:  18501\r\nKM FINAL:  18522\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1646, 1743, 'OCORRENCIA:  Maquina volumétrica parando\r\nCAUSA:  Eixo de rosca sem fim travado\r\nSOLUCAO:  Realizei limpeza e manutenção em eixo ao término voltou à normaalidade\r\nDATA E HORA INICIAL:  20/09/17 14:57\r\nDATA E HORA FINAL:  20/09/17 15:59\r\nKM INICIAL:  18501\r\nKM FINAL:  18522\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
+INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1647, 1748, 'OCORRENCIA:  Sistema parado\r\nCAUSA:  Injetores obstruídos\r\nSOLUCAO:  realizei limpeza e manutenção em injetores ao término voltou à normalidade\r\nDATA E HORA INICIAL: 22/09/17 08:20 \r\nDATA E HORA FINAL:  22/09/17 10:38\r\nKM INICIAL:  18621\r\nKM FINAL:  18702\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1648, 1732, 'OCORRENCIA: vazamento\r\nCAUSA: desgaste de peça\r\nSOLUCAO: troca de componente\r\nDATA E HORA INICIAL: 15/09/17 08:00\r\nDATA E HORA FINAL: 15/09/17 15:00\r\nKM INICIAL: 77468\r\nKM FINAL: 77588\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1649, 1777, 'OCORRENCIA: baixa dosagem\r\nCAUSA:problema no injetor \r\nSOLUCAO: manutenção corretiva no injetor\r\nDATA E HORA INICIAL: 03/10/17 06:00\r\nDATA E HORA FINAL: 03/10/17 18:40\r\nKM INICIAL: 79180\r\nKM FINAL: 79806\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2303,11 +2181,10 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1661, 1818, 'OCORRENCIA: \r\nCAUSA: UMA VÁLVULA RAIO 0 SEM FECHAR E MESMO ASSIM DANIFICADA VÁLVULA REDUTORA DE PRESSÃO COM VAZAMENTO NO OBTURADOR NO CONJUNTO DE TUBO DE VENTURE .\r\nSOLUCAO: TROCA DE VÁLVULA RAIO 0, TROCA DE CONJUNTO DE TUBO DE VENTURE, TROCA DE ORGE DOIS CLORADOR FUNCIONANDO NORMAL COM TODA EFICIÊNCIA.\r\nDATA E HORA INICIAL: 14/10/2017 AS 11:20\r\nDATA E HORA FINAL: 14/10/2017 AS 12:40\r\nKM INICIAL: 22693\r\nKM FINAL: 22790\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1662, 1819, 'OCORRENCIA: CORRETIVA\r\nCAUSA: NÃO ESTAVA CLORANDO DIAFRAGMA DA VÁLVULA REDUTORA DE PRESSÃO \r\nSOLUCAO: TROCA DO DIAFRAGMA DOIS EQUIPAMENTOS FEZ LIMPEZA E PINTURA\r\nDATA E HORA INICIAL: 14/10/2017 AS 07:40\r\nDATA E HORA FINAL: 14/10/2017 AS 09:30\r\nKM INICIAL: 22559\r\nKM FINAL: 22584\r\n-----GASTOS GERAIS---- 166,04\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: GASOLINA 166,04\r\n                          '),
 (1663, 1791, 'OCORRENCIA: troca de bateria de cilindros \r\nCAUSA:  bateria de cilindros vazias \r\nSOLUCAO: foi substituído,  acoplado e testado 4 cilindros cheios \r\nDATA E HORA INICIAL: 09/10/2017 às  07:45\r\nDATA E HORA FINAL: 09/10/2017 às  10:07\r\nKM INICIAL: 16393\r\nKM FINAL: 16405\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1664, 1792, 'OCORRENCIA:  acoplar cilindros \r\nCAUSA: cilindros vazios \r\nSOLUCAO:  foi acoplado  e testado  02 cilindros  cheios \r\nDATA E HORA INICIAL: 09/10/2017 às  10:07\r\nDATA E HORA FINAL: 09/10/2017 às 10:42\r\nKM INICIAL: 16405\r\nKM FINAL: 16412\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
-INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
+(1664, 1792, 'OCORRENCIA:  acoplar cilindros \r\nCAUSA: cilindros vazios \r\nSOLUCAO:  foi acoplado  e testado  02 cilindros  cheios \r\nDATA E HORA INICIAL: 09/10/2017 às  10:07\r\nDATA E HORA FINAL: 09/10/2017 às 10:42\r\nKM INICIAL: 16405\r\nKM FINAL: 16412\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1665, 1793, 'OCORRENCIA: acoplamento de cilindros \r\nCAUSA: cilindros vazios \r\nSOLUCAO: foi acoplado e testado 01 cilindro  cheio \r\nDATA E HORA INICIAL: 09/10/2017 às  10:32\r\nDATA E HORA FINAL: 09/10/2017\r\nKM INICIAL: 16412\r\nKM FINAL: 16432\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1666, 1806, 'OCORRENCIA:  acoplamento de cilindros \r\nCAUSA: cilindros vazios \r\nSOLUCAO: foi acoplado 01 cilindro cheio  e feito limpezas  internas na válvula  reguladora de pressão. \r\nDATA E HORA INICIAL: 10/10/2017 às  05:30\r\nDATA E HORA FINAL: 10/10/2017 às  10:30\r\nKM INICIAL: 16514\r\nKM FINAL: 16735\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 23,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1667, 1814, 'OCORRENCIA: preventivo\r\nCAUSA: \r\nSOLUCAO: substituição do clorador de 240kg/dia,substituição do flexivel de cobre de 3,5m,,substitiução do injetor de 1\" e mangueira 2,90mts,pintura do manifolde e tubulações.troca do grampo yok\r\nDATA E HORA INICIAL: 10/10/17 as 14:05hs\r\nDATA E HORA FINAL:10/10/17 ás 16:19hs\r\nKM INICIAL: 25828\r\nKM FINAL: 25884\r\n-----GASTOS GERAIS----\r\nPECAS: flexivel de cobre de 3,5mt ,clorador de 240kg/dia ,1 injetor de 1\" ,1 grampo yok ,2,90mt de mangueira\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1667, 1814, 'OCORRENCIA: preventivo\r\nCAUSA: \r\nSOLUCAO: substituição do clorador de 240kg/dia,substituição do flexivel de cobre de 3,5m,,substitiução do injetor de 1" e mangueira 2,90mts,pintura do manifolde e tubulações.troca do grampo yok\r\nDATA E HORA INICIAL: 10/10/17 as 14:05hs\r\nDATA E HORA FINAL:10/10/17 ás 16:19hs\r\nKM INICIAL: 25828\r\nKM FINAL: 25884\r\n-----GASTOS GERAIS----\r\nPECAS: flexivel de cobre de 3,5mt ,clorador de 240kg/dia ,1 injetor de 1" ,1 grampo yok ,2,90mt de mangueira\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1668, 1815, 'OCORRENCIA: corretivo\r\nCAUSA: vazamento na vaLVULA REG.\r\nSOLUCAO: SUBSTITUIÇÃO DA VALVULA REG. E NORMALIZANDO O SISTEMA\r\nDATA E HORA INICIAL: 10/10/17  ás 11:59hs\r\nDATA E HORA FINAL: 10/10/17 ás 12:20hs\r\nKM INICIAL: 25805\r\nKM FINAL: 25828\r\n-----GASTOS GERAIS----\r\nPECAS: 1 valvula reg.\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1669, 1782, 'OCORRENCIA: Reabastecimento de produto e troca de manômetro\r\nCAUSA: Cilindros vazios e manômetro com vazamento no selo\r\nSOLUCAO: Reabastecimento de produto e troca de manômetro\r\nDATA E HORA INICIAL: 27/09/17 07:00\r\nDATA E HORA FINAL: 27/09/17 11:30\r\nKM INICIAL: 4.330\r\nKM FINAL: 4.376\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1670, 1783, 'OCORRENCIA: Troca de operação da bateria de cilindros e instalação de manômetro\r\nCAUSA: Cilindros próximo de esvaziar, instalado manômetro\r\nSOLUCAO: Troca de operação da bateria de cilindros e instalação de manômetro  \r\nDATA E HORA INICIAL: 01/10/17 12:20 \r\nDATA E HORA FINAL: 02/10/17 08:20\r\nKM INICIAL: 4.459\r\nKM FINAL: 4.533\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2328,7 +2205,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1685, 1798, 'OCORRENCIA:  Clorador sem abrir a bobina (selanoide)\r\nCAUSA: \r\nSOLUCAO:   Troca de uma bobina completa, troca da boia elétrica, troca do sensor.\r\nDATA E HORA INICIAL:   21/07/17  as  13:20\r\nDATA E HORA FINAL:     21/07/17  as  16:10\r\nKM INICIAL:    51253\r\nKM FINAL:     51354\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1686, 1873, 'OCORRENCIA: VAZAMENTO DE CLORO GÁS.\r\nCAUSA:  FLÉXIVEL E VÁLVULA DANIFICADA.\r\nSOLUCAO:  FEITA TROCA DO FLÉXIVEL COM ABRAÇADEIRA YOK E TROCA DO CILINDRO 68 KG/ DIA.   FEITA TROCA EQUIPAMENTO FUNCIONANDO BEM SEM NENHUM VAZAMENTO APRESENTAR, SEGUNDO OPERADOR DE PLANTÃO.\r\nDATA E HORA INICIAL:  13/10/17  AS  10:39\r\nDATA E HORA FINAL:  13/10/17  AS  11:10\r\nKM INICIAL:   56645\r\nKM FINAL:     56775\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1687, 1871, 'OCORRENCIA:   \r\nCAUSA:  PRÉ-CLORAÇÃO FUNCIONANDO INADEQUADAMENTE.\r\nSOLUCAO:  INSTALADA UMA BOMBA DE 2cv. COM CHAVE DE PARTIDA E COM SUAS TUBULAÇÕES.      LIMPEZA DE TRÊS GABINETES 104KG/ DIA.    LIMPEZA NAS VÁLVULAS REGULADORA VÁCUO, TROCA DE UMA VALV. R0 E TROCA DE UM INJETOR DA FLUIDFEEDER DE 3/4 NA pré.\r\nDATA E HORA INICIAL:     17/10/17  as  16:00\r\nDATA E HORA FINAL:        18/10/17  as  15:35  \r\nKM INICIAL:   56826\r\nKM FINAL:     57131\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO:  52,00\r\nHOSPEDAGEM:   40,00\r\nETC: \r\n                          '),
-(1688, 1872, 'OCORRENCIA: \r\nCAUSA: \r\nSOLUCAO:   Feita a troca de local de cloração do isquid com uma bomba de 2cv. mono com sua chave de partida, um clorador da clorando com um injetor de 2\" da fluidfeeder com seu gabinete de 50 kg/ dia,     Foi colocado 66 mt. de tubo de 32 mm, 4 curva de 90 graus, uma valv. de pé de 1\", duas uniões de 32 mm.    Feito todos os testes não apresentando nenhum vazamento.      Para completar a metragem final será preciso mais 140 mm de tubo de 32 mm para chegar a fase de dosagem desejada.  \r\nDATA E HORA INICIAL:   18/10/17  as  18:40\r\nDATA E HORA FINAL:     21/10/17  as  14:45\r\nKM INICIAL: 57131\r\nKM FINAL:    57742\r\n-----GASTOS GERAIS----\r\nPECAS:   52,94\r\nALIMENTACAO:     210,87\r\nHOSPEDAGEM:   210,00\r\nETC: \r\n                          '),
+(1688, 1872, 'OCORRENCIA: \r\nCAUSA: \r\nSOLUCAO:   Feita a troca de local de cloração do isquid com uma bomba de 2cv. mono com sua chave de partida, um clorador da clorando com um injetor de 2" da fluidfeeder com seu gabinete de 50 kg/ dia,     Foi colocado 66 mt. de tubo de 32 mm, 4 curva de 90 graus, uma valv. de pé de 1", duas uniões de 32 mm.    Feito todos os testes não apresentando nenhum vazamento.      Para completar a metragem final será preciso mais 140 mm de tubo de 32 mm para chegar a fase de dosagem desejada.  \r\nDATA E HORA INICIAL:   18/10/17  as  18:40\r\nDATA E HORA FINAL:     21/10/17  as  14:45\r\nKM INICIAL: 57131\r\nKM FINAL:    57742\r\n-----GASTOS GERAIS----\r\nPECAS:   52,94\r\nALIMENTACAO:     210,87\r\nHOSPEDAGEM:   210,00\r\nETC: \r\n                          '),
 (1689, 1874, 'OCORENCIA:  troca de bateria de cilindros.\r\nCAUSA:  cilindros vazios\r\nSOLUCAO:  Foi substituido, acoplado e testado com solução de amônia 04 cilindros cheios\r\nDATA E HORA INICIAL:  23/10/2017 às 13:00\r\nDATA E HORA FINAL: 23/10/2017 às 16:20\r\nKM INICIAL: 19192\r\nKM FINAL: 19252\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1690, 1853, 'OCORRENCIA: instalação\r\nCAUSA:  nova instação\r\nSOLUCAO:  não foi realizado a instalação do sistema devido que não há sala para cilindros e equipamentos.\r\nDATA E HORA INICIAL: 15/10/2017 às 22:00\r\nDATA E HORA FINAL: 17/10/2017 às 12:00\r\nKM INICIAL:    xxxxxx\r\nKM FINAL: xxxxxx\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 74,00\r\nHOSPEDAGEM: 354,00\r\nETC:  taxi: 125,00\r\npassagem de ônibus = 354,00\r\n                          '),
 (1691, 1852, 'OCORRENCIA:  preventiva\r\nCAUSA: acoplamento de cilindros e limpeza nos equipamentos.\r\nSOLUCAO: foi acoplado 02 cilindros cheios e feito limpeza interna nas válvulas redutora de pressão, injetores e vidro rotâmetro.\r\nDATA E HORA INICIAL: 17/10/2017 às 12:00\r\nDATA E HORA FINAL: 17/10/2017 às 18:00\r\nKM INICIAL: xxxxxx\r\nKM FINAL: xxxxxx\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: 306,00\r\nETC: excesso  de bagagem 20,00\r\n               \r\nObs. a despesa de passagem de ônibus foi  informada  na OAT 1853'),
@@ -2338,8 +2215,8 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1695, 1789, 'OCORRENCIA: corretiva\r\nCAUSA:  vazamento de cloro, fala de operação\r\nSOLUCAO: Foi observado que no momento em que o elevado fica sem água, o operador não fecha o cilindro.\r\nfoi orientado para os operadores que feixe os cilindros quando o elevado ficar sem água de processo.\r\nDATA E HORA INICIAL: 05/10/2017 às 06:30\r\nDATA E HORA FINAL: 05/10/2017 às 17:30\r\nKM INICIAL: 15868\r\nKM FINAL: 16126\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 36,23\r\nHOSPEDAGEM: \r\nETC: combustível ; 81,02\r\n                          '),
 (1696, 1754, 'OCORRENCIA: preventiva \r\nCAUSA:  peças danificadas corroídas pelo tempo de uso\r\nSOLUCAO: Substituição das mesmas pelas novas( anel de encoste,dois pinos,estator 10 Lt/h ,bocal de entrada e saída,oring plano de vedação.\r\nDATA E HORA INICIAL: 25/09/17 as 21:15 hras\r\nDATA E HORA FINAL: 27/09/17 as 10:00 hras\r\nKM INICIAL: *****\r\nKM FINAL: ******\r\n-----GASTOS GERAIS----\r\nPASSAGEM:R$ 182,00\r\nALIMENTACAO: R$ 35,30\r\nHOSPEDAGEM: R$ 70,00\r\nTAXI: R$ 55,00 \r\n                          '),
 (1697, 1700, 'OCORRENCIA:  preventiva\r\nCAUSA: acoplamento de cilindros\r\nSOLUCAO: Foi realizado limpeza interna na válvula reguladora de pressão, substituído uma válvula esfera valmicro, desacoplado dois cilindros vazios, acoplado dois cilindros cheios, testes de estanqueidade com gás nitrogênio e gás argônio, purga no sistema, pressurizado o sistema com cloro gás e monitorado o sistema por 40 minutos.\r\nDATA E HORA INICIAL: 12/09/2017 às 06:00\r\nDATA E HORA FINAL: 12/09/2017 às 16:00\r\nKM INICIAL: 13715\r\nKM FINAL: 13936\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO:  20,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1698, 1709, 'OCORRENCIA: corretiva\r\nCAUSA: viso de nível manchado.\r\nSOLUCAO:  foi substituído o viso do nível do tanque de pac. \r\nDATA E HORA INICIAL: 28/10/2017 às 10:00\r\nDATA E HORA FINAL: 28/10/2017 às 11:43\r\nKM INICIAL: 7353 \r\nKM FINAL: 7373\r\n-----GASTOS GERAIS----\r\nPECAS:  7 metros de mangueira cristal 3/4\"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1699, 1708, 'OCORRENCIA:  corretiva.\r\nCAUSA:  visor do tanque manchado\r\nSOLUCAO:  foi substituído o visor do tanque de nível.\r\nDATA E HORA INICIAL: 28/07/2017 às 11:43\r\nDATA E HORA FINAL: 28/07/2017 às 14:00\r\nKM INICIAL: 7373\r\nKM FINAL: 7403\r\n-----GASTOS GERAIS----\r\nPECAS:  7 metros de mangueira cristal 3/4\"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1698, 1709, 'OCORRENCIA: corretiva\r\nCAUSA: viso de nível manchado.\r\nSOLUCAO:  foi substituído o viso do nível do tanque de pac. \r\nDATA E HORA INICIAL: 28/10/2017 às 10:00\r\nDATA E HORA FINAL: 28/10/2017 às 11:43\r\nKM INICIAL: 7353 \r\nKM FINAL: 7373\r\n-----GASTOS GERAIS----\r\nPECAS:  7 metros de mangueira cristal 3/4"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1699, 1708, 'OCORRENCIA:  corretiva.\r\nCAUSA:  visor do tanque manchado\r\nSOLUCAO:  foi substituído o visor do tanque de nível.\r\nDATA E HORA INICIAL: 28/07/2017 às 11:43\r\nDATA E HORA FINAL: 28/07/2017 às 14:00\r\nKM INICIAL: 7373\r\nKM FINAL: 7403\r\n-----GASTOS GERAIS----\r\nPECAS:  7 metros de mangueira cristal 3/4"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1700, 1762, 'OCORRENCIA: operação\r\nCAUSA: término do produto ( cloro gás)\r\nSOLUCAO: acoplar (02) dois cilindros cheios de 900 kg\r\nDATA E HORA INICIAL: 27/09/17 as 10:00 hras\r\nDATA E HORA FINAL: 28/09/17 as 22:30 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM: R$ 165,00\r\nALIMENTACAO: R$ 65,79\r\nHOSPEDAGEM: R$ 90,00\r\nTAXI:R$ 190,00\r\n                          '),
 (1701, 1769, 'OCORRENCIA: preventiva no sistema de cloro gás\r\nCAUSA: liquefação no sistema por motivo que o telhado foi arrancado por um forte vento \r\nSOLUCAO: limpeza nos equipamentos\r\nDATA E HORA INICIAL: 02/10/17 as 21:20 hras\r\nDATA E HORA FINAL: 05/10/17 as 12:00 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM: R$ 336,65\r\nALIMENTACAO: R$ 110,50\r\nHOSPEDAGEM: R$ 110,00\r\nTÁXI:R$ 85,00\r\n                          '),
 (1702, 1790, 'OCORRENCIA: preventiva bomba dosadora do PAC\r\nCAUSA: retorno de produto \r\nSOLUCAO: substituição de um rotor de LT/ hra gasto por tempo de uso\r\nDATA E HORA INICIAL: 05/10/17 as 12:00 hras\r\nDATA E HORA FINAL: 10/10/17 as 19:30 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM: R$ 639,11\r\nALIMENTACAO: R$ 151,91\r\nHOSPEDAGEM: R$ 328,00\r\nTÁXI: R$ 120,00\r\n                          '),
@@ -2376,7 +2253,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1733, 1733, 'OCORRENCIA:  corretiva\r\nCAUSA:  dosador danificado\r\nSOLUCAO: foi substituído o dosador e recolocado o manovacuômetro \r\nDATA E HORA INICIAL: 18/09/2017 às 07:50\r\nDATA E HORA FINAL: 18/09/2017 às 09:45\r\nKM INICIAL: 14405\r\nKM FINAL: 14425\r\n-----GASTOS GERAIS----\r\nPECAS: 01 dosador V10 K \r\n01 manovacuômetro \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1734, 1734, 'OCORRENCIA: acoplamento de cilindros\r\nCAUSA: cilindros vazios\r\nSOLUCAO:  foi substituído, acoplado e testado com solução de amônia 04 cilindros cheios.\r\nDATA E HORA INICIAL: 18/09/2017 às 09:45\r\nDATA E HORA FINAL: 18/09/2017 às 11:30\r\nKM INICIAL: 14425\r\nKM FINAL: 14454\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1735, 1355, 'OCORRENCIA: instalação\r\nCAUSA: nova instalçao\r\nSOLUCAO:  foi instalado 02 injetores, 02 gabinete dosador fluidfeeder  com rotâmetro de 50 kg/d\r\n 01 minifolde de 5 pontos.\r\n02 flexíveis grande\r\n01 manovacumetro  e pintura do equipamento.\r\no sistema de dosagem ficou in operante devido que não há água de presso para fazer vácuo.\r\nDATA E HORA INICIAL: 25/06/2017 às 07:45\r\nDATA E HORA FINAL: 28/06/2017 às 05:30\r\nKM INICIAL: xxxx\r\nKM FINAL: xxxxx\r\n-----GASTOS GERAIS----\r\nPECAS: \r\n1/2 barra  de tubo pvc 32mm =17,64\r\n04 joelho 45º X 25 mm = 5,00\r\n01 bucha de redução 25 x 20 mm = 0,50\r\n02 curva 90º x 20 mm = 3,00\r\n01 joelho 90º x 20 mm = 0,50\r\n01 tê 20mm = 0,79\r\n04 registro esfera 20mm = 40,36\r\n04 luva l/r 20 x 1/2 = 11,40\r\n04 bucha de redução latão 1/2 x 1/4 npt = 37,30\r\n08 joelho 45º x 32mm = 24,'),
-(1736, 1354, 'OCORRENCIA: instalação\r\nCAUSA: nova instalação\r\nSOLUCAO:  foi iunstalado01 bomba dosadora com capacidade de 50 l/h e a  mesma esta em operação.\r\nDATA E HORA INICIAL: 20/06/2017 às 22:00\r\nDATA E HORA FINAL: 24/06/2017 às 18:00\r\nKM INICIAL: xxxxx\r\nKM FINAL: xxxxx\r\n-----GASTOS GERAIS----\r\nPECAS: \r\n04 adaptador 1/2 x 20 mm = 1,88\r\n05 união 20mm =20,60\r\n03 registro pvc esfera 20 mm =21,18\r\n06 registro pvc esfera 25 mm = 49,44\r\n07 curva pvc 25 mm = 26,46\r\n03 joelho 25mm = 1,77\r\n04 tê pvc 25mm = 5,84\r\n04 bucha de redução 25 x 20 mm = 4,04\r\n02 luva 60 mm = 17,64\r\n02 luva de redução 60x 25 mm  = (doação pela empreiteira )\r\n01 luva de redução 50 x 32 mm = (doação pela empreiteira )\r\n01 válvula de retenção 3/4 pvc = 21,76\r\n02 adaptador 3/4 x 25 = 1,18\r\n01 adaptador 2\" x 60mm = (doação pela empreiteir'),
+(1736, 1354, 'OCORRENCIA: instalação\r\nCAUSA: nova instalação\r\nSOLUCAO:  foi iunstalado01 bomba dosadora com capacidade de 50 l/h e a  mesma esta em operação.\r\nDATA E HORA INICIAL: 20/06/2017 às 22:00\r\nDATA E HORA FINAL: 24/06/2017 às 18:00\r\nKM INICIAL: xxxxx\r\nKM FINAL: xxxxx\r\n-----GASTOS GERAIS----\r\nPECAS: \r\n04 adaptador 1/2 x 20 mm = 1,88\r\n05 união 20mm =20,60\r\n03 registro pvc esfera 20 mm =21,18\r\n06 registro pvc esfera 25 mm = 49,44\r\n07 curva pvc 25 mm = 26,46\r\n03 joelho 25mm = 1,77\r\n04 tê pvc 25mm = 5,84\r\n04 bucha de redução 25 x 20 mm = 4,04\r\n02 luva 60 mm = 17,64\r\n02 luva de redução 60x 25 mm  = (doação pela empreiteira )\r\n01 luva de redução 50 x 32 mm = (doação pela empreiteira )\r\n01 válvula de retenção 3/4 pvc = 21,76\r\n02 adaptador 3/4 x 25 = 1,18\r\n01 adaptador 2" x 60mm = (doação pela empreiteir'),
 (1737, 1496, 'OCORRENCIA: corretiva\r\nCAUSA: flexível trincado\r\nSOLUCAO:  foi trocado 01 flexível  de 1,20 do manifolde e trocado 4 cilindros vazios po 4 cheios.\r\nDATA E HORA INICIAL: 24/07/2017 às 08:00\r\nDATA E HORA FINAL: 24/07/2017 às 12:00\r\nKM INICIAL: 15105\r\nKM FINAL: 15135\r\n-----GASTOS GERAIS----\r\nPECAS: 01 flexivel 1,20 mt\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1738, 1863, 'OCORRENCIA:  corretiva\r\nCAUSA:  vazamento pelas valvulas redutora de pressão\r\nSOLUCAO:  foi substituído as válvulas redutoras, limpeza nos injetores e vidro rotâmetro do dosador\r\nDATA E HORA INICIAL: 20/10/2017 às 08:30\r\nDATA E HORA FINAL:  22/10/2017 às 15:00\r\nKM INICIAL:  xxxxxxxxxxx\r\nKM FINAL: xxxxxxx\r\n-----GASTOS GERAIS----\r\nPECAS:  02 válvulas redutora de pressão\r\nALIMENTACAO:  117,00\r\nHOSPEDAGEM: 119,00\r\nETC: passagem de onibus e barco  = 529,00\r\nguarda volume= 5,00\r\ntáxi = 140,00\r\n\r\n                          '),
 (1739, 1440, 'OCORRENCIA: Configuração de Datalogger\r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 12/07/17 - 07h30\r\nDATA E HORA FINAL: 16h30\r\nKM INICIAL: 55327\r\nKM FINAL: 55902\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 32,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2392,7 +2269,8 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1749, 1875, 'OCORRÊNCIA: Instalação\r\nCAUSA: montagem de equipamentos de Cloração\r\nSOLUÇÃO: Instalação dos seguintes equipamentos:\r\n Instalação das Bombas booster, painel, detector de cloro, manifold 06 pontos, cloradores, injetores, válvulas redutora de pressão, e pintura\r\nDATA E HORA INICIAL: 22/08/17  09:40\r\nDATA E HORA FINAL:   23/08/17   19:40\r\nKM INICIAL:  54011\r\nKM FINAL: 54720\r\n-----GASTOS GERAIS----\r\nPECAS: R$ : 91,00\r\nALIMENTAÇÃO:  R$: 144,00\r\nHOSPEDAGEM: R$: 170,00\r\nCOMBUSTÍVEL:  R$: 130,00\r\nETC: \r\nOBS: A PLANILHA DE KM ESTÁ COM CLEBER.\r\n                          '),
 (1750, 1906, 'OCORRENCIA:  nova instalação\r\nCAUSA: \r\nSOLUCAO:  Foi instalado o sistema de cloração com capacidade de 50 kg dia com duas bombas centrífugas monofásica e um detector de cloro gás um manifold com cinco pontos com um manovacuomentro dois flexível de cobre de um metro e meio após a montagem pintei todo sistema de tubulação com coris padrões.\r\nObs. Ensinei os operadores como operar o   novo sistema.\r\nDATA E HORA INICIAL: 18/10/2017 ás 15:00\r\nDATA E HORA FINAL: 20/10/2017 ás 10:45\r\nKM INICIAL: 51422\r\nKM FINAL: 51944\r\n-----GASTOS GERAIS----\r\nPECAS: R$ 95,70\r\nALIMENTACAO: R$ 57, 00\r\nHOSPEDAGEM: R$ 115,00\r\nETC: \r\n  Gasolina R$: 280,00      \r\n\r\n                     '),
 (1751, 1876, 'OCORRÊNCIA: Instalação\r\nCAUSA: montagem do sistema de cloração\r\nSOLUÇÃO: Instalado bombas booster, painel par cloradores, manifold de 06 pontos com manovacuômetro,detector de cloro, injetores, cloradores, válvula redutora de pressão, pintura\r\nRESULTADO FINAL: Sistema de cloração operando normal, e sem vazamento\r\nDATA E HORA INICIAL:  24/08/17  09: 30\r\nDATA E HORA FINAL:    24/08/17   21:30\r\nKM INICIAL: 54720\r\nKM FINAL: 54785\r\n-----GASTOS GERAIS----\r\nPECAS: R$ : 511,00\r\nALIMENTAÇÃO: R$ : 111,00\r\nHOSPEDAGEM: R$ : 100,00\r\nETC: \r\n OBS: PLANILHA DE KM ESTÁ COM CLEBER                         '),
-(1752, 1909, 'OCORRENCIA: nova instalação\r\nCAUSA: \r\nSOLUCAO: instalamos duas bombas centrífugas,um kit emergência tipo A, um detector de cloro, um sistema de cloração, um manifold de 4 pontas com um mano vacuômentro duas válvulas detectora de pressão, dois clorador, dois injetor, uma máscara facial, dois flexível de cobre de 1,5 metro.\r\nObs.  Os operadores foram treinados como usar e conserva a Máscara facial e como operar o sistema de cloração\r\n \r\n \r\nDATA E HORA INICIAL: 11/10/2017  ás 10:11\r\nDATA E HORA FINAL: 11/10/2017 ás 18:10\r\nKM INICIAL: 49288\r\nKM FINAL: 49437\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: R$ 57,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1752, 1909, 'OCORRENCIA: nova instalação\r\nCAUSA: \r\nSOLUCAO: instalamos duas bombas centrífugas,um kit emergência tipo A, um detector de cloro, um sistema de cloração, um manifold de 4 pontas com um mano vacuômentro duas válvulas detectora de pressão, dois clorador, dois injetor, uma máscara facial, dois flexível de cobre de 1,5 metro.\r\nObs.  Os operadores foram treinados como usar e conserva a Máscara facial e como operar o sistema de cloração\r\n \r\n \r\nDATA E HORA INICIAL: 11/10/2017  ás 10:11\r\nDATA E HORA FINAL: 11/10/2017 ás 18:10\r\nKM INICIAL: 49288\r\nKM FINAL: 49437\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: R$ 57,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
+INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1753, 1909, 'OCORRENCIA: nova instalação\r\nCAUSA: \r\nSOLUCAO: instalamos duas bombas centrífugas,um kit emergência tipo A, um detector de cloro, um sistema de cloração, um manifold de 4 pontas com um mano vacuômentro duas válvulas detectora de pressão, dois clorador, dois injetor, uma máscara facial, dois flexível de cobre de 1,5 metro.\r\nObs.  Os operadores foram treinados como usar e conserva a Máscara facial e como operar o sistema de cloração\r\n \r\n \r\nDATA E HORA INICIAL: 11/10/2017  ás 10:11\r\nDATA E HORA FINAL: 11/10/2017 ás 18:10\r\nKM INICIAL: 49288\r\nKM FINAL: 49437\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: R$ 57,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1754, 1843, 'OCORRENCIA: preventiva\r\nCAUSA: corpo inferior quebrado a porca do adaptador quebrada\r\nSOLUCAO: troca da porca conserto do válvula redutora de pressão\r\nDATA E HORA INICIAL: 17/10/2017as07:30\r\nDATA E HORA FINAL: 17/10/2017as09:30\r\nKM INICIAL: 22802\r\nKM FINAL: 22881\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1755, 1845, 'OCORRENCIA: preventiva\r\nCAUSA: Mangueira quebrada\r\nSOLUCAO: troca da Mangueira\r\nDATA E HORA INICIAL: 18/10/2017as07:55\r\nDATA E HORA FINAL: 18/10/2017as08:45\r\nKM INICIAL: 22959\r\nKM FINAL: 23312\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2411,8 +2289,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1768, 1911, 'OCORRENCIA:  Solicitação da CAERN\r\nCAUSA:  Substituição da dosadora \r\nSOLUCAO:  Substituí a dosadora EMEC Orange de 10lh por uma ProMinent 19lh\r\nDATA E HORA INICIAL:  25/10/17 06:47\r\nDATA E HORA FINAL:  25/10/10  12:12\r\nKM INICIAL:  23611\r\nKM FINAL:  23869\r\n-----GASTOS GERAIS----\r\nPECAS:  Uma dosadora ProMinent\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1769, 1859, 'OCORRENCIA: Solicitação da CAERN\r\nCAUSA:  Instalação de uma dosadora \r\nSOLUCAO:  Instalei uma dosadora EMEC Orange 220V \r\nDATA E HORA INICIAL:  20/10/17 09:34\r\nDATA E HORA FINAL:  20/10/17 14:48\r\nKM INICIAL:  23059\r\nKM FINAL:  23128\r\n-----GASTOS GERAIS----\r\nPECAS:  Uma dosadora EMEC 220V\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1770, 1844, 'OCORRENCIA:  Vazamento de cloro gás\r\nCAUSA:  Sujeira em reguladora de vácuo\r\nSOLUCAO:  Realizei limpeza na mesma\r\nDATA E HORA INICIAL:  17/10/17 13:58\r\nDATA E HORA FINAL:  17/10/17 14:55\r\nKM INICIAL:  22732\r\nKM FINAL:  22772\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1771, 1915, 'OCORRENCIA: operação\r\nCAUSA: término do produto cloro gás\r\nSOLUCAO: acoplar 02 cilindros cheios de 900 kg \r\nDATA E HORA INICIAL: 25/10/17 as14:00 hras\r\nDATA E HORA FINAL: 25/10/17 as 17:30 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          ');
-INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
+(1771, 1915, 'OCORRENCIA: operação\r\nCAUSA: término do produto cloro gás\r\nSOLUCAO: acoplar 02 cilindros cheios de 900 kg \r\nDATA E HORA INICIAL: 25/10/17 as14:00 hras\r\nDATA E HORA FINAL: 25/10/17 as 17:30 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
 (1772, 1802, 'OCORRENCIA: Sistema de cloração parado\r\nCAUSA:  Sujeira na reguladora de vávuo\r\nSOLUCAO:  Realizei limpeza na reguladora de vácuo\r\nDATA E HORA INICIAL:  09/10/17 13:51\r\nDATA E HORA FINAL:  09/10/17 16:107\r\nKM INICIAL:  21936\r\nKM FINAL:  21996\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1773, 1687, 'OCORRENCIA: Dosadora parada\r\nCAUSA: Dosadora obstruída\r\nSOLUCAO:  Realizei limpeza e manutenção \r\nDATA E HORA INICIAL:  05/09/17 07:32 \r\nDATA E HORA FINAL:  05/09/17 08:22\r\nKM INICIAL:  16564\r\nKM FINAL:  16578\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1774, 1914, 'OCORRENCIA: preventiva\r\nCAUSA: retorno de água\r\nSOLUCAO: retirando de todos equipamentos troca de um injetor uma válvula redutora pressão\r\nDATA E HORA INICIAL: 25/10/2017as08:10\r\nDATA E HORA FINAL: 25/10/2017as11:40\r\nKM INICIAL: 24478\r\nKM FINAL: 24541\r\n-----GASTOS GERAIS----40,00\r\nPECAS: \r\nALIMENTACAO: 22,00\r\nHOSPEDAGEM: \r\nETC: outro 18,00\r\n                          '),
@@ -2463,7 +2340,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1819, 1846, 'OCORRENCIA: manutenção preventiva\r\nCAUSA: periodo de manutenção\r\nSOLUCAO: realizado a manutenção prevetiva\r\nDATA E HORA INICIAL: 17/10/17 07:00\r\nDATA E HORA FINAL: 17/10/17 17:00\r\nKM INICIAL: 81550\r\nKM FINAL: 81874\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1820, 1926, 'OCORRENCIA: bomba de arraste queima.\r\nCAUSA: queda e variações da energia.\r\nSOLUCAO: conserto da bomba de arraste\r\nDATA E HORA INICIAL: 24/07/17 as 08:00hs .\r\nDATA E HORA FINAL: 24/07/17 as 19:30hs.\r\nKM INICIAL: \r\nKM FINAL: \r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1821, 1920, 'OCORRENCIA: Reabastecimento de produto\r\nCAUSA: Cilindros vazios\r\nSOLUCAO: Reabastecimento de produto\r\nDATA E HORA INICIAL: 23/10/17 07:25 \r\nDATA E HORA FINAL: 23/10/17 15:00\r\nKM INICIAL: 5.157\r\nKM FINAL: 5.200\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1822, 1921, 'OCORRENCIA:  Manutenção preventiva\r\nCAUSA: Manutenção preventiva\r\nSOLUCAO: Substituido os dois rolamentos e o selo mecânico da bomba nº 01.\r\nDATA E HORA INICIAL: 25/10/17 07:25\r\nDATA E HORA FINAL: 25/10/17 11:00\r\nKM INICIAL: 5.224\r\nKM FINAL: 5.268\r\n-----GASTOS GERAIS----\r\nPECAS: Rolamentos 01 - 6309-2Z e 01 - 6207-2Z, 01 -  selo mecânico de 1 3/8\'\' \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1822, 1921, 'OCORRENCIA:  Manutenção preventiva\r\nCAUSA: Manutenção preventiva\r\nSOLUCAO: Substituido os dois rolamentos e o selo mecânico da bomba nº 01.\r\nDATA E HORA INICIAL: 25/10/17 07:25\r\nDATA E HORA FINAL: 25/10/17 11:00\r\nKM INICIAL: 5.224\r\nKM FINAL: 5.268\r\n-----GASTOS GERAIS----\r\nPECAS: Rolamentos 01 - 6309-2Z e 01 - 6207-2Z, 01 -  selo mecânico de 1 3/8'''' \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1823, 1929, 'OCORRENCIA: operação \r\nCAUSA: cilindros vazios\r\nSOLUCAO: foi substituído, acoplado e testado com solução de amônia, 04 cilindros  e feito ajuste  e testes no detector  de vazamento  de cloro. \r\nDATA E HORA INICIAL: 30/10/2017 às  07:50\r\nDATA E HORA FINAL: 30/10/2017 às  12:30\r\nKM INICIAL: 19950\r\nKM FINAL: 19995\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1824, 1929, 'OCORRENCIA: operação \r\nCAUSA: cilindros vazios\r\nSOLUCAO: foi substituído, acoplado e testado com solução de amônia, 04 cilindros  e feito ajuste  e testes no detector  de vazamento  de cloro. \r\nDATA E HORA INICIAL: 30/10/2017 às  07:50\r\nDATA E HORA FINAL: 30/10/2017 às  12:30\r\nKM INICIAL: 19950\r\nKM FINAL: 19995\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1825, 1928, 'OCORRENCIA:  corretiva\r\nCAUSA:  vazamento de  cloro\r\nSOLUCAO:  conforme solicitado pelo operador  Antonio carlos, foi realizado o atendimento na eta e não foi encontrado e não detectado nem um vazamento de cloro gás.\r\nSegundo o operador Francisco viana, informou que o nível da água elevou-se na galeria ocasionado fulga de gás na canaleta, e não nos sistemas.\r\nos equipamentos estão em operação.  \r\nDATA E HORA INICIAL: 28/10/2017 às 19:00\r\nDATA E HORA FINAL: 28/10/2017 às 21:00\r\nKM INICIAL: 19886\r\nKM FINAL: 19916\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2484,9 +2361,9 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1840, 1953, 'OCORRENCIA:  oporação ( acoplamento de cilindros)\r\nCAUSA:  bateria de cilindros vazios\r\nSOLUCAO:  foi substituído, acoplado e testado 04 cilindros cheios.\r\nOs cilindros estão pronto para uso.\r\nDATA E HORA INICIAL: 03/11/2017 às 14:15\r\nDATA E HORA FINAL: 03/11/2017 às 15:00\r\nKM INICIAL: 20113\r\nKM FINAL: 20206\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1841, 1953, 'OCORRENCIA:  oporação ( acoplamento de cilindros)\r\nCAUSA:  bateria de cilindros vazios\r\nSOLUCAO:  foi substituído, acoplado e testado 04 cilindros cheios.\r\nOs cilindros estão pronto para uso.\r\nDATA E HORA INICIAL: 03/11/2017 às 14:15\r\nDATA E HORA FINAL: 03/11/2017 às 15:00\r\nKM INICIAL: 20113\r\nKM FINAL: 20206\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1842, 1953, 'OCORRENCIA:  oporação ( acoplamento de cilindros)\r\nCAUSA:  bateria de cilindros vazios\r\nSOLUCAO:  foi substituído, acoplado e testado 04 cilindros cheios.\r\nOs cilindros estão pronto para uso.\r\nDATA E HORA INICIAL: 03/11/2017 às 14:15\r\nDATA E HORA FINAL: 03/11/2017 às 15:00\r\nKM INICIAL: 20113\r\nKM FINAL: 20206\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1843, 1947, 'OCORRENCIA:  consultoria\r\nCAUSA: visita técnica\r\nSOLUCAO: foi feito inspeção nos equipamentos e não ha nem uma anormalidade. O sistema de cloro esta em operação com 02 cilindros que iniciou 19/10.\r\nO sistema esta em operação.\r\n Esta faltando no kit B os seguintes itens:\r\n01 espatula\r\n01 pino cônico pequeno\r\n01 porca sextavada \r\n01 parafuso de aperto\r\n01 garra e junta fuselada.\r\n02 guarnição neoprene  100mm X 55 mm X 3/16\" \r\n01 guarnição quadrada do remendo 880 mm X 80 mm\r\n02 guarnição plana de neoprene 120mm X 55mm X 3/16\"\r\n01 junta fuselada p/ copo de vedação da válvula\r\n01 chave de extenção\r\n01 abraçadeira yoke\r\n01 chave de operação\r\n01 chave combinada 3/8\" X 1/2\"\r\n01 corrente com 8 mm X 35 mm X 52mm X 2.880 mm\r\n06 arruela de chumbo\r\n01 martelo de bola\r\n01 chave de boca 1 1/2\" X 11/8\"\r\n0'),
+(1843, 1947, 'OCORRENCIA:  consultoria\r\nCAUSA: visita técnica\r\nSOLUCAO: foi feito inspeção nos equipamentos e não ha nem uma anormalidade. O sistema de cloro esta em operação com 02 cilindros que iniciou 19/10.\r\nO sistema esta em operação.\r\n Esta faltando no kit B os seguintes itens:\r\n01 espatula\r\n01 pino cônico pequeno\r\n01 porca sextavada \r\n01 parafuso de aperto\r\n01 garra e junta fuselada.\r\n02 guarnição neoprene  100mm X 55 mm X 3/16" \r\n01 guarnição quadrada do remendo 880 mm X 80 mm\r\n02 guarnição plana de neoprene 120mm X 55mm X 3/16"\r\n01 junta fuselada p/ copo de vedação da válvula\r\n01 chave de extenção\r\n01 abraçadeira yoke\r\n01 chave de operação\r\n01 chave combinada 3/8" X 1/2"\r\n01 corrente com 8 mm X 35 mm X 52mm X 2.880 mm\r\n06 arruela de chumbo\r\n01 martelo de bola\r\n01 chave de boca 1 1/2" X 11/8"\r\n0'),
 (1844, 1946, 'OCORRENCIA:  consultoria\r\nCAUSA: visita técinca\r\nSOLUCAO: foi feito inspeção no equipamento e o mesmo esta em operação com uma bomba  e a outra de reserva.\r\no tanque está com 28 mil litros de pac\r\nDATA E HORA INICIAL: 01/11/2017 12:15\r\nDATA E HORA FINAL: 01/11/2017 12:35\r\nKM INICIAL: 20996\r\nKM FINAL: 20109\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1845, 1945, 'OCORRENCIA: consultoria\r\nCAUSA: visita técnica\r\nSOLUCAO: foi vistoriado o sistema e não foi encontrado nem um defeito nos  equipamentos, o sistema esta em operação.\r\nfoi detectado que esta faltando os seguintes itens do kite B\r\n01 conjunto esticador ( parafuso T 5/8\"\r\n01 chave de boca 1 1/2\" X 11/8\"\r\n02 pino cônico pequeno\r\n02 pino cônico grande\r\n01 martelo de bola\r\n01 espatula\r\n01 arco de cerra\r\n01 abraçadeira yoke\r\n\r\n\r\nDATA E HORA INICIAL: 01/11/2017 às 12:35\r\nDATA E HORA FINAL: 01/11/2017 às 12:55\r\nKM INICIAL: 20996\r\nKM FINAL: 20109\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1845, 1945, 'OCORRENCIA: consultoria\r\nCAUSA: visita técnica\r\nSOLUCAO: foi vistoriado o sistema e não foi encontrado nem um defeito nos  equipamentos, o sistema esta em operação.\r\nfoi detectado que esta faltando os seguintes itens do kite B\r\n01 conjunto esticador ( parafuso T 5/8"\r\n01 chave de boca 1 1/2" X 11/8"\r\n02 pino cônico pequeno\r\n02 pino cônico grande\r\n01 martelo de bola\r\n01 espatula\r\n01 arco de cerra\r\n01 abraçadeira yoke\r\n\r\n\r\nDATA E HORA INICIAL: 01/11/2017 às 12:35\r\nDATA E HORA FINAL: 01/11/2017 às 12:55\r\nKM INICIAL: 20996\r\nKM FINAL: 20109\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1846, 1942, 'OCORRENCIA: corretiva\r\nCAUSA:  equipamento inoperante.\r\nSOLUCAO: não foi realizado a manutenção, devido que não havia operador na eta para atender.\r\nDATA E HORA INICIAL: 31/10/2017 às 14:00\r\nDATA E HORA FINAL: 31/10/2017 às 15:20\r\nKM INICIAL: 20029\r\nKM FINAL: 20054\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1847, 1919, 'OCORRENCIA: corretiva\r\nCAUSA: vazamento de cloro pela conexão  \r\nSOLUCAO:  foi substituído uma conexão de acoplamento com a válvula do cilindro, desacoplado um cilindro vazio, acoplado um cilindro cheio, testes de vazamento com nitrogênio e argônio, purgas, pressurizado o sistema com cloro gás e colocado em operação.\r\nDATA E HORA INICIAL: 26/10/2017 às 10:15\r\nDATA E HORA FINAL: 26/10/2017 às 16:24\r\nKM INICIAL: 19437\r\nKM FINAL: 19552\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC:  combustivel 120,20\r\n                          '),
 (1848, 1908, 'OCORRENCIA: corretiva\r\nCAUSA: vazamento de cloro\r\nSOLUCAO: foi realizado limpeza interna nas válvulas redutora de pressão, instalado o manovacumetro , 01 válvula redutora reserva, substituído um gabinete dosador da fluid feeder e limpeza no injetores que estava obstruido. \r\nfoi feito testes de estanqueidade e não foi encontrado nem uma anormalidade.\r\n01 cilindro que esta em uso tem 76 kgf/cm² e o outro esta com 80 kgf/cm²\r\no sistema esta em operação \r\nDATA E HORA INICIAL: 14/09/2017 às 18:00\r\nDATA E HORA FINAL: 16/09/2017 às 08:00\r\nKM INICIAL:   xx\r\nKM FINAL: xx\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 67,00\r\nHOSPEDAGEM: \r\nETC: passagem de barco 260,00\r\ntaxi 30,00\r\n                          '),
@@ -2494,12 +2371,13 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1850, 1907, 'OCORRENCIA:  corretivo\r\nCAUSA:  relocação de equipamentos\r\nSOLUCAO:  foi relocado os cloradores epex T20 para lateral da sala dos operadores devido adequação civil na ETA.\r\nDATA E HORA INICIAL: 21/09/2017 às 08:00\r\nDATA E HORA FINAL: 21/09/2017 às 12:20\r\nKM INICIAL: 14622\r\nKM FINAL: 14645\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1851, 1916, 'OCORRENCIA: operação ( acoplamento de cilindros)\r\nCAUSA: cilindros vazios\r\nSOLUCAO: foi acoplado um cilindro cheio e testado com solução de amônia\r\nDATA E HORA INICIAL: 26/10/2017 às 09:17 \r\nDATA E HORA FINAL: 26/10/2017 às 09:47\r\nKM INICIAL: 19416\r\nKM FINAL: 19437\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1852, 1916, 'OCORRENCIA: operação ( acoplamento de cilindros)\r\nCAUSA: cilindros vazios\r\nSOLUCAO: foi acoplado um cilindro cheio e testado com solução de amônia\r\nDATA E HORA INICIAL: 26/10/2017 às 09:17 \r\nDATA E HORA FINAL: 26/10/2017 às 09:47\r\nKM INICIAL: 19416\r\nKM FINAL: 19437\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1853, 1943, 'OCORRENCIA: preventiva\r\nCAUSA: vazamento na tubulação de água por falta d\'água direto a tubulação fica aquecida e toda deformada\r\nSOLUCAO: troca de um adaptador uma união e 40 cm de tubo\r\nDATA E HORA INICIAL: 31/10/2017as14:30\r\nDATA E HORA FINAL: 31/10/2017as15:00\r\nKM INICIAL: 25334\r\nKM FINAL: 25516\r\n-----GASTOS GERAIS----100,00\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: gasolina r$ 100\r\n                          '),
+(1853, 1943, 'OCORRENCIA: preventiva\r\nCAUSA: vazamento na tubulação de água por falta d''água direto a tubulação fica aquecida e toda deformada\r\nSOLUCAO: troca de um adaptador uma união e 40 cm de tubo\r\nDATA E HORA INICIAL: 31/10/2017as14:30\r\nDATA E HORA FINAL: 31/10/2017as15:00\r\nKM INICIAL: 25334\r\nKM FINAL: 25516\r\n-----GASTOS GERAIS----100,00\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: gasolina r$ 100\r\n                          '),
 (1854, 1949, 'OCORRENCIA: preventiva\r\nCAUSA: injetor sem gerar vácuo vazamento na válvula redutora de pressão com a mola presa\r\nSOLUCAO: limpeza não rejeitou limpeza na válvula redutora de pressão\r\nDATA E HORA INICIAL: 01/11/2017as16:10\r\nDATA E HORA FINAL: 01/11/2017as18:20\r\nKM INICIAL: 25516\r\nKM FINAL: 25647\r\n-----GASTOS GERAIS----15,00\r\nPECAS: \r\nALIMENTACAO: 15,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1855, 1950, 'OCORRENCIA: operação\r\nCAUSA: foi tirado três cilindros de 900 quilo na ETA São Miguel a pelido da caern\r\nSOLUCAO: Sabará mandou seu técnico para retirada do cilindro foi tirado com maior segurança\r\nDATA E HORA INICIAL: 31/10/2017as08:20\r\nDATA E HORA FINAL: 01/11/2017as11:10\r\nKM INICIAL: 25079\r\nKM FINAL: 25334\r\n-----GASTOS GERAIS----80,00\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: combustível 80,00\r\n                          '),
 (1856, 1939, 'OCORRENCIA: Problema de comunicação\r\nCAUSA: Modem do quadro de telemetria com defeito\r\nSOLUCAO: Realizado a troca do modem e configuração do mesmo.\r\nDATA E HORA INICIAL: 28/10/17 08:00 \r\nDATA E HORA FINAL: 28/10/17 09:30\r\nKM INICIAL: 44.100\r\nKM FINAL: 44.127\r\n-----GASTOS GERAIS----\r\nPECAS:\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1857, 1940, 'OCORRENCIA: Reabastecimento de produto e realizado a limpeza preventiva do equipamento..\r\nCAUSA: Cilindros vazios e limpeza preventiva do equipamento.\r\nSOLUCAO:  Reabastecimento de produto e realizado a limpeza da haste do atuador e do rotâmetro do gabinete da pré-inter cloração.\r\nDATA E HORA INICIAL: 30/10/17 07:15\r\nDATA E HORA FINAL: 30/10/17 15:00\r\nKM INICIAL: 5.467 \r\nKM FINAL: 5.506\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1858, 1941, 'OCORRENCIA: Preventivo\r\nCAUSA: Troca dos rolamentos e do selo mecânico da bomba nº 02\r\nSOLUCAO: Realizado a substituição do selo mecânico e dos dois rolamentos da bomba nº 02\r\nDATA E HORA INICIAL: 31/10/17 07:20\r\nDATA E HORA FINAL: 31/10/17 11:30\r\nKM INICIAL: 5.516\r\nKM FINAL: 5.558\r\n-----GASTOS GERAIS----\r\nPECAS: Rolamentos 01 6309-2Z e 01 6307-2Z, 01 selo mecânico de 1 3/8\'\'\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1857, 1940, 'OCORRENCIA: Reabastecimento de produto e realizado a limpeza preventiva do equipamento..\r\nCAUSA: Cilindros vazios e limpeza preventiva do equipamento.\r\nSOLUCAO:  Reabastecimento de produto e realizado a limpeza da haste do atuador e do rotâmetro do gabinete da pré-inter cloração.\r\nDATA E HORA INICIAL: 30/10/17 07:15\r\nDATA E HORA FINAL: 30/10/17 15:00\r\nKM INICIAL: 5.467 \r\nKM FINAL: 5.506\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
+INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
+(1858, 1941, 'OCORRENCIA: Preventivo\r\nCAUSA: Troca dos rolamentos e do selo mecânico da bomba nº 02\r\nSOLUCAO: Realizado a substituição do selo mecânico e dos dois rolamentos da bomba nº 02\r\nDATA E HORA INICIAL: 31/10/17 07:20\r\nDATA E HORA FINAL: 31/10/17 11:30\r\nKM INICIAL: 5.516\r\nKM FINAL: 5.558\r\n-----GASTOS GERAIS----\r\nPECAS: Rolamentos 01 6309-2Z e 01 6307-2Z, 01 selo mecânico de 1 3/8''''\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1859, 1706, 'OCORRENCIA: corretiva\r\nCAUSA:  equipamento inoperante, conexão quebrada e injetor obstruido\r\nSOLUCAO:  foi substituído a conexão frontal do injetor, limpeza no vidro rotâmetro e substituído dois trecho de tubo de polietileno.\r\n o sistema esta em operação.\r\nDATA E HORA INICIAL:  03/08/2017 às 06:30\r\nDATA E HORA FINAL: 05/08/2017 às 05:50\r\nKM INICIAL:   000\r\nKM FINAL: 000\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 142,00\r\nHOSPEDAGEM: 99,00\r\nETC: passagem de ônibus = 354,00\r\ntáxi = 100,00\r\ntaxa de embarque = 4,22 \r\n                          '),
 (1860, 1959, 'OCORRENCIA: preventiva\r\nCAUSA: válvula redutora de pressão com vazamento\r\nSOLUCAO:  troca da gaxeta\r\nDATA E HORA INICIAL: 06/11/2017as16:20\r\nDATA E HORA FINAL: 06/11/17as17:40\r\nKM INICIAL: 25647\r\nKM FINAL: 25939\r\n-----GASTOS GERAIS----168,47\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: 168,47 gasolina\r\n                          '),
 (1861, 1960, 'OCORRENCIA: corretiva\r\nCAUSA: vazamento irregular nas bombas dosadoras do PAC\r\nSOLUCAO: substituição de peças corroídas por tempo de uso,por peças novas.\r\nDATA E HORA INICIAL: 06/11/17 as 21:20 hras\r\nDATA E HORA FINAL: 07/11/17 as 22:40 hras\r\nKM INICIAL: *****\r\nKM FINAL: ******\r\n-----GASTOS GERAIS----\r\nPASSAGEM:R$ 178,39\r\nALIMENTACAO: R$ 53,79\r\nTÁXI:R$ 295,00\r\n                          '),
@@ -2517,12 +2395,11 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1873, 1995, 'OCORRENCIA: PREVENTIVA\r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 09/11 AS 07:15\r\nDATA E HORA FINAL: 09/11 AS 10:22\r\nKM INICIAL: 119664\r\nKM FINAL: 119669\r\n-----GASTOS GERAIS----\r\nPECAS: N/A\r\nALIMENTACAO: R$ 25,00\r\nHOSPEDAGEM: \r\nETC: \r\n           LIMPEZA DO MISTURADOR, LUBRIFICADO OS ROLETES DAS BOMBAS DE ACIDO E CLORATO. REAPERTO DAS UNIÃO.               '),
 (1874, 1998, 'OCORRENCIA: INSTALAÇÃO DE INDICADOR DE PPM\r\nCAUSA: CONTRATO\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 09/11 AS 10:22\r\nDATA E HORA FINAL: 09/11 AS 14:10\r\nKM INICIAL: 119669\r\nKM FINAL: 119917\r\n-----GASTOS GERAIS----\r\nPECAS: 01 PAINEL DE PAREDE, 01 DATALOGGER, 01 FONTE 24V, 01 CONTEMP I506\r\nALIMENTACAO: R$ 25,00\r\nHOSPEDAGEM: \r\nETC: \r\n   \r\nINSTALAÇÃO DE 01 INDICADOR DE PPM, CLORO GAS OK.                      '),
 (1875, 1999, 'OCORRENCIA: INSTALAÇÃO DE INDICADOR DE PPM\r\nCAUSA: CONTRATO\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 09/11 AS 14:10\r\nDATA E HORA FINAL: 09/11 AS 15:06\r\nKM INICIAL: 119917\r\nKM FINAL: 119957\r\n-----GASTOS GERAIS----\r\nPECAS: 01 PAINEL DE PAREDE, 01 DATALOGGER, 01 FONTE 24V, 01 PRESSYS 2051\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n   \r\nINSTALAÇÃO DE 01 INDICADOR DE PPM, CLORO GAS OK      '),
-(1876, 2000, 'OCORRENCIA: INSTALAÇÃO DE INDICADOR DE PPM\r\nCAUSA: CONTRATO\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 09/11 AS 15:06\r\nDATA E HORA FINAL: 09/11 AS 16:12\r\nKM INICIAL: 119957\r\nKM FINAL: 119993\r\n-----GASTOS GERAIS----\r\nPECAS: 01 PAINEL DE PAREDE, 01 DATALOGGER, 01 FONTE 24V, 01 CONTEMP I506\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n   \r\nINSTALAÇÃO DE 01 INDICADOR DE PPM, CLORO GAS OK');
-INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
+(1876, 2000, 'OCORRENCIA: INSTALAÇÃO DE INDICADOR DE PPM\r\nCAUSA: CONTRATO\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 09/11 AS 15:06\r\nDATA E HORA FINAL: 09/11 AS 16:12\r\nKM INICIAL: 119957\r\nKM FINAL: 119993\r\n-----GASTOS GERAIS----\r\nPECAS: 01 PAINEL DE PAREDE, 01 DATALOGGER, 01 FONTE 24V, 01 CONTEMP I506\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n   \r\nINSTALAÇÃO DE 01 INDICADOR DE PPM, CLORO GAS OK'),
 (1877, 2001, 'OCORRENCIA: INSTALAÇÃO DE INDICADOR DE PPM\r\nCAUSA: CONTRATO\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 09/11 AS 16:12\r\nDATA E HORA FINAL: 09/11 AS 17:19\r\nKM INICIAL: 119993\r\nKM FINAL: 120030\r\n-----GASTOS GERAIS----\r\nPECAS: 01 PAINEL DE PAREDE, 01 DATALOGGER, 01 FONTE 24V, 01 PRESSYS 2051\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n   \r\nINSTALAÇÃO DE 01 INDICADOR DE PPM, CLORO GAS OK\r\n                          '),
 (1878, 2002, 'OCORRENCIA: FLEXIVEL TRINCADO\r\nCAUSA: MAL USO\r\nSOLUCAO: SUBSTITUIDO O FLEXIVEL\r\nDATA E HORA INICIAL: 09/11 AS 17:19\r\nDATA E HORA FINAL: 09/11 AS 18:50\r\nKM INICIAL: 120030\r\nKM FINAL: 120048\r\n-----GASTOS GERAIS----\r\nPECAS: 01 FLEXIVEL PEQUENO\r\nALIMENTACAO: R$ 27,00\r\nHOSPEDAGEM: R$ 78,00\r\nETC: \r\n                         SUBSTITUIDO 01 FLEXIVEL PEQUENO. '),
 (1879, 1964, 'OCORRENCIA: preventiva\r\nCAUSA: \r\nSOLUCAO: substituição do clorador, troca do injetor de 3/4,e mangueira,pintura do manifold e tubulações e troca da valvula do manifold com rosca danificada, e troca da válvula reg.\r\nDATA E HORA INICIAL:  06/11/17ás 17:30hs\r\nDATA E HORA FINAL: 06/11/17 ás 20:19 hs\r\nKM INICIAL: 27467\r\nKM FINAL: 27650\r\n-----GASTOS GERAIS----\r\nPECAS: 01 injetor de 3/4 ,01 válvula reg.,01 clorador de 100kg/dia, 01 válvula do manifold\r\nALIMENTACAO: , \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1880, 1954, 'OCORRÊNCIA: Instalação\r\nCAUSA: \r\nSOLUCAO: Foi instalado um sistema de cloração com capacidade 240  kg dia de cloro gás; Um manifold de 6 pontos, dois flexível de cobre com três metros, um manovacuomentro, duas bombas centrífugas, monofásica de 2 CV e um detector de cloro gás. Após a instalação pronta pintei todo sistema de tubulação com as cores padrões e entreguei aos operadores uma máscara Aut. BD 2100 Cil. Fibr. \r\nObs: Quando estava a 5 km de distância o operador José Ribamar me ligou informando que o sistema estava sem vácuo. Foi identificado que quando fechava a cloração de Varjota, dava contra pressão e chegou água até nas válvulas de pressão. Enxuguei todos os sistemas.\r\n\" Eles trabalham clorando duas eta!\" \r\nSolicitei que os responsáveis providenciassem um ponto individual para cad'),
+(1880, 1954, 'OCORRÊNCIA: Instalação\r\nCAUSA: \r\nSOLUCAO: Foi instalado um sistema de cloração com capacidade 240  kg dia de cloro gás; Um manifold de 6 pontos, dois flexível de cobre com três metros, um manovacuomentro, duas bombas centrífugas, monofásica de 2 CV e um detector de cloro gás. Após a instalação pronta pintei todo sistema de tubulação com as cores padrões e entreguei aos operadores uma máscara Aut. BD 2100 Cil. Fibr. \r\nObs: Quando estava a 5 km de distância o operador José Ribamar me ligou informando que o sistema estava sem vácuo. Foi identificado que quando fechava a cloração de Varjota, dava contra pressão e chegou água até nas válvulas de pressão. Enxuguei todos os sistemas.\r\n" Eles trabalham clorando duas eta!" \r\nSolicitei que os responsáveis providenciassem um ponto individual para cad'),
 (1881, 1968, 'OCORRENCIA: operação acoplamento de cilindros\r\nCAUSA:  cilindros vazios\r\nSOLUCAO:  foi substituído 01 flexivel e trocado a bateria de 04 cilindros vazios por 4 cilindros cheios.\r\nDATA E HORA INICIAL: 07/11/2017 às 13:30\r\nDATA E HORA FINAL: 07/11/2017 às 16:30\r\nKM INICIAL: 20513\r\nKM FINAL: 20555\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1882, 1968, 'OCORRENCIA: operação acoplamento de cilindros\r\nCAUSA:  cilindros vazios\r\nSOLUCAO:  foi substituído 01 flexivel e trocado a bateria de 04 cilindros vazios por 4 cilindros cheios.\r\nDATA E HORA INICIAL: 07/11/2017 às 13:30\r\nDATA E HORA FINAL: 07/11/2017 às 16:30\r\nKM INICIAL: 20513\r\nKM FINAL: 20555\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1883, 1968, 'OCORRENCIA: operação acoplamento de cilindros\r\nCAUSA:  cilindros vazios\r\nSOLUCAO:  foi substituído 01 flexível e trocado a bateria de 04 cilindros vazios por 4 cilindros cheios.\r\nDATA E HORA INICIAL: 07/11/2017 às 13:30\r\nDATA E HORA FINAL: 07/11/2017 às 16:30\r\nKM INICIAL: 20513\r\nKM FINAL: 20555\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2530,14 +2407,14 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1885, 1965, 'OCORRENCIA: operação acoplamento de cilindros\r\nCAUSA:  cilindro vazio\r\nSOLUCAO:  foi desacoplado 01 cilindro vazio e acoplado 01 cilindro cheio.\r\nDATA E HORA INICIAL:07/11/2017 às 11:14 \r\nDATA E HORA FINAL: 07/11/2017 `as 12:08\r\nKM INICIAL: 20482\r\nKM FINAL: 20498\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1886, 1963, 'OCORRENCIA: operação acoplamento de cilindro\r\nCAUSA: cilindro vazio\r\nSOLUCAO:  foi desacoplado 02 cilindros vazios e acoplado 01 cilindro cheio.\r\nDATA E HORA INICIAL: 07/11/2017 às 10:24 \r\nDATA E HORA FINAL: 07/11/2017 às 11:47\r\nKM INICIAL:  20478\r\nKM FINAL: 20482\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1887, 1962, 'OCORRENCIA: operação acoplamento de cilindros\r\nCAUSA:  cilindros vazios\r\nSOLUCAO:  foi desacoplado 02 cilindros vazios e acoplados e testado com solução de amônia 02 cilindros cheios.\r\nDATA E HORA INICIAL: 07/11/2017 às 08:20\r\nDATA E HORA FINAL:  07/11/2017 às 10:24\r\nKM INICIAL: 20462\r\nKM FINAL: 20478\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1888, 1934, 'OCORRENCIA:  Vazamento na tubulação hidráulica \r\nCAUSA:  Adaptador da tubulação 1\'\' quebrado\r\nSOLUCAO:  Substitui o mesmo e realizei manutenção e limpeza na regulador vácuo \r\nDATA E HORA INICIAL: 31/10/17 08:12 \r\nDATA E HORA FINAL:  31/10/17 09:38\r\nKM INICIAL:  24456\r\nKM FINAL:  24467\r\n-----GASTOS GERAIS----\r\nPECAS:  Um adaptador  de 1\"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1888, 1934, 'OCORRENCIA:  Vazamento na tubulação hidráulica \r\nCAUSA:  Adaptador da tubulação 1'''' quebrado\r\nSOLUCAO:  Substitui o mesmo e realizei manutenção e limpeza na regulador vácuo \r\nDATA E HORA INICIAL: 31/10/17 08:12 \r\nDATA E HORA FINAL:  31/10/17 09:38\r\nKM INICIAL:  24456\r\nKM FINAL:  24467\r\n-----GASTOS GERAIS----\r\nPECAS:  Um adaptador  de 1"\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1889, 1951, 'OCORRENCIA:  Dosadora parada\r\nCAUSA:  Devido a uma falha de fabricação entrou agua na mesma\r\nSOLUCAO:  Substitui por uma dosadora EMEC verde \r\nDATA E HORA INICIAL:  03/11/17 09:51\r\nDATA E HORA FINAL:  03/11/17 10:49\r\nKM INICIAL:  24559\r\nKM FINAL:  24566\r\n-----GASTOS GERAIS----\r\nPECAS:  Um a dosadora EMEC verde ativo 273\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1890, 1952, 'OCORRENCIA:  Dosadora parada\r\nCAUSA:  A bomba estava obstruida\r\nSOLUCAO: Realizei limpeza e manutenção na mesma, ao término a dosadora voltou à normalidade. \r\nDATA E HORA INICIAL:   03/11/17 08:05\r\nDATA E HORA FINAL:  03/11/17  09:08\r\nKM INICIAL:  24550\r\nKM FINAL:  24559\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1891, 1976, 'OCORRENCIA:  Sistema de cloro gás parado\r\nCAUSA:  O sistema estava obstruído\r\nSOLUCAO:  Substitui o tripleg de 3/4 por um manifold de 1\'\' quatro pontos com manôvacuometro \r\nDATA E HORA INICIAL:  08/11/17 08:25\r\nDATA E HORA FINAL:  08/11/17 09:58\r\nKM INICIAL:  24700\r\nKM FINAL:  24764\r\n-----GASTOS GERAIS----\r\nPECAS:  um manifold 1\'\' com manôvacuometro\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1892, 1933, 'OCORRENCIA:  Sistema der cloro gás parado\r\nCAUSA:  Tripleg de 3/4 obstruído \r\nSOLUCAO:  Realizei manutenção na reguladora de vácuo e também substitui o tripleg por um manifold de 1\'\' de quatro pontos com manovacuômetro e uma reguladora de vácuo reserva ao término das correções o sitema voltou à normalidade.\r\nDATA E HORA INICIAL:  31/10/17 08:12\r\nDATA E HORA FINAL:  31/10/17 11:21\r\nKM INICIAL:  25168\r\nKM FINAL:  25181\r\n-----GASTOS GERAIS----\r\nPECAS:  Um manifold de 1\'\',um manovacuômetro,uma reguladora de vácuo\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1891, 1976, 'OCORRENCIA:  Sistema de cloro gás parado\r\nCAUSA:  O sistema estava obstruído\r\nSOLUCAO:  Substitui o tripleg de 3/4 por um manifold de 1'''' quatro pontos com manôvacuometro \r\nDATA E HORA INICIAL:  08/11/17 08:25\r\nDATA E HORA FINAL:  08/11/17 09:58\r\nKM INICIAL:  24700\r\nKM FINAL:  24764\r\n-----GASTOS GERAIS----\r\nPECAS:  um manifold 1'''' com manôvacuometro\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1892, 1933, 'OCORRENCIA:  Sistema der cloro gás parado\r\nCAUSA:  Tripleg de 3/4 obstruído \r\nSOLUCAO:  Realizei manutenção na reguladora de vácuo e também substitui o tripleg por um manifold de 1'''' de quatro pontos com manovacuômetro e uma reguladora de vácuo reserva ao término das correções o sitema voltou à normalidade.\r\nDATA E HORA INICIAL:  31/10/17 08:12\r\nDATA E HORA FINAL:  31/10/17 11:21\r\nKM INICIAL:  25168\r\nKM FINAL:  25181\r\n-----GASTOS GERAIS----\r\nPECAS:  Um manifold de 1'''',um manovacuômetro,uma reguladora de vácuo\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1893, 1977, 'OCORRENCIA: mascara autonoma\r\nCAUSA: \r\nSOLUCAO: foi realizada a substituição do cilindro da máscara autônoma para execução de recarga;\r\nDATA E HORA INICIAL: 26/10/17 09:20\r\nDATA E HORA FINAL: 26/10/17 11:00\r\nKM INICIAL: 110960\r\nKM FINAL:  111015\r\n-----GASTOS GERAIS----\r\nPECAS: cilindro da mascara\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1894, 1978, 'OCORRENCIA: mascara autônoma\r\nCAUSA: \r\nSOLUCAO:  foi realizada a substituição do cilindro da máscara autônoma, o mesmo estará indo para recarga;\r\nDATA E HORA INICIAL: 26/10/17 11:00 \r\nDATA E HORA FINAL:  26/10/17 15:30\r\nKM INICIAL: 111015\r\nKM FINAL:  111158\r\n-----GASTOS GERAIS----\r\nPECAS: cilindro da máscara\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1895, 1979, 'OCORRENCIA: corretiva\r\nCAUSA: \r\nSOLUCAO:  foi realizada a limpeza no rotâmetro, como também substituição dos seus orings de vedação; foi realizada a substituição do diafragma e orings de vedação do injetor 3/4\', pois estavam danificados provocando retorno de água para o sistema; realizada a limpeza nas reguladoras de vácuo; sistemas funcionando normalmente.\r\nDATA E HORA INICIAL: 27/10/17 07:30\r\nDATA E HORA FINAL:  27/10/17 14:30\r\nKM INICIAL: 111158\r\nKM FINAL:  111249\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1895, 1979, 'OCORRENCIA: corretiva\r\nCAUSA: \r\nSOLUCAO:  foi realizada a limpeza no rotâmetro, como também substituição dos seus orings de vedação; foi realizada a substituição do diafragma e orings de vedação do injetor 3/4'', pois estavam danificados provocando retorno de água para o sistema; realizada a limpeza nas reguladoras de vácuo; sistemas funcionando normalmente.\r\nDATA E HORA INICIAL: 27/10/17 07:30\r\nDATA E HORA FINAL:  27/10/17 14:30\r\nKM INICIAL: 111158\r\nKM FINAL:  111249\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1896, 1980, 'OCORRENCIA: preventiva\r\nCAUSA: \r\nSOLUCAO: foi realizada a limpeza no manifold; valvulas reguladoras de vácuo;valvulas R/0; rotâmetro; realizada substituição de 01 valvula R/0; realizada pintura no manifold e componentes; sistemas funcionando normalmente.\r\nDATA E HORA INICIAL: 06/11/17 06:25\r\nDATA E HORA FINAL:  06/11/17 17:30\r\nKM INICIAL: 111667\r\nKM FINAL: 112065 \r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1897, 1981, 'OCORRENCIA:  instalação\r\nCAUSA: \r\nSOLUCAO: foi realizada a instalação de um detector de vazamento de cloro gás; falta tomada para ligar o mesmo, que estará sendo providenciada pela caern.\r\nDATA E HORA INICIAL: 31/10/17 11:00 \r\nDATA E HORA FINAL:  31/10/17 16:05\r\nKM INICIAL: 111404 \r\nKM FINAL:  111582\r\n-----GASTOS GERAIS----\r\nPECAS:  detector de cloro\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1898, 1982, 'OCORRENCIA:  corretiva\r\nCAUSA: \r\nSOLUCAO: foi realizada as devidas correções na dosadora de dicloro; ao término a mesma funciona normalmente;\r\nDATA E HORA INICIAL: 07/11/17 07:22\r\nDATA E HORA FINAL:  07/11/17 10:28\r\nKM INICIAL: 112065\r\nKM FINAL:  112217\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2604,8 +2481,9 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1959, 2008, 'OCORRENCIA: Sistema Parado\r\nCAUSA:  Retorno de água em sistema de cloro gás\r\nSOLUCAO:  Realizei limpeza em Válvula reguladora de vácuo,rotâmetro, e válvulas R/0, e também corrigi o injetor da SIEMENS 3/4, ao término da da correção e manutenção o sistgema voltou á normalidade.\r\nDATA E HORA INICIAL:  13/11/17 09:47\r\nDATA E HORA FINAL:  13/11/17 10:06\r\nKM INICIAL:  25168\r\nKM FINAL:  25181\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1960, 2072, 'OCORRENCIA:  Sistema de cloro gás com água\r\nCAUSA:  Injetor reserva com mau funcionamento onde provocou retorno de água em sistema.\r\nSOLUCAO:  Realizei limpeza em rotâmetros,válvulas reguladoras de vácuo,manifold,e válvulas R/0, também corrigi o injetor reserva, ao término da manutenção e correções o sistema voltou à normalidade .\r\nDATA E HORA INICIAL:  27/11/17 09:25\r\nDATA E HORA FINAL:  27/11/17 11:38\r\nKM INICIAL:  26748\r\nKM FINAL:  26915\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1961, 2028, 'OCORRENCIA:  Dosadora sem dosar o produto\r\nCAUSA:  Válvula de purga e de retenção estava obstruídas\r\nSOLUCAO:  Desobstruí as duas válvulas, ao término das correções o sistema voltou à normalidade.\r\nDATA E HORA INICIAL:  17/11/17 10:10 \r\nDATA E HORA FINAL:  17/11/17 15:25\r\nKM INICIAL:  25727\r\nKM FINAL: 26029\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1962, 2016, 'OCORRENCIA:  Sistema parado\r\nCAUSA:  Tubulação  1\'\' rompeu provocando um grande vazamento de água.\r\nSOLUCAO:  Corrigi e substitui uma parte da tubulação .\r\nDATA E HORA INICIAL:  14/11/17 09:02\r\nDATA E HORA FINAL:  14/11/17 11:31\r\nKM INICIAL:  25212\r\nKM FINAL:  25379\r\n-----GASTOS GERAIS----\r\nPECAS:  Um metro de tubulação de 1\'\' e uma união de 1\'\'\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1963, 2061, 'OCORRENCIA:  Solicitação da CAERN\r\nCAUSA: Instalação de um sistema de segurança para válvula e também um detector de gás\r\nSOLUCAO:  Instalei os equipamentos conforme a solicitação\r\nDATA E HORA INICIAL:  24/11/17 09:55\r\nDATA E HORA FINAL:  24/11/17 13:06\r\nKM INICIAL: 26656\r\nKM FINAL:  26667\r\n-----GASTOS GERAIS----\r\nPECAS:  Um atuador de válvula e um detector de gás\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1962, 2016, 'OCORRENCIA:  Sistema parado\r\nCAUSA:  Tubulação  1'''' rompeu provocando um grande vazamento de água.\r\nSOLUCAO:  Corrigi e substitui uma parte da tubulação .\r\nDATA E HORA INICIAL:  14/11/17 09:02\r\nDATA E HORA FINAL:  14/11/17 11:31\r\nKM INICIAL:  25212\r\nKM FINAL:  25379\r\n-----GASTOS GERAIS----\r\nPECAS:  Um metro de tubulação de 1'''' e uma união de 1''''\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1963, 2061, 'OCORRENCIA:  Solicitação da CAERN\r\nCAUSA: Instalação de um sistema de segurança para válvula e também um detector de gás\r\nSOLUCAO:  Instalei os equipamentos conforme a solicitação\r\nDATA E HORA INICIAL:  24/11/17 09:55\r\nDATA E HORA FINAL:  24/11/17 13:06\r\nKM INICIAL: 26656\r\nKM FINAL:  26667\r\n-----GASTOS GERAIS----\r\nPECAS:  Um atuador de válvula e um detector de gás\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
+INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1964, 2073, 'OCORRENCIA:  Sistema parado\r\nCAUSA: mangueira do injetor com entrada de ar e sistema da CAERN estrangulado \r\nSOLUCAO: Corrigi a entrada de ar no injetor, e devido falhas em sistema da CAERN não foi possível normalizar o sistema da CAERN, desta forma reajustei o estrangulador do injetor e da redutora do sistema de cloração onde o mesmo veio a funcionar normalmente \r\nDATA E HORA INICIAL: 27/11/17 12:41\r\nDATA E HORA FINAL:  27/11/17 14:18\r\nKM INICIAL:  26915\r\nKM FINAL:  26948\r\n-----GASTOS GERAIS----\r\nPECAS: 1/2 metro de mangueira de 1/2\r\nALIMENTACAO: R$24,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1965, 2003, 'OCORRENCIA: Sistema de cloro gás parado\r\nCAUSA:  Devido a várias paradas repentinas veio provocar entrada de cloro liquido em sistema\r\nSOLUCAO:  Realizei limpeza em válvula reguladora de vácuo, rotâmetro, válvulas R/0 e manifold, ao termino da manutenção o sistema voltou à normalidade. \r\nDATA E HORA INICIAL:  27/11/17 12:41\r\nDATA E HORA FINAL:  27/11/17 14:18\r\nKM INICIAL:  26915\r\nKM FINAL:  26948\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1966, 2081, 'OCORRENCIA: SEM DOSAR ÁCIDO\r\nCAUSA: MISTURADOR OBSTRUIDO\r\nSOLUCAO: LIMPEZA DO MISTURADOR\r\nDATA E HORA INICIAL: 27/11 AS 14:28\r\nDATA E HORA FINAL: 27/11 AS 17:49\r\nKM INICIAL: 123226\r\nKM FINAL: 123287\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          LIMPEZA DA LINHA DO ACIDO, LIMPEZA E LUBRIFICAÇÃO DOS ROLETES DAS BOMBAS.'),
@@ -2627,8 +2505,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1982, 2116, 'OCORRENCIA: SEM VÁCUO\r\nCAUSA: 02 INJETORES ENTUPIDOS\r\nSOLUCAO: LIMPEZA DOS INJETORES\r\nDATA E HORA INICIAL: 07/12 AS 07:00\r\nDATA E HORA FINAL: 07/12 AS 12:49\r\nKM INICIAL: 124740\r\nKM FINAL: 124926\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                    INJETORES COM DETRITOS DE TUBULAÇÃO, FEITO LIMPEZA.      '),
 (1983, 2080, 'OCORRENCIA: corretiva \r\nCAUSA: potecimetro com problema \r\nSOLUCAO: foi substituído o potencimetro do painel da bomba dosadora de PAC \r\nDATA E HORA INICIAL: 27/11/2017 às 14:00\r\nDATA E HORA FINAL: 27/11/2017 às 18:17\r\nKM INICIAL: 23018\r\nKM FINAL: 23047\r\n-----GASTOS GERAIS----\r\nPECAS: 01 potencimetro  5 k\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1984, 2093, 'OCORRENCIA: operação  acoplamento de cilindros \r\nCAUSA: bateria  de cilindros  vazias \r\nSOLUCAO: foi substituído,  acoplado  e testado com solução de amônia 04 cilindros cheios. \r\nDATA E HORA INICIAL: 01/12/2017 às  08:15\r\nDATA E HORA FINAL: 01/12/2017 às  10:10\r\nKM INICIAL: 23319\r\nKM FINAL: 23340\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(1985, 2100, 'OCORRENCIA: operação \r\nCAUSA: manutenção no tq de PAC \r\nSOLUCAO:  foi esvaziado o tq de PAC e está em uso 03 contentores \r\nDATA E HORA INICIAL: 01/12/2017 às  10:10\r\nDATA E HORA FINAL: 01/12/2017 às  14:00\r\nKM INICIAL: 23340\r\nKM FINAL: 23359\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
-INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
+(1985, 2100, 'OCORRENCIA: operação \r\nCAUSA: manutenção no tq de PAC \r\nSOLUCAO:  foi esvaziado o tq de PAC e está em uso 03 contentores \r\nDATA E HORA INICIAL: 01/12/2017 às  10:10\r\nDATA E HORA FINAL: 01/12/2017 às  14:00\r\nKM INICIAL: 23340\r\nKM FINAL: 23359\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1986, 2101, 'OCORRENCIA: operação  acoplamento de cilindros \r\nCAUSA: cilindros vazios \r\nSOLUCAO: foi substituído, acoplado e testado com solução de amônia 04 cilindros cheios. \r\nDATA E HORA INICIAL: 04/12/2017 às  12:35\r\nDATA E HORA FINAL: 04/12/2017 às  13:45\r\nKM INICIAL: 23549\r\nKM FINAL: 23577\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1987, 2066, 'OCORRENCIA: nava instalação\r\nCAUSA: \r\nSOLUCAO: foi instalado um sistema de cloração e duas bombas centrífuga monofásica um detector de gases modelo DG 500 o manifold com flexível de 1 metro e meio e o mano vacuômetro após a montagem fizemos a pintura e aplicamos o treinamento aos operadores como operar o novo sistema\r\nDATA E HORA INICIAL: 22/11/2017  as 06:49\r\nDATA E HORA FINAL: 22/11/2017   as 15:20\r\nKM INICIAL: \r\nKM FINAL: 12899\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1988, 2067, 'OCORRENCIA: instalação nova\r\nCAUSA: \r\nSOLUCAO: foi instalado um sistema de cloração e duas bombas centrífugas monofásica um detector de gases modelo DG 500 um manifold com flexível de 1 metro e meio e após a montagem fez a pintura e apliquei o treinamento ao operador como operar o sistema\r\nDATA E HORA INICIAL: 14/11/2017 as 07:00\r\nDATA E HORA FINAL: 15/11/2017 as 07:30\r\nKM INICIAL: 53989\r\nKM FINAL: 54277\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2641,7 +2518,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (1995, 2106, 'OCORRENCIA: preventiva na bomba dosadora do PAC\r\nCAUSA: resíduos do produto por tempo de uso\r\nSOLUCAO: limpeza nas peças internas\r\nDATA E HORA INICIAL: 04/12/17 as 21:30 hras\r\nDATA E HORA FINAL: 05/12/17 as 11:15 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM:R$ 92,39\r\nALIMENTACAO: R$ 11,00\r\nTÁXI:R$ 135,00\r\n                          '),
 (1996, 2107, 'OCORRENCIA: operação\r\nCAUSA: término do produto cloro gás\r\nSOLUCAO: acoplar 02 dois cilindros cheios de 900 kg\r\nDATA E HORA INICIAL: 05/12/17 as 11:15 hras\r\nDATA E HORA FINAL: 05/12/17 as 17:30 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM:*****\r\nALIMENTACAO:R$ 35,00\r\nHOSPEDAGEM: *****\r\nTÁXI:R$ 100,00 \r\n                          '),
 (1997, 2110, 'OCORRENCIA: operação\r\nCAUSA: término do produto cloro gás\r\nSOLUCAO: acoplar 01 cilindro cheio de 900 kg\r\nDATA E HORA INICIAL: 06/12/17 as 07:45 hras\r\nDATA E HORA FINAL: 07/12/17 as 12:00 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM: R$ 80,00\r\nALIMENTACAO: R$ 28,00\r\nHOSPEDAGEM: R$ 154,00\r\nTÁXI: R$ 55,00\r\n                          '),
-(1998, 2094, 'OCORRENCIA:   \r\nCAUSA: \r\nSOLUCAO:   Instalação e troca de Manifoodes do Sistema de Cloração de 3/4 para 1\' e suas tubulações, revisão e troca de reparos do V-2000.   Ficando em funcionamento dois cloradores com duas bateria em funcionamento.\r\nDATA E HORA INICIAL:   29/11/17  as  07:27\r\nDATA E HORA FINAL:    29/11/17  as  18:50\r\nKM INICIAL:   27437\r\nKM FINAL:     27536\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(1998, 2094, 'OCORRENCIA:   \r\nCAUSA: \r\nSOLUCAO:   Instalação e troca de Manifoodes do Sistema de Cloração de 3/4 para 1'' e suas tubulações, revisão e troca de reparos do V-2000.   Ficando em funcionamento dois cloradores com duas bateria em funcionamento.\r\nDATA E HORA INICIAL:   29/11/17  as  07:27\r\nDATA E HORA FINAL:    29/11/17  as  18:50\r\nKM INICIAL:   27437\r\nKM FINAL:     27536\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (1999, 2095, 'OCORRENCIA: \r\nCAUSA: \r\nSOLUCAO:   Entrega de tres Flexíveis de 1,20 cmt. para reposição do cilindro de 900kg/ dia \r\nDATA E HORA INICIAL:  28/11/17  as  08:30\r\nDATA E HORA FINAL:    28/11/17  as  08:40\r\nKM INICIAL:   26962\r\nKM FINAL:      27064\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2000, 2108, 'OCORRENCIA: \r\nCAUSA: \r\nSOLUCAO:   Entregue dois flexíveis 3,50 mt. para reserva, feita troca de Manovacometro de -1 a 21 mais testes no local sem nenhum vazamento.\r\nDATA E HORA INICIAL:   04/12/17  as  09:30\r\nDATA E HORA FINAL:    04/12/17  as  13:50\r\nKM INICIAL:   28152\r\nKM FINAL:     28246\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2001, 2111, 'OCORRENCIA: corretiva \r\nCAUSA: equipamentoinoperante \r\nSOLUCAO:  foi feito limpeza interna  na válvula redutora de pressão e injetor \r\nDATA E HORA INICIAL: 28/11/2017 às  08:30\r\nDATA E HORA FINAL: 28/11/2017 às 11:50\r\nKM INICIAL: 23049\r\nKM FINAL: 23083\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2694,7 +2571,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (2048, 2123, 'OCORRENCIA: corretiva\r\nCAUSA: \r\nSOLUCAO: foi realizada a substituição do diafragma e das retenções da dosadora proeminente;\r\nDATA E HORA INICIAL: 22/11/17 11:30\r\nDATA E HORA FINAL:  11/11/17 13:30\r\nKM INICIAL: 113631\r\nKM FINAL:  113914\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2049, 2124, 'OCORRENCIA: corretiva\r\nCAUSA: \r\nSOLUCAO: foi realizada a substituição da agulha da reguladora de vácuo; sanado vazamento de cloro;\r\nDATA E HORA INICIAL: 22/11/17 14:23 \r\nDATA E HORA FINAL:  22/11/17 17:05\r\nKM INICIAL: 113914\r\nKM FINAL:  114086\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2050, 2125, 'OCORRENCIA: corretiva\r\nCAUSA: \r\nSOLUCAO: foi realizada a substituição da valvula R/0 e flexivel, ambos estavam danificados; realizada a substituição do manípulo do clorador s10k, o mesmo não estava regulando; sistemas funcionando normalmente;\r\nDATA E HORA INICIAL: 23/11/17 06:58\r\nDATA E HORA FINAL:  23/11/17 17:33\r\nKM INICIAL: 114086\r\nKM FINAL:  114398\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(2051, 2050, 'OCORRENCIA: baixa dosagem\r\nCAUSA: baixa qualidade da agua\r\nSOLUCAO: instalação do injetor de 3/4\"\r\nDATA E HORA INICIAL: 16/11/17 07:00\r\nDATA E HORA FINAL: 16/11/17 18:00\r\nKM INICIAL: 85116\r\nKM FINAL: 85386\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2051, 2050, 'OCORRENCIA: baixa dosagem\r\nCAUSA: baixa qualidade da agua\r\nSOLUCAO: instalação do injetor de 3/4"\r\nDATA E HORA INICIAL: 16/11/17 07:00\r\nDATA E HORA FINAL: 16/11/17 18:00\r\nKM INICIAL: 85116\r\nKM FINAL: 85386\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2052, 2049, 'OCORRENCIA: vazamento\r\nCAUSA: obstrução\r\nSOLUCAO: realizado manutenção preventiva\r\nDATA E HORA INICIAL: 17/11/17 13;00\r\nDATA E HORA FINAL: 17/11/17 19:00\r\nKM INICIAL: 85423\r\nKM FINAL: 85694\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2053, 2086, 'OCORRENCIA: vazamento\r\nCAUSA: desgaste de peças\r\nSOLUCAO: realizado manutenção corretiva\r\nDATA E HORA INICIAL: 27/11/17 14:00\r\nDATA E HORA FINAL: 27/11/17 19:00\r\nKM INICIAL: 86896\r\nKM FINAL: 87078\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2054, 2078, 'OCORRENCIA: baixa dosagem\r\nCAUSA: obstrução\r\nSOLUCAO: realizado manutenção corretiva\r\nDATA E HORA INICIAL: 27/11/17 07:00\r\nDATA E HORA FINAL: 27/11/17 14:00\r\nKM INICIAL: 86448\r\nKM FINAL: 86597\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2719,7 +2596,8 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (2073, 2202, 'OCORRENCIA: DOSAGEM SEM CONTROLE\r\nCAUSA: ELEMENTO TUBULAR RUIM\r\nSOLUCAO: SUBSTITUIDO O ELEMENTO TUBULAR\r\nDATA E HORA INICIAL: 27/12 AS 08:40\r\nDATA E HORA FINAL: 27/12 AS 19:07\r\nKM INICIAL: 127040\r\nKM FINAL: 127605\r\n-----GASTOS GERAIS----\r\nPECAS: 01 ELEMENTO TUBULAR DE 05mm\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          SUBSTITUIDO O ELEMENTO TUBULAR, E CALIBRADO O INVERSOR. LIMPEZA DO MISTURADOR.'),
 (2074, 2217, 'OCORRENCIA: preventiva\r\nCAUSA: \r\nSOLUCAO: manutenção realizada :limpeza do clorador, substituição do injetor de 3/4\r\nDATA E HORA INICIAL: 28/12/17 as 17:52 hs\r\nDATA E HORA FINAL: 28/12/17 as 18:15hs\r\nKM INICIAL: 34777\r\nKM FINAL: 35140\r\n-----GASTOS GERAIS----\r\nPECAS: 01 injetor de 3/4\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2075, 2219, 'OCORRENCIA: preventiva\r\nCAUSA: \r\nSOLUCAO: substituição do flexivel de  1,5mt ,limpeza do manifolde. e válvula \r\nDATA E HORA INICIAL: 20/12/17 as 16:50hs\r\nDATA E HORA FINAL: 20/12/17 as 18:13hs\r\nKM INICIAL: 32620\r\nKM FINAL: 32769\r\n-----GASTOS GERAIS----\r\nPECAS: 01 flexivel  de 1,5mt\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(2076, 2138, 'OCORRENCIA: Reabastecimento de produto\r\nCAUSA: Cilindros vazios\r\nSOLUCAO: Reabastecimento de produto\r\nDATA E HORA INICIAL: 23/11/17 07:25\r\nDATA E HORA FINAL: 23/11/17 09:35\r\nKM INICIAL: 6.449\r\nKM FINAL: 6.496\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2076, 2138, 'OCORRENCIA: Reabastecimento de produto\r\nCAUSA: Cilindros vazios\r\nSOLUCAO: Reabastecimento de produto\r\nDATA E HORA INICIAL: 23/11/17 07:25\r\nDATA E HORA FINAL: 23/11/17 09:35\r\nKM INICIAL: 6.449\r\nKM FINAL: 6.496\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
+INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (2077, 2139, 'OCORRENCIA: Reabastecimento de produto\r\nCAUSA: Cilindros vazios\r\nSOLUCAO: Reabastecimento de produto\r\nDATA E HORA INICIAL: 29/11/17 15:00\r\nDATA E HORA FINAL: 29/11/17 16:40\r\nKM INICIAL: 6.594\r\nKM FINAL: 6.641\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2078, 2140, 'OCORRENCIA: Acoplamento de cilindro \r\nCAUSA:  Acoplamento de cilindro\r\nSOLUCAO:  Acoplamento de cilindro\r\nDATA E HORA INICIAL: 05/12/17 07:20\r\nDATA E HORA FINAL: 05/12/17 13:00\r\nKM INICIAL: 6.768\r\nKM FINAL: 6.810\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2079, 2181, 'OCORRENCIA: corretiva\r\nCAUSA: \r\nSOLUCAO: foi realizada a limpeza do manifold, como também do rotâmetro e reguladora de vácuo; feita a ativação do sistema reserva, através de correção na linha do injetor; sistema titular e reserva funcionando normalmente.\r\nDATA E HORA INICIAL: 14/12/17 07:02\r\nDATA E HORA FINAL:  14/13/17 15:40\r\nKM INICIAL: 115881\r\nKM FINAL: 116030\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2728,21 +2606,20 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (2082, 2183, 'OCORRENCIA: corretiva\r\nCAUSA: \r\nSOLUCAO: foi realizada a substituição do oring de vedação do manovacuometro, o mesmo estava danificado provocando vazamento de cloro gás; sistema funcionando normalmente.\r\nDATA E HORA INICIAL: 19/12/¹7 11:05\r\nDATA E HORA FINAL:  19/12/17 16:40\r\nKM INICIAL: 116622\r\nKM FINAL:  116934\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2083, 2184, 'OCORRENCIA:  preventiva\r\nCAUSA: \r\nSOLUCAO: foi feita a substituição da redutora de pressão 300 ppd do grupo 01; foi realizado teste e os dois grupos funcionam normalmente.\r\nDATA E HORA INICIAL: 20/12/17 07:25\r\nDATA E HORA FINAL:  20/12/17 11:40\r\nKM INICIAL: 116934\r\nKM FINAL:  116 963\r\n-----GASTOS GERAIS----\r\nPECAS: redutora de pressão 300 ppd\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2084, 2185, 'OCORRENCIA: instalação\r\nCAUSA: \r\nSOLUCAO:  foi realizada a instalação e startup do sistema completo de cloração; foi realizado o treinamento dos operadores sobre o manuseio do cilindro de cloro gás e do sistema; sistema funcionando normalmente.\r\nDATA E HORA INICIAL: 22/12/17 08:59\r\nDATA E HORA FINAL:  22/12/17 12:40\r\nKM INICIAL: 116980 \r\nKM FINAL:  117056\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(2085, 2186, 'OCORRENCIA: corretiva\r\nCAUSA: \r\nSOLUCAO: foi realizado reparo no injetor, o mesmo estava com problemas para gerar vácuo; foi realizada a substituição de um dos registros de PVC o mesmo não vedava a passagem de água; sistema funcionando normalmente;\r\nDATA E HORA INICIAL: 22/12/17 12:40 \r\nDATA E HORA FINAL:  22/12/17 16:41\r\nKM INICIAL: 117056\r\nKM FINAL:  117147\r\n-----GASTOS GERAIS----\r\nPECAS: reparo do injetor clorando 3/4\'\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2085, 2186, 'OCORRENCIA: corretiva\r\nCAUSA: \r\nSOLUCAO: foi realizado reparo no injetor, o mesmo estava com problemas para gerar vácuo; foi realizada a substituição de um dos registros de PVC o mesmo não vedava a passagem de água; sistema funcionando normalmente;\r\nDATA E HORA INICIAL: 22/12/17 12:40 \r\nDATA E HORA FINAL:  22/12/17 16:41\r\nKM INICIAL: 117056\r\nKM FINAL:  117147\r\n-----GASTOS GERAIS----\r\nPECAS: reparo do injetor clorando 3/4''\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2086, 2218, 'OCORRENCIA: operação (acoplamento de cilindros )\r\nCAUSA:  cilindros  vazios \r\nSOLUCAO:  foi substituído , acopladoe testado com solução de amônia 04 cilindros cheios. \r\nDATA E HORA INICIAL: 29/12/2017 às  07:50\r\nDATA E HORA FINAL: 29/12/2017 às  11:30\r\nKM INICIAL: 26460\r\nKM FINAL: 26502\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2087, 2170, 'OCORRENCIA:  operação  (acoplamento de cilindros )\r\nCAUSA:  cilindros vazios \r\nSOLUCAO:  foi acoplado  e testado com solução de amônia 02 cilindros cheios e feito limpezas internas nas válvulas  redutora de pressão. \r\nDATA E HORA INICIAL: 21/12/2017 às  05:30\r\nDATA E HORA FINAL: 21/12/2017 às  19:50\r\nKM INICIAL: 23304\r\nKM FINAL: 25745\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 59,00\r\nHOSPEDAGEM: \r\nETC:  combustível  = 143.03\r\n                          '),
 (2088, 2206, 'OCORRENCIA: operação  (acoplamento de cilindros) \r\nCAUSA:  cilindros vazios \r\nSOLUCAO: foi substituído, acoplado e testado com solução de amônia 04 cilindros cheios. \r\nDATA E HORA INICIAL: 26/12/2017 às  08:00\r\nDATA E HORA FINAL: 26/12/2017 às  10:38\r\nKM INICIAL: 26227\r\nKM FINAL: 26239\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(2089, 2210, 'OCORRENCIA: corretiva \r\nCAUSA: vazamento pela válvula raio do manifold \r\nSOLUCAO:  foi substituído  01 válvula raio do manifold, limpeza interna  na válvula  redutora de pressão, vidro rotametro  do dosador \r\nDATA E HORA INICIAL: 28/12/2017 às  13:00\r\nDATA E HORA FINAL: 28/12/2017 às 17:00\r\nKM INICIAL: 26435\r\nKM FINAL: 26460\r\n-----GASTOS GERAIS----\r\nPECAS:  01 válvula  raio 3/4\" \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2089, 2210, 'OCORRENCIA: corretiva \r\nCAUSA: vazamento pela válvula raio do manifold \r\nSOLUCAO:  foi substituído  01 válvula raio do manifold, limpeza interna  na válvula  redutora de pressão, vidro rotametro  do dosador \r\nDATA E HORA INICIAL: 28/12/2017 às  13:00\r\nDATA E HORA FINAL: 28/12/2017 às 17:00\r\nKM INICIAL: 26435\r\nKM FINAL: 26460\r\n-----GASTOS GERAIS----\r\nPECAS:  01 válvula  raio 3/4" \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2090, 2207, 'OCORRENCIA: corretiva \r\nCAUSA:  válvula redutora de pressão  trincada \r\nSOLUCAO:  foi substituído 01 válvula redutora de pressão,  limpeza no vidro rotametro,  correção  na alimentação  elétrica da sala  dos cilindros, limpeza  externa dos equipamentos, testes de estanqueidade e instruções  de operação  para o operador. \r\nDATA E HORA INICIAL: 27/12/2017 às  08:00\r\nDATA E HORA FINAL: 27/12/2017 às  12:30\r\nKM INICIAL: 26276\r\nKM FINAL: 26330\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2091, 2092, 'OCORRENCIA:  corretiva \r\nCAUSA:  válvula redutora de pressão obstruida.\r\nSOLUCAO:  foi realizado  limpeza interna na válvula  redutora de pressão  e injetor.\r\nDATA E HORA INICIAL: 07/11/2017 às  12:08\r\nDATA E HORA FINAL: 06/11/2017 às  13:30\r\nKM INICIAL: 20498\r\nKM FINAL: 20513\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2092, 2157, 'OCORRENCIA:  SOLICITAÇÃO DA CAERN\r\nCAUSA:  VÁLVULA R/0 SEM VEDAR \r\nSOLUCAO:  SUBSTITUI A VÁLVULA R/0 POR UMA NOVA\r\nDATA E HORA INICIAL:  19/12/17 07:45\r\nDATA E HORA FINAL:  19/12/17 09:31\r\nKM INICIAL:   29298\r\nKM FINAL:  29755\r\n-----GASTOS GERAIS----\r\nPECAS:  UMA VÁLVULA R/0\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(2093, 2212, 'OCORRENCIA: preventiva\r\nCAUSA: \r\nSOLUCAO: limpeza dos cloradores de 240kg/dia,limpeza dos rotâmetros\r\nsubstituição dos oring que compôe o clorador\r\nsubstituição do injetor de 1\'\',recolocação da válvula reguladora\r\npintura do manifold e tubulações.\r\nDATA E HORA INICIAL: 26/12/17 as 18:10hs\r\nDATA E HORA FINAL: 26/12/17 as 19:30 hs\r\nKM INICIAL: 32769\r\nKM FINAL: 33760\r\n-----GASTOS GERAIS----\r\nPECAS: 01 injetor de 1\'\', 01 válvula reg\r\nALIMENTACAO: \r\nHOSPEDAGEM: 01 hospedagem R$:85,00\r\nETC: \r\n                          '),
+(2093, 2212, 'OCORRENCIA: preventiva\r\nCAUSA: \r\nSOLUCAO: limpeza dos cloradores de 240kg/dia,limpeza dos rotâmetros\r\nsubstituição dos oring que compôe o clorador\r\nsubstituição do injetor de 1'''',recolocação da válvula reguladora\r\npintura do manifold e tubulações.\r\nDATA E HORA INICIAL: 26/12/17 as 18:10hs\r\nDATA E HORA FINAL: 26/12/17 as 19:30 hs\r\nKM INICIAL: 32769\r\nKM FINAL: 33760\r\n-----GASTOS GERAIS----\r\nPECAS: 01 injetor de 1'''', 01 válvula reg\r\nALIMENTACAO: \r\nHOSPEDAGEM: 01 hospedagem R$:85,00\r\nETC: \r\n                          '),
 (2094, 2159, 'OCORRENCIA: preventiva \r\nCAUSA:  manutenção  programada\r\nSOLUCAO:  foi  realizado  purgas  no sistema  com nitrogênio  e argonio, substituído  dois cilindros  vazios  por dois cilindros  cheios, acoplado e testado  com gás  argonio, limpeza  interna  na válvula  reguladora de pressão, substituído  o rotametro do gaseficador  02, pressurizado o sistema  com gás  cloro  e feito o monitoramento  do sistema   por 20 minutos. \r\nDATA E HORA INICIAL: 19/12/2017 às  05:30\r\nDATA E HORA FINAL: 19/12/2017 às  19:30\r\nKM INICIAL: 24995\r\nKM FINAL: 25177\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO:  7,79\r\nHOSPEDAGEM: \r\nETC:  combustível = 132,50\r\n                          '),
 (2095, 2213, 'OCORRENCIA: preventiva\r\nCAUSA: \r\nSOLUCAO: pintura do manifold e tubulações ,limpeza do clorador externo e inetrnamente\r\nsubstituição do injetor de 3/4\r\nsubstituição da válvula reg\r\nlimpeza do rotâmetro e substituição dos oring\r\nDATA E HORA INICIAL: 27/12/17 as 08:15\r\nDATA E HORA FINAL: 27/12/17as 09:33\r\nKM INICIAL: 33760\r\nKM FINAL: 33811\r\n-----GASTOS GERAIS----\r\nPECAS: 01 injetor de 3/4 ,01 válvula reg\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2096, 2164, 'OCORRENCIA:  SISTEMA DE CLORAÇÃO PAADO\r\nCAUSA:  ADAPTADOR DO INJETOR 3/4 QUEBADO\r\nSOLUCAO:  SUBSTITUI O ADAPTADO E TAMBÉM REALIZEI MANUTENÇÃO EM SISTEMA DE CLORAÇÃO\r\nDATA E HORA INICIAL:  20/12/17 10:50\r\nDATA E HORA FINAL:  20/12/17 13:27\r\nKM INICIAL:  29851\r\nKM FINAL:  30024\r\n-----GASTOS GERAIS----\r\nPECAS:  UM ADAPTADOR \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2097, 2214, 'OCORRENCIA: preventiva\r\nCAUSA: \r\nSOLUCAO: substitução da válvula reg\r\nsubstituição do clorador 100kg/dia ,troca das mangueiras,substituição do injetor de 3/4 realizada a limpeza do manifold e pintura,troca da válvula do manifold modelo bujão fusível\r\nDATA E HORA INICIAL: 27/12/17 as 15:20\r\nDATA E HORA FINAL: 27/12/17 as 17:15\r\nKM INICIAL: 33811\r\nKM FINAL: 34207\r\n-----GASTOS GERAIS----\r\nPECAS: 01 clorador de 104kg/dia \r\n01 injetor de 3/4\r\n01 válvula reg\r\n01 válvula modelo bujão fusível\r\nmangueiras\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(2098, 2204, 'OCORRENCIA:  SOLICITAÇÃO DA CAERN\r\nCAUSA:  CORREÇÃO EM SISTEMA DE CLORAÇÃO\r\nSOLUCAO:  INSTALEI UM GABINETE DE 104KG PARA SUBSTITUI UM DE 240KG DEVIDO A VAZÃO BAIXA, AO TERMINO O SISTEMA VOLTOU À NORMALIDADE.\r\nDATA E HORA INICIAL:  27/12/17 05:19\r\nDATA E HORA FINAL:  27/12/17 10:21\r\nKM INICIAL:  30328\r\nKM FINAL:  30642\r\n-----GASTOS GERAIS----\r\nPECAS:  UM GABINETE DE 240KG\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
-INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
+(2098, 2204, 'OCORRENCIA:  SOLICITAÇÃO DA CAERN\r\nCAUSA:  CORREÇÃO EM SISTEMA DE CLORAÇÃO\r\nSOLUCAO:  INSTALEI UM GABINETE DE 104KG PARA SUBSTITUI UM DE 240KG DEVIDO A VAZÃO BAIXA, AO TERMINO O SISTEMA VOLTOU À NORMALIDADE.\r\nDATA E HORA INICIAL:  27/12/17 05:19\r\nDATA E HORA FINAL:  27/12/17 10:21\r\nKM INICIAL:  30328\r\nKM FINAL:  30642\r\n-----GASTOS GERAIS----\r\nPECAS:  UM GABINETE DE 240KG\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2099, 2215, 'OCORRENCIApreventiva\r\nCAUSA: \r\nSOLUCAO: Serviços realizado: substituição da válvula reg\r\ntroca da válvula do manifold\r\nsubstituição do flexivel de 1,5mt\r\nsubstituição do clorador e limpeza do rotâmetro, limpeza do manifold  e\r\npintura das tubulações e manifold,substituição do injetor de 3/4 e troca das mangueiras\r\nDATA E HORA INICIAL:  28/12/17 09:40hs\r\nDATA E HORA FINAL: 28/12/17 13:30hs\r\nKM INICIAL: 34207\r\nKM FINAL: 34749\r\n-----GASTOS GERAIS----\r\nPECAS: 01 válvula reg\r\n01 injetor de 3/4\r\n01 válvula modelo bujão fusivel\r\n01 flexivel de 1,5mt\r\n01 clorador de 100kg/dia e\r\nmangueiras\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2100, 2208, 'OCORRENCIA:  SISTEMA DE CLORO GÁS PARADO\r\nCAUSA:  VÁLVULA R/0 OBSTRUÍDA\r\nSOLUCAO:  REALIZEI LIMPEZA EM VÁLVULA R/0 E FLEXÍVEL, AO TERMINO DAS CORREÇÕES O SISTEMA VOLTOU À NORMALIDADE\r\nDATA E HORA INICIAL:  27/12/17 10:21\r\nDATA E HORA FINAL:  27/12/17 13:08\r\nKM INICIAL:  30642\r\nKM FINAL:  30743\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2101, 2216, 'OCORRENCIA: Preventiva\r\nCAUSA: \r\nSOLUCÃO : Serviços realizados:substituição da válvula reg\r\nsubstituição do injetor de 3/4\r\nsubstituição do clorador de 100kg/dia e limpeza do rotâmetro ,pintura das tubulações e manifold\r\nDATA E HORA INICIAL: 28/12/17 14:51 hs\r\nDATA E HORA FINAL: 28/12/17 15:40 hs\r\nKM INICIAL: 34749\r\nKM FINAL: 34777\r\n-----GASTOS GERAIS----\r\nPECAS: 01 clorador de 100kg/dia \r\n01injetor de 3/4\r\n01 válvula reg\r\n\r\nALIMENTACAO: 01 refeição R$:19,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2837,7 +2714,8 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (2190, 2326, 'OCORRENCIA: consultoria\r\nCAUSA: Na eta de Jerico foi identificado que a mascara panoromica  esta em ótimas condições de uso. filtro esta com validade vencida\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 18/01/2018  as  11:00\r\nDATA E HORA FINAL: 18/01/2018  as  11:15\r\nKM INICIAL: 36933\r\nKM FINAL: 36957\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2191, 2329, 'OCORRENCIA: consultoria\r\nCAUSA: Na eta de Riacho dos Cavalos foi identificado que a  mascara panorâmica não presta. filtro passado da validade \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 18/01/2018  as  10:10\r\nDATA E HORA FINAL: 18/01/2018  as  10:30\r\nKM INICIAL: 36902\r\nKM FINAL: 36933\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2192, 2325, 'OCORRENCIA: consultoria\r\nCAUSA: Na eta de São Bento foi identificado que a mascara panorâmica esta com a alça dourada. filtro esta sem lacre, não tem detector de cloro. \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 17/01/2018  as  13:50\r\nDATA E HORA FINAL: 17/01/2018  as  14:10\r\nKM INICIAL: 36591\r\nKM FINAL: 36615\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(2193, 2327, 'OCORRENCIA: consultoria\r\nCAUSA: Na eta Brejo do Cruz foi identificado que a mascara panorâmica esta em ótimas condições de uso. Não tem filtro,não tem detector de cloro  \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 18/01/2018  as  7:50\r\nDATA E HORA FINAL: 18/01/2018  as  08:00\r\nKM INICIAL:36724 \r\nKM FINAL: 36857\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2193, 2327, 'OCORRENCIA: consultoria\r\nCAUSA: Na eta Brejo do Cruz foi identificado que a mascara panorâmica esta em ótimas condições de uso. Não tem filtro,não tem detector de cloro  \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 18/01/2018  as  7:50\r\nDATA E HORA FINAL: 18/01/2018  as  08:00\r\nKM INICIAL:36724 \r\nKM FINAL: 36857\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
+INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (2194, 2331, 'OCORRENCIA: consultoria\r\nCAUSA: Na eta Nazarezinho foi identificado que a mascara esta em ótimas condições de uso. filtro esta em condições de uso valido ate 2019 \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 17/01/2018  as  6:30\r\nDATA E HORA FINAL: 17/01/2018  as  07:29\r\nKM INICIAL: 36368\r\nKM FINAL: 36393\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2195, 2330, 'OCORRENCIA: consultoria\r\nCAUSA: Na eta Brejo dos Santos foi identificado que a mascara panoramica  não presta. filtro passado da validade \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 18/01/2018  as  09:15\r\nDATA E HORA FINAL: 18/01/2018  as  09:15\r\nKM INICIAL: 36891\r\nKM FINAL: 36902\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2196, 2330, 'OCORRENCIA: consultoria\r\nCAUSA: Na eta Brejo dos Santos foi identificado que a mascara panoramica  não presta. filtro passado da validade \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 18/01/2018  as  09:15\r\nDATA E HORA FINAL: 18/01/2018  as  09:15\r\nKM INICIAL: 36891\r\nKM FINAL: 36902\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2866,8 +2744,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (2219, 2225, 'OCORRENCIA: baixa dosagem\r\nCAUSA: problema na bomba\r\nSOLUCAO: realizado a visita tecnica\r\nDATA E HORA INICIAL: 30/12/17 07:40\r\nDATA E HORA FINAL: 30/12/17 18;00\r\nKM INICIAL: 94761\r\nKM FINAL: 95032\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2220, 2318, 'OCORRENCIA: \r\nCAUSA: \r\nSOLUCAO:  Limpeza nas duas válvulas reguladora com troca de orings e reparos. Clorador atual e reserva funcionando bem sem nenhum vazamento.\r\nDATA E HORA INICIAL:   18/01/18  as  13:50\r\nDATA E HORA FINAL:   18/01/18  as  15:45\r\nKM INICIAL:   71224\r\nKM FINAL:    71372\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2221, 2317, 'OCORRENCIA:  Retorno de água no clorador.\r\nCAUSA:   Problema no injetor.\r\nSOLUCAO:   Troca dos reparos e orings.   Equipamento voltou ao normal.\r\nDATA E HORA INICIAL:   18/01/18  as  09:55\r\nDATA E HORA FINAL:   18/01/18  as  11:40\r\nKM INICIAL:   71130\r\nKM FINAL:    71224\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(2222, 2316, 'OCORRENCIA:     Clorador 26kg/ dia com água.\r\nCAUSA:  Problema no injetor.\r\nSOLUCAO:  Feita limpeza e troca dos reparos do mesmo, voltando a funcionar perfeitamente clorador atual e reserva.\r\nDATA E HORA INICIAL:   17/01/18  as  13:10 \r\nDATA E HORA FINAL:   17/01/18  as  17:16\r\nKM INICIAL:   70886\r\nKM FINAL:    71130\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
-INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
+(2222, 2316, 'OCORRENCIA:     Clorador 26kg/ dia com água.\r\nCAUSA:  Problema no injetor.\r\nSOLUCAO:  Feita limpeza e troca dos reparos do mesmo, voltando a funcionar perfeitamente clorador atual e reserva.\r\nDATA E HORA INICIAL:   17/01/18  as  13:10 \r\nDATA E HORA FINAL:   17/01/18  as  17:16\r\nKM INICIAL:   70886\r\nKM FINAL:    71130\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2223, 2269, 'OCORRENCIA:   Equipamento  não está gerando vácuo.\r\nCAUSA:   Problema no injetor.\r\nSOLUCAO:  Feita lavagem no manifood, valv. reguladora de vácuo com troca dos reparos do injetor e com troca do flexível.  Ambos equipamentos funcionando bem.  \r\nDATA E HORA INICIAL:   12/01/18  as  12:50\r\nDATA E HORA FINAL:     12/01/18  as  21:15\r\nKM INICIAL:   314113\r\nKM FINAL:     31833\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2224, 2351, 'OCORRENCIA: operação\r\nCAUSA: término do produto cloro gás\r\nSOLUCAO: acoplar 04 quatros cilindros cheios de 1000 kg\r\nDATA E HORA INICIAL: 25/01/18 as 13:00 hras\r\nDATA E HORA FINAL: 25/01/18 as 17:30 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
 (2225, 2314, 'OCORRENCIA: operação\r\nCAUSA: término do produto cloro gás\r\nSOLUCAO: acoplar 02 dois cilindros cheios,um de 900 kg e outro de 1000 kg\r\nDATA E HORA INICIAL: 22/01/18 as 20:30 hras\r\nDATA E HORA FINAL: 23/01/18 as 20:00 hras \r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM:R$ 182,50 \r\nALIMENTACAO: R$ 38,00\r\nTáxi: R$ 235,00\r\nETC: *****\r\n                          '),
@@ -2923,8 +2800,8 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (2275, 2060, 'OCORRENCIA: preventivo\r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 23/11/17 \r\nDATA E HORA FINAL: 23/11/17\r\nKM INICIAL: 60664\r\nKM FINAL: 60978\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2276, 2411, 'OCORRENCIA: preventivo\r\nCAUSA: diafragma danificado do injetor\r\nSOLUCAO: troca do diafragma\r\nDATA E HORA INICIAL: 05/02/18 as 10:00\r\nDATA E HORA FINAL: 05/02/18 as 10:50\r\nKM INICIAL: 39059\r\nKM FINAL: 39279\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2277, 2423, 'OCORRENCIA: bomba de arraste selo quebrado.\r\nCAUSA: muito tempo ligada direito.\r\nSOLUCAO: troca da bomba de arraste (bomba de arraste da CAERR)\r\nDATA E HORA INICIAL: 07/02/18 as 14:00hs \r\nDATA E HORA FINAL: 08/02/18 as 11:00hs.\r\nKM INICIAL: \r\nKM FINAL: \r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: gastos com uma bucha de roscaveu.6,34R$\r\n                          '),
-(2278, 2274, 'OCORRENCIA:  instalação\r\nCAUSA:  nova instalação\r\nSOLUCAO:  foi  instalado o sistema de cloro gás na ETE. \r\nA ETE  esta inoperante, falta alimentação elétrica para a bomba de elevação de pressão, e água de processo.\r\nNa instalação foi aplicado os seguintes equipamentos:\r\n01 manifolde 5 pontos c/ manovacumetro.\r\n02 válvulas redutora de pressão ( clorando)\r\n02 dosador cap. 100 kg/h.\r\n02 injetor 3/4\".\r\n01 detector de vazamento de cloro.\r\n01 bomba mult estagio 2 cv 220 vts vazão 6m³/h\r\nObs. ficou guardado na ETE:\r\n 02 flexivel 3 mts.\r\n02 abraçadeira yoke\r\n02 chave de operação\r\n\r\n \r\nDATA E HORA INICIAL: 09/01/2018 às 22:30\r\nDATA E HORA FINAL: 16/-1/2018 às 18:00\r\nKM INICIAL:   xxxxx\r\nKM FINAL:   xxxx\r\n-----GASTOS GERAIS----\r\nPECAS:\r\n 11 curvas 90° x 32 mm = 42,90\r\n02 tês 32 mm  = 3,90\r\n04 regis'),
-(2279, 2274, 'OCORRENCIA:  instalação\r\nCAUSA:  nova instalação\r\nSOLUCAO:  foi  instalado o sistema de cloro gás na ETE. \r\nA ETE  esta inoperante, falta alimentação elétrica para a bomba de elevação de pressão, e água de processo.\r\nNa instalação foi aplicado os seguintes equipamentos:\r\n01 manifolde 5 pontos c/ manovacumetro.\r\n02 válvulas redutora de pressão ( clorando)\r\n02 dosador cap. 100 kg/h.\r\n02 injetor 3/4\".\r\n01 detector de vazamento de cloro.\r\n01 bomba mult estagio 2 cv 220 vts vazão 6m³/h\r\nObs. ficou guardado na ETE:\r\n 02 flexivel 3 mts.\r\n02 abraçadeira yoke\r\n02 chave de operação\r\n\r\n \r\nDATA E HORA INICIAL: 09/01/2018 às 22:30\r\nDATA E HORA FINAL: 16/-1/2018 às 18:00\r\nKM INICIAL:   xxxxx\r\nKM FINAL:   xxxx\r\n-----GASTOS GERAIS----\r\nPECAS:\r\n 11 curvas 90° x 32 mm = 42,90\r\n02 tês 32 mm  = 3,90\r\n04 regis'),
+(2278, 2274, 'OCORRENCIA:  instalação\r\nCAUSA:  nova instalação\r\nSOLUCAO:  foi  instalado o sistema de cloro gás na ETE. \r\nA ETE  esta inoperante, falta alimentação elétrica para a bomba de elevação de pressão, e água de processo.\r\nNa instalação foi aplicado os seguintes equipamentos:\r\n01 manifolde 5 pontos c/ manovacumetro.\r\n02 válvulas redutora de pressão ( clorando)\r\n02 dosador cap. 100 kg/h.\r\n02 injetor 3/4".\r\n01 detector de vazamento de cloro.\r\n01 bomba mult estagio 2 cv 220 vts vazão 6m³/h\r\nObs. ficou guardado na ETE:\r\n 02 flexivel 3 mts.\r\n02 abraçadeira yoke\r\n02 chave de operação\r\n\r\n \r\nDATA E HORA INICIAL: 09/01/2018 às 22:30\r\nDATA E HORA FINAL: 16/-1/2018 às 18:00\r\nKM INICIAL:   xxxxx\r\nKM FINAL:   xxxx\r\n-----GASTOS GERAIS----\r\nPECAS:\r\n 11 curvas 90° x 32 mm = 42,90\r\n02 tês 32 mm  = 3,90\r\n04 regis'),
+(2279, 2274, 'OCORRENCIA:  instalação\r\nCAUSA:  nova instalação\r\nSOLUCAO:  foi  instalado o sistema de cloro gás na ETE. \r\nA ETE  esta inoperante, falta alimentação elétrica para a bomba de elevação de pressão, e água de processo.\r\nNa instalação foi aplicado os seguintes equipamentos:\r\n01 manifolde 5 pontos c/ manovacumetro.\r\n02 válvulas redutora de pressão ( clorando)\r\n02 dosador cap. 100 kg/h.\r\n02 injetor 3/4".\r\n01 detector de vazamento de cloro.\r\n01 bomba mult estagio 2 cv 220 vts vazão 6m³/h\r\nObs. ficou guardado na ETE:\r\n 02 flexivel 3 mts.\r\n02 abraçadeira yoke\r\n02 chave de operação\r\n\r\n \r\nDATA E HORA INICIAL: 09/01/2018 às 22:30\r\nDATA E HORA FINAL: 16/-1/2018 às 18:00\r\nKM INICIAL:   xxxxx\r\nKM FINAL:   xxxx\r\n-----GASTOS GERAIS----\r\nPECAS:\r\n 11 curvas 90° x 32 mm = 42,90\r\n02 tês 32 mm  = 3,90\r\n04 regis'),
 (2280, 2386, 'OCORRENCIA: preventiva\r\nCAUSA:  manutenção  preventiva programada\r\nSOLUCAO:  Foi realizado purgas com nitrogênio,  limpeza interna na válvula reguladora de pressão, desacoplado 02 cilindros vazios, acoplado 02 cilindros cheios, teste com nitrogênio e argônio, pressurização do sistema com cloro gás e acompanhamento do funcionamento do sistema.\r\nDATA E HORA INICIAL: 30/01/2018 às 06:00\r\nDATA E HORA FINAL: 30/01/2018 às 18:00\r\nKM INICIAL: 30570\r\nKM FINAL: 30810\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 16,59\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2281, 2412, 'OCORRENCIA: operação\r\nCAUSA: acoplamento de cilindros\r\nSOLUCAO:  Foi substítuido, acoplado e testado com solução de amônia 04 cilindros cheios.\r\nDATA E HORA INICIAL: 05/02/2018 às 07:30\r\nDATA E HORA FINAL: 05/02/2018 às 12:00\r\nKM INICIAL: 31210\r\nKM FINAL: 31274\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2282, 2412, 'OCORRENCIA: operação\r\nCAUSA: acoplamento de cilindros\r\nSOLUCAO:  Foi substítuido, acoplado e testado com solução de amônia 04 cilindros cheios.\r\nDATA E HORA INICIAL: 05/02/2018 às 07:30\r\nDATA E HORA FINAL: 05/02/2018 às 12:00\r\nKM INICIAL: 31210\r\nKM FINAL: 31274\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2932,7 +2809,7 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (2284, 2412, 'OCORRENCIA: operação\r\nCAUSA: acoplamento de cilindros\r\nSOLUCAO:  Foi substítuido, acoplado e testado com solução de amônia 04 cilindros cheios.\r\nDATA E HORA INICIAL: 05/02/2018 às 07:30\r\nDATA E HORA FINAL: 05/02/2018 às 12:00\r\nKM INICIAL: 31210\r\nKM FINAL: 31274\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2285, 2412, 'OCORRENCIA: operação\r\nCAUSA: acoplamento de cilindros\r\nSOLUCAO:  Foi substítuido, acoplado e testado com solução de amônia 04 cilindros cheios.\r\nDATA E HORA INICIAL: 05/02/2018 às 07:30\r\nDATA E HORA FINAL: 05/02/2018 às 12:00\r\nKM INICIAL: 31210\r\nKM FINAL: 31274\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2286, 2414, 'OCORRENCIA: sistema de cloro inoperante\r\nCAUSA: válvula moduladora de vácuo do dosador V10 K danificado.\r\nSOLUCAO:  Foi recolado a válvula moduladora de vácuo do dosador V10K.\r\nDATA E HORA INICIAL: 03/02/2018 às 08:00\r\nDATA E HORA FINAL: 03/02/2018 às 10:31\r\nKM INICIAL: 31128\r\nKM FINAL: 31151\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(2287, 2415, 'OCORRENCIA:  corretiva\r\nCAUSA:  dosador T20 com vazamento\r\nSOLUCAO:  foi substituído 01 dosador t20 e  substituído o-ringue de vedação, manípulos da tampa e pintura do dosador reserva.\r\nDATA E HORA INICIAL: 01/02/2018 às  17:00\r\nDATA E HORA FINAL: 01/02/2018 às 19:24\r\nKM INICIAL: 30948\r\nKM FINAL: 30980\r\n-----GASTOS GERAIS----\r\nPECAS: 02 união de 25 mm\r\n02 bucha de redução 1\" x 3/4\"\r\n02 adaptador 3/4\" x 25mm\r\n05 curva 25 mm\r\n03 registro esfera 25 mm\r\n01 tê 25 mm\r\n\r\nALIMENTACAO:  30,00\r\nHOSPEDAGEM: 90,00\r\nETC: peças e conexões 27,80\r\ncombustivel 45,00\r\n                          '),
+(2287, 2415, 'OCORRENCIA:  corretiva\r\nCAUSA:  dosador T20 com vazamento\r\nSOLUCAO:  foi substituído 01 dosador t20 e  substituído o-ringue de vedação, manípulos da tampa e pintura do dosador reserva.\r\nDATA E HORA INICIAL: 01/02/2018 às  17:00\r\nDATA E HORA FINAL: 01/02/2018 às 19:24\r\nKM INICIAL: 30948\r\nKM FINAL: 30980\r\n-----GASTOS GERAIS----\r\nPECAS: 02 união de 25 mm\r\n02 bucha de redução 1" x 3/4"\r\n02 adaptador 3/4" x 25mm\r\n05 curva 25 mm\r\n03 registro esfera 25 mm\r\n01 tê 25 mm\r\n\r\nALIMENTACAO:  30,00\r\nHOSPEDAGEM: 90,00\r\nETC: peças e conexões 27,80\r\ncombustivel 45,00\r\n                          '),
 (2288, 2416, 'OCORRENCIA: corretiva\r\nCAUSA:  dosador de pastilha t20 com vazamento\r\nSOLUCAO:  foi substituído o- ringue de vedação e pintura do equipamento.\r\nO equipamento ficou inoperante devido que a bomba de alimentação esta em manutenção externa e precisa de tomada de água em outro ponto para ser remanejado o dosador.\r\nDATA E HORA INICIAL: 02/02/2018 às 06:30\r\nDATA E HORA FINAL: 02/02/2018 às 21:30\r\nKM INICIAL: 30980\r\nKM FINAL: 31128\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: passagem de balça. 133,82\r\n                          '),
 (2289, 2293, 'OCORRENCIA: consultoria\r\nCAUSA: visita técnica\r\nSOLUCAO:  foi realizado visita técnica para levantamento de materiais e equipamentos para instalação do sistema de cloro gás na ETA.\r\nDATA E HORA INICIAL: 18/01/2018 às 07:30\r\nDATA E HORA FINAL: 18/01/2018 às 09:30\r\nKM INICIAL: 29018\r\nKM FINAL: 29048\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2290, 2293, 'OCORRENCIA: consultoria\r\nCAUSA: visita técnica\r\nSOLUCAO:  foi realizado visita técnica para levantamento de materiais e equipamentos para instalação do sistema de cloro gás na ETA.\r\nDATA E HORA INICIAL: 18/01/2018 às 07:30\r\nDATA E HORA FINAL: 18/01/2018 às 09:30\r\nKM INICIAL: 29018\r\nKM FINAL: 29048\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
@@ -2951,7 +2828,8 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (2303, 2051, 'OCORRENCIA: troca do carro\r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL:23/11/2017  as  11:10 \r\nDATA E HORA FINAL: 23/11/2017  as  11:30\r\nKM INICIAL: 28841\r\nKM FINAL: 60978\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2304, 2366, 'OCORRENCIA: instalação\r\nCAUSA: \r\nSOLUCAO: montagem do sistema de cloração\r\n02 bomba centrifica \r\n01 detector de gases \r\n01 kit emergencial tipo A\r\n01 flexível 1,5 metro\r\n01 masca facial \r\n01 manovacuômentro\r\n01 manafold de cinco ponto\r\n02 abraçadeira\r\nDATA E HORA INICIAL: 21/11/2017  as  12:00\r\nDATA E HORA FINAL: 22/11/2017  as  14:00\r\nKM INICIAL: 28038\r\nKM FINAL: 28160\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2305, 2434, 'OCORRENCIA: VISITA TECNICA PARA RECALIBRAR A SONDA E O INDICADOR DE PPM\r\nCAUSA: SOLITIÇÃO DO CLIENTE\r\nSOLUCAO: LIMPEZA E CALIBRAÇÃO DOS EQUIPAMENTOS\r\nDATA E HORA INICIAL: 07/02 AS 04:17\r\nDATA E HORA FINAL: 07/02 AS 08:27\r\nKM INICIAL: 132263\r\nKM FINAL: 132454\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\nFEITO ANALISE COM USO DO APARELHO HANNA COM REAGENTE TIPO DPD. ANALISES EQUIVALENTES.        '),
-(2306, 2435, 'OCORRENCIA: VISITA TECNICA PARA RECALIBRAR A SONDA E O INDICADOR DE PPM\r\nCAUSA: SOLITIÇÃO DO CLIENTE\r\nSOLUCAO: LIMPEZA E CALIBRAÇÃO DOS EQUIPAMENTOS\r\nDATA E HORA INICIAL: 07/02 AS 08:27\r\nDATA E HORA FINAL: 07/02 AS 10:29\r\nKM INICIAL: 132262\r\nKM FINAL: 132479\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\nFEITO ANALISE COM USO DO APARELHO HANNA COM REAGENTE TIPO DPD. EQUIPAMENTO RECALIBRADO.'),
+(2306, 2435, 'OCORRENCIA: VISITA TECNICA PARA RECALIBRAR A SONDA E O INDICADOR DE PPM\r\nCAUSA: SOLITIÇÃO DO CLIENTE\r\nSOLUCAO: LIMPEZA E CALIBRAÇÃO DOS EQUIPAMENTOS\r\nDATA E HORA INICIAL: 07/02 AS 08:27\r\nDATA E HORA FINAL: 07/02 AS 10:29\r\nKM INICIAL: 132262\r\nKM FINAL: 132479\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\nFEITO ANALISE COM USO DO APARELHO HANNA COM REAGENTE TIPO DPD. EQUIPAMENTO RECALIBRADO.');
+INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (2307, 2436, 'OCORRENCIA: VISITA TECNICA PARA RECALIBRAR A SONDA E O INDICADOR DE PPM\r\nCAUSA: SOLITIÇÃO DO CLIENTE\r\nSOLUCAO: LIMPEZA E CALIBRAÇÃO DOS EQUIPAMENTOS\r\nDATA E HORA INICIAL: 07/02 AS 10:29\r\nDATA E HORA FINAL: 07/02 AS 12:37\r\nKM INICIAL: 132479\r\nKM FINAL: 132519\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\nFEITO ANALISE COM USO DO APARELHO HANNA COM REAGENTE TIPO DPD. EQUIPAMENTO RECALIBRADO'),
 (2308, 2437, 'OCORRENCIA: VISITA TECNICA PARA RECALIBRAR A SONDA E O INDICADOR DE PPM\r\nCAUSA: SOLITIÇÃO DO CLIENTE\r\nSOLUCAO: LIMPEZA E CALIBRAÇÃO DOS EQUIPAMENTOS\r\nDATA E HORA INICIAL: 07/02 AS 12:37\r\nDATA E HORA FINAL: 07/02 AS 13:50\r\nKM INICIAL: 132519\r\nKM FINAL: 132534\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\nFEITO ANALISE COM USO DO APARELHO HANNA COM REAGENTE TIPO DPD. ANALISES EQUIVALENTES.        '),
 (2309, 2438, 'OCORRENCIA: VISITA TECNICA PARA RECALIBRAR A SONDA E O INDICADOR DE PPM\r\nCAUSA: SOLITIÇÃO DO CLIENTE\r\nSOLUCAO: LIMPEZA E CALIBRAÇÃO DOS EQUIPAMENTOS\r\nDATA E HORA INICIAL: 07/02 AS 13:50\r\nDATA E HORA FINAL: 07/02 AS 16:20\r\nKM INICIAL: 132534\r\nKM FINAL: 132570\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\nFEITO ANALISE COM USO DO APARELHO HANNA COM REAGENTE TIPO DPD. EQUIPAMENTO RECALIBRADO.'),
@@ -2964,794 +2842,151 @@ INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
 (2316, 2420, 'OCORRENCIA:  Sistema parado\r\nCAUSA:  Defeito na chave de flux\r\nSOLUCAO:  O sistema ficou funcionando sem a chave, aguardando peça de reposição .\r\nDATA E HORA INICIAL:  06/02/18 06:44\r\nDATA E HORA FINAL:  06/02/18 12:49\r\nKM INICIAL:  36899\r\nKM FINAL:  36060\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2317, 2388, 'OCORRENCIA:  Vazamento de gás\r\nCAUSA:  Válvula R/0 do cilindro de 900kg estava trincada provocando vazamento de gás\r\nSOLUCAO:  Reinstalei o kit de emergência e subsvitui a buracha de vedação que estava ressecada e rasgada, ao termino das correções o vazamento foi eliminado.\r\nDATA E HORA INICIAL:  30/01/18 09:02\r\nDATA E HORA FINAL:  30/01/18 13:53\r\nKM INICIAL:  35559\r\nKM FINAL:  36052\r\n-----GASTOS GERAIS----\r\nPECAS:  uma borracha de vedação do Kit de emergência\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2318, 2355, 'OCORRENCIA:  Solicitação da CAERN\r\nCAUSA:  Contatei que a bomba Booster estava com entrada de ar\r\nSOLUCAO: jun\r\nDATA E HORA INICIAL: juntamente com o operador de plantão retiramos a entrada de ar, e passei as instruções para o mesmo.\r\nData E HORA INICIAL : 26/01/18 14:41\r\nDATA E HORA FINAL:  26/01/18 16:01\r\nKM INICIAL:  35541\r\nKM FINAL:  35559\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(2319, 2352, 'OCORRENCIA:  Sistema parado\r\nCAUSA:   Mangueiras ressecadas,injetor com diafragama rasgado\r\nSOLUCAO:  Substitgueanui  as mangueiras e o diafragma do injetor de 1\'\' da SIEMENS\r\nDATA E HORA INICIAL:  31/01/18 06:46\r\nDATA E HORA FINAL:  31/01/18 11:46\r\nKM INICIAL:  34635\r\nKM FINAL:  35949\r\n-----GASTOS GERAIS----\r\nPECAS: 2mt Mangueiras, Um diafragama de 1\'\'\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2319, 2352, 'OCORRENCIA:  Sistema parado\r\nCAUSA:   Mangueiras ressecadas,injetor com diafragama rasgado\r\nSOLUCAO:  Substitgueanui  as mangueiras e o diafragma do injetor de 1'''' da SIEMENS\r\nDATA E HORA INICIAL:  31/01/18 06:46\r\nDATA E HORA FINAL:  31/01/18 11:46\r\nKM INICIAL:  34635\r\nKM FINAL:  35949\r\n-----GASTOS GERAIS----\r\nPECAS: 2mt Mangueiras, Um diafragama de 1''''\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
 (2320, 2354, 'OCORRENCIA:  Vazamento de pac na bomba de pac\r\nCAUSA:  Retentor desgastado\r\nSOLUCAO:  Substitui o retentor da mesma\r\nDATA E HORA INICIAL:  26/01/18 13:09\r\nDATA E HORA FINAL:  26/01/18 15:04\r\nKM INICIAL:  35496\r\nKM FINAL:  35541\r\n-----GASTOS GERAIS----\r\nPECAS:  Um retentor \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
-(2321, 2294, 'OCORRENCIA:  Vazamento de pac\r\nCAUSA:  Encosto do selo mecânico danificado\r\nSOLUCAO:  Substitui o mesmo\r\nDATA E HORA INICIAL:  19/01/18 08:15\r\nDATA E HORA FINAL:  19/01/18 14:06\r\nKM INICIAL:  33643\r\nKM FINAL:  33657\r\n-----GASTOS GERAIS----\r\nPECAS:  Um encosto do selo mecânico da bomba Nemo\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_desloc_status`
---
-
-CREATE TABLE `tb_desloc_status` (
-  `id` int(11) NOT NULL,
-  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `categoria` enum('0','1','2','3','4','5','6','7','8','9','10') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
-  `processo` enum('1','2','3','4','5','6','7','8','9','10','11') COLLATE utf8_unicode_ci NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_desloc_status`
---
-
-INSERT INTO `tb_desloc_status` (`id`, `name`, `categoria`, `processo`) VALUES
-(1, 'Inicio da Viagem', '0', '1'),
-(2, 'Parsa na Viagem', '1', '2'),
-(3, 'Retorno da Viagem', '2', '3'),
-(4, 'Inicio do Serviço', '3', '4'),
-(5, 'Pausa no Servio', '4', '5'),
-(6, 'Retorno do Servio', '5', '6'),
-(7, 'Final do Servio', '6', '7'),
-(8, 'Inicio do Retorno', '7', '8'),
-(9, 'Pausa no Trajeto', '8', '9'),
-(10, 'Retorno do Trajeto', '9', '10'),
-(11, 'Concluido', '10', '11');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_desloc_tipo`
---
-
-CREATE TABLE `tb_desloc_tipo` (
-  `id` int(11) NOT NULL,
-  `name` varchar(45) NOT NULL,
-  `categoria` enum('0','1') NOT NULL DEFAULT '0',
-  `valor` double DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `tb_desloc_tipo`
---
-
-INSERT INTO `tb_desloc_tipo` (`id`, `name`, `categoria`, `valor`) VALUES
-(1, 'Carro', '0', 0.85),
-(2, 'Passagem', '0', NULL);
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_equipamentos`
---
-
-CREATE TABLE `tb_equipamentos` (
-  `id` int(11) NOT NULL,
-  `produto` int(11) NOT NULL,
-  `tag` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `capacidade` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `unidade` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
-  `numeracao` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `fabricante` int(11) NOT NULL,
-  `fabricanteNick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `proprietario` int(11) NOT NULL,
-  `proprietarioNick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `local` int(11) NOT NULL,
-  `categoria` int(11) NOT NULL,
-  `plaqueta` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
-  `dataFrabricacao` date NOT NULL,
-  `dataCompra` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_eq_componentes`
---
-
-CREATE TABLE `tb_eq_componentes` (
-  `id` int(11) NOT NULL,
-  `produto` int(11) NOT NULL,
-  `tag` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `capacidade` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `unidade` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
-  `numeracao` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `frabicante` int(11) NOT NULL,
-  `frabicanteNick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `proprietario` int(11) NOT NULL,
-  `proprietarioNick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `local` int(11) NOT NULL,
-  `categoria` int(11) NOT NULL,
-  `dataFrabricacao` date NOT NULL,
-  `dataCompra` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_eq_localizacao`
---
-
-CREATE TABLE `tb_eq_localizacao` (
-  `id` int(11) NOT NULL,
-  `equipamento` int(11) NOT NULL,
-  `loja` int(11) NOT NULL,
-  `local` int(11) DEFAULT NULL,
-  `dataIncial` date DEFAULT NULL,
-  `dataFinal` date DEFAULT NULL,
-  `status` enum('0','1','2','3') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_fabricante`
---
-
-CREATE TABLE `tb_fabricante` (
-  `id` int(11) NOT NULL,
-  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `nick` varchar(30) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_fabricante`
---
-
-INSERT INTO `tb_fabricante` (`id`, `name`, `nick`) VALUES
-(1, 'MSA', 'MSA'),
-(2, 'CLORANDO', 'CLORANDO');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_grupo`
---
-
-CREATE TABLE `tb_grupo` (
-  `id` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_grupo`
---
-
-INSERT INTO `tb_grupo` (`id`, `name`) VALUES
-('C', 'Cliente'),
-('P', 'Proprietario');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_insumos`
---
-
-CREATE TABLE `tb_insumos` (
-  `id` int(11) NOT NULL,
-  `tb_oat_id` int(11) NOT NULL,
-  `descricao` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `quantidade` double NOT NULL,
-  `valor` decimal(10,2) NOT NULL,
-  `obs` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_locais`
---
-
-CREATE TABLE `tb_locais` (
-  `id` int(11) NOT NULL,
-  `loja` int(11) NOT NULL,
-  `tipo` varchar(11) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `regional` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `municipio` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `uf` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
-  `latitude` float(10,6) DEFAULT NULL,
-  `longitude` float(10,6) DEFAULT NULL,
-  `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_locais`
---
-
-  INSERT INTO `tb_locais` (`id`, `loja`, `tipo`, `regional`, `name`, `municipio`, `uf`, `latitude`, `longitude`, `ativo`) VALUES
-(2, 1, 'ETA', 'FLORIANO', 'FLORIANO', 'FLORIANO', 'PI', -6.784000, -43.020000, '0'),
-(3, 1, 'ETA', 'PARNAIBA', 'PARNAIBA', 'PARNAIBA', 'PI', -2.922000, -41.758999, '0'),
-(4, 2, 'ETA', '', 'BARCARENA', 'BARCARENA', 'PA', -1.550000, -48.738998, '0'),
-(5, 3, 'ETA', '', 'JOAO PESSOA', 'JOAO PESSOA', 'PB', -7.188000, -34.916000, '0'),
-(6, 4, 'ETA', '', 'TIMOTEO', 'TIMOTEO', 'MG', -19.524000, -42.653000, '0'),
-(7, 6, 'ETA', '', 'PEDRAS DE FOGO', 'PEDRAS DE FOGO', 'PB', -7.353000, -35.027000, '0'),
-(8, 7, 'ETA', '', 'ETA-ARAPIRACA', 'ARAPIRACA', 'AL', -9.702000, -36.688999, '0'),
-(9, 7, 'ETA', '', 'PILAR', 'PILAR', 'AL', 0.000000, 0.000000, '0'),
-(10, 7, 'ETA', '', 'SAO BRAS (ETA-MORRO DO GAIA)', 'SAO BRAS', 'AL', 0.000000, 0.000000, '0'),
-(11, 8, 'ETA', '', 'CUIABA ETA I', 'CUIABA', 'MT', -15.590000, -56.098999, '0'),
-(12, 8, 'ETA', '', 'CUIABA ETA II', 'CUIABA', 'MT', 0.000000, 0.000000, '0'),
-(13, 9, 'ETA', 'IMPERATRIZ', 'ACAILANDIA ELEVATORIA', 'ACAILANDIA', 'MA', -4.951000, -47.493000, '0'),
-(14, 9, 'ETA', '', 'ALCANTARA', 'ALCANTARA', 'MA', -2.358000, -44.432999, '0'),
-(15, 9, 'ETA', '', 'ARAIOSES', 'ARAIOSES', 'MA', 0.000000, 0.000000, '0'),
-(16, 9, 'ETA', 'ITAPECURU MIRIM', 'AREIAS', 'SAO LUIS', 'MA', 0.000000, 0.000000, '0'),
-(17, 9, 'ETA', '', 'AXIXA', 'AXIXA', 'MA', -2.838000, -44.062000, '0'),
-(18, 9, 'ETA', 'SAO JOAO DOS PATOS', 'BARAO DE GRAJAU', 'BARAO DE GRAJAU', 'MA', -6.758000, -43.022999, '0'),
-(19, 9, 'ETA', 'PRESIDENTE DUTRA', 'BARRA DO CORDA', 'BARRA DO CORDA', 'MA', 0.000000, 0.000000, '0'),
-(20, 9, 'ETA', 'BARREIRINHAS', 'BARREIRINHAS', 'BARREIRINHAS', 'MA', 0.000000, 0.000000, '0'),
-(21, 9, 'ETA', '', 'BOM JESUS DAS SELVAS', 'BOM JESUS DAS SELVAS', 'MA', 0.000000, 0.000000, '0'),
-(22, 9, 'ETA', '', 'BREJO', 'BREJO', 'MA', -3.680000, -42.689999, '0'),
-(23, 9, 'ETA', '', 'BURITI DE INACIA VAZ', 'SAO LUIS', 'MA', -3.941000, -42.922001, '0'),
-(24, 9, 'ETA', '', 'CANTANHEDE', 'CANTANHEDE', 'MA', 0.000000, 0.000000, '0'),
-(25, 9, 'ETA', 'CHAPADINHA', 'CHAPADINHA', 'CHAPADINHA', 'MA', -3.743000, -43.355000, '0'),
-(26, 9, 'ETA', 'SAO JOAO DOS PATOS', 'COLINAS', 'COLINAS', 'MA', -6.034000, -44.257000, '0'),
-(27, 9, 'ETA', '', 'DUQUE BACELAR', 'DUQUE BACELAR', 'MA', -4.162000, -42.942001, '0'),
-(28, 9, 'ETA', 'IMPERATRIZ', 'IMPERATRIZ', 'IMPERATRIZ', 'MA', -5.548000, -47.476002, '0'),
-(29, 9, 'ETA', 'BACABEIRA', 'ITALUIS', 'ROSARIO', 'MA', -3.027000, -44.308998, '0'),
-(30, 9, 'ETA', 'ITAPECURU MIRIM', 'ITAPECURU MIRIM', 'ITAPECURU MIRIM', 'MA', -3.409000, -44.348000, '0'),
-(31, 9, 'ETA', 'SAO JOAO DOS PATOS', 'LORETO', 'LORETO', 'MA', -7.096000, -45.129002, '0'),
-(32, 9, 'ETA', '', 'MIRANDA DO NORTE', 'MIRANDA DO NORTE', 'MA', 0.000000, 0.000000, '0'),
-(33, 9, 'ETA', 'ITAPECURU MIRIM', 'MORROS', 'MORROS', 'MA', -2.862000, -44.023998, '0'),
-(34, 9, 'ETA', 'CHAPADINHA', 'NINA RODRIGUES', 'NINA RODRIGUES', 'MA', -3.467000, -43.902000, '0'),
-(35, 9, 'ETA', 'METROPOLITANA', 'PACIENCIA', 'SAO LUIS', 'MA', -2.556000, -44.209999, '0'),
-(36, 9, 'ETA', '', 'PEDREIRAS', 'PEDREIRAS', 'MA', -4.574000, -44.602001, '0'),
-(37, 9, 'ETA', '', 'PINHEIRO', 'PINHEIRO', 'MA', -2.527000, -45.083000, '0'),
-(38, 9, 'ETA', '', 'PIRAPEMAS', 'PIRAPEMAS', 'MA', -3.728000, -44.229000, '0'),
-(39, 9, 'ETA', 'IMPERATRIZ', 'RIACHAO', 'RIACHAO', 'MA', 0.000000, 0.000000, '0'),
-(40, 9, 'ETA', 'METROPOLITANA', 'SACAVEM', 'ACAILANDIA', 'MA', -2.566000, -44.252998, '0'),
-(41, 9, 'ETA', '', 'SANTA QUITERIA', 'SANTA QUITERIA DO MARANHAO', 'MA', -3.501000, -42.562000, '0'),
-(42, 9, 'ETA', '', 'SAO BENEDITO DO RIO PRETO', 'ACAILANDIA', 'MA', 0.000000, 0.000000, '0'),
-(43, 9, 'ETA', '', 'SAO BERNARDO', 'SAO BERNARDO', 'MA', 0.000000, 0.000000, '0'),
-(44, 9, 'ETA', 'SAO JOAO DOS PATOS', 'SAO RAIMUNDO DAS MANGABEIRAS', 'SAO RAIMUNDO DAS MANGABEIRAS', 'MA', -7.024000, -45.478001, '0'),
-(45, 9, 'ETA', 'COROATA', 'TIMBIRAS', 'TIMBIRAS', 'MA', 0.000000, 0.000000, '0'),
-(46, 9, 'ETA', 'DEDREIRAS', 'TRIZIDELA DO VALE', 'TRIZIDELA DO VALE', 'MA', -4.573000, -44.617001, '0'),
-(47, 9, 'ETA', '', 'TUTOIA', 'TUTOIA', 'MA', -2.761000, -42.275002, '0'),
-(48, 9, 'ETA', '', 'URBANO SANTOS', 'URBANO SANTOS', 'MA', -3.203000, -43.389999, '0'),
-(49, 9, 'ETA', 'CHAPADINHA', 'VARGEM GRANDE', 'VARGEM GRANDE', 'MA', 0.000000, 0.000000, '0'),
-(50, 9, 'ETA', 'SANTA INES', 'VITORIA DO MEARIM', 'VITORIA DO MEARIM', 'MA', -3.477000, -44.867001, '0'),
-(51, 10, 'ETA', '', 'ALTO ALEGRE', 'ALTO ALEGRE', 'RR', 2.835000, -60.728001, '0'),
-(52, 10, 'ETA', '', 'CARACARAI', 'CARACARAI', 'RR', 1.829000, -61.132000, '0'),
-(53, 10, 'ETA', '', 'CAROEBE', 'CAROEBE', 'RR', 0.876169, -59.662998, '0'),
-(54, 10, 'ETA', '', 'MUCAJAI', 'MUCAJAI', 'RR', 2.448000, -60.917999, '0'),
-(55, 10, 'ETA', '', 'NORMANDIA', 'NORMANDIA', 'RR', 3.878000, -59.626999, '0'),
-(56, 10, 'ETA', '', 'PACARAIMA', 'PACARAIMA', 'RR', 4.477000, -61.146999, '0'),
-(57, 10, 'ETA', '', 'RORAINOPOLIS', 'RORAINOPOLIS', 'RR', 0.941046, -60.423000, '0'),
-(58, 10, 'ETA', '', 'SAO JOAO DA BALIZA', 'SAO JOAO DA BALIZA', 'RR', 0.950526, -59.909000, '0'),
-(59, 10, 'ETA', '', 'SAO LUIZ DO ANAUA', 'SAO JOAO DA BALIZA', 'RR', 1.010000, -60.033001, '0'),
-(60, 10, 'ETA', '', 'SAO PEDRO', 'BOA VISTA', 'RR', 2.826000, -60.658001, '0'),
-(61, 11, 'ETA', '', 'ACARI', 'ACARI', 'RN', 0.000000, 0.000000, '0'),
-(62, 11, 'ETA', '', 'ADUTORA DO BOQUEIRAO', 'RIACHO DA CRUZ', 'RN', 0.000000, 0.000000, '0'),
-(63, 11, 'ETA', '', 'ALTO RODRIGUES', 'ALTO DO RODRIGUES', 'RN', -5.301000, -36.764000, '0'),
-(64, 11, 'ETA', '', 'ANGICOS - CENTRO', 'ANGICOS', 'RN', 0.000000, 0.000000, '0'),
-(65, 11, 'ETA', '', 'ANGICOS - EB2', 'ANGICOS', 'RN', 0.000000, 0.000000, '0'),
-(66, 11, 'ETA', '', 'ANGICOS- ADUTORA CENTAL', 'ANGICOS', 'RN', 0.000000, 0.000000, '0'),
-(67, 11, 'ETA', '', 'APODI', 'APODI', 'RN', -5.660000, -37.798000, '0'),
-(68, 11, 'ETA', '', 'AREIA BRANCA', 'AREIA BRANCA', 'RN', 0.000000, 0.000000, '0'),
-(69, 11, 'ETA', '', 'ASSU', 'ACU', 'RN', -5.578000, -36.925999, '0'),
-(70, 11, 'ETA', '', 'BOA SAUDE', 'BOA SAUDE', 'RN', -6.138000, -35.577000, '0'),
-(71, 11, 'ETA', '', 'BOM JESUS - EB - 8', 'BOM JESUS', 'RN', 0.000000, 0.000000, '0'),
-(72, 11, 'ETA', '', 'BRASIL NOVO', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
-(73, 11, 'ETA', 'CAICO', 'CAICO', 'CAICO', 'RN', -6.467000, -37.091999, '0'),
-(74, 11, 'ETA', '', 'CAICO ZONA NORTE', 'CAICO', 'RN', 0.000000, 0.000000, '0'),
-(75, 11, 'ETA', '', 'CAMPO REDONDO', 'CAMPO REDONDO', 'RN', 0.000000, 0.000000, '0'),
-(76, 11, 'ETA', '', 'CANDELARIA', 'NATAL', 'RN', -5.839000, -35.220001, '0'),
-(77, 11, 'ETA', '', 'CANGUARETAMA', 'CANGUARETAMA', 'RN', -6.378000, -35.127998, '0'),
-(78, 11, 'ETA', '', 'CARAUBAS', 'CARAUBAS', 'RN', -5.634000, -37.535999, '0'),
-(79, 11, 'ETA', '', 'CARNAUBAIS', 'CARNAUBAIS', 'RN', -5.339000, -36.830002, '0'),
-(80, 11, 'ETA', '', 'CARNAUBAS-PALMA', 'CARNAUBAIS', 'RN', 0.000000, 0.000000, '0'),
-(81, 11, 'ETA', '', 'CERRO CORA ETA LOCAL', 'CERRO CORA', 'RN', -6.036000, -36.347000, '0'),
-(82, 11, 'ETA', '', 'CIDADE CAMPESTRE - P78', 'PARNAMIRIM', 'RN', 0.000000, 0.000000, '0'),
-(83, 11, 'ETA', '', 'CIDADE DOS BOSQUES - P17', 'PARNAMIRIM', 'RN', 0.000000, 0.000000, '0'),
-(84, 11, 'ETA', 'LITORAL SUL', 'CIDADE SATELITE', 'NATAL', 'RN', -5.863000, -35.230000, '0'),
-(85, 11, 'ETA', '', 'CIDADE SATELITE - P9', 'NATAL', 'RN', -5.860000, -35.243000, '0'),
-(86, 11, 'ETA', '', 'CONJUNTO JIQUI - P2', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
-(87, 11, 'ETA', '', 'CRUZETA - CAPITACAO', 'CRUZETA', 'RN', -6.411000, -36.794998, '0'),
-(88, 11, 'ETA', '', 'CRUZETA - ESCRITORIO', 'CRUZETA', 'RN', -6.412000, -36.787998, '0'),
-(89, 11, 'ETA', '', 'CURRAIS NOVOS', 'CURRAIS NOVOS', 'RN', -6.255000, -36.522999, '0'),
-(90, 11, 'ETA', '', 'DIX-SEPT ROSADO', 'GOVERNADOR DIX-SEPT ROSADO', 'RN', 0.000000, 0.000000, '0'),
-(91, 11, 'ETA', '', 'Dr. SEVERIANO', 'DOUTOR SEVERIANO', 'RN', 0.000000, 0.000000, '0'),
-(93, 11, 'ETA', '', 'ELOI DE SOUSA - EB - 10', 'SENADOR ELOI DE SOUZA', 'RN', 0.000000, 0.000000, '0'),
-(94, 11, 'ETA', '', 'EMAUS - P90', 'PARNAMIRIM', 'RN', 0.000000, 0.000000, '0'),
-(95, 11, 'ETA', '', 'ENTRONCAMENTO', 'NATAL', 'RN', -5.582000, -35.655998, '0'),
-(96, 11, 'ETA', '', 'EQUADOR', 'EQUADOR', 'RN', 0.000000, 0.000000, '0'),
-(97, 11, 'ETA', '', 'ESPIRITO SANTO I', 'ESPIRITO SANTO', 'RN', -6.335000, -35.299000, '0'),
-(98, 11, 'ETA', '', 'ESPIRITO SANTO II VARZEA', 'ESPIRITO SANTO', 'RN', -6.334000, -35.370998, '0'),
-(99, 11, 'ETA', '', 'CALDEIRAO - SANTANA DO SERIDO', 'SANTANA DO SERIDO', 'RN', -6.705000, -36.693001, '0'),
-(100, 11, 'ETE', '', 'ETE - DO BALDO', 'NATAL', 'RN', -5.790000, -35.210999, '0'),
-(101, 11, 'ETE', '', 'ETE-PARNAMIRIM', 'PARNAMIRIM', 'RN', -5.935000, -35.237999, '0'),
-(102, 11, 'ETA', '', 'EXTREMOZ', 'EXTREMOZ', 'RN', -5.726000, -35.282001, '0'),
-(103, 11, 'ETA', '', 'FELIPE CAMARA', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
-(104, 11, 'ETA', '', 'FELIPE CAMARAO - P01', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
-(105, 11, 'ETA', '', 'FELIPE CAMARAO - P10', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
-(106, 11, 'ETA', 'CAICO', 'FLORANEA EB4', 'FLORANIA', 'RN', -6.123000, -36.806999, '0'),
-(107, 11, 'ETA', '', 'FRANCISCO CAMPOS - P9', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
-(108, 11, 'ETA', '', 'FRANCISCO DANTAS', 'FRANCISCO DANTAS', 'RN', 0.000000, 0.000000, '0'),
-(109, 11, 'ETA', '', 'GARGALHEIRAS', 'ACARI', 'RN', -6.427000, -36.603001, '0'),
-(110, 11, 'ETA', '', 'GRAMORE', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
-(111, 11, 'ETA', '', 'GUARAPES P4', 'NATAL', 'RN', -5.840000, -35.273998, '0'),
-(112, 11, 'ETA', '', 'IPANGUACU', 'IPANGUACU', 'RN', -5.508000, -36.860001, '0'),
-(113, 11, 'ETA', '', 'IPUEIRA', 'IPUEIRA', 'RN', -6.814000, -37.201000, '0'),
-(114, 11, 'ETA', '', 'ITAJA - ADUTORA SERTAO CENTRAL', 'ITAJA', 'RN', -5.631000, -36.861000, '0'),
-(115, 11, 'ETA', '', 'ITAU', 'ITAU', 'RN', -5.837000, -37.987000, '0'),
-(116, 11, 'ETA', '', 'JANDAIRA', 'JANDAIRA', 'RN', 0.000000, 0.000000, '0'),
-(117, 11, 'ETA', '', 'JANDAIRA - P02', 'JANDAIRA', 'RN', 0.000000, 0.000000, '0'),
-(118, 11, 'ETA', '', 'JANDAIRA - P03', 'JANDAIRA', 'RN', 0.000000, 0.000000, '0'),
-(119, 11, 'ETA', '', 'JANDAIRA - P05', 'JANDAIRA', 'RN', 0.000000, 0.000000, '0'),
-(120, 11, 'ETA', '', 'JARDIM DE ANGICOS', 'JARDIM DE ANGICOS', 'RN', 0.000000, 0.000000, '0'),
-(121, 11, 'ETA', '', 'JARDIM DE PIRANHAS - ETA ESCRITORIO LOCAL', 'JARDIM DE PIRANHAS', 'RN', -6.379000, -37.347000, '0'),
-(122, 11, 'ETA', '', 'JARDIM DO SERIDO - PASSAGEM DAS TRAIRAS ', 'JARDIM DO SERIDO', 'RN', -6.517000, -36.937000, '0'),
-(123, 11, 'ETA', '', 'JARDIM PROGRESSO', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
-(124, 11, 'ETA', '', 'JERONIMO ROSADO - EB - 1', 'ACU', 'RN', -5.614000, -36.896000, '0'),
-(125, 11, 'ETA', '', 'JERONIMO ROSADO - EB - 2', 'MOSSORO', 'RN', -5.236000, -37.317001, '0'),
-(126, 11, 'ETA', '', 'JIQUI', 'NATAL', 'RN', -5.917000, -35.188000, '0'),
-(127, 11, 'ETA', '', 'JIQUI - P1', 'NATAL', 'RN', -5.862000, -35.208000, '0'),
-(128, 11, 'ETA', '', 'JOSE DA PENHA', 'JOSE DA PENHA', 'RN', 0.000000, 0.000000, '0'),
-(129, 11, 'ETA', '', 'JUCURUTU', 'JUCURUTU', 'RN', -6.034000, -37.016998, '0'),
-(130, 11, 'ETA', '', 'JUNDIA', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
-(131, 11, 'ETA', 'LITORAL SUL', 'LAGOA NOVA I', 'LAGOA NOVA', 'RN', 0.000000, 0.000000, '0'),
-(132, 11, 'ETA', 'LITORAL SUL', 'LAGOA NOVA II', 'LAGOA NOVA', 'RN', 0.000000, 0.000000, '0'),
-(133, 11, 'ETA', '', 'LAJES - ADUTORA SERTAO CENTRAL', 'LAJES', 'RN', -5.690000, -36.321999, '0'),
-(134, 11, 'ETA', '', 'LAJES - CABUGI', 'LAJES', 'RN', 0.000000, 0.000000, '0'),
-(135, 11, 'ETA', 'LITORAL NORTE', 'MACAIBA - GRANJA RECREIO', 'MACAIBA', 'RN', -5.875000, -35.307999, '0'),
-(136, 11, 'ETA', '', 'MACAU - ETA TAMBAUBA', 'MACAU', 'RN', -5.160000, -36.597000, '0'),
-(137, 11, 'ETA', '', 'MARCELINO VIEIRA', 'MARCELINO VIEIRA', 'RN', 0.000000, 0.000000, '0'),
-(138, 11, 'ETA', '', 'MARTINS', 'MARTINS', 'RN', -6.094000, -37.911999, '0'),
-(139, 11, 'ETA', '', 'MEDIO OESTE', 'ACU', 'RN', -5.886000, -36.994999, '0'),
-(140, 11, 'ETA', '', 'MONTANHAS', 'MONTANHAS', 'RN', -6.479000, -35.292999, '0'),
-(141, 11, 'ETA', '', 'MONTE ALEGRE', 'MONTE ALEGRE', 'RN', 0.000000, 0.000000, '0'),
-(142, 11, 'ETA', '', 'MOSSORO', 'MOSSORO', 'RN', 0.000000, 0.000000, '0'),
-(143, 11, 'ETA', '', 'NISIA FLORESTA - ETA BOMFIM - ADUT. MONSEN. EXP.', 'NISIA FLORESTA', 'RN', 0.000000, 0.000000, '0'),
-(144, 11, 'ETA', '', 'NOVA CRUZ', 'NOVA CRUZ', 'RN', -6.486000, -35.426998, '0'),
-(145, 11, 'ETA', '', 'NOVA PARNAMIRIM - P11', 'PARNAMIRIM', 'RN', 0.000000, 0.000000, '0'),
-(146, 11, 'ETA', '', 'NOVA PARNAMIRIM - P20', 'PARNAMIRIM', 'RN', 0.000000, 0.000000, '0'),
-(147, 11, 'ETA', '', 'NOVA PARNAMIRIM - P29', 'PARNAMIRIM', 'RN', 0.000000, 0.000000, '0'),
-(148, 11, 'ETA', '', 'NOVO CAMPO - P1', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
-(149, 11, 'ETA', '', 'OURO BRANCO ETA', 'OURO BRANCO', 'RN', -6.709000, -36.950001, '0'),
-(150, 11, 'ETA', '', 'P20 - ZONA NORTE', 'NATAL', 'RN', -5.739000, -35.280998, '0'),
-(151, 11, 'ETA', '', 'P36 - ZONA NORTE', 'NATAL', 'RN', -5.752000, -35.256001, '0'),
-(152, 11, 'ETA', '', 'P56 - ZONA NORTE', 'NATAL', 'RN', -5.747000, -35.230000, '0'),
-(153, 11, 'ETA', '', 'P6 - MOSSORO', 'MOSSORO', 'RN', -5.176000, -37.361000, '0'),
-(154, 11, 'ETA', '', 'PALMA', 'CAICO', 'RN', -6.629000, -37.150002, '0'),
-(155, 11, 'ETA', '', 'PARELHAS', 'PARELHAS', 'RN', -6.694000, -36.631001, '0'),
-(156, 11, 'ETA', '', 'PARNAMIRIM - LAGOA DO BONFIM', 'PARNAMIRIM', 'RN', -6.041000, -35.226002, '0'),
-(157, 11, 'ETA', '', 'PARNAMIRIM I', 'PARNAMIRIM', 'RN', -5.921000, -35.263000, '0'),
-(158, 11, 'ETA', '', 'PARNAMIRIM II - RIACHO VERMELHO', 'PARNAMIRIM', 'RN', -5.933000, -35.271999, '0'),
-(159, 11, 'ETA', '', 'PARQUE DAS DUNAS', 'NATAL', 'RN', -5.811000, -35.193001, '0'),
-(160, 11, 'ETA', '', 'PAU DOS FERROS', 'PAU DOS FERROS', 'RN', -6.146000, -38.193001, '0'),
-(161, 11, 'ETA', '', 'PEDRO VELHO', 'PEDRO VELHO', 'RN', 0.000000, 0.000000, '0'),
-(162, 11, 'ETA', 'ASSU', 'PENDENCIAS', 'PENDENCIAS', 'RN', -5.263000, -36.715000, '0'),
-(163, 11, 'ETA', '', 'PILOES', 'PILOES', 'RN', 0.000000, 0.000000, '0'),
-(164, 11, 'ETA', '', 'PIRANGI', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
-(165, 11, 'ETA', '', 'PLANALTO', 'PAU DOS FERROS', 'RN', 0.000000, 0.000000, '0'),
-(166, 11, 'ETA', '', 'PLANALTO - P01', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
-(167, 11, 'ETA', '', 'PLANALTO - P02', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
-(168, 11, 'ETA', '', 'PLANALTO - P03', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
-(169, 11, 'ETA', '', 'PLANALTO - P05', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
-(171, 11, 'ETA', '', 'PLANALTO P7', 'NATAL', 'RN', -5.835000, -35.262001, '0'),
-(172, 11, 'ETA', '', 'PLANALTO P9', 'NATAL', 'RN', -5.835000, -35.264999, '0'),
-(173, 11, 'ETA', '', 'PONTA NEGRA', 'NATAL', 'RN', -5.880000, -35.181999, '0'),
-(174, 11, 'ETA', '', 'PORTALEGRE', 'PORTALEGRE', 'RN', 0.000000, 0.000000, '0'),
-(175, 11, 'ETA', '', 'POTENGI - ALTO DA TORRE', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
-(176, 11, 'ETA', '', 'POTENGI - POCO 35', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
-(177, 11, 'ETA', '', 'POTENGI - POCO 44', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
-(178, 11, 'ETA', '', 'PUREZA', 'PUREZA', 'RN', 0.000000, 0.000000, '0'),
-(179, 11, 'ETA', '', 'REDINHA P57', 'NATAL', 'RN', -5.746000, -35.233002, '0'),
-(180, 11, 'ETA', '', 'RIACHUELO', 'RIACHUELO', 'RN', 0.000000, 0.000000, '0'),
-(181, 11, 'ETA', '', 'RIO BAHIA P2', 'NATAL', 'RN', -5.840000, -35.276001, '0'),
-(182, 11, 'ETA', '', 'RODOLFO FERNANDES', 'RODOLFO FERNANDES', 'RN', 0.000000, 0.000000, '0'),
-(183, 11, 'ETA', '', 'SAN VALE - P1', 'NATAL', 'RN', -5.854000, -35.216999, '0'),
-(184, 11, 'ETA', '', 'SANTA CRUZ - EB - 16', 'SANTA CRUZ', 'RN', -6.247000, -35.966000, '0'),
-(185, 11, 'ETA', '', 'SANTA FE', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
-(186, 11, 'ETA', '', 'SANTA TEREZA - P28', 'PARNAMIRIM', 'RN', 0.000000, 0.000000, '0'),
-(187, 11, 'ETA', '', 'SANTANA DO MATOS', 'SANTANA DO MATOS', 'RN', -5.966000, -36.660000, '0'),
-(188, 11, 'ETA', '', 'SANTANA DO SERIDO', 'SANTANA DO SERIDO', 'RN', -6.772000, -36.735001, '0'),
-(189, 11, 'ETA', '', 'SAO FERNANDO', 'SAO FERNANDO', 'RN', -6.376000, -37.185001, '0'),
-(190, 11, 'ETA', '', 'SAO JOAO DO SABUGI', 'SAO JOAO DO SABUGI', 'RN', -6.717000, -37.203999, '0'),
-(191, 11, 'ETA', '', 'SAO JOSE DO MIPIBU', 'SAO JOSE DE MIPIBU', 'RN', -6.075000, -35.231998, '0'),
-(192, 11, 'ETA', '', 'SAO MIGUEL', 'SAO MIGUEL', 'RN', -6.215000, -38.429001, '0'),
-(193, 11, 'ETA', '', 'SAO RAFAEL', 'SAO RAFAEL', 'RN', -5.802000, -36.879002, '0'),
-(194, 11, 'ETE', '', 'ETE SAO TOME', 'SAO TOME', 'RN', -5.973000, -36.070000, '0'),
-(196, 11, 'ETA', '', 'SERRA DE SANTANA', 'FLORANIA', 'RN', -6.128000, -36.820999, '0'),
-(197, 25, 'ETA', '', 'SAAE - SERRA NEGRA DO NORTE', 'SERRA NEGRA DO NORTE', 'RN', -6.670000, -37.390999, '0'),
-(198, 11, 'ETA', '', 'SERRINHA DOS PINTOS', 'SERRINHA DOS PINTOS', 'RN', 0.000000, 0.000000, '0'),
-(199, 11, 'ETA', '', 'TORRES P5', 'NATAL', 'RN', -5.844000, -35.271999, '0'),
-(200, 11, 'ETA', 'LITORAL SUL', 'TOUROS - BOQUEIRAO', 'NATAL', 'RN', -5.251000, -35.532001, '0'),
-(201, 11, 'ETA', '', 'UMARIZAL', 'UMARIZAL', 'RN', -5.990000, -37.818001, '0'),
-(202, 11, 'ETA', '', 'VERA CRUZ', 'VERA CRUZ', 'RN', -6.041000, -35.446999, '0'),
-(203, 11, 'ETA', '', 'ZONA NORTE - P23', 'NATAL', 'RN', -5.739000, -35.224998, '0'),
-(204, 11, 'ETA', '', 'ZONA NORTE - P57', 'NATAL', 'RN', -5.746000, -35.233002, '0'),
-(205, 11, 'ETA', '', 'ZONA NORTE - POCO 37', 'NATAL', 'RN', 0.000000, 0.000000, '0'),
-(206, 11, 'ETA', 'NORTE', 'ZONA-16', 'NATAL', 'RN', -5.726000, -35.248001, '0'),
-(207, 12, 'ETA', '', 'ETA OESTE', 'CAUCAIA', 'CE', -3.787000, -38.655998, '0'),
-(208, 12, 'ETA', '', 'PAVUNA', 'PACATUBA', 'CE', -3.915000, -38.598999, '0'),
-(209, 13, 'ETA', '', 'AGUA BRANCA', 'AGUA BRANCA', 'PB', 0.000000, 0.000000, '0'),
-(210, 13, 'ETA', '', 'ALAGOA GRANDE', 'ALAGOA GRANDE', 'PB', 0.000000, 0.000000, '0'),
-(211, 13, 'ETA', '', 'ALAGOA NOVA', 'ALAGOA NOVA', 'PB', 0.000000, 0.000000, '0'),
-(212, 13, 'ETA', '', 'ALGODAO DE JANDAIRA', 'ALGODAO DE JANDAIRA', 'PB', 0.000000, 0.000000, '0'),
-(213, 13, 'ETA', '', 'ALHANDRA CLORACAO', 'ALHANDRA', 'PB', -7.435000, -34.903000, '0'),
-(214, 13, 'ETA', '', 'ALHANDRA PRE-CLORACAO', 'ALHANDRA', 'PB', 0.000000, 0.000000, '1'),
-(215, 13, 'ETA', '', 'APARECIDA', 'APARECIDA', 'PB', -6.786000, -38.077999, '0'),
-(216, 13, 'ETA', '', 'ARARA', 'ARARA', 'PB', 0.000000, 0.000000, '0'),
-(217, 13, 'ETA', 'BORBOREMA', 'AREIA', 'AREIA', 'PB', -6.923000, -35.667000, '0'),
-(218, 13, 'ETA', '', 'AREIA - SAULO MAIA', 'AREIA', 'PB', 0.000000, 0.000000, '0'),
-(219, 13, 'ETA', '', 'AREIAL', 'AREIAL', 'PB', 0.000000, 0.000000, '0'),
-(220, 13, 'ETA', 'BORBOREMA', 'AROEIRAS', 'AROEIRAS', 'PB', 0.000000, 0.000000, '0'),
-(221, 13, 'ETA', '', 'BANANEIRAS', 'BANANEIRAS', 'PB', -6.762000, -35.634998, '0'),
-(222, 13, 'ETA', '', 'BARRA DE SANTA ROSA', 'BARRA DE SANTA ROSA', 'PB', 0.000000, 0.000000, '0'),
-(223, 13, 'ETA', 'BORBOREMA', 'BARRA DE SAO MIGUEL', 'BARRA DE SAO MIGUEL', 'PB', -7.747000, -36.313999, '0'),
-(224, 13, 'ETA', 'BORBOREMA', 'BARRAGEM SAO JOSE', 'MONTEIRO', 'PB', 0.000000, 0.000000, '0'),
-(225, 13, 'ETA', '', 'BELEM', 'BELEM', 'PB', -6.726000, -35.555000, '0'),
-(226, 13, 'ETA', 'BORBOREMA', 'BOA VISTA', 'BOA VISTA', 'PB', 0.000000, 0.000000, '0'),
-(227, 13, 'ETA', '', 'BOM JESUS', 'BOM JESUS', 'PB', -6.896000, -38.523998, '0'),
-(228, 13, 'ETA', '', 'BONITO DE SANTA FE', 'BONITO DE SANTA FE', 'PB', -7.315000, -38.516998, '0'),
-(229, 13, 'ETA', 'BORBOREMA', 'BOQUEIRAO', 'BOQUEIRAO', 'PB', -7.484000, -36.136002, '0'),
-(230, 13, 'ETA', '', 'BREJO DO CRUZ', 'BREJO DO CRUZ', 'PB', -6.344000, -37.500000, '0'),
-(231, 13, 'ETA', 'RIO DO PEIXE', 'BREJO DOS SANTOS', 'BREJO DOS SANTOS', 'PB', -6.373000, -37.830002, '0'),
-(232, 13, 'ETA', '', 'CAAPORA', 'CAAPORA', 'PB', -7.510000, -34.924999, '0'),
-(233, 13, 'ETA', 'BORBOREMA', 'CABACEIRAS', 'CABACEIRAS', 'PB', 0.000000, 0.000000, '0'),
-(234, 13, 'ETA', '', 'CACHOEIRA DOS INDIOS', 'CACHOEIRA DOS INDIOS', 'PB', 0.000000, 0.000000, '0'),
-(235, 13, 'ETA', '', 'CACIMBA DE DENTRO', 'CACIMBA DE DENTRO', 'PB', -6.650000, -35.789001, '0'),
-(236, 13, 'ETA', '', 'CACIMBAS', 'CACIMBAS', 'PB', 0.000000, 0.000000, '0'),
-(237, 13, 'ETA', '', 'CAJA', 'CAMPINA GRANDE', 'PB', 0.000000, 0.000000, '0'),
-(238, 13, 'ETA', 'ALTO PIRANHAS', 'CAJAZEIRAS (ENG. AVIDOS)', 'CAJAZEIRAS', 'PB', -6.977000, -38.456001, '0'),
-(239, 13, 'ETA', '', 'CAJAZEIRINHAS', 'CAJAZEIRINHAS', 'PB', 0.000000, 0.000000, '0'),
-(240, 13, 'ETA', 'BORBOREMA', 'CAMALAU', 'CAMALAU', 'PB', -7.888000, -36.821999, '0'),
-(241, 13, 'ETA', '', 'CAMPINA GRANDE', 'CAMPINA GRANDE', 'PB', -7.385000, -35.974998, '0'),
-(242, 13, 'ETA', 'LITORAL', 'CAPIM', 'CAPIM', 'PB', 0.000000, 0.000000, '0'),
-(243, 13, 'ETA', '', 'CARAUBAS', 'CARAUBAS', 'PB', -7.762000, -36.548000, '0'),
-(244, 13, 'ETA', '', 'CARRAPATEIRA', 'CARRAPATEIRA', 'PB', 0.000000, 0.000000, '0'),
-(245, 13, 'ETA', '', 'CASSERENGUE', 'CASSERENGUE', 'PB', 0.000000, 0.000000, '0'),
-(246, 13, 'ETA', 'ESPINHARAS', 'CATINGUEIRA', 'CATINGUEIRA', 'PB', -7.092000, -37.647999, '0'),
-(247, 13, 'ETA', '', 'CATOLE DO ROCHA', 'CATOLE DO ROCHA', 'PB', -6.344000, -37.748001, '0'),
-(248, 13, 'ETA', '', 'CEPILHO', 'AREIA', 'PB', 0.000000, 0.000000, '0'),
-(249, 13, 'ETA', '', 'CHA DOS PEREIROS', 'INGA', 'PB', 0.000000, 0.000000, '0'),
-(250, 13, 'ETA', '', 'CONCEICAO', 'CONCEICAO', 'PB', 0.000000, 0.000000, '0'),
-(251, 13, 'ETA', '', 'CONDE', 'CONDE', 'PB', 0.000000, 0.000000, '0'),
-(252, 13, 'ETA', '', 'CONGO', 'CONGO', 'PB', 0.000000, 0.000000, '0'),
-(253, 13, 'ETA', 'BORBOREMA', 'COXIXOLA', 'COXIXOLA', 'PB', 0.000000, 0.000000, '0'),
-(254, 13, 'ETA', '', 'CRUZ DO ESPIRITO SANTO', 'CRUZ DO ESPIRITO SANTO', 'PB', -7.127000, -35.098000, '0'),
-(255, 13, 'ETA', 'BORBOREMA', 'CUBATI', 'CUBATI', 'PB', 0.000000, 0.000000, '0'),
-(256, 13, 'ETA', '', 'CUITE', 'CUITE', 'PB', 0.000000, 0.000000, '0'),
-(257, 13, 'ETA', 'BREJO', 'CUITEGI', 'CUITEGI', 'PB', -6.906000, -35.535000, '0'),
-(258, 13, 'ETA', '', 'DESTERRO', 'DESTERRO', 'PB', 0.000000, 0.000000, '0'),
-(259, 13, 'ETA', '', 'DIAMANTE', 'DIAMANTE', 'PB', 0.000000, 0.000000, '0'),
-(260, 13, 'ETA', '', 'DUAS ESTRADAS', 'DUAS ESTRADAS', 'PB', -6.703000, -35.442001, '0'),
-(261, 13, 'ETA', 'BORBOREMA', 'EB3 - MONTEIRO', 'MONTEIRO', 'PB', 0.000000, 0.000000, '0'),
-(262, 13, 'ETA', '', 'EMAS', 'EMAS', 'PB', -7.097000, -37.715000, '0'),
-(263, 13, 'ETA', 'BORBOREMA', 'ESPERANCA', 'ESPERANCA', 'PB', -7.034000, -35.859001, '0'),
-(264, 13, 'ETA', 'LITORAL', 'ITABAIANA - NOVA ETA II', 'ITABAIANA', 'PB', -7.343000, -35.335999, '0'),
-(265, 13, 'ETA', '', 'ITABAIANA - FORUM ETA III', 'ITABAIANA', 'PB', -7.317000, -35.341999, '0'),
-(266, 13, 'ETA', '', 'ITABAIANA - VELHA ETA I', 'ITABAIANA', 'PB', -7.342000, -35.334999, '0'),
-(267, 13, 'ETA', 'BORBOREMA', 'FAGUNDES', 'FAGUNDES', 'PB', -7.350000, -35.783001, '0'),
-(268, 13, 'ETA', 'BORBOREMA', 'FREI MARTINHO', 'FREI MARTINHO', 'PB', 0.000000, 0.000000, '0'),
-(269, 13, 'ETA', '', 'GADO BRAVO', 'GADO BRAVO', 'PB', 0.000000, 0.000000, '0'),
-(270, 13, 'ETA', '', 'GRAMAME', 'JOAO PESSOA', 'PB', -7.228000, -34.919998, '0'),
-(271, 13, 'ETA', '', 'GRAVATA', 'SAO JOAO DO RIO DO PEIXE', 'PB', -7.385000, -35.976002, '0'),
-(272, 13, 'ETA', '', 'GUARABIRA', 'GUARABIRA', 'PB', 0.000000, 0.000000, '0'),
-(273, 13, 'ETA', '', 'GURINHEM', 'GURINHEM', 'PB', 0.000000, 0.000000, '0'),
-(274, 13, 'ETA', '', 'GURJAO', 'GURJAO', 'PB', -7.248000, -36.494999, '0'),
-(275, 13, 'ETA', '', 'IBIARA', 'IBIARA', 'PB', 0.000000, 0.000000, '0'),
-(276, 13, 'ETA', '', 'IGARACY', 'IGARACY', 'PB', -7.176000, -38.154999, '0'),
-(277, 13, 'ETA', '', 'IMACULADA', 'IMACULADA', 'PB', 0.000000, 0.000000, '0'),
-(278, 13, 'ETA', '', 'INGA', 'INGA', 'PB', 0.000000, 0.000000, '0'),
-(279, 13, 'ETA', '', 'IPUEIRA', 'PAULISTA', 'PB', 0.000000, 0.000000, '0'),
-(280, 13, 'ETA', '', 'ITAPORANGA ETA VELHA', 'ITAPORANGA', 'PB', -7.323000, -38.228001, '0'),
-(281, 13, 'ETA', 'BORBOREMA', 'ITATUBA', 'ITATUBA', 'PB', -7.415000, -35.637001, '0'),
-(282, 13, 'ETA', '', 'JACARAU', 'JACARAU', 'PB', -6.619000, -35.286999, '0'),
-(283, 13, 'ETA', 'LITORAL', 'JACUMA', 'CONDE', 'PB', -7.286000, -34.805000, '0'),
-(284, 13, 'ETA', '', 'JERICO', 'JERICO', 'PB', -6.550000, -37.800999, '0'),
-(285, 13, 'ETA', 'BORBOREMA', 'JUAREZ TAVORA', 'JUAREZ TAVORA', 'PB', -7.166000, -35.592999, '0'),
-(286, 13, 'ETA', 'BORBOREMA', 'JUAZEIRINHO', 'JUAZEIRINHO', 'PB', 0.000000, 0.000000, '0'),
-(287, 13, 'ETA', '', 'JURIPIRANGA', 'JURIPIRANGA', 'PB', 0.000000, 0.000000, '0'),
-(288, 13, 'ETA', 'ESPINHARAS', 'JURU', 'JURU', 'PB', 0.000000, 0.000000, '0'),
-(289, 13, 'ETA', '', 'LAGOA DO MATO', 'REMIGIO', 'PB', 0.000000, 0.000000, '0'),
-(290, 13, 'ETA', '', 'LAGOA SECA', 'LAGOA SECA', 'PB', 0.000000, 0.000000, '0'),
-(291, 13, 'ETA', '', 'LIVRAMENTO', 'LIVRAMENTO', 'PB', 0.000000, 0.000000, '0'),
-(292, 13, 'ETA', '', 'LUCENA', 'LUCENA', 'PB', -6.898000, -34.872002, '0'),
-(293, 13, 'ETA', '', 'MALTA', 'MALTA', 'PB', 0.000000, 0.000000, '0'),
-(294, 13, 'ETA', '', 'MALTA-CONDADO', 'CONDADO', 'PB', 0.000000, 0.000000, '0'),
-(295, 13, 'ETA', '', 'MAMANGUAPE', 'MAMANGUAPE', 'PB', -6.837000, -35.132000, '0'),
-(296, 13, 'ETA', '', 'MANAIRA', 'MANAIRA', 'PB', 0.000000, 0.000000, '0'),
-(297, 13, 'ETA', '', 'MARES - JOAO PESSOA', 'JOAO PESSOA', 'PB', -7.153000, -34.910000, '0'),
-(298, 13, 'ETA', '', 'MARI', 'MARI', 'PB', 0.000000, 0.000000, '0'),
-(299, 13, 'ETA', '', 'MARIZOPOLIS', 'MARIZOPOLIS', 'PB', 0.000000, 0.000000, '0'),
-(300, 13, 'ETA', '', 'MASSARANDUBA', 'MASSARANDUBA', 'PB', 0.000000, 0.000000, '0'),
-(301, 13, 'ETA', '', 'MATINHAS', 'MATINHAS', 'PB', 0.000000, 0.000000, '0'),
-(302, 13, 'ETA', '', 'MATO GROSSO', 'MATO GROSSO', 'PB', 0.000000, 0.000000, '0'),
-(303, 13, 'ETA', '', 'MATUREIA', 'MATUREIA', 'PB', 0.000000, 0.000000, '0'),
-(304, 13, 'ETA', '', 'MOGEIRO', 'MOGEIRO', 'PB', 0.000000, 0.000000, '0'),
-(305, 13, 'ETA', '', 'MONTADAS', 'MONTADAS', 'PB', 0.000000, 0.000000, '0'),
-(306, 13, 'ETA', '', 'MONTE HOREBE', 'MONTE HOREBE', 'PB', -7.213000, -38.587002, '0'),
-(307, 13, 'ETA', 'BORBOREMA', 'MONTEIRO', 'MONTEIRO', 'PB', -7.913000, -37.109001, '0'),
-(308, 13, 'ETA', '', 'MULUNGU', 'MULUNGU', 'PB', 0.000000, 0.000000, '0'),
-(309, 13, 'ETA', '', 'NATUBA ETA NOVA', 'NATUBA', 'PB', -7.641000, -35.549000, '0'),
-(310, 13, 'ETA', '', 'NAZAREZINHO', 'NAZAREZINHO', 'PB', 0.000000, 0.000000, '0'),
-(311, 13, 'ETA', '', 'NOVA FLORESTA', 'NOVA FLORESTA', 'PB', 0.000000, 0.000000, '0'),
-(312, 13, 'ETA', '', 'NOVA OLINDA', 'NOVA OLINDA', 'PB', -7.482000, -38.041000, '0'),
-(313, 13, 'ETA', '', 'NOVA PALMEIRA', 'NOVA PALMEIRA', 'PB', 0.000000, 0.000000, '0'),
-(314, 13, 'ETA', '', 'OLHO DAGUA', 'OLHO DAGUA', 'PB', -7.216000, -37.752998, '0'),
-(315, 13, 'ETA', '', 'OURO VELHO', 'OURO VELHO', 'PB', 0.000000, 0.000000, '0'),
-(316, 13, 'ETA', '', 'PATOS', 'PATOS', 'PB', -7.059000, -37.271999, '0'),
-(317, 13, 'ETA', '', 'PAULISTA', 'PAULISTA', 'PB', -6.600000, -37.624001, '0'),
-(318, 13, 'ETA', '', 'PEDRAS DE FOGO', 'PEDRAS DE FOGO', 'PB', -7.392000, -35.105000, '0'),
-(319, 13, 'ETA', '', 'PEDRO VELHO', 'AROEIRAS', 'PB', 0.000000, 0.000000, '0'),
-(320, 13, 'ETA', '', 'PIANCO', 'PIANCO', 'PB', -7.188000, -37.914001, '0'),
-(321, 13, 'ETA', 'BORBOREMA', 'PICUI', 'PICUI', 'PB', 0.000000, 0.000000, '0'),
-(322, 13, 'ETA', '', 'PILAR', 'PILAR', 'PB', 0.000000, 0.000000, '0'),
-(323, 13, 'ETA', '', 'PILOES', 'PILOES', 'PB', 0.000000, 0.000000, '0'),
-(324, 13, 'ETA', '', 'PIRPIRITUBA', 'PIRPIRITUBA', 'PB', 0.000000, 0.000000, '0'),
-(325, 13, 'ETA', 'LITORAL', 'PITIMBU', 'PITIMBU', 'PB', -7.472000, -34.811001, '0'),
-(326, 13, 'ETA', 'BORBOREMA', 'POCINHOS', 'POCINHOS', 'PB', 0.000000, 0.000000, '0'),
-(327, 13, 'ETA', '', 'POMBAL', 'POMBAL', 'PB', -6.773000, -37.792999, '0'),
-(328, 13, 'ETA', '', 'PRATA', 'PRATA', 'PB', 0.000000, 0.000000, '0'),
-(329, 13, 'ETA', '', 'PRINCESA ISABEL', 'PRINCESA ISABEL', 'PB', -7.733000, -37.992001, '0'),
-(330, 13, 'ETA', '', 'PUXINANA', 'PUXINANA', 'PB', 0.000000, 0.000000, '0'),
-(331, 13, 'ETA', '', 'REMIGIO', 'REMIGIO', 'PB', 0.000000, 0.000000, '0'),
-(332, 13, 'ETA', '', 'REMIGIO (Cepilho)', 'REMIGIO', 'PB', -6.988000, -35.775002, '0'),
-(333, 13, 'ETA', '', 'RIACHO DOS CAVALOS', 'RIACHO DOS CAVALOS', 'PB', -6.432000, -37.651001, '0'),
-(334, 13, 'ETA', '', 'RIACHO STO. ANTONIO', 'RIACHO DE SANTO ANTONIO', 'PB', 0.000000, 0.000000, '0'),
-(335, 13, 'ETA', '', 'RIO TINTO', 'RIO TINTO', 'PB', 0.000000, 0.000000, '0'),
-(336, 13, 'ETA', 'LITORAL', 'SALGADO DE SAO FELIX', 'SALGADO DE SAO FELIX', 'PB', -7.357000, -35.443001, '0'),
-(337, 13, 'ETA', '', 'SANTA CRUZ', 'SANTA CRUZ', 'PB', -6.535000, -38.051998, '0'),
-(338, 13, 'ETA', '', 'SANTA GERTRUDES', 'PATOS', 'PB', -6.948000, -37.396999, '0'),
-(339, 13, 'ETA', '', 'SANTA HELENA', 'SANTA HELENA', 'PB', 0.000000, 0.000000, '0'),
-(340, 13, 'ETA', '', 'SANTA LUZIA', 'SANTA LUZIA', 'PB', -6.864000, -36.917000, '0'),
-(341, 13, 'ETA', 'LITORAL', 'SANTA RITA', 'SANTA RITA', 'PB', -7.140000, -34.983002, '0'),
-(342, 13, 'ETA', '', 'SANTA TEREZINHA', 'SANTA TERESINHA', 'PB', -7.085000, -37.445999, '0'),
-(343, 13, 'ETA', '', 'SANTANA DE MANGUEIRA', 'SANTANA DE MANGUEIRA', 'PB', 0.000000, 0.000000, '0'),
-(344, 13, 'ETA', '', 'SANTANA DOS GARROTES', 'SANTANA DOS GARROTES', 'PB', -7.390000, -37.987000, '0'),
-(345, 13, 'ETA', '', 'SAO BENTINHO', 'SAO BENTINHO', 'PB', -6.892000, -37.729000, '0'),
-(346, 13, 'ETA', '', 'SAO BENTO', 'SAO BENTO', 'PB', -6.494000, -37.449001, '0'),
-(347, 13, 'ETA', '', 'SAO DOMINGOS', 'SAO DOMINGOS DO CARIRI', 'PB', 0.000000, 0.000000, '0'),
-(348, 13, 'ETA', '', 'SAO GONCALO', 'SOUSA', 'PB', -6.846000, -38.325001, '0'),
-(349, 13, 'ETA', '', 'SAO JOAO DO CARIRI', 'SAO JOAO DO CARIRI', 'PB', 0.000000, 0.000000, '0'),
-(350, 13, 'ETA', '', 'SAO JOAO DO RIO DO PEIXE', 'SAO JOAO DO RIO DO PEIXE', 'PB', 0.000000, 0.000000, '0'),
-(351, 13, 'ETA', '', 'SAO JOSE DA LAGOA TAPADA', 'SAO JOSE DA LAGOA TAPADA', 'PB', -6.944000, -38.162998, '0'),
-(352, 13, 'ETA', '', 'SAO JOSE DE CAIANA', 'SAO JOSE DE CAIANA', 'PB', -7.252000, -38.299000, '0'),
-(353, 13, 'ETA', '', 'SAO JOSE DE ESPINHARAS', 'SAO JOSE DE ESPINHARAS', 'PB', -6.842000, -37.321999, '0'),
-(354, 13, 'ETA', '', 'SAO JOSE DO BOMFIM', 'SAO JOSE DO BONFIM', 'PB', -7.075000, -37.286999, '0'),
-(355, 13, 'ETA', '', 'SAO JOSE DO SABUGI', 'SAO JOSE DO SABUGI', 'PB', -6.783000, -36.791000, '0'),
-(356, 13, 'ETA', '', 'SAO JOSE DOS CORDEIROS', 'SAO JOSE DOS CORDEIROS', 'PB', 0.000000, 0.000000, '0'),
-(357, 13, 'ETA', '', 'SAO JOSE PIRANHAS', 'SAO JOSE DE ESPINHARAS', 'PB', -7.124000, -38.500000, '0'),
-(358, 13, 'ETA', '', 'SAO MAMEDE', 'SAO MAMEDE', 'PB', 0.000000, 0.000000, '0'),
-(359, 13, 'ETA', '', 'SAO MIGUEL', 'SAO MIGUEL DE TAIPU', 'PB', 0.000000, 0.000000, '0'),
-(360, 13, 'ETA', 'BORBOREMA', 'SAO SEBASTIAO DE LAGOA DE ROCA', 'SAO SEBASTIAO DE LAGOA DE ROCA', 'PB', -7.106000, -35.868000, '0'),
-(361, 13, 'ETA', '', 'SAPE', 'SAPE', 'PB', -7.091000, -35.228001, '0'),
-(362, 13, 'ETA', '', 'SERRA BRANCA', 'SERRA BRANCA', 'PB', 0.000000, 0.000000, '0'),
-(363, 13, 'ETA', '', 'SERRA GRANDE', 'SERRA GRANDE', 'PB', 0.000000, 0.000000, '0'),
-(364, 13, 'ETA', '', 'SERRA REDONDA', 'SERRA REDONDA', 'PB', 0.000000, 0.000000, '0'),
-(365, 13, 'ETA', '', 'SERRARIA', 'SERRARIA', 'PB', -6.815000, -35.639000, '0'),
-(366, 13, 'ETA', '', 'SOLANEA', 'SOLANEA', 'PB', -6.758000, -35.650002, '0'),
-(367, 13, 'ETA', '', 'SOUSA', 'SOUSA', 'PB', 0.000000, 0.000000, '0'),
-(368, 13, 'ETA', 'BORBOREMA', 'SUME - ETA VELHA', 'SUME', 'PB', 0.000000, 0.000000, '0'),
-(369, 13, 'ETA', 'BORBOREMA', 'SUME-ADUTORA DO CONGO EB II', 'SUME', 'PB', -7.681000, -36.875999, '0'),
-(370, 13, 'ETA', 'ESPINHARAS', 'TAPEROA', 'TAPEROA', 'PB', -7.216000, -36.826000, '0'),
-(371, 13, 'ETA', '', 'TAVARES', 'TAVARES', 'PB', 0.000000, 0.000000, '0'),
-(372, 13, 'ETA', '', 'TEIXEIRA', 'TEIXEIRA', 'PB', 0.000000, 0.000000, '0'),
-(373, 13, 'ETA', '', 'TRIUNFO', 'TRIUNFO', 'PB', -6.580000, -38.601002, '0'),
-(374, 13, 'ETA', '', 'UIRAUNA', 'UIRAUNA', 'PB', -6.512000, -38.414001, '0'),
-(375, 13, 'ETA', '', 'UIRAUNA - CAPIVARA', 'UIRAUNA', 'PB', -6.542000, -38.465000, '0'),
-(376, 13, 'ETA', 'BORBOREMA', 'UMBUZEIRO ETA VELHA', 'UMBUZEIRO', 'PB', -7.712000, -35.650002, '0'),
-(377, 13, 'ETA', '', 'VARZEA', 'VARZEA', 'PB', -6.772000, -36.990002, '0'),
-(378, 13, 'ETA', '', 'VISTA SERRANA', 'VISTA SERRANA', 'PB', -6.682000, -37.584999, '0'),
-(379, 14, 'ETA', 'SERTAO', 'AGUA BRANCA - EE5', 'AGUA BRANCA', 'AL', -9.262000, -37.935001, '0'),
-(380, 14, 'ETA', 'SERRANA', 'ANADIA', 'ANADIA', 'AL', -9.678000, -36.325001, '0'),
-(381, 14, 'ETA', 'LESTE', 'BARRA DE SAO MIGUEL', 'BARRA DE SAO MIGUEL', 'AL', -9.829000, -35.903000, '0'),
-(382, 14, 'ETA', 'BACIA', 'BATALHA', 'BATALHA', 'AL', -9.673000, -37.132000, '0'),
-(383, 14, 'ETA', 'SERRANA', 'CAPELA', 'CAPELA', 'AL', -9.415000, -36.080002, '0'),
-(384, 14, 'ETA', 'SERTAO', 'DELMIRO GOUVEIA - BARRAGEM LESTE', 'DELMIRO GOUVEIA', 'AL', -9.368000, -38.188999, '0'),
-(385, 14, 'ETA', 'SERTAO', 'DELMIRO GOUVEIA - EE3', 'DELMIRO GOUVEIA', 'AL', -9.392000, -38.011002, '0'),
-(386, 14, 'ETA', 'SERRANA', 'ESTRELA DE ALAGOAS', 'ESTRELA DE ALAGOAS', 'AL', -9.389000, -36.763000, '0'),
-(387, 14, 'ETA', 'LESTE', 'FLEXEIRAS', 'FLEXEIRAS', 'AL', -9.280000, -35.721001, '0'),
-(388, 14, 'ETA', 'LESTE', 'JOAQUIM GOMES', 'JOAQUIM GOMES', 'AL', -9.132000, -35.749001, '0'),
-(389, 14, 'ETA', 'AGRESTE', 'JUNQUEIRO', 'CAJUEIRO', 'AL', -9.905000, -36.469002, '0'),
-(390, 14, 'ETA', 'MACEIO', 'MACEIO - AVIACAO', 'MACEIO', 'AL', 0.000000, 0.000000, '0'),
-(391, 14, 'ETA', 'MACEIO', 'MACEIO - CARDOSO', 'MACEIO', 'AL', -9.623000, -35.745998, '0'),
-(392, 14, 'ETA', 'LESTE', 'MURICI - CACHOEIRA', 'MURICI', 'AL', 0.000000, 0.000000, '0'),
-(393, 14, 'ETA', 'LESTE', 'MURICI - CANSANCAO', 'MURICI', 'AL', -9.319000, -35.950001, '0'),
-(394, 14, 'ETA', 'LESTE', 'NOVO LINO', 'NOVO LINO', 'AL', -8.944000, -35.661999, '0'),
-(395, 14, 'ETA', 'SERTAO', 'OLHO DAGUA DO CASADO', 'OLHO DAGUA DO CASADO', 'AL', -9.469000, -37.844002, '0'),
-(396, 14, 'ETA', 'SERRANA', 'PALMEIRA DOS INDIOS', 'PALMEIRA DOS INDIOS', 'AL', -9.402000, -36.629002, '0'),
-(397, 14, 'ETA', 'BACIA', 'PAO DE ACUCAR', 'PAO DE ACUCAR', 'AL', -9.705000, -37.415001, '0'),
-(398, 14, 'ETA', 'SERRANA', 'PAULO JACINTO', 'PAULO JACINTO', 'AL', -9.359000, -36.365002, '0'),
-(399, 14, 'ETA', 'AGRESTE', 'PIACABUCU', 'PIACABUCU', 'AL', -10.405000, -36.429001, '0'),
-(400, 14, 'ETA', 'SERTAO', 'PIRANHAS', 'PIRANHAS', 'AL', -9.597000, -37.773998, '0'),
-(401, 14, 'ETA', 'MACEIO', 'PRATAGY', 'MACEIO', 'AL', -9.558000, -35.737000, '0'),
-(402, 14, 'ETA', 'SERRANA', 'QUEBRANGULO', 'QUEBRANGULO', 'AL', -9.315000, -36.473999, '0'),
-(403, 14, 'ETA', 'SERRANA', 'QUEBRANGULO - CACAMBAS', 'QUEBRANGULO', 'AL', -9.303000, -36.478001, '0'),
-(404, 14, 'ETA', 'LESTE', 'RIO LARGO - MATA DO ROLO', 'RIO LARGO', 'AL', -9.481000, -35.840000, '0'),
-(405, 14, 'ETA', 'LESTE', 'RIO LARGO - TABULEIRO DO PINTO', 'RIO LARGO', 'AL', -9.505000, -35.812000, '0'),
-(406, 14, 'ETA', 'LESTE', 'SATUBA', 'SATUBA', 'AL', -9.559000, -35.819000, '0'),
-(407, 14, 'ETA', 'AGRESTE', 'TRAIPU', 'TRAIPU', 'AL', -9.962000, -36.997002, '0'),
-(408, 17, 'ETA', '', '40 HORAS SABIA', 'ANANINDEUA', 'PA', 0.000000, 0.000000, '0'),
-(409, 17, 'ETA', '', '5 SETOR', 'BELEM', 'PA', -1.427000, -48.456001, '0'),
-(410, 17, 'ETA', '', 'ABAETETUBA', 'ABAETETUBA', 'PA', -1.721000, -48.882000, '0'),
-(411, 17, 'ETA', '', 'ABAETETUBA ALGODOAL', 'ABAETETUBA', 'PA', 0.000000, 0.000000, '0'),
-(412, 17, 'ETA', '', 'AFUA', 'AFUA', 'PA', 0.000000, 0.000000, '0'),
-(413, 17, 'ETA', '', 'ALENQUER', 'ALENQUER', 'PA', 0.000000, 0.000000, '0'),
-(414, 17, 'ETA', '', 'ALTAMIRA', 'ALTAMIRA', 'PA', 0.000000, 0.000000, '0'),
-(415, 17, 'ETA', '', 'ANAJAS', 'ANAJAS', 'PA', 0.000000, 0.000000, '0'),
-(416, 17, 'ETA', '', 'ANANINDEUA - CENTRO', 'ANANINDEUA', 'PA', -1.353000, -48.373001, '0'),
-(417, 17, 'ETA', '', 'ARIRI 1', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
-(418, 17, 'ETA', '', 'ARIRI 2', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
-(419, 17, 'ETA', '', 'ARIRI-BOLONHA', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
-(420, 17, 'ETA', '', 'AUGUSTO CORREIA', 'AUGUSTO CORREA', 'PA', 0.000000, 0.000000, '0'),
-(421, 17, 'ETA', 'METROPOLITANA', 'BELEM - BEJAMIM SODRE P5/ P8', 'BELEM', 'PA', -1.358000, -48.446999, '0'),
-(422, 17, 'ETA', '', 'BENGUI', 'BELEM', 'PA', -1.375000, -48.442001, '0'),
-(423, 17, 'ETA', '', 'BOLONHA', 'BELEM', 'PA', -1.418000, -48.438999, '0'),
-(424, 17, 'ETA', '', 'BRAGANCA - CHUMUCUI', 'BRAGANCA', 'PA', -1.095000, -46.792000, '0'),
-(425, 17, 'ETA', '', 'BREU BRANCO', 'BREU BRANCO', 'PA', 0.000000, 0.000000, '0'),
-(426, 17, 'ETA', '', 'BREVES', 'BREVES', 'PA', -1.686000, -50.483002, '0'),
-(427, 17, 'ETA', '', 'CACHOEIRA DOA ARARI', 'CACHOEIRA DO ARARI', 'PA', 0.000000, 0.000000, '0'),
-(428, 17, 'ETA', 'METROPOLITANA', 'CANARINHO', 'BELEM', 'PA', -1.336000, -48.456001, '0'),
-(429, 17, 'ETA', '', 'CAPANEMA - VILA TAUARI', 'CAPANEMA', 'PA', -1.123000, -47.058998, '0'),
-(430, 17, 'ETA', '', 'CAPITAO POCO', 'CAPITAO POCO', 'PA', 0.000000, 0.000000, '0'),
-(431, 17, 'ETA', '', 'CASTANHAL', 'CASTANHAL', 'PA', 0.000000, 0.000000, '0'),
-(432, 17, 'ETA', 'BAIXO AMAZONAS', 'CASTANHAL - CAICARA', 'CASTANHAL', 'PA', -1.316000, -47.896000, '0'),
-(433, 17, 'ETA', '', 'CATALINA', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
-(434, 17, 'ETA', '', 'CDP', 'BELEM', 'PA', -1.402000, -48.480999, '0'),
-(435, 17, 'ETA', '', 'CHEGUEVARA', 'MARITUBA', 'PA', -1.368000, -48.308998, '0'),
-(436, 17, 'ETA', '', 'CIDADE NOVA ( ANANINDEUA )', 'ANANINDEUA', 'PA', -1.336000, -48.382999, '0'),
-(437, 17, 'ETA', '', 'COHAB', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
-(438, 17, 'ETA', '', 'CASTANHAL - COMANDANTE ASSIS', 'CASTANHAL', 'PA', -1.290000, -47.931999, '0'),
-(439, 17, 'ETA', '', 'CONCEICAO DO ARAGUAIA', 'CONCEICAO DO ARAGUAIA', 'PA', -8.283000, -49.264000, '0'),
-(440, 17, 'ETA', '', 'CONJUNTO MAGUARI', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
-(441, 17, 'ETA', '', 'COQUEIRO', 'BELEM', 'PA', -1.370000, -48.429001, '0'),
-(442, 17, 'ETA', '', 'CORDEIRO DE FARIAS I', 'BELEM', 'PA', -1.350000, -48.464001, '0'),
-(443, 17, 'ETA', '', 'CORDEIRO DE FARIAS II', 'BELEM', 'PA', -1.350000, -48.464001, '0'),
-(444, 17, 'ETA', '', 'DOM ELISEU', 'DOM ELISEU', 'PA', -4.247000, -47.561001, '0'),
-(445, 17, 'ETA', '', 'FARO', 'FARO', 'PA', 0.000000, 0.000000, '0'),
-(446, 17, 'ETA', '', 'GUANABARA I', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
-(447, 17, 'ETA', '', 'GUANABARA II', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
-(448, 17, 'ETA', '', 'IGARAPE - MIRI C. NOVA', 'IGARAPE-MIRI', 'PA', 0.000000, 0.000000, '1'),
-(449, 17, 'ETA', '', 'IGARAPE - MIRI ESCRITORIO', 'IGARAPE-MIRI', 'PA', 0.000000, 0.000000, '1'),
-(450, 17, 'ETA', '', 'IGARAPE - MIRI ESTACAO', 'IGARAPE-MIRI', 'PA', -1.980000, -48.964001, '0'),
-(451, 17, 'ETA', '', 'INHANGAPI', 'INHANGAPI', 'PA', 0.000000, 0.000000, '0'),
-(452, 17, 'ETA', '', 'ITAITUBA', 'ITAITUBA', 'PA', -4.276000, -55.986000, '0'),
-(453, 17, 'ETA', '', 'ITUPIRANGA', 'ITUPIRANGA', 'PA', 0.000000, 0.000000, '0'),
-(454, 17, 'ETA', '', 'JACUNDA', 'JACUNDA', 'PA', 0.000000, 0.000000, '0'),
-(455, 17, 'ETA', '', 'JADERLANDIA', 'BELEM', 'PA', -1.303000, -47.895000, '0'),
-(456, 17, 'ETA', '', 'JURUTI', 'JURUTI', 'PA', 0.000000, 0.000000, '0'),
-(457, 17, 'ETA', '', 'LIMOEIRO DO AJURU', 'LIMOEIRO DO AJURU', 'PA', 0.000000, 0.000000, '0'),
-(458, 17, 'ETA', '', 'MAGALHAES BARATA', 'MAGALHAES BARATA', 'PA', 0.000000, 0.000000, '0'),
-(459, 17, 'ETA', '', 'MAGUARI', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
-(460, 17, 'ETA', '', 'MAIUATA', 'IGARAPE-MIRI', 'PA', 0.000000, 0.000000, '0'),
-(461, 17, 'ETA', '', 'MARABA CIDADE NOVA', 'MARABA', 'PA', 0.000000, 0.000000, '0'),
-(462, 17, 'ETA', '', 'MARABA NOVA', 'MARABA', 'PA', -5.326000, -49.077000, '0'),
-(463, 17, 'ETA', '', 'MARABA PIONEIRA', 'MARABA', 'PA', -5.339000, -49.124001, '0'),
-(464, 17, 'ETA', '', 'MARAPANIN', 'MARAPANIM', 'PA', 0.000000, 0.000000, '0'),
-(465, 17, 'ETA', '', 'MARITUBA BEIJA FLOR', 'MARITUBA', 'PA', 0.000000, 0.000000, '0'),
-(466, 17, 'ETA', '', 'MARITUBA CENTRO', 'MARITUBA', 'PA', 0.000000, 0.000000, '0'),
-(467, 17, 'ETA', '', 'MARITUBA COHAB', 'MARITUBA', 'PA', 0.000000, 0.000000, '0'),
-(468, 17, 'ETA', '', 'MARUDA', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
-(469, 17, 'ETA', '', 'CASTANHAL - MILAGRE', 'CASTANHAL', 'PA', -1.304000, -47.908001, '0'),
-(470, 17, 'ETA', '', 'MOCAJUBA', 'MOCAJUBA', 'PA', -2.585000, -49.509998, '0'),
-(471, 17, 'ETA', '', 'MOJU', 'MOJU', 'PA', 0.000000, 0.000000, '0'),
-(472, 17, 'ETA', '', 'MONTE ALEGRE', 'MONTE ALEGRE', 'PA', -1.994000, -54.055000, '0'),
-(473, 17, 'ETA', '', 'MOSQUEIRO - BAIA DO SOL', 'BELEM', 'PA', -1.065000, -48.334999, '0'),
-(474, 17, 'ETA', 'NORDESTE', 'NOVA TIMBOTEUA - ESCRITORIO', 'NOVA TIMBOTEUA', 'PA', -1.206000, -47.386002, '0'),
-(475, 17, 'ETA', '', 'NOVO REPARTIMENTO', 'NOVO REPARTIMENTO', 'PA', -4.248000, -49.956001, '0'),
-(476, 17, 'ETA', '', 'OBIDOS', 'OBIDOS', 'PA', -1.900000, -55.507999, '0'),
-(477, 17, 'ETA', '', 'OEIRA DO PARA', 'OEIRAS DO PARA', 'PA', 0.000000, 0.000000, '0'),
-(478, 17, 'ETA', 'BAIXO AMAZONAS', 'ORIXIMINA', 'ORIXIMINA', 'PA', -1.763000, -55.866001, '0'),
-(479, 17, 'ETA', '', 'OUREM', 'OUREM', 'PA', 0.000000, 0.000000, '0'),
-(480, 17, 'ETA', '', 'PAAR', 'BELEM', 'PA', -1.336000, -48.382999, '0'),
-(481, 17, 'ETA', '', 'PANORAMA XXI', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
-(482, 17, 'ETA', 'NORDESTE', 'PEIXE BOI', 'PEIXE-BOI', 'PA', -1.188000, -47.316002, '0'),
-(483, 17, 'ETA', '', 'PONTA DE PEDRAS', 'PONTA DE PEDRAS', 'PA', 0.000000, 0.000000, '0'),
-(484, 17, 'ETA', '', 'PORTEL', 'PORTEL', 'PA', 0.000000, 0.000000, '0'),
-(485, 17, 'ETA', '', 'PRAINHA', 'PRAINHA', 'PA', 0.000000, 0.000000, '0'),
-(486, 17, 'ETA', '', 'PRATINHA', 'BELEM', 'PA', -1.376000, -48.480000, '0'),
-(487, 17, 'ETA', '', 'R6', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
-(488, 17, 'ETA', '', 'SALGADO GRANDE', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
-(489, 17, 'ETA', '', 'SALINOPOLIS - ESCRITORIO ', 'SALINOPOLIS', 'PA', -0.621626, -47.354000, '0'),
-(490, 17, 'ETA', '', 'SALVA TERRA', 'SALVATERRA', 'PA', 0.000000, 0.000000, '0'),
-(491, 17, 'ETA', '', 'SANTA CRUZ DO ARARI', 'SANTA CRUZ DO ARARI', 'PA', 0.000000, 0.000000, '0'),
-(492, 17, 'ETA', '', 'SANTA LUZIA DO PARA', 'SANTA LUZIA DO PARA', 'PA', 0.000000, 0.000000, '0'),
-(493, 17, 'ETA', '', 'SANTA MARIA DAS BARREIRAS', 'SANTA MARIA DAS BARREIRAS', 'PA', 0.000000, 0.000000, '0'),
-(494, 17, 'ETA', '', 'SANTA MARIA DO PARA - POCO SANTA ROSA', 'SANTA MARIA DO PARA', 'PA', -1.357000, -47.568001, '0'),
-(495, 17, 'ETA', 'BAIXO AMAZONAS', 'SANTAREM', 'SANTAREM', 'PA', -2.443000, -54.730999, '0'),
-(496, 17, 'ETA', '', 'SAO BRAS', 'BELEM', 'PA', -1.449000, -48.469002, '0'),
-(497, 17, 'ETA', '', 'SAO CAETANO DE ODOVELAS', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
-(498, 17, 'ETA', '', 'SAO FELIX DO XINGU', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
-(499, 17, 'ETA', '', 'SAO FRANCISCO DO PARA', 'BELEM', 'PA', -1.175000, -47.803001, '0'),
-(500, 17, 'ETA', '', 'SATELITE', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
-(501, 17, 'ETA', '', 'SIDERAL', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
-(502, 17, 'ETA', '', 'SOURE', 'SOURE', 'PA', 0.000000, 0.000000, '0'),
-(503, 17, 'ETA', '', 'TAILANDIA', 'TAILANDIA', 'PA', -2.948000, -48.953999, '0'),
-(504, 17, 'ETA', '', 'TANGARAS', 'BELEM', 'PA', -1.276000, -47.953999, '0'),
-(505, 17, 'ETA', '', 'TENONE', 'BELEM', 'PA', 0.000000, 0.000000, '0'),
-(506, 17, 'ETA', '', 'TERRA SANTA', 'TERRA SANTA', 'PA', 0.000000, 0.000000, '0'),
-(507, 17, 'ETA', '', 'TRACUATEUA', 'TRACUATEUA', 'PA', 0.000000, 0.000000, '0'),
-(508, 17, 'ETA', '', 'UIRAPURU', 'ANANINDEUA', 'PA', -1.327000, -48.398998, '0'),
-(509, 17, 'ETA', '', 'CASTANHAL - USINA', 'CASTANHAL', 'PA', -1.295000, -47.930000, '0'),
-(510, 17, 'ETA', '', 'VERDEJANTE', 'BELEM', 'PA', -1.410000, -48.394001, '0'),
-(511, 17, 'ETA', '', 'VIGIA DE NAZARE', 'VIGIA', 'PA', 0.000000, 0.000000, '0'),
-(512, 17, 'ETA', '', 'VILA CAFEZAL', 'MAGALHAES BARATA', 'PA', 0.000000, 0.000000, '0'),
-(513, 17, 'ETA', '', 'VILA CUIARANA - SALINOPOLIS', 'SALINOPOLIS', 'PA', -0.650630, -47.264999, '0'),
-(514, 17, 'ETA', '', 'VILA DE BEJA', 'ABAETETUBA', 'PA', 0.000000, 0.000000, '0'),
-(515, 17, 'ETA', '', 'CASTANHAL - VILA DO APEU', 'CASTANHAL', 'PA', -1.299000, -47.988998, '0'),
-(516, 17, 'ETA', '', 'VILA FATIMA', 'TRACUATEUA', 'PA', 0.000000, 0.000000, '0'),
-(517, 17, 'ETA', '', 'VILA MAUIATA', 'IGARAPE-MIRI', 'PA', 0.000000, 0.000000, '0'),
-(518, 17, 'ETA', '', 'VILA TAUARI', 'CAPANEMA', 'PA', 0.000000, 0.000000, '0'),
-(519, 17, 'ETA', '', 'VISEU', 'VISEU', 'PA', 0.000000, 0.000000, '0'),
-(520, 18, 'ETA', '', 'ETA II - NOVA', 'VARZEA GRANDE', 'MT', -15.640000, -56.168999, '0'),
-(521, 18, 'ETA', '', 'ETA I VELHA', 'VARZEA GRANDE', 'MT', -15.642000, -56.129002, '0'),
-(522, 19, 'ETA', '', 'RIO BRANCO - SOBRAL', 'RIO BRANCO', 'AC', -10.004000, -67.842003, '0'),
-(523, 20, 'ETA', '', 'ETA CAJAIBA - ITABAIANA', 'ITABAIANA', 'SE', -10.800000, -37.431000, '0'),
-(524, 20, 'ETA', '', 'AREIA BRANCA', 'AREIA BRANCA', 'SE', -10.759000, -37.318001, '0'),
-(525, 20, 'ETA', '', 'LAGARTO', 'LAGARTO', 'SE', -10.919000, -37.662998, '0'),
-(526, 20, 'ETA', '', 'TOBIAS BARRETO', 'TOBIAS BARRETO', 'SE', -11.183000, -37.998001, '0'),
-(527, 21, 'ETA', '', 'PETROLINA', 'PETROLINA', 'PE', -9.395000, -40.528999, '0'),
-(528, 22, 'ETA', '', 'BACABAL', 'BACABAL', 'MA', -4.234000, -44.778000, '0'),
-(529, 23, 'ETA', 'CAXIAS', 'CAXIAS - ETA POINT', 'CAXIAS', 'MA', -4.885000, -43.381001, '0'),
-(530, 23, 'ETA', 'CAXIAS', 'CAXIAS - ETA VOLTA REDONDA', 'CAXIAS', 'MA', -4.883000, -43.354000, '0'),
-(531, 26, 'ETA', '', 'PETROLINA', 'PETROLINA', 'PE', -9.395000, -40.529999, '0'),
-(532, 27, 'ETA', '', 'CAMPUS - NATAL UFRN', 'NATAL', 'RN', -5.837000, -35.202000, '0'),
-(533, 11, 'ETA', '', 'CAJUPIRANGA  - P68', 'PARNAMIRIM', 'RN', 0.000000, 0.000000, '0'),
-(535, 24, 'ETA', '', 'ITAPISSUMA', 'ITAPISSUMA', 'PE', -7.799000, -34.924999, '0'),
-(536, 28, 'ETA', '', 'BRASIL KIRIN IGARASSU', 'IGARASSU', 'PE', -7.797000, -34.928001, '0'),
-(537, 26, 'ETA', '', 'ARAPIRACA', 'ARAPIRACA', 'AL', -9.785000, -36.654999, '0'),
-(538, 11, 'ETA', '', 'SAO JOSE DO SERIDO', 'SAO JOSE DO SERIDO', 'RN', -6.450000, -36.875999, '0'),
-(539, 14, 'ETA', '', 'ALTO SERTAO - AGUA BRANCA', 'AGUA BRANCA', 'AL', -9.314000, -37.980999, '0'),
-(540, 3, 'ETA', '', 'ITAPISSUMA - XAROPARIA', 'ITAPISSUMA', 'PE', -7.751000, -34.924000, '0'),
-(542, 3, 'ETA', '', 'ITAPISSUMA - ETA/ETEI', 'ITAPISSUMA', 'PE', -7.751000, -34.924000, '0'),
-(543, 14, 'ETA', '', 'ALTO SERTAO(ETA NOVA)', 'DELMIRO GOUVEIA', 'AL', -9.314000, -37.980999, '0'),
-(544, 11, 'ETA', '', 'JARDIM DE PIRANHAS - MANOEL TORRES EB1', 'JARDIM DE PIRANHAS', 'RN', -6.377000, -37.353001, '0'),
-(545, 16, 'ETA', 'CPR Norte', 'BOTAFOGO', 'IGARASSU', 'PE', -7.852000, -34.938000, '0'),
-(546, 13, 'ETA', '', 'ARACAGI', 'ARACAGI', 'PB', -6.852000, -35.293999, '0'),
-(547, 16, 'ETA', 'CPR Norte', 'BOTAFOGO', 'IGARASSU', 'PE', -7.852000, -34.938000, '0'),
-(548, 16, 'ETA', 'CPR Norte', 'ARACOIABA', 'ARACOIABA', 'PE', -7.788000, -35.091999, '0'),
-(549, 16, 'ETA', 'CPR Norte', 'GOIANA', 'GOIANA', 'PE', -7.531000, -34.995998, '0'),
-(550, 16, 'ETA', 'CPR Leste', 'ALTO DO CEU', 'RECIFE', 'PE', -8.014000, -34.890999, '0'),
-(551, 16, 'ETA', 'CPR Leste', 'CAIXA DAGUA', 'RECIFE', 'PE', -7.995000, -34.904999, '0'),
-(552, 16, 'ETA', 'CPR Leste', 'VERA CRUZ', 'CAMARAGIBE', 'PE', -7.954000, -35.007999, '0'),
-(553, 16, 'ETA', 'CPR Leste', 'GUABIRABA - POCOS', 'RECIFE', 'PE', 0.000000, 0.000000, '0'),
-(554, 16, 'ETA', 'CPR Leste', 'DOIS IRMAOS EE', 'RECIFE', 'PE', -8.015000, -34.944000, '0'),
-(555, 16, 'ETA', 'CPR Leste', 'MACACOS EE', 'RECIFE', 'PE', -8.015000, -34.946999, '0'),
-(556, 16, 'ETA', 'CPR Oeste', 'TAPACURA', 'RECIFE', 'PE', -8.078000, -34.988998, '0'),
-(557, 16, 'ETA', 'CPR Oeste', 'VARZEA DO UNA', 'CAMARAGIBE', 'PE', -7.997000, -35.044998, '0'),
-(558, 16, 'ETA', 'CPR Oeste', 'MANOEL DE SENA', 'JABOATAO DOS GUARARAPES', 'PE', -8.106000, -35.014999, '0'),
-(559, 16, 'ETA', 'CPR Oeste', 'MORENO', 'MORENO', 'PE', -8.115000, -35.116001, '0'),
-(560, 16, 'ETA', 'CPR Oeste', 'Parque CAPIBARIBE', 'SAO LOURENCO DA MATA', 'PE', 0.000000, 0.000000, '0'),
-(561, 16, 'ETA', 'CPR Oeste', 'BONANCA', 'MORENO', 'PE', -8.112000, -35.188000, '0'),
-(562, 16, 'ETA', 'CPR Oeste', 'MATRIZ DA LUZ', 'SAO LOURENCO DA MATA', 'PE', -8.037000, -35.099998, '0'),
-(563, 16, 'ETA', 'CPR Sul', 'SUAPE', 'IPOJUCA', 'PE', -8.367000, -35.018002, '0'),
-(564, 16, 'ETA', 'CPR Sul', 'PORTO DE GALINHAS', 'IPOJUCA', 'PE', -8.505000, -35.023998, '0'),
-(565, 16, 'ETA', 'CPR Sul', 'IPOJUCA', 'IPOJUCA', 'PE', -8.396000, -35.062000, '0'),
-(566, 16, 'ETA', 'CPR Sul', 'CAMELA', 'IPOJUCA', 'PE', -8.509000, -35.122002, '0'),
-(567, 16, 'ETA', 'CPP', 'MARCOS FREIRE - CAPTACAO', 'JABOATAO DOS GUARARAPES', 'PE', -8.159000, -34.979000, '0'),
-(568, 16, 'ETA', 'CPP', 'MARCOS FREIRE - CONV. E COMP.', 'JABOATAO DOS GUARARAPES', 'PE', -8.132000, -34.973999, '0'),
-(569, 16, 'ETA', 'CPP', 'CHARNECA', 'CABO DE SANTO AGOSTINHO', 'PE', -8.296000, -35.062000, '0'),
-(570, 16, 'ETA', 'CPP', 'MURIBEQUINHA - CAPTACAO', 'JABOATAO DOS GUARARAPES', 'PE', -8.166000, -35.007000, '0'),
-(571, 16, 'ETA', 'CPP', 'MURIBEQUINHA - ETA', 'JABOATAO DOS GUARARAPES', 'PE', -8.172000, -34.999001, '0'),
-(572, 16, 'ETA', 'CPP', 'PIRAPAMA - CABO', 'CABO DE SANTO AGOSTINHO', 'PE', -8.267000, -35.049999, '0'),
-(573, 16, 'ETA', 'CPP', 'GURJAU / MATAPAGIPE', 'CABO DE SANTO AGOSTINHO', 'PE', -8.267000, -35.048000, '0'),
-(574, 16, 'ETA', 'MATA SUL', 'TAMANDARE - VELHA', 'TAMANDARE', 'PE', 0.000000, 0.000000, '0'),
-(575, 16, 'ETA', 'MATA SUL', 'TAMANDARE - NOVA - RIO FORMOSO', 'TAMANDARE', 'PE', 0.000000, 0.000000, '0'),
-(576, 16, 'ETA', 'MATA SUL', 'RIO FORMOSO', 'RIO FORMOSO', 'PE', 0.000000, 0.000000, '0'),
-(577, 16, 'ETA', 'MATA SUL', 'SIRINHAEM - Captacao', 'SIRINHAEM', 'PE', 0.000000, 0.000000, '0'),
-(578, 16, 'ETA', 'MATA SUL', 'SIRINHAEM - ETA', 'SIRINHAEM', 'PE', 0.000000, 0.000000, '0'),
-(579, 16, 'ETA', 'MATA SUL', 'VITORIA DE SANTO ANTAO', 'VITORIA DE SANTO ANTAO', 'PE', -8.116000, -35.300999, '0'),
-(580, 16, 'ETA', 'MATA SUL', 'BARREIROS', 'BARREIROS', 'PE', 0.000000, 0.000000, '0'),
-(581, 16, 'ETA', 'MATA SUL', 'SAO JOSE DA COROA GRANDE', 'SAO JOSE DA COROA GRANDE', 'PE', 0.000000, 0.000000, '0'),
-(582, 16, 'ETA', 'MATA SUL', 'CUCAU', 'RIO FORMOSO', 'PE', -8.631000, -35.265999, '0'),
-(583, 16, 'ETA', 'MATA SUL', 'GLORIA DO GOITA', 'GLORIA DO GOITA', 'PE', -8.005000, -35.291000, '0'),
-(584, 16, 'ETA', 'MATA SUL', 'JOAQUIM NABUCO', 'JOAQUIM NABUCO', 'PE', -8.630000, -35.532001, '0'),
-(585, 16, 'ETA', 'MATA SUL', 'PRIMAVERA', 'PRIMAVERA', 'PE', 0.000000, 0.000000, '0'),
-(586, 16, 'ETA', 'MATA SUL', 'SANTO AMARO', 'RECIFE', 'PE', 0.000000, 0.000000, '0'),
-(587, 16, 'ETA', 'MATA SUL', 'RIBEIRAO', 'RIBEIRAO', 'PE', -8.507000, -35.384998, '0'),
-(588, 16, 'ETA', 'MATA SUL', 'ESCADA', 'ESCADA', 'PE', 0.000000, 0.000000, '0'),
-(589, 16, 'ETA', 'MATA SUL', 'FREXEIRAS', 'ESCADA', 'PE', 0.000000, 0.000000, '0');
-INSERT INTO `tb_locais` (`id`, `loja`, `tipo`, `regional`, `name`, `municipio`, `uf`, `latitude`, `longitude`, `ativo`) VALUES
-(590, 16, 'ETA', 'MATA SUL', 'SAUE', 'TAMANDARE', 'PE', -8.768000, -35.318001, '0'),
-(591, 16, 'ETA', 'MATA NORTE', 'PAUDALHO', 'PAUDALHO', 'PE', -7.882000, -35.179001, '0'),
-(592, 16, 'ETA', 'MATA NORTE', 'BIZARRA', 'BOM JARDIM', 'PE', -7.756000, -35.484001, '0'),
-(593, 16, 'ETA', 'MATA NORTE', 'BUENOS AIRES', 'BUENOS AIRES', 'PE', 0.000000, 0.000000, '0'),
-(594, 1, 'ETA', '', 'TESTE', 'ITAPISSUMA', 'PE', -1.111111, -22.111111, '0'),
-(595, 1, 'ETA', 'TESTE', 'TESTE2', 'IGARASSU', 'PE', 0.000000, 0.000000, '0');
+(2321, 2294, 'OCORRENCIA:  Vazamento de pac\r\nCAUSA:  Encosto do selo mecânico danificado\r\nSOLUCAO:  Substitui o mesmo\r\nDATA E HORA INICIAL:  19/01/18 08:15\r\nDATA E HORA FINAL:  19/01/18 14:06\r\nKM INICIAL:  33643\r\nKM FINAL:  33657\r\n-----GASTOS GERAIS----\r\nPECAS:  Um encosto do selo mecânico da bomba Nemo\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2322, 2461, 'OCORRENCIA: CALIBRAÇÃO DE EQUIPAMENTO\r\nCAUSA: SUJEIRA\r\nSOLUCAO: LIMPEZA DO EQUIPAMENTO\r\nDATA E HORA INICIAL: 15/02 AS 13:08\r\nDATA E HORA FINAL: 15/02 AS 18:16\r\nKM INICIAL: 133404\r\nKM FINAL: 133455\r\n-----GASTOS GERAIS----\r\nPECAS: 01 MARTELO TIPO, 01 ARCO E SERRA\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                CALIBRADO O EQUIPAMENTO E REPOSIÇÃO NO KIT. FALTANDO CORRENTE E ESPATULA.          '),
+(2323, 2463, 'OCORRENCIA: FLUTUADOR DO ROTAMETRO OBSTRUIDO\r\nCAUSA: SUJEIRA\r\nSOLUCAO: LIMPEZA\r\nDATA E HORA INICIAL: 16/02 AS 07:30\r\nDATA E HORA FINAL: 16/02 AS 13:00\r\nKM INICIAL: 133455\r\nKM FINAL: 133683\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          LIMPEZA E CALIBRAÇÃO DO EQUIPAMENTO DE MEDIÇÃO DE CLORO. LIMPEZA DE 02 ROTAMETROS E 01 VALVULA R0.'),
+(2324, 2464, 'OCORRENCIA: CALIBRAÇÃO DO EQUIPAMENTO\r\nCAUSA: SOLICITAÇÃO\r\nSOLUCAO: FEITO A CALIBRAÇÃO\r\nDATA E HORA INICIAL: 16/02 AS 13:00\r\nDATA E HORA FINAL: 16/02 AS 18:33\r\nKM INICIAL: 133682\r\nKM FINAL: 133731\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          RECALIBRADO O EQUIPAMENTO DE MEDIÇÃO DE PPM.'),
+(2325, 2475, 'OCORRENCIA: VALVULA R0 SEM VEDAR\r\nCAUSA: SUJEIRA\r\nSOLUCAO: LIMPEZA DA VALVULA\r\nDATA E HORA INICIAL: 16/02 AS 18:33\r\nDATA E HORA FINAL: 17/02 AS 13:26\r\nKM INICIAL: 133731\r\nKM FINAL: 133880\r\n-----GASTOS GERAIS----\r\nPECAS: 01 VALVULA REGULADORA DE VACUO\r\nALIMENTACAO: R$ 30,00\r\nHOSPEDAGEM: R$ 80,00\r\nETC: \r\n                          A VALVULA REGULADORA DE VACUO ESTOUROU, SENDO NECESSARIO SUA TROCA. FOI INSTALADA NO LOCAL 01 VALVULA DA ETA ETRELA DE ALAGOAS, POIS NO MOMENTO NÃO TINHA DISPONIVEL.'),
+(2326, 2476, 'OCORRENCIA: RETIRADA DE 01 VALVULA REGULADORA DE VACUO\r\nCAUSA: UTILIZAR EM PALMEIRA DOS INDIOS\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 17/02 AS 10:32\r\nDATA E HORA FINAL: 17/02 AS 13:00\r\nKM INICIAL: 133836\r\nKM FINAL: 133880\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          FOI RETIRADA 01 VAL. REG. DE VACUO PARA USAR EM PALMEIRA DOS INDIOS. A DA ETA ESTOUROU E NO MOMENTO NÃO TINHA DISPONIVEL, SÓ REPAROS.'),
+(2327, 2462, 'OCORRENCIA: EQUIPAMENTO SEM MEDIÇÃO DE PPM\r\nCAUSA: SONDA DANIFICADA\r\nSOLUCAO: TROCA DA SONDA\r\nDATA E HORA INICIAL: 17/02 AS 13:26\r\nDATA E HORA FINAL: 17/02 AS 18:48\r\nKM INICIAL: 133880\r\nKM FINAL: 134015\r\n-----GASTOS GERAIS----\r\nPECAS: 01 SONDA DIGIMED.\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n          SONDA DESCOLADA/DANIFICADA. TROCA DA SONDA DIGIMED.                '),
+(2328, 2474, 'OCORRENCIA: preventiva\r\nCAUSA: \r\nSOLUCAO: Serviços realizados : substituição da válvula  reg ,substituição do flexivel  de cobre de 1,5mt ,troca do clorador de 104 kg/dia, substituição das mangueiras ,substituição do injetor de 3/4,realizada  também a pintura do manifolde e tubulações.\r\nDATA E HORA INICIAL: 16/02/18 as 18:40hs \r\nDATA E HORA FINAL: 16/02/18 as 21:41hs\r\nKM INICIAL: 37605\r\nKM FINAL: 39146\r\n-----GASTOS GERAIS----\r\nPECAS: 01 injetor de 3/4 , 01-flexivel de 1,5mt ,01-clorador de 104kg/dia ,01- válvula reguladora\r\nALIMENTACAO: 01-refeição R$18,95\r\nHOSPEDAGEM: 01-valor R$60,00\r\nETC: \r\n                          '),
+(2329, 2478, 'OCORRENCIA: corretiva\r\nCAUSA: vazamento na bomba centrifuga pela bracket \r\nSOLUCAO: realida a substituição da bracket e selo mecânico anel de burracha feita também a limpeza do eixo da bomba \r\nDATA E HORA INICIAL: 19/02/18 as 09:40hs\r\nDATA E HORA FINAL: 19/02/18 as 13:25hs\r\nKM INICIAL: 39146\r\nKM FINAL: 39330\r\n-----GASTOS GERAIS----\r\nPECAS: 01-bracket, 01- selo macânico 01- anel de burracha da bracket\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2330, 2472, 'OCORRENCIA: preventiva\r\nCAUSA: Válvula redutora de pressão a obstruida\r\nSOLUCAO: Limpeza na duas válvula redutora de pressão\r\nDATA E HORA INICIAL:16/02/2018  as  16:00 \r\nDATA E HORA FINAL: 16/02/2018  as  16:40\r\nKM INICIAL: 40868\r\nKM FINAL: 41183\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2331, 2470, 'OCORRENCIA: preventiva\r\nCAUSA: válvula raio 0 danificado\r\nSOLUCAO: troca da válvula raio 0, limpeza da válvula redutora de pressão\r\nDATA E HORA INICIAL: 17/02/2018  as 13:30\r\nDATA E HORA FINAL: 17/02/2018  as  14:50\r\nKM INICIAL: 40130\r\nKM FINAL: 41423\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2332, 2430, 'OCORRENCIA: consultoria\r\nCAUSA: \r\nSOLUCAO: Foi entregue na eta São Jose da Lagoa Tapada um cartucho\r\nDATA E HORA INICIAL  : 08/02/2018  as  13:24\r\nDATA E HORA FINAL: 08/02/2018  as  14:00\r\nKM INICIAL: 40104\r\nKM FINAL: 40140\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2333, 2426, 'OCORRENCIA: consultoria\r\nCAUSA: \r\nSOLUCAO: Foi entregue na eta Santa Cruz um kt A de emergencia\r\nDATA E HORA INICIAL: 08/02/2018  as  10:05\r\nDATA E HORA FINAL: 08/02/2018  as  10:15\r\nKM INICIAL: 39892\r\nKM FINAL: 39976\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2334, 2425, 'OCORRENCIA: consultoria\r\nCAUSA: \r\nSOLUCAO: Foi entregue na eta Jerico um cartucho \r\nDATA E HORA INICIAL: 08/02/2018  as  07:08\r\nDATA E HORA FINAL: 08/02/2018  as  07:15\r\nKM INICIAL: 39161\r\nKM FINAL: 39830\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2335, 2429, 'OCORRENCIA: consultoria\r\nCAUSA: \r\nSOLUCAO: Foi entregue na eta Catolé do Rocha um cartucho \r\nDATA E HORA INICIAL: 08/02/2018  as  07:50\r\nDATA E HORA FINAL: 08/02/2018  as  08:00\r\nKM INICIAL: 39830\r\nKM FINAL: 39859\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2336, 2427, 'OCORRENCIA: consultoria\r\nCAUSA: \r\nSOLUCAO: Foi entregue na eta Brejo do Cruz um cartucho\r\nDATA E HORA INICIAL: 08/02/2018  as  08:33\r\nDATA E HORA FINAL: 08/02/2018  as  08:44\r\nKM INICIAL: 39859\r\nKM FINAL: 39892\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2337, 2428, 'OCORRENCIA: consultoria  \r\nCAUSA: \r\nSOLUCAO: Foi entregue na eta Aguia kit A de emergencia\r\nDATA E HORA INICIAL: 08/02/2018  as  12:27\r\nDATA E HORA FINAL: 08/02/2018  as  13:00\r\nKM INICIAL: 39892\r\nKM FINAL: 40104\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2338, 2471, 'OCORRENCIA: preventiva\r\nCAUSA: Chave de partida em curto\r\nSOLUCAO: Substituição da chave de partida\r\nDATA E HORA INICIAL: 15/02/2018  as  13:30\r\nDATA E HORA FINAL: 16/02/2018  as  10:30\r\nKM INICIAL: 40205\r\nKM FINAL: 40868\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2339, 2432, 'OCORRENCIA: operação ( acoplamento de cilindros)\r\nCAUSA:  bateria de cilindros vazia\r\nSOLUCAO:  foi substituído, acoplado e testado com solução de amônia 04 cilindros cheios.\r\nDATA E HORA INICIAL: 09/02/2018 às 07:45\r\nDATA E HORA FINAL: 09/02/2018 às 10:43\r\nKM INICIAL: 31456\r\nKM FINAL: 31471\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2340, 2441, 'OCORRENCIA: corretiva\r\nCAUSA: bomba dosadora de PAC inoperante\r\nSOLUCAO:  conforme solicitado pelo Sr. Thomaz, foi realizado o atendimento na ETA, e foi detectado que o disjuntor do QDG estava desarmado, o mesmo foi reamado pelo operado e quando cheguei no local as bombas já estavam em operação, foi feito testes de medição de tenção e corrente elétrica e não foi encontrado nem uma anormalidade.\r\no sistema esta em operação. \r\nDATA E HORA INICIAL: 11/002/2018 às 18:30\r\nDATA E HORA FINAL: 11/02/2018 às 20:30\r\nKM INICIAL: 31930\r\nKM FINAL: 31697\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2341, 2442, 'OCORRENCIA: operação ( acoplamento de cilindros)\r\nCAUSA:  cilindros vazios\r\nSOLUCAO: foi acoplado e testado com solução de amônia 02 cilindros cheios.\r\nOs cilindros estão aptos para operação.\r\nDATA E HORA INICIAL: 12/02/2018 às 08:00\r\nDATA E HORA FINAL: 12/02/2018 às 09:30\r\nKM INICIAL: 31708\r\nKM FINAL: 31721\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2342, 2443, 'OCORRENCIA: corretivo\r\nCAUSA:  solda do contato do potenciômetro. \r\nSOLUCAO:  foi refeito a solda do contato do potenciômetro\r\nDATA E HORA INICIAL: 09/02/2018 às 13:30\r\nDATA E HORA FINAL: 09/02/2018 às 16:00\r\nKM INICIAL: 31471\r\nKM FINAL: 31499\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2343, 2445, 'OCORRENCIA: operação ( acoplamento de cilindro) correivo\r\nCAUSA: cilindros vazios.\r\nSOLUCAO: foi substituído 03 braçadeira yoke e trocado 04 cilindros vazios por 4 cilindros cheios, acoplado e testados com solução de amônia.\r\nDATA E HORA INICIAL: 14/02/2018 às 11:00\r\nDATA E HORA FINAL: 14/02/2018 às 15:50\r\nKM INICIAL: 31799\r\nKM FINAL: 31850\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2344, 2499, 'OCORRENCIA: VAZAMENTO DE GAS CLORO\r\nCAUSA: VALVULA REGULADORA DE VACUO EXPLODIU\r\nSOLUCAO: SUBSTITUIÇÃO DA VALVULA\r\nDATA E HORA INICIAL: 21/02 AS 08:53\r\nDATA E HORA FINAL: 21/02 AS 16:39\r\nKM INICIAL: 13555\r\nKM FINAL: 13776\r\n-----GASTOS GERAIS----\r\nPECAS: 01 VALVULA R0\r\nALIMENTACAO: R$ 23,00\r\nHOSPEDAGEM: \r\nETC: \r\n       LIMPEZA DE TODO O SISTEMA DE CLOROGAS. FEITO TESTES, SEM VAZAMENTOS.                   '),
+(2345, 2501, 'OCORRENCIA: RECALIBRAR AS DOSAGENS DO DIOXIDO\r\nCAUSA: SOLICITADO PELO CLIENTE\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 21/02 AS 16:39\r\nDATA E HORA FINAL: 22/02 AS 13:23\r\nKM INICIAL: 13776\r\nKM FINAL: 14020\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: R$ 25,00\r\nHOSPEDAGEM: R$ 50,00\r\nETC: \r\n FEITO LIMPEZA E LUBRIFICAÇÃO DOS ROLETES DAS BOMBAS DOSADORAS DE ACIDO E CLORATO, LIMPEZA DO MISTURADOR. RECALIBRADO O DIOXIDO.                    '),
+(2346, 2502, 'OCORRENCIA: RECALIBRAR AS DOSAGENS DO DIOXIDO\r\nCAUSA: SOLICITADO PELO CLIENTE\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 22/02 AS 13:23\r\nDATA E HORA FINAL: 22/02 AS 16:06\r\nKM INICIAL: 14020\r\nKM FINAL: 14074\r\n-----GASTOS GERAIS----\r\nPECAS: 01 TÊ ROSCAVEL DE 20mm\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n FEITO LIMPEZA E LUBRIFICAÇÃO DOS ROLETES DAS BOMBAS DOSADORAS DE ACIDO E CLORATO, LIMPEZA DO MISTURADOR. RECALIBRADO O DIOXIDO.   VAZANDO CLORATO POR UMA CONEXÃO TRINCADA, FEITO TROCA DA CONEXÃO.                 '),
+(2347, 2491, 'OCORRENCIA: RECALIBRAR AS DOSAGENS DO DIOXIDO\r\nCAUSA: SOLICITADO PELO CLIENTE\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 22/02 AS 16:06\r\nDATA E HORA FINAL: 23/02 AS 10:00\r\nKM INICIAL: 14074\r\nKM FINAL: 14173\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: R$ 25,00\r\nHOSPEDAGEM: R$ 46,00\r\nETC: \r\n FEITO LIMPEZA E LUBRIFICAÇÃO DOS ROLETES DAS BOMBAS DOSADORAS DE ACIDO E CLORATO, LIMPEZA DO MISTURADOR. RECALIBRADO O DIOXIDO. LIMPEZA DO FILTRO DE ACIDO.                   '),
+(2348, 2500, 'OCORRENCIA: RECALIBRAR AS DOSAGENS DO DIOXIDO\r\nCAUSA: SOLICITADO PELO CLIENTE\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 23/02 AS 10:00\r\nDATA E HORA FINAL: 23/02 AS 17:04\r\nKM INICIAL: 14173\r\nKM FINAL: 14487\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: R$ 25,00\r\nHOSPEDAGEM: \r\nETC: \r\n FEITO LIMPEZA E LUBRIFICAÇÃO DOS ROLETES DAS BOMBAS DOSADORAS DE ACIDO E CLORATO, LIMPEZA DO MISTURADOR. RECALIBRADO O DIOXIDO.                    '),
+(2349, 2446, 'OCORRENCIA: corretiva\r\nCAUSA: \r\nSOLUCAO: foi realizada a substituição da valvula mga, a mesma estava danificada permitindo a passagem de cloro gás; sistemas funcionando normalmente.\r\nDATA E HORA INICIAL: 22/01/17 09:08\r\n DATA E HORA FINAL:  22/01/17 14:40\r\nKM INICIAL: 119810\r\nKM FINAL:  119904\r\n-----GASTOS GERAIS----\r\nPECAS: valvula mga\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2350, 2447, 'OCORRENCIA: corretiva\r\nCAUSA: \r\nSOLUCAO: foi realizada correção no injetor clorando que apresentou retorno de agua; feita orientação para abrir o registro de passagem por completo para o vacuo ser suficiente nos dois sistemas; sistemas funcionando normalmente.\r\nDATA E HORA INICIAL: 25/01/18 05:20\r\nDATA E HORA FINAL:  25/01/18 08:44\r\nKM INICIAL: 120084\r\nKM FINAL:  120231\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2351, 2448, 'OCORRENCIA: corretiva\r\nCAUSA: \r\nSOLUCAO: foi realizada a instalação de cloro gasoso na estação com os seguintes itens: manifold 4 pontos; 2 reguladoras clorando;2 injetores clorando; 2 gabinetes clorando 100 kg; 1 bomba booster com botoeira; suporte para cilindro 50 e 68 kg; 2 sistemas de automação de abertura de cilindro; 1 detector de vazamento; mascara panoramica; kit a de emergencia; 2 flexiveis; o sistema foi testado e aprovado, tanto titular como o reserva funcionam normalmente;na ocasião foi realizado treinamento com operador da estação; \r\nDATA E HORA INICIAL: 26/01/18 08:44\r\nDATA E HORA FINAL:  26/01/18 10:40\r\nKM INICIAL: 120231\r\nKM FINAL:  120682\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2352, 2449, 'OCORRENCIA: instalação\r\nCAUSA: \r\nSOLUCAO:  foi realizada a instalação da arvore de falhas, como também de aviso de segurança.\r\nDATA E HORA INICIAL: 30/01/18 07:30\r\nDATA E HORA FINAL:  30/01/18 09:48\r\nKM INICIAL: 121017\r\nKM FINAL:  121070\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2353, 2450, 'OCORRENCIA: instalação\r\nCAUSA: \r\nSOLUCAO:  foi realizada a instalação da arvore de falhas e aviso de seurança.\r\nDATA E HORA INICIAL: 30/01/18 09:48\r\nDATA E HORA FINAL:  30/01/18 10:18\r\nKM INICIAL:  121070\r\nKM FINAL:  121074\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2354, 2451, 'OCORRENCIA: instalação\r\nCAUSA: \r\nSOLUCAO: foi realizada a instalação da arvore de falhas e aviso de segurança\r\nDATA E HORA INICIAL: 30/01/18 10:18\r\nDATA E HORA FINAL:  30/01/18  11:11\r\nKM INICIAL: 121074\r\nKM FINAL:  121090\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2355, 2452, 'OCORRENCIA: corretiva\r\nCAUSA: \r\nSOLUCAO:  foi realizada a substituição do flexivel, o mesmo estava danificado; foi realizada a limpeza nas R/0 e no rotametro; foi realizada instalação da arvore de falhas e aviso de segurança. como também do detector de cloro; feita repintura no sistema; sistemas funcionando normalmente;\r\nDATA E HORA INICIAL: 30/01/18 11:11\r\nDATA E HORA FINAL:  30/01/18 18:04\r\nKM INICIAL: 121090\r\nKM FINAL:  121267\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2356, 2453, 'OCORRENCIA: instalação\r\nCAUSA: \r\nSOLUCAO: foi realizada a instalação de um sensor de fluxo na estação do escritorio e no poço 16; os mesmos funcionam normalmente; feita a substituição da booster do escritorio a mesma estava danificada; sistemas funcionando normalmente; foi realizado treinamento com os operadores;\r\nDATA E HORA INICIAL: 01/02/18 09:06 \r\nDATA E HORA FINAL:  01/02/18 17:40\r\nKM INICIAL:  121320\r\nKM FINAL:  12155\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2357, 2454, 'OCORRENCIA: corretiva\r\nCAUSA: \r\nSOLUCAO:  foi realizada o ajuste na reguladora de vacuo e no injetor;\r\nDATA E HORA INICIAL: 05/01/18 08:38\r\nDATA E HORA FINAL:  05/01/18 12:40\r\nKM INICIAL: 121645\r\nKM FINAL:  121685\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2358, 2484, 'OCORRENCIA: corretiva\r\nCAUSA: \r\nSOLUCAO: foi realizada a substituição da booster , a mesma estava vazando pelo selo mecanico; foi realizada limpeza na reguladora de vacuo, rotametro, injetor; feita substituição do diafragma da reguladora de vacuo; feita substituição de um registro de passagem pós injetor; sistema funcionando normalmente.\r\nDATA E HORA INICIAL: 08/02/18 07:00\r\nDATA E HORA FINAL:  08/02/18 12:42\r\nKM INICIAL:  121685\r\nKM FINAL:  121 967\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2359, 2456, 'OCORRENCIA: corretiva \r\nCAUSA: \r\nSOLUCAO:  foi deixado na estação outra chave magnetica par substituir a que queimou; a ligação do automatico ficou na responsabilidade do pessoal da caern;\r\nDATA E HORA INICIAL:  08/02/18 12:42\r\nDATA E HORA FINAL:  08/02/18 14:04\r\nKM INICIAL:  121967 \r\nKM FINAL:  122001\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2360, 2457, 'OCORRENCIA: corretiva \r\nCAUSA: \r\nSOLUCAO: foi reaizada a substituição do rotmetro de 100 kg da dosagem de guamaré; o rotametro é do gabinete fluidfeeder; sistemas funcionando normalmente;\r\nDATA E HORA INICIAL: 08/02/18 14:04 \r\nDATA E HORA FINAL:  08/02/18 17:20\r\nKM INICIAL: 122001\r\nKM FINAL:  122172\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2361, 2458, 'OCORRENCIA: instalação\r\nCAUSA: \r\nSOLUCAO:  foi realizada a instalação de um sensor de fluxo para a bomba booster; sistema funcionando normalmente.\r\nDATA E HORA INICIAL: 09/02/18 07:50 \r\nDATA E HORA FINAL:  09/02/18 12:05\r\nKM INICIAL: 121172\r\nKM FINAL:  122215\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2362, 2459, 'OCORRENCIA: corretiva\r\nCAUSA: \r\nSOLUCAO: foi realizada a substituição da valvula R/0 a mesma estava provocando vazamento de cloro; sistema dosando.\r\nDATA E HORA INICIAL: 09/02/18 12:05\r\nDATA E HORA FINAL:  09/02/18 17:15\r\nKM INICIAL:  122215\r\nKM FINAL:  122526\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2363, 2460, 'OCORRENCIA:  corretiva\r\nCAUSA: \r\nSOLUCAO: foi realizada a substituição do diafragma do sistema reserva, como também da base do injetor; realizada a substituição do disco e diafragma do sistema titular, sendo estas peças da reguladora de vacuo; feita a limpeza nos rotametros; os dois sistemas funcionam normalmente.\r\nDATA E HORA INICIAL: 10/02/18  09:49\r\nDATA E HORA FINAL:  10/02/18 15:09\r\nKM INICIAL: 122526\r\nKM FINAL:  122739\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2364, 2440, 'OCORRENCIA: operação\r\nCAUSA: término do produto cloro gás\r\nSOLUCAO: acoplar 01 cilindro cheio de 900 kg\r\nDATA E HORA INICIAL: 10/02/18 as 21:20 hras\r\nDATA E HORA FINAL: 11/02/18 as 17:30 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM: R$ 182,79\r\nALIMENTACAO: R$ 70,09\r\nHOSPEDAGEM: R$ 70,00\r\nTÁXI: R$ 150,00\r\n                          '),
+(2365, 2444, 'OCORRENCIA: operação\r\nCAUSA: término do produto cloro gás\r\nSOLUCAO: acoplar 02 cilindros cheios de 900 kg\r\nDATA E HORA INICIAL: 12/02/18 as 07:45 hras\r\nDATA E HORA FINAL: 13/02/18 as 19:30 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM: R$ 151,95\r\nALIMENTACAO: R$ 65,65\r\nHOSPEDAGEM: R$ 90,00\r\nTÁXI: R$ 160,00\r\n                          '),
+(2366, 2469, 'OCORRENCIA: preventiva\r\nCAUSA: vazamento irregular no registro do container do PAC \r\nSOLUCAO: substituição do mesmo \r\nDATA E HORA INICIAL: 16/02/18 as 13:00 hras\r\nDATA E HORA FINAL: 23/02/18 as 14:40 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM: R$ 340,00\r\nALIMENTACAO: R$ 120,00\r\nHOSPEDAGEM:R$ 70,00 \r\nTÁXI: R$ 215,00\r\n                          '),
+(2367, 2509, 'OCORRENCIA: operação\r\nCAUSA: término do produto cloro gás\r\nSOLUCAO: acoplar 04 quatros cilindros cheios de 1000 kg\r\nDATA E HORA INICIAL: 28/02/18 as 13:00 hras\r\nDATA E HORA FINAL: 28/02/18 as 17:30 hras\r\nKM INICIAL: 34618\r\nKM FINAL: 34666\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
+(2368, 2507, 'OCORRENCIA: operação\r\nCAUSA: término do produto cloro gás\r\nSOLUCAO: acoplar 02 dois cilindros cheios de 900 kg\r\nDATA E HORA INICIAL: 27/02/18 as 07:45 hras\r\nDATA E HORA FINAL: 27/02/18 as 17:30 hras\r\nKM INICIAL: 34151\r\nKM FINAL: 34594\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: R$ 47,00\r\nHOSPEDAGEM: *****\r\nCOMBUSTÍVEL:R$ 130,00\r\n                          '),
+(2369, 2528, 'OCORRENCIA: CALIBRAÇÃO DE EQUIPAMENTO\r\nCAUSA: PREVENTIVA\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 26/02 AS 12:32\r\nDATA E HORA FINAL: 26/02 AS 13:56\r\nKM INICIAL: 134190\r\nKM FINAL: 134210\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          MANOVACUOMETRO DESCALIBRADO, SONDA DIGIMED QUEBRADA, PROXIMA VISITA FAZER SUBSTITUIÇÃO DA SONDA.'),
+(2370, 2528, 'OCORRENCIA: CALIBRAÇÃO DO EQUIPAMENTO\r\nCAUSA: PREVENTIVA\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 28/02 AS 07:09\r\nDATA E HORA FINAL: 28/02 AS 10:14\r\nKM INICIAL: 134343\r\nKM FINAL: 134375\r\n-----GASTOS GERAIS----\r\nPECAS: 01 SONDA DIGIMED, ORINGS DO INJETOR\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n             LIMPEZA DE 01 INJETOR E 01 ROTAMETRO, CALIBRADO O DISPLAY CONTEMP C704.             '),
+(2371, 2529, 'OCORRENCIA: PREVENTIVA\r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 28/02 AS 12:10\r\nDATA E HORA FINAL: 28/02 AS 19:50\r\nKM INICIAL: 134437\r\nKM FINAL: 134581\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                         LIMPEZA DE 02 ROTAMETROS.  '),
+(2372, 2527, 'OCORRENCIA: SEM DOSAR CLORO\r\nCAUSA: ENTUPIMENTO DOS CONECTORES DAS MANGUEIRAS\r\nSOLUCAO: LIMPEZA\r\nDATA E HORA INICIAL: 01/03 AS 07:25\r\nDATA E HORA FINAL: 01/03 AS 13:30\r\nKM INICIAL: 134581\r\nKM FINAL: 134731\r\n-----GASTOS GERAIS----\r\nPECAS: REPOSTO 01 VÁLVULA REG. DE VÁCUO\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          REPOSTO A VÁLVULA E CALIBRADO O CONTEMP I506.'),
+(2373, 2530, 'OCORRENCIA: SEM ACIONAMENTO DA SOLENOIDE\r\nCAUSA: BOÍA COM MAL CONTATO\r\nSOLUCAO: TROCA DA BÓIA\r\nDATA E HORA INICIAL: 01/03 AS 13:30\r\nDATA E HORA FINAL: 01/03 AS 18:14\r\nKM INICIAL: 134731\r\nKM FINAL: 134923\r\n-----GASTOS GERAIS----\r\nPECAS: 01 PAR DE SENSOR DE NIVEL\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                      SUBSTITUIDO 01 PAR DE SENSOR DE NIVEL, CALIBRADO O PRESSYS 2051 VERTICAL    '),
+(2374, 2531, 'OCORRENCIA: SELO MECANICO ROMPIDO\r\nCAUSA: DESGASTE\r\nSOLUCAO: TROCA DO SELO MECANICO\r\nDATA E HORA INICIAL: 02/03 AS 07:30\r\nDATA E HORA FINAL: 02/03 AS 12:46\r\nKM INICIAL: 134923\r\nKM FINAL: 134982\r\n-----GASTOS GERAIS----\r\nPECAS: 01 SELO MECANICO\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          SUBSTITUIDO 01 SELO MECANICO DA BOMBA DA ETE'),
+(2375, 2468, 'OCORRENCIA: operação ( acoplamento de cilindros)\r\nCAUSA: bateria de cilindros vazios\r\nSOLUCAO:  Foi substituído  03 yoke e 01 flexível  de 1,20 e trocado a bateria com 04 cilindros cheios.\r\nOs cilindros estão acoplados, testados e pronto para uso. \r\nDATA E HORA INICIAL: 16/02/2018 às 07:00 \r\nDATA E HORA FINAL: 16/02/2018 às 12:23\r\nKM INICIAL: 31915\r\nKM FINAL: 31960\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2376, 2477, 'OCORRENCIA: operação ( desacoplamento  de cilindros e limpeza nas válvulas redutora de pressão)\r\nCAUSA: cilindro vazio \r\nSOLUCAO:  foi desacoplado 01 cilindro vazio e feito limpeza interna nas válvulas redutora de pressão.\r\nDATA E HORA INICIAL: 18/02/2018 às 16:00\r\nDATA E HORA FINAL: 19/02/2018 às 16:00\r\nKM INICIAL: 32629\r\nKM FINAL: 33197\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 20,00\r\nHOSPEDAGEM: \r\nETC:  combustível = 95,02\r\n                          '),
+(2377, 2473, 'OCORRENCIA:  corretiva\r\nCAUSA:  vazamento pelo selo mecânico\r\nSOLUCAO:  foi substituído reparos da bomba dosadora: \r\n\r\ne limpeza na sala de química\r\n\r\nDATA E HORA INICIAL: 18/02/2018 às 05:00\r\nDATA E HORA FINAL: 18/02/2018 às 16:00\r\nKM INICIAL: 32076\r\nKM FINAL: 32629\r\n-----GASTOS GERAIS----\r\nPECAS: 01 anel de encosto\r\n01 selo mecânico \r\n01 eixo de acoplamento\r\n01 pino trava do fuso\r\nALIMENTACAO: 30,99\r\nHOSPEDAGEM: 80,00\r\nETC:  combustível = 224,50 \r\n                          '),
+(2378, 2479, 'OCORRENCIA: corretiva\r\nCAUSA:  válvula raio com vazamento\r\nSOLUCAO:  foi substituído 01 válvula raio 1" do manifolde, trocado e testado com solução de amônia 04 cilindros cheios \r\nDATA E HORA INICIAL: 20/02/2018 às 07:30\r\nDATA E HORA FINAL: 20/02/2018 às 12:00\r\nKM INICIAL: 33222\r\nKM FINAL: 33268\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2379, 2479, 'OCORRENCIA: corretiva\r\nCAUSA:  válvula raio com vazamento\r\nSOLUCAO:  foi substituído 01 válvula raio 1" do manifolde, trocado e testado com solução de amônia 04 cilindros cheios \r\nDATA E HORA INICIAL: 20/02/2018 às 07:30\r\nDATA E HORA FINAL: 20/02/2018 às 12:00\r\nKM INICIAL: 33222\r\nKM FINAL: 33268\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2380, 2482, 'OCORRENCIA: corretiva\r\nCAUSA: válvula raio do manifolde com vazamento\r\nSOLUCAO:  foi substituído 01 válvula raio de 1" do manifolde e acoplado e testado 01 cilindro cheio.\r\nDATA E HORA INICIAL:  21/02/2018 às 14:45\r\nDATA E HORA FINAL: 21/02/2018 às 17:30\r\nKM INICIAL: 33413\r\nKM FINAL: 33416\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2381, 2483, 'OCORRENCIA: operação ( acoplamento de cilindro)\r\nCAUSA:  cilindro vazio\r\nSOLUCAO:  foi substituído, acoplado e testado com solução de amônia 02 cilindros cheios.\r\nDATA E HORA INICIAL: 21/02/2018 às 11:30\r\nDATA E HORA FINAL: 21/02/2018 às 14:45\r\nKM INICIAL: 33388\r\nKM FINAL: 33413\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2382, 2490, 'OCORRENCIA: operação ( acoplamento de cilindros)\r\nCAUSA: cilindros vazios\r\nSOLUCAO:  foi acoplado e testado com solução de amônia 02 cilindros cheios.\r\nDATA E HORA INICIAL: 21/02/2018 às 08:00\r\nDATA E HORA FINAL: 21/02/2018 às 11:30\r\nKM INICIAL: 33376\r\nKM FINAL: 33388\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2383, 2489, 'OCORRENCIA: operação 9 acoplamento de cilindros)\r\nCAUSA:  cilindros vazios\r\nSOLUCAO: Foi acoplado e testado com solução de amônia 02 cilindros cheios, e foi realizado limpeza interna nas válvulas redutoras de pressão, vidro rotâmetro, e injetores.\r\nDATA E HORA INICIAL: 22/02/2018 às 11:00\r\nDATA E HORA FINAL: 22/02/2018 às 17:22\r\nKM INICIAL: 33464\r\nKM FINAL: 33610\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 53,00\r\nHOSPEDAGEM: \r\nETC: combustível = 141,06\r\n                          '),
+(2384, 2488, 'OCORRENCIA: operação ( acoplamento de cilindros)\r\nCAUSA:  cilindros vazios\r\nSOLUCAO:  foi acoplado 02 cilindros cheios, colocado em operação 01 cilindro, substituído 01 braçadeira yoke, limpeza no vidro rotâmetro, vál. redutora e injetor. \r\nDATA E HORA INICIAL: 22/02/2018 às 08:30\r\nDATA E HORA FINAL: 22/02/2018 11:00\r\nKM INICIAL: 33452\r\nKM FINAL: 33464\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2385, 2492, 'OCORRENCIA: operação ( acoplamento de cilindro)\r\nCAUSA:  cilindro vazio e manutenção preventiva \r\nSOLUCAO: foi acoplado e testado com solução de amônia 01 cilindro cheio. E foi realizado limpeza interna nas vál. redutora de pressão, vidro rotâmetro e injetores. \r\nDATA E HORA INICIAL: 23/02/2018 às 07:35\r\nDATA E HORA FINAL: 23/02/2018 às 15:32\r\nKM INICIAL: 33628\r\nKM FINAL: 33768\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 29,90\r\nHOSPEDAGEM: \r\nETC:  combustível = 128,80\r\n                          '),
+(2386, 2379, 'OCORRENCIA: baixa dosagem\r\nCAUSA: problema na valvula\r\nSOLUCAO: realizado a manutenção\r\nDATA E HORA INICIAL: 01/01/18 07:00\r\nDATA E HORA FINAL: 01/02/17 15:00\r\nKM INICIAL: 98108\r\nKM FINAL: 98190\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2387, 2380, 'OCORRENCIA: baixa dosagem\r\nCAUSA: problema na bomba\r\nSOLUCAO: realizado a substituição\r\nDATA E HORA INICIAL: 26/01/18 07:00\r\nDATA E HORA FINAL: 26/01/18  17:00\r\nKM INICIAL: 97296\r\nKM FINAL: 97396\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2388, 2381, 'OCORRENCIA: baixa dosagem\r\nCAUSA: problema na bomba\r\nSOLUCAO: realizado a manutenção corretiva\r\nDATA E HORA INICIAL: 27/01/18 07:00\r\nDATA E HORA FINAL: 27/01/18 16:00\r\nKM INICIAL: 97495\r\nKM FINAL: 97792\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2389, 2493, 'OCORRENCIA: baixa dosagem\r\nCAUSA: problema no injetor\r\nSOLUCAO: manutenção corretiva\r\nDATA E HORA INICIAL: 23/02/18 07:00\r\nDATA E HORA FINAL: 23/02/18 18:00\r\nKM INICIAL: 101478\r\nKM FINAL: 101900\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2390, 2424, 'OCORRENCIA: manutenção preventiva\r\nCAUSA: periodo de manutenção\r\nSOLUCAO: realizado a manutenção\r\nDATA E HORA INICIAL: 08/02/18 07;00\r\nDATA E HORA FINAL: 08/02/17 12:00\r\nKM INICIAL: 99560\r\nKM FINAL: 99660\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2391, 2494, 'OCORRENCIA: corretiva\r\nCAUSA:  vazamento pela tampa do clorador\r\nSOLUCAO: foi substituído o oringue de vedação e 04 manipulos da tampa.\r\nDATA E HORA INICIAL: 23/02/2018 às 15: 32\r\nDATA E HORA FINAL: 23/02/2018 às 19:00\r\nKM INICIAL: 33768\r\nKM FINAL: 33898\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2392, 2494, 'OCORRENCIA: corretiva\r\nCAUSA:  vazamento pela tampa do clorador\r\nSOLUCAO: foi substituído o oringue de vedação e 04 manipulos da tampa.\r\nDATA E HORA INICIAL: 23/02/2018 às 15: 32\r\nDATA E HORA FINAL: 23/02/2018 às 19:00\r\nKM INICIAL: 33768\r\nKM FINAL: 33898\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2393, 2495, 'OCORRENCIA:  operação ( acoplamento de cilindros)\r\nCAUSA:  bateria vazia\r\nSOLUCAO:  foi substituído, acoplado e testado com solução de amônia 04 cilindros cheios.\r\nDATA E HORA INICIAL: 24/02/2018 às 10:00\r\nDATA E HORA FINAL: 24/02/2018 às 12:45\r\nKM INICIAL: 33898\r\nKM FINAL: 33928\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2394, 2514, 'OCORRENCIA: preventiva\r\nCAUSA: \r\nSOLUCAO: foi realizada a limpeza  do manifolde ,realizada a substituição da válvula regualadora , recolocado a válvula do manifolde e o flexivel de 3,5mt que se encontravam ausente , feita também a limpeza do injetor de 1'''' e do clorador de 240kg/dia e seus componentes.\r\nRealizada a pintura do manifolde e das tubulações.\r\n\r\nDATA E HORA INICIAL: 26/02/18 as 15:25hs\r\nDATA E HORA FINAL: 26/02/18 as 19:00hs\r\nKM INICIAL: 39489\r\nKM FINAL: 40054\r\n-----GASTOS GERAIS----\r\nPECAS: 01-válvula reg.-01-válvula do manifolde,01- flexível de 3,5metros \r\nALIMENTACAO: \r\nHOSPEDAGEM: 01 hospedagem valor R$ 90,00\r\nETC: \r\n                          '),
+(2395, 2515, 'OCORRENCIA: preventiva\r\nCAUSA: \r\nSOLUCAO: realizada a substituição do clorador de 240kg/dia,\r\nsubstituição das mangueiras \r\ntroca do injetor de 1''''\r\nsubstituição da válvula reg\r\nsubstituição do flexivel de 3,5metros\r\ne realizada também a pintura do manifolde e tubulações\r\nDATA E HORA INICIAL: 27/02/18 as 08:10hs\r\nDATA E HORA FINAL: 27/02/18 as 10:51hs\r\nKM INICIAL: 40054\r\nKM FINAL: 40130\r\n-----GASTOS GERAIS----\r\nPECAS: 01-injetor de 1'''',01-válvula reg,01-flexivel de 3,5metros ,01- clorador de 240kg/dia\r\nALIMENTACAO: 01 refeição R$20,72\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2396, 2516, 'OCORRENCIA: PREVENTIVA\r\nCAUSA: \r\nSOLUCAO: FOI  REALIZADA A LIMPEZA DO MANIFOLDE \r\nSUBSTITUÇÃO DA VÁLVULA REGULADORA \r\nSUBSTITUIÇÃO DO FLEXIVEL DE 1,5METROS, FEITA TAMBÉM A TROCA DO COLORADOR E ROTÂMETRO DE 26KG/DIA ,SUBSTITUIÇÃO DAS MANGUEIRAS E DO INJETOR DE 3/4  E FEITA A PINTURA DO MANIFOLDE E DAS TUBULAÇÕES.\r\nDATA E HORA INICIAL: 27/02/18 AS 16:36HS\r\nDATA E HORA FINAL: 27/02/18 AS 18:00HS\r\nKM INICIAL: 40130\r\nKM FINAL: 40480\r\n-----GASTOS GERAIS----\r\nPECAS: 01 VÁLVULA REG,01-FLEXIVEL DE 1,5METROS,01-CLORADOR E ROTÂMETRO DE 26KG/DIA,01-INJETOR DE 3/4\r\nALIMENTACAO: 01 REIFEIÇÃO DE R$24,00\r\nHOSPEDAGEM: 01 HOSPEDAGEM R$ 60,00\r\nETC: \r\n                          '),
+(2397, 2549, 'OCORRENCIA: preventiva\r\nCAUSA: flexível danificado e abraçadeira yoke\r\nSOLUCAO: troca do flexível e abraçadeira yoke\r\nDATA E HORA INICIAL: 05/03/2018  as  08:30\r\nDATA E HORA FINAL: 05/03/2018  as  09:50\r\nKM INICIAL: 43083 \r\nKM FINAL: 43134\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2398, 2524, 'OCORRENCIA: preventiva\r\nCAUSA: válvula redutora de pressão entupimento orig.estragada\r\nSOLUCAO: troca de orig. limpeza\r\nDATA E HORA INICIAL: 01/03/2018  as  11:00\r\nDATA E HORA FINAL: 01/03/2018  as  12:00\r\nKM INICIAL: 42814\r\nKM FINAL: 42894\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2399, 2523, 'OCORRENCIA: preventiva\r\nCAUSA: válvula redutor de pressão com entupimento, válvula de pressão reserva quebrado \r\nSOLUCAO: limpeza de válvula. válvula reserva troca\r\nDATA E HORA INICIAL: 01/03/2018  as  08:10\r\nDATA E HORA FINAL: 01/03/2018  as  09:38\r\nKM INICIAL: 42670\r\nKM FINAL: 42814\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2400, 2496, 'OCORRENCIA: preventiva\r\nCAUSA: diafragma danificado do injeto\r\nSOLUCAO:troca do diafragma \r\nDATA E HORA INICIAL: 05/02/2018  as  10:00\r\nDATA E HORA FINAL: 05/02/2018   as  10:50\r\nKM INICIAL: 39059\r\nKM FINAL: 39275\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2401, 2487, 'OCORRENCIA: preventiva\r\nCAUSA: tubulação da bomba reserva danificada, selo mecânico da bomba que esta operando com vazamento\r\nSOLUCAO: troca do tubo, troca do selo mecânico\r\nDATA E HORA INICIAL: 22/02/2018  as  17:00\r\nDATA E HORA FINAL: 22/02/2018  as  17:45\r\nKM INICIAL: 41809\r\nKM FINAL: 42221\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2402, 2497, 'OCORRENCIA: preventiva\r\nCAUSA: flexível danificado\r\nSOLUCAO: troca do flexíval\r\nDATA E HORA INICIAL: 07/02/2018  as  07:35\r\nDATA E HORA FINAL: 07/02/2018  as  08:15\r\nKM INICIAL: 39347\r\nKM FINAL: 39398\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2403, 2521, 'OCORRENCIA: preventiva\r\nCAUSA: injetor entupido \r\nSOLUCAO: limpeza\r\nDATA E HORA INICIAL: 01/03/2018  as  15:20\r\nDATA E HORA FINAL: 01/03/2018  as  15:55\r\nKM INICIAL: 42854\r\nKM FINAL: 43063\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2404, 2550, 'OCORRENCIA: corretiva\r\nCAUSA: manduça do sistema de cloração para casa de quimico \r\nSOLUCAO: \r\nDATA E HORA INICIAL:06/03/2018  as  13:00 \r\nDATA E HORA FINAL: 06/03/2018  as  15:30\r\nKM INICIAL: 43351\r\nKM FINAL: 43456\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2405, 2562, 'OCORRENCIA: MANIFOLD CAINDO\r\nCAUSA: PAREDE NÃO SUPORTA MAIS\r\nSOLUCAO: MUDANÇA DO MANIFOLD PRA OUTRO LOCAL\r\nDATA E HORA INICIAL: 05/03 as 06:58\r\nDATA E HORA FINAL: 05/03 as 15:32\r\nKM INICIAL: 135063\r\nKM FINAL: 135310\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                         FEITO MANUTENÇÃO PREVENTIVA EM TODO SISTEMA DE CLOROGAS'),
+(2406, 2563, 'OCORRENCIA: MANUTENÇÃO PREVENTIVA\r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 12/03 AS 08:10\r\nDATA E HORA FINAL: 12/03 AS 13:40\r\nKM INICIAL: 135516\r\nKM FINAL: 135596\r\n-----GASTOS GERAIS----\r\nPECAS: 01 MANOVACUOMETRO\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                      SUBSTITUIDO 01 MANOVACUOMETRO E FEITO PREVENTIVA EM TODO O SISTEMA DE CLOROGAS'),
+(2407, 2564, 'OCORRENCIA: SEM DOSAR ACIDO\r\nCAUSA: ELEMENTO TUBULAR DESGASTADO\r\nSOLUCAO: SUBSTITUIR\r\nDATA E HORA INICIAL: 13/03 AS 08:17\r\nDATA E HORA FINAL: 13/03 AS 15:10\r\nKM INICIAL: 135596\r\nKM FINAL: 135891\r\n-----GASTOS GERAIS----\r\nPECAS: 01 ELEMENTO TUBULAR AZUL DE 5mm\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n            FEITO LIMPEZA NO GERADOR DE DIOXIDO.              '),
+(2408, 2565, 'OCORRENCIA: MANUTENÇÃO PREVENTIVA\r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 13/03 AS 15:10\r\nDATA E HORA FINAL: 13/03 AS 17:00\r\nKM INICIAL: 135891\r\nKM FINAL: 135932\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          FEITO PREVENTIVA NO GERADOR.'),
+(2409, 2555, 'OCORRENCIA: corretiva\r\nCAUSA: vazamento pela válvula \r\nSOLUCAO: foi realizada a limpeza e substituição do diafragma também feita a troca da válvula do manifolde e uma pequena barra  de aço carbono.\r\nDATA E HORA INICIAL: 28/02/18 as 08:20hs\r\nDATA E HORA FINAL: 28/02/18 as 11:15hs\r\nKM INICIAL: 41268\r\nKM FINAL: 41326\r\n-----GASTOS GERAIS----\r\nPECAS: 01- valvula do manifolde ,01 diafragma da válvula reg,\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2410, 2556, 'OCORRENCIA: corretiva\r\nCAUSA: vazamento pelo ladrão e boia não funcionando \r\nSOLUCAO: foi realizada a substituição da boia e a limpeza do clorador e rotâmetro\r\nDATA E HORA INICIAL: 19/02/18 10:30hs\r\nDATA E HORA FINAL: 19/02/18  13:0hs\r\nKM INICIAL: 39146\r\nKM FINAL: 39330\r\n-----GASTOS GERAIS----\r\nPECAS: 01- boia \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2411, 2518, 'OCORRENCIA: corretiva\r\nCAUSA: manifold Intupido\r\nSOLUCAO: FEITA A LIMPEZA DO MAINFOLDE E TROCA DO ROTÂMETRO DE 104KG/DIA POR UM DE 50KG/DIA\r\nDATA E HORA INICIAL: \r\nDATA E HORA FINAL: \r\nKM INICIAL: 41326\r\nKM FINAL: 41819\r\n-----GASTOS GERAIS----\r\nPECAS: 01- ROTÂMETRO DE 50KG/DIA\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2412, 2526, 'OCORRENCIA: operação\r\nCAUSA: término do produto cloro gás\r\nSOLUCAO: acoplar 02 dois cilindros cheios de 900 kg \r\nDATA E HORA INICIAL: 02/03/18 as 13:00 hras\r\nDATA E HORA FINAL: 02/03/18 as 16:50 hras\r\nKM INICIAL: 34775\r\nKM FINAL: 34806\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nCOMBUSTÍVEL: R$ 152,87\r\n                          '),
+(2413, 2532, 'OCORRENCIA: operação\r\nCAUSA: término do produto cloro gás\r\nSOLUCAO: acoplar 02 dois cilindros cheios de 900 kg\r\nDATA E HORA INICIAL: 02/03/18 as 16:50\r\nDATA E HORA FINAL: 02/03/18 as 19:25 hras\r\nKM INICIAL: 34806\r\nKM FINAL: 34833\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
+(2414, 2571, 'OCORRENCIA: vazamento\r\nCAUSA: valvula com defeito\r\nSOLUCAO: troca\r\nDATA E HORA INICIAL: 16/03/18 07:00\r\nDATA E HORA FINAL: 16/03/18 13:00\r\nKM INICIAL: 23450\r\nKM FINAL: 23500\r\n-----GASTOS GERAIS----\r\nPECAS: valvula R0\r\nALIMENTACAO: 1300\r\nHOSPEDAGEM: 60\r\nETC: \r\n                          '),
+(2415, 2535, 'OCORRENCIA: operação ( acoplamento de cilindro) \r\nCAUSA:  cilindro vazio\r\nSOLUCAO:  foi acoplado e testado com solução de amônia 02 cilindros cheios.\r\nDATA E HORA INICIAL: 26/02/2018 às 16:30\r\nDATA E HORA FINAL: 26/02/2018 às 17:30\r\nKM INICIAL: 34084\r\nKM FINAL: 34114\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2416, 2503, 'OCORRENCIA: operação ( acoplamento de cilindros) \r\nCAUSA:  bateria de cilindros vazio\r\nSOLUCAO:  foi substituído , acoplado e testado com solução de amônia 04 cilindros cheios.\r\nDATA E HORA INICIAL: 26/02/2018 às 07:40\r\nDATA E HORA FINAL: 26/02/2018 às 11:30\r\nKM INICIAL: 34032\r\nKM FINAL: 34062\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2417, 2504, 'OCORRENCIA: corretiva\r\nCAUSA:  linha de arraste quebrada\r\nSOLUCAO:  foi substituído e colado um trecho da rede de arraste de cloração que estava quebrado. \r\nDATA E HORA INICIAL: 26/02/2018 às 11:30\r\nDATA E HORA FINAL: 26/02/2018 às 16:30\r\nKM INICIAL: 34062\r\nKM FINAL: 34084\r\n-----GASTOS GERAIS----\r\nPECAS:  1,5 metro de tubo de 60 mm  doado pela cosanpa\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2418, 2541, 'OCORRENCIA: corretiva\r\nCAUSA: cloradores com vazamento \r\nSOLUCAO:  foi  substituído 01 clorador T20, substituição do anel de vedação do dosador reserva, troca de manipulos da tampa troca de um registro esfera da linha de alimentação do clorador e pintura do equipamento.\r\nDATA E HORA INICIAL: 01/02/2018 às 05:30\r\nDATA E HORA FINAL: 01/02/2018 às 14:30\r\nKM INICIAL: 30909\r\nKM FINAL: 30943\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: 19,00\r\nHOSPEDAGEM: \r\nETC: passagem  de balça 153,74\r\n                          ');
+INSERT INTO `tb_descricao` (`id`, `oat`, `descricao`) VALUES
+(2419, 2542, 'OCORRENCIA: corretiva\r\nCAUSA: vazamento no clorador de pastilha\r\nSOLUCAO:  foi substituído o dosador T20. O equipamento esta em operação.\r\nDATA E HORA INICIAL: 01/02/2018 às 14:30\r\nDATA E HORA FINAL: 01/02/2018 às 16:30\r\nKM INICIAL: 30943\r\nKM FINAL: 30948\r\n-----GASTOS GERAIS----\r\nPECAS:  foi entrega para o gestora das ETAs 04 manipulos e 03 oringues de vedação para a tampa de reseva.\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2420, 2533, 'OCORRENCIA: instalação\r\nCAUSA:  nova instalação\r\nSOLUCAO:  foi concluido a instalação do equipamento do sistema de cloro, o sistema esta inoperante devido que a cosanpa vai programar a instalação da rede elétrica para alimentação da bomba elevatória de pressão.\r\nquando o alimentador elétrico estive pronto o técnico Fernando vai avisar a Sabará.\r\nDATA E HORA INICIAL: 26/02/2018 às 22:30\r\nDATA E HORA FINAL: 01/03/2018 às 15:00\r\nKM INICIAL:  \r\nKM FINAL: \r\n-----GASTOS GERAIS----\r\nPECAS:  peças e conexões 197,96\r\nALIMENTACAO: 174,00\r\nHOSPEDAGEM: 153,00\r\nETC: taxi 160,00\r\nsolda do suporte p/ cilindros 10,00\r\ntaxa de embarque 4,61\r\n                          '),
+(2421, 2534, 'OCORRENCIA: operação acoplamento de cilindro\r\nCAUSA:  cilindro cheio para acoplar\r\nSOLUCAO:  foi acoplado e testado com solução de amônia 01 cilindro cheio\r\nDATA E HORA INICIAL: 01/03/2018 à 15:00\r\nDATA E HORA FINAL:  01/03/2018 às 17:00\r\nKM INICIAL:   ---\r\nKM FINAL:  --\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2422, 2568, 'OCORRENCIA: preventiva \r\nCAUSA: \r\nSOLUCAO: serviços realizados : feita a limpeza e substituição do diafragma do injetor 3/4, substituição da válvula reguladora de pressão.\r\nsubstituição do clorador (cabine) e rotâmetro de 26kg/dia ,troca das mangueiras  e pintura do manifolde e tubulaçao.\r\nDATA E HORA INICIAL: 12/03/18 as 12:02hs\r\nDATA E HORA FINAL: 12/03/18 as 13:40hs\r\nKM INICIAL: 42775\r\nKM FINAL: 43183\r\n-----GASTOS GERAIS----\r\nPECAS:01-diafragma do injetor de 3/4, 01- válvula reguladora,01-clorador (cabine),01- rotâmetro de 26kg/dia \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2423, 2566, 'OCORRENCIA: MANUTENÇÃO PREVENTIVA\r\nCAUSA: \r\nSOLUCAO: \r\nDATA E HORA INICIAL: 22/03 AS 11:45\r\nDATA E HORA FINAL: 22/03 AS 14:56\r\nKM INICIAL: 137122\r\nKM FINAL: 137289\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                    FEITO MANUTENÇÃO PREVENTIVA NO GERADOR DE DIOXIDO.       '),
+(2424, 2610, 'OCORRENCIA: LIQUIDO NO ROTAMETRO\r\nCAUSA: RETORNO PELO INJETOR\r\nSOLUCAO: LIMPEZA DO ROTAMETRO\r\nDATA E HORA INICIAL: 21/03 AS 10:23\r\nDATA E HORA FINAL: 21/03 AS 16:30\r\nKM INICIAL: 136723\r\nKM FINAL: 136843\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                  FEITO LIMPEZA EM TODO O SISTEMA DE CLORO GAS DA ETA. MANIFOLD E VALVULAS, ROTAMETROS, FLEXIVEIS E MANGUEIRAS.        '),
+(2425, 2611, 'OCORRENCIA: SEM DOSAR PELA VP 16\r\nCAUSA: ENTUPIMENTO POR SALINIDADE\r\nSOLUCAO: LIMPEZA\r\nDATA E HORA INICIAL: 22/03 AS 07:00\r\nDATA E HORA FINAL: 22/03 AS 11:30\r\nKM INICIAL: 136994\r\nKM FINAL: 137121\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n    LIMPEZA DO FILTRO DE ÁCIDO, DA VP 16 E DA MANGUEIRA DA VP 16. REDUZIDO O TEMPO DE LAVAGEM DE 2H PARA 40 MINUTOS.                      '),
+(2426, 2211, 'OCORRENCIA: Instalação do novo sistema\r\nCAUSA: Instalação do novo sistema\r\nSOLUCAO: Instalação do novo sistema\r\nDATA E HORA INICIAL: 26/12/17 16:00\r\nDATA E HORA FINAL: 27/12/17 16:30\r\nKM INICIAL: 4.444\r\nKM FINAL: 4.630\r\n-----GASTOS GERAIS----\r\nPECAS: Sistema\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2427, 2222, 'OCORRENCIA: Instalação do novo sistema\r\nCAUSA:  Instalação do novo sistema\r\nSOLUCAO: Instalação do novo sistema\r\nDATA E HORA INICIAL: 28/12/17 10:00\r\nDATA E HORA FINAL: 29/12/17 11:00\r\nKM INICIAL: 4.630\r\nKM FINAL: 4.933\r\n-----GASTOS GERAIS----\r\nPECAS: Sistema novo da clorando\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2428, 2356, 'OCORRENCIA: Instalação do novo sistema clorando\r\nCAUSA: Instalação do novo sistema clorando\r\nSOLUCAO: Instalação do novo sistema clorando\r\nDATA E HORA INICIAL: 19/12/17 09:00\r\nDATA E HORA FINAL: 19/12/17 16:40\r\nKM INICIAL: 9.352  \r\nKM FINAL: 9.410\r\n-----GASTOS GERAIS----\r\nPECAS: Sistema novo da clorando\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2429, 2357, 'OCORRENCIA:  Instalação do novo sistema clorando\r\nCAUSA:  Instalação do novo sistema clorando\r\nSOLUCAO:  Instalação do novo sistema clorando\r\nDATA E HORA INICIAL: 05/12/17 15:00\r\nDATA E HORA FINAL: 06/12/17 11:00\r\nKM INICIAL: 15\r\nKM FINAL: 175\r\n-----GASTOS GERAIS----\r\nPECAS: Sistema clorando\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2430, 2506, 'OCORRENCIA: Falta de vácuo\r\nCAUSA: Problema nos orings dos injetores\r\nSOLUCAO: Substituição dos orings dos injetores e redutoras de pressão\r\nDATA E HORA INICIAL: 27/02/18 12:10 \r\nDATA E HORA FINAL: 27/02/18 15:00\r\nKM INICIAL: 17.294\r\nKM FINAL: 17.377\r\n-----GASTOS GERAIS----\r\nPECAS: Orings\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2431, 2465, 'OCORRENCIA: Problema na bomba\r\nCAUSA: Eixo quebrdo\r\nSOLUCAO: Substituído o eixo e o selo mecânico\r\nDATA E HORA INICIAL: 15/02/18 09:30 \r\nDATA E HORA FINAL: 15/02/18 11:00\r\nKM INICIAL: 14.555\r\nKM FINAL: 14.779\r\n-----GASTOS GERAIS----\r\nPECAS: Eixo e selo mecânico de 3/4\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2432, 2409, 'OCORRENCIA: Falta de vácuo\r\nCAUSA: Orings danificado\r\nSOLUCAO: Troca do injetor e limpeza de redutoras lavado e secado manifolds.\r\nDATA E HORA INICIAL: 02/02/18 07:00\r\nDATA E HORA FINAL: 02/02/18 13:00\r\nKM INICIAL: 12.136\r\nKM FINAL: 12.463 \r\n-----GASTOS GERAIS----\r\nPECAS: Orings e injetor \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2433, 2397, 'OCORRENCIA: Problema com as bombas\r\nCAUSA: Eixo quebrado\r\nSOLUCAO: Substituído as bombas e uma válvula poço \r\nDATA E HORA INICIAL: 31/01/18 08:00\r\nDATA E HORA FINAL: 01/02/18 16:00\r\nKM INICIAL: 11.636\r\nKM FINAL: 12.135\r\n-----GASTOS GERAIS----\r\nPECAS: 2 bombas e uma válvula\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2434, 2561, 'OCORRENCIA: Verificação dos rotâmetro\r\nCAUSA: Verificação dos rotâmetro\r\nSOLUCAO: Verificação dos rotâmetro\r\nDATA E HORA INICIAL: 13/03/18 11:00\r\nDATA E HORA FINAL: 13:/03/18 11:50\r\nKM INICIAL: 20.404\r\nKM FINAL: 20.506\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2435, 2431, 'OCORRENCIA: Falta de vácuo\r\nCAUSA: Bomba com defeito\r\nSOLUCAO: Substituído rolamentos e selo mecânico \r\nDATA E HORA INICIAL: 09/02/18 08:00\r\nDATA E HORA FINAL: 09/02/18 13:00\r\nKM INICIAL: 13.949\r\nKM FINAL: 14.088\r\n-----GASTOS GERAIS----\r\nPECAS: Rolamentos e selo mecânico\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2436, 2517, 'OCORRENCIA: corretiva\r\nCAUSA: perda residual \r\nSOLUCAO: feita a manutenção no equipamento e teste de possível entrada de ar\r\nfeita a limpeza da válvula reguladora de pressão ,substituição da saída de fluxo do injetor e limpeza do manifolde . \r\nEquipameto ficou operando em perfeitas condições \r\nDATA E HORA INICIAL: 20/03/18 as 09:20hs\r\nDATA E HORA FINAL: 20/03/18 as 18:00hs\r\nKM INICIAL: 31273\r\nKM FINAL: 33233\r\n-----GASTOS GERAIS----\r\nPECAS:  01-síada de fluxo do injetor\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2437, 2597, 'OCORRENCIA: visita técnica\r\nCAUSA: \r\nSOLUCAO: foi  realizado a visita na eta e feita a limpeza do rotâmetro  e do clorador 240kg/dia\r\n o equipamento se encontra funcionando em perfeitas condições.\r\nDATA E HORA INICIAL: 19/03/18 as 13:00hs\r\nDATA E HORA FINAL: 19/03/18 as 13:20hs\r\nKM INICIAL: 31230\r\nKM FINAL: 31273\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2438, 2569, 'OCORRENCIA: operação\r\nCAUSA: término do produto cloro gás\r\nSOLUCAO: acoplar 01 cilindro cheio de 900 e limpeza nas válvulas redutoras de pressão e nas raios, instalação de uma tomada industrial de 220V na sala da bomba dosadora do PAC\r\nDATA E HORA INICIAL: 14/03/18 as 20:15 hras\r\nDATA E HORA FINAL: 15/03/18 as 10:45 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM: R$ 90,00\r\nALIMENTACAO: R$ 12,00\r\nHOSPEDAGEM: R$ 86,00\r\nETC: ****\r\n                          '),
+(2439, 2570, 'OCORRENCIA: operação\r\nCAUSA: término do produto cloro gás\r\nSOLUCAO: acoplar 02 dois cilindros cheios de 900 kg\r\nDATA E HORA INICIAL: 15/03/18 as 10:45 hras\r\nDATA E HORA FINAL: 15/03/18 as 17:30 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nTÁXI: R$ 165,00\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
+(2440, 2578, 'OCORRENCIA: preventiva na bomba dosadora do PAC\r\nCAUSA: retorno de produto \r\nSOLUCAO: substituição do estator de 10/L hra,anel de encoste,selo mecânico, borracha plana de vedação.\r\nDATA E HORA INICIAL: 16/03/18 as 07:45 hras\r\nDATA E HORA FINAL: 18/03/18 as 03:45 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM: R$ 235,09\r\nPEÇAS: R$ 11,00(silicone)\r\nALIMENTACAO: R$ 83,00\r\nHOSPEDAGEM: R$ 70,00\r\nTÁXI: R$ 160,00\r\n                          '),
+(2441, 2608, 'OCORRENCIA: operação \r\nCAUSA: término do produto cloro gás\r\nSOLUCAO: acoplar 01 um cilindro cheio de 900 kg\r\nDATA E HORA INICIAL: 22/03/18 as 07:45 hras\r\nDATA E HORA FINAL: 22/03/18 as 09:50 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
+(2442, 2609, 'OCORRENCIA: operação \r\nCAUSA: término do produto cloro gás\r\nSOLUCAO: acoplar 01 cilindro cheio de 900 kg\r\nDATA E HORA INICIAL: 22/03/18 as 09:50 hras\r\nDATA E HORA FINAL: 22/03/18 as 11:05 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
+(2443, 2613, 'OCORRENCIA: operação \r\nCAUSA: término do produto cloro gás\r\nSOLUCAO: acopar 02 dois cilindros cheios de 900 kg\r\nDATA E HORA INICIAL: 22/03/18 as 11:05 hras\r\nDATA E HORA FINAL: 22/03/18 as 17:30 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
+(2444, 2612, 'OCORRENCIA: operação \r\nCAUSA: término do produto cloro gás\r\nSOLUCAO: acoplar 02 dois cilindros cheios de 900 kg\r\nDATA E HORA INICIAL: 23/03/18 as 07:45 hras\r\nDATA E HORA FINAL: 23/03/18 as 20:45 hras\r\nKM INICIAL: *****\r\nKM FINAL: *****\r\n-----GASTOS GERAIS----\r\nPASSAGEM: R$ 79,81\r\nALIMENTACAO: R$ 28,00\r\nTÁXI: R$ 160,00\r\nETC: *****\r\n                          '),
+(2445, 2607, 'OCORRENCIA: Reativar sistema de cloração.\r\nCAUSA:  Muito tempo parada.\r\nSOLUCAO:   Limpeza, troca de orings e reparos em dois gabinetes 240kg/ dia da fluidefeeder com um injetor da siemens planalto de 1" e outro de 2" da fluidefeeder, com troca das mangueiras e pintura em suas tubulações.     Feita troca de reparos da unica valv. de vácuo precisando estalar reserva.  Equipamento funcionando bem sem nenhum vazamento.\r\nDATA E HORA INICIAL: 22/03/18  as  07:00\r\nDATA E HORA FINAL:   22/03/18  as  18:45\r\nKM INICIAL: 41909\r\nKM FINAL:  42323\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO:    39,60\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2446, 2538, 'OCORRENCIA:   \r\nCAUSA: \r\nSOLUCAO:   Modificação na tubulação da pré-cloração e pós-cloração.    Pós e pre funcionando com residual desejado.\r\nDATA E HORA INICIAL:   05/03/18  as  08:30 \r\nDATA E HORA FINAL:   09/03/18  as  12:30\r\nKM INICIAL:  73860\r\nKM FINAL:    74500\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2447, 2669, 'OCORRENCIA: SEM VACUO\r\nCAUSA: SUJEIRA NO INJETOR\r\nSOLUCAO: LIMPEZA DO INJETOR\r\nDATA E HORA INICIAL: 26/03 AS 11:47\r\nDATA E HORA FINAL: 26/03 AS 16:33\r\nKM INICIAL: 137707\r\nKM FINAL: 138930\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                       LIMPEZA DO INJETOR E DO ROTAMETRO, SISTEMA VOLTOU AO NORMAL.   '),
+(2448, 2666, 'OCORRENCIA: VALVULA DO CILINDRO "LOUCA"\r\nCAUSA: DESGASTE\r\nSOLUCAO: UTILIZAR A OUTRA VALVULA DO CILINDRO\r\nDATA E HORA INICIAL: 27/03 AS 07:21\r\nDATA E HORA FINAL: 27/03 AS 13:23\r\nKM INICIAL: 137930\r\nKM FINAL: 138427\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n            FEITO LIMPEZA EM TODO O SISTEMA DE CLOROGAS.               '),
+(2449, 2658, 'OCORRENCIA:   Preventiva.\r\nCAUSA: \r\nSOLUCAO:   Limpeza na válvula reguladora de vácuo e seu gabinete de 26kg/ dia com limpeza nas mangueira e suas tubulações.              Equipamento funcionando bem sem nenhum vazamento.  \r\nDATA E HORA INICIAL:     27/03/28  as  13:30 \r\nDATA E HORA FINAL:       27/03/18  as  14:47\r\nKM INICIAL:  75838\r\nKM FINAL:    75959\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2450, 2657, 'OCORRENCIA: Preventiva.\r\nCAUSA: \r\nSOLUCAO:      Feita limpeza na pós-cloração no gabinete 26 kg/ dia, na valv. reguladora de vácuo e seu injetor da fluid feeder.      Na pré-cloração, feita limpeza no  clorador 240 kg/dia da siemes com troca de um flexível de cobre de 1,20 mm.  Ambos feito os testes no local na presença do operador de plantão não havendo nenhum vazamento.        Próxima visita trocar duas valv. R-O.         Foi instalada arvore de falha no local.     \r\nDATA E HORA INICIAL:   27/03/18  as  09:00\r\nDATA E HORA FINAL:     27/03/18  as  11:30\r\nKM INICIAL:   75759\r\nKM FINAL:     75838\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO:   39,00\r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2451, 2653, 'OCORRENCIA:  Corretiva.\r\nCAUSA: \r\nSOLUCAO:    Substituição do rotâmetro flutuador 15 kg/dia por um de 5 kg/dia clorando.                 Feito os testes no local e aprovado pelo operador de plantão.\r\nDATA E HORA INICIAL:   14/03/18  as  14:05\r\nDATA E HORA FINAL:     14/03/18  as  14:28\r\nKM INICIAL:   41271\r\nKM FINAL:     41296\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2452, 2652, 'OCORRENCIA:   Corretiva.\r\nCAUSA:   \r\nSOLUCAO:  Feita a troca de um rotâmetro flutuador 15 kg/dia por um de 5 kg/dia da clorando. Feito os testes no local na presença do operador de plantão, funcionando bem, conforme desejado. \r\nDATA E HORA INICIAL:    14/03/18  as  13:28 \r\nDATA E HORA FINAL:      14/03/18  as  13:47\r\nKM INICIAL:    41199\r\nKM FINAL:      41272\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2453, 2651, 'OCORRENCIA:  Sistema de cloração da ETE parado.\r\nCAUSA:   Chave de partida da bomba queimada.\r\nSOLUCAO:  Feita troca da mesma voltando a trabalhar normalmente com a presença do operador de plantão.                   Solicitar a troca de um outro djuntor de 10ap por um de 15 ou 20ap a Caern, quadro elétrico de propriedade dela.\r\nDATA E HORA INICIAL:  09/03/18  as  08:00 \r\nDATA E HORA FINAL:    09/03/18  as  10:12\r\nKM INICIAL:   40745\r\nKM FINAL:      40790                 \r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2454, 2650, 'OCORRENCIA:  Bomba do sistema de cloração parada.\r\nCAUSA:   Não tem fluxo na chave de fluxo a bomba não funciona.\r\nSOLUCAO:   Feito o acionamento manualmente na chave de fluxo,na qual voltou a funcionar normalmente.     Será feito esse procedimento sempre que faltar energia.          \r\nDATA E HORA INICIAL: \r\nDATA E HORA FINAL: \r\nKM INICIAL: \r\nKM FINAL: \r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n OBS:  Próxima visita técnica trocar bomba, pois a mesma se encontra com vazamento no selo mecânico e com barulho no rolamento.                          '),
+(2455, 2649, 'OCORRENCIA:   Instalação.\r\nCAUSA: \r\nSOLUCAO:   Feita instalação de um iskd na ETE completo com bomba centrifuga de 2cv.mono. kit A, mascara panorâmica com cartucho, detector de cloro gás, manifood completo, com manovacometro de -1 a 21.   Equipamento clorando 50 kg/dia e chave magnética.    Fixado suporte para dois cilindros 68 kg/dia, feita a tubulação de recalque e sucção sem obter vácuo por falta de pressão na rede.\r\nDATA E HORA INICIAL:   01/03/18  as  13:40\r\nDATA E HORA FINAL:     02/03/18  as  20:30\r\nKM INICIAL:   73370\r\nKM FINAL:     73823\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n         OBS: Vai ser agendado com a CAERN para aumentar diâmetro da tubulação de 20mm para 32mm para podermos fazer os testes finais.                 '),
+(2456, 2661, 'OCORRENCIA: operação\r\nCAUSA: término do produto cloro gás\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 27/03/18 as 07:45 hras\r\nDATA E HORA FINAL: 27/03/18 as 12:00 hras\r\nKM INICIAL: *****\r\nKM FINAL:***** \r\n-----GASTOS GERAIS----\r\nPECAS: *****\r\nALIMENTACAO: *****\r\nHOSPEDAGEM: *****\r\nETC: *****\r\n                          '),
+(2457, 2543, 'OCORRENCIA: preventiva\r\nCAUSA:  válvula de linha dando passagem fechada\r\nSOLUCAO:  foi substituído 01 válvula esfera de 1" MGA  do manifolde de saída dos cilindros e foi substituído, acoplado e testado com solução de amônia 04 cilindros cheios.\r\nDATA E HORA INICIAL: 05/03/2018 às 08:00\r\nDATA E HORA FINAL: 05/03/2018 às 12:00\r\nKM INICIAL: 34833\r\nKM FINAL: 34863\r\n-----GASTOS GERAIS----\r\nPECAS:  01 válvula esfera 1" mga\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2458, 2543, 'OCORRENCIA: preventiva\r\nCAUSA:  válvula de linha dando passagem fechada\r\nSOLUCAO:  foi substituído 01 válvula esfera de 1" MGA  do manifolde de saída dos cilindros e foi substituído, acoplado e testado com solução de amônia 04 cilindros cheios.\r\nDATA E HORA INICIAL: 05/03/2018 às 08:00\r\nDATA E HORA FINAL: 05/03/2018 às 12:00\r\nKM INICIAL: 34833\r\nKM FINAL: 34863\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2459, 2553, 'OCORRENCIA: corretiva\r\nCAUSA: manovacuômetro travado e com vazamento, 02 vál. raio, 01 braçadeira yokew\r\nSOLUCAO: foi substituído o manovacuômetro, 02 vál vaio  1", 01 braçadeira yoke,  revitalização da pintura dos equipamentos, desconectado 01 cilindro vazio, limpeza interna no vidro rotâmetro,vál. redutora de pressão e injetor. \r\nDATA E HORA INICIAL: 06/03/2018 às 09:00\r\nDATA E HORA FINAL: 06/03/2018 às 13:30\r\nKM INICIAL: 34863\r\nKM FINAL: 34887\r\n-----GASTOS GERAIS----\r\nPECAS:  01 manovacuômetro\r\n 02 vál. raio  1" \r\n01 braçadeira yoke\r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2460, 2598, 'OCORRENCIA: instalação\r\nCAUSA:  foi interligado a linha de arraste e aplicação na tomada de água que foi fornecido pela cosanpa, e foi instalado 01 válvula redutora de pressão, 01 manovacuômetro e pintura do equipamento.\r\nSOLUCAO: \r\nDATA E HORA INICIAL: 08/03/2018 às 07:10\r\nDATA E HORA FINAL: 08/03/2018 às 21:30\r\nKM INICIAL: 35139\r\nKM FINAL: 35544\r\n-----GASTOS GERAIS----\r\nPECAS: 01 vál. redut.\r\n01 manovacuômetro \r\nconexões de pvc 30,80\r\nALIMENTACAO: 35,00\r\nHOSPEDAGEM: \r\nETC:  combustivel 257,50\r\n                          '),
+(2461, 2560, 'OCORRENCIA: corretiva\r\nCAUSA: visor do nivel do tq com defeito\r\nSOLUCAO: foi substituído o visor do tanque de pac.\r\nDATA E HORA INICIAL: 12/03/2018 às 13:00\r\nDATA E HORA FINAL: 12/03/2018 às 16:00\r\nKM INICIAL: 36018\r\nKM FINAL: 36042\r\n-----GASTOS GERAIS----\r\nPECAS: 07 metros de mangueira cristal 3/4\r\n''ALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          '),
+(2462, 2573, 'OCORRENCIA: operação\r\nCAUSA: troca de bateria de cilindros vazios\r\nSOLUCAO:  foi substituído acoplado e testado com solução de amônia 04 cilindros cheios.\r\nDATA E HORA INICIAL: 12/03/2018 às 16:00\r\nDATA E HORA FINAL: 12/03/2018 às 18:00\r\nKM INICIAL: 36018\r\nKM FINAL: 36042\r\n-----GASTOS GERAIS----\r\nPECAS: \r\nALIMENTACAO: \r\nHOSPEDAGEM: \r\nETC: \r\n                          ');
 
 -- --------------------------------------------------------
 
@@ -3759,17 +2994,19 @@ INSERT INTO `tb_locais` (`id`, `loja`, `tipo`, `regional`, `name`, `municipio`, 
 -- Estrutura da tabela `tb_localidades`
 --
 
-CREATE TABLE `tb_localidades` (
-  `id` int(11) NOT NULL,
-  `cliente` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `regional` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `nome` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `municipio` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `uf` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+CREATE TABLE IF NOT EXISTS `tb_localidades` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cliente` varchar(30) NOT NULL,
+  `regional` varchar(100) DEFAULT NULL,
+  `nome` varchar(50) NOT NULL,
+  `municipio` varchar(100) NOT NULL,
+  `uf` varchar(2) NOT NULL,
   `latitude` float(10,6) DEFAULT NULL,
   `longitude` float(10,6) DEFAULT NULL,
-  `ativo` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `ativo` enum('0','1') NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `fk_clientes` (`cliente`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=882 ;
 
 --
 -- Extraindo dados da tabela `tb_localidades`
@@ -3969,6 +3206,7 @@ INSERT INTO `tb_localidades` (`id`, `cliente`, `regional`, `nome`, `municipio`, 
 (192, 'CAERN', '', 'SAO MIGUEL', 'SAO MIGUEL', 'RN', -6.215470, -38.429302, '0'),
 (193, 'CAERN', '', 'SAO RAFAEL', 'SAO RAFAEL', 'RN', -5.802804, -36.879539, '0'),
 (194, 'CAERN', '', 'ETE SAO TOME', 'SAO TOME', 'RN', -5.973583, -36.070179, '0'),
+(546, 'CAGEPA', '', 'ARACAGI', 'ARACAGI', 'PB', -6.852192, -35.294487, '0'),
 (196, 'CAERN', '', 'SERRA DE SANTANA', 'FLORANIA', 'RN', -5.964889, -36.954777, '0'),
 (197, 'SERRA NEGRA DO NORTE', '', 'SAAE - SERRA NEGRA DO NORTE', 'SERRA NEGRA DO NORTE', 'RN', -6.670883, -37.391548, '0'),
 (198, 'CAERN', '', 'SERRINHA DOS PINTOS', 'SERRINHA DOS PINTOS', 'RN', 0.000000, 0.000000, '0'),
@@ -4185,7 +3423,7 @@ INSERT INTO `tb_localidades` (`id`, `cliente`, `regional`, `nome`, `municipio`, 
 (409, 'COSANPA', '', '5 SETOR', 'BELEM', 'PA', -1.427460, -48.456375, '0'),
 (410, 'COSANPA', '', 'ABAETETUBA', 'ABAETETUBA', 'PA', -1.721471, -48.882038, '0'),
 (411, 'COSANPA', '', 'ABAETETUBA ALGODOAL', 'ABAETETUBA', 'PA', 0.000000, 0.000000, '0'),
-(412, 'COSANPA', '', 'AFUA', 'AFUA', 'PA', 0.000000, 0.000000, '0'),
+(412, 'COSANPA', '', 'AFUA', 'AFUA', 'PA', -0.153839, -50.387634, '0'),
 (413, 'COSANPA', '', 'ALENQUER', 'ALENQUER', 'PA', 0.000000, 0.000000, '0'),
 (414, 'COSANPA', '', 'ALTAMIRA', 'ALTAMIRA', 'PA', 0.000000, 0.000000, '0'),
 (415, 'COSANPA', '', 'ANAJAS', 'ANAJAS', 'PA', 0.000000, 0.000000, '0'),
@@ -4306,8 +3544,8 @@ INSERT INTO `tb_localidades` (`id`, `cliente`, `regional`, `nome`, `municipio`, 
 (531, 'SOLAR', '', 'PETROLINA', 'PETROLINA', 'PE', -9.395559, -40.530453, '0'),
 (532, 'UFRN', '', 'CAMPUS - NATAL UFRN', 'NATAL', 'RN', -5.837338, -35.202271, '0'),
 (533, 'CAERN', '', 'CAJUPIRANGA  - P68', 'PARNAMIRIM', 'RN', 0.000000, 0.000000, '0'),
-(535, 'SABARA', '', 'ITAPISSUMA', 'ITAPISSUMA', 'PE', -7.799309, -34.925011, '0'),
 (536, 'BRASIL KIRIN', '', 'BRASIL KIRIN IGARASSU', 'IGARASSU', 'PE', -7.797803, -34.928207, '0'),
+(535, 'SABARA', '', 'ITAPISSUMA', 'ITAPISSUMA', 'PE', -7.799309, -34.925011, '0'),
 (537, 'SOLAR', '', 'ARAPIRACA', 'ARAPIRACA', 'AL', -9.785653, -36.655251, '0'),
 (538, 'CAERN', '', 'SAO JOSE DO SERIDO', 'SAO JOSE DO SERIDO', 'RN', -6.450280, -36.876423, '0'),
 (539, 'CASAL', '', 'ALTO SERTAO - AGUA BRANCA', 'AGUA BRANCA', 'AL', -9.314660, -37.981758, '0'),
@@ -4316,7 +3554,6 @@ INSERT INTO `tb_localidades` (`id`, `cliente`, `regional`, `nome`, `municipio`, 
 (543, 'CASAL', '', 'ALTO SERTAO(ETA NOVA)', 'DELMIRO GOUVEIA', 'AL', -9.314146, -37.981365, '0'),
 (544, 'CAERN', '', 'JARDIM DE PIRANHAS - MANOEL TORRES EB1', 'JARDIM DE PIRANHAS', 'RN', -6.377249, -37.353966, '0'),
 (545, 'COMPESA', 'CPR Norte', 'BOTAFOGO', 'IGARASSU', 'PE', -7.852777, -34.938107, '0'),
-(546, 'CAGEPA', '', 'ARACAGI', 'ARACAGI', 'PB', -6.852192, -35.294487, '0'),
 (547, 'COMPESA', 'CPR Norte', 'BOTAFOGO', 'IGARASSU', 'PE', -7.852777, -34.938107, '0'),
 (548, 'COMPESA', 'CPR Norte', 'ARACOIABA', 'ARACOIABA', 'PE', -7.788469, -35.092251, '0'),
 (549, 'COMPESA', 'CPR Norte', 'GOIANA', 'GOIANA', 'PE', -7.531476, -34.996239, '0'),
@@ -4499,7 +3736,7 @@ INSERT INTO `tb_localidades` (`id`, `cliente`, `regional`, `nome`, `municipio`, 
 (725, 'COMPESA', 'ARARIPE', 'IPUBI', 'IPUBI', 'PE', 0.000000, 0.000000, '0'),
 (726, 'COMPESA', 'ARARIPE', 'SANTA CRUZ DE MALTA', 'SANTA CRUZ', 'PE', 0.000000, 0.000000, '0'),
 (727, 'COMPESA', 'ARARIPE', 'LAGOA DO BARRO', 'LAGOA DO BARRO, ARARIPINA', 'PE', 0.000000, 0.000000, '0'),
-(728, 'COMPESA', 'ARARIPE', 'TRINDADE', 'TRINDADE', 'PE', 0.000000, 0.000000, '0'),
+(728, 'COMPESA', 'ARARIPE', 'TRINDADE', 'TRINDADE', 'PE', -7.763106, -40.266312, '0'),
 (729, 'COMPESA', 'ARARIPE', 'BODOCO - ETA Luiz Gonzaga', 'BODOCO', 'PE', 0.000000, 0.000000, '0'),
 (730, 'COMPESA', 'ARARIPE', 'ARARIPINA', 'ARARIPINA', 'PE', 0.000000, 0.000000, '0'),
 (731, 'COMPESA', 'ARARIPE', 'SERROLANDIA', 'SERROLANDIA, IPUBI', 'PE', 0.000000, 0.000000, '0'),
@@ -4593,9 +3830,9 @@ INSERT INTO `tb_localidades` (`id`, `cliente`, `regional`, `nome`, `municipio`, 
 (819, 'CAGECE', '', 'IPAGUACU', 'IPAGUACU', 'CE', -3.509380, -40.278725, '0'),
 (820, 'CAGECE', '', 'GROAIRAS', 'GROAIRAS', 'CE', -3.904063, -40.402130, '0'),
 (821, 'CAGECE', '', 'SANTANA DO ACARAU', 'SANTANA DO ACARAU', 'CE', -3.457453, -40.217594, '0'),
+(825, 'CAGECE', '', 'SERRA DO FELIX', 'BEBERIBE', 'CE', -4.461232, -38.150440, '0'),
 (823, 'CAGECE', '', 'MORAUJO - VARZEA DA VOLTA', 'MORAUJO', 'CE', -3.501889, -40.615623, '0'),
 (824, 'CAGECE', '', 'UBAUNA', 'UBAUNA', 'CE', -3.737034, -40.686741, '0'),
-(825, 'CAGECE', '', 'SERRA DO FELIX', 'BEBERIBE', 'CE', -4.461232, -38.150440, '0'),
 (826, 'CAGECE', '', 'PALHANO', 'PALHANO', 'CE', -4.736352, -37.965450, '0'),
 (827, 'CAGECE', '', 'JAGUARUANA', 'JAGUARUANA', 'CE', -4.849774, -37.783184, '0'),
 (828, 'CAGECE', '', 'QUIXERE', 'QUIXERE', 'CE', -5.074149, -38.006786, '0'),
@@ -4642,133 +3879,15 @@ INSERT INTO `tb_localidades` (`id`, `cliente`, `regional`, `nome`, `municipio`, 
 (869, 'CAERN', '', 'ASSU - ZE DA VOLTA ', 'ASSU', 'RN', -5.497604, -37.149181, '0'),
 (870, 'CAGECE', '', 'PARAIPABA', 'PARAIPABA', 'CE', -3.428357, -39.145428, '0'),
 (871, 'COSANPA', 'CENTRO', 'CACHOEIRA DO ARIRI', 'CACHOEIRA DO ARIRI', 'PA', -1.008872, -48.960564, '0'),
-(872, 'USINA OLHO D\'AGUA', '', 'USINA OLHO DAGUA', 'CAMUTANGA', 'PE', -7.418442, -35.256939, '0'),
-(873, 'COSANPA', '', 'SOURE - ETA  CAPITACAO 03', 'SOURE', 'PA', -0.731857, -48.516785, '0');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_local_categoria`
---
-
-CREATE TABLE `tb_local_categoria` (
-  `id` int(11) NOT NULL,
-  `local` int(11) NOT NULL,
-  `categoria` int(11) NOT NULL,
-  `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_local_categoria`
---
-
-INSERT INTO `tb_local_categoria` (`id`, `local`, `categoria`, `ativo`) VALUES
-(1, 2, 1, '0'),
-(2, 2, 3, '0'),
-(3, 3, 1, '0'),
-(4, 595, 1, '0'),
-(5, 595, 2, '0');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_loja`
---
-
-CREATE TABLE `tb_loja` (
-  `id` int(11) NOT NULL,
-  `nick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
-  `proprietario` int(11) NOT NULL,
-  `grupo` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
-  `seguimento` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
-  `data` date NOT NULL,
-  `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_loja`
---
-
-INSERT INTO `tb_loja` (`id`, `nick`, `name`, `proprietario`, `grupo`, `seguimento`, `data`, `ativo`) VALUES
-(1, 'AGESPISA', 'AGESPISA', 1, 'C', 'SAN', '2017-08-18', '0'),
-(2, 'ALUBAR', 'ALUBAR', 1, 'C', 'IND', '2017-08-18', '0'),
-(3, 'AMBEV', 'AMBEV', 1, 'C', 'BEB', '2017-08-18', '0'),
-(4, 'APERAM', 'APERAM', 1, 'C', 'IND', '2017-08-18', '0'),
-(5, 'BATERIAS MOURA', 'BATERIAS MOURA', 1, 'C', 'IND', '2017-08-18', '0'),
-(6, 'BIOSEV - GIASA', 'BIOSEV - GIASA', 1, 'C', 'USI', '2017-08-18', '0'),
-(7, 'CAB AGRESTE', 'CAB AGRESTE', 1, 'C', 'SAN', '2017-08-18', '0'),
-(8, 'CAB CUIABA', 'CAB CUIABA', 1, 'C', 'SAN', '2017-08-18', '0'),
-(9, 'CAEMA', 'CAEMA', 1, 'C', 'SAN', '2017-08-18', '0'),
-(10, 'CAER', 'CAER', 1, 'C', 'SAN', '2017-08-18', '0'),
-(11, 'CAERN', 'CAERN', 1, 'C', 'SAN', '2017-08-18', '0'),
-(12, 'CAGECE', 'CAGECE', 1, 'C', 'SAN', '2017-08-18', '0'),
-(13, 'CAGEPA', 'CAGEPA', 1, 'C', 'SAN', '2017-08-18', '0'),
-(14, 'CASAL', 'CASAL', 1, 'C', 'SAN', '2017-08-18', '0'),
-(15, 'CESAN', 'CESAN', 1, 'C', 'SAN', '2017-08-18', '0'),
-(16, 'COMPESA', 'COMPESA', 1, 'C', 'SAN', '2017-08-18', '0'),
-(17, 'COSANPA', 'COSANPA', 1, 'C', 'SAN', '2017-08-18', '0'),
-(18, 'DAE-VARZEA GRANDE', 'DAE-VARZEA GRANDE', 1, 'C', 'SAN', '2017-08-18', '0'),
-(19, 'DEPASA', 'DEPASA', 1, 'C', 'SAN', '2017-08-18', '0'),
-(20, 'DESO', 'DESO', 1, 'C', 'SAN', '2017-08-18', '0'),
-(21, 'NIAGRO NICHIREI-PE', 'NIAGRO NICHIREI-PE', 1, 'C', 'IND', '2017-08-18', '0'),
-(22, 'SAAE - BACABAL', 'SAAE - BACABAL', 1, 'C', 'SAN', '2017-08-18', '0'),
-(23, 'SAAE - CAXIAS', 'SAAE - CAXIAS', 1, 'C', 'SAN', '2017-08-18', '0'),
-(24, 'SABARA', 'SABARA', 1, 'P', 'IND', '2017-08-18', '0'),
-(25, 'SERRA NEGRA DO NORTE', 'SERRA NEGRA DO NORTE', 1, 'C', 'SAN', '2017-08-18', '0'),
-(26, 'SOLAR', 'SOLAR', 1, 'C', 'BEB', '2017-08-18', '0'),
-(27, 'UFRN', 'UFRN', 1, 'C', 'OUT', '2017-08-18', '0'),
-(28, 'BRASIL KIRIN', 'BRASIL KIRIN', 1, 'C', 'BEB', '2017-08-18', '0'),
-(29, 'GERDAU', 'GERDAU', 1, 'C', 'IND', '2017-08-18', '0'),
-(30, 'HEINEKEN', 'HEINEKEN', 1, 'C', 'BEB', '2017-08-18', '0'),
-(31, 'SANEAR RONDONOPOLIS', 'SANEAR RONDONOPOLIS', 1, 'C', 'SAN', '2017-08-18', '0');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_loja_categoria`
---
-
-CREATE TABLE `tb_loja_categoria` (
-  `id` int(11) NOT NULL,
-  `loja` int(11) NOT NULL,
-  `categoria` int(11) NOT NULL,
-  `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_loja_categoria`
---
-
-INSERT INTO `tb_loja_categoria` (`id`, `loja`, `categoria`, `ativo`) VALUES
-(1, 1, 1, '0');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_mod`
---
-
-CREATE TABLE `tb_mod` (
-  `id` int(11) NOT NULL,
-  `os` int(11) NOT NULL,
-  `tecnico` int(11) NOT NULL,
-  `dtInicio` datetime NOT NULL,
-  `dtFinal` datetime DEFAULT NULL,
-  `tempo` int(11) DEFAULT NULL,
-  `kmInicio` int(11) DEFAULT NULL,
-  `kmFinal` int(11) DEFAULT NULL,
-  `valor` int(11) DEFAULT NULL,
-  `tipoTrajeto` int(11) DEFAULT NULL,
-  `status` enum('0','1','2','3','4','5') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_mod`
---
-
-INSERT INTO `tb_mod` (`id`, `os`, `tecnico`, `dtInicio`, `dtFinal`, `tempo`, `kmInicio`, `kmFinal`, `valor`, `tipoTrajeto`, `status`) VALUES
-(1, 1, 1, '2018-03-14 11:54:00', NULL, NULL, 1, NULL, 0, 1, '1');
+(872, 'USINA OLHO D''AGUA', '', 'USINA OLHO DAGUA', 'CAMUTANGA', 'PE', -7.418442, -35.256939, '0'),
+(873, 'COSANPA', '', 'SOURE - ETA  CAPITACAO 03', 'SOURE', 'PA', -0.731857, -48.516785, '0'),
+(874, 'CAERN', '', 'ETE NOVA CRUZ', 'NOVA CRUZ', 'RN', -6.471118, -35.426743, '0'),
+(875, 'COSANPA', '', 'CAPANEMA - ETA CAETE', 'CAPANEMA', 'PA', -1.298373, -47.105793, '0'),
+(876, 'CAERN', '', 'AFONSO BEZERRA', 'AFONSO BEZERRA', 'RN', -5.499899, -36.504940, '0'),
+(878, 'CAESA', '', 'MACAPA', 'MACAPA', 'AP', 0.023398, -51.060429, '0'),
+(879, 'CAESA', '', 'ETA DE SATANA', 'MACAPA', 'AP', -0.041328, -51.167416, '0'),
+(880, 'HEINEKEN', '', 'HEINEKEN BENEVIDES', 'BENEVIDES', 'PA', -1.345641, -48.253624, '0'),
+(881, 'CAGEPA', 'CENTRO', 'CACIMBA DA VARZEA', 'VARZEA', 'PB', -6.687452, -35.794819, '0');
 
 -- --------------------------------------------------------
 
@@ -4776,23 +3895,29 @@ INSERT INTO `tb_mod` (`id`, `os`, `tecnico`, `dtInicio`, `dtFinal`, `tempo`, `km
 -- Estrutura da tabela `tb_oat`
 --
 
-CREATE TABLE `tb_oat` (
-  `id` int(11) NOT NULL,
-  `nickuser` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `cliente` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+CREATE TABLE IF NOT EXISTS `tb_oat` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nickuser` varchar(30) NOT NULL,
+  `cliente` varchar(30) NOT NULL,
   `localidade` int(11) NOT NULL,
-  `servico` varchar(6) COLLATE utf8_unicode_ci NOT NULL,
-  `sistema` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
-  `data` date NOT NULL,
-  `data_sol` datetime NOT NULL,
+  `servico` varchar(6) NOT NULL,
+  `sistema` varchar(12) NOT NULL,
+  `data` date NOT NULL DEFAULT '0000-00-00',
+  `data_sol` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `filial` int(2) DEFAULT NULL,
   `os` int(11) DEFAULT NULL,
-  `data_os` datetime DEFAULT NULL,
-  `data_fech` datetime DEFAULT NULL,
-  `data_term` datetime DEFAULT NULL,
-  `status` enum('0','1','2','3','4') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
-  `ativo` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `data_os` datetime DEFAULT '0000-00-00 00:00:00',
+  `data_fech` datetime DEFAULT '0000-00-00 00:00:00',
+  `data_term` datetime DEFAULT '0000-00-00 00:00:00',
+  `status` enum('0','1','2','3','4') NOT NULL DEFAULT '0',
+  `ativo` enum('0','1') NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `nickuser` (`nickuser`,`cliente`,`localidade`,`servico`,`sistema`),
+  KEY `fk_cleinte` (`cliente`),
+  KEY `fk_localidades` (`localidade`),
+  KEY `servico` (`servico`),
+  KEY `sistema` (`sistema`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2675 ;
 
 --
 -- Extraindo dados da tabela `tb_oat`
@@ -4803,17 +3928,19 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (2, 'Francinei', 'COSANPA', 423, 'CR0001', 'SBGCL-SCL', '0000-00-00', '2016-11-01 13:03:36', 4, 247, '2016-11-04 00:00:00', '2016-11-04 19:28:15', '2016-11-07 18:27:02', '4', '0'),
 (3, 'gladson.marinho', 'CAERN', 157, 'VT0001', 'SBDSD-SDS', '0000-00-00', '2016-11-04 11:49:33', 1, 864, '2016-11-04 00:00:00', '2016-11-15 21:11:53', '2016-11-16 19:35:16', '4', '0'),
 (4, 'Francinei', 'COSANPA', 496, 'CR0001', 'SBPAC-SPC', '0000-00-00', '2016-11-01 17:06:49', 1, 865, '2016-11-04 00:00:00', '2016-11-04 19:32:25', '2016-11-10 00:41:12', '4', '0'),
+(8, 'reginaldo.barbosa', 'CAERN', 111, 'OP0001', 'SBDSD-SDS', '0000-00-00', '2016-11-01 18:59:18', 1, 665, '2016-11-01 00:00:00', '2016-11-17 00:50:06', '2016-11-17 11:34:49', '4', '0'),
 (6, 'reginaldo.barbosa', 'CAERN', 127, 'NV0001', 'SBDSD-SDS', '0000-00-00', '2016-11-01 18:54:19', 1, 650, '2016-11-01 00:00:00', '2016-11-17 11:49:59', '2016-11-17 11:59:19', '4', '0'),
 (7, 'francisco.barbosa', 'CAGEPA', 265, 'VT0001', 'SBGCL-SCL', '0000-00-00', '2016-11-01 18:55:48', 1, 646, '2016-11-01 00:00:00', '2016-11-16 14:06:41', '2016-11-17 12:05:56', '4', '0'),
-(8, 'reginaldo.barbosa', 'CAERN', 111, 'OP0001', 'SBDSD-SDS', '0000-00-00', '2016-11-01 18:59:18', 1, 665, '2016-11-01 00:00:00', '2016-11-17 00:50:06', '2016-11-17 11:34:49', '4', '0'),
 (9, 'reginaldo.barbosa', 'CAERN', 183, 'OP0001', 'SBDSD-SDS', '0000-00-00', '2016-11-01 19:00:16', 1, 702, '2016-11-01 00:00:00', '2016-11-17 01:00:40', '2016-11-17 11:51:59', '4', '0'),
 (10, 'reginaldo.barbosa', 'CAERN', 181, 'OP0001', 'SBDSD-SDS', '0000-00-00', '2016-11-01 19:00:53', 1, 703, '2016-11-01 00:00:00', '2016-11-17 11:49:17', '2016-11-17 12:32:41', '4', '0'),
 (11, 'reginaldo.barbosa', 'CAERN', 111, 'OP0001', 'SBDSD-SDS', '0000-00-00', '2016-11-01 19:01:22', 1, 704, '2016-11-01 00:00:00', '2016-11-17 11:50:51', '2016-11-17 12:34:04', '4', '0'),
 (12, 'reginaldo.barbosa', 'CAERN', 127, 'OP0001', 'SBDSD-SDS', '0000-00-00', '2016-11-01 19:01:47', 1, 705, '2016-11-01 00:00:00', '2016-11-17 11:51:02', '2016-11-17 12:36:57', '4', '0'),
 (13, 'francisco.barbosa', 'CAGEPA', 325, 'PV0001', 'SBGCL-SCL', '0000-00-00', '2016-11-01 19:02:34', 1, 714, '2016-11-01 00:00:00', '2016-11-17 13:36:05', '2016-11-17 13:36:45', '4', '0'),
+(286, 'reginaldo.barbosa', 'CAERN', 183, 'OP0001', 'SBDSD-SDS', '2016-12-12', '2016-12-12 07:43:51', 1, 1018, '2016-12-13 01:06:00', '2016-12-13 10:12:14', '2016-12-16 11:28:07', '4', '0'),
 (15, 'reginaldo.barbosa', 'CAERN', 183, 'VT0001', 'SBDSD-SDS', '0000-00-00', '2016-11-01 19:03:28', 1, 741, '2016-11-01 00:00:00', '2016-11-16 22:25:17', '2016-11-17 12:37:46', '4', '0'),
 (16, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '0000-00-00', '2016-11-01 19:14:27', 4, 208, '2016-11-01 00:00:00', '2016-11-04 19:41:27', '2016-11-10 01:55:31', '4', '0'),
 (17, 'ricardo.lopes', 'CAEMA', 29, 'PV0001', 'SBGCL-SCL', '0000-00-00', '2016-11-01 19:14:58', 4, 213, '2016-11-01 00:00:00', '2016-11-07 18:33:41', '2016-11-15 10:14:21', '4', '0'),
+(281, 'Francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2016-12-09', '2016-12-09 16:45:25', 1, 308, '2016-12-15 18:13:44', '2016-12-16 09:57:45', '2016-12-19 11:40:37', '4', '0'),
 (20, 'bruno.alves', 'CAGEPA', 295, 'PV0001', 'SBGCL-SCL', '0000-00-00', '2016-11-01 19:16:21', 1, 783, '2016-11-01 00:00:00', '2016-11-18 13:36:35', '2016-11-18 13:37:03', '4', '0'),
 (21, 'bruno.alves', 'CAGEPA', 267, 'PV0001', 'SBGCL-SCL', '0000-00-00', '2016-11-01 19:16:50', 1, 784, '2016-11-01 00:00:00', '2016-11-07 11:06:23', '2016-11-10 00:50:18', '4', '0'),
 (22, 'reginaldo.barbosa', 'CAERN', 166, 'VT0001', 'SBDSD-SDS', '0000-00-00', '2016-11-01 19:17:21', 1, 790, '2016-11-01 00:00:00', '2016-11-16 22:29:18', '2016-11-17 12:43:20', '4', '0'),
@@ -4843,6 +3970,7 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (50, 'Thonpson', 'AMBEV', 5, 'CR0001', 'SBDPT-SPT', '0000-00-00', '2016-11-04 14:42:23', 1, 867, '2016-11-04 00:00:00', '2016-11-16 14:31:06', '2016-11-16 16:28:13', '4', '0'),
 (51, 'Francinei', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '0000-00-00', '2016-11-04 14:56:20', 4, 249, '2016-11-04 00:00:00', '2016-11-04 19:51:02', '2016-11-10 02:02:01', '4', '0'),
 (52, 'Francinei', 'COSANPA', 409, 'OP0002', 'SBGCL-SCL', '0000-00-00', '2016-11-04 15:38:55', 4, 250, '2016-11-04 00:00:00', '2016-11-04 19:54:08', '2016-11-10 02:06:09', '4', '0'),
+(61, 'francisco.barbosa', 'DESO', 523, 'VT0001', 'SBDXC-SDX', '2016-11-04', '2016-11-07 11:11:11', 1, 879, '2016-11-07 11:20:37', '2016-11-16 14:46:45', '2016-11-17 12:17:50', '4', '0'),
 (54, 'RAFAELCARLOS', 'SOLAR', 0, 'NV0001', 'SBDPT-SPT', '2016-11-03', '2016-11-07 09:41:43', 1, 880, '2016-11-07 14:56:35', '2016-11-08 18:08:44', '2016-11-10 01:47:49', '4', '0'),
 (55, 'gladson.marinho', 'CAERN', 154, 'NV0001', 'SBDSD-SDS', '2016-11-03', '2016-11-06 11:39:25', 1, 881, '2016-11-07 17:42:38', '2016-11-10 23:20:40', '2016-11-15 14:45:00', '4', '0'),
 (56, 'gladson.marinho', 'CAERN', 149, 'NV0001', 'SBDSD-SDS', '2016-11-03', '2016-11-09 11:42:31', 1, 894, '2016-11-10 03:36:58', '2016-11-10 23:23:27', '2016-11-15 14:41:34', '4', '0'),
@@ -4850,13 +3978,13 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (58, 'gladson.marinho', 'CAERN', 199, 'OP0001', 'SBDSD-SDS', '2016-11-04', '2016-11-06 11:40:05', 1, 883, '2016-11-07 17:52:55', '2016-11-15 21:49:35', '2016-11-17 13:18:30', '4', '0'),
 (59, 'gladson.marinho', 'CAERN', 181, 'OP0001', 'SBDSD-SDS', '2016-11-04', '2016-11-06 11:49:30', 1, 884, '2016-11-07 17:54:14', '2016-11-19 14:38:30', '2016-11-21 11:01:36', '4', '0'),
 (60, 'gladson.marinho', 'CAERN', 111, 'OP0001', 'SBDSD-SDS', '2016-11-04', '2016-11-06 11:49:41', 1, 885, '2016-11-07 17:55:23', '2016-11-15 21:53:34', '2016-11-17 11:39:42', '4', '0'),
-(61, 'francisco.barbosa', 'DESO', 523, 'VT0001', 'SBDXC-SDX', '2016-11-04', '2016-11-07 11:11:11', 1, 879, '2016-11-07 11:20:37', '2016-11-16 14:46:45', '2016-11-17 12:17:50', '4', '0'),
+(65, 'ricardo.lopes', 'CAEMA', 29, 'PV0001', 'SBGCL-SCL', '2016-10-05', '2016-11-07 14:52:03', 4, 256, '2016-11-10 16:36:32', '2016-11-21 11:17:37', '2016-11-21 19:19:22', '4', '0'),
 (63, 'francisco.barbosa', 'DESO', 525, 'PV0001', 'SBDXC-SDX', '2015-11-02', '2016-11-07 13:14:15', 1, 877, '2016-11-09 11:53:04', '2016-11-16 14:39:50', '2016-11-17 12:18:54', '4', '0'),
 (64, 'Francinei', 'COSANPA', 428, 'OP0002', 'SBGCL-SCL', '2016-11-07', '2016-11-07 13:23:14', 4, 259, '2016-11-10 16:45:38', '2016-11-26 18:51:54', '2016-11-28 18:44:10', '4', '0'),
-(65, 'ricardo.lopes', 'CAEMA', 29, 'PV0001', 'SBGCL-SCL', '2016-10-05', '2016-11-07 14:52:03', 4, 256, '2016-11-10 16:36:32', '2016-11-21 11:17:37', '2016-11-21 19:19:22', '4', '0'),
 (66, 'ricardo.lopes', 'CAEMA', 28, 'PV0001', 'SBGCL-SCL', '2016-10-07', '2016-11-07 14:54:58', 4, 257, '2016-11-10 16:43:04', '2016-11-21 12:29:02', '2016-11-21 19:25:41', '4', '0'),
 (67, 'bruno.alves', 'CAGEPA', 361, 'CR0001', 'SBGCL-SCL', '2016-11-07', '2016-11-07 17:21:23', 1, 886, '2016-11-09 11:59:54', '2016-11-11 14:58:27', '2016-11-15 18:08:08', '4', '0'),
 (68, 'ricardo.lopes', 'SAAE - CAXIAS', 530, 'PV0001', 'SBGCL-SCL', '2016-10-20', '2016-11-07 18:54:38', 4, 258, '2016-11-10 16:44:24', '2016-11-21 13:03:21', '2016-11-21 19:30:58', '4', '0'),
+(548, 'francisco.barbosa', 'CAGEPA', 213, 'VT0001', 'SBGCL-SCL', '2017-02-01', '2017-02-01 19:43:26', 1, 1183, '2017-02-01 19:49:06', '2017-02-11 21:52:49', '2017-02-13 17:48:38', '4', '0'),
 (70, 'RAFAELCARLOS', 'CASAL', 387, 'PV0001', 'SBGCL-SCL', '2016-11-08', '2016-11-08 09:45:52', 1, 887, '2016-11-09 12:06:05', '2016-11-09 13:15:32', '2016-11-10 01:36:20', '4', '0'),
 (71, 'bruno.alves', 'CAGEPA', 336, 'CR0001', 'SBGCL-SCL', '2016-11-08', '2016-11-08 14:53:05', 1, 889, '2016-11-09 12:23:05', '2016-11-11 15:02:40', '2016-11-15 17:56:44', '4', '0'),
 (72, 'RAFAELCARLOS', 'SOLAR', 537, 'VT0001', 'SBDPT-SPT', '2016-10-31', '2016-11-08 18:10:30', 1, 903, '2016-11-10 16:28:24', '2016-11-18 22:37:41', '2016-11-21 11:10:38', '4', '0'),
@@ -4870,6 +3998,9 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (84, 'nahim.pantoja', 'COSANPA', 462, 'OP0002', 'SBGCL-SCL', '2016-11-05', '2016-11-09 14:38:37', 4, 263, '2016-11-10 16:53:02', '2016-11-19 15:42:42', '2016-11-21 19:24:58', '4', '0'),
 (85, 'nahim.pantoja', 'COSANPA', 463, 'OP0002', 'SBGCL-SCL', '2016-11-05', '2016-11-09 14:48:38', 4, 264, '2016-11-10 16:53:56', '2016-11-19 15:50:36', '2016-11-21 19:17:44', '4', '0'),
 (86, 'gladson.marinho', 'CAERN', 184, 'CR0001', 'SBGCL-SCL', '2016-11-09', '2016-11-09 21:31:54', 1, 898, '2016-11-10 03:44:35', '2016-11-10 23:31:54', '2016-11-15 14:30:25', '4', '0'),
+(285, 'nahim.pantoja', 'COSANPA', 409, 'OP0002', 'SBGCL-SCL', '2016-12-09', '2016-12-09 19:20:28', 4, 309, '2016-12-15 18:17:42', '2016-12-19 16:02:25', '2016-12-20 18:48:20', '4', '0'),
+(284, 'nahim.pantoja', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2016-12-09', '2016-12-09 19:19:38', 4, 310, '2016-12-15 18:22:29', '2016-12-19 16:10:35', '2016-12-20 18:51:25', '4', '0'),
+(280, 'Francinei', 'COSANPA', 416, 'VT0001', 'SBGCL-SCL', '2016-12-09', '2016-12-09 16:44:42', 4, 311, '2016-12-19 11:30:24', '2016-12-19 12:02:46', '2016-12-19 12:10:18', '4', '0'),
 (87, 'heitor.brito', 'CAGEPA', 258, 'CR0001', 'SBGCL-SCL', '2016-11-08', '2016-11-10 03:15:14', 1, 899, '2016-11-10 11:36:36', '2016-11-16 05:52:46', '2016-11-17 13:33:47', '4', '0'),
 (88, 'heitor.brito', 'CAGEPA', 371, 'CR0001', 'SBGCL-SCL', '2016-11-08', '2016-11-10 03:16:09', 1, 900, '2016-11-10 11:37:38', '2016-11-16 06:13:13', '2016-11-17 13:29:33', '4', '0'),
 (89, 'heitor.brito', 'CAGEPA', 344, 'CR0001', 'SBGCL-SCL', '2016-11-08', '2016-11-10 03:16:54', 1, 901, '2016-11-10 11:39:32', '2016-11-16 06:19:29', '2016-11-17 13:25:46', '4', '0'),
@@ -4887,6 +4018,7 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (102, 'heitor.brito', 'CAERN', 115, 'CR0001', 'SBGCL-SCL', '2016-11-14', '2016-11-14 15:54:50', 1, 910, '2016-11-15 12:46:36', '2016-11-19 15:56:10', '2016-11-21 18:33:02', '4', '0'),
 (103, 'Thonpson', 'DESO', 526, 'PV0001', 'SBDXC-SDX', '2016-11-13', '2016-11-15 02:39:24', 1, 909, '2016-11-15 12:43:29', '2016-11-16 14:44:06', '2016-11-16 16:51:49', '4', '0'),
 (104, 'gladson.marinho', 'CAERN', 156, 'CR0001', 'SBGCL-SCL', '0000-00-00', '2016-11-15 15:14:49', 1, 869, '2016-11-15 15:15:38', '2016-11-15 21:00:09', '2016-11-17 12:46:59', '4', '0'),
+(283, 'francisco.barbosa', 'CAGEPA', 546, 'VT0001', 'SBGCL-SCL', '2016-12-06', '2016-12-09 19:04:55', 1, 1017, '2016-12-09 19:41:30', '2016-12-09 19:51:37', '2016-12-19 12:30:27', '4', '0'),
 (105, 'gladson.marinho', 'CAERN', 183, 'NV0001', 'SBDSD-SDS', '2016-11-10', '2016-11-15 22:13:09', 1, 914, '2016-11-16 19:05:42', '2016-11-19 14:49:02', '2016-11-21 17:05:02', '4', '0'),
 (106, 'gladson.marinho', 'CAERN', 126, 'OP0001', 'SBDSD-SDS', '2016-11-11', '2016-11-15 22:14:06', 1, 915, '2016-11-16 19:10:20', '2016-11-19 14:52:22', '2016-11-21 17:19:41', '4', '0'),
 (107, 'reginaldo.barbosa', 'CAERN', 134, 'CR0001', 'SBGCL-SCL', '2016-11-14', '2016-11-16 08:57:54', 1, 916, '2016-11-16 19:12:18', '2016-11-17 00:21:11', '2016-11-17 13:44:04', '4', '0'),
@@ -4899,16 +4031,16 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (115, 'heitor.brito', 'CAERN', 106, 'CR0001', 'SBGCL-SCL', '2016-11-16', '2016-11-17 10:35:19', 1, 918, '2016-11-17 11:45:23', '2016-11-19 16:01:06', '2016-11-21 17:43:37', '4', '0'),
 (116, 'heitor.brito', 'CAERN', 112, 'CR0001', 'SBDSD-SDS', '2016-11-16', '2016-11-17 10:36:11', 1, 919, '2016-11-17 11:46:40', '2016-11-19 16:10:29', '2016-11-21 17:33:36', '4', '0'),
 (117, 'heitor.brito', 'CAERN', 193, 'CR0001', 'SBGCL-SCL', '2016-11-17', '2016-11-17 10:36:58', 1, 920, '2016-11-17 11:47:55', '2016-12-09 12:28:24', '2016-12-20 19:37:56', '4', '0'),
+(130, 'RAFAELCARLOS', 'SOLAR', 537, 'VT0001', 'SBDPT-SPT', '2016-11-09', '2016-11-18 18:26:08', 1, 903, '2016-11-18 18:26:55', '2016-11-18 23:23:17', '2016-11-21 17:20:38', '4', '0'),
 (119, 'nahim.pantoja', 'COSANPA', 424, 'CR0001', 'SBPAC-SPC', '2016-11-17', '2016-11-17 20:32:04', 1, 922, '2016-11-18 13:36:43', '2016-11-19 17:16:39', '2016-11-21 17:28:05', '4', '0'),
 (120, 'RAFAELCARLOS', 'CASAL', 384, 'PV0001', 'SBGCL-SCL', '2016-11-17', '2016-11-17 20:58:23', 1, 921, '2016-11-17 21:08:32', '2016-11-18 23:08:06', '2016-11-21 17:17:24', '4', '0'),
 (122, 'bruno.alves', 'CAGEPA', 227, 'VT0001', 'SBGCL-SCL', '2016-11-18', '2016-11-18 10:49:42', 1, 923, '2016-11-18 13:38:09', '2016-11-20 10:57:09', '2016-11-21 11:23:51', '4', '0'),
+(131, 'RAFAELCARLOS', 'CASAL', 543, 'PV0001', 'SBGCL-SCL', '2016-11-18', '2016-11-18 22:40:50', 1, 930, '2016-11-21 14:59:21', '2016-11-21 22:42:48', '2016-11-22 12:01:49', '4', '0'),
 (124, 'bruno.alves', 'CAGEPA', 348, 'CR0001', 'SBGCL-SCL', '2016-10-24', '2016-11-18 12:55:59', 1, 842, '2016-11-18 12:57:50', '2016-11-21 22:53:53', '2016-11-22 11:37:58', '4', '0'),
 (125, 'bruno.alves', 'CAGEPA', 350, 'CR0001', 'SBGCL-SCL', '2016-10-24', '2016-11-18 12:57:10', 1, 844, '2016-11-18 12:58:31', '2016-11-21 22:58:48', '2016-11-22 11:42:40', '4', '0'),
 (126, 'ricardo.lopes', 'CAGEPA', 270, 'PV0001', 'SBGCL-SCL', '2016-10-25', '2016-11-18 12:59:43', 1, 845, '2016-11-18 13:00:12', '2016-11-21 13:12:28', '2016-11-21 16:46:03', '4', '0'),
 (127, 'bruno.alves', 'CAGEPA', 262, 'CR0001', 'SBGCL-SCL', '2016-10-25', '2016-11-18 13:01:48', 1, 846, '2016-11-18 13:02:16', '2016-11-21 22:46:38', '2016-11-22 11:46:31', '4', '0'),
 (128, 'bruno.alves', 'CAGEPA', 252, 'CR0001', 'SBGCL-SCL', '2016-10-28', '2016-11-18 13:03:18', 1, 859, '2016-11-18 13:04:24', '2016-11-20 10:33:42', '2016-11-21 16:37:18', '4', '0'),
-(130, 'RAFAELCARLOS', 'SOLAR', 537, 'VT0001', 'SBDPT-SPT', '2016-11-09', '2016-11-18 18:26:08', 1, 903, '2016-11-18 18:26:55', '2016-11-18 23:23:17', '2016-11-21 17:20:38', '4', '0'),
-(131, 'RAFAELCARLOS', 'CASAL', 543, 'PV0001', 'SBGCL-SCL', '2016-11-18', '2016-11-18 22:40:50', 1, 930, '2016-11-21 14:59:21', '2016-11-21 22:42:48', '2016-11-22 12:01:49', '4', '0'),
 (132, 'RAFAELCARLOS', 'CASAL', 397, 'PV0001', 'SBGCL-SCL', '2016-11-18', '2016-11-18 22:40:29', 1, 924, '2016-11-18 22:49:25', '2016-11-18 23:17:42', '2016-11-21 16:40:45', '4', '0'),
 (133, 'nahim.pantoja', 'COSANPA', 450, 'OP0002', 'SBGCL-SCL', '2016-11-11', '2016-11-19 17:39:23', 4, 269, '2016-11-21 12:58:42', '2016-11-22 10:12:45', '2016-11-22 11:12:10', '4', '0'),
 (134, 'gladson.marinho', 'CAERN', 97, 'CR0001', 'SBGCL-SCL', '2016-11-17', '2016-11-21 12:44:28', 1, 925, '2016-11-21 13:04:05', '2016-11-22 10:43:45', '2016-11-22 12:21:28', '4', '0'),
@@ -4938,11 +4070,11 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (161, 'nahim.pantoja', 'COSANPA', 424, 'OP0002', 'SBGCL-SCL', '2016-11-17', '2016-11-22 10:29:21', 4, 274, '2016-11-22 11:43:36', '2016-11-22 19:13:02', '2016-11-22 20:19:26', '4', '0'),
 (162, 'nahim.pantoja', 'COSANPA', 424, 'CR0001', 'SBPAC-SPC', '2016-11-17', '2016-11-22 10:31:00', 1, 936, '2016-11-22 11:27:56', '2016-11-22 19:21:18', '2016-11-22 20:33:12', '4', '0'),
 (163, 'nahim.pantoja', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2016-11-18', '2016-11-22 10:32:14', 4, 275, '2016-11-22 11:44:37', '2016-11-22 19:28:08', '2016-11-22 20:22:32', '4', '0'),
+(170, 'Thonpson', 'DESO', 526, 'CR0001', 'SBDXC-SDX', '2016-11-23', '2016-11-23 11:29:39', 1, 941, '2016-11-24 13:35:25', '2016-11-28 18:02:39', '2016-11-28 18:27:48', '4', '0'),
 (166, 'nahim.pantoja', 'COSANPA', 463, 'OP0002', 'SBGCL-SCL', '2016-11-05', '2016-11-22 19:34:58', 4, 276, '2016-11-22 20:04:31', '2016-11-22 20:16:10', '2016-11-22 20:27:52', '4', '0'),
 (167, 'nahim.pantoja', 'COSANPA', 462, 'OP0002', 'SBGCL-SCL', '2016-11-05', '2016-11-22 19:37:03', 4, 277, '2016-11-22 20:06:48', '2016-11-22 20:28:21', '2016-11-24 16:24:33', '4', '0'),
 (168, 'nahim.pantoja', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2016-11-22', '2016-11-22 19:38:24', 4, 278, '2016-11-22 20:08:19', '2016-11-22 20:35:26', '2016-11-24 16:27:17', '4', '0'),
 (169, 'RAFAELCARLOS', 'CASAL', 395, 'PV0001', 'SBGCL-SCL', '2016-11-22', '2016-11-22 21:07:20', 1, 938, '2016-11-22 21:15:32', '2016-11-22 22:57:04', '2016-11-24 14:54:25', '4', '0'),
-(170, 'Thonpson', 'DESO', 526, 'CR0001', 'SBDXC-SDX', '2016-11-23', '2016-11-23 11:29:39', 1, 941, '2016-11-24 13:35:25', '2016-11-28 18:02:39', '2016-11-28 18:27:48', '4', '0'),
 (171, 'bruno.alves', 'CAGEPA', 363, 'CR0001', 'SBGCL-SCL', '2016-11-22', '2016-11-23 16:18:52', 1, 942, '2016-11-24 13:36:58', '2016-11-25 10:23:09', '2016-11-25 17:22:52', '4', '0'),
 (172, 'bruno.alves', 'CAGEPA', 354, 'CR0001', 'SBGCL-SCL', '2016-11-22', '2016-11-23 16:20:12', 1, 943, '2016-11-24 13:38:51', '2016-11-25 10:27:38', '2016-11-25 17:16:34', '4', '0'),
 (173, 'bruno.alves', 'CAGEPA', 370, 'CR0001', 'SBGCL-SCL', '2016-11-22', '2016-11-23 16:21:05', 1, 944, '2016-11-24 13:40:52', '2016-11-25 10:30:45', '2016-11-25 17:10:27', '4', '0'),
@@ -5004,6 +4136,7 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (230, 'jose.ferreira', 'CAEMA', 46, 'CR0001', 'SBGCL-SCL', '2016-12-02', '2016-12-04 12:45:10', 4, 300, '2016-12-06 10:26:05', '2016-12-21 11:37:30', '2016-12-21 14:38:03', '4', '0'),
 (231, 'jose.ferreira', 'CAEMA', 36, 'CR0001', 'SBGCL-SCL', '2016-12-02', '2016-12-04 12:46:42', 4, 301, '2016-12-06 10:33:18', '2016-12-23 15:05:02', '2016-12-27 11:35:48', '4', '0'),
 (232, 'rafael.carlos', 'CASAL', 402, 'CR0001', 'SBGCL-SCL', '2016-12-05', '2016-12-05 00:21:00', 1, 980, '2016-12-05 22:24:45', '2016-12-05 22:47:19', '2016-12-07 14:48:25', '4', '0'),
+(259, 'reginaldo.barbosa', 'CAERN', 92, 'CR0001', 'SBGCL-SCL', '2016-12-06', '2016-12-06 07:40:57', 1, 982, '2016-12-06 10:35:49', '2016-12-08 00:15:00', '2016-12-21 11:53:52', '4', '0'),
 (234, 'reginaldo.barbosa', 'CAERN', 126, 'OP0001', 'SBDSD-SDS', '2016-12-05', '2016-12-05 07:21:32', 1, 983, '2016-12-06 10:38:22', '2016-12-08 00:23:32', '2016-12-16 11:39:09', '4', '0'),
 (235, 'gladson.marinho', 'CAERN', 126, 'NV0001', 'SBGCL-SCL', '2016-12-01', '2016-12-05 10:41:54', 1, 984, '2016-12-06 10:41:04', '2016-12-12 09:36:59', '2016-12-16 12:02:40', '4', '0'),
 (236, 'heitor.brito', 'CAERN', 133, 'CR0001', 'SBGCL-SCL', '2016-10-28', '2016-12-05 12:36:52', 1, 985, '2016-12-06 10:42:30', '2016-12-09 12:50:40', '2016-12-16 13:40:11', '4', '0'),
@@ -5027,7 +4160,6 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (256, 'dagmo.esbell', 'CAER', 60, 'CR0001', 'SBGCL-SCL', '2016-12-05', '2016-12-06 10:36:44', 4, 302, '2016-12-06 10:38:11', '2016-12-06 18:26:35', '2016-12-07 16:19:05', '4', '0'),
 (257, 'rafael.carlos', 'DESO', 523, 'CR0001', 'SBDXC-SDX', '2016-12-05', '2016-12-05 21:51:37', 1, 978, '2016-12-05 22:06:48', '2016-12-07 17:51:16', '2016-12-15 19:29:52', '4', '0'),
 (258, 'rafael.carlos', 'DESO', 525, 'CR0001', 'SBDXC-SDX', '2016-12-05', '2016-12-05 21:52:07', 1, 979, '2016-12-05 22:07:07', '2016-12-07 18:02:35', '2016-12-15 19:14:25', '4', '0'),
-(259, 'reginaldo.barbosa', 'CAERN', 92, 'CR0001', 'SBGCL-SCL', '2016-12-06', '2016-12-06 07:40:57', 1, 982, '2016-12-06 10:35:49', '2016-12-08 00:15:00', '2016-12-21 11:53:52', '4', '0'),
 (260, 'reginaldo.barbosa', 'CAERN', 183, 'OP0001', 'SBDSD-SDS', '2016-12-06', '2016-12-06 07:42:04', 1, 1001, '2016-12-06 11:35:40', '2016-12-07 23:25:28', '2016-12-16 11:32:37', '4', '0'),
 (261, 'reginaldo.barbosa', 'CAERN', 181, 'OP0001', 'SBDSD-SDS', '2016-12-06', '2016-12-06 07:43:22', 1, 1002, '2016-12-06 11:36:41', '2016-12-07 23:33:09', '2016-12-21 12:04:58', '4', '0'),
 (262, 'reginaldo.barbosa', 'CAERN', 199, 'OP0001', 'SBDSD-SDS', '2016-12-06', '2016-12-06 07:44:17', 1, 1003, '2016-12-06 11:37:34', '2016-12-07 23:46:20', '2016-12-21 12:15:40', '4', '0'),
@@ -5048,12 +4180,6 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (277, 'rafael.carlos', 'CASAL', 381, 'CR0001', 'SBGCL-SCL', '2016-12-08', '2016-12-08 11:01:03', 1, 1014, '2016-12-08 15:47:20', '2016-12-08 15:58:59', '2016-12-16 16:35:03', '4', '0'),
 (278, 'reginaldo.barbosa', 'CAERN', 148, 'VT0001', 'SBDSD-SDS', '2016-12-09', '2016-12-09 09:25:49', 1, 1015, '2016-12-09 14:58:30', '2016-12-11 09:31:54', '2016-12-21 12:51:23', '4', '0'),
 (279, 'reginaldo.barbosa', 'CAERN', 101, 'CR0001', 'SBGCL-SCL', '2016-12-09', '2016-12-09 09:26:31', 1, 1016, '2016-12-09 14:59:36', '2016-12-11 09:22:24', '2016-12-21 12:57:46', '4', '0'),
-(280, 'Francinei', 'COSANPA', 416, 'VT0001', 'SBGCL-SCL', '2016-12-09', '2016-12-09 16:44:42', 4, 311, '2016-12-19 11:30:24', '2016-12-19 12:02:46', '2016-12-19 12:10:18', '4', '0'),
-(281, 'Francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2016-12-09', '2016-12-09 16:45:25', 1, 308, '2016-12-15 18:13:44', '2016-12-16 09:57:45', '2016-12-19 11:40:37', '4', '0'),
-(283, 'francisco.barbosa', 'CAGEPA', 546, 'VT0001', 'SBGCL-SCL', '2016-12-06', '2016-12-09 19:04:55', 1, 1017, '2016-12-09 19:41:30', '2016-12-09 19:51:37', '2016-12-19 12:30:27', '4', '0'),
-(284, 'nahim.pantoja', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2016-12-09', '2016-12-09 19:19:38', 4, 310, '2016-12-15 18:22:29', '2016-12-19 16:10:35', '2016-12-20 18:51:25', '4', '0'),
-(285, 'nahim.pantoja', 'COSANPA', 409, 'OP0002', 'SBGCL-SCL', '2016-12-09', '2016-12-09 19:20:28', 4, 309, '2016-12-15 18:17:42', '2016-12-19 16:02:25', '2016-12-20 18:48:20', '4', '0'),
-(286, 'reginaldo.barbosa', 'CAERN', 183, 'OP0001', 'SBDSD-SDS', '2016-12-12', '2016-12-12 07:43:51', 1, 1018, '2016-12-13 01:06:00', '2016-12-13 10:12:14', '2016-12-16 11:28:07', '4', '0'),
 (287, 'reginaldo.barbosa', 'CAERN', 181, 'OP0001', 'SBDSD-SDS', '2016-12-12', '2016-12-12 07:44:41', 1, 1019, '2016-12-13 01:06:29', '2016-12-13 10:21:34', '2016-12-21 12:07:28', '4', '0'),
 (288, 'reginaldo.barbosa', 'CAERN', 199, 'OP0001', 'SBDSD-SDS', '2016-12-12', '2016-12-12 07:45:26', 1, 1020, '2016-12-13 01:07:01', '2016-12-13 10:28:19', '2016-12-21 12:18:33', '4', '0'),
 (289, 'reginaldo.barbosa', 'CAERN', 111, 'OP0001', 'SBDSD-SDS', '2016-12-12', '2016-12-12 07:47:20', 1, 1021, '2016-12-13 01:07:22', '2016-12-13 10:32:06', '2016-12-21 12:27:30', '4', '0'),
@@ -5068,9 +4194,9 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (298, 'rafael.carlos', 'CASAL', 396, 'CR0001', 'SBGCL-SCL', '2016-12-13', '2016-12-13 14:00:08', 1, 1028, '2016-12-14 00:21:15', '2016-12-14 00:36:33', '2016-12-16 16:25:49', '4', '0'),
 (299, 'francisco.barbosa', 'DESO', 526, 'CR0001', 'SBDXC-SDX', '2016-12-12', '2016-12-13 14:07:18', 1, 1027, '2016-12-14 00:17:09', '2016-12-19 03:12:35', '2016-12-19 12:19:24', '4', '0'),
 (300, 'Thonpson', 'DESO', 523, 'NV0001', 'SBDXC-SDX', '2016-12-13', '2016-12-13 14:26:52', 1, 1029, '2016-12-14 12:25:05', '2016-12-19 17:24:06', '2016-12-21 13:33:52', '4', '0'),
-(301, 'Francinei', 'COSANPA', 424, 'OP0002', 'SBGCL-SCL', '2016-12-11', '2016-12-13 14:56:38', 4, 312, '2016-12-15 18:44:02', '2016-12-16 10:08:39', '2016-12-19 12:04:56', '4', '0'),
-(302, 'gladson.marinho', 'CAERN', 173, 'PV0001', 'SBGCL-SCL', '2016-12-13', '2016-12-13 16:52:15', 1, 1026, '2016-12-14 00:10:21', '2016-12-15 10:56:52', '2016-12-21 14:22:25', '4', '0');
+(301, 'Francinei', 'COSANPA', 424, 'OP0002', 'SBGCL-SCL', '2016-12-11', '2016-12-13 14:56:38', 4, 312, '2016-12-15 18:44:02', '2016-12-16 10:08:39', '2016-12-19 12:04:56', '4', '0');
 INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sistema`, `data`, `data_sol`, `filial`, `os`, `data_os`, `data_fech`, `data_term`, `status`, `ativo`) VALUES
+(302, 'gladson.marinho', 'CAERN', 173, 'PV0001', 'SBGCL-SCL', '2016-12-13', '2016-12-13 16:52:15', 1, 1026, '2016-12-14 00:10:21', '2016-12-15 10:56:52', '2016-12-21 14:22:25', '4', '0'),
 (303, 'jose.ferreira', 'CAEMA', 47, 'VT0001', 'SBGCL-SCL', '2016-12-14', '2016-12-14 08:53:14', 4, 314, '2016-12-15 18:49:07', '2016-12-23 14:55:01', '2016-12-27 11:32:49', '4', '0'),
 (305, 'nahim.pantoja', 'COSANPA', 462, 'OP0002', 'SBGCL-SCL', '2016-12-14', '2016-12-15 08:47:02', 4, 313, '2016-12-15 18:45:45', '2016-12-19 16:33:10', '2016-12-20 19:07:20', '4', '0'),
 (306, 'reginaldo.barbosa', 'CAERN', 159, 'VT0001', 'SBGCL-SCL', '2016-12-15', '2016-12-15 08:56:24', 1, 1032, '2016-12-15 12:27:22', '2016-12-16 15:34:52', '2016-12-21 13:08:21', '4', '0'),
@@ -5177,14 +4303,15 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (414, 'gladson.marinho', 'CAERN', 102, 'CR0001', 'SBGCL-SCL', '2017-01-03', '2017-01-04 10:27:28', 1, 1100, '2017-01-04 12:56:09', '2017-01-16 10:23:02', '2017-01-16 17:37:50', '4', '0'),
 (415, 'reginaldo.barbosa', 'CAERN', 743, 'NV0001', 'SBDSD-SDS', '2017-01-04', '2017-01-05 23:31:32', 1, 1114, '2017-01-09 18:54:53', '2017-01-10 18:58:02', '2017-01-11 23:44:36', '4', '0'),
 (416, 'Francinei', 'COSANPA', 441, 'CR0001', 'SBGCL-SCL', '2017-01-03', '2017-01-04 12:27:20', 4, 374, '2017-02-01 19:08:12', '2017-02-01 19:58:49', '2017-02-06 11:26:02', '4', '0'),
+(419, 'nahim.pantoja', 'COSANPA', 444, 'PV0001', 'SBPAC-SPC', '2017-01-04', '2017-01-04 20:39:48', 1, 1197, '2017-02-01 19:09:26', '2017-02-01 19:59:03', '2017-02-03 17:19:14', '4', '0'),
 (417, 'Francinei', 'COSANPA', 423, 'CR0001', 'SBPAC-SPC', '2017-01-03', '2017-01-04 14:56:16', 1, 1196, '2017-02-01 19:08:52', '2017-02-01 19:59:26', '2017-02-03 17:22:38', '4', '0'),
 (418, 'rafael.carlos', 'CASAL', 543, 'CR0001', 'SBGCL-SCL', '2017-01-04', '2017-01-04 16:26:35', 1, 1107, '2017-01-07 11:13:38', '2017-01-07 11:22:01', '2017-01-12 01:04:17', '4', '0'),
-(419, 'nahim.pantoja', 'COSANPA', 444, 'PV0001', 'SBPAC-SPC', '2017-01-04', '2017-01-04 20:39:48', 1, 1197, '2017-02-01 19:09:26', '2017-02-01 19:59:03', '2017-02-03 17:19:14', '4', '0'),
 (420, 'Francinei', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2017-01-04', '2017-01-04 21:13:29', 4, 392, '2017-02-01 19:12:47', '2017-02-01 19:59:37', '2017-02-03 19:14:15', '4', '0'),
 (421, 'reginaldo.barbosa', 'CAERN', 199, 'OP0001', 'SBDSD-SDS', '2017-01-05', '2017-01-05 09:27:24', 1, 1104, '2017-01-06 19:55:42', '2017-01-09 10:39:53', '2017-01-11 23:51:15', '4', '0'),
 (422, 'reginaldo.barbosa', 'CAERN', 181, 'OP0001', 'SBDSD-SDS', '2017-01-05', '2017-01-05 09:28:12', 1, 1105, '2017-01-06 20:02:34', '2017-01-09 10:42:16', '2017-01-11 23:57:04', '4', '0'),
 (423, 'reginaldo.barbosa', 'CAERN', 111, 'OP0001', 'SBDSD-SDS', '2017-01-05', '2017-01-05 09:28:44', 1, 1106, '2017-01-06 20:04:47', '2017-01-09 10:46:40', '2017-01-12 00:02:42', '4', '0'),
 (424, 'reginaldo.barbosa', 'CAERN', 183, 'OP0001', 'SBDSD-SDS', '2017-01-05', '2017-01-05 09:29:13', 1, 1115, '2017-01-09 18:57:08', '2017-01-10 18:20:08', '2017-01-12 00:08:26', '4', '0'),
+(435, 'nahim.pantoja', 'COSANPA', 462, 'OP0002', 'SBGCL-SCL', '2017-01-04', '2017-01-07 21:28:47', 4, 375, '2017-02-01 19:13:08', '2017-02-01 20:01:19', '2017-02-06 11:35:14', '4', '0'),
 (426, 'heitor.brito', 'CAERN', 162, 'CR0001', 'SBGCL-SCL', '2016-12-05', '2017-01-05 15:02:54', 1, 1116, '2017-01-09 18:59:18', '2017-01-11 03:22:33', '2017-01-12 00:18:17', '4', '0'),
 (427, 'heitor.brito', 'CAERN', 193, 'CR0001', 'SBGCL-SCL', '2016-12-06', '2017-01-05 15:03:51', 1, 1117, '2017-01-09 19:01:03', '2017-01-11 03:26:56', '2017-01-12 00:39:35', '4', '0'),
 (428, 'heitor.brito', 'CAERN', 160, 'CR0001', 'SBPAC-SPC', '2016-12-07', '2017-01-05 15:05:01', 1, 1118, '2017-01-09 19:03:02', '2017-01-11 03:32:05', '2017-01-12 00:56:40', '4', '0'),
@@ -5194,7 +4321,6 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (432, 'nahim.pantoja', 'COSANPA', 409, 'OP0002', 'SBGCL-SCL', '2017-01-06', '2017-01-06 13:54:09', 4, 377, '2017-02-01 19:13:48', '2017-02-01 20:02:24', '2017-02-06 12:17:45', '4', '0'),
 (433, 'nahim.pantoja', 'COSANPA', 436, 'OP0002', 'SBGCL-SCL', '2017-01-06', '2017-01-06 16:06:47', 4, 378, '2017-02-01 19:14:06', '2017-02-01 20:04:38', '2017-02-06 12:23:35', '4', '0'),
 (434, 'reginaldo.barbosa', 'CAERN', 144, 'CR0001', 'SBGCL-SCL', '2017-01-06', '2017-01-06 17:08:29', 1, 1119, '2017-01-09 19:05:02', '2017-01-10 18:33:52', '2017-01-12 01:01:16', '4', '0'),
-(435, 'nahim.pantoja', 'COSANPA', 462, 'OP0002', 'SBGCL-SCL', '2017-01-04', '2017-01-07 21:28:47', 4, 375, '2017-02-01 19:13:08', '2017-02-01 20:01:19', '2017-02-06 11:35:14', '4', '0'),
 (436, 'Francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-01-09', '2017-01-11 14:11:25', 4, 379, '2017-02-01 19:14:25', '2017-02-01 20:04:59', '2017-02-06 12:30:12', '4', '0'),
 (437, 'reginaldo.barbosa', 'CAERN', 146, 'NV0001', 'SBDSD-SDS', '2017-01-09', '2017-01-09 09:35:18', 1, 1120, '2017-01-09 19:07:26', '2017-01-10 18:46:17', '2017-01-12 00:33:09', '4', '0'),
 (438, 'rafael.carlos', 'CASAL', 391, 'CR0001', 'SBGCL-SCL', '2017-01-09', '2017-01-09 11:57:41', 1, 1111, '2017-01-09 15:17:51', '2017-01-09 15:23:31', '2017-01-12 01:08:00', '4', '0'),
@@ -5289,11 +4415,11 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (529, 'gladson.marinho', 'CAERN', 70, 'CR0001', 'SBGCL-SCL', '2017-01-26', '2017-01-30 10:45:07', 1, 1180, '2017-01-30 11:17:59', '2017-02-01 10:19:08', '2017-02-03 18:10:51', '4', '0'),
 (530, 'gladson.marinho', 'CAERN', 84, 'CR0001', 'SBGCL-SCL', '2017-01-27', '2017-01-30 10:45:37', 1, 1181, '2017-01-30 11:18:23', '2017-02-01 10:23:47', '2017-02-03 18:14:41', '4', '0'),
 (531, 'Francinei', 'COSANPA', 416, 'CR0001', 'SBGCL-SCL', '2017-01-30', '2017-01-30 11:06:48', 4, 366, '2017-01-30 11:22:38', '2017-01-31 18:38:52', '2017-02-06 13:53:29', '4', '0'),
+(537, 'francisco.barbosa', 'CAGEPA', 264, 'VT0001', 'SBGCL-SCL', '2017-01-30', '2017-01-30 19:42:03', 1, 1185, '2017-02-01 18:18:36', '2017-02-11 22:28:06', '2017-02-13 18:25:55', '4', '0'),
 (533, 'jose.ferreira', 'CAEMA', 50, 'CR0001', 'Escolha um s', '2017-01-30', '2017-01-30 12:39:37', 4, 391, '2017-02-01 19:17:42', '2017-05-30 19:00:59', '2017-05-30 19:11:38', '4', '0'),
 (534, 'Francinei', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2017-01-30', '2017-01-30 15:22:28', 4, 389, '2017-02-01 19:17:58', '2017-02-01 20:19:28', '2017-02-03 19:23:38', '4', '0'),
 (535, 'Francinei', 'COSANPA', 409, 'OP0002', 'SBGCL-SCL', '2017-01-30', '2017-01-30 15:27:16', 4, 390, '2017-02-01 19:18:12', '2017-02-01 20:23:03', '2017-02-06 13:58:00', '4', '0'),
 (536, 'rafael.carlos', 'CASAL', 394, 'VT0001', 'SBGCL-SCL', '2017-01-30', '2017-01-30 15:42:36', 1, 1186, '2017-02-01 18:18:58', '2017-02-01 23:58:05', '2017-02-01 23:59:59', '4', '0'),
-(537, 'francisco.barbosa', 'CAGEPA', 264, 'VT0001', 'SBGCL-SCL', '2017-01-30', '2017-01-30 19:42:03', 1, 1185, '2017-02-01 18:18:36', '2017-02-11 22:28:06', '2017-02-13 18:25:55', '4', '0'),
 (538, 'reginaldo.barbosa', 'CAERN', 173, 'CR0001', 'SBGCL-SCL', '2017-01-28', '2017-01-31 07:54:21', 1, 1187, '2017-02-01 18:19:25', '2017-02-06 08:29:40', '2017-02-06 14:47:53', '4', '0'),
 (539, 'reginaldo.barbosa', 'CAERN', 97, 'CR0001', 'SBGCL-SCL', '2017-01-31', '2017-01-31 07:54:50', 1, 1188, '2017-02-01 18:19:52', '2017-02-03 09:09:37', '2017-02-03 18:18:38', '4', '0'),
 (540, 'rafael.carlos', 'DESO', 525, 'CR0001', 'SBDXC-SDX', '2017-01-31', '2017-01-31 13:34:55', 1, 1189, '2017-02-01 18:20:15', '2017-02-01 23:49:42', '2017-02-01 23:52:13', '4', '0'),
@@ -5303,7 +4429,6 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (545, 'reginaldo.barbosa', 'CAERN', 181, 'OP0001', 'SBDSD-SDS', '2017-02-01', '2017-02-01 10:54:46', 1, 1193, '2017-02-01 18:22:00', '2017-02-03 09:01:22', '2017-02-03 18:21:58', '4', '0'),
 (546, 'reginaldo.barbosa', 'CAERN', 111, 'OP0001', 'SBDSD-SDS', '2017-02-01', '2017-02-01 10:55:17', 1, 1194, '2017-02-01 18:22:25', '2017-02-03 09:04:07', '2017-02-03 18:24:37', '4', '0'),
 (547, 'reginaldo.barbosa', 'CAERN', 199, 'OP0001', 'SBDSD-SDS', '2017-02-01', '2017-02-01 10:57:27', 1, 1195, '2017-02-01 18:22:53', '2017-02-03 08:57:51', '2017-02-03 18:27:26', '4', '0'),
-(548, 'francisco.barbosa', 'CAGEPA', 213, 'VT0001', 'SBGCL-SCL', '2017-02-01', '2017-02-01 19:43:26', 1, 1183, '2017-02-01 19:49:06', '2017-02-11 21:52:49', '2017-02-13 17:48:38', '4', '0'),
 (549, 'nahim.pantoja', 'COSANPA', 452, 'OP0002', 'SBGCL-SCL', '2017-02-01', '2017-02-01 20:20:19', 4, 393, '2017-02-03 16:44:21', '2017-02-07 14:31:35', '2017-02-08 17:42:38', '4', '0'),
 (550, 'Francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-02-01', '2017-02-01 20:24:44', 4, 394, '2017-02-03 16:44:38', '2017-02-07 12:54:10', '2017-02-08 17:49:50', '4', '0'),
 (551, 'rafael.carlos', 'CASAL', 394, 'CR0001', 'SBGCL-SCL', '2017-02-02', '2017-02-02 00:04:40', 1, 1200, '2017-02-03 16:44:53', '2017-02-05 19:58:01', '2017-02-05 19:58:21', '4', '0'),
@@ -5343,6 +4468,7 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sistema`, `data`, `data_sol`, `filial`, `os`, `data_os`, `data_fech`, `data_term`, `status`, `ativo`) VALUES
 (586, 'francisco.barbosa', 'CAGEPA', 265, 'CR0001', 'SBGCL-SCL', '2017-02-09', '2017-02-09 18:02:53', 1, 1227, '2017-02-13 14:39:50', '2017-02-15 17:23:12', '2017-02-27 17:44:06', '3', '0'),
 (587, 'francinei', 'COSANPA', 510, 'CR0001', 'SBGCL-SCL', '2017-02-10', '2017-02-10 11:01:21', 4, 403, '2017-02-13 16:23:36', '2017-02-13 20:02:21', '2017-02-13 23:30:39', '3', '0'),
+(596, 'francinei', 'COSANPA', 423, 'CR0001', 'SBGCL-SCL', '2017-02-10', '2017-02-10 21:11:27', 4, 404, '2017-02-13 16:23:56', '2017-02-13 20:07:07', '2017-02-13 23:35:32', '3', '0'),
 (589, 'reginaldo.barbosa', 'CAERN', 751, 'NV0001', 'SBDSD-SDS', '2017-02-10', '2017-02-10 11:21:40', 1, 1238, '2017-02-13 16:15:26', '2017-02-16 08:15:41', '2017-02-27 17:52:56', '3', '0'),
 (590, 'bruno.alves', 'CAGEPA', 352, 'CR0001', 'SBGCL-SCL', '2017-02-09', '2017-02-10 11:23:49', 1, 1229, '2017-02-13 14:40:19', '2017-02-16 10:14:31', '2017-02-27 18:00:07', '4', '0'),
 (591, 'bruno.alves', 'CAGEPA', 316, 'PV0001', 'SBGCL-SCL', '2017-02-09', '2017-02-10 11:24:17', 1, 1228, '2017-02-13 14:40:37', '2017-02-16 10:32:08', '2017-02-27 18:06:37', '4', '0'),
@@ -5350,7 +4476,6 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (593, 'reginaldo.barbosa', 'CAERN', 126, 'OP0001', 'SBDSD-SDS', '2017-02-10', '2017-02-10 11:59:10', 1, 1231, '2017-02-13 14:41:10', '2017-02-14 23:50:53', '2017-02-27 18:16:07', '3', '0'),
 (594, 'reginaldo.barbosa', 'CAERN', 111, 'OP0001', 'SBDSD-SDS', '2017-02-10', '2017-02-10 11:59:34', 1, 1232, '2017-02-13 14:41:32', '2017-02-14 23:38:41', '2017-02-27 18:23:36', '3', '0'),
 (595, 'reginaldo.barbosa', 'CAERN', 199, 'OP0001', 'SBDSD-SDS', '2017-02-10', '2017-02-10 12:00:00', 1, 1233, '2017-02-13 14:41:54', '2017-02-14 23:45:31', '2017-02-27 18:27:27', '3', '0'),
-(596, 'francinei', 'COSANPA', 423, 'CR0001', 'SBGCL-SCL', '2017-02-10', '2017-02-10 21:11:27', 4, 404, '2017-02-13 16:23:56', '2017-02-13 20:07:07', '2017-02-13 23:35:32', '3', '0'),
 (598, 'reginaldo.barbosa', 'CAERN', 749, 'NV0001', 'SBDSD-SDS', '2017-02-11', '2017-02-11 23:39:30', 1, 1239, '2017-02-13 16:15:53', '2017-02-16 08:11:24', '2017-02-27 18:33:31', '4', '0'),
 (599, 'gladson.marinho', 'CAERN', 187, 'PV0001', 'SBGCL-SCL', '2017-02-09', '2017-02-12 13:01:48', 1, 1234, '2017-02-13 14:42:10', '2017-02-17 13:01:45', '2017-02-27 18:42:42', '3', '0'),
 (600, 'gladson.marinho', 'CAERN', 139, 'CR0001', 'SBGCL-SCL', '2017-02-10', '2017-02-12 13:02:29', 1, 1235, '2017-02-13 14:42:22', '2017-02-17 13:06:04', '2017-02-27 18:48:49', '4', '0'),
@@ -5475,8 +4600,8 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (729, 'jose.ferreira', 'CAEMA', 37, 'PV0001', 'SBGCL-SCL', '2017-02-14', '2017-03-08 18:49:57', 4, 439, '2017-03-10 17:06:24', '2017-05-30 19:02:32', '2017-05-30 19:13:27', '4', '0'),
 (730, 'jose.ferreira', 'CAEMA', 25, 'PV0001', 'SBGCL-SCL', '2017-01-31', '2017-03-08 18:54:00', 4, 440, '2017-03-10 17:06:39', '2017-05-30 19:02:41', '2017-05-30 19:13:49', '4', '0'),
 (732, 'jose.ferreira', 'SAAE - CAXIAS', 529, 'PV0001', 'SBGCL-SCL', '2017-02-23', '2017-03-08 19:52:40', 4, 441, '2017-03-10 17:06:52', '2017-05-30 19:02:52', '2017-05-30 19:14:04', '4', '0'),
-(734, 'jose.ferreira', 'CAEMA', 36, 'PV0001', 'SBGCL-SCL', '2017-02-23', '2017-03-08 19:56:16', 4, 443, '2017-03-10 16:47:15', '2017-05-30 19:03:14', '2017-05-30 19:14:25', '4', '0'),
 (735, 'jose.ferreira', 'SAAE - CAXIAS', 530, 'PV0001', 'SBGCL-SCL', '2017-02-23', '2017-03-08 19:58:10', 4, 442, '2017-03-10 16:45:13', '2017-05-30 19:03:01', '2017-05-30 19:14:13', '4', '0'),
+(734, 'jose.ferreira', 'CAEMA', 36, 'PV0001', 'SBGCL-SCL', '2017-02-23', '2017-03-08 19:56:16', 4, 443, '2017-03-10 16:47:15', '2017-05-30 19:03:14', '2017-05-30 19:14:25', '4', '0'),
 (736, 'jose.ferreira', 'SAAE - CAXIAS', 530, 'PV0001', 'SBGCL-SCL', '2017-02-02', '2017-03-08 20:08:48', 4, 444, '2017-03-10 16:46:08', '2017-05-30 19:03:28', '2017-05-30 19:14:37', '4', '0'),
 (741, 'jose.ferreira', 'CAEMA', 35, 'PV0001', 'SBGCL-SCL', '2016-11-26', '2017-03-08 20:16:02', 4, 445, '2017-03-10 17:08:53', '2017-05-30 19:03:38', '2017-05-30 19:14:45', '3', '0'),
 (742, 'jose.ferreira', 'CAEMA', 50, 'PV0001', 'SBGCL-SCL', '2016-12-01', '2017-03-08 20:18:59', 4, 446, '2017-03-10 17:09:08', '2017-05-30 19:03:48', '2017-05-30 19:14:55', '3', '0'),
@@ -5535,12 +4660,12 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (797, 'bruno.alves', 'CAGEPA', 338, 'CR0001', 'SBGCL-SCL', '2017-03-20', '2017-03-21 11:34:15', 1, 1348, '2017-03-21 14:33:40', '2017-03-23 12:24:51', '2017-03-31 16:35:21', '4', '0'),
 (798, 'bruno.alves', 'CAGEPA', 215, 'CR0001', 'SBGCL-SCL', '2017-03-20', '2017-03-21 11:34:55', 1, 1349, '2017-03-21 14:33:55', '2017-03-23 12:31:21', '2017-03-31 16:59:57', '4', '0'),
 (799, 'jose.ferreira', 'CAEMA', 47, 'NV0001', 'SBGCL-SCL', '2017-03-19', '2017-03-21 13:37:34', 4, 459, '2017-03-21 14:35:57', '2017-05-30 19:05:15', '2017-05-30 19:16:32', '4', '0'),
+(806, 'rafael.carlos', 'CASAL', 384, 'NV0001', 'SBGCL-SCL', '2017-03-22', '2017-03-22 01:01:18', 1, 1351, '2017-03-23 17:46:25', '2017-03-26 15:24:43', '2017-03-31 17:08:17', '4', '0'),
 (801, 'Francinei', 'COSANPA', 424, 'CR0001', 'SBGCL-SCL', '2017-03-11', '2017-03-21 18:23:01', 4, 460, '2017-03-23 17:46:44', '2017-03-30 10:23:06', '2017-03-30 17:53:15', '4', '0'),
 (802, 'Francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-03-14', '2017-03-21 18:24:29', 4, 461, '2017-03-23 17:46:54', '2017-03-31 02:05:08', '2017-04-04 12:46:06', '4', '0'),
 (803, 'Francinei', 'COSANPA', 462, 'CR0001', 'SBPAC-SPC', '2017-03-17', '2017-03-21 18:28:07', 1, 1352, '2017-03-23 17:47:06', '2017-04-04 18:30:46', '2017-04-18 22:52:36', '4', '0'),
 (804, 'Francinei', 'COSANPA', 424, 'CR0001', 'SBGCL-SCL', '2017-03-20', '2017-03-21 18:29:08', 4, 462, '2017-03-23 17:47:17', '2017-04-04 18:39:48', '2017-04-20 18:26:18', '3', '0'),
 (805, 'Francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-03-21', '2017-03-21 18:30:13', 4, 463, '2017-03-23 17:47:32', '2017-03-31 02:17:29', '2017-04-04 12:49:21', '3', '0'),
-(806, 'rafael.carlos', 'CASAL', 384, 'NV0001', 'SBGCL-SCL', '2017-03-22', '2017-03-22 01:01:18', 1, 1351, '2017-03-23 17:46:25', '2017-03-26 15:24:43', '2017-03-31 17:08:17', '4', '0'),
 (808, 'francisco.barbosa', 'CAGEPA', 271, 'CR0001', 'SBGCL-SCL', '2017-03-21', '2017-03-22 08:20:36', 1, 1353, '2017-03-23 17:54:44', '2017-03-28 14:30:16', '2017-03-31 17:16:54', '3', '0'),
 (809, 'bruno.alves', 'CAGEPA', 373, 'CR0001', 'SBGCL-SCL', '2017-03-21', '2017-03-23 12:32:30', 1, 1354, '2017-03-23 17:55:04', '2017-04-05 10:41:48', '2017-04-18 23:01:52', '3', '0'),
 (810, 'nahim.pantoja', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-03-23', '2017-03-23 17:53:44', 4, 464, '2017-03-23 17:57:12', '2017-03-27 12:11:29', '2017-03-30 17:56:10', '3', '0'),
@@ -5680,8 +4805,8 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (952, 'francisco.barbosa', 'CAGEPA', 341, 'VT0001', 'SBGCL-SCL', '2017-04-12', '2017-04-13 14:08:01', 1, 1437, '2017-04-13 17:19:33', '2017-04-18 13:40:49', '2017-04-19 17:13:56', '3', '0'),
 (953, 'francisco.barbosa', 'CAGEPA', 254, 'PV0001', 'SBGCL-SCL', '2017-04-12', '2017-04-13 14:10:25', 1, 1439, '2017-04-13 17:23:36', '2017-04-18 13:55:59', '2017-04-19 17:18:35', '3', '0'),
 (954, 'francisco.barbosa', 'CAGEPA', 235, 'PV0001', 'SBGCL-SCL', '2017-04-12', '2017-04-13 14:11:20', 1, 1438, '2017-04-13 17:23:53', '2017-04-18 13:45:59', '2017-04-19 17:23:40', '3', '0'),
-(956, 'dagmo.esbell', 'CAER', 60, 'VT0001', 'SBGCL-SCL', '2017-04-16', '2017-04-16 13:05:45', 4, 505, '2017-04-18 17:34:27', '2017-04-18 22:05:47', '2017-04-20 18:05:25', '3', '0'),
 (957, 'reginaldo.barbosa', 'CAERN', 126, 'OP0001', 'SBDSD-SDS', '2017-04-17', '2017-04-17 10:39:44', 1, 1440, '2017-04-18 17:34:11', '2017-04-25 08:07:52', '2017-04-26 13:05:36', '3', '0'),
+(956, 'dagmo.esbell', 'CAER', 60, 'VT0001', 'SBGCL-SCL', '2017-04-16', '2017-04-16 13:05:45', 4, 505, '2017-04-18 17:34:27', '2017-04-18 22:05:47', '2017-04-20 18:05:25', '3', '0'),
 (958, 'dagmo.esbell', 'CAER', 60, 'VT0001', 'SBGCL-SCL', '2017-04-17', '2017-04-17 11:09:41', 4, 506, '2017-04-18 17:34:38', '2017-04-18 22:30:31', '2017-04-20 18:10:48', '3', '0'),
 (959, 'rafael.carlos', 'CASAL', 395, 'CR0001', 'SBGCL-SCL', '2017-04-17', '2017-04-17 17:14:40', 1, 1441, '2017-04-18 17:34:48', '2017-04-19 22:28:40', '2017-04-20 14:30:41', '3', '0'),
 (960, 'rafael.carlos', 'CASAL', 386, 'PV0001', 'SBGCL-SCL', '2017-04-17', '2017-04-17 17:15:19', 4, 1442, '2017-04-18 17:35:04', '2017-04-19 22:18:57', '2017-04-20 14:36:05', '3', '0'),
@@ -5714,9 +4839,9 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (988, 'reginaldo.barbosa', 'CAERN', 130, 'CR0001', 'SBPAC-SPC', '2017-04-24', '2017-04-24 18:17:51', 1, 1453, '2017-04-25 18:08:23', '2017-05-02 16:58:37', '2017-05-02 18:29:10', '3', '0'),
 (989, 'reginaldo.barbosa', 'CAERN', 126, 'CR0001', 'SBGCL-SCL', '2017-04-24', '2017-04-24 18:19:09', 1, 1454, '2017-04-25 18:08:35', '2017-05-02 17:27:35', '2017-05-02 18:33:16', '3', '0'),
 (990, 'jose.ferreira', 'AGESPISA', 1, 'PV0001', 'SBGCL-SCL', '2017-04-24', '2017-04-24 18:35:10', 4, 524, '2017-04-25 18:08:47', '2017-05-10 13:42:31', '2017-05-11 17:21:50', '3', '0'),
+(994, 'nahim.pantoja', 'COSANPA', 452, 'CR0001', 'SBPAC-SPC', '2017-04-25', '2017-04-25 00:21:23', 1, 1460, '2017-04-25 18:09:16', '2017-05-19 21:49:42', '2017-05-22 16:27:38', '3', '0'),
 (992, 'rafael.carlos', 'SOLAR', 537, 'NV0001', 'SBDPT-SPT', '2017-04-24', '2017-04-24 23:47:58', 1, 1452, '2017-04-25 00:11:04', '2017-04-25 00:17:28', '2017-04-26 14:22:13', '3', '0'),
 (993, 'rafael.carlos', 'CASAL', 386, 'VT0001', 'SBGCL-SCL', '2017-04-24', '2017-04-24 23:48:37', 1, 1451, '2017-04-25 00:09:14', '2017-05-01 12:51:53', '2017-05-02 18:40:09', '3', '0'),
-(994, 'nahim.pantoja', 'COSANPA', 452, 'CR0001', 'SBPAC-SPC', '2017-04-25', '2017-04-25 00:21:23', 1, 1460, '2017-04-25 18:09:16', '2017-05-19 21:49:42', '2017-05-22 16:27:38', '3', '0'),
 (995, 'reginaldo.barbosa', 'CAERN', 183, 'OP0001', 'SBDSD-SDS', '2017-04-25', '2017-04-25 08:25:28', 1, 1455, '2017-04-25 18:09:32', '2017-05-02 17:33:58', '2017-05-02 18:43:26', '3', '0'),
 (996, 'reginaldo.barbosa', 'CAERN', 181, 'OP0001', 'SBDSD-SDS', '2017-04-25', '2017-04-25 08:25:52', 1, 1456, '2017-04-25 18:09:48', '2017-05-02 17:39:44', '2017-05-02 18:46:09', '3', '0'),
 (997, 'reginaldo.barbosa', 'CAERN', 111, 'OP0001', 'SBDSD-SDS', '2017-04-25', '2017-04-25 08:26:17', 1, 1457, '2017-04-25 18:09:57', '2017-05-02 17:42:59', '2017-05-02 18:48:22', '3', '0'),
@@ -5982,13 +5107,13 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1272, 'jose.ferreira', 'CAEMA', 13, 'CR0001', 'SBDSD-SDS', '2017-06-02', '2017-06-02 10:29:35', 4, 602, '2017-06-02 14:38:30', '2017-06-06 18:25:56', '2017-07-17 19:45:03', '3', '0'),
 (1273, 'jose.ferreira', 'CAEMA', 28, 'CR0001', 'SBGCL-SCL', '2017-06-02', '2017-06-02 13:44:27', 4, 603, '2017-06-02 14:38:45', '2017-06-06 19:23:40', '2017-07-17 19:54:10', '3', '0'),
 (1274, 'francinei', 'COSANPA', 763, 'NV0001', 'SBDPT-SPT', '2017-06-02', '2017-06-03 11:05:48', 4, 604, '2017-06-06 19:51:54', '2017-06-07 10:55:13', '2017-07-18 18:43:01', '3', '0'),
+(1282, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-06-02', '2017-06-06 17:16:24', 4, 605, '2017-06-06 19:52:16', '2017-06-07 10:58:50', '2017-07-18 18:55:44', '3', '0'),
 (1276, 'rafael.carlos', 'CASAL', 543, 'VT0001', 'SBGCL-SCL', '2017-06-03', '2017-06-03 14:24:35', 1, 1630, '2017-06-03 14:29:26', '2017-06-03 14:33:19', '2017-06-14 18:06:18', '3', '0'),
 (1277, 'nahim.pantoja', 'COSANPA', 444, 'PV0001', 'SBGCL-SCL', '2017-06-05', '2017-06-05 08:35:57', 4, 606, '2017-06-06 19:52:32', '2017-06-13 17:39:51', '2017-07-18 19:06:24', '3', '0'),
 (1278, 'reginaldo.barbosa', 'CAERN', 88, 'CR0001', 'SBGCL-SCL', '2017-06-05', '2017-06-05 09:37:12', 1, 1631, '2017-06-06 20:02:47', '2017-06-08 00:26:10', '2017-06-14 17:57:00', '3', '0'),
 (1279, 'gladson.marinho', 'CAERN', 202, 'CR0001', 'SBGCL-SCL', '2017-05-30', '2017-06-05 11:58:09', 1, 1632, '2017-06-06 20:03:10', '2017-06-12 10:17:35', '2017-06-14 18:11:56', '3', '0'),
 (1280, 'reginaldo.barbosa', 'CAERN', 126, 'OP0001', 'SBDSD-SDS', '2017-06-06', '2017-06-06 10:28:54', 1, 1633, '2017-06-06 20:03:28', '2017-06-08 00:29:01', '2017-06-14 18:16:04', '3', '0'),
 (1281, 'francinei', 'COSANPA', 766, 'CR0001', 'SBDPT-SPT', '2017-05-31', '2017-06-06 14:16:14', 4, 607, '2017-06-06 20:03:43', '2017-06-07 10:51:24', '2017-07-18 19:21:12', '3', '0'),
-(1282, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-06-02', '2017-06-06 17:16:24', 4, 605, '2017-06-06 19:52:16', '2017-06-07 10:58:50', '2017-07-18 18:55:44', '3', '0'),
 (1283, 'francisco.barbosa', 'DESO', 523, 'CR0001', 'SBDXC-SDX', '2017-06-01', '2017-06-06 18:27:26', 1, 1634, '2017-06-06 20:03:55', '2017-07-26 13:23:20', '2017-08-02 20:02:16', '3', '0'),
 (1284, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-06-07', '2017-06-07 10:59:32', 4, 608, '2017-06-12 18:08:28', '2017-07-04 12:26:17', '2017-07-18 19:31:50', '3', '0'),
 (1285, 'rafael.carlos', 'CASAL', 380, 'CR0001', 'SBGCL-SCL', '2017-06-07', '2017-06-07 11:08:58', 1, 1637, '2017-06-10 21:23:13', '2017-06-10 21:35:42', '2017-06-14 18:21:42', '3', '0'),
@@ -6053,10 +5178,10 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1344, 'cleber.souza', 'CAEMA', 30, 'CR0001', 'SBGCL-SCL', '2017-06-21', '2017-06-21 14:48:29', 4, 9999, '2017-06-21 14:49:27', '2017-06-23 12:21:50', '2017-06-30 13:58:53', '3', '0'),
 (1345, 'reginaldo.barbosa', 'CAERN', 739, 'VT0001', 'SBDSD-SDS', '2017-06-21', '2017-06-21 14:55:47', 1, 1675, '2017-06-23 13:30:30', '2017-06-27 12:35:51', '2017-07-04 19:58:02', '3', '0'),
 (1347, 'jose.ferreira', 'CAEMA', 29, 'PV0001', 'SBGCL-SCL', '2017-06-22', '2017-06-22 12:40:39', 4, 619, '2017-06-23 13:30:45', '2017-06-30 18:52:42', '2017-07-17 19:59:35', '3', '0'),
-(1349, 'reginaldo.barbosa', 'CAERN', 150, 'VT0001', 'SBDSD-SDS', '2017-06-22', '2017-06-22 16:21:48', 1, 1676, '2017-06-23 13:31:23', '2017-06-27 12:42:17', '2017-07-14 16:59:46', '3', '0'),
 (1350, 'jose.ferreira', 'CAEMA', 40, 'CR0001', 'SBGCL-SCL', '2017-06-22', '2017-06-22 16:32:37', 4, 620, '2017-06-23 13:31:00', '2017-06-30 19:05:07', '2017-07-17 20:04:19', '3', '0'),
-(1352, 'dagmo.esbell', 'CAER', 58, 'CR0001', 'SBGCL-SCL', '2017-06-23', '2017-06-23 09:41:08', 4, 621, '2017-06-23 13:40:10', '2017-06-26 12:39:23', '2017-07-17 19:17:58', '3', '0'),
+(1349, 'reginaldo.barbosa', 'CAERN', 150, 'VT0001', 'SBDSD-SDS', '2017-06-22', '2017-06-22 16:21:48', 1, 1676, '2017-06-23 13:31:23', '2017-06-27 12:42:17', '2017-07-14 16:59:46', '3', '0'),
 (1353, 'reginaldo.barbosa', 'CAERN', 126, 'OP0001', 'SBDSD-SDS', '2017-06-23', '2017-06-23 11:24:30', 1, 1677, '2017-06-23 13:39:52', '2017-06-27 12:29:04', '2017-07-14 17:30:12', '3', '0'),
+(1352, 'dagmo.esbell', 'CAER', 58, 'CR0001', 'SBGCL-SCL', '2017-06-23', '2017-06-23 09:41:08', 4, 621, '2017-06-23 13:40:10', '2017-06-26 12:39:23', '2017-07-17 19:17:58', '3', '0'),
 (1354, 'francinei', 'COSANPA', 452, 'NV0001', 'SBPAC-SPC', '2017-06-20', '2017-06-24 00:18:19', 1, 1678, '2017-06-29 18:22:23', '2017-10-24 14:53:57', '2017-10-25 14:03:12', '3', '0'),
 (1355, 'francinei', 'COSANPA', 452, 'NV0001', 'SBGCL-SCL', '2017-06-23', '2017-06-24 14:56:45', 4, 622, '2017-06-29 15:54:42', '2017-11-08 12:14:28', '2017-11-16 17:57:49', '3', '0'),
 (1356, 'francisco.barbosa', 'CASAL', 407, 'NV0001', 'SBGCL-SCL', '2017-06-23', '2017-06-25 23:30:31', 1, 1679, '2017-06-29 18:23:06', '2017-07-03 20:17:35', '2017-07-11 19:06:39', '3', '0'),
@@ -6142,8 +5267,8 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1440, 'thonpson', 'CASAL', 752, 'VT0001', 'SBGCL-SCL', '2017-07-12', '2017-07-12 08:39:33', 1, 1728, '2017-08-02 13:08:42', '2017-10-25 13:49:00', '2017-10-25 13:49:20', '4', '0'),
 (1441, 'francinei', 'COSANPA', 774, 'NV0001', 'SBDPT-SPT', '2017-07-11', '2017-07-12 10:33:00', 4, 678, '2017-08-02 17:57:24', '2017-10-24 12:54:25', '2017-10-25 14:53:44', '3', '0'),
 (1442, 'francinei', 'COSANPA', 773, 'NV0001', 'SBDPT-SPT', '2017-07-11', '2017-07-12 10:34:15', 4, 679, '2017-08-02 17:57:43', '2017-10-24 12:58:15', '2017-10-25 14:57:01', '3', '0'),
-(1444, 'cleber.souza', 'CAGEPA', 377, 'PV0001', 'SBDSD-SDS', '2017-07-12', '2017-07-12 16:16:16', 1, 1730, '2017-08-02 13:09:43', '2017-08-03 12:28:02', '2017-08-16 14:45:40', '3', '0'),
 (1445, 'rafael.carlos', 'CASAL', 380, 'PV0001', 'SBGCL-SCL', '2017-07-13', '2017-07-12 19:52:20', 1, 1729, '2017-08-02 13:09:21', '2017-08-05 16:08:38', '2017-08-16 14:41:58', '3', '0'),
+(1444, 'cleber.souza', 'CAGEPA', 377, 'PV0001', 'SBDSD-SDS', '2017-07-12', '2017-07-12 16:16:16', 1, 1730, '2017-08-02 13:09:43', '2017-08-03 12:28:02', '2017-08-16 14:45:40', '3', '0'),
 (1446, 'jose.wilson', 'AGESPISA', 2, 'PV0001', 'SBGCL-SCL', '2017-07-12', '2017-07-12 21:28:46', 4, 652, '2017-08-02 13:09:59', '2017-08-03 16:12:17', '2017-08-14 12:33:26', '3', '0'),
 (1448, 'jose.wilson', 'SAAE - CAXIAS', 530, 'PV0001', 'SBGCL-SCL', '2017-07-12', '2017-07-12 21:34:21', 4, 653, '2017-08-02 13:10:19', '2017-08-03 16:30:48', '2017-08-14 12:38:15', '3', '0'),
 (1449, 'jose.wilson', 'CAEMA', 35, 'PV0001', 'SBGCL-SCL', '2017-07-12', '2017-07-12 21:37:08', 4, 654, '2017-08-02 13:10:35', '2017-08-03 16:42:26', '2017-08-14 12:46:27', '3', '0'),
@@ -6192,9 +5317,10 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1494, 'rafael.carlos', 'CASAL', 395, 'CR0001', 'SBGCL-SCL', '2017-07-21', '2017-07-23 12:13:45', 1, 1757, '2017-08-02 13:23:54', '2017-08-05 15:51:15', '2017-08-24 14:44:09', '3', '0'),
 (1495, 'nahim.pantoja', 'COSANPA', 504, 'CR0001', 'SBGCL-SCL', '2017-07-24', '2017-07-28 20:20:32', 4, 667, '2017-08-02 13:24:13', '2017-08-17 13:23:19', '2017-08-31 18:32:56', '3', '0'),
 (1496, 'francinei', 'COSANPA', 423, 'CR0001', 'SBGCL-SCL', '2017-07-24', '2017-07-24 18:34:51', 4, 668, '2017-08-02 13:24:45', '2017-10-24 15:04:38', '2017-10-25 16:16:14', '3', '0'),
+(1526, 'jose.wilson', 'CAEMA', 18, 'CR0001', 'SBGCL-SCL', '2017-08-01', '2017-08-01 23:31:48', 4, 674, '2017-08-02 14:14:27', '2017-08-06 13:17:58', '2017-08-14 13:43:52', '3', '0'),
+(1501, 'cleber.souza', 'CAERN', 201, 'PV0001', 'SBGCL-SCL', '2017-07-25', '2017-07-25 14:02:45', 1, 1758, '2017-08-02 13:27:10', '2017-08-03 13:37:40', '2017-08-24 14:47:36', '3', '0'),
 (1499, 'francinei', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2017-07-24', '2017-07-24 18:35:34', 4, 669, '2017-08-02 13:27:25', '2017-09-05 02:40:37', '2017-09-06 17:32:33', '3', '0'),
 (1500, 'francinei', 'COSANPA', 436, 'OP0002', 'SBGCL-SCL', '2017-07-24', '2017-07-24 18:36:06', 4, 675, '2017-08-02 14:14:57', '2017-09-05 02:43:29', '2017-09-06 17:43:34', '3', '0'),
-(1501, 'cleber.souza', 'CAERN', 201, 'PV0001', 'SBGCL-SCL', '2017-07-25', '2017-07-25 14:02:45', 1, 1758, '2017-08-02 13:27:10', '2017-08-03 13:37:40', '2017-08-24 14:47:36', '3', '0'),
 (1502, 'reginaldo.barbosa', 'CAERN', 193, 'CR0001', 'SBGCL-SCL', '2017-07-25', '2017-07-25 17:57:27', 1, 1777, '2017-08-02 14:15:15', '2017-08-14 11:17:43', '2017-08-24 14:50:45', '3', '0'),
 (1503, 'francinei', 'COSANPA', 442, 'CR0001', 'SBGCL-SCL', '2017-07-25', '2017-07-25 19:35:14', 4, 676, '2017-08-02 14:15:42', '2017-09-05 02:52:11', '2017-09-06 18:40:23', '3', '0'),
 (1504, 'nahim.pantoja', 'COSANPA', 450, 'OP0002', 'SBGCL-SCL', '2017-07-25', '2017-07-25 19:41:24', 4, 670, '2017-08-02 13:28:35', '2017-08-17 13:26:51', '2017-08-31 18:41:11', '3', '0'),
@@ -6219,7 +5345,6 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1523, 'reginaldo.barbosa', 'CAERN', 101, 'CR0001', 'SBGCL-SCL', '2017-07-28', '2017-07-28 23:16:29', 1, 1776, '2017-08-02 13:43:11', '2017-08-14 11:57:52', '2017-08-24 18:01:59', '3', '0'),
 (1524, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-07-31', '2017-08-01 01:02:05', 4, 672, '2017-08-02 13:43:37', '2017-09-05 03:00:07', '2017-09-06 16:37:27', '3', '0'),
 (1525, 'francinei', 'COSANPA', 428, 'OP0002', 'SBGCL-SCL', '2017-07-31', '2017-08-01 01:02:33', 4, 673, '2017-08-02 13:44:06', '2017-09-05 03:03:10', '2017-09-06 18:44:41', '3', '0'),
-(1526, 'jose.wilson', 'CAEMA', 18, 'CR0001', 'SBGCL-SCL', '2017-08-01', '2017-08-01 23:31:48', 4, 674, '2017-08-02 14:14:27', '2017-08-06 13:17:58', '2017-08-14 13:43:52', '3', '0'),
 (1528, 'francinei', 'COSANPA', 452, 'NV0001', 'SBGCL-SCL', '2017-08-02', '2017-08-02 10:01:03', 4, 677, '2017-08-02 14:15:57', '2017-11-08 14:17:55', '2017-11-16 19:03:47', '3', '0'),
 (1529, 'ricardo.lopes', 'CAGEPA', 232, 'PV0001', 'SBGCL-SCL', '2017-07-26', '2017-08-02 14:05:31', 1, 1778, '2017-08-02 14:26:31', '2017-10-25 14:39:26', '2017-10-25 14:49:55', '3', '0'),
 (1530, 'ricardo.lopes', 'CAGEPA', 292, 'CR0001', 'SBGCL-SCL', '2017-07-31', '2017-08-02 14:06:47', 1, 1779, '2017-08-02 14:26:47', '2017-10-26 19:36:04', '2017-10-27 11:38:24', '3', '0'),
@@ -6262,8 +5387,8 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1570, 'francinei', 'COSANPA', 469, 'Escolh', 'Escolha um s', '2017-08-10', '2017-08-10 12:44:06', 4, 683, '2017-08-11 13:00:09', '2017-09-05 03:19:58', '2017-09-12 17:19:11', '3', '0'),
 (1571, 'reginaldo.barbosa', 'CAERN', 70, 'CR0001', 'SBGCL-SCL', '2017-08-10', '2017-08-10 13:23:34', 1, 1813, '2017-08-10 19:00:01', '2017-08-14 12:21:52', '2017-08-29 19:02:27', '3', '0'),
 (1572, 'reginaldo.barbosa', 'CAERN', 97, 'CR0001', 'SBGCL-SCL', '2017-08-10', '2017-08-10 13:23:59', 1, 1814, '2017-08-10 19:00:26', '2017-08-14 12:29:09', '2017-08-29 19:08:41', '3', '0'),
-(1574, 'francinei', 'COSANPA', 509, 'CR0001', 'SBDPT-SPT', '2017-08-10', '2017-08-10 13:40:06', 4, 684, '2017-08-11 13:00:43', '2017-09-05 03:32:52', '2017-09-12 17:28:41', '3', '0'),
 (1575, 'francinei', 'COSANPA', 438, 'Escolh', 'Escolha um s', '2017-08-10', '2017-08-10 14:01:55', 4, 681, '2017-08-11 13:00:28', '2017-09-05 03:28:25', '2017-09-12 17:33:25', '3', '0'),
+(1574, 'francinei', 'COSANPA', 509, 'CR0001', 'SBDPT-SPT', '2017-08-10', '2017-08-10 13:40:06', 4, 684, '2017-08-11 13:00:43', '2017-09-05 03:32:52', '2017-09-12 17:28:41', '3', '0'),
 (1577, 'francinei', 'COSANPA', 432, 'PV0001', 'SBDPT-SPT', '2017-08-10', '2017-08-11 01:53:42', 4, 685, '2017-08-11 13:00:55', '2017-09-05 03:39:18', '2017-09-12 17:37:01', '3', '0'),
 (1578, 'francinei', 'COSANPA', 504, 'CR0001', 'SBGCL-SCL', '2017-08-10', '2017-08-10 18:24:21', 4, 686, '2017-08-11 13:01:14', '2017-09-05 03:43:52', '2017-09-12 17:47:27', '3', '0'),
 (1579, 'francinei', 'COSANPA', 515, 'CR0001', 'SBDPT-SPT', '2017-08-10', '2017-08-10 18:28:01', 4, 687, '2017-08-11 13:01:32', '2017-09-05 03:47:58', '2017-09-12 17:52:13', '3', '0'),
@@ -6303,10 +5428,10 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1614, 'rafael.carlos', 'CASAL', 393, 'PV0001', 'SBGCL-SCL', '2017-08-17', '2017-08-18 21:59:45', 1, 1840, '2017-08-22 17:22:58', '2017-08-24 19:01:25', '2017-09-11 23:12:28', '3', '0'),
 (1615, 'cleber.souza', 'CAGEPA', 288, 'PV0001', 'SBGCL-SCL', '2017-08-19', '2017-08-19 08:47:32', 1, 1841, '2017-08-22 17:23:14', '2017-08-28 16:26:15', '2017-09-11 23:21:31', '3', '0'),
 (1617, 'jose.wilson', 'CAEMA', 18, 'CR0001', 'SBGCL-SCL', '2017-08-19', '2017-08-19 16:08:24', 4, 694, '2017-08-22 17:23:27', '2017-08-24 16:20:42', '2017-09-12 18:15:50', '3', '0'),
+(1622, 'bruno.alves', 'CAGEPA', 226, 'PV0001', 'SBGCL-SCL', '2017-08-18', '2017-08-21 22:05:54', 1, 1848, '2017-08-22 17:28:46', '2017-08-31 09:44:07', '2017-09-11 23:25:19', '3', '0'),
 (1619, 'rafael.carlos', 'CASAL', 404, 'VT0001', 'SBGCL-SCL', '2017-08-21', '2017-08-21 12:20:55', 1, 1842, '2017-08-22 17:24:49', '2017-08-24 18:55:17', '2017-09-11 23:29:48', '3', '0'),
 (1620, 'cleber.souza', 'CAGEPA', 238, 'PV0001', 'SBGCL-SCL', '2017-08-18', '2017-08-21 12:59:10', 1, 1843, '2017-08-22 17:25:03', '2017-08-28 16:31:36', '2017-09-11 23:35:57', '3', '0'),
 (1621, 'bruno.alves', 'CAGEPA', 248, 'CR0001', 'SBGCL-SCL', '2017-08-21', '2017-08-21 14:42:25', 1, 1844, '2017-08-22 17:25:14', '2017-08-31 09:47:04', '2017-09-11 23:38:53', '3', '0'),
-(1622, 'bruno.alves', 'CAGEPA', 226, 'PV0001', 'SBGCL-SCL', '2017-08-18', '2017-08-21 22:05:54', 1, 1848, '2017-08-22 17:28:46', '2017-08-31 09:44:07', '2017-09-11 23:25:19', '3', '0'),
 (1623, 'reginaldo.barbosa', 'CAERN', 100, 'VT0001', 'SBGCL-SCL', '2017-08-21', '2017-08-21 23:25:14', 1, 1845, '2017-08-22 17:25:27', '2017-09-04 08:30:58', '2017-09-11 23:42:15', '3', '0'),
 (1624, 'nahim.pantoja', 'COSANPA', 476, 'CR0001', 'SBGCL-SCL', '2017-08-22', '2017-08-22 01:40:28', 4, 693, '2017-08-22 17:25:40', '2017-08-27 14:14:43', '2017-09-12 18:26:32', '3', '0'),
 (1625, 'rafael.carlos', 'CASAL', 752, 'PV0001', 'SBGCL-SCL', '2017-08-22', '2017-08-22 13:56:31', 1, 1846, '2017-08-22 17:25:55', '2017-08-24 18:58:09', '2017-09-11 23:47:57', '3', '0'),
@@ -6423,8 +5548,8 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1744, 'reginaldo.barbosa', 'CAERN', 157, 'CR0001', 'SBDSD-SDS', '2017-09-20', '2017-09-20 18:32:12', 1, 1904, '2017-09-28 12:09:29', '2017-10-10 00:19:03', '2017-10-26 13:39:39', '3', '0');
 INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sistema`, `data`, `data_sol`, `filial`, `os`, `data_os`, `data_fech`, `data_term`, `status`, `ativo`) VALUES
 (1745, 'cleber.souza', 'CAERN', 160, 'NV0001', 'SBGCL-SCL', '2017-09-20', '2017-09-21 00:34:40', 1, 1905, '2017-09-28 12:09:44', '2017-10-16 19:02:27', '2017-10-26 14:33:52', '3', '0'),
-(1747, 'reginaldo.barbosa', 'CAERN', 97, 'CR0001', 'SBGCL-SCL', '2017-09-22', '2017-09-22 11:18:49', 1, 1907, '2017-09-28 12:10:09', '2017-10-10 15:01:27', '2017-10-26 14:51:59', '3', '0'),
 (1748, 'reginaldo.barbosa', 'CAERN', 98, 'CR0001', 'SBGCL-SCL', '2017-09-22', '2017-09-22 11:19:24', 1, 1906, '2017-09-28 12:09:56', '2017-10-10 09:58:24', '2017-10-26 14:43:59', '3', '0'),
+(1747, 'reginaldo.barbosa', 'CAERN', 97, 'CR0001', 'SBGCL-SCL', '2017-09-22', '2017-09-22 11:18:49', 1, 1907, '2017-09-28 12:10:09', '2017-10-10 15:01:27', '2017-10-26 14:51:59', '3', '0'),
 (1749, 'cleber.souza', 'CAERN', 138, 'PV0001', 'SBGCL-SCL', '2017-09-22', '2017-09-22 12:22:45', 1, 1908, '2017-09-28 12:10:30', '2017-10-16 19:09:33', '2017-10-26 15:01:26', '3', '0'),
 (1750, 'francisco.barbosa', 'COMPESA', 611, 'VT0001', 'SBGCL-SCL', '2017-09-22', '2017-09-22 16:17:48', 1, 1909, '2017-09-28 12:10:45', '2017-10-26 19:13:22', '2017-10-26 19:15:30', '3', '0'),
 (1751, 'francisco.barbosa', 'COMPESA', 608, 'VT0001', 'SBGCL-SCL', '2017-09-22', '2017-09-22 17:56:44', 1, 1910, '2017-09-28 12:11:06', '2017-10-09 18:16:10', '2017-10-09 18:35:09', '3', '0'),
@@ -6449,8 +5574,8 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1771, 'francisco.barbosa', 'CAGEPA', 270, 'CR0001', 'SBGCL-SCL', '2017-09-29', '2017-10-03 17:15:28', 1, 1920, '2017-10-04 17:40:30', '2017-10-09 18:07:00', '2017-10-09 18:30:17', '3', '0'),
 (1772, 'francisco.barbosa', 'COMPESA', 613, 'VT0001', 'SBSEG-MCA', '2017-09-22', '2017-10-03 17:16:53', 1, 1921, '2017-10-04 17:40:45', '2017-10-09 18:12:08', '2017-10-09 18:40:11', '3', '0'),
 (1773, 'rafael.carlos', 'CASAL', 385, 'PV0001', 'SBGCL-SCL', '2017-10-03', '2017-10-03 19:56:10', 1, 1922, '2017-10-04 17:40:55', '2017-10-04 22:56:42', '2017-10-27 12:05:13', '3', '0'),
-(1775, 'rafael.carlos', 'CASAL', 384, 'PV0001', 'SBGCL-SCL', '2017-10-04', '2017-10-03 23:26:53', 1, 1924, '2017-10-04 17:41:20', '2017-10-04 23:05:17', '2017-10-27 14:58:31', '3', '0'),
 (1776, 'rafael.carlos', 'CASAL', 395, 'PV0001', 'SBGCL-SCL', '2017-10-04', '2017-10-03 23:26:41', 1, 1923, '2017-10-04 17:41:08', '2017-10-04 23:00:29', '2017-10-27 15:04:00', '3', '0'),
+(1775, 'rafael.carlos', 'CASAL', 384, 'PV0001', 'SBGCL-SCL', '2017-10-04', '2017-10-03 23:26:53', 1, 1924, '2017-10-04 17:41:20', '2017-10-04 23:05:17', '2017-10-27 14:58:31', '3', '0'),
 (1777, 'bruno.alves', 'CAGEPA', 346, 'CR0001', 'SBGCL-SCL', '2017-10-04', '2017-10-04 00:16:54', 1, 1925, '2017-10-04 17:41:35', '2017-10-10 10:51:17', '2017-10-25 14:57:57', '3', '0'),
 (1778, 'reginaldo.barbosa', 'CAERN', 115, 'CR0001', 'SBGCL-SCL', '2017-10-04', '2017-10-04 09:21:19', 1, 1926, '2017-10-04 17:41:53', '2017-10-10 09:11:55', '2017-10-27 18:52:15', '3', '0'),
 (1779, 'reginaldo.barbosa', 'CAERN', 67, 'VT0001', 'SBDSD-SDS', '2017-10-04', '2017-10-04 09:22:25', 1, 1927, '2017-10-04 17:42:06', '2017-10-10 09:46:57', '2017-10-27 18:59:20', '3', '0'),
@@ -6539,9 +5664,9 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1867, 'cleber.souza', 'CAGEPA', 355, 'PV0001', 'SBGCL-SCL', '2017-10-21', '2017-10-21 22:50:45', 1, 1981, '2017-10-23 18:23:27', '2017-10-25 17:59:33', '2017-10-25 18:18:50', '3', '0'),
 (1868, 'rafael.carlos', 'CASAL', 394, 'CR0001', 'SBGCL-SCL', '2017-10-19', '2017-10-22 19:57:25', 1, 1973, '2017-10-22 20:06:17', '2017-10-22 20:12:39', '2017-10-27 18:40:07', '3', '0'),
 (1869, 'rafael.carlos', 'CASAL', 397, 'NV0001', 'SBGCL-SCL', '2017-10-23', '2017-10-22 19:57:45', 1, 1972, '2017-10-22 20:05:24', '2017-10-27 01:28:12', '2017-10-27 18:45:27', '3', '0'),
+(1873, 'francisco.barbosa', 'CAGEPA', 213, 'CR0001', 'SBGCL-SCL', '2017-10-13', '2017-10-23 16:49:14', 1, 1983, '2017-10-23 18:37:27', '2017-10-23 19:06:36', '2017-10-26 11:01:49', '3', '0'),
 (1871, 'francisco.barbosa', 'CAGEPA', 260, 'NV0001', 'SBGCL-SCL', '2017-10-17', '2017-10-23 16:19:49', 1, 1984, '2017-10-23 18:37:48', '2017-10-23 19:20:56', '2017-10-26 11:18:31', '3', '0'),
 (1872, 'francisco.barbosa', 'CAERN', 194, 'NV0001', 'SBGCL-SCL', '2017-10-18', '2017-10-23 16:20:34', 1, 1985, '2017-10-23 18:38:02', '2017-10-23 19:42:08', '2017-10-30 10:36:49', '3', '0'),
-(1873, 'francisco.barbosa', 'CAGEPA', 213, 'CR0001', 'SBGCL-SCL', '2017-10-13', '2017-10-23 16:49:14', 1, 1983, '2017-10-23 18:37:27', '2017-10-23 19:06:36', '2017-10-26 11:01:49', '3', '0'),
 (1874, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-10-23', '2017-10-23 17:33:02', 4, 774, '2017-10-23 18:38:27', '2017-10-23 19:53:35', '2017-10-27 13:06:33', '3', '0'),
 (1875, 'ricardo.lopes', 'CAGECE', 777, 'NV0001', 'SBGCL-SCL', '2017-08-23', '2017-10-23 19:19:45', 1, 1986, '2017-10-25 14:28:22', '2017-10-27 19:24:06', '2017-10-30 13:15:58', '3', '0'),
 (1876, 'ricardo.lopes', 'CAGECE', 778, 'NV0001', 'SBGCL-SCL', '2017-08-24', '2017-10-23 19:21:49', 1, 1988, '2017-10-25 14:28:40', '2017-10-27 19:27:09', '2017-10-30 13:23:28', '3', '0'),
@@ -6622,7 +5747,7 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1951, 'reginaldo.barbosa', 'CAERN', 183, 'CR0001', 'SBDSD-SDS', '2017-11-03', '2017-11-03 02:00:47', 1, 2046, '2017-11-06 18:06:43', '2017-11-13 11:59:00', '2017-11-13 19:00:42', '3', '0'),
 (1952, 'reginaldo.barbosa', 'CAERN', 85, 'CR0001', 'SBDSD-SDS', '2017-11-03', '2017-11-03 02:02:41', 1, 2047, '2017-11-06 18:06:57', '2017-11-13 12:03:45', '2017-11-13 19:06:44', '3', '0'),
 (1953, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-11-03', '2017-11-03 14:46:50', 4, 793, '2017-11-06 18:07:15', '2017-11-06 19:55:56', '2017-11-21 18:53:27', '3', '0'),
-(1954, 'aellington.lima', 'CAGECE', 807, 'NV0001', 'SBGCL-SCL', '2017-11-05', '2017-11-05 17:46:50', 1, 2048, '2017-11-06 18:07:34', '2018-02-07 10:40:20', NULL, '1', '0'),
+(1954, 'aellington.lima', 'CAGECE', 807, 'NV0001', 'SBGCL-SCL', '2017-11-05', '2017-11-05 17:46:50', 1, 2048, '2017-11-06 18:07:34', '2018-02-22 12:56:10', NULL, '1', '0'),
 (1956, 'rafael.carlos', 'CASAL', 399, 'CR0001', 'SBGCL-SCL', '2017-11-04', '2017-11-05 18:57:32', 1, 2041, '2017-11-05 19:01:58', '2017-11-05 19:06:14', '2017-11-14 14:54:46', '3', '0'),
 (1957, 'rafael.carlos', 'CASAL', 404, 'CR0001', 'SBGCL-SCL', '2017-11-03', '2017-11-05 18:57:51', 1, 2043, '2017-11-05 19:03:50', '2017-11-05 19:14:51', '2017-11-14 17:00:23', '3', '0'),
 (1958, 'rafael.carlos', 'CASAL', 401, 'CR0001', 'SBGCL-SCL', '2017-11-03', '2017-11-05 18:58:11', 1, 2042, '2017-11-05 19:02:47', '2017-11-05 19:09:50', '2017-11-22 16:21:38', '3', '0'),
@@ -6634,6 +5759,7 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1964, 'jose.wilson', 'CAEMA', 14, 'PV0001', 'SBGCL-SCL', '2017-11-07', '2017-11-07 14:45:46', 4, 798, '2017-11-08 16:58:41', '2017-11-10 02:31:10', '2017-11-23 14:01:53', '3', '0'),
 (1965, 'francinei', 'COSANPA', 428, 'OP0002', 'SBGCL-SCL', '2017-11-07', '2017-11-07 15:11:31', 4, 799, '2017-11-08 16:58:56', '2017-11-13 01:50:26', '2017-11-23 14:06:12', '3', '0'),
 (1966, 'francinei', 'COSANPA', 510, 'OP0002', 'SBGCL-SCL', '2017-11-07', '2017-11-07 15:13:03', 4, 800, '2017-11-08 16:59:07', '2017-11-13 01:45:59', '2017-11-23 14:10:39', '3', '0'),
+(1976, 'reginaldo.barbosa', 'CAERN', 77, 'CR0001', 'SBGCL-SCL', '2017-11-08', '2017-11-08 15:34:28', 1, 2053, '2017-11-08 17:06:23', '2017-11-13 12:11:09', '2017-11-22 16:38:01', '3', '0'),
 (1968, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-11-07', '2017-11-07 18:34:46', 4, 801, '2017-11-08 16:59:22', '2017-11-13 00:13:55', '2017-11-23 14:18:37', '3', '0'),
 (1969, 'dagmo.esbell', 'CAER', 60, 'CR0001', 'SBGCL-SCL', '2017-07-19', '2017-11-08 12:13:49', 4, 802, '2017-11-08 16:59:44', '2017-11-09 15:52:20', '2017-11-23 14:59:26', '3', '0'),
 (1970, 'dagmo.esbell', 'CAER', 59, 'CR0001', 'SBGCL-SCL', '2017-08-02', '2017-11-08 12:15:37', 4, 803, '2017-11-08 16:59:57', '2017-11-09 15:51:39', '2017-11-23 16:13:35', '3', '0'),
@@ -6642,7 +5768,6 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1973, 'dagmo.esbell', 'CAER', 761, 'CR0001', 'SBGCL-SCL', '2017-10-04', '2017-11-08 12:20:01', 3, 805, '2017-11-08 17:00:39', '2017-11-09 16:41:04', '2017-11-23 16:20:05', '3', '0'),
 (1974, 'dagmo.esbell', 'CAER', 60, 'PV0001', 'SBGCL-SCL', '2017-10-18', '2017-11-08 12:22:09', 4, 806, '2017-11-08 17:00:51', '2017-11-09 16:16:48', '2017-11-23 16:21:55', '3', '0'),
 (1975, 'dagmo.esbell', 'CAER', 60, 'PV0001', 'SBGCL-SCL', '2017-11-07', '2017-11-08 12:23:45', 3, 807, '2017-11-08 17:01:01', '2017-11-09 17:02:44', '2017-11-23 16:23:42', '3', '0'),
-(1976, 'reginaldo.barbosa', 'CAERN', 77, 'CR0001', 'SBGCL-SCL', '2017-11-08', '2017-11-08 15:34:28', 1, 2053, '2017-11-08 17:06:23', '2017-11-13 12:11:09', '2017-11-22 16:38:01', '3', '0'),
 (1977, 'gladson.marinho', 'CAERN', 126, 'PV0001', 'SBSEG-MCA', '2017-10-26', '2017-11-09 13:03:39', 1, 2064, '2017-11-13 18:03:49', '2017-11-14 11:01:53', '2017-11-22 16:42:01', '3', '0'),
 (1978, 'gladson.marinho', 'CAERN', 102, 'PV0001', 'SBSEG-MCA', '2017-10-26', '2017-11-09 13:04:19', 1, 2065, '2017-11-13 18:04:00', '2017-11-14 11:05:49', '2017-11-22 16:45:30', '3', '0'),
 (1979, 'gladson.marinho', 'CAERN', 173, 'CR0001', 'SBGCL-SCL', '2017-10-27', '2017-11-09 13:05:31', 1, 2066, '2017-11-13 18:04:15', '2017-11-14 11:11:18', '2017-11-22 16:49:49', '3', '0'),
@@ -6658,12 +5783,12 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (1989, 'francinei', 'COSANPA', 424, 'CR0001', 'SBGCL-SCL', '2017-11-09', '2017-11-09 20:00:30', 4, 808, '2017-11-13 18:06:31', '2017-11-22 02:14:22', '2017-11-23 17:09:28', '3', '0'),
 (1990, 'rafael.carlos', 'DESO', 524, 'PV0001', 'SBDXC-SDX', '2017-11-07', '2017-11-09 22:55:50', 1, 2055, '2017-11-09 23:17:37', '2017-11-09 23:34:58', '2017-11-22 17:14:21', '3', '0'),
 (1991, 'rafael.carlos', 'DESO', 523, 'CR0001', 'SBDXC-SDX', '2017-11-08', '2017-11-09 22:56:24', 1, 2056, '2017-11-09 23:18:28', '2017-11-09 23:40:49', '2017-11-22 17:18:24', '3', '0'),
+(1998, 'rafael.carlos', 'CASAL', 400, 'NV0001', 'SBGCL-SCL', '2017-11-09', '2017-11-09 23:07:47', 1, 2059, '2017-11-09 23:23:01', '2017-11-09 23:55:21', '2017-11-22 17:25:16', '3', '0'),
 (1993, 'rafael.carlos', 'DESO', 525, 'CR0001', 'SBDXC-SDX', '2017-11-08', '2017-11-09 22:58:27', 1, 2057, '2017-11-09 23:19:22', '2017-11-09 23:45:35', '2017-11-22 17:30:54', '3', '0'),
 (1994, 'francisco.barbosa', 'CAERN', 194, 'NV0001', 'SBGCL-SCL', '2017-11-06', '2017-11-09 22:59:08', 1, 2075, '2017-11-13 18:06:44', '2017-11-15 03:07:12', '2017-11-22 17:36:24', '3', '0'),
 (1995, 'rafael.carlos', 'DESO', 526, 'PV0001', 'SBDXC-SDX', '2017-11-09', '2017-11-09 23:00:12', 1, 2058, '2017-11-09 23:20:05', '2017-11-09 23:50:52', '2017-11-22 17:41:28', '3', '0'),
-(1997, 'francisco.barbosa', 'CAERN', 809, 'NV0001', 'SBGCL-SCL', '2017-11-07', '2017-11-09 23:01:10', 1, 2076, '2017-11-13 18:06:59', '2017-11-15 03:15:46', '2017-11-22 17:52:46', '3', '0'),
-(1998, 'rafael.carlos', 'CASAL', 400, 'NV0001', 'SBGCL-SCL', '2017-11-09', '2017-11-09 23:07:47', 1, 2059, '2017-11-09 23:23:01', '2017-11-09 23:55:21', '2017-11-22 17:25:16', '3', '0'),
 (1999, 'rafael.carlos', 'CASAL', 385, 'NV0001', 'SBGCL-SCL', '2017-11-09', '2017-11-09 23:08:12', 1, 2060, '2017-11-09 23:23:45', '2017-11-09 23:57:51', '2017-11-22 17:47:01', '3', '0'),
+(1997, 'francisco.barbosa', 'CAERN', 809, 'NV0001', 'SBGCL-SCL', '2017-11-07', '2017-11-09 23:01:10', 1, 2076, '2017-11-13 18:06:59', '2017-11-15 03:15:46', '2017-11-22 17:52:46', '3', '0'),
 (2000, 'rafael.carlos', 'CASAL', 384, 'NV0001', 'SBGCL-SCL', '2017-11-09', '2017-11-09 23:08:31', 1, 2061, '2017-11-09 23:24:23', '2017-11-09 23:59:38', '2017-11-22 17:57:25', '3', '0'),
 (2001, 'rafael.carlos', 'CASAL', 379, 'NV0001', 'SBGCL-SCL', '2017-11-09', '2017-11-09 23:08:51', 1, 2062, '2017-11-09 23:25:18', '2017-11-10 00:01:50', '2017-11-22 18:02:21', '3', '0'),
 (2002, 'rafael.carlos', 'CASAL', 543, 'CR0001', 'SBGCL-SCL', '2017-11-09', '2017-11-09 23:09:16', 1, 2063, '2017-11-09 23:25:58', '2017-11-10 00:05:21', '2017-11-22 18:20:09', '3', '0'),
@@ -6714,7 +5839,7 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (2048, 'cleber.souza', 'CAGECE', 818, 'NV0001', 'SBGCL-SCL', '2017-11-15', '2017-11-23 01:01:55', 1, 2105, '2017-11-23 19:33:43', '2018-02-06 13:11:32', '2018-02-07 18:13:27', '3', '0'),
 (2049, 'bruno.alves', 'CAGEPA', 316, 'PV0001', 'SBGCL-SCL', '2017-11-17', '2017-11-23 11:02:37', 1, 2106, '2017-11-23 19:34:03', '2017-12-26 14:51:03', '2017-12-28 13:28:25', '3', '0'),
 (2050, 'bruno.alves', 'CAGEPA', 266, 'NV0001', 'SBGCL-SCL', '2017-11-16', '2017-11-23 11:03:44', 1, 2107, '2017-11-23 19:34:18', '2017-12-26 14:49:01', '2017-12-28 13:31:44', '3', '0'),
-(2051, 'cleber.souza', 'CAERN', 69, 'PV0001', 'SBPAC-SPC', '2017-11-23', '2017-11-23 12:42:04', 1, 2108, '2017-11-23 19:34:32', '2018-02-09 12:14:12', NULL, '2', '0'),
+(2051, 'cleber.souza', 'CAERN', 69, 'PV0001', 'SBPAC-SPC', '2017-11-23', '2017-11-23 12:42:04', 1, 2108, '2017-11-23 19:34:32', '2018-02-09 12:14:12', '2018-03-01 17:43:12', '3', '0'),
 (2053, 'nahim.pantoja', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-11-23', '2017-11-23 12:51:47', 4, 824, '2017-11-23 19:34:52', '2017-11-28 11:39:21', '2017-12-19 14:53:26', '3', '0'),
 (2054, 'nahim.pantoja', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2017-11-23', '2017-11-23 12:54:52', 4, 825, '2017-11-23 19:35:05', '2017-11-28 11:42:59', '2017-12-19 14:57:29', '3', '0'),
 (2055, 'ivanilson', 'CAGECE', 207, 'OP0001', 'SBGCL-SCL', '2017-11-22', '2017-11-23 13:14:02', 1, 2109, '2017-11-23 19:35:22', '2017-12-14 16:47:40', '2017-12-20 14:37:42', '3', '0'),
@@ -6727,7 +5852,7 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (2063, 'francisco.barbosa', 'CAGEPA', 316, 'CR0001', 'SBGCL-SCL', '2017-11-25', '2017-11-25 11:59:05', 1, 2116, '2017-11-28 19:18:40', '2017-12-01 13:27:54', '2017-12-01 14:38:26', '3', '0'),
 (2064, 'ricardo.lopes', 'CAB CUIABA', 11, 'PV0001', 'SBGCL-SCL', '2017-11-22', '2017-11-25 19:46:10', 4, 829, '2017-11-28 19:18:58', NULL, NULL, '1', '0'),
 (2065, 'ricardo.lopes', 'CAB CUIABA', 12, 'PV0001', 'SBGCL-SCL', '2017-11-23', '2017-11-25 19:46:51', 4, 828, '2017-11-28 19:19:17', NULL, NULL, '1', '0'),
-(2066, 'aellington.lima', 'CAGECE', 810, 'NV0001', 'SBGCL-SCL', '2017-11-22', '2017-11-26 15:43:37', 1, 2117, '2017-11-28 19:19:29', '2018-02-07 10:40:06', NULL, '1', '0'),
+(2066, 'aellington.lima', 'CAGECE', 810, 'NV0001', 'SBGCL-SCL', '2017-11-22', '2017-11-26 15:43:37', 1, 2117, '2017-11-28 19:19:29', '2018-02-22 12:55:45', '2018-03-01 17:13:56', '3', '0'),
 (2067, 'aellington.lima', 'CAGECE', 815, 'NV0001', 'SBGCL-SCL', '2017-11-14', '2017-11-26 20:22:22', 1, 2118, '2017-11-28 19:19:42', '2017-12-09 18:16:00', '2017-12-20 14:43:33', '3', '0'),
 (2068, 'rafael.carlos', 'CASAL', 398, 'CR0001', 'SBGCL-SCL', '2017-11-22', '2017-11-27 00:23:29', 1, 2112, '2017-11-27 00:28:54', '2017-11-27 00:37:38', '2017-12-01 14:43:46', '3', '0'),
 (2069, 'rafael.carlos', 'CASAL', 396, 'CR0001', 'SBGCL-SCL', '2017-11-25', '2017-11-27 00:24:30', 1, 2111, '2017-11-27 00:27:53', '2017-11-27 00:41:56', '2017-12-01 16:54:43', '3', '0'),
@@ -6760,10 +5885,10 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (2096, 'jose.wilson', 'CAEMA', 16, 'CR0001', 'SBGCL-SCL', '2017-12-01', '2017-12-01 15:31:35', 4, 840, '2017-12-06 19:53:49', '2017-12-10 15:50:48', '2017-12-19 18:37:52', '3', '0'),
 (2097, 'rafael.carlos', 'CASAL', 390, 'PV0001', 'SBGCL-SCL', '2017-12-02', '2017-12-02 19:12:12', 1, 2133, '2017-12-04 22:59:05', '2017-12-04 23:16:26', '2017-12-22 13:46:57', '3', '0'),
 (2098, 'rafael.carlos', 'SOLAR', 537, 'PV0001', 'SBGCL-SCL', '2017-12-02', '2017-12-02 19:40:02', 1, 2135, '2017-12-04 23:00:39', '2017-12-04 23:24:23', '2017-12-22 14:05:17', '3', '0'),
+(2103, 'rafael.carlos', 'DESO', 523, 'CR0001', 'SBDXC-SDX', '2017-12-04', '2017-12-04 22:51:19', 1, 2134, '2017-12-04 22:59:59', '2017-12-07 17:23:12', '2017-12-22 14:15:29', '3', '0'),
 (2100, 'francinei', 'COSANPA', 409, 'PV0001', 'SBPAC-SPC', '2017-12-04', '2017-12-04 18:58:15', 1, 2139, '2017-12-06 19:54:04', '2017-12-08 12:01:38', '2017-12-22 14:30:52', '3', '0'),
 (2101, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-12-04', '2017-12-04 19:00:49', 4, 841, '2017-12-06 19:54:20', '2017-12-08 12:05:23', '2017-12-19 18:41:52', '3', '0'),
 (2102, 'reginaldo.barbosa', 'CAERN', 809, 'NV0001', 'SBGCL-SCL', '2017-12-04', '2017-12-04 21:38:21', 1, 2140, '2017-12-06 19:54:33', '2017-12-18 23:13:01', '2017-12-28 13:46:05', '3', '0'),
-(2103, 'rafael.carlos', 'DESO', 523, 'CR0001', 'SBDXC-SDX', '2017-12-04', '2017-12-04 22:51:19', 1, 2134, '2017-12-04 22:59:59', '2017-12-07 17:23:12', '2017-12-22 14:15:29', '3', '0'),
 (2104, 'rafael.carlos', 'CASAL', 382, 'PV0001', 'SBGCL-SCL', '2017-12-04', '2017-12-04 22:56:41', 1, 2132, '2017-12-04 22:58:10', '2017-12-04 23:13:33', '2017-12-28 14:02:20', '3', '0'),
 (2106, 'nahim.pantoja', 'COSANPA', 463, 'PV0001', 'SBPAC-SPC', '2017-12-04', '2017-12-05 15:58:17', 1, 2141, '2017-12-06 19:54:48', '2017-12-11 19:56:43', '2017-12-28 14:15:08', '3', '0'),
 (2107, 'nahim.pantoja', 'COSANPA', 462, 'OP0002', 'SBGCL-SCL', '2017-12-05', '2017-12-05 15:59:15', 4, 842, '2017-12-06 19:55:11', '2017-12-11 20:04:35', '2017-12-19 18:48:59', '3', '0'),
@@ -6866,7 +5991,7 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (2208, 'reginaldo.barbosa', 'CAERN', 65, 'VT0001', 'SBGCL-SCL', '2017-12-27', '2017-12-27 15:43:29', 1, 2201, '2017-12-28 13:11:10', '2018-01-03 13:17:58', '2018-01-09 17:07:12', '3', '0'),
 (2209, 'nahim.pantoja', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-12-22', '2017-12-27 19:32:53', 4, 879, '2017-12-28 13:11:22', '2017-12-28 14:43:05', '2017-12-29 14:55:22', '3', '0'),
 (2210, 'francinei', 'COSANPA', 508, 'CR0001', 'SBGCL-SCL', '2017-12-28', '2017-12-28 20:19:41', 4, 880, '2017-12-29 16:39:58', '2018-01-02 19:02:14', '2018-01-08 18:27:08', '3', '0'),
-(2211, 'antonio.ferreira', 'CAGECE', 803, 'NV0001', 'Escolha um s', '2017-12-27', '2017-12-28 23:26:03', 1, 2202, '2017-12-29 16:40:14', NULL, NULL, '1', '0'),
+(2211, 'antonio.ferreira', 'CAGECE', 803, 'NV0001', 'Escolha um s', '2017-12-27', '2017-12-28 23:26:03', 1, 2202, '2017-12-29 16:40:14', '2018-03-23 13:41:52', '2018-03-23 18:06:48', '3', '0'),
 (2212, 'jose.wilson', 'AGESPISA', 2, 'PV0001', 'SBGCL-SCL', '2017-12-29', '2017-12-29 13:32:49', 4, 881, '2017-12-29 16:40:31', '2018-01-03 12:39:54', '2018-01-08 18:32:23', '3', '0'),
 (2213, 'jose.wilson', 'CAEMA', 18, 'PV0001', 'SBGCL-SCL', '2017-12-29', '2017-12-29 13:33:38', 4, 882, '2017-12-29 16:40:49', '2018-01-03 12:47:42', '2018-01-08 18:38:56', '3', '0'),
 (2214, 'jose.wilson', 'CAEMA', 19, 'PV0001', 'SBGCL-SCL', '2017-12-29', '2017-12-29 13:34:07', 4, 883, '2017-12-29 16:41:07', '2018-01-03 13:03:50', '2018-01-08 18:43:31', '3', '0'),
@@ -6876,7 +6001,7 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (2218, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2017-12-29', '2017-12-29 14:02:41', 4, 887, '2017-12-29 16:42:04', '2018-01-02 18:26:46', '2018-01-08 19:16:47', '3', '0'),
 (2219, 'jose.wilson', 'CAEMA', 17, 'PV0001', 'SBGCL-SCL', '2017-12-29', '2017-12-29 14:18:21', 4, 888, '2017-12-29 16:42:16', '2018-01-03 13:35:05', '2018-01-08 19:11:55', '3', '0'),
 (2221, 'thonpson', 'CAERN', 126, 'PV0001', 'SBGCL-SCL', '2017-12-12', '2017-12-29 19:16:27', 1, 2203, '2018-01-05 14:54:27', NULL, NULL, '1', '0'),
-(2222, 'antonio.ferreira', 'CAEMA', 41, 'NV0001', 'SBGCL-SCL', '2017-12-29', '2017-12-30 18:04:15', 1, 2204, '2018-01-05 14:54:43', NULL, NULL, '1', '0'),
+(2222, 'antonio.ferreira', 'CAEMA', 41, 'NV0001', 'SBGCL-SCL', '2017-12-29', '2017-12-30 18:04:15', 1, 2204, '2018-01-05 14:54:43', '2018-03-23 13:47:29', '2018-03-23 18:09:03', '3', '0'),
 (2223, 'bruno.alves', 'CAGEPA', 309, 'CR0001', 'SBGCL-SCL', '2017-12-27', '2017-12-31 09:53:16', 1, 2205, '2018-01-05 14:54:57', '2018-01-29 13:32:35', '2018-02-01 18:13:27', '3', '0'),
 (2224, 'bruno.alves', 'CAGEPA', 271, 'PV0001', 'SBGCL-SCL', '2017-12-28', '2017-12-31 09:53:55', 1, 2206, '2018-01-05 14:55:11', '2018-01-29 13:36:20', '2018-02-01 18:22:41', '3', '0'),
 (2225, 'bruno.alves', 'CAGEPA', 337, 'CR0001', 'SBGCL-SCL', '2017-12-30', '2017-12-31 09:54:39', 1, 2207, '2018-01-05 14:55:24', '2018-01-29 13:38:24', '2018-02-01 18:28:09', '3', '0'),
@@ -6884,12 +6009,12 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (2227, 'gladson.marinho', 'CAERN', 173, 'VT0001', 'SBGCL-SCL', '2017-12-27', '2018-01-02 12:49:13', 1, 2208, '2018-01-05 14:55:54', '2018-01-22 10:14:37', '2018-02-01 18:33:55', '3', '0'),
 (2228, 'gladson.marinho', 'CAERN', 76, 'VT0001', 'SBGCL-SCL', '2017-12-27', '2018-01-02 12:49:31', 1, 2209, '2018-01-05 14:56:06', '2018-01-22 10:18:43', '2018-02-01 18:46:25', '3', '0'),
 (2229, 'francinei', 'COSANPA', 450, 'OP0002', 'SBGCL-SCL', '2017-12-22', '2018-01-02 19:03:08', 4, 890, '2018-01-05 14:56:23', '2018-01-09 00:41:24', '2018-01-09 17:49:28', '3', '0'),
+(2238, 'nahim.pantoja', 'COSANPA', 436, 'PV0001', 'SBGCL-SCL', '2018-01-05', '2018-01-05 15:02:07', 4, 894, '2018-01-05 16:28:13', '2018-01-05 18:28:46', '2018-01-08 19:21:51', '3', '0'),
 (2232, 'francinei', 'COSANPA', 428, 'OP0002', 'SBGCL-SCL', '2018-01-03', '2018-01-03 12:45:15', 4, 891, '2018-01-05 14:57:08', '2018-01-09 00:28:52', '2018-01-09 18:39:44', '3', '0'),
 (2233, 'nahim.pantoja', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2018-01-03', '2018-01-03 13:24:15', 4, 892, '2018-01-05 14:57:24', '2018-01-05 18:21:54', '2018-01-08 19:27:59', '3', '0'),
 (2234, 'cleber.souza', 'CAERN', 67, 'PV0001', 'SBDSD-SDS', '2018-01-03', '2018-01-03 16:23:12', 1, 2211, '2018-01-05 14:57:40', '2018-01-15 13:58:18', '2018-02-01 18:50:24', '3', '0'),
 (2235, 'nahim.pantoja', 'COSANPA', 409, 'OP0002', 'SBGCL-SCL', '2018-01-04', '2018-01-04 10:57:57', 1, 893, '2018-01-05 14:57:55', '2018-01-05 18:25:03', '2018-01-08 19:32:07', '3', '0'),
 (2236, 'thonpson', 'BRASIL KIRIN', 536, 'CR0001', 'SBDPT-SPT', '2018-01-04', '2018-01-04 17:16:46', 1, 2212, '2018-01-05 14:58:13', NULL, NULL, '1', '0'),
-(2238, 'nahim.pantoja', 'COSANPA', 436, 'PV0001', 'SBGCL-SCL', '2018-01-05', '2018-01-05 15:02:07', 4, 894, '2018-01-05 16:28:13', '2018-01-05 18:28:46', '2018-01-08 19:21:51', '3', '0'),
 (2239, 'nahim.pantoja', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-01-05', '2018-01-05 16:51:57', 4, 895, '2018-01-08 17:21:29', '2018-01-09 19:09:42', '2018-02-06 13:35:24', '3', '0'),
 (2240, 'rafael.carlos', 'CASAL', 398, 'CR0001', 'SBGCL-SCL', '2017-12-28', '2018-01-08 10:41:08', 1, 2213, '2018-01-08 10:41:55', '2018-01-08 10:53:44', '2018-01-09 16:51:06', '3', '0'),
 (2241, 'rafael.carlos', 'CASAL', 391, 'NV0001', 'SBGCL-SCL', '2017-12-29', '2018-01-08 10:46:21', 1, 2214, '2018-01-08 10:46:32', '2018-01-08 10:56:35', '2018-01-09 17:13:32', '3', '0'),
@@ -6898,7 +6023,7 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (2244, 'rafael.carlos', 'SOLAR', 537, 'CR0001', 'SBDPT-SPT', '2018-01-04', '2018-01-08 10:48:44', 1, 2217, '2018-01-08 10:48:55', '2018-01-08 11:07:03', '2018-01-09 17:34:12', '3', '0'),
 (2245, 'francisco.barbosa', 'CAGEPA', 309, 'CR0001', 'SBGCL-SCL', '2018-01-08', '2018-01-08 12:29:20', 1, 2218, '2018-01-08 17:21:50', '2018-01-11 10:51:47', '2018-02-01 18:54:43', '3', '0'),
 (2246, 'dagmo.esbell', 'CAER', 58, 'CR0001', 'SBGCL-SCL', '2018-01-08', '2018-01-08 16:40:30', 4, 896, '2018-01-08 17:22:04', '2018-01-09 19:38:58', '2018-02-06 13:41:05', '3', '0'),
-(2247, 'jose.wilson', 'SOLAR', 784, 'CR0001', 'SBDPT-SPT', '2018-01-08', '2018-01-08 20:02:47', 4, 897, '2018-01-11 17:14:22', '2018-02-09 13:56:21', NULL, '2', '0'),
+(2247, 'jose.wilson', 'SOLAR', 784, 'CR0001', 'SBDPT-SPT', '2018-01-08', '2018-01-08 20:02:47', 4, 897, '2018-01-11 17:14:22', '2018-02-09 13:56:21', '2018-03-12 12:09:34', '3', '0'),
 (2248, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-01-09', '2018-01-09 00:04:17', 4, 898, '2018-01-11 17:14:45', '2018-01-18 01:34:58', '2018-02-06 13:49:52', '3', '0'),
 (2249, 'nahim.pantoja', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2018-01-09', '2018-01-09 14:29:30', 3, 899, '2018-01-11 17:14:56', '2018-01-12 20:48:52', '2018-02-06 13:52:55', '3', '0'),
 (2250, 'nahim.pantoja', 'COSANPA', 436, 'OP0002', 'SBGCL-SCL', '2018-01-09', '2018-01-09 14:30:21', 4, 903, '2018-01-11 17:15:13', '2018-01-12 20:52:40', '2018-02-06 13:56:51', '3', '0'),
@@ -6917,12 +6042,12 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (2263, 'cleber.souza', 'CAGEPA', 255, 'PV0001', 'SBGCL-SCL', '2018-01-09', '2018-01-11 20:53:50', 1, 2227, '2018-01-24 14:21:13', '2018-01-27 12:13:18', '2018-02-07 18:40:32', '3', '0'),
 (2265, 'cleber.souza', 'CAGEPA', 327, 'PV0001', 'SBGCL-SCL', '2018-01-10', '2018-01-11 20:56:00', 1, 2237, '2018-01-24 14:21:25', '2018-01-27 12:24:31', '2018-02-07 18:52:43', '3', '0'),
 (2266, 'cleber.souza', 'CAERN', 67, 'PV0001', 'SBDSD-SDS', '2018-01-11', '2018-01-11 20:57:06', 1, 2238, '2018-01-24 14:21:44', '2018-01-27 15:47:38', '2018-02-07 19:08:01', '3', '0'),
-(2269, 'francisco.barbosa', 'CAGEPA', 225, 'CR0001', 'SBGCL-SCL', '2018-01-12', '2018-01-12 15:26:26', 1, 2239, '2018-01-24 14:25:39', '2018-01-29 13:56:14', '2018-02-07 19:13:06', '3', '0'),
 (2270, 'nahim.pantoja', 'COSANPA', 499, 'PV0001', 'SBDPT-SPT', '2018-01-11', '2018-01-12 20:42:29', 4, 905, '2018-01-24 14:26:01', '2018-01-24 18:29:38', '2018-02-06 14:24:39', '3', '0'),
+(2269, 'francisco.barbosa', 'CAGEPA', 225, 'CR0001', 'SBGCL-SCL', '2018-01-12', '2018-01-12 15:26:26', 1, 2239, '2018-01-24 14:25:39', '2018-01-29 13:56:14', '2018-02-07 19:13:06', '3', '0'),
 (2271, 'nahim.pantoja', 'COSANPA', 509, 'PV0001', 'SBDPT-SPT', '2018-01-12', '2018-01-12 20:43:28', 4, 922, '2018-01-24 14:25:13', '2018-01-24 18:36:14', '2018-02-06 14:31:55', '3', '0'),
 (2272, 'nahim.pantoja', 'COSANPA', 428, 'PV0001', 'SBGCL-SCL', '2018-01-12', '2018-01-12 20:44:56', 4, 906, '2018-01-24 14:26:19', '2018-01-24 18:39:28', '2018-02-06 14:35:54', '3', '0'),
 (2273, 'nahim.pantoja', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-01-12', '2018-01-12 20:45:43', 4, 907, '2018-01-24 14:26:32', '2018-01-24 18:23:14', '2018-02-06 14:42:26', '3', '0'),
-(2274, 'francinei', 'COSANPA', 794, 'NV0001', 'SBGCL-SCL', '2018-01-15', '2018-01-15 10:30:37', 4, 908, '2018-01-24 14:26:43', '2018-02-08 18:57:58', NULL, '2', '0'),
+(2274, 'francinei', 'COSANPA', 794, 'NV0001', 'SBGCL-SCL', '2018-01-15', '2018-01-15 10:30:37', 4, 908, '2018-01-24 14:26:43', '2018-02-08 18:57:58', '2018-03-12 12:11:55', '3', '0'),
 (2275, 'nahim.pantoja', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-01-15', '2018-01-15 11:00:56', 4, 909, '2018-01-24 14:26:59', '2018-01-24 18:47:15', '2018-02-06 14:49:37', '3', '0'),
 (2276, 'rafael.carlos', 'DESO', 524, 'CR0001', 'SBDXC-SDX', '2018-01-10', '2018-01-15 12:01:33', 1, 2228, '2018-01-15 12:22:52', '2018-01-15 12:31:36', '2018-02-07 19:24:19', '3', '0'),
 (2277, 'rafael.carlos', 'DESO', 523, 'PV0001', 'SBDXC-SDX', '2018-01-10', '2018-01-15 12:03:04', 1, 2229, '2018-01-15 12:23:27', '2018-01-15 12:33:04', '2018-02-07 19:39:17', '3', '0'),
@@ -6930,345 +6055,367 @@ INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sis
 (2279, 'rafael.carlos', 'DESO', 525, 'PV0001', 'SBDXC-SDX', '2018-01-11', '2018-01-15 12:09:14', 1, 2231, '2018-01-15 12:24:31', '2018-01-15 12:36:43', '2018-02-07 19:48:01', '3', '0'),
 (2280, 'rafael.carlos', 'CASAL', 387, 'PV0001', 'SBGCL-SCL', '2018-01-12', '2018-01-15 12:09:34', 1, 2232, '2018-01-15 12:25:36', '2018-01-15 12:38:37', '2018-02-07 19:58:52', '3', '0'),
 (2281, 'rafael.carlos', 'CASAL', 398, 'PV0001', 'SBGCL-SCL', '2018-01-13', '2018-01-15 12:10:01', 1, 2233, '2018-01-15 12:26:31', '2018-01-15 12:40:17', '2018-02-07 20:02:24', '3', '0'),
-(2282, 'reginaldo.barbosa', 'CAERN', 77, 'PV0001', 'SBGCL-SCL', '2018-01-15', '2018-01-15 12:44:22', 1, 2240, '2018-01-24 14:27:21', '2018-02-18 11:22:45', NULL, '2', '0'),
+(2282, 'reginaldo.barbosa', 'CAERN', 77, 'PV0001', 'SBGCL-SCL', '2018-01-15', '2018-01-15 12:44:22', 1, 2240, '2018-01-24 14:27:21', '2018-02-18 11:22:45', '2018-03-01 17:46:16', '3', '0'),
 (2284, 'nahim.pantoja', 'COSANPA', 481, 'PV0001', 'SBDPT-SPT', '2018-01-15', '2018-01-15 18:10:01', 4, 910, '2018-01-24 14:27:35', '2018-01-24 18:51:44', '2018-02-06 14:56:03', '3', '0'),
 (2285, 'nahim.pantoja', 'COSANPA', 505, 'PV0001', 'SBDPT-SPT', '2018-01-15', '2018-01-15 18:11:16', 4, 911, '2018-01-24 14:27:48', '2018-01-24 18:55:34', '2018-02-06 15:00:38', '3', '0'),
-(2287, 'jose.wilson', 'CAEMA', 33, 'CR0001', 'SBGCL-SCL', '2018-01-12', '2018-01-16 13:47:38', 4, 913, '2018-01-24 14:28:16', '2018-01-28 12:57:28', '2018-02-06 15:16:22', '3', '0'),
 (2288, 'dagmo.esbell', 'CAER', 60, 'CR0001', 'SBGCL-SCL', '2018-01-17', '2018-01-17 19:54:33', 4, 912, '2018-01-24 14:28:03', '2018-01-29 12:34:49', '2018-02-06 15:10:29', '3', '0'),
+(2287, 'jose.wilson', 'CAEMA', 33, 'CR0001', 'SBGCL-SCL', '2018-01-12', '2018-01-16 13:47:38', 4, 913, '2018-01-24 14:28:16', '2018-01-28 12:57:28', '2018-02-06 15:16:22', '3', '0'),
 (2289, 'francinei', 'COSANPA', 409, 'CR0001', 'SBGCL-SCL', '2018-01-09', '2018-01-18 01:28:08', 4, 914, '2018-01-24 14:28:28', '2018-01-27 01:14:41', '2018-02-06 15:21:53', '3', '0'),
 (2290, 'francinei', 'COSANPA', 510, 'CR0001', 'SBGCL-SCL', '2018-01-09', '2018-01-18 01:29:04', 4, 915, '2018-01-24 14:28:43', '2018-01-27 01:18:13', '2018-02-06 13:30:23', '3', '0'),
-(2292, 'reginaldo.barbosa', 'CAERN', 100, 'CR0001', 'SBGCL-SCL', '2018-01-18', '2018-01-18 11:24:00', 1, 2241, '2018-01-24 14:29:04', '2018-02-18 11:28:34', NULL, '2', '0'),
-(2293, 'francinei', 'COSANPA', 408, 'VT0001', 'SBGCL-SCL', '2018-01-18', '2018-01-18 13:57:23', 4, 916, '2018-01-24 14:29:23', '2018-02-08 21:00:46', NULL, '2', '0'),
-(2294, 'reginaldo.barbosa', 'CAERN', 126, 'CR0001', 'SBPAC-SPC', '2018-01-19', '2018-01-19 17:13:53', 1, 2242, '2018-01-24 14:29:39', '2018-02-18 13:38:25', NULL, '2', '0'),
+(2292, 'reginaldo.barbosa', 'CAERN', 100, 'CR0001', 'SBGCL-SCL', '2018-01-18', '2018-01-18 11:24:00', 1, 2241, '2018-01-24 14:29:04', '2018-02-18 11:28:34', '2018-03-01 17:49:10', '3', '0'),
+(2293, 'francinei', 'COSANPA', 408, 'VT0001', 'SBGCL-SCL', '2018-01-18', '2018-01-18 13:57:23', 4, 916, '2018-01-24 14:29:23', '2018-02-08 21:00:46', '2018-03-12 12:15:04', '3', '0'),
+(2294, 'reginaldo.barbosa', 'CAERN', 126, 'CR0001', 'SBPAC-SPC', '2018-01-19', '2018-01-19 17:13:53', 1, 2242, '2018-01-24 14:29:39', '2018-02-18 13:38:25', '2018-03-01 17:55:12', '3', '0'),
 (2295, 'jose.wilson', 'CAEMA', 47, 'OP0002', 'SBGCL-SCL', '2018-01-20', '2018-01-20 00:49:26', 4, 917, '2018-01-24 14:29:53', '2018-01-25 17:11:09', '2018-02-06 15:31:20', '3', '0'),
 (2296, 'nahim.pantoja', 'COSANPA', 424, 'OP0002', 'SBGCL-SCL', '2018-01-20', '2018-01-20 09:00:06', 4, 918, '2018-01-24 14:30:08', '2018-01-24 19:05:07', '2018-02-06 15:38:14', '3', '0'),
 (2297, 'rafael.carlos', 'CASAL', 387, 'NV0001', 'SBGCL-SCL', '2018-01-17', '2018-01-21 12:51:48', 1, 2235, '2018-01-21 13:00:29', '2018-01-21 13:08:06', '2018-02-07 20:07:30', '3', '0'),
 (2298, 'rafael.carlos', 'CASAL', 388, 'NV0001', 'SBGCL-SCL', '2018-01-17', '2018-01-21 12:52:24', 1, 2236, '2018-01-21 13:00:43', '2018-01-21 13:10:38', '2018-02-07 20:10:44', '3', '0'),
 (2299, 'rafael.carlos', 'SOLAR', 537, 'CR0001', 'SBDPT-SPT', '2018-01-16', '2018-01-21 12:53:18', 1, 2234, '2018-01-21 13:00:14', '2018-01-21 13:05:03', '2018-02-07 20:19:22', '3', '0'),
-(2302, 'francinei', 'COSANPA', 428, 'OP0002', 'SBGCL-SCL', '2018-01-19', '2018-01-21 16:40:42', 4, 920, '2018-01-24 14:30:42', '2018-01-27 02:09:24', '2018-02-06 15:46:40', '3', '0'),
 (2303, 'francinei', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2018-01-19', '2018-01-21 16:50:45', 4, 919, '2018-01-24 14:30:31', '2018-01-27 02:05:32', '2018-02-06 15:42:39', '3', '0'),
-(2304, 'gladson.marinho', 'CAERN', 65, 'CR0001', 'SBGCL-SCL', '2018-01-03', '2018-01-22 10:19:17', 1, 2243, '2018-01-24 14:30:56', '2018-02-05 10:34:47', NULL, '2', '0'),
-(2305, 'gladson.marinho', 'CAERN', 153, 'CR0001', 'SBDSD-SDS', '2018-01-04', '2018-01-22 10:20:46', 1, 2244, '2018-01-24 14:31:08', '2018-02-05 10:39:16', NULL, '2', '0'),
-(2306, 'gladson.marinho', 'CAERN', 762, 'NV0001', 'SBGCL-SCL', '2018-01-10', '2018-01-22 10:21:22', 1, 2245, '2018-01-24 14:31:23', '2018-02-05 10:42:04', NULL, '2', '0'),
-(2307, 'gladson.marinho', 'CAERN', 134, 'NV0001', 'SBGCL-SCL', '2018-01-10', '2018-01-22 10:21:56', 1, 2246, '2018-01-24 14:31:37', '2018-02-05 10:48:12', NULL, '2', '0'),
-(2308, 'gladson.marinho', 'CAERN', 136, 'NV0001', 'SBGCL-SCL', '2018-01-11', '2018-01-22 10:22:31', 1, 2247, '2018-01-24 14:31:53', '2018-02-05 10:50:43', NULL, '2', '0'),
-(2309, 'gladson.marinho', 'CAERN', 73, 'PV0001', 'SBGCL-SCL', '2018-01-12', '2018-01-22 10:23:05', 1, 2248, '2018-01-24 14:32:10', '2018-02-05 10:52:44', NULL, '2', '0'),
-(2310, 'gladson.marinho', 'CAERN', 193, 'CR0001', 'SBGCL-SCL', '2018-01-17', '2018-01-22 10:23:38', 1, 2249, '2018-01-24 14:32:21', '2018-02-05 10:55:00', NULL, '2', '0'),
-(2311, 'gladson.marinho', 'CAERN', 69, 'CR0001', 'SBGCL-SCL', '2018-01-17', '2018-01-22 10:24:12', 1, 2250, '2018-01-24 14:32:41', '2018-02-05 10:56:55', NULL, '2', '0'),
+(2302, 'francinei', 'COSANPA', 428, 'OP0002', 'SBGCL-SCL', '2018-01-19', '2018-01-21 16:40:42', 4, 920, '2018-01-24 14:30:42', '2018-01-27 02:09:24', '2018-02-06 15:46:40', '3', '0'),
+(2304, 'gladson.marinho', 'CAERN', 65, 'CR0001', 'SBGCL-SCL', '2018-01-03', '2018-01-22 10:19:17', 1, 2243, '2018-01-24 14:30:56', '2018-02-05 10:34:47', '2018-03-01 17:59:25', '3', '0'),
+(2305, 'gladson.marinho', 'CAERN', 153, 'CR0001', 'SBDSD-SDS', '2018-01-04', '2018-01-22 10:20:46', 1, 2244, '2018-01-24 14:31:08', '2018-02-05 10:39:16', NULL, '1', '0'),
+(2306, 'gladson.marinho', 'CAERN', 762, 'NV0001', 'SBGCL-SCL', '2018-01-10', '2018-01-22 10:21:22', 1, 2245, '2018-01-24 14:31:23', '2018-02-05 10:42:04', '2018-03-01 18:08:02', '3', '0'),
+(2307, 'gladson.marinho', 'CAERN', 134, 'NV0001', 'SBGCL-SCL', '2018-01-10', '2018-01-22 10:21:56', 1, 2246, '2018-01-24 14:31:37', '2018-02-05 10:48:12', '2018-03-01 18:13:08', '3', '0'),
+(2308, 'gladson.marinho', 'CAERN', 136, 'NV0001', 'SBGCL-SCL', '2018-01-11', '2018-01-22 10:22:31', 1, 2247, '2018-01-24 14:31:53', '2018-02-05 10:50:43', '2018-03-01 18:21:14', '3', '0'),
+(2309, 'gladson.marinho', 'CAERN', 73, 'PV0001', 'SBGCL-SCL', '2018-01-12', '2018-01-22 10:23:05', 1, 2248, '2018-01-24 14:32:10', '2018-02-05 10:52:44', '2018-03-01 18:28:31', '3', '0'),
+(2310, 'gladson.marinho', 'CAERN', 193, 'CR0001', 'SBGCL-SCL', '2018-01-17', '2018-01-22 10:23:38', 1, 2249, '2018-01-24 14:32:21', '2018-02-05 10:55:00', '2018-03-01 18:35:22', '3', '0'),
+(2311, 'gladson.marinho', 'CAERN', 69, 'CR0001', 'SBGCL-SCL', '2018-01-17', '2018-01-22 10:24:12', 1, 2250, '2018-01-24 14:32:41', '2018-02-05 10:56:55', '2018-03-01 18:40:26', '3', '0'),
 (2312, 'nahim.pantoja', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-01-22', '2018-01-22 15:00:39', 4, 921, '2018-01-24 14:32:55', '2018-01-24 19:08:17', '2018-02-06 15:52:14', '3', '0'),
-(2313, 'reginaldo.barbosa', 'CAGEPA', 216, 'VT0001', 'SBGCL-SCL', '2018-01-22', '2018-01-22 16:07:15', 4, 2251, '2018-01-24 14:33:08', '2018-02-18 11:35:04', NULL, '2', '0'),
+(2313, 'reginaldo.barbosa', 'CAGEPA', 216, 'VT0001', 'SBGCL-SCL', '2018-01-22', '2018-01-22 16:07:15', 4, 2251, '2018-01-24 14:33:08', '2018-02-18 11:35:04', '2018-03-01 18:47:48', '3', '0'),
 (2314, 'nahim.pantoja', 'COSANPA', 462, 'OP0002', 'SBGCL-SCL', '2018-01-23', '2018-01-23 00:07:35', 4, 923, '2018-01-26 17:59:17', '2018-01-30 12:09:03', '2018-02-06 15:56:34', '3', '0'),
-(2316, 'francisco.barbosa', 'CAGEPA', 254, 'PV0001', 'SBGCL-SCL', '2018-01-17', '2018-01-23 10:31:22', 1, 2260, '2018-01-26 17:59:31', '2018-01-29 13:49:12', NULL, '2', '0'),
-(2317, 'francisco.barbosa', 'CAGEPA', 270, 'CR0001', 'SBGCL-SCL', '2018-01-18', '2018-01-23 10:32:08', 1, 2261, '2018-01-26 17:59:48', '2018-01-29 13:44:16', NULL, '2', '0'),
-(2318, 'francisco.barbosa', 'CAGEPA', 271, 'CR0001', 'SBGCL-SCL', '2018-01-18', '2018-01-23 10:33:01', 1, 2262, '2018-01-26 18:00:07', '2018-01-29 13:40:21', NULL, '2', '0'),
-(2319, 'cleber.souza', 'CAGEPA', 377, 'PV0001', 'SBGCL-SCL', '2018-01-17', '2018-01-23 11:56:29', 1, 2263, '2018-01-26 18:00:19', '2018-01-27 12:35:33', NULL, '2', '0'),
-(2321, 'cleber.souza', 'CAGEPA', 340, 'PV0001', 'SBGCL-SCL', '2018-01-16', '2018-01-23 11:58:27', 1, 2264, '2018-01-26 18:01:02', '2018-01-27 12:44:25', NULL, '2', '0'),
-(2322, 'cleber.souza', 'CAGEPA', 215, 'VT0001', 'Escolha um s', '2018-01-19', '2018-01-23 11:59:29', 1, 2265, '2018-01-26 18:01:12', '2018-01-27 12:51:35', NULL, '2', '0');
+(2316, 'francisco.barbosa', 'CAGEPA', 254, 'PV0001', 'SBGCL-SCL', '2018-01-17', '2018-01-23 10:31:22', 1, 2260, '2018-01-26 17:59:31', '2018-01-29 13:49:12', '2018-03-01 18:52:39', '3', '0'),
+(2317, 'francisco.barbosa', 'CAGEPA', 270, 'CR0001', 'SBGCL-SCL', '2018-01-18', '2018-01-23 10:32:08', 1, 2261, '2018-01-26 17:59:48', '2018-01-29 13:44:16', '2018-03-01 18:57:05', '3', '0'),
+(2318, 'francisco.barbosa', 'CAGEPA', 271, 'CR0001', 'SBGCL-SCL', '2018-01-18', '2018-01-23 10:33:01', 1, 2262, '2018-01-26 18:00:07', '2018-01-29 13:40:21', '2018-03-01 19:00:33', '3', '0');
 INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sistema`, `data`, `data_sol`, `filial`, `os`, `data_os`, `data_fech`, `data_term`, `status`, `ativo`) VALUES
-(2323, 'cleber.souza', 'CAGEPA', 337, 'VT0001', 'SBGCL-SCL', '2018-01-19', '2018-01-23 12:00:23', 1, 2266, '2018-01-26 18:01:25', '2018-01-27 13:07:34', NULL, '2', '0'),
-(2324, 'cleber.souza', 'CAGEPA', 374, 'VT0001', 'SBGCL-SCL', '2018-01-16', '2018-01-23 12:01:30', 1, 2267, '2018-01-26 18:01:38', '2018-01-27 14:23:25', NULL, '2', '0'),
-(2325, 'cleber.souza', 'CAGEPA', 346, 'VT0001', 'SBGCL-SCL', '2018-01-17', '2018-01-23 12:02:34', 1, 2268, '2018-01-26 18:01:54', '2018-01-27 14:51:10', NULL, '2', '0'),
-(2326, 'cleber.souza', 'CAGEPA', 284, 'VT0001', 'SBGCL-SCL', '2018-01-18', '2018-01-23 12:03:13', 1, 2269, '2018-01-26 18:02:09', '2018-01-27 14:33:50', NULL, '2', '0'),
-(2327, 'cleber.souza', 'CAGEPA', 230, 'VT0001', 'SBGCL-SCL', '2018-01-18', '2018-01-23 12:04:16', 1, 2270, '2018-01-26 18:02:22', '2018-01-27 15:03:11', NULL, '2', '0'),
-(2328, 'cleber.souza', 'CAGEPA', 247, 'VT0001', 'SBGCL-SCL', '2018-01-18', '2018-01-23 12:05:19', 1, 2271, '2018-01-26 18:02:34', '2018-01-27 15:51:51', NULL, '2', '0'),
-(2329, 'cleber.souza', 'CAGEPA', 333, 'VT0001', 'SBGCL-SCL', '2018-01-18', '2018-01-23 12:06:05', 1, 2272, '2018-01-26 18:02:46', '2018-01-27 14:40:04', NULL, '2', '0'),
-(2330, 'cleber.souza', 'CAGEPA', 231, 'VT0001', 'Escolha um s', '2018-01-18', '2018-01-23 12:06:58', 1, 2273, '2018-01-26 18:03:14', '2018-01-27 15:27:49', NULL, '2', '0'),
-(2331, 'cleber.souza', 'CAGEPA', 310, 'VT0001', 'SBGCL-SCL', '2018-01-17', '2018-01-23 12:07:56', 1, 2274, '2018-01-26 18:03:28', '2018-01-27 15:11:02', NULL, '2', '0'),
-(2332, 'cleber.souza', 'CAGEPA', 299, 'VT0001', 'SBGCL-SCL', '2018-01-16', '2018-01-23 12:08:41', 1, 2275, '2018-01-26 18:03:44', '2018-01-27 15:32:38', NULL, '2', '0'),
-(2333, 'cleber.souza', 'CAGEPA', 351, 'VT0001', 'SBGCL-SCL', '2018-01-17', '2018-01-23 12:09:24', 1, 2276, '2018-01-26 18:03:57', '2018-01-27 15:37:51', NULL, '2', '0'),
-(2334, 'cleber.souza', 'CAGEPA', 776, 'VT0001', 'SBGCL-SCL', '2018-01-17', '2018-01-23 12:10:18', 1, 2277, '2018-01-26 18:04:11', '2018-01-27 15:59:49', NULL, '2', '0'),
-(2336, 'cleber.souza', 'CAGEPA', 375, 'VT0001', 'SBGCL-SCL', '2018-01-19', '2018-01-23 12:11:53', 1, 2278, '2018-01-26 18:04:38', '2018-01-27 16:03:04', NULL, '2', '0'),
-(2337, 'cleber.souza', 'CAGEPA', 317, 'VT0001', 'SBGCL-SCL', '2018-01-17', '2018-01-23 12:12:24', 1, 2279, '2018-01-26 18:04:54', '2018-01-27 16:06:23', NULL, '2', '0'),
-(2338, 'francinei', 'COSANPA', 425, 'CR0001', 'SBPAC-SPC', '2018-01-23', '2018-01-23 18:04:13', 1, 2281, '2018-01-26 18:05:17', '2018-01-27 01:00:19', NULL, '2', '0'),
-(2339, 'rafael.carlos', 'CASAL', 752, 'CR0001', 'SBGCL-SCL', '2018-01-22', '2018-01-23 22:09:50', 1, 2252, '2018-01-23 22:28:32', '2018-01-23 22:42:40', NULL, '2', '0'),
-(2340, 'rafael.carlos', 'CASAL', 392, 'VT0001', 'SBGCL-SCL', '2018-01-22', '2018-01-23 22:13:29', 1, 2253, '2018-01-23 22:29:21', '2018-01-23 22:45:21', NULL, '2', '0'),
-(2341, 'rafael.carlos', 'CASAL', 393, 'VT0001', 'SBGCL-SCL', '2018-01-22', '2018-01-23 22:18:33', 1, 2254, '2018-01-23 22:29:58', '2018-01-23 22:46:39', NULL, '2', '0'),
-(2342, 'rafael.carlos', 'CASAL', 400, 'PV0001', 'SBGCL-SCL', '2018-01-23', '2018-01-23 22:18:55', 1, 2255, '2018-01-23 22:30:42', '2018-01-23 22:48:45', NULL, '2', '0'),
-(2343, 'rafael.carlos', 'CASAL', 395, 'PV0001', 'SBGCL-SCL', '2018-01-23', '2018-01-23 22:19:20', 1, 2256, '2018-01-23 22:31:31', '2018-01-23 22:52:50', NULL, '2', '0'),
-(2344, 'rafael.carlos', 'CASAL', 384, 'PV0001', 'SBGCL-SCL', '2018-01-23', '2018-01-23 22:19:48', 1, 2257, '2018-01-23 22:33:13', '2018-01-23 22:55:07', NULL, '2', '0'),
-(2345, 'rafael.carlos', 'CASAL', 379, 'PV0001', 'SBGCL-SCL', '2018-01-23', '2018-01-23 22:20:51', 1, 2258, '2018-01-23 22:36:27', '2018-02-01 23:46:55', NULL, '2', '0'),
-(2346, 'rafael.carlos', 'CASAL', 385, 'PV0001', 'SBGCL-SCL', '2018-01-23', '2018-01-23 22:21:13', 1, 2259, '2018-01-23 22:38:00', '2018-02-02 00:17:45', NULL, '2', '0'),
+(2319, 'cleber.souza', 'CAGEPA', 377, 'PV0001', 'SBGCL-SCL', '2018-01-17', '2018-01-23 11:56:29', 1, 2263, '2018-01-26 18:00:19', '2018-01-27 12:35:33', '2018-03-02 12:19:29', '3', '0'),
+(2321, 'cleber.souza', 'CAGEPA', 340, 'PV0001', 'SBGCL-SCL', '2018-01-16', '2018-01-23 11:58:27', 1, 2264, '2018-01-26 18:01:02', '2018-01-27 12:44:25', '2018-03-02 12:25:08', '3', '0'),
+(2322, 'cleber.souza', 'CAGEPA', 215, 'VT0001', 'Escolha um s', '2018-01-19', '2018-01-23 11:59:29', 1, 2265, '2018-01-26 18:01:12', '2018-01-27 12:51:35', '2018-03-02 12:29:34', '3', '0'),
+(2323, 'cleber.souza', 'CAGEPA', 337, 'VT0001', 'SBGCL-SCL', '2018-01-19', '2018-01-23 12:00:23', 1, 2266, '2018-01-26 18:01:25', '2018-01-27 13:07:34', '2018-03-02 12:32:24', '3', '0'),
+(2324, 'cleber.souza', 'CAGEPA', 374, 'VT0001', 'SBGCL-SCL', '2018-01-16', '2018-01-23 12:01:30', 1, 2267, '2018-01-26 18:01:38', '2018-01-27 14:23:25', '2018-03-02 12:35:26', '3', '0'),
+(2325, 'cleber.souza', 'CAGEPA', 346, 'VT0001', 'SBGCL-SCL', '2018-01-17', '2018-01-23 12:02:34', 1, 2268, '2018-01-26 18:01:54', '2018-01-27 14:51:10', '2018-03-02 12:54:40', '3', '0'),
+(2326, 'cleber.souza', 'CAGEPA', 284, 'VT0001', 'SBGCL-SCL', '2018-01-18', '2018-01-23 12:03:13', 1, 2269, '2018-01-26 18:02:09', '2018-01-27 14:33:50', '2018-03-02 13:01:02', '3', '0'),
+(2327, 'cleber.souza', 'CAGEPA', 230, 'VT0001', 'SBGCL-SCL', '2018-01-18', '2018-01-23 12:04:16', 1, 2270, '2018-01-26 18:02:22', '2018-01-27 15:03:11', '2018-03-02 13:11:12', '3', '0'),
+(2328, 'cleber.souza', 'CAGEPA', 247, 'VT0001', 'SBGCL-SCL', '2018-01-18', '2018-01-23 12:05:19', 1, 2271, '2018-01-26 18:02:34', '2018-01-27 15:51:51', '2018-03-02 13:23:04', '3', '0'),
+(2329, 'cleber.souza', 'CAGEPA', 333, 'VT0001', 'SBGCL-SCL', '2018-01-18', '2018-01-23 12:06:05', 1, 2272, '2018-01-26 18:02:46', '2018-01-27 14:40:04', '2018-03-02 14:30:42', '3', '0'),
+(2330, 'cleber.souza', 'CAGEPA', 231, 'VT0001', 'Escolha um s', '2018-01-18', '2018-01-23 12:06:58', 1, 2273, '2018-01-26 18:03:14', '2018-01-27 15:27:49', '2018-03-02 14:37:33', '3', '0'),
+(2331, 'cleber.souza', 'CAGEPA', 310, 'VT0001', 'SBGCL-SCL', '2018-01-17', '2018-01-23 12:07:56', 1, 2274, '2018-01-26 18:03:28', '2018-01-27 15:11:02', '2018-03-02 14:41:40', '3', '0'),
+(2332, 'cleber.souza', 'CAGEPA', 299, 'VT0001', 'SBGCL-SCL', '2018-01-16', '2018-01-23 12:08:41', 1, 2275, '2018-01-26 18:03:44', '2018-01-27 15:32:38', '2018-03-02 14:46:26', '3', '0'),
+(2333, 'cleber.souza', 'CAGEPA', 351, 'VT0001', 'SBGCL-SCL', '2018-01-17', '2018-01-23 12:09:24', 1, 2276, '2018-01-26 18:03:57', '2018-01-27 15:37:51', '2018-03-02 14:53:40', '3', '0'),
+(2334, 'cleber.souza', 'CAGEPA', 776, 'VT0001', 'SBGCL-SCL', '2018-01-17', '2018-01-23 12:10:18', 1, 2277, '2018-01-26 18:04:11', '2018-01-27 15:59:49', '2018-03-02 14:58:28', '3', '0'),
+(2336, 'cleber.souza', 'CAGEPA', 375, 'VT0001', 'SBGCL-SCL', '2018-01-19', '2018-01-23 12:11:53', 1, 2278, '2018-01-26 18:04:38', '2018-01-27 16:03:04', '2018-03-02 17:26:25', '3', '0'),
+(2337, 'cleber.souza', 'CAGEPA', 317, 'VT0001', 'SBGCL-SCL', '2018-01-17', '2018-01-23 12:12:24', 1, 2279, '2018-01-26 18:04:54', '2018-01-27 16:06:23', '2018-03-02 17:31:48', '3', '0'),
+(2338, 'francinei', 'COSANPA', 425, 'CR0001', 'SBPAC-SPC', '2018-01-23', '2018-01-23 18:04:13', 1, 2281, '2018-01-26 18:05:17', '2018-01-27 01:00:19', '2018-03-06 15:55:56', '3', '0'),
+(2339, 'rafael.carlos', 'CASAL', 752, 'CR0001', 'SBGCL-SCL', '2018-01-22', '2018-01-23 22:09:50', 1, 2252, '2018-01-23 22:28:32', '2018-01-23 22:42:40', '2018-03-02 17:43:50', '3', '0'),
+(2340, 'rafael.carlos', 'CASAL', 392, 'VT0001', 'SBGCL-SCL', '2018-01-22', '2018-01-23 22:13:29', 1, 2253, '2018-01-23 22:29:21', '2018-01-23 22:45:21', '2018-03-02 17:48:45', '3', '0'),
+(2341, 'rafael.carlos', 'CASAL', 393, 'VT0001', 'SBGCL-SCL', '2018-01-22', '2018-01-23 22:18:33', 1, 2254, '2018-01-23 22:29:58', '2018-01-23 22:46:39', '2018-03-02 17:57:38', '3', '0'),
+(2342, 'rafael.carlos', 'CASAL', 400, 'PV0001', 'SBGCL-SCL', '2018-01-23', '2018-01-23 22:18:55', 1, 2255, '2018-01-23 22:30:42', '2018-01-23 22:48:45', '2018-03-02 18:24:48', '3', '0'),
+(2343, 'rafael.carlos', 'CASAL', 395, 'PV0001', 'SBGCL-SCL', '2018-01-23', '2018-01-23 22:19:20', 1, 2256, '2018-01-23 22:31:31', '2018-01-23 22:52:50', '2018-03-02 18:28:36', '3', '0'),
+(2344, 'rafael.carlos', 'CASAL', 384, 'PV0001', 'SBGCL-SCL', '2018-01-23', '2018-01-23 22:19:48', 1, 2257, '2018-01-23 22:33:13', '2018-01-23 22:55:07', '2018-03-02 18:47:37', '3', '0'),
+(2345, 'rafael.carlos', 'CASAL', 379, 'PV0001', 'SBGCL-SCL', '2018-01-23', '2018-01-23 22:20:51', 1, 2258, '2018-01-23 22:36:27', '2018-02-01 23:46:55', '2018-03-02 18:57:32', '3', '0'),
+(2346, 'rafael.carlos', 'CASAL', 385, 'PV0001', 'SBGCL-SCL', '2018-01-23', '2018-01-23 22:21:13', 1, 2259, '2018-01-23 22:38:00', '2018-02-02 00:17:45', '2018-03-02 18:58:01', '3', '0'),
 (2348, 'jose.wilson', 'CAEMA', 29, 'PV0001', 'SBGCL-SCL', '2018-01-24', '2018-01-24 00:39:39', 4, 924, '2018-01-26 18:05:27', '2018-01-28 13:13:41', '2018-02-06 16:02:45', '3', '0'),
-(2349, 'cleber.souza', 'CAGECE', 779, 'PV0001', 'SBGCL-SCL', '2018-01-23', '2018-01-24 12:56:54', 1, 2280, '2018-01-26 18:05:41', '2018-01-27 16:10:11', NULL, '2', '0'),
-(2350, 'francisco.barbosa', 'CAERN', 135, 'VT0001', 'SBGCL-SCL', '2018-01-25', '2018-01-25 19:58:06', 1, 2282, '2018-01-26 19:30:25', '2018-01-29 13:36:11', NULL, '2', '0'),
+(2349, 'cleber.souza', 'CAGECE', 779, 'PV0001', 'SBGCL-SCL', '2018-01-23', '2018-01-24 12:56:54', 1, 2280, '2018-01-26 18:05:41', '2018-01-27 16:10:11', '2018-03-02 19:06:02', '3', '0'),
+(2350, 'francisco.barbosa', 'CAERN', 135, 'VT0001', 'SBGCL-SCL', '2018-01-25', '2018-01-25 19:58:06', 1, 2282, '2018-01-26 19:30:25', '2018-03-29 13:52:05', NULL, '1', '0'),
 (2351, 'nahim.pantoja', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-01-25', '2018-01-25 20:57:10', 1, 925, '2018-01-26 19:30:39', '2018-01-30 11:57:07', '2018-02-07 20:57:05', '3', '0'),
-(2352, 'reginaldo.barbosa', 'CAERN', 121, 'CR0001', 'SBGCL-SCL', '2018-01-26', '2018-01-26 02:28:50', 1, 2283, '2018-01-26 19:30:58', '2018-02-18 13:22:09', NULL, '2', '0'),
+(2352, 'reginaldo.barbosa', 'CAERN', 121, 'CR0001', 'SBGCL-SCL', '2018-01-26', '2018-01-26 02:28:50', 1, 2283, '2018-01-26 19:30:58', '2018-02-18 13:22:09', '2018-03-02 19:14:32', '3', '0'),
 (2353, 'antonio.ferreira', 'CAGECE', 870, 'NV0001', 'SBGCL-SCL', '2018-01-26', '2018-01-26 16:02:53', 1, 2284, '2018-01-26 19:31:11', NULL, NULL, '1', '0'),
-(2354, 'reginaldo.barbosa', 'CAERN', 126, 'CR0001', 'SBPAC-SPC', '2018-01-26', '2018-01-26 23:39:52', 1, 2285, '2018-01-30 22:37:51', '2018-02-18 13:32:35', NULL, '2', '0'),
-(2355, 'reginaldo.barbosa', 'CAERN', 809, 'VT0001', 'SBGCL-SCL', '2018-01-26', '2018-01-26 23:40:20', 1, 2286, '2018-01-30 22:38:18', '2018-02-18 13:15:53', NULL, '2', '0'),
-(2356, 'antonio.ferreira', 'CAGECE', 840, 'CR0001', 'SBGCL-SCL', '2017-12-19', '2018-01-27 13:21:48', 1, 2287, '2018-01-30 22:38:35', NULL, NULL, '1', '0'),
-(2357, 'antonio.ferreira', 'CAGECE', 832, 'NV0001', 'SBGCL-SCL', '2018-01-05', '2018-01-27 13:27:15', 1, 2288, '2018-01-30 22:39:00', NULL, NULL, '1', '0'),
-(2359, 'cleber.souza', 'CAGECE', 844, 'NV0001', 'SBGCL-SCL', '2017-12-14', '2018-01-27 22:18:58', 1, 2290, '2018-01-30 22:39:50', '2018-02-02 19:49:40', NULL, '2', '0'),
-(2360, 'cleber.souza', 'CAGECE', 847, 'NV0001', 'SBGCL-SCL', '2017-12-19', '2018-01-27 22:20:13', 1, 2289, '2018-01-30 22:39:17', '2018-02-02 19:35:22', NULL, '2', '0'),
-(2361, 'cleber.souza', 'CAGECE', 849, 'NV0001', 'SBGCL-SCL', '2017-12-20', '2018-01-27 22:21:45', 1, 2291, '2018-01-30 22:40:07', '2018-02-02 19:57:15', NULL, '2', '0'),
-(2362, 'cleber.souza', 'CAGECE', 853, 'NV0001', 'SBGCL-SCL', '2017-12-22', '2018-01-27 22:24:44', 1, 2292, '2018-01-30 22:40:32', '2018-02-02 20:04:20', NULL, '2', '0'),
-(2363, 'cleber.souza', 'CAGECE', 851, 'NV0001', 'SBGCL-SCL', '2017-12-21', '2018-01-27 22:26:29', 1, 2293, '2018-01-30 22:40:56', '2018-02-02 20:10:09', NULL, '2', '0'),
-(2364, 'cleber.souza', 'CAGECE', 828, 'NV0001', 'SBGCL-SCL', '2017-11-30', '2018-01-27 22:30:36', 1, 2294, '2018-01-30 22:41:33', '2018-02-02 20:18:35', NULL, '2', '0'),
-(2365, 'cleber.souza', 'CAGECE', 833, 'NV0001', 'SBGCL-SCL', '2017-12-06', '2018-01-27 22:32:06', 1, 2295, '2018-01-30 22:41:55', '2018-02-02 20:42:42', NULL, '2', '0'),
-(2366, 'cleber.souza', 'CAGECE', 821, 'NV0001', 'SBGCL-SCL', '2017-11-22', '2018-01-27 22:33:36', 1, 2296, '2018-01-30 22:42:15', '2018-02-09 12:22:57', NULL, '2', '0'),
-(2367, 'cleber.souza', 'CAGECE', 826, 'NV0001', 'SBGCL-SCL', '2017-11-28', '2018-01-27 22:34:58', 1, 2297, '2018-01-30 22:42:49', '2018-02-02 21:05:17', NULL, '2', '0'),
-(2368, 'cleber.souza', 'CAGECE', 830, 'NV0001', 'SBGCL-SCL', '2017-12-01', '2018-01-27 22:36:02', 1, 2298, '2018-01-30 22:43:18', '2018-02-09 10:58:58', NULL, '2', '0'),
-(2369, 'cleber.souza', 'CAGECE', 827, 'NV0001', 'SBGCL-SCL', '2017-12-02', '2018-01-27 22:37:09', 1, 2299, '2018-01-30 22:43:39', '2018-02-09 11:43:16', NULL, '2', '0'),
-(2370, 'cleber.souza', 'CAGECE', 825, 'NV0001', 'SBGCL-SCL', '2017-11-28', '2018-01-27 22:38:05', 1, 2300, '2018-01-30 22:44:17', '2018-02-09 11:06:07', NULL, '2', '0'),
-(2371, 'cleber.souza', 'CAGECE', 835, 'NV0001', 'SBGCL-SCL', '2017-12-07', '2018-01-27 22:39:44', 1, 2301, '2018-01-30 22:44:55', '2018-02-02 21:15:41', NULL, '2', '0'),
-(2372, 'cleber.souza', 'CAGECE', 839, 'NV0001', 'SBGCL-SCL', '2017-12-12', '2018-01-27 22:41:00', 1, 2302, '2018-01-30 22:45:42', '2018-02-09 11:13:59', NULL, '2', '0'),
-(2373, 'cleber.souza', 'CAGECE', 836, 'NV0001', 'SBGCL-SCL', '2017-12-07', '2018-01-27 22:42:27', 1, 2303, '2018-01-30 22:46:04', '2018-02-09 12:10:54', NULL, '2', '0'),
-(2374, 'cleber.souza', 'CAGECE', 842, 'NV0001', 'SBGCL-SCL', '2017-12-14', '2018-01-27 22:46:49', 1, 2304, '2018-01-30 22:46:28', '2018-02-09 11:21:41', NULL, '2', '0'),
-(2375, 'cleber.souza', 'CAGECE', 858, 'NV0001', 'SBGCL-SCL', '2018-01-26', '2018-01-28 09:51:12', 1, 2305, '2018-01-30 22:47:17', '2018-02-02 14:03:40', NULL, '2', '0'),
-(2377, 'cleber.souza', 'CAERN', 837, 'NV0001', 'SBGCL-SCL', '2017-12-11', '2018-01-28 09:53:59', 1, 2311, '2018-01-30 22:47:43', '2018-02-02 13:25:37', NULL, '2', '0'),
+(2354, 'reginaldo.barbosa', 'CAERN', 126, 'CR0001', 'SBPAC-SPC', '2018-01-26', '2018-01-26 23:39:52', 1, 2285, '2018-01-30 22:37:51', '2018-02-18 13:32:35', '2018-03-02 19:18:59', '3', '0'),
+(2355, 'reginaldo.barbosa', 'CAERN', 809, 'VT0001', 'SBGCL-SCL', '2018-01-26', '2018-01-26 23:40:20', 1, 2286, '2018-01-30 22:38:18', '2018-02-18 13:15:53', '2018-03-02 19:24:12', '3', '0'),
+(2356, 'antonio.ferreira', 'CAGECE', 840, 'CR0001', 'SBGCL-SCL', '2017-12-19', '2018-01-27 13:21:48', 1, 2287, '2018-01-30 22:38:35', '2018-03-23 13:52:05', '2018-03-23 18:13:27', '3', '0'),
+(2357, 'antonio.ferreira', 'CAGECE', 832, 'NV0001', 'SBGCL-SCL', '2018-01-05', '2018-01-27 13:27:15', 1, 2288, '2018-01-30 22:39:00', '2018-03-23 13:56:21', '2018-03-23 18:25:44', '3', '0'),
+(2360, 'cleber.souza', 'CAGECE', 847, 'NV0001', 'SBGCL-SCL', '2017-12-19', '2018-01-27 22:20:13', 1, 2289, '2018-01-30 22:39:17', '2018-02-02 19:35:22', '2018-03-02 19:31:20', '3', '0'),
+(2359, 'cleber.souza', 'CAGECE', 844, 'NV0001', 'SBGCL-SCL', '2017-12-14', '2018-01-27 22:18:58', 1, 2290, '2018-01-30 22:39:50', '2018-02-02 19:49:40', '2018-03-02 19:34:55', '3', '0'),
+(2361, 'cleber.souza', 'CAGECE', 849, 'NV0001', 'SBGCL-SCL', '2017-12-20', '2018-01-27 22:21:45', 1, 2291, '2018-01-30 22:40:07', '2018-02-02 19:57:15', '2018-03-02 19:41:43', '3', '0'),
+(2362, 'cleber.souza', 'CAGECE', 853, 'NV0001', 'SBGCL-SCL', '2017-12-22', '2018-01-27 22:24:44', 1, 2292, '2018-01-30 22:40:32', '2018-02-02 20:04:20', '2018-03-06 11:26:37', '3', '0'),
+(2363, 'cleber.souza', 'CAGECE', 851, 'NV0001', 'SBGCL-SCL', '2017-12-21', '2018-01-27 22:26:29', 1, 2293, '2018-01-30 22:40:56', '2018-02-02 20:10:09', '2018-03-06 11:32:57', '3', '0'),
+(2364, 'cleber.souza', 'CAGECE', 828, 'NV0001', 'SBGCL-SCL', '2017-11-30', '2018-01-27 22:30:36', 1, 2294, '2018-01-30 22:41:33', '2018-02-02 20:18:35', '2018-03-06 11:38:24', '3', '0'),
+(2365, 'cleber.souza', 'CAGECE', 833, 'NV0001', 'SBGCL-SCL', '2017-12-06', '2018-01-27 22:32:06', 1, 2295, '2018-01-30 22:41:55', '2018-02-02 20:42:42', '2018-03-06 12:00:18', '3', '0'),
+(2366, 'cleber.souza', 'CAGECE', 821, 'NV0001', 'SBGCL-SCL', '2017-11-22', '2018-01-27 22:33:36', 1, 2296, '2018-01-30 22:42:15', '2018-02-09 12:22:57', '2018-03-06 12:07:30', '3', '0'),
+(2367, 'cleber.souza', 'CAGECE', 826, 'NV0001', 'SBGCL-SCL', '2017-11-28', '2018-01-27 22:34:58', 1, 2297, '2018-01-30 22:42:49', '2018-02-02 21:05:17', '2018-03-06 12:13:18', '3', '0'),
+(2368, 'cleber.souza', 'CAGECE', 830, 'NV0001', 'SBGCL-SCL', '2017-12-01', '2018-01-27 22:36:02', 1, 2298, '2018-01-30 22:43:18', '2018-02-09 10:58:58', '2018-03-06 12:21:37', '3', '0'),
+(2369, 'cleber.souza', 'CAGECE', 827, 'NV0001', 'SBGCL-SCL', '2017-12-02', '2018-01-27 22:37:09', 1, 2299, '2018-01-30 22:43:39', '2018-02-09 11:43:16', '2018-03-06 12:31:20', '3', '0'),
+(2370, 'cleber.souza', 'CAGECE', 825, 'NV0001', 'SBGCL-SCL', '2017-11-28', '2018-01-27 22:38:05', 1, 2300, '2018-01-30 22:44:17', '2018-02-09 11:06:07', '2018-03-06 12:36:03', '3', '0'),
+(2371, 'cleber.souza', 'CAGECE', 835, 'NV0001', 'SBGCL-SCL', '2017-12-07', '2018-01-27 22:39:44', 1, 2301, '2018-01-30 22:44:55', '2018-02-02 21:15:41', '2018-03-06 12:42:52', '3', '0'),
+(2372, 'cleber.souza', 'CAGECE', 839, 'NV0001', 'SBGCL-SCL', '2017-12-12', '2018-01-27 22:41:00', 1, 2302, '2018-01-30 22:45:42', '2018-02-09 11:13:59', '2018-03-06 13:01:29', '3', '0'),
+(2373, 'cleber.souza', 'CAGECE', 836, 'NV0001', 'SBGCL-SCL', '2017-12-07', '2018-01-27 22:42:27', 1, 2303, '2018-01-30 22:46:04', '2018-02-09 12:10:54', '2018-03-06 13:25:38', '3', '0'),
+(2374, 'cleber.souza', 'CAGECE', 842, 'NV0001', 'SBGCL-SCL', '2017-12-14', '2018-01-27 22:46:49', 1, 2304, '2018-01-30 22:46:28', '2018-02-09 11:21:41', '2018-03-06 13:30:58', '3', '0'),
+(2375, 'cleber.souza', 'CAGECE', 858, 'NV0001', 'SBGCL-SCL', '2018-01-26', '2018-01-28 09:51:12', 1, 2305, '2018-01-30 22:47:17', '2018-02-02 14:03:40', '2018-03-06 13:40:08', '3', '0'),
+(2377, 'cleber.souza', 'CAERN', 837, 'NV0001', 'SBGCL-SCL', '2017-12-11', '2018-01-28 09:53:59', 1, 2311, '2018-01-30 22:47:43', '2018-02-02 13:25:37', '2018-03-06 14:02:26', '3', '0'),
 (2378, 'nahim.pantoja', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2018-01-29', '2018-01-29 13:32:47', 4, 926, '2018-01-30 22:48:06', '2018-01-31 11:47:07', '2018-02-07 21:01:37', '3', '0'),
-(2379, 'bruno.alves', 'CAGEPA', 271, 'CR0001', 'SBGCL-SCL', '2018-01-22', '2018-01-29 13:41:34', 1, 2306, '2018-01-30 22:50:43', NULL, NULL, '1', '0'),
-(2380, 'bruno.alves', 'CAGEPA', 235, 'CR0001', 'SBGCL-SCL', '2018-01-26', '2018-01-29 13:42:33', 1, 2307, '2018-01-30 22:51:35', NULL, NULL, '1', '0'),
-(2381, 'bruno.alves', 'CAGEPA', 225, 'CR0001', 'SBGCL-SCL', '2018-01-27', '2018-01-29 13:43:22', 1, 2308, '2018-01-30 22:52:00', NULL, NULL, '1', '0'),
-(2382, 'francisco.barbosa', 'CAERN', 866, 'NV0001', 'SBGCL-SCL', '2018-01-24', '2018-01-29 13:57:39', 1, 2312, '2018-01-30 22:53:34', '2018-01-31 22:29:47', NULL, '2', '0'),
-(2383, 'francisco.barbosa', 'CAERN', 868, 'NV0001', 'SBGCL-SCL', '2018-01-25', '2018-01-29 13:58:09', 1, 2313, '2018-01-30 22:54:03', '2018-01-31 22:38:34', NULL, '2', '0'),
-(2384, 'francisco.barbosa', 'CAERN', 77, 'CR0001', 'SBGCL-SCL', '2018-01-26', '2018-01-29 13:58:57', 1, 2309, '2018-01-30 22:55:45', '2018-01-31 22:49:35', NULL, '2', '0'),
+(2379, 'bruno.alves', 'CAGEPA', 271, 'CR0001', 'SBGCL-SCL', '2018-01-22', '2018-01-29 13:41:34', 1, 2306, '2018-01-30 22:50:43', '2018-03-06 19:08:22', '2018-03-08 18:27:19', '3', '0'),
+(2380, 'bruno.alves', 'CAGEPA', 235, 'CR0001', 'SBGCL-SCL', '2018-01-26', '2018-01-29 13:42:33', 1, 2307, '2018-01-30 22:51:35', '2018-03-06 19:15:55', '2018-03-08 18:30:28', '3', '0'),
+(2381, 'bruno.alves', 'CAGEPA', 225, 'CR0001', 'SBGCL-SCL', '2018-01-27', '2018-01-29 13:43:22', 1, 2308, '2018-01-30 22:52:00', '2018-03-06 19:17:59', '2018-03-08 18:34:18', '3', '0'),
+(2382, 'francisco.barbosa', 'CAERN', 866, 'NV0001', 'SBGCL-SCL', '2018-01-24', '2018-01-29 13:57:39', 1, 2312, '2018-01-30 22:53:34', '2018-01-31 22:29:47', '2018-03-06 14:09:58', '3', '0'),
+(2383, 'francisco.barbosa', 'CAERN', 868, 'NV0001', 'SBGCL-SCL', '2018-01-25', '2018-01-29 13:58:09', 1, 2313, '2018-01-30 22:54:03', '2018-01-31 22:38:34', '2018-03-06 14:42:19', '3', '0'),
+(2384, 'francisco.barbosa', 'CAERN', 77, 'CR0001', 'SBGCL-SCL', '2018-01-26', '2018-01-29 13:58:57', 1, 2309, '2018-01-30 22:55:45', '2018-01-31 22:49:35', '2018-03-06 14:46:00', '3', '0'),
 (2385, 'nahim.pantoja', 'COSANPA', 409, 'OP0002', 'SBGCL-SCL', '2018-01-29', '2018-01-29 15:14:02', 4, 927, '2018-01-30 22:56:14', '2018-01-31 11:43:52', '2018-02-07 21:04:43', '3', '0'),
-(2386, 'francinei', 'ALUBAR', 4, 'PV0001', 'SBGCL-SCL', '2018-01-30', '2018-01-30 10:20:37', 4, 928, '2018-01-30 22:56:33', '2018-02-08 20:10:30', NULL, '2', '0'),
+(2386, 'francinei', 'ALUBAR', 4, 'PV0001', 'SBGCL-SCL', '2018-01-30', '2018-01-30 10:20:37', 4, 928, '2018-01-30 22:56:33', '2018-02-08 20:10:30', '2018-03-12 12:19:29', '3', '0'),
 (2387, 'nahim.pantoja', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-01-29', '2018-01-30 11:53:35', 4, 929, '2018-01-30 22:56:52', '2018-01-31 11:31:18', '2018-02-07 21:06:54', '3', '0'),
-(2388, 'reginaldo.barbosa', 'CAERN', 187, 'VT0001', 'SBGCL-SCL', '2018-01-30', '2018-01-30 12:44:41', 1, 2310, '2018-01-30 22:57:27', '2018-02-18 12:52:33', NULL, '2', '0'),
-(2389, 'cleber.souza', 'CAGEPA', 374, 'PV0001', 'SBGCL-SCL', '2018-01-30', '2018-01-31 00:24:28', 1, 2314, '2018-02-01 13:15:06', '2018-02-02 13:17:01', NULL, '2', '0'),
+(2388, 'reginaldo.barbosa', 'CAERN', 187, 'VT0001', 'SBGCL-SCL', '2018-01-30', '2018-01-30 12:44:41', 1, 2310, '2018-01-30 22:57:27', '2018-02-18 12:52:33', '2018-03-06 15:29:53', '3', '0'),
+(2389, 'cleber.souza', 'CAGEPA', 374, 'PV0001', 'SBGCL-SCL', '2018-01-30', '2018-01-31 00:24:28', 1, 2314, '2018-02-01 13:15:06', '2018-02-02 13:17:01', '2018-03-06 15:37:52', '3', '0'),
 (2390, 'cleber.souza', 'CAGEPA', 259, 'PV0001', 'SBGCL-SCL', '2018-01-30', '2018-01-31 00:25:11', 1, 2315, '2018-02-01 13:15:22', '2018-02-02 13:31:46', '2018-02-07 18:37:03', '3', '0'),
 (2391, 'jose.wilson', 'SOLAR', 784, 'CR0001', 'SBDPT-SPT', '2018-01-31', '2018-01-31 01:33:35', 4, 930, '2018-02-01 13:15:36', '2018-02-01 13:36:26', '2018-02-07 21:33:28', '3', '0'),
 (2392, 'nahim.pantoja', 'COSANPA', 424, 'OP0002', 'SBGCL-SCL', '2018-01-31', '2018-01-31 11:26:57', 4, 931, '2018-02-01 13:15:48', '2018-02-03 12:10:26', '2018-02-07 21:16:55', '3', '0'),
-(2394, 'jose.wilson', 'CAEMA', 32, 'PV0001', 'SBGCL-SCL', '2018-02-01', '2018-02-01 01:22:46', 4, 932, '2018-02-01 13:16:08', '2018-02-09 13:47:18', NULL, '2', '0'),
-(2395, 'cleber.souza', 'CAGEPA', 299, 'PV0001', 'SBGCL-SCL', '2018-01-31', '2018-02-01 11:30:44', 1, 2316, '2018-02-01 13:16:22', '2018-02-02 13:37:28', NULL, '2', '0'),
-(2396, 'cleber.souza', 'CAERN', 544, 'PV0001', 'SBGCL-SCL', '2018-01-31', '2018-02-01 11:32:58', 1, 2317, '2018-02-01 13:16:38', '2018-02-02 13:44:02', NULL, '2', '0'),
-(2397, 'antonio.ferreira', 'CAGECE', 867, 'CR0001', 'SBGCL-SCL', '2018-02-01', '2018-02-01 16:15:27', 1, 2324, '2018-02-06 12:07:54', NULL, NULL, '1', '0'),
-(2398, 'rafael.carlos', 'CASAL', 385, 'PV0001', 'SBGCL-SCL', '2018-01-24', '2018-02-01 23:00:31', 1, 2259, '2018-02-01 23:27:14', '2018-02-01 23:42:16', NULL, '2', '0'),
-(2399, 'rafael.carlos', 'CASAL', 379, 'PV0001', 'SBGCL-SCL', '2018-02-01', '2018-02-01 23:01:03', 1, 2258, '2018-02-01 23:28:37', '2018-02-02 00:17:56', NULL, '2', '0'),
-(2400, 'rafael.carlos', 'CASAL', 382, 'CR0001', 'SBGCL-SCL', '2018-01-25', '2018-02-01 23:02:20', 1, 2323, '2018-02-01 23:24:23', '2018-02-01 23:50:05', NULL, '2', '0'),
-(2401, 'rafael.carlos', 'SOLAR', 0, 'CR0001', 'SBDPT-SPT', '2018-01-26', '2018-02-01 23:03:08', 1, 2322, '2018-02-01 23:21:13', '2018-02-01 23:54:49', NULL, '2', '0'),
-(2402, 'rafael.carlos', 'CASAL', 392, 'PV0001', 'SBGCL-SCL', '2018-01-29', '2018-02-01 23:03:41', 1, 2324, '2018-02-01 23:34:03', '2018-02-02 00:04:46', NULL, '2', '0'),
-(2403, 'rafael.carlos', 'DESO', 523, 'CR0001', 'SBDXC-SDX', '2018-02-01', '2018-02-01 23:04:10', 1, 2318, '2018-02-01 23:13:54', '2018-02-02 00:11:04', NULL, '2', '0'),
-(2404, 'rafael.carlos', 'DESO', 526, 'PV0001', 'SBDXC-SDX', '2018-02-01', '2018-02-01 23:04:40', 1, 2319, '2018-02-01 23:15:07', '2018-02-02 00:17:14', NULL, '2', '0'),
-(2405, 'rafael.carlos', 'DESO', 525, 'PV0001', 'SBDXC-SDX', '2018-02-02', '2018-02-01 23:05:07', 1, 2320, '2018-02-01 23:16:53', '2018-02-06 11:20:09', NULL, '2', '0'),
-(2406, 'rafael.carlos', 'DESO', 524, 'PV0001', 'SBDXC-SDX', '2018-02-02', '2018-02-01 23:05:32', 1, 2321, '2018-02-01 23:19:54', '2018-02-06 11:22:02', NULL, '2', '0'),
-(2408, 'nahim.pantoja', 'COSANPA', 409, 'OP0002', 'SBGCL-SCL', '2018-02-02', '2018-02-02 17:23:13', 4, 933, '2018-02-06 12:08:08', '2018-02-08 21:56:51', NULL, '2', '0'),
-(2409, 'antonio.ferreira', 'CAGECE', 792, 'CR0001', 'SBGCL-SCL', '2018-02-02', '2018-02-03 09:05:36', 1, 2325, '2018-02-06 12:08:49', NULL, NULL, '1', '0'),
-(2410, 'nahim.pantoja', 'COSANPA', 428, 'OP0002', 'SBGCL-SCL', '2018-02-02', '2018-02-03 12:11:12', 4, 934, '2018-02-06 12:09:04', '2018-02-08 21:59:25', NULL, '2', '0'),
-(2411, 'cleber.souza', 'CAGEPA', 227, 'PV0001', 'SBGCL-SCL', '2018-02-05', '2018-02-05 19:09:05', 1, 2327, '2018-02-06 12:09:25', '2018-02-06 13:25:53', NULL, '2', '0'),
-(2412, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-02-05', '2018-02-05 19:31:57', 4, 935, '2018-02-06 12:09:45', '2018-02-08 20:18:05', NULL, '2', '0'),
-(2414, 'francinei', 'COSANPA', 409, 'CR0001', 'SBGCL-SCL', '2018-02-03', '2018-02-05 19:33:47', 4, 937, '2018-02-06 12:10:28', '2018-02-08 20:23:47', NULL, '2', '0'),
-(2415, 'francinei', 'COSANPA', 490, 'CR0001', 'SBDPT-SPT', '2018-02-01', '2018-02-05 19:34:44', 4, 939, '2018-02-06 12:10:52', '2018-02-08 20:42:50', NULL, '2', '0'),
-(2416, 'francinei', 'COSANPA', 871, 'CR0001', 'SBDPT-SPT', '2018-02-02', '2018-02-06 10:20:12', 4, 936, '2018-02-06 12:11:15', '2018-02-08 20:52:20', NULL, '2', '0'),
-(2417, 'rafael.carlos', 'CASAL', 401, 'PV0001', 'SBGCL-SCL', '2018-02-05', '2018-02-06 11:24:38', 1, 2326, '2018-02-06 11:36:58', '2018-02-06 11:42:18', NULL, '2', '0'),
+(2394, 'jose.wilson', 'CAEMA', 32, 'PV0001', 'SBGCL-SCL', '2018-02-01', '2018-02-01 01:22:46', 4, 932, '2018-02-01 13:16:08', '2018-02-09 13:47:18', '2018-03-12 12:32:44', '3', '0'),
+(2395, 'cleber.souza', 'CAGEPA', 299, 'PV0001', 'SBGCL-SCL', '2018-01-31', '2018-02-01 11:30:44', 1, 2316, '2018-02-01 13:16:22', '2018-02-02 13:37:28', '2018-03-06 15:42:20', '3', '0'),
+(2396, 'cleber.souza', 'CAERN', 544, 'PV0001', 'SBGCL-SCL', '2018-01-31', '2018-02-01 11:32:58', 1, 2317, '2018-02-01 13:16:38', '2018-02-02 13:44:02', '2018-03-06 15:49:02', '3', '0'),
+(2397, 'antonio.ferreira', 'CAGECE', 867, 'CR0001', 'SBGCL-SCL', '2018-02-01', '2018-02-01 16:15:27', 1, 2324, '2018-02-06 12:07:54', '2018-03-23 14:12:08', '2018-03-23 18:30:57', '3', '0'),
+(2398, 'rafael.carlos', 'CASAL', 385, 'PV0001', 'SBGCL-SCL', '2018-01-24', '2018-02-01 23:00:31', 1, 2259, '2018-02-01 23:27:14', '2018-02-01 23:42:16', '2018-03-06 16:08:04', '3', '0'),
+(2399, 'rafael.carlos', 'CASAL', 379, 'PV0001', 'SBGCL-SCL', '2018-02-01', '2018-02-01 23:01:03', 1, 2258, '2018-02-01 23:28:37', '2018-03-22 20:20:23', '2018-03-22 20:20:42', '3', '0'),
+(2400, 'rafael.carlos', 'CASAL', 382, 'CR0001', 'SBGCL-SCL', '2018-01-25', '2018-02-01 23:02:20', 1, 2323, '2018-02-01 23:24:23', '2018-02-01 23:50:05', '2018-03-06 16:16:19', '3', '0'),
+(2401, 'rafael.carlos', 'SOLAR', 0, 'CR0001', 'SBDPT-SPT', '2018-01-26', '2018-02-01 23:03:08', 1, 2322, '2018-02-01 23:21:13', '2018-02-01 23:54:49', '2018-03-08 18:42:03', '3', '0'),
+(2402, 'rafael.carlos', 'CASAL', 392, 'PV0001', 'SBGCL-SCL', '2018-01-29', '2018-02-01 23:03:41', 1, 2324, '2018-02-01 23:34:03', '2018-02-02 00:04:46', '2018-03-08 19:31:29', '3', '0'),
+(2403, 'rafael.carlos', 'DESO', 523, 'CR0001', 'SBDXC-SDX', '2018-02-01', '2018-02-01 23:04:10', 1, 2318, '2018-02-01 23:13:54', '2018-02-02 00:11:04', '2018-03-08 19:41:33', '3', '0'),
+(2404, 'rafael.carlos', 'DESO', 526, 'PV0001', 'SBDXC-SDX', '2018-02-01', '2018-02-01 23:04:40', 1, 2319, '2018-02-01 23:15:07', '2018-02-02 00:17:14', '2018-03-08 19:47:27', '3', '0'),
+(2405, 'rafael.carlos', 'DESO', 525, 'PV0001', 'SBDXC-SDX', '2018-02-02', '2018-02-01 23:05:07', 1, 2320, '2018-02-01 23:16:53', '2018-02-06 11:20:09', '2018-03-08 19:52:28', '3', '0'),
+(2406, 'rafael.carlos', 'DESO', 524, 'PV0001', 'SBDXC-SDX', '2018-02-02', '2018-02-01 23:05:32', 1, 2321, '2018-02-01 23:19:54', '2018-02-06 11:22:02', '2018-03-08 19:56:40', '3', '0'),
+(2408, 'nahim.pantoja', 'COSANPA', 409, 'OP0002', 'SBGCL-SCL', '2018-02-02', '2018-02-02 17:23:13', 4, 933, '2018-02-06 12:08:08', '2018-02-08 21:56:51', '2018-03-12 12:38:05', '3', '0'),
+(2409, 'antonio.ferreira', 'CAGECE', 792, 'CR0001', 'SBGCL-SCL', '2018-02-02', '2018-02-03 09:05:36', 1, 2325, '2018-02-06 12:08:49', '2018-03-23 14:08:15', '2018-03-23 18:37:49', '3', '0'),
+(2410, 'nahim.pantoja', 'COSANPA', 428, 'OP0002', 'SBGCL-SCL', '2018-02-02', '2018-02-03 12:11:12', 4, 934, '2018-02-06 12:09:04', '2018-02-08 21:59:25', '2018-03-12 12:41:58', '3', '0'),
+(2411, 'cleber.souza', 'CAGEPA', 227, 'PV0001', 'SBGCL-SCL', '2018-02-05', '2018-02-05 19:09:05', 1, 2327, '2018-02-06 12:09:25', '2018-02-06 13:25:53', '2018-03-15 12:45:12', '3', '0'),
+(2412, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-02-05', '2018-02-05 19:31:57', 4, 935, '2018-02-06 12:09:45', '2018-02-08 20:18:05', '2018-03-12 12:53:11', '3', '0'),
 (2418, 'francinei', 'COSANPA', 423, 'CR0001', 'SBGCL-SCL', '2018-02-01', '2018-02-06 12:19:53', 4, 938, '2018-02-06 12:20:18', NULL, NULL, '1', '0'),
-(2419, 'reginaldo.barbosa', 'CAERN', 70, 'CR0001', 'SBGCL-SCL', '2018-02-06', '2018-02-06 22:45:08', 1, 2328, '2018-02-07 20:34:33', '2018-02-18 11:46:40', NULL, '2', '0'),
-(2420, 'reginaldo.barbosa', 'CAERN', 866, 'CR0001', 'SBGCL-SCL', '2018-02-06', '2018-02-06 22:45:52', 1, 2329, '2018-02-07 20:34:56', '2018-02-18 11:52:35', NULL, '2', '0'),
-(2421, 'cleber.souza', 'CAGEPA', 741, 'PV0001', 'SBGCL-SCL', '2018-02-07', '2018-02-07 08:16:04', 1, 2330, '2018-02-07 20:35:15', '2018-02-09 10:47:37', NULL, '2', '0'),
-(2422, 'nahim.pantoja', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-02-07', '2018-02-07 11:25:20', 4, 940, '2018-02-07 20:39:41', '2018-02-08 21:53:34', NULL, '2', '0'),
-(2423, 'dagmo.esbell', 'CAER', 60, 'CR0001', 'SBGCL-SCL', '2018-02-07', '2018-02-07 20:25:33', 4, 941, '2018-02-07 20:40:03', '2018-02-08 14:55:14', NULL, '2', '0'),
-(2424, 'bruno.alves', 'CAGEPA', 318, 'PV0001', 'SBGCL-SCL', '2018-02-08', '2018-02-08 12:39:36', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2425, 'cleber.souza', 'CAGEPA', 284, 'VT0001', 'SBGCL-SCL', '2018-02-08', '2018-02-09 12:24:00', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2426, 'cleber.souza', 'CAGEPA', 337, 'VT0001', 'SBGCL-SCL', '2018-02-08', '2018-02-09 12:25:05', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2427, 'cleber.souza', 'CAGEPA', 230, 'VT0001', 'SBGCL-SCL', '2018-02-08', '2018-02-09 12:25:50', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2428, 'cleber.souza', 'CAGEPA', 776, 'VT0001', 'SBGCL-SCL', '2018-02-08', '2018-02-09 12:26:53', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2429, 'cleber.souza', 'CAGEPA', 247, 'VT0001', 'SBGCL-SCL', '2018-02-08', '2018-02-09 12:27:48', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2430, 'cleber.souza', 'CAGEPA', 351, 'VT0001', 'SBGCL-SCL', '2018-02-08', '2018-02-09 12:29:11', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2431, 'antonio.ferreira', 'CAGECE', 806, 'CR0001', 'SBGCL-SCL', '2018-02-09', '2018-02-09 13:23:17', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2432, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-02-09', '2018-02-09 13:54:03', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2433, 'reginaldo.barbosa', 'CAERN', 173, 'CR0001', 'SBGCL-SCL', '2018-02-09', '2018-02-09 18:19:29', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2434, 'rafael.carlos', 'CASAL', 388, 'VT0001', 'SBGCL-SCL', '2018-02-10', '2018-02-10 17:23:28', 1, 2331, '2018-02-12 17:12:32', '2018-02-12 17:23:15', NULL, '2', '0'),
-(2435, 'rafael.carlos', 'CASAL', 387, 'VT0001', 'SBGCL-SCL', '2018-02-10', '2018-02-10 17:23:46', 1, 2332, '2018-02-12 17:13:00', '2018-02-12 17:24:56', NULL, '2', '0'),
-(2436, 'rafael.carlos', 'CASAL', 404, 'VT0001', 'SBGCL-SCL', '2018-02-10', '2018-02-10 17:24:07', 1, 2333, '2018-02-12 17:13:38', '2018-02-12 17:26:16', NULL, '2', '0'),
-(2437, 'rafael.carlos', 'CASAL', 752, 'VT0001', 'SBGCL-SCL', '2018-02-10', '2018-02-10 17:24:29', 1, 2334, '2018-02-12 17:14:32', '2018-02-12 17:27:25', NULL, '2', '0'),
-(2438, 'rafael.carlos', 'CASAL', 405, 'VT0001', 'SBGCL-SCL', '2018-02-10', '2018-02-10 17:24:47', 1, 2335, '2018-02-12 17:15:01', '2018-02-12 17:29:12', NULL, '2', '0'),
-(2439, 'rafael.carlos', 'DESO', 524, 'CR0001', 'SBDXC-SDX', '2018-02-10', '2018-02-10 17:25:15', 1, 2336, '2018-02-12 17:15:33', '2018-02-12 17:32:07', NULL, '2', '0'),
-(2440, 'nahim.pantoja', 'COSANPA', 439, 'OP0002', 'SBGCL-SCL', '2018-02-11', '2018-02-11 00:15:38', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2441, 'francinei', 'COSANPA', 423, 'CR0001', 'SBPAC-SPC', '2018-02-11', '2018-02-12 12:56:21', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2442, 'francinei', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2018-02-12', '2018-02-12 16:23:04', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2443, 'francinei', 'COSANPA', 496, 'CR0001', 'SBPAC-SPC', '2018-02-09', '2018-02-12 16:29:10', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2444, 'nahim.pantoja', 'COSANPA', 462, 'OP0002', 'SBGCL-SCL', '2018-02-12', '2018-02-12 21:06:56', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2445, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-02-14', '2018-02-14 16:26:53', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2446, 'gladson.marinho', 'CAERN', 126, 'CR0001', 'SBGCL-SCL', '2018-01-22', '2018-02-15 10:41:06', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2447, 'gladson.marinho', 'CAERN', 134, 'CR0001', 'SBGCL-SCL', '2018-01-25', '2018-02-15 10:41:44', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2448, 'gladson.marinho', 'CAERN', 869, 'NV0001', 'SBGCL-SCL', '2018-01-26', '2018-02-15 10:42:41', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2449, 'gladson.marinho', 'CAERN', 84, 'NV0001', 'SBGCL-SCL', '2018-01-30', '2018-02-15 10:43:14', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2450, 'gladson.marinho', 'CAERN', 76, 'NV0001', 'SBGCL-SCL', '2018-01-30', '2018-02-15 10:43:51', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2451, 'gladson.marinho', 'CAERN', 173, 'NV0001', 'SBGCL-SCL', '2018-01-30', '2018-02-15 10:44:13', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2452, 'gladson.marinho', 'CAERN', 95, 'CR0001', 'SBGCL-SCL', '2018-01-30', '2018-02-15 10:44:41', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2453, 'gladson.marinho', 'CAERN', 866, 'NV0001', 'SBGCL-SCL', '2018-02-01', '2018-02-15 10:45:21', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2454, 'gladson.marinho', 'CAERN', 102, 'CR0001', 'SBGCL-SCL', '2018-02-05', '2018-02-15 10:45:54', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2455, 'gladson.marinho', 'CAERN', 114, 'CR0001', 'SBGCL-SCL', '2018-02-08', '2018-02-15 10:46:18', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2456, 'gladson.marinho', 'CAERN', 193, 'CR0001', 'SBGCL-SCL', '2018-02-08', '2018-02-15 10:46:47', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2457, 'gladson.marinho', 'CAERN', 136, 'CR0001', 'SBGCL-SCL', '2018-02-08', '2018-02-15 10:47:15', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2458, 'gladson.marinho', 'CAERN', 869, 'NV0001', 'SBGCL-SCL', '2018-02-09', '2018-02-15 10:48:06', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2459, 'gladson.marinho', 'CAERN', 95, 'CR0001', 'SBGCL-SCL', '2018-02-09', '2018-02-15 10:48:42', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2460, 'gladson.marinho', 'CAERN', 97, 'CR0001', 'SBGCL-SCL', '2018-02-10', '2018-02-15 10:49:05', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2461, 'rafael.carlos', 'CASAL', 406, 'PV0001', 'SBGCL-SCL', '2018-02-15', '2018-02-15 13:11:58', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2462, 'rafael.carlos', 'CASAL', 390, 'PV0001', 'SBGCL-SCL', '2018-02-15', '2018-02-15 13:12:46', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2463, 'rafael.carlos', 'CASAL', 397, 'CR0001', 'SBGCL-SCL', '2018-02-15', '2018-02-15 13:14:37', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2464, 'rafael.carlos', 'CASAL', 382, 'PV0001', 'SBGCL-SCL', '2018-02-15', '2018-02-15 13:15:08', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2465, 'antonio.ferreira', 'CAGECE', 833, 'CR0001', 'SBGCL-SCL', '2018-02-15', '2018-02-15 15:55:02', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2466, 'fabio.bonina', 'CAGECE', 842, 'CR0001', 'SBGCL-SCL', '2018-02-15', '2018-02-15 15:55:37', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2467, 'reginaldo.barbosa', 'CAERN', 115, 'CR0001', 'SBGCL-SCL', '2018-02-16', '2018-02-16 12:42:50', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2468, 'francinei', 'COSANPA', 423, 'PV0001', 'SBGCL-SCL', '2018-02-16', '2018-02-16 13:52:38', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2469, 'nahim.pantoja', 'COSANPA', 412, 'PV0001', 'SBPAC-SPC', '2018-02-16', '2018-02-16 18:28:25', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2470, 'cleber.souza', 'CAGEPA', 346, 'PV0001', 'SBGCL-SCL', '2018-02-17', '2018-02-17 16:32:00', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2471, 'cleber.souza', 'CAGECE', 779, 'PV0001', 'SBGCL-SCL', '2018-02-15', '2018-02-18 10:55:38', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2472, 'cleber.souza', 'CAGEPA', 338, 'PV0001', 'SBGCL-SCL', '2018-02-16', '2018-02-18 10:56:36', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2473, 'francinei', 'COSANPA', 463, 'CR0001', 'SBPAC-SPC', '2018-02-18', '2018-02-18 13:55:07', NULL, NULL, NULL, NULL, NULL, '0', '0'),
-(2474, 'jose.wilson', 'CAEMA', 44, 'PV0001', 'SBGCL-SCL', '2018-02-18', '2018-02-18 17:37:17', NULL, NULL, NULL, NULL, NULL, '0', '0');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_os`
---
-
-CREATE TABLE `tb_os` (
-  `id` int(11) NOT NULL,
-  `loja` int(11) NOT NULL,
-  `lojaNick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `local` int(11) NOT NULL,
-  `servico` varchar(6) COLLATE utf8_unicode_ci NOT NULL,
-  `categoria` int(11) NOT NULL,
-  `tipoServ` int(1) NOT NULL,
-  `bem` int(11) DEFAULT NULL,
-  `data` date NOT NULL,
-  `dtUltimoMan` date DEFAULT NULL,
-  `dtCadastro` datetime NOT NULL,
-  `filial` int(2) DEFAULT NULL,
-  `os` int(11) DEFAULT NULL,
-  `dtOs` datetime DEFAULT NULL,
-  `dtFech` datetime DEFAULT NULL,
-  `dtTerm` datetime DEFAULT NULL,
-  `estado` enum('0','1','2','3','4') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
-  `processo` enum('0','1','2','3','4','5','6','7','8','9','10','11') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
-  `status` enum('0','1','2','3','4') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
-  `ativo` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_os`
---
-
-INSERT INTO `tb_os` (`id`, `loja`, `lojaNick`, `local`, `servico`, `categoria`, `tipoServ`, `bem`, `data`, `dtUltimoMan`, `dtCadastro`, `filial`, `os`, `dtOs`, `dtFech`, `dtTerm`, `estado`, `processo`, `status`, `ativo`) VALUES
-(1, 1, 'AGESPISA', 2, 'COR001', 1, 3, NULL, '2018-03-08', NULL, '2018-03-08 17:56:04', NULL, NULL, NULL, NULL, NULL, '0', '4', '0', '0'),
-(2, 11, 'CAERN', 61, 'COR001', 1, 3, NULL, '2018-03-08', NULL, '2018-03-08 18:44:16', NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0'),
-(3, 1, 'AGESPISA', 2, 'COR001', 1, 3, 3, '2018-03-09', NULL, '2018-03-09 16:01:45', NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_os_tecnico`
---
-
-CREATE TABLE `tb_os_tecnico` (
-  `id` int(11) NOT NULL,
-  `os` int(11) NOT NULL,
-  `loja` int(11) NOT NULL,
-  `tecnico` int(11) DEFAULT NULL,
-  `user` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `hh` double(5,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_os_tecnico`
---
-
-INSERT INTO `tb_os_tecnico` (`id`, `os`, `loja`, `tecnico`, `user`, `hh`) VALUES
-(1, 1, 1, 1, 'Fábio Boninã', 10.00),
-(2, 2, 11, 1, 'Fábio Boninã', 10.00),
-(3, 3, 1, 1, 'Fábio Boninã', 10.00);
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_produtos`
---
-
-CREATE TABLE `tb_produtos` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `tag` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `tipo` varchar(4) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_produtos`
---
-
-INSERT INTO `tb_produtos` (`id`, `name`, `tag`, `tipo`) VALUES
-(1, 'MASCARA AUTONOMA', 'MSA', 'PROD'),
-(2, 'SISTEMA CLORACAO', 'SCL', 'PROD'),
-(3, 'CLORADOR', 'CLORADOR', 'PROD'),
-(4, 'CILINDRO AR RESPIRAVEL', 'CILINDRO AR', 'PROD');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_produto_categoria`
---
-
-CREATE TABLE `tb_produto_categoria` (
-  `id` int(11) NOT NULL,
-  `produto` int(11) NOT NULL,
-  `categoria` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_produto_tipo`
---
-
-CREATE TABLE `tb_produto_tipo` (
-  `id` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_produto_tipo`
---
-
-INSERT INTO `tb_produto_tipo` (`id`, `name`) VALUES
-('PROD', 'PRODUTO'),
-('SERV', 'SERVICO');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_proprietario`
---
-
-CREATE TABLE `tb_proprietario` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `nick` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0',
-  `cadastro` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_proprietario`
---
-
-INSERT INTO `tb_proprietario` (`id`, `name`, `nick`, `ativo`, `cadastro`) VALUES
-(1, 'Sabara Quimicos Ingredientes S/A', 'Sabará ã', '0', '2017-08-17');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_seguimento`
---
-
-CREATE TABLE `tb_seguimento` (
-  `id` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_seguimento`
---
-
-INSERT INTO `tb_seguimento` (`id`, `name`) VALUES
-('BEB', 'BEBIDA'),
-('IND', 'INDUSTRIA'),
-('OUT', 'OUTRO'),
-('SAN', 'SANEAMENTO'),
-('USI', 'USINA');
+(2414, 'francinei', 'COSANPA', 409, 'CR0001', 'SBGCL-SCL', '2018-02-03', '2018-02-05 19:33:47', 4, 937, '2018-02-06 12:10:28', '2018-02-08 20:23:47', '2018-03-12 12:57:15', '3', '0'),
+(2415, 'francinei', 'COSANPA', 490, 'CR0001', 'SBDPT-SPT', '2018-02-01', '2018-02-05 19:34:44', 4, 939, '2018-02-06 12:10:52', '2018-02-08 20:42:50', '2018-03-12 13:02:21', '3', '0'),
+(2416, 'francinei', 'COSANPA', 871, 'CR0001', 'SBDPT-SPT', '2018-02-02', '2018-02-06 10:20:12', 4, 936, '2018-02-06 12:11:15', '2018-02-08 20:52:20', '2018-03-12 13:08:27', '3', '0'),
+(2417, 'rafael.carlos', 'CASAL', 401, 'PV0001', 'SBGCL-SCL', '2018-02-05', '2018-02-06 11:24:38', 1, 2326, '2018-02-06 11:36:58', '2018-02-06 11:42:18', '2018-03-15 12:49:08', '3', '0'),
+(2419, 'reginaldo.barbosa', 'CAERN', 70, 'CR0001', 'SBGCL-SCL', '2018-02-06', '2018-02-06 22:45:08', 1, 2328, '2018-02-07 20:34:33', '2018-02-18 11:46:40', '2018-03-15 12:55:00', '3', '0'),
+(2420, 'reginaldo.barbosa', 'CAERN', 866, 'CR0001', 'SBGCL-SCL', '2018-02-06', '2018-02-06 22:45:52', 1, 2329, '2018-02-07 20:34:56', '2018-02-18 11:52:35', '2018-03-06 14:16:50', '3', '0'),
+(2421, 'cleber.souza', 'CAGEPA', 741, 'PV0001', 'SBGCL-SCL', '2018-02-07', '2018-02-07 08:16:04', 1, 2330, '2018-02-07 20:35:15', '2018-02-09 10:47:37', '2018-03-15 14:14:27', '3', '0'),
+(2422, 'nahim.pantoja', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-02-07', '2018-02-07 11:25:20', 4, 940, '2018-02-07 20:39:41', '2018-02-08 21:53:34', '2018-03-12 13:12:53', '3', '0'),
+(2423, 'dagmo.esbell', 'CAER', 60, 'CR0001', 'SBGCL-SCL', '2018-02-07', '2018-02-07 20:25:33', 4, 941, '2018-02-07 20:40:03', '2018-02-08 14:55:14', '2018-03-12 13:18:55', '3', '0'),
+(2424, 'bruno.alves', 'CAGEPA', 318, 'PV0001', 'SBGCL-SCL', '2018-02-08', '2018-02-08 12:39:36', 3, 2343, '2018-02-21 18:07:01', '2018-03-06 19:37:41', '2018-03-15 14:29:58', '3', '0'),
+(2425, 'cleber.souza', 'CAGEPA', 284, 'VT0001', 'SBGCL-SCL', '2018-02-08', '2018-02-09 12:24:00', 1, 2344, '2018-02-21 18:07:19', '2018-02-24 19:31:16', '2018-03-15 14:34:42', '3', '0'),
+(2426, 'cleber.souza', 'CAGEPA', 337, 'VT0001', 'SBGCL-SCL', '2018-02-08', '2018-02-09 12:25:05', 1, 2345, '2018-02-21 18:07:36', '2018-02-24 19:28:55', '2018-03-15 14:39:35', '3', '0'),
+(2427, 'cleber.souza', 'CAGEPA', 230, 'VT0001', 'SBGCL-SCL', '2018-02-08', '2018-02-09 12:25:50', 1, 2346, '2018-02-21 18:07:51', '2018-02-24 19:37:25', '2018-03-15 14:42:46', '3', '0'),
+(2428, 'cleber.souza', 'CAGEPA', 776, 'VT0001', 'SBGCL-SCL', '2018-02-08', '2018-02-09 12:26:53', 1, 2347, '2018-02-21 18:08:05', '2018-02-24 19:40:36', '2018-03-15 14:46:28', '3', '0'),
+(2429, 'cleber.souza', 'CAGEPA', 247, 'VT0001', 'SBGCL-SCL', '2018-02-08', '2018-02-09 12:27:48', 1, 2348, '2018-02-21 18:08:20', '2018-02-24 19:34:10', '2018-03-15 14:51:14', '3', '0'),
+(2430, 'cleber.souza', 'CAGEPA', 351, 'VT0001', 'SBGCL-SCL', '2018-02-08', '2018-02-09 12:29:11', 1, 2349, '2018-02-21 18:08:37', '2018-02-24 19:25:45', '2018-03-15 16:48:36', '3', '0'),
+(2431, 'antonio.ferreira', 'CAGECE', 806, 'CR0001', 'SBGCL-SCL', '2018-02-09', '2018-02-09 13:23:17', 1, 2350, '2018-02-21 18:09:05', '2018-03-23 14:20:05', '2018-03-23 19:31:56', '3', '0'),
+(2432, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-02-09', '2018-02-09 13:54:03', 4, 942, '2018-02-21 18:24:35', '2018-02-26 00:01:42', '2018-03-12 13:30:48', '3', '0'),
+(2433, 'reginaldo.barbosa', 'CAERN', 173, 'CR0001', 'SBGCL-SCL', '2018-02-09', '2018-02-09 18:19:29', 1, 2351, '2018-02-21 18:09:34', NULL, NULL, '1', '0'),
+(2434, 'rafael.carlos', 'CASAL', 388, 'VT0001', 'SBGCL-SCL', '2018-02-10', '2018-02-10 17:23:28', 1, 2331, '2018-02-12 17:12:32', '2018-02-12 17:23:15', '2018-03-15 16:55:51', '3', '0'),
+(2435, 'rafael.carlos', 'CASAL', 387, 'VT0001', 'SBGCL-SCL', '2018-02-10', '2018-02-10 17:23:46', 1, 2332, '2018-02-12 17:13:00', '2018-02-12 17:24:56', '2018-03-15 17:19:12', '3', '0'),
+(2436, 'rafael.carlos', 'CASAL', 404, 'VT0001', 'SBGCL-SCL', '2018-02-10', '2018-02-10 17:24:07', 1, 2333, '2018-02-12 17:13:38', '2018-02-12 17:26:16', '2018-03-15 17:26:59', '3', '0'),
+(2437, 'rafael.carlos', 'CASAL', 752, 'VT0001', 'SBGCL-SCL', '2018-02-10', '2018-02-10 17:24:29', 1, 2334, '2018-02-12 17:14:32', '2018-02-12 17:27:25', '2018-03-15 17:46:28', '3', '0'),
+(2438, 'rafael.carlos', 'CASAL', 405, 'VT0001', 'SBGCL-SCL', '2018-02-10', '2018-02-10 17:24:47', 1, 2335, '2018-02-12 17:15:01', '2018-02-12 17:29:12', '2018-03-15 17:50:25', '3', '0'),
+(2439, 'rafael.carlos', 'DESO', 524, 'CR0001', 'SBDXC-SDX', '2018-02-10', '2018-02-10 17:25:15', 1, 2336, '2018-02-12 17:15:33', '2018-02-12 17:32:07', '2018-03-15 17:57:09', '3', '0'),
+(2440, 'nahim.pantoja', 'COSANPA', 439, 'OP0002', 'SBGCL-SCL', '2018-02-11', '2018-02-11 00:15:38', 4, 943, '2018-02-21 18:24:50', '2018-02-28 20:25:50', '2018-03-12 14:26:57', '3', '0'),
+(2441, 'francinei', 'COSANPA', 423, 'CR0001', 'SBPAC-SPC', '2018-02-11', '2018-02-12 12:56:21', 1, 2352, '2018-02-21 18:25:10', '2018-02-26 00:10:11', '2018-03-14 17:27:04', '3', '0'),
+(2442, 'francinei', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2018-02-12', '2018-02-12 16:23:04', 4, 944, '2018-02-21 18:25:25', '2018-02-26 00:13:22', '2018-03-12 14:31:21', '3', '0'),
+(2443, 'francinei', 'COSANPA', 496, 'CR0001', 'SBPAC-SPC', '2018-02-09', '2018-02-12 16:29:10', 1, 2353, '2018-02-21 18:25:40', '2018-02-26 00:54:06', '2018-03-14 17:32:17', '3', '0'),
+(2444, 'nahim.pantoja', 'COSANPA', 462, 'OP0002', 'SBGCL-SCL', '2018-02-12', '2018-02-12 21:06:56', 4, 945, '2018-02-21 18:25:55', '2018-02-28 20:30:40', '2018-03-12 14:42:13', '3', '0'),
+(2445, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-02-14', '2018-02-14 16:26:53', 4, 946, '2018-02-21 18:26:12', '2018-02-26 01:07:04', '2018-03-12 14:48:16', '3', '0'),
+(2446, 'gladson.marinho', 'CAERN', 126, 'CR0001', 'SBGCL-SCL', '2018-01-22', '2018-02-15 10:41:06', 1, 2354, '2018-02-21 18:26:26', '2018-02-28 12:56:30', '2018-03-15 18:03:25', '3', '0'),
+(2447, 'gladson.marinho', 'CAERN', 134, 'CR0001', 'SBGCL-SCL', '2018-01-25', '2018-02-15 10:41:44', 1, 2355, '2018-02-21 18:26:44', '2018-02-28 13:00:36', '2018-03-15 18:07:49', '3', '0'),
+(2448, 'gladson.marinho', 'CAERN', 869, 'NV0001', 'SBGCL-SCL', '2018-01-26', '2018-02-15 10:42:41', 1, 2377, '2018-02-21 19:14:44', '2018-02-28 13:08:49', '2018-03-15 18:11:41', '3', '0'),
+(2449, 'gladson.marinho', 'CAERN', 84, 'NV0001', 'SBGCL-SCL', '2018-01-30', '2018-02-15 10:43:14', 1, 2356, '2018-02-21 18:26:58', '2018-02-28 13:13:11', '2018-03-15 18:16:20', '3', '0'),
+(2450, 'gladson.marinho', 'CAERN', 76, 'NV0001', 'SBGCL-SCL', '2018-01-30', '2018-02-15 10:43:51', 1, 2357, '2018-02-21 18:27:14', '2018-02-28 13:19:14', '2018-03-15 18:20:08', '3', '0'),
+(2451, 'gladson.marinho', 'CAERN', 173, 'NV0001', 'SBGCL-SCL', '2018-01-30', '2018-02-15 10:44:13', 1, 2358, '2018-02-21 18:27:28', '2018-02-28 13:21:39', '2018-03-15 18:23:28', '3', '0'),
+(2452, 'gladson.marinho', 'CAERN', 95, 'CR0001', 'SBGCL-SCL', '2018-01-30', '2018-02-15 10:44:41', 1, 2359, '2018-02-21 18:27:40', '2018-02-28 13:25:23', '2018-03-06 14:55:52', '3', '0'),
+(2453, 'gladson.marinho', 'CAERN', 866, 'NV0001', 'SBGCL-SCL', '2018-02-01', '2018-02-15 10:45:21', 1, 2360, '2018-02-21 18:27:53', '2018-02-28 13:28:38', '2018-03-06 14:38:16', '3', '0'),
+(2454, 'gladson.marinho', 'CAERN', 102, 'CR0001', 'SBGCL-SCL', '2018-02-05', '2018-02-15 10:45:54', 1, 2361, '2018-02-21 18:28:08', '2018-02-28 13:30:33', '2018-03-15 18:28:00', '3', '0'),
+(2455, 'gladson.marinho', 'CAERN', 114, 'CR0001', 'SBGCL-SCL', '2018-02-08', '2018-02-15 10:46:18', 1, 2352, '2018-02-21 18:28:31', '2018-02-21 18:30:48', NULL, '1', '0'),
+(2456, 'gladson.marinho', 'CAERN', 193, 'CR0001', 'SBGCL-SCL', '2018-02-08', '2018-02-15 10:46:47', 1, 2363, '2018-02-21 18:35:49', '2018-02-28 13:46:03', '2018-03-15 18:34:27', '3', '0'),
+(2457, 'gladson.marinho', 'CAERN', 136, 'CR0001', 'SBGCL-SCL', '2018-02-08', '2018-02-15 10:47:15', 1, 2364, '2018-02-21 18:36:05', '2018-02-28 13:48:31', '2018-03-15 18:38:42', '3', '0'),
+(2458, 'gladson.marinho', 'CAERN', 869, 'NV0001', 'SBGCL-SCL', '2018-02-09', '2018-02-15 10:48:06', 1, 2378, '2018-02-21 19:15:17', '2018-02-28 13:52:15', '2018-03-15 18:43:22', '3', '0'),
+(2459, 'gladson.marinho', 'CAERN', 95, 'CR0001', 'SBGCL-SCL', '2018-02-09', '2018-02-15 10:48:42', 1, 2365, '2018-02-21 18:36:23', '2018-02-28 13:54:39', '2018-03-06 15:03:19', '3', '0'),
+(2460, 'gladson.marinho', 'CAERN', 97, 'CR0001', 'SBGCL-SCL', '2018-02-10', '2018-02-15 10:49:05', 1, 2366, '2018-02-21 18:36:35', '2018-02-28 14:01:02', '2018-03-15 18:48:02', '3', '0'),
+(2461, 'rafael.carlos', 'CASAL', 406, 'PV0001', 'SBGCL-SCL', '2018-02-15', '2018-02-15 13:11:58', 1, 2339, '2018-02-19 10:57:05', '2018-02-19 11:09:14', '2018-03-15 18:57:51', '3', '0'),
+(2462, 'rafael.carlos', 'CASAL', 390, 'PV0001', 'SBGCL-SCL', '2018-02-15', '2018-02-15 13:12:46', 1, 2338, '2018-02-19 10:56:32', '2018-02-19 11:27:10', '2018-03-15 19:09:13', '3', '0'),
+(2463, 'rafael.carlos', 'CASAL', 397, 'CR0001', 'SBGCL-SCL', '2018-02-15', '2018-02-15 13:14:37', 1, 2340, '2018-02-19 10:57:35', '2018-02-19 11:12:20', '2018-03-15 19:19:26', '3', '0'),
+(2464, 'rafael.carlos', 'CASAL', 382, 'PV0001', 'SBGCL-SCL', '2018-02-15', '2018-02-15 13:15:08', 1, 2337, '2018-02-19 10:55:56', '2018-02-19 11:14:25', '2018-03-15 19:25:30', '3', '0'),
+(2465, 'antonio.ferreira', 'CAGECE', 833, 'CR0001', 'SBGCL-SCL', '2018-02-15', '2018-02-15 15:55:02', 1, 2367, '2018-02-21 18:36:51', '2018-03-23 14:05:07', '2018-03-23 19:39:06', '3', '0'),
+(2466, 'fabio.bonina', 'CAGECE', 842, 'CR0001', 'SBGCL-SCL', '2018-02-15', '2018-02-15 15:55:37', 1, 2368, '2018-02-21 18:37:08', NULL, NULL, '1', '0'),
+(2467, 'reginaldo.barbosa', 'CAERN', 115, 'CR0001', 'SBGCL-SCL', '2018-02-16', '2018-02-16 12:42:50', 1, 2369, '2018-02-21 18:37:23', NULL, NULL, '1', '0'),
+(2468, 'francinei', 'COSANPA', 423, 'PV0001', 'SBGCL-SCL', '2018-02-16', '2018-02-16 13:52:38', 4, 947, '2018-02-21 18:37:40', '2018-03-05 23:56:40', '2018-03-12 14:51:57', '3', '0'),
+(2469, 'nahim.pantoja', 'COSANPA', 412, 'PV0001', 'SBPAC-SPC', '2018-02-16', '2018-02-16 18:28:25', 1, 2370, '2018-02-21 18:37:56', '2018-02-28 21:06:59', '2018-03-14 17:41:55', '3', '0'),
+(2470, 'cleber.souza', 'CAGEPA', 346, 'PV0001', 'SBGCL-SCL', '2018-02-17', '2018-02-17 16:32:00', 1, 2371, '2018-02-21 18:38:11', '2018-02-24 19:03:27', '2018-03-15 19:35:25', '3', '0'),
+(2471, 'cleber.souza', 'CAGECE', 779, 'PV0001', 'SBGCL-SCL', '2018-02-15', '2018-02-18 10:55:38', 1, 2372, '2018-02-21 18:38:29', '2018-02-24 19:50:47', '2018-03-02 19:05:51', '3', '0'),
+(2472, 'cleber.souza', 'CAGEPA', 338, 'PV0001', 'SBGCL-SCL', '2018-02-16', '2018-02-18 10:56:36', 1, 2373, '2018-02-21 18:38:46', '2018-02-24 18:54:36', '2018-03-15 19:41:38', '3', '0'),
+(2473, 'francinei', 'COSANPA', 463, 'CR0001', 'SBPAC-SPC', '2018-02-18', '2018-02-18 13:55:07', 1, 2374, '2018-02-21 18:39:00', '2018-03-06 00:23:10', '2018-03-14 17:53:52', '3', '0'),
+(2474, 'jose.wilson', 'CAEMA', 44, 'PV0001', 'SBGCL-SCL', '2018-02-18', '2018-02-18 17:37:17', 4, 948, '2018-02-21 18:39:16', '2018-02-23 22:16:36', '2018-03-14 16:30:32', '3', '0'),
+(2475, 'rafael.carlos', 'CASAL', 396, 'PV0001', 'SBGCL-SCL', '2018-02-19', '2018-02-19 11:15:25', 1, 2341, '2018-02-19 11:15:38', '2018-02-19 11:20:34', '2018-03-15 19:45:57', '3', '0'),
+(2476, 'rafael.carlos', 'CASAL', 386, 'PV0001', 'SBGCL-SCL', '2018-02-19', '2018-02-19 11:16:05', 1, 2342, '2018-02-19 11:16:28', '2018-02-19 11:23:30', '2018-03-15 19:52:57', '3', '0'),
+(2477, 'francinei', 'COSANPA', 463, 'OP0002', 'SBGCL-SCL', '2018-02-18', '2018-02-20 01:01:47', 3, 949, '2018-02-21 18:39:36', '2018-03-06 00:13:44', '2018-03-14 16:35:44', '3', '0'),
+(2478, 'jose.wilson', 'SOLAR', 784, 'CR0001', 'SBDPT-SPT', '2018-02-20', '2018-02-20 02:05:10', 4, 950, '2018-02-21 18:39:54', '2018-02-23 22:23:04', '2018-03-14 16:52:07', '3', '0'),
+(2479, 'francinei', 'COSANPA', 423, 'CR0001', 'SBGCL-SCL', '2018-02-20', '2018-02-20 14:10:11', 4, 951, '2018-02-21 18:40:07', '2018-03-06 00:45:32', '2018-03-14 16:59:09', '3', '0'),
+(2480, 'thonpson', 'CAERN', 126, 'CR0001', 'SBGCL-SCL', '2018-02-20', '2018-02-20 16:20:06', 1, 2375, '2018-02-21 18:40:22', NULL, NULL, '1', '0'),
+(2481, 'thonpson', 'CAERN', 102, 'PV0001', 'SBGCL-SCL', '2018-02-20', '2018-02-20 16:20:36', 1, 2376, '2018-02-21 18:40:36', NULL, NULL, '1', '0'),
+(2482, 'francinei', 'COSANPA', 442, 'CR0001', 'SBGCL-SCL', '2018-02-21', '2018-02-21 18:23:18', 4, 952, '2018-02-21 18:42:43', '2018-03-06 00:55:04', '2018-03-14 17:05:54', '3', '0'),
+(2483, 'francinei', 'COSANPA', 409, 'OP0002', 'SBGCL-SCL', '2018-02-21', '2018-02-21 18:24:26', 4, 953, '2018-02-21 18:42:58', '2018-03-06 01:00:16', '2018-03-14 19:07:10', '3', '0'),
+(2484, 'gladson.marinho', 'CAERN', 114, 'CR0001', 'SBGCL-SCL', '2018-02-08', '2018-02-21 18:35:03', 1, 2362, '2018-02-21 18:35:35', '2018-02-28 13:34:42', '2018-03-15 19:57:20', '3', '0'),
+(2485, 'reginaldo.barbosa', 'CAERN', 200, 'CR0001', 'SBGCL-SCL', '2018-02-22', '2018-02-22 00:12:59', 1, 2384, '2018-03-01 16:46:15', NULL, NULL, '1', '0'),
+(2486, 'aellington.lima', 'AMBEV', 754, 'VT0001', 'SBDPT-SPT', '2018-02-22', '2018-02-22 12:54:26', 1, 2391, '2018-03-01 16:46:29', NULL, NULL, '1', '0'),
+(2487, 'cleber.souza', 'CAGECE', 862, 'PV0001', 'SBGCL-SCL', '2018-02-22', '2018-02-22 13:42:04', 1, 2385, '2018-03-01 16:46:43', '2018-03-13 01:17:55', '2018-03-19 17:31:36', '3', '0'),
+(2488, 'francinei', 'COSANPA', 508, 'OP0002', 'SBGCL-SCL', '2018-02-22', '2018-02-22 14:16:41', 4, 954, '2018-03-01 16:47:17', '2018-03-06 01:55:41', '2018-03-14 19:17:41', '3', '0'),
+(2489, 'francinei', 'COSANPA', 504, 'OP0002', 'SBGCL-SCL', '2018-02-22', '2018-02-22 14:54:33', 4, 955, '2018-03-01 16:47:34', '2018-03-06 01:48:33', '2018-03-14 19:23:15', '3', '0'),
+(2490, 'francinei', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2018-02-21', '2018-02-22 14:58:31', 4, 956, '2018-03-01 16:47:46', '2018-03-06 01:10:40', '2018-03-14 19:28:30', '3', '0'),
+(2491, 'rafael.carlos', 'DESO', 523, 'PV0001', 'SBDXC-SDX', '2018-02-23', '2018-02-23 10:33:20', 1, 2380, '2018-02-26 10:36:36', '2018-02-26 10:50:58', '2018-03-19 17:36:42', '3', '0'),
+(2492, 'francinei', 'COSANPA', 410, 'OP0002', 'SBGCL-SCL', '2018-02-23', '2018-02-23 10:56:59', 4, 957, '2018-03-01 16:47:56', '2018-03-06 02:01:04', '2018-03-22 13:20:52', '3', '0'),
+(2493, 'bruno.alves', 'CAERN', 155, 'CR0001', 'SBGCL-SCL', '2018-02-23', '2018-02-23 13:50:52', 1, 2386, '2018-03-01 16:48:11', '2018-03-06 19:32:12', '2018-03-19 17:40:39', '3', '0'),
+(2494, 'francinei', 'COSANPA', 411, 'CR0001', 'SBDPT-SPT', '2018-02-23', '2018-02-23 18:35:43', 4, 958, '2018-03-01 16:48:23', '2018-03-06 21:56:28', '2018-03-22 13:23:40', '3', '0'),
+(2495, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-02-24', '2018-02-24 15:18:18', 4, 959, '2018-03-01 16:48:36', '2018-03-06 22:03:32', '2018-03-22 13:30:47', '3', '0'),
+(2496, 'cleber.souza', 'CAGEPA', 227, 'PV0001', 'SBGCL-SCL', '2018-02-05', '2018-02-24 19:50:43', 1, 2387, '2018-03-01 16:48:48', '2018-03-13 01:13:39', '2018-03-19 17:45:13', '3', '0'),
+(2497, 'cleber.souza', 'CAGEPA', 741, 'PV0001', 'SBGCL-SCL', '2018-02-07', '2018-02-24 19:52:05', 1, 2388, '2018-03-01 16:49:06', '2018-03-13 01:20:17', '2018-03-19 17:49:39', '3', '0'),
+(2500, 'rafael.carlos', 'DESO', 524, 'PV0001', 'SBDXC-SDX', '2018-02-26', '2018-02-26 10:24:57', 1, 2383, '2018-02-26 10:38:18', '2018-02-26 10:52:07', '2018-03-19 18:25:17', '3', '0'),
+(2499, 'rafael.carlos', 'CASAL', 407, 'Escolh', 'Escolha um s', '2018-02-26', '2018-02-26 10:24:06', 1, 2379, '2018-02-26 10:35:45', '2018-02-26 10:41:16', '2018-03-19 18:30:47', '3', '0'),
+(2501, 'rafael.carlos', 'DESO', 525, 'PV0001', 'SBDXC-SDX', '2018-02-26', '2018-02-26 10:25:13', 1, 2381, '2018-02-26 10:37:10', '2018-02-26 10:44:47', '2018-03-19 18:37:29', '3', '0'),
+(2502, 'rafael.carlos', 'DESO', 526, 'PV0001', 'SBDXC-SDX', '2018-02-26', '2018-02-26 10:25:30', 1, 2382, '2018-02-26 10:37:45', '2018-02-26 10:48:17', '2018-03-19 19:13:20', '3', '0'),
+(2503, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-02-26', '2018-02-26 19:19:17', 4, 960, '2018-03-01 16:49:27', '2018-03-20 12:08:56', '2018-03-22 13:33:30', '3', '0'),
+(2504, 'francinei', 'COSANPA', 409, 'CR0001', 'SBGCL-SCL', '2018-02-26', '2018-02-26 19:20:04', 4, 961, '2018-03-01 16:49:37', '2018-03-20 12:14:00', '2018-03-22 13:38:22', '3', '0'),
+(2505, 'antonio.ferreira', 'CAGECE', 820, 'CR0001', 'SBGCL-SCL', '2018-02-26', '2018-02-27 17:20:06', 1, 2389, '2018-03-01 16:49:56', NULL, NULL, '1', '0'),
+(2506, 'antonio.ferreira', 'CAGECE', 789, 'CR0001', 'SBGCL-SCL', '2018-02-27', '2018-02-27 17:23:37', 1, 2390, '2018-03-01 16:50:13', '2018-03-23 14:01:41', '2018-03-23 19:45:11', '3', '0'),
+(2507, 'nahim.pantoja', 'COSANPA', 424, 'OP0002', 'SBGCL-SCL', '2018-02-27', '2018-02-28 00:38:36', 4, 962, '2018-03-01 16:50:29', '2018-03-01 19:00:49', '2018-03-22 13:42:22', '3', '0'),
+(2509, 'nahim.pantoja', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-02-28', '2018-02-28 20:19:20', 4, 963, '2018-03-01 16:50:41', '2018-03-01 18:49:43', '2018-03-22 13:49:43', '3', '0'),
+(2514, 'jose.wilson', 'CAEMA', 13, 'PV0001', 'SBGCL-SCL', '2018-03-02', '2018-03-02 03:02:57', 4, 964, '2018-03-08 17:09:49', '2018-03-10 13:14:59', '2018-03-14 18:16:10', '3', '0'),
+(2515, 'jose.wilson', 'CAEMA', 28, 'PV0001', 'SBGCL-SCL', '2018-03-02', '2018-03-02 03:03:43', 4, 965, '2018-03-08 17:10:22', '2018-03-10 13:30:13', '2018-03-14 18:23:42', '3', '0'),
+(2516, 'jose.wilson', 'CAEMA', 39, 'PV0001', 'SBGCL-SCL', '2018-03-02', '2018-03-02 03:04:25', 4, 966, '2018-03-08 17:10:34', '2018-03-10 13:40:42', '2018-03-14 18:59:51', '3', '0'),
+(2517, 'jose.wilson', 'CAEMA', 30, 'CR0001', 'SBGCL-SCL', '2018-03-02', '2018-03-02 03:05:23', 4, 967, '2018-03-08 17:10:47', '2018-03-25 13:45:18', '2018-03-28 14:37:59', '3', '0'),
+(2518, 'jose.wilson', 'CAEMA', 20, 'CR0001', 'SBGCL-SCL', '2018-03-02', '2018-03-02 03:06:44', 4, 968, '2018-03-08 17:10:59', '2018-03-15 00:11:47', '2018-03-22 13:55:28', '3', '0'),
+(2519, 'reginaldo.barbosa', 'CAERN', 98, 'VT0001', 'SBGCL-SCL', '2018-03-02', '2018-03-02 08:35:32', 1, 2397, '2018-03-08 17:11:20', NULL, NULL, '1', '0'),
+(2520, 'reginaldo.barbosa', 'CAERN', 191, 'PV0001', 'SBGCL-SCL', '2018-03-02', '2018-03-02 08:36:06', 1, 2398, '2018-03-08 17:11:30', NULL, NULL, '1', '0'),
+(2521, 'cleber.souza', 'CAGEPA', 215, 'PV0001', 'SBGCL-SCL', '2018-03-01', '2018-03-02 13:44:36', 1, 2399, '2018-03-08 17:11:44', '2018-03-13 12:19:27', '2018-03-19 19:17:39', '3', '0'),
+(2524, 'cleber.souza', 'CAGEPA', 352, 'PV0001', 'SBGCL-SCL', '2018-03-01', '2018-03-02 13:49:14', 1, 2400, '2018-03-08 17:11:57', '2018-03-13 01:03:10', '2018-03-19 19:20:40', '3', '0'),
+(2523, 'cleber.souza', 'CAGEPA', 250, 'PV0001', 'SBGCL-SCL', '2018-03-01', '2018-03-02 13:47:18', 1, 2401, '2018-03-08 17:12:15', '2018-03-13 01:08:48', '2018-03-19 19:28:05', '3', '0'),
+(2526, 'nahim.pantoja', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2018-03-02', '2018-03-02 17:39:34', 4, 969, '2018-03-08 17:12:30', '2018-03-15 18:47:09', '2018-03-22 13:59:34', '3', '0'),
+(2527, 'rafael.carlos', 'CASAL', 386, 'PV0001', 'SBGCL-SCL', '2018-03-02', '2018-03-02 18:20:56', 1, 2392, '2018-03-02 18:34:36', '2018-03-02 19:01:03', '2018-03-19 19:24:27', '3', '0'),
+(2528, 'rafael.carlos', 'CASAL', 752, 'CR0001', 'SBGCL-SCL', '2018-03-02', '2018-03-02 18:27:04', 1, 2394, '2018-03-02 18:38:56', '2018-03-02 18:47:50', '2018-03-19 19:37:04', '3', '0'),
+(2529, 'rafael.carlos', 'CASAL', 394, 'PV0001', 'SBGCL-SCL', '2018-03-02', '2018-03-02 18:27:31', 1, 2393, '2018-03-02 18:36:08', '2018-03-02 18:52:14', '2018-03-19 19:40:05', '3', '0'),
+(2530, 'rafael.carlos', 'SOLAR', 537, 'CR0001', 'SBDPT-SPT', '2018-03-02', '2018-03-02 18:28:17', 1, 2396, '2018-03-02 18:39:33', '2018-03-02 19:05:11', '2018-03-19 19:47:43', '3', '0'),
+(2531, 'rafael.carlos', 'SOLAR', 0, 'CR0001', 'SBDPT-SPT', '2018-03-02', '2018-03-02 18:28:35', 1, 2395, '2018-03-02 18:39:48', '2018-03-02 19:06:48', '2018-03-19 19:53:09', '3', '0'),
+(2532, 'nahim.pantoja', 'COSANPA', 409, 'OP0002', 'SBGCL-SCL', '2018-03-02', '2018-03-02 23:05:15', 4, 970, '2018-03-08 17:12:49', '2018-03-15 18:50:08', '2018-03-22 14:02:51', '3', '0'),
+(2533, 'francinei', 'COSANPA', 794, 'NV0001', 'SBGCL-SCL', '2018-03-01', '2018-03-05 11:03:38', 4, 978, '2018-03-08 17:40:31', '2018-03-20 14:00:39', '2018-03-22 14:13:12', '3', '0'),
+(2534, 'francinei', 'COSANPA', 495, 'OP0002', 'SBGCL-SCL', '2018-03-01', '2018-03-05 11:04:42', 4, 972, '2018-03-08 17:13:40', '2018-03-20 19:10:14', '2018-03-22 14:16:00', '3', '0'),
+(2535, 'francinei', 'COSANPA', 428, 'OP0002', 'SBGCL-SCL', '2018-02-26', '2018-03-05 11:05:22', 4, 973, '2018-03-08 17:13:57', '2018-03-20 11:27:31', '2018-03-22 14:23:44', '3', '0'),
+(2538, 'francisco.barbosa', 'CAERN', 126, 'CR0001', 'SBGCL-SCL', '2018-03-05', '2018-03-05 15:33:34', 1, 2402, '2018-03-08 17:14:10', '2018-03-26 19:39:40', '2018-03-27 19:10:10', '3', '0'),
+(2539, 'antonio.ferreira', 'CAGECE', 829, 'CR0001', 'SBGCL-SCL', '2018-03-03', '2018-03-05 22:52:26', 1, 2403, '2018-03-08 17:14:23', NULL, NULL, '1', '0'),
+(2540, 'antonio.ferreira', 'CAGECE', 870, 'CR0001', 'SBGCL-SCL', '2018-03-02', '2018-03-05 22:54:17', 1, 2404, '2018-03-08 17:14:43', NULL, NULL, '1', '0'),
+(2541, 'francinei', 'COSANPA', 502, 'CR0001', 'SBDPT-SPT', '2018-02-01', '2018-03-05 23:45:45', 4, 974, '2018-03-08 17:14:59', '2018-03-20 12:51:53', '2018-03-22 14:29:29', '3', '0'),
+(2542, 'francinei', 'COSANPA', 873, 'CR0001', 'SBDPT-SPT', '2018-02-01', '2018-03-05 23:46:37', 4, 975, '2018-03-08 17:15:22', '2018-03-20 12:57:49', '2018-03-22 14:34:23', '3', '0'),
+(2543, 'francinei', 'COSANPA', 423, 'PV0001', 'SBGCL-SCL', '2018-03-05', '2018-03-05 23:47:45', 4, 977, '2018-03-08 17:15:34', '2018-04-01 10:05:31', NULL, '2', '0'),
+(2546, 'bruno.alves', 'CAGEPA', 360, 'PV0001', 'SBGCL-SCL', '2018-02-26', '2018-03-06 19:38:33', 1, 2405, '2018-03-08 17:15:46', NULL, NULL, '1', '0'),
+(2547, 'bruno.alves', 'CAGEPA', 546, 'CR0001', 'SBGCL-SCL', '2018-02-27', '2018-03-06 19:40:39', 1, 2406, '2018-03-08 17:15:56', NULL, NULL, '1', '0'),
+(2548, 'bruno.alves', 'CAGEPA', 266, 'CR0001', 'SBGCL-SCL', '2018-02-27', '2018-03-06 19:44:05', 1, 2407, '2018-03-08 17:16:11', NULL, NULL, '1', '0'),
+(2549, 'cleber.souza', 'CAGEPA', 351, 'PV0001', 'SBGCL-SCL', '2018-03-05', '2018-03-07 12:22:44', 1, 2408, '2018-03-08 17:16:31', '2018-03-13 00:54:59', '2018-03-22 16:33:21', '3', '0'),
+(2550, 'cleber.souza', 'CAGEPA', 345, 'PV0001', 'SBGCL-SCL', '2018-03-06', '2018-03-07 12:23:38', 1, 2409, '2018-03-08 17:16:44', '2018-03-13 12:22:18', '2018-03-22 16:42:08', '3', '0'),
+(2551, 'aellington.lima', 'CAGECE', 818, 'CR0001', 'SBGCL-SCL', '2018-03-07', '2018-03-07 14:24:04', 1, 2410, '2018-03-08 17:16:56', NULL, NULL, '1', '0'),
+(2552, 'francisco.barbosa', 'CAERN', 100, 'VT0001', 'SBGCL-SCL', '2018-03-07', '2018-03-07 16:17:37', 1, 2411, '2018-03-08 17:18:13', '2018-03-29 13:52:39', NULL, '1', '0'),
+(2553, 'francinei', 'COSANPA', 436, 'CR0001', 'SBGCL-SCL', '2018-03-06', '2018-03-08 10:39:36', 4, 976, '2018-03-08 17:18:32', '2018-04-01 10:46:37', NULL, '2', '0'),
+(2554, 'antonio.ferreira', 'CAGECE', 790, 'NV0001', 'SBGCL-SCL', '2018-03-09', '2018-03-09 15:26:22', 1, 2412, '2018-03-12 12:00:35', NULL, NULL, '1', '0'),
+(2555, 'jose.wilson', 'CAEMA', 29, 'CR0001', 'SBGCL-SCL', '2018-03-10', '2018-03-10 00:17:15', 4, 979, '2018-03-12 12:01:01', '2018-03-14 23:38:12', '2018-03-22 14:41:12', '3', '0'),
+(2556, 'jose.wilson', 'SOLAR', 784, 'CR0001', 'SBDPT-SPT', '2018-03-10', '2018-03-10 00:20:28', 4, 980, '2018-03-12 12:01:23', '2018-03-15 00:04:23', '2018-03-22 14:56:33', '3', '0'),
+(2557, 'cleber.souza', 'CAGEPA', 846, 'PV0001', 'SBGCL-SCL', '2018-03-09', '2018-03-10 16:32:00', 1, 2414, '2018-03-12 12:01:45', NULL, NULL, '1', '0'),
+(2558, 'antonio.ferreira', 'CAGECE', 801, 'CR0001', 'SBGCL-SCL', '2018-03-02', '2018-03-11 08:57:22', 1, 2413, '2018-03-12 12:02:11', NULL, NULL, '1', '0'),
+(2560, 'francinei', 'COSANPA', 423, 'CR0001', 'SBPAC-SPC', '2018-03-12', '2018-03-12 15:20:04', 1, 2421, '2018-03-19 17:18:48', '2018-04-01 11:11:12', NULL, '2', '0'),
+(2561, 'antonio.ferreira', 'CAGECE', 804, 'VT0001', 'SBGCL-SCL', '2018-03-13', '2018-03-13 13:48:40', 1, 2422, '2018-03-19 17:18:59', '2018-03-23 14:15:53', '2018-03-23 19:49:01', '3', '0'),
+(2562, 'rafael.carlos', 'CASAL', 394, 'PV0001', 'SBGCL-SCL', '2018-03-13', '2018-03-13 22:30:19', 1, 2415, '2018-03-13 22:48:41', '2018-03-13 23:13:32', '2018-03-22 16:53:07', '3', '0'),
+(2563, 'rafael.carlos', 'CASAL', 404, 'CR0001', 'SBGCL-SCL', '2018-03-13', '2018-03-13 22:33:02', 1, 2416, '2018-03-13 22:50:59', '2018-03-13 23:19:15', '2018-03-22 17:01:34', '3', '0'),
+(2564, 'rafael.carlos', 'DESO', 523, 'CR0001', 'SBDXC-SDX', '2018-03-13', '2018-03-13 22:40:03', 1, 2417, '2018-03-13 22:52:39', '2018-03-13 23:23:42', '2018-03-22 17:08:32', '3', '0'),
+(2565, 'rafael.carlos', 'DESO', 525, 'PV0001', 'SBDXC-SDX', '2018-03-13', '2018-03-13 22:40:40', 1, 2418, '2018-03-13 22:59:33', '2018-03-13 23:25:44', '2018-03-22 17:13:47', '3', '0'),
+(2566, 'rafael.carlos', 'DESO', 526, 'PV0001', 'SBDXC-SDX', '2018-03-13', '2018-03-13 22:41:07', 1, 2419, '2018-03-13 23:01:19', '2018-03-22 20:15:47', '2018-03-23 19:57:18', '3', '0'),
+(2567, 'rafael.carlos', 'DESO', 524, 'PV0001', 'SBDXC-SDX', '2018-03-13', '2018-03-13 22:41:40', 1, 2420, '2018-03-13 23:02:00', NULL, NULL, '1', '0'),
+(2568, 'jose.wilson', 'CAEMA', 50, 'PV0001', 'SBGCL-SCL', '2018-03-14', '2018-03-14 23:30:28', 4, 981, '2018-03-19 17:19:13', '2018-03-21 11:49:50', '2018-03-22 16:19:34', '3', '0'),
+(2569, 'nahim.pantoja', 'COSANPA', 463, 'OP0002', 'SBGCL-SCL', '2018-03-15', '2018-03-15 01:05:49', 4, 982, '2018-03-19 17:19:32', '2018-03-26 17:23:41', '2018-03-28 14:53:26', '3', '0'),
+(2570, 'nahim.pantoja', 'COSANPA', 462, 'OP0002', 'SBGCL-SCL', '2018-03-15', '2018-03-15 18:40:31', 4, 983, '2018-03-19 17:19:45', '2018-03-26 17:31:08', '2018-03-28 16:39:35', '3', '0'),
+(2571, 'edson.barros', 'COMPESA', 612, 'NV0001', 'SBGCL-SCL', '2018-03-15', '2018-03-16 11:46:54', 1, 5000, '2018-03-16 11:48:01', NULL, NULL, '1', '0'),
+(2572, 'francinei', 'ALUBAR', 4, 'PV0001', 'SBGCL-SCL', '2018-03-15', '2018-03-16 16:39:51', 4, 984, '2018-03-19 17:19:57', NULL, NULL, '1', '0'),
+(2573, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-03-12', '2018-03-16 16:41:22', 4, 985, '2018-03-19 17:20:08', '2018-04-01 11:31:24', NULL, '2', '0'),
+(2574, 'francinei', 'COSANPA', 442, 'CR0001', 'SBGCL-SCL', '2018-03-13', '2018-03-16 16:42:27', 4, 986, '2018-03-19 17:20:23', NULL, NULL, '1', '0'),
+(2575, 'francinei', 'COSANPA', 434, 'CR0001', 'SBDPT-SPT', '2018-03-14', '2018-03-16 16:44:55', 4, 987, '2018-03-19 17:20:32', NULL, NULL, '1', '0'),
+(2576, 'francinei', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2018-03-14', '2018-03-16 16:46:30', 4, 988, '2018-03-19 17:20:44', NULL, NULL, '1', '0'),
+(2577, 'francinei', 'COSANPA', 422, 'CR0001', 'SBDPT-SPT', '2018-03-16', '2018-03-16 16:57:05', 4, 989, '2018-03-19 17:20:54', NULL, NULL, '1', '0'),
+(2578, 'nahim.pantoja', 'COSANPA', 439, 'PV0001', 'SBPAC-SPC', '2018-03-16', '2018-03-17 14:20:29', 1, 2423, '2018-03-19 17:21:13', '2018-03-26 17:47:45', '2018-03-27 19:26:39', '3', '0'),
+(2579, 'gladson.marinho', 'CAERN', 140, 'CR0001', 'SBGCL-SCL', '2018-02-16', '2018-03-19 10:47:15', 1, 2424, '2018-03-19 17:21:22', NULL, NULL, '1', '0'),
+(2580, 'gladson.marinho', 'CAERN', 97, 'CR0001', 'SBPAC-SPC', '2018-02-20', '2018-03-19 10:47:48', 1, 2438, '2018-03-19 17:21:38', NULL, NULL, '1', '0'),
+(2581, 'gladson.marinho', 'CAERN', 69, 'CR0001', 'SBGCL-SCL', '2018-02-21', '2018-03-19 10:48:22', 1, 2425, '2018-03-19 17:21:53', NULL, NULL, '1', '0'),
+(2582, 'gladson.marinho', 'CAERN', 100, 'CR0001', 'SBGCL-SCL', '2018-02-23', '2018-03-19 10:49:00', 1, 2426, '2018-03-19 17:22:06', NULL, NULL, '1', '0'),
+(2583, 'gladson.marinho', 'CAERN', 133, 'CR0001', 'SBGCL-SCL', '2018-02-23', '2018-03-19 10:49:37', 1, 2427, '2018-03-19 17:22:22', NULL, NULL, '1', '0'),
+(2584, 'gladson.marinho', 'CAERN', 193, 'CR0001', 'SBGCL-SCL', '2018-02-26', '2018-03-19 10:50:12', 1, 2428, '2018-03-19 17:22:34', NULL, NULL, '1', '0'),
+(2585, 'gladson.marinho', 'CAERN', 114, 'NV0001', 'SBPAC-SPC', '2018-03-26', '2018-03-19 10:50:50', 1, 2429, '2018-03-19 17:22:51', NULL, NULL, '1', '0'),
+(2586, 'gladson.marinho', 'CAERN', 65, 'CR0001', 'SBGCL-SCL', '2018-03-07', '2018-03-19 10:51:36', 1, 2430, '2018-03-19 17:23:05', NULL, NULL, '1', '0'),
+(2587, 'gladson.marinho', 'CAERN', 193, 'CR0001', 'SBGCL-SCL', '2018-03-07', '2018-03-19 10:52:13', 1, 2431, '2018-03-19 17:23:21', NULL, NULL, '1', '0'),
+(2588, 'gladson.marinho', 'CAERN', 544, 'CR0001', 'SBPAC-SPC', '2018-03-07', '2018-03-19 10:53:06', 1, 2437, '2018-03-19 17:23:31', NULL, NULL, '1', '0'),
+(2589, 'gladson.marinho', 'CAERN', 97, 'CR0001', 'SBGCL-SCL', '2018-03-08', '2018-03-19 10:53:41', 1, 2432, '2018-03-19 17:23:43', NULL, NULL, '1', '0'),
+(2590, 'gladson.marinho', 'CAERN', 100, 'CR0001', 'SBGCL-SCL', '2018-03-05', '2018-03-19 10:54:13', 1, 2433, '2018-03-19 17:24:01', NULL, NULL, '1', '0'),
+(2591, 'gladson.marinho', 'CAERN', 100, 'PV0001', 'SBGCL-SCL', '2018-03-08', '2018-03-19 10:54:55', 1, 2434, '2018-03-19 17:24:15', NULL, NULL, '1', '0'),
+(2592, 'gladson.marinho', 'CAERN', 97, 'CR0001', 'SBPAC-SPC', '2018-03-12', '2018-03-19 10:55:32', 1, 2439, '2018-03-19 17:24:34', NULL, NULL, '1', '0'),
+(2593, 'gladson.marinho', 'CAERN', 126, 'PV0001', 'SBGCL-SCL', '2018-03-15', '2018-03-19 10:56:04', 1, 2435, '2018-03-19 17:24:49', NULL, NULL, '1', '0'),
+(2594, 'gladson.marinho', 'CAERN', 63, 'CR0001', 'SBGCL-SCL', '2018-03-16', '2018-03-19 10:56:42', 1, 2436, '2018-03-19 17:25:03', NULL, NULL, '1', '0'),
+(2595, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-03-19', '2018-03-19 22:43:00', 4, 990, '2018-03-22 11:19:33', NULL, NULL, '1', '0'),
+(2596, 'francinei', 'COSANPA', 434, 'CR0001', 'SBDPT-SPT', '2018-03-19', '2018-03-19 22:43:43', 4, 991, '2018-03-22 11:19:45', NULL, NULL, '1', '0'),
+(2597, 'jose.wilson', 'CAEMA', 35, 'VT0001', 'SBGCL-SCL', '2018-03-20', '2018-03-20 02:12:43', 4, 992, '2018-03-22 11:20:01', '2018-03-25 13:49:47', '2018-03-28 14:41:02', '3', '0'),
+(2598, 'francinei', 'COSANPA', 875, 'NV0001', 'SBGCL-SCL', '2018-03-08', '2018-03-20 13:15:13', 4, 994, '2018-03-22 11:20:16', '2018-04-01 10:57:23', NULL, '2', '0'),
+(2604, 'francinei', 'COSANPA', 496, 'CR0001', 'SBPAC-SPC', '2018-03-20', '2018-03-20 19:05:22', 1, 2240, '2018-03-22 11:20:37', '2018-03-22 11:25:05', NULL, '1', '0'),
+(2602, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-02-16', '2018-03-20 13:50:45', 4, 993, '2018-03-22 11:20:50', NULL, NULL, '1', '0'),
+(2605, 'francisco.barbosa', 'CAERN', 109, 'VT0001', 'SBGCL-SCL', '2018-03-23', '2018-03-22 01:43:58', 1, 2241, '2018-03-22 11:21:07', '2018-03-29 13:52:50', NULL, '1', '0'),
+(2606, 'francinei', 'COSANPA', 496, 'CR0001', 'SBPAC-SPC', '2018-03-20', '2018-03-22 11:28:42', 1, 2440, '2018-03-22 11:31:40', NULL, NULL, '1', '0'),
+(2607, 'francisco.barbosa', 'CAERN', 109, 'VT0001', 'SBGCL-SCL', '2018-03-22', '2018-03-22 11:31:00', 1, 2441, '2018-03-22 11:31:52', '2018-03-26 19:26:28', '2018-03-27 19:15:48', '3', '0'),
+(2608, 'nahim.pantoja', 'COSANPA', 480, 'OP0002', 'SBGCL-SCL', '2018-03-22', '2018-03-22 12:50:40', 4, 995, '2018-03-22 14:52:31', '2018-03-26 17:51:04', '2018-03-28 16:42:23', '3', '0'),
+(2609, 'nahim.pantoja', 'COSANPA', 409, 'OP0002', 'SBGCL-SCL', '2018-03-22', '2018-03-22 12:53:12', 4, 996, '2018-03-22 14:52:46', '2018-03-26 17:55:45', '2018-03-28 16:44:39', '3', '0'),
+(2610, 'rafael.carlos', 'CASAL', 402, 'PV0001', 'SBGCL-SCL', '2018-03-22', '2018-03-22 20:10:50', 1, 2443, '2018-03-22 20:11:03', '2018-03-22 20:19:54', '2018-03-23 20:01:48', '3', '0'),
+(2611, 'rafael.carlos', 'DESO', 523, 'PV0001', 'SBDXC-SDX', '2018-03-22', '2018-03-22 20:11:27', 1, 2442, '2018-03-22 20:11:40', '2018-03-22 20:25:57', '2018-03-23 20:05:11', '3', '0'),
+(2612, 'nahim.pantoja', 'COSANPA', 424, 'OP0002', 'SBGCL-SCL', '2018-03-23', '2018-03-23 09:27:12', 4, 997, '2018-03-23 11:53:50', '2018-03-26 18:05:28', '2018-03-28 16:49:53', '3', '0'),
+(2613, 'nahim.pantoja', 'COSANPA', 496, 'OP0002', 'SBGCL-SCL', '2018-03-22', '2018-03-23 09:28:21', 4, 998, '2018-03-23 11:54:01', '2018-03-26 17:59:04', '2018-03-28 16:52:36', '3', '0'),
+(2614, 'cleber.souza', 'SERRA NEGRA DO NORTE', 197, 'PV0001', 'SBGCL-SCL', '2018-03-13', '2018-03-23 12:18:59', 1, 2444, '2018-03-27 00:31:06', NULL, NULL, '1', '0'),
+(2615, 'cleber.souza', 'CAGEPA', 333, 'NV0001', 'SBGCL-SCL', '2018-03-13', '2018-03-23 12:20:25', 1, 2445, '2018-03-27 00:31:34', NULL, NULL, '1', '0'),
+(2616, 'cleber.souza', 'CAGEPA', 346, 'NV0001', 'SBGCL-SCL', '2018-03-13', '2018-03-23 12:21:41', 1, 2446, '2018-03-27 00:31:50', NULL, NULL, '1', '0'),
+(2617, 'cleber.souza', 'CAGEPA', 238, 'NV0001', 'SBGCL-SCL', '2018-03-12', '2018-03-23 12:22:55', 1, 2447, '2018-03-27 00:32:05', NULL, NULL, '1', '0'),
+(2618, 'cleber.souza', 'CAGEPA', 317, 'NV0001', 'SBGCL-SCL', '2018-03-13', '2018-03-23 12:23:31', 1, 2448, '2018-03-27 00:32:20', NULL, NULL, '1', '0'),
+(2619, 'cleber.souza', 'CAGEPA', 215, 'NV0001', 'SBGCL-SCL', '2018-03-13', '2018-03-23 12:24:03', 1, 2449, '2018-03-27 00:32:34', NULL, NULL, '1', '0'),
+(2620, 'cleber.souza', 'CAGEPA', 247, 'NV0001', 'SBGCL-SCL', '2018-03-13', '2018-03-23 12:24:49', 1, 2450, '2018-03-27 00:32:54', NULL, NULL, '1', '0'),
+(2621, 'cleber.souza', 'CAGEPA', 310, 'NV0001', 'SBGCL-SCL', '2018-03-21', '2018-03-23 12:26:14', 1, 2450, '2018-03-27 00:33:09', '2018-03-27 00:34:42', NULL, '1', '0'),
+(2622, 'cleber.souza', 'CAGEPA', 776, 'NV0001', 'SBGCL-SCL', '2018-03-21', '2018-03-23 12:27:10', 1, 2452, '2018-03-27 00:38:23', NULL, NULL, '1', '0'),
+(2623, 'cleber.souza', 'CAGEPA', 374, 'NV0001', 'SBGCL-SCL', '2018-03-21', '2018-03-23 12:27:55', 1, 2453, '2018-03-27 00:38:37', NULL, NULL, '1', '0');
+INSERT INTO `tb_oat` (`id`, `nickuser`, `cliente`, `localidade`, `servico`, `sistema`, `data`, `data_sol`, `filial`, `os`, `data_os`, `data_fech`, `data_term`, `status`, `ativo`) VALUES
+(2625, 'cleber.souza', 'COMPESA', 602, 'VT0001', 'SBGCL-SCL', '2018-03-16', '2018-03-23 12:29:54', 1, 2454, '2018-03-27 00:38:59', NULL, NULL, '1', '0'),
+(2626, 'cleber.souza', 'COMPESA', 597, 'VT0001', 'SBGCL-SCL', '2018-03-17', '2018-03-23 12:30:32', 1, 2455, '2018-03-27 00:39:17', NULL, NULL, '1', '0'),
+(2627, 'cleber.souza', 'COMPESA', 721, 'VT0001', 'SBGCL-SCL', '2018-03-14', '2018-03-23 12:31:31', 1, 2456, '2018-03-27 00:39:41', NULL, NULL, '1', '0'),
+(2628, 'cleber.souza', 'COMPESA', 728, 'VT0001', 'SBGCL-SCL', '2018-03-15', '2018-03-23 12:32:32', 1, 2457, '2018-03-27 00:40:00', NULL, NULL, '1', '0'),
+(2629, 'cleber.souza', 'COMPESA', 648, 'VT0001', 'SBGCL-SCL', '2018-03-15', '2018-03-23 12:35:04', 1, 2458, '2018-03-27 00:40:20', NULL, NULL, '1', '0'),
+(2630, 'cleber.souza', 'COMPESA', 594, 'VT0001', 'SBGCL-SCL', '2018-03-16', '2018-03-23 12:35:43', 1, 2459, '2018-03-27 00:40:45', NULL, NULL, '1', '0'),
+(2631, 'cleber.souza', 'COMPESA', 583, 'VT0001', 'SBGCL-SCL', '2018-03-16', '2018-03-23 12:36:34', 1, 2460, '2018-03-27 00:41:13', NULL, NULL, '1', '0'),
+(2632, 'cleber.souza', 'COMPESA', 622, 'VT0001', 'Escolha um s', '2018-03-15', '2018-03-23 12:37:16', 1, 2461, '2018-03-27 00:41:35', NULL, NULL, '1', '0'),
+(2633, 'cleber.souza', 'COMPESA', 599, 'VT0001', 'SBGCL-SCL', '2018-03-16', '2018-03-23 12:38:28', 1, 2462, '2018-03-27 00:41:55', NULL, NULL, '1', '0'),
+(2634, 'cleber.souza', 'CAGEPA', 284, 'PV0001', 'SBGCL-SCL', '2018-03-13', '2018-03-23 12:41:19', 1, 2463, '2018-03-27 00:42:11', NULL, NULL, '1', '0'),
+(2635, 'cleber.souza', 'CAGECE', 777, 'PV0001', 'SBGCL-SCL', '2018-03-22', '2018-03-23 12:41:58', 1, 2464, '2018-03-27 00:42:34', NULL, NULL, '1', '0'),
+(2654, 'cleber.souza', 'CAGEPA', 881, 'NV0001', 'SBGCL-SCL', '2018-03-19', '2018-03-26 23:57:56', 1, 2465, '2018-03-27 00:43:11', NULL, NULL, '1', '0'),
+(2637, 'antonio.ferreira', 'CAGECE', 834, 'NV0001', 'SBGCL-SCL', '2017-12-06', '2018-03-23 19:07:46', 1, 2466, '2018-03-27 00:43:28', NULL, NULL, '1', '0'),
+(2638, 'antonio.ferreira', 'CAGECE', 848, 'NV0001', 'SBGCL-SCL', '2017-12-20', '2018-03-23 19:10:22', 1, 2467, '2018-03-27 00:44:02', NULL, NULL, '1', '0'),
+(2639, 'antonio.ferreira', 'CAGECE', 787, 'CR0001', 'SBGCL-SCL', '2018-01-10', '2018-03-23 19:14:21', 1, 2468, '2018-03-27 00:44:18', NULL, NULL, '1', '0'),
+(2640, 'antonio.ferreira', 'CAGECE', 862, 'NV0001', 'SBGCL-SCL', '2018-01-13', '2018-03-23 19:15:49', 1, 2469, '2018-03-27 00:44:42', NULL, NULL, '1', '0'),
+(2641, 'antonio.ferreira', 'CAGECE', 787, 'CR0001', 'SBGCL-SCL', '2018-01-22', '2018-03-23 19:23:58', 1, 2470, '2018-03-27 00:44:57', NULL, NULL, '1', '0'),
+(2642, 'antonio.ferreira', 'CAGECE', 811, 'CR0001', 'SBGCL-SCL', '2018-01-23', '2018-03-23 19:27:02', 1, 2471, '2018-03-27 00:45:15', NULL, NULL, '1', '0'),
+(2643, 'antonio.ferreira', 'CAGECE', 790, 'PV0001', 'SBGCL-SCL', '2018-02-07', '2018-03-23 19:30:12', 1, 2472, '2018-03-27 00:45:36', NULL, NULL, '1', '0'),
+(2644, 'antonio.ferreira', 'CAGECE', 842, 'CR0001', 'SBGCL-SCL', '2018-02-15', '2018-03-23 19:33:51', 1, 2473, '2018-03-27 00:45:51', NULL, NULL, '1', '0'),
+(2645, 'antonio.ferreira', 'CAGECE', 787, 'CR0001', 'SBGCL-SCL', '2018-02-16', '2018-03-23 19:35:25', 1, 2474, '2018-03-27 00:46:32', NULL, NULL, '1', '0'),
+(2646, 'antonio.ferreira', 'CAGECE', 783, 'CR0001', 'SBGCL-SCL', '2018-02-17', '2018-03-23 19:36:49', 1, 2475, '2018-03-27 00:46:55', NULL, NULL, '1', '0'),
+(2647, 'antonio.ferreira', 'CAGECE', 820, 'PV0001', 'SBGCL-SCL', '2018-02-26', '2018-03-23 19:38:02', 1, 2476, '2018-03-27 00:47:15', NULL, NULL, '1', '0'),
+(2648, 'cleber.souza', 'CAGEPA', 306, 'PV0001', 'SBGCL-SCL', '2018-03-26', '2018-03-26 13:29:11', 1, 2477, '2018-03-27 01:37:12', NULL, NULL, '1', '0'),
+(2649, 'francisco.barbosa', 'CAERN', 874, 'NV0001', 'SBGCL-SCL', '2018-02-01', '2018-03-26 19:44:52', 1, 2478, '2018-03-27 01:37:41', '2018-03-29 13:50:52', '2018-03-29 17:03:59', '3', '0'),
+(2650, 'francisco.barbosa', 'CAERN', 866, 'CR0001', 'SBGCL-SCL', '2018-03-08', '2018-03-26 19:47:41', 1, 2479, '2018-03-27 01:38:07', '2018-03-29 13:25:35', NULL, '1', '0'),
+(2651, 'francisco.barbosa', 'CAERN', 809, 'CR0001', 'SBGCL-SCL', '2018-03-09', '2018-03-26 19:48:52', 1, 2480, '2018-03-27 01:39:04', '2018-03-29 13:03:05', '2018-03-29 17:20:03', '3', '0'),
+(2652, 'francisco.barbosa', 'CAERN', 866, 'CR0001', 'SBGCL-SCL', '2018-03-14', '2018-03-26 19:50:21', 1, 2481, '2018-03-27 01:39:31', '2018-03-29 12:55:15', '2018-03-29 17:31:39', '3', '0'),
+(2653, 'francisco.barbosa', 'CAERN', 868, 'CR0001', 'SBGCL-SCL', '2018-03-14', '2018-03-26 19:50:54', 1, 2482, '2018-03-27 01:39:57', '2018-03-29 12:50:03', '2018-03-29 17:34:34', '3', '0'),
+(2655, 'cleber.souza', 'CAGEPA', 310, 'NV0001', 'SBGCL-SCL', '2018-03-21', '2018-03-27 00:36:07', 1, 2451, '2018-03-27 00:38:03', NULL, NULL, '1', '0'),
+(2656, 'cleber.souza', 'CAGECE', 859, 'PV0001', 'SBGCL-SCL', '2018-03-27', '2018-03-27 11:57:32', 1, 2483, '2018-03-27 16:32:42', NULL, NULL, '1', '0'),
+(2657, 'francisco.barbosa', 'CAGEPA', 214, 'PV0001', 'SBGCL-SCL', '2018-03-27', '2018-03-27 14:31:33', 1, 2484, '2018-03-27 16:32:59', '2018-03-29 12:44:54', '2018-03-29 18:20:56', '3', '0'),
+(2658, 'francisco.barbosa', 'CAGEPA', 325, 'PV0001', 'SBGCL-SCL', '2018-03-27', '2018-03-27 14:36:09', 1, 2485, '2018-03-27 16:33:10', '2018-03-29 12:29:44', '2018-03-29 18:25:31', '3', '0'),
+(2659, 'francinei', 'COSANPA', 480, 'PV0001', 'SBGCL-SCL', '2018-03-27', '2018-03-27 16:23:03', 4, 999, '2018-03-27 16:40:54', NULL, NULL, '1', '0'),
+(2660, 'francinei', 'COSANPA', 428, 'OP0002', 'SBGCL-SCL', '2018-03-27', '2018-03-27 17:12:12', 4, 1000, '2018-03-27 18:21:46', NULL, NULL, '1', '0'),
+(2661, 'nahim.pantoja', 'COSANPA', 436, 'OP0002', 'SBGCL-SCL', '2018-03-27', '2018-03-27 23:38:08', 4, 1001, '2018-03-28 14:05:33', '2018-03-31 20:27:13', NULL, '2', '0'),
+(2662, 'francinei', 'COSANPA', 494, 'CR0001', 'SBDPT-SPT', '2018-03-28', '2018-03-28 12:50:26', 4, 1002, '2018-03-28 14:08:04', NULL, NULL, '1', '0'),
+(2663, 'francinei', 'COSANPA', 766, 'CR0001', 'SBDPT-SPT', '2018-03-28', '2018-03-28 16:37:00', NULL, NULL, NULL, NULL, NULL, '0', '0'),
+(2664, 'francinei', 'COSANPA', 767, 'CR0001', 'SBDPT-SPT', '2018-03-28', '2018-03-28 16:38:43', NULL, NULL, NULL, NULL, NULL, '0', '0'),
+(2665, 'francinei', 'COSANPA', 458, 'CR0001', 'SBDPT-SPT', '2018-03-28', '2018-03-28 18:46:19', NULL, NULL, NULL, NULL, NULL, '0', '0'),
+(2666, 'rafael.carlos', 'CASAL', 396, 'PV0001', 'SBGCL-SCL', '2018-03-28', '2018-03-28 19:08:49', 1, 2488, '2018-03-28 19:14:15', '2018-03-28 19:20:30', '2018-03-29 18:34:46', '3', '0'),
+(2667, 'rafael.carlos', 'DESO', 526, 'CR0001', 'SBGCL-SCL', '2018-03-28', '2018-03-28 19:09:13', 1, 2487, '2018-03-28 19:14:02', '2018-03-28 19:15:48', '2018-03-28 19:16:08', '3', '0'),
+(2668, 'rafael.carlos', 'DESO', 526, 'CR0001', 'SBDXC-SDX', '2018-03-28', '2018-03-28 19:14:32', 1, 2486, '2018-03-28 19:14:53', NULL, NULL, '1', '0'),
+(2669, 'rafael.carlos', 'CASAL', 398, 'PV0001', 'SBGCL-SCL', '2018-03-28', '2018-03-28 19:16:27', 1, 2487, '2018-03-28 19:16:40', '2018-03-28 19:18:31', '2018-03-29 18:45:32', '3', '0'),
+(2670, 'francinei', 'COSANPA', 423, 'OP0002', 'SBGCL-SCL', '2018-03-29', '2018-03-29 15:54:49', NULL, NULL, NULL, NULL, NULL, '0', '0'),
+(2671, 'francinei', 'COSANPA', 450, 'CR0001', 'SBGCL-SCL', '2018-03-29', '2018-03-29 15:55:31', NULL, NULL, NULL, NULL, NULL, '0', '0'),
+(2672, 'francinei', 'COSANPA', 512, 'CR0001', 'SBDPT-SPT', '2018-03-28', '2018-03-29 16:07:50', NULL, NULL, NULL, NULL, NULL, '0', '0'),
+(2673, 'cleber.souza', 'CAGEPA', 546, 'PV0001', 'SBGCL-SCL', '2018-03-31', '2018-03-31 17:39:34', NULL, NULL, NULL, NULL, NULL, '0', '0');
 
 -- --------------------------------------------------------
 
@@ -7276,25 +6423,24 @@ INSERT INTO `tb_seguimento` (`id`, `name`) VALUES
 -- Estrutura da tabela `tb_servicos`
 --
 
-CREATE TABLE `tb_servicos` (
-  `id` varchar(6) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(30) CHARACTER SET utf8 NOT NULL,
-  `tipo` enum('0','1','2','3','4') CHARACTER SET utf8 NOT NULL DEFAULT '0',
-  `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE IF NOT EXISTS `tb_servicos` (
+  `id` varchar(6) NOT NULL,
+  `descricao` varchar(30) CHARACTER SET utf8 NOT NULL,
+  `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `tb_servicos`
 --
 
-INSERT INTO `tb_servicos` (`id`, `name`, `tipo`, `ativo`) VALUES
-('COR001', 'CORRETIVO', '3', '0'),
-('DES000', 'DESINTALACAO', '4', '0'),
-('INS001', 'NOVA INSTALACAO', '1', '0'),
-('OPE001', 'REABASTER PRODUTO', '2', '0'),
-('OPE002', 'ACOPLAR CILINDRO', '2', '0'),
-('PRV001', 'PREVENTIVO', '3', '0'),
-('VIT001', 'VISITA TECNICA', '0', '0');
+INSERT INTO `tb_servicos` (`id`, `descricao`, `ativo`) VALUES
+('NV0001', 'NOVA INSTALACAO', '0'),
+('PV0001', 'PREVENTIVO', '0'),
+('OP0002', 'ACOPLAMENTO DE CILINDRO', '0'),
+('OP0001', 'REABASTECIMENTO DE PRODUTO', '0'),
+('CR0001', 'CORRETIVO', '0'),
+('VT0001', 'VISITA TECNICA', '0');
 
 -- --------------------------------------------------------
 
@@ -7302,11 +6448,12 @@ INSERT INTO `tb_servicos` (`id`, `name`, `tipo`, `ativo`) VALUES
 -- Estrutura da tabela `tb_sistema`
 --
 
-CREATE TABLE `tb_sistema` (
-  `id` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
+CREATE TABLE IF NOT EXISTS `tb_sistema` (
+  `id` varchar(12) NOT NULL,
   `descricao` varchar(30) CHARACTER SET utf8 NOT NULL,
-  `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `ativo` enum('0','1') CHARACTER SET utf8 NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `tb_sistema`
@@ -7324,634 +6471,54 @@ INSERT INTO `tb_sistema` (`id`, `descricao`, `ativo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_tecnicos`
---
-
-CREATE TABLE `tb_tecnicos` (
-  `id` int(11) NOT NULL,
-  `user` int(11) NOT NULL,
-  `userNick` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `hh` double(5,2) NOT NULL,
-  `ativo` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_tecnicos`
---
-
-INSERT INTO `tb_tecnicos` (`id`, `user`, `userNick`, `hh`, `ativo`) VALUES
-(1, 1, 'Fábio Boninã', 10.00, '0');
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `tb_teste`
 --
 
-CREATE TABLE `tb_teste` (
-  `id` int(11) NOT NULL,
-  `bem` varchar(500) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tb_tipo`
---
-
-CREATE TABLE `tb_tipo` (
-  `id` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `tb_tipo`
---
-
-INSERT INTO `tb_tipo` (`id`, `name`) VALUES
-('EEA', 'EEA'),
-('ETA', 'ETA'),
-('ETE', 'ETE'),
-('IND', 'INDUSTRIA'),
-('OUT', 'OUTROS'),
-('POC', 'POCO');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `tipo_despesa`
---
-
-CREATE TABLE `tipo_despesa` (
-  `id` int(11) NOT NULL,
-  `tipo_despesa` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `ativo` enum('0','1') COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `users`
---
-
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `user` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `avatar` varchar(350) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `proprietario` int(11) DEFAULT NULL,
-  `grupo` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `loja` int(11) DEFAULT NULL,
-  `nivel` enum('0','1','2','3','4') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
-  `ativo` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
-  `data_cadastro` date NOT NULL,
-  `data_ultimo_login` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `users`
---
-
-INSERT INTO `users` (`id`, `name`, `email`, `user`, `password`, `avatar`, `proprietario`, `grupo`, `loja`, `nivel`, `ativo`, `data_cadastro`, `data_ultimo_login`) VALUES
-(1, 'FABIO VITORINO BONINA MORAIS', 'fabiobonina@gmail.com', 'Fábio Boninã', 'a906449d5769fa7361d7ecc6aa3f6d28', 'http://www.gravatar.com/avatar/5f3781a40c3fde1b4ac568a97692aa70?d=identicon', 1, 'P', 2, '4', '0', '2017-11-08', '2018-03-14 10:59:23');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `login`
---
-ALTER TABLE `login`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `niciuser_UNIQUE` (`nickuser`),
-  ADD UNIQUE KEY `email_UNIQUE` (`email`);
-
---
--- Indexes for table `tb_ativo`
---
-ALTER TABLE `tb_ativo`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cliente` (`cliente`),
-  ADD KEY `localidade` (`localidade`);
-
---
--- Indexes for table `tb_bem`
---
-ALTER TABLE `tb_bem`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tb_bem_tb_fabricante1_idx` (`fabricante`),
-  ADD KEY `fk_tb_bem_tb_loja1_idx` (`proprietario`),
-  ADD KEY `fk_tb_bem_tb_categoria1_idx` (`categoria`),
-  ADD KEY `fk_tb_bem_tb_produtos1_idx` (`produto`),
-  ADD KEY `fk_tb_bem_tb_locais1_idx` (`proprietarioLocal`);
-
---
--- Indexes for table `tb_bem_localizacao`
---
-ALTER TABLE `tb_bem_localizacao`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tb_bem_localizacao_tb_bem1_idx` (`bem`),
-  ADD KEY `fk_tb_bem_localizacao_tb_loja1_idx` (`loja`),
-  ADD KEY `fk_tb_bem_localizacao_tb_locais1_idx` (`local`);
-
---
--- Indexes for table `tb_categoria`
---
-ALTER TABLE `tb_categoria`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tb_clientes`
---
-ALTER TABLE `tb_clientes`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nick` (`nick`);
-
---
--- Indexes for table `tb_descricao`
---
-ALTER TABLE `tb_descricao`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `tb_oat` (`oat`);
-
---
--- Indexes for table `tb_desloc_status`
---
-ALTER TABLE `tb_desloc_status`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tb_desloc_tipo`
---
-ALTER TABLE `tb_desloc_tipo`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tb_equipamentos`
---
-ALTER TABLE `tb_equipamentos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tb_equipamentos_tb_produtos1_idx` (`produto`),
-  ADD KEY `fk_tb_equipamentos_tb_fabricante1_idx` (`fabricante`),
-  ADD KEY `fk_tb_equipamentos_tb_proprietario1_idx` (`proprietario`),
-  ADD KEY `fk_tb_equipamentos_tb_locais1_idx` (`local`),
-  ADD KEY `fk_tb_equipamentos_tb_categoria1_idx` (`categoria`);
-
---
--- Indexes for table `tb_eq_componentes`
---
-ALTER TABLE `tb_eq_componentes`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tb_eq_componentes_tb_produtos1_idx` (`produto`),
-  ADD KEY `fk_tb_eq_componentes_tb_fabricante1_idx` (`frabicante`),
-  ADD KEY `fk_tb_eq_componentes_tb_loja1_idx` (`proprietario`),
-  ADD KEY `fk_tb_eq_componentes_tb_locais1_idx` (`local`),
-  ADD KEY `fk_tb_eq_componentes_tb_categoria1_idx` (`categoria`);
-
---
--- Indexes for table `tb_eq_localizacao`
---
-ALTER TABLE `tb_eq_localizacao`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tb_eq_localizacao_tb_equipamentos1_idx` (`equipamento`),
-  ADD KEY `fk_tb_eq_localizacao_tb_loja1_idx` (`loja`),
-  ADD KEY `fk_tb_eq_localizacao_tb_locais1_idx` (`local`);
-
---
--- Indexes for table `tb_fabricante`
---
-ALTER TABLE `tb_fabricante`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tb_grupo`
---
-ALTER TABLE `tb_grupo`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tb_insumos`
---
-ALTER TABLE `tb_insumos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tb_osdespesa_tb_oat10` (`tb_oat_id`);
-
---
--- Indexes for table `tb_locais`
---
-ALTER TABLE `tb_locais`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tb_locais_tb_loja1_idx` (`loja`),
-  ADD KEY `fk_tb_locais_tb_tipo1_idx` (`tipo`);
-
---
--- Indexes for table `tb_localidades`
---
-ALTER TABLE `tb_localidades`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_clientes` (`cliente`);
-
---
--- Indexes for table `tb_local_categoria`
---
-ALTER TABLE `tb_local_categoria`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tb_local_categoria_tb_locais1_idx` (`local`),
-  ADD KEY `fk_tb_local_categoria_tb_categoria1_idx` (`categoria`);
-
---
--- Indexes for table `tb_loja`
---
-ALTER TABLE `tb_loja`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nick_UNIQUE` (`nick`),
-  ADD KEY `fk_tb_loja_tb_proprietario1_idx` (`proprietario`),
-  ADD KEY `fk_tb_loja_tb_grupo1_idx` (`grupo`),
-  ADD KEY `fk_tb_loja_tb_seguimento1_idx` (`seguimento`);
-
---
--- Indexes for table `tb_loja_categoria`
---
-ALTER TABLE `tb_loja_categoria`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tb_mod`
---
-ALTER TABLE `tb_mod`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tb_mod_tb_os1_idx` (`os`),
-  ADD KEY `fk_tb_mod_tb_tecnicos1_idx` (`tecnico`);
-
---
--- Indexes for table `tb_oat`
---
-ALTER TABLE `tb_oat`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `nickuser` (`nickuser`,`cliente`,`localidade`,`servico`,`sistema`),
-  ADD KEY `fk_cleinte` (`cliente`),
-  ADD KEY `fk_localidades` (`localidade`),
-  ADD KEY `servico` (`servico`),
-  ADD KEY `sistema` (`sistema`);
-
---
--- Indexes for table `tb_os`
---
-ALTER TABLE `tb_os`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tb_os_tb_loja1_idx` (`loja`),
-  ADD KEY `fk_tb_os_tb_locais1_idx` (`local`),
-  ADD KEY `fk_tb_os_tb_servicos1_idx` (`servico`),
-  ADD KEY `fk_tb_os_tb_categoria1_idx` (`categoria`),
-  ADD KEY `fk_tb_os_tb_bem1_idx` (`bem`);
-
---
--- Indexes for table `tb_os_tecnico`
---
-ALTER TABLE `tb_os_tecnico`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tb_os_tecnico_tb_os1_idx` (`os`),
-  ADD KEY `fk_tb_os_tecnico_tb_loja1_idx` (`loja`),
-  ADD KEY `fk_tb_os_tecnico_tb_tecnicos1_idx` (`tecnico`);
-
---
--- Indexes for table `tb_produtos`
---
-ALTER TABLE `tb_produtos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tb_produtos_tb_produto_tipo1_idx` (`tipo`);
-
---
--- Indexes for table `tb_produto_categoria`
---
-ALTER TABLE `tb_produto_categoria`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tb_produto_categoria_tb_categoria1_idx` (`categoria`),
-  ADD KEY `fk_tb_produto_categoria_tb_produtos1_idx` (`produto`);
-
---
--- Indexes for table `tb_produto_tipo`
---
-ALTER TABLE `tb_produto_tipo`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tb_proprietario`
---
-ALTER TABLE `tb_proprietario`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nick_UNIQUE` (`nick`);
-
---
--- Indexes for table `tb_seguimento`
---
-ALTER TABLE `tb_seguimento`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tb_servicos`
---
-ALTER TABLE `tb_servicos`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tb_sistema`
---
-ALTER TABLE `tb_sistema`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tb_tecnicos`
---
-ALTER TABLE `tb_tecnicos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tb_tecnicos_users1_idx` (`user`);
-
---
--- Indexes for table `tb_teste`
---
-ALTER TABLE `tb_teste`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tb_tipo`
---
-ALTER TABLE `tb_tipo`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tipo_despesa`
---
-ALTER TABLE `tipo_despesa`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`),
-  ADD UNIQUE KEY `user` (`user`),
-  ADD KEY `fk_users_tb_proprietario_idx` (`proprietario`),
-  ADD KEY `fk_users_tb_grupo1_idx` (`grupo`),
-  ADD KEY `fk_users_tb_loja1_idx` (`loja`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `login`
---
-ALTER TABLE `login`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-
---
--- AUTO_INCREMENT for table `tb_ativo`
---
-ALTER TABLE `tb_ativo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=493;
-
---
--- AUTO_INCREMENT for table `tb_bem`
---
-ALTER TABLE `tb_bem`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `tb_bem_localizacao`
---
-ALTER TABLE `tb_bem_localizacao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `tb_categoria`
---
-ALTER TABLE `tb_categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `tb_clientes`
---
-ALTER TABLE `tb_clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
-
---
--- AUTO_INCREMENT for table `tb_descricao`
---
-ALTER TABLE `tb_descricao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2322;
-
---
--- AUTO_INCREMENT for table `tb_desloc_status`
---
-ALTER TABLE `tb_desloc_status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `tb_desloc_tipo`
---
-ALTER TABLE `tb_desloc_tipo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `tb_equipamentos`
---
-ALTER TABLE `tb_equipamentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_eq_componentes`
---
-ALTER TABLE `tb_eq_componentes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_eq_localizacao`
---
-ALTER TABLE `tb_eq_localizacao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_fabricante`
---
-ALTER TABLE `tb_fabricante`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `tb_locais`
---
-ALTER TABLE `tb_locais`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=596;
-
---
--- AUTO_INCREMENT for table `tb_localidades`
---
-ALTER TABLE `tb_localidades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=874;
-
---
--- AUTO_INCREMENT for table `tb_local_categoria`
---
-ALTER TABLE `tb_local_categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `tb_loja`
---
-ALTER TABLE `tb_loja`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
-
---
--- AUTO_INCREMENT for table `tb_loja_categoria`
---
-ALTER TABLE `tb_loja_categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `tb_mod`
---
-ALTER TABLE `tb_mod`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `tb_oat`
---
-ALTER TABLE `tb_oat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2475;
-
---
--- AUTO_INCREMENT for table `tb_os`
---
-ALTER TABLE `tb_os`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `tb_os_tecnico`
---
-ALTER TABLE `tb_os_tecnico`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `tb_produtos`
---
-ALTER TABLE `tb_produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `tb_produto_categoria`
---
-ALTER TABLE `tb_produto_categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_proprietario`
---
-ALTER TABLE `tb_proprietario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `tb_tecnicos`
---
-ALTER TABLE `tb_tecnicos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `tb_teste`
---
-ALTER TABLE `tb_teste`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- Constraints for dumped tables
---
-
---
--- Limitadores para a tabela `tb_bem`
---
-ALTER TABLE `tb_bem`
-  ADD CONSTRAINT `fk_tb_bem_tb_categoria1` FOREIGN KEY (`categoria`) REFERENCES `tb_categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_bem_tb_fabricante1` FOREIGN KEY (`fabricante`) REFERENCES `tb_fabricante` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_bem_tb_locais1` FOREIGN KEY (`proprietarioLocal`) REFERENCES `tb_locais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_bem_tb_loja1` FOREIGN KEY (`proprietario`) REFERENCES `tb_loja` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_bem_tb_produtos1` FOREIGN KEY (`produto`) REFERENCES `tb_produtos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Limitadores para a tabela `tb_bem_localizacao`
---
-ALTER TABLE `tb_bem_localizacao`
-  ADD CONSTRAINT `fk_tb_bem_localizacao_tb_bem1` FOREIGN KEY (`bem`) REFERENCES `tb_bem` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_bem_localizacao_tb_locais1` FOREIGN KEY (`local`) REFERENCES `tb_locais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_bem_localizacao_tb_loja1` FOREIGN KEY (`loja`) REFERENCES `tb_loja` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Limitadores para a tabela `tb_equipamentos`
---
-ALTER TABLE `tb_equipamentos`
-  ADD CONSTRAINT `fk_tb_equipamentos_tb_categoria1` FOREIGN KEY (`categoria`) REFERENCES `tb_categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_equipamentos_tb_fabricante1` FOREIGN KEY (`fabricante`) REFERENCES `tb_fabricante` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_equipamentos_tb_locais1` FOREIGN KEY (`local`) REFERENCES `tb_locais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_equipamentos_tb_produtos1` FOREIGN KEY (`produto`) REFERENCES `tb_produtos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_equipamentos_tb_proprietario1` FOREIGN KEY (`proprietario`) REFERENCES `tb_proprietario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Limitadores para a tabela `tb_eq_componentes`
---
-ALTER TABLE `tb_eq_componentes`
-  ADD CONSTRAINT `fk_tb_eq_componentes_tb_categoria1` FOREIGN KEY (`categoria`) REFERENCES `tb_categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_eq_componentes_tb_fabricante1` FOREIGN KEY (`frabicante`) REFERENCES `tb_fabricante` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_eq_componentes_tb_locais1` FOREIGN KEY (`local`) REFERENCES `tb_locais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_eq_componentes_tb_loja1` FOREIGN KEY (`proprietario`) REFERENCES `tb_loja` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_eq_componentes_tb_produtos1` FOREIGN KEY (`produto`) REFERENCES `tb_produtos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Limitadores para a tabela `tb_eq_localizacao`
---
-ALTER TABLE `tb_eq_localizacao`
-  ADD CONSTRAINT `fk_tb_eq_localizacao_tb_equipamentos1` FOREIGN KEY (`equipamento`) REFERENCES `tb_equipamentos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_eq_localizacao_tb_locais1` FOREIGN KEY (`local`) REFERENCES `tb_locais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_eq_localizacao_tb_loja1` FOREIGN KEY (`loja`) REFERENCES `tb_loja` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Limitadores para a tabela `tb_locais`
---
-ALTER TABLE `tb_locais`
-  ADD CONSTRAINT `fk_tb_locais_tb_loja1` FOREIGN KEY (`loja`) REFERENCES `tb_loja` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_locais_tb_tipo1` FOREIGN KEY (`tipo`) REFERENCES `tb_tipo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Limitadores para a tabela `tb_local_categoria`
---
-ALTER TABLE `tb_local_categoria`
-  ADD CONSTRAINT `fk_tb_local_categoria_tb_categoria1` FOREIGN KEY (`categoria`) REFERENCES `tb_categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_local_categoria_tb_locais1` FOREIGN KEY (`local`) REFERENCES `tb_locais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Limitadores para a tabela `tb_mod`
---
-ALTER TABLE `tb_mod`
-  ADD CONSTRAINT `fk_tb_mod_tb_os1` FOREIGN KEY (`os`) REFERENCES `tb_os` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_mod_tb_tecnicos1` FOREIGN KEY (`tecnico`) REFERENCES `tb_tecnicos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Limitadores para a tabela `tb_os`
---
-ALTER TABLE `tb_os`
-  ADD CONSTRAINT `fk_tb_os_tb_bem1` FOREIGN KEY (`bem`) REFERENCES `tb_bem` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_os_tb_categoria1` FOREIGN KEY (`categoria`) REFERENCES `tb_categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_os_tb_locais1` FOREIGN KEY (`local`) REFERENCES `tb_locais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_os_tb_loja1` FOREIGN KEY (`loja`) REFERENCES `tb_loja` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tb_os_tb_servicos1` FOREIGN KEY (`servico`) REFERENCES `tb_servicos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-COMMIT;
+CREATE TABLE IF NOT EXISTS `tb_teste` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `bem` varchar(500) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=404 ;
+
+--
+-- Extraindo dados da tabela `tb_teste`
+--
+
+INSERT INTO `tb_teste` (`id`, `bem`) VALUES
+(391, '22/05/2017 14:54:00;23;ABS CEL/ETH IO (4ED/8EA/4SD);EA_1;Entrada Analógica 1;529.000'),
+(370, '9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
+(371, '9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
+(372, '9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
+(373, '9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
+(374, '9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
+(375, '17/05/2017 16:15:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
+(376, '17/05/2017 16:16:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
+(377, '17/05/2017 16:17:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
+(378, '17/05/2017 16:18:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
+(379, '17/05/2017 16:19:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
+(380, '17/05/2017 16:20:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
+(381, '17/05/2017 16:21:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
+(382, '17/05/2017 16:22:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
+(383, '17/05/2017 16:23:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
+(384, '17/05/2017 16:24:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
+(385, '17/05/2017 16:25:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
+(386, '17/05/2017 16:26:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
+(387, '17/05/2017 16:27:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
+(388, '17/05/2017 16:35:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
+(389, '17/05/2017 16:36:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
+(390, '17/05/2017 16:37:00;9;ABS CEL/ETH IO (4ED/8EA/4SD);EC_1;Entrada de Contagem 1;294.000;EC_2;121.000'),
+(392, '22/05/2017 14:55:00;23;ABS CEL/ETH IO (4ED/8EA/4SD);EA_1;Entrada Analógica 1;529.000'),
+(393, '22/05/2017 15:03:00;1;ABS CEL/ETH IO (8ED/4EA/4SD);EA_1;PPM;1.115625'),
+(394, '22/05/2017 15:04:00;1;ABS CEL/ETH IO (8ED/4EA/4SD);EA_1;PPM;1.134375'),
+(395, '22/05/2017 15:05:00;1;ABS CEL/ETH IO (8ED/4EA/4SD);EA_1;PPM;1.115625'),
+(396, '22/05/2017 15:07:00;1;ABS CEL/ETH IO (8ED/4EA/4SD);EA_1;PPM;1.096875'),
+(397, '22/05/2017 15:08:00;1;ABS CEL/ETH IO (8ED/4EA/4SD);EA_1;PPM;1.096875'),
+(398, '22/05/2017 15:09:00;1;ABS CEL/ETH IO (8ED/4EA/4SD);EA_1;PPM;1.096875'),
+(399, '14/08/2017 16:28:08;126;SABARA;EA_1;Entrada Analógica 1;0.000;EA_2;404.000;EA_3;443.000;EA_4;988.000'),
+(400, '14/08/2017 16:30:02;126;SABARA;EA_1;Entrada Analógica 1;0.000;EA_2;404.000;EA_3;443.000;EA_4;989.000'),
+(401, '14/08/2017 16:31:01;126;SABARA;EA_1;Entrada Analógica 1;0.000;EA_2;404.000;EA_3;442.000;EA_4;991.000'),
+(402, '14/08/2017 16:32:02;126;SABARA;EA_1;Entrada Analógica 1;0.000;EA_2;404.000;EA_3;443.000;EA_4;984.000'),
+(403, '24/11/2017 11:41:08;243;SABARA;EA_1;PPM de Cloro;0.165;PPM;EA_2;Entrada Analógica 2;0.000;PPM;EA_4;Entrada Analógica 4;0.000;PPM;EA_3;Entrada Analógica 3;0.000;PPM');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

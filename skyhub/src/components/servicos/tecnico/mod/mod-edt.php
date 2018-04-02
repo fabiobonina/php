@@ -61,17 +61,23 @@
         <div class="field is-horizontal">
           <div class="field-body">
             <div class="field">
-              <label class="label">Valor</label>
-              <div class="control">
-                <input v-model="data.valor" :disabled="data.trajeto.categoria != 1" class="input" type="number" placeholder="Valor">
-              </div>
-            </div>
-            <div class="field">
               <label class="label">Tempo</label>
               <div class="control">
                 <input v-model="data.tempo" disabled class="input" type="number" placeholder="tempo">
               </div>
-            </div> 
+            </div>
+            <div class="field">
+              <label class="label">ValorHh</label>
+              <div class="control">
+                <input v-model="data.hhValor" disabled class="input" type="number" placeholder="Valor">
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Valor Trajeto</label>
+              <div class="control">
+                <input v-model="data.valor" :disabled="data.trajeto.categoria != 1" class="input" type="number" placeholder="Valor">
+              </div>
+            </div>
           </div>
         </div>
         <br>

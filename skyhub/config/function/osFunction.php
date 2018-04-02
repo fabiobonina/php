@@ -92,7 +92,7 @@
 			#MODS--------------------------------------------------------------------------------------------
 			
 		}
-		public function listOsTecModValidacao( $osId, $tecId, $statusId, $trajetoId, $tipoValor, $dtFinal, $kmFinal, $valor ){
+		public function listOsTecModValidacao( $osId, $tecId, $tecHh, $statusId, $trajetoId, $tipoValor, $dtFinal, $kmFinal, $valor ){
 			$mods = new Mod();
 			
 			$ativo = '0';
@@ -125,7 +125,8 @@
 					$res['error'] =  $tempo['error'];
 					array_push($arErros, $tempo['message']);
 				}else{
-					$datas['tempo'] = $tempo;
+					$datas['tempo'] 	= $tempo;
+					$datas['hhValor'] 	= $this->somarHhValor($tempo, $tecHh );
 				}	
 				# validar TipoTrajeto
 				if( $value->trajeto != $trajetoId){
@@ -201,7 +202,7 @@
 			}
 			
 		}
-		public function modUp( $osId, $tecId, $trajetoId, $statusProcesso, $date, $km, $tempo, $valor, $modId ){
+		public function modUp( $osId, $trajetoId, $statusProcesso, $date, $km, $tempo, $hhValor, $valor, $modId ){
 			$mods 			= new Mod();
 			$oss 			= new Os();
 
@@ -209,35 +210,23 @@
 			$arSucesso 		= array();
 			$arErros 		= array();
 
-			$mods->setOs($osId);
-			$mods->setTecnico($tecId);
 			$mods->setTrajeto($trajetoId);
 			$mods->setDtFinal($date);
 			$mods->setKmFinal($km);
 			$mods->setTempo($tempo);
+			$mods->setHhValor($hhValor);
 			$mods->setValor($valor);
 			$mods->setAtivo('1');
 			
 			# InsertFinal
-			if( $mods->insertFinal($modId) ){
-				array_push($arSucesso, "OK, deslocamento salvo com sucesso");
-				if( $oss->upProcesso($osId, $statusProcesso )){
-					array_push($arSucesso, "OK, processo da OS alterado com sucesso");
-				}else{
-					$res['error'] = true;
-					array_push($arErros, "Error, nao foi possivel mudar processo OS");
-				}
-			}else{
-				$res['error']	= true;
-				array_push($arErros, 'Error, não foi possivel fechar o deslocamento( '.$modId.' )');
-			}
-			if($res['error']){
-				$res['message'] = $arErros;
+			$res = $mods->insertFinal($modId);
+			if( $res['error'] ){
 				return $res;
 			}else{
-				$res['message'] = $arSucesso;
+				$res = $oss->upProcesso($osId, $statusProcesso );
 				return $res;
 			}
+
 		}
 		public function listOsNota( $osId ){
 			$notas = new Nota();
@@ -250,7 +239,7 @@
 			return  $arDatas;
 			#MODS--------------------------------------------------------------------------------------------
 		}
-		public function insertTecMod( $osId, $tecId, $statusId, $statusProcesso, $statusCategoria, $trajetoId, $tipoValor, $date, $km, $valor, $tecNivel ){
+		public function insertTecMod( $osId, $tecId, $tecHh, $statusId, $statusProcesso, $statusCategoria, $trajetoId, $tipoValor, $date, $km, $valor, $tecNivel ){
 			$res['error']   = false;
 			if( $trajetoId == '1' && $tecNivel == '1'){
 				$trajetoId 	= '3';
@@ -258,7 +247,7 @@
 				$km     	= '0';
 			}
 			#validar informações
-			$tec = $this->listOsTecModValidacao( $osId, $tecId, $statusId, $trajetoId, $tipoValor, $date, $km, $valor );
+			$tec = $this->listOsTecModValidacao( $osId, $tecId, $tecHh, $statusId, $trajetoId, $tipoValor, $date, $km, $valor );
 			if( $tec['error'] ){
 				$res['error'] = $tec['error'];
 				$res['message'] = $tec['message'];
@@ -266,25 +255,11 @@
 				#desloc aberto
 				if ( $tec['data'] == '1' ) {
 					# InsertFinal
-					$item = $this->modUp( $osId, $tecId, $trajetoId, $statusProcesso, $date, $km, $tec['tempo'], $tec['valor'], $tec['modId']);
-					if( $item['error'] ){
-						$res['error'] = $item['error'];
-						$res['message']= $item['message'];
-					}else{
-						$res['error'] = $item['error']; 
-						$res['message'] = $item['message'];
-					}
+					$res = $this->modUp( $osId, $trajetoId, $statusProcesso, $date, $km, $tec['tempo'], $tec['hhValor'], $tec['valor'], $tec['modId']);
 				}
 				if ( $tec['data'] == '0' || $statusCategoria == '2') {
 					#desloc inicial
-					$item =  $this->modAdd( $osId, $tecId, $trajetoId, $statusId, $statusProcesso, $date, $km, $valor );
-					if( $item['error'] ){
-						$res['error'] = $item['error'];
-						$res['message'] = $item['message'];
-					}else{
-						$res['error'] = $item['error']; 
-						$res['message'] = $item['message'];
-					}
+					$res =  $this->modAdd( $osId, $tecId, $trajetoId, $statusId, $statusProcesso, $date, $km, $valor );
 				}
 			}
 

@@ -236,7 +236,8 @@ if($action == 'teste'):
   $tecI = array();
   $tecNivel = '0';
   $tecI = $osFunction->dtDiff( $date1, $date2);
-  $res['outros'] = $tecI;
+  $tecII = $osFunction->somarHhValor($tecI, '10');
+  $res['outros'] = $tecII;
  
     
   

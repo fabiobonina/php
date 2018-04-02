@@ -11,7 +11,7 @@
             <div class="column is-two-thirds has-text-left">
               <h1 class="title is-5"> {{_os.lojaNick}} | {{_os.local.tipo}} - {{_os.local.name}} ({{_os.local.municipio}}/{{_os.local.uf}}) </h1>
               <p class="subtitle" style="margin-bottom: 0;"> {{_os.data}} | {{_os.servico.name}}
-                <span class="pull-right"> <span class="tag">{{ _os.categoria }}</span> &nbsp;  </span>
+                <span class="pull-right"> <span class="tag">{{ _os.categoria.name }}</span> &nbsp;  </span>
               </p>
               <p v-if="_os.bem">{{_os.bem.name}} {{_os.bem.modelo}}  &nbsp; <a>#{{_os.bem.fabricanteNick}} </a> 
               <p v-for="tecnico in _os.tecnicos"> <a><span class="icon mdi mdi-worker"></span> {{tecnico.user}} &nbsp;</a> </p>
@@ -167,9 +167,10 @@
                     <a> {{ mod.dtInicio }} </a><br>
                     <a> {{ mod.dtFinal }} </a>
                   </strong> 
-                    <span class="mdi mdi-ray-start-arrow"></span>&nbsp; 
+                  <span class="mdi mdi-clock"></span>&nbsp; 
                   <strong>
-                    {{ mod.tempo }} <span class="mdi mdi-clock"></span>
+                    <a> {{ mod.tempo }}h </a><br>
+                    <a> {{ mod.hhValor }}hh </a>
                   </strong>&nbsp;|
                   <span class="mdi mdi-road-variant"></span>&nbsp;
                   <strong>
@@ -178,13 +179,14 @@
                   </strong>
                   <span class="mdi mdi-ray-start-arrow"></span>&nbsp;
                   <strong>
-                    {{ mod.kmFinal - mod.kmInicio }}
+                    <a> {{ mod.kmFinal - mod.kmInicio }}km </a><br>
+                    <a>{{ mod.valor }}</a><span class="mdi mdi-cash-usd"></span>&nbsp;
                   </strong>&nbsp;
-                  <td>{{ mod.valor }}</td>
-                  <span class="mdi mdi-cash-usd"></span>&nbsp;
                   <a v-on:click="modalModEdt = true; selecItem(mod)" class="button is-link is-small is-al">
                     <span class="mdi mdi-transit-transfer"></span>
                   </a>
+                  
+                  <a v-on:click="modDel(mod.id)" class="delete"></a>
                 </p>    
               </div>
             </div>    

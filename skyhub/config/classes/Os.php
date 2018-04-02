@@ -183,9 +183,15 @@ class Os extends Crud{
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':processo',$processo);
 			$stmt->bindParam(':id'		,$id);
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['message'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
+			return $res;
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 	}
 	public function amarar($id){

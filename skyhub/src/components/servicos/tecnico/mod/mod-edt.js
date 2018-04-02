@@ -80,44 +80,49 @@ Vue.component('mod-edt', {
   },
   methods: {
     saveItem: function(){
-      this.errorMessage = []
-      if(this.checkForm() ){
+      //this.errorMessage = []
+      if(this.checkForm() && this.validarKm() && this.validarDate() ){
         this.isLoading = true
-        if(this.trajeto.categoria == '0'){
-          this.valor = '0';
-        }else{
-          this.km = '0';
+        if( this.data.trajeto.categoria == '1'){
+          this.data.kmInicio  = '0';
+          this.data.kmFinal   = '0';
+        }else if( this.data.trajeto.categoria == '2' ){
+          this.data.kmInicio  = '0';
+          this.data.kmFinal   = '0';
+          this.data.valor     = '0';
         }
         var postData = {
-          modId: this.data.id,
-          tecnico: this.tecnico,
-          trajeto: this.trajeto,
-          status: this.status,
-          dtInicio: this.dte,
-          km: this.km,
-          valor: this.valor
+          modId:    this.data.id,
+          trajeto:  this.data.trajeto,
+          status:   this.data.status,
+          dtInicio: this.data.dtInicio,
+          dtFinal:  this.data.dtFinal,
+          kmInicio: this.data.kmInicio,
+          kmFinal:  this.data.kmFinal,
+          tempo:    this.data.tempo,
+          hhValor:  this.data.hhValor,
+          valor:    this.data.valor
         };
         //console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=modEdt', postData)
-          .then(function(response) {
-            console.log(response);
-            if(response.data.error){
-              this.errorMessage.push(response.data.message);
-              this.isLoading = false;
-            } else{
-              this.successMessage.push(response.data.message);
-              this.isLoading = false;
-              this.$store.dispatch("fetchOs").then(() => {
-                console.log("Buscando dados OS!")
-              });
-              setTimeout(() => {
-                this.$emit('close');
-              }, 2000);  
-            }
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
+        this.$http.post('./config/api/apiOs.php?action=modEdt', postData).then(function(response) {
+          //console.log(response);
+          if(response.data.error){
+            this.errorMessage.push(response.data.message);
+            this.isLoading = false;
+          } else{
+            this.successMessage.push(response.data.message);
+            this.isLoading = false;
+            this.$store.dispatch("fetchOs").then(() => {
+              console.log("Buscando dados OS!")
+            });
+            setTimeout(() => {
+              this.$emit('close');
+            }, 2000);  
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
       }
     },
     checkForm:function(e) {
@@ -132,33 +137,38 @@ Vue.component('mod-edt', {
       }else if ( this.data.trajeto.categoria == '1' ) {
         if( !this.data.valor )this.errorMessage.push("Para o Trajeto escolhido o Valor é necessário.");
       }
+      this.validarKm();
+      this.validarDate();
       if(!this.errorMessage.length) return true;
       e.preventDefault();
     },
     validarKm() {
-      if(this.data.trajeto.categoria == '0'){
-        if( Number(this.data.kmFinal) < Number(this.data.kmInicio) ){
-         this.errorMessage.push("Km Inicio não pode ser maior que Km Final!");
-         return false
-        }else{
-          this.data.valor = ( Number(this.data.kmFinal) - Number(this.data.kmInicio) )* this.data.trajeto.valor;
-          this.errorLimpar();
-        }
+      this.errorMessage = [];
+      if( Number(this.data.kmFinal) < Number(this.data.kmInicio) ){
+        this.errorMessage.push("Km Inicio não pode ser maior que Km Final!");
+        return false;
+      }else{
+        this.data.valor = (( Number(this.data.kmFinal) - Number(this.data.kmInicio) )* this.data.trajeto.valor).toFixed(2);
+        return true;
       }
     },
     validarDate() {
-          var data1 = new Date( this.data.dtInicio );
-          var data2 = new Date( this.data.dtFinal );
-        if( data1 > data2 ){
-         this.errorMessage.push("Data Inicio não pode ser maior que Data Final!");
-         return false
-        }else{
-          var timeDiff = Math.abs(data1.getTime() - data2.getTime());
-          var diffDays = (timeDiff /1000 / 60 / 60 ).toFixed(2);   
-          this.data.tempo = diffDays;
-          //console.log(diffDays);
-          this.errorLimpar();
-        } 
+      this.errorMessage = [];
+      var data1 = new Date( this.data.dtInicio );
+      var data2 = new Date( this.data.dtFinal );
+      if( data1 > data2 ){
+        this.errorMessage.push("Data Inicial não pode ser maior que Data Final!");
+        return false;
+      }else{
+        var timeDiff = Math.abs(data1.getTime() - data2.getTime());
+        var diffDays = (timeDiff / 1000 / 60 / 60 ).toFixed(2);   
+        var valorHh = ( diffDays * this.data.tecnico.hh ).toFixed(2);
+        this.data.tempo = diffDays;
+        this.data.hhValor = valorHh;
+
+        //console.log(valorHh);
+        return true;
+      }
     },
     dataT(data) {
       var res = data.split(" ");
