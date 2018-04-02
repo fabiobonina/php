@@ -143,15 +143,11 @@ if($action == 'osTecAdd'):
 
   $item = $osFunction->insertOsTec( $tecnicos, $os , $loja);
 
-  $res['dados'] = $item;
+  //$res['dados'] = $item;
   # Insert
-  if( !$item['error'] ){
-    $res['error'] = $item['error'];
-    $res['message']= $item['message'];
-  }else{
-    $res['error'] = $item['error']; 
-    $res['message'] = $item['message'];
-  }
+
+  $res['error'] = $item['error']; 
+  $res['message'] = $item['message'];
 endif;
 
 #OS_TEC_DEL
@@ -235,9 +231,11 @@ if($action == 'teste'):
   #tecnicoI----------------------------------------------------------------------------------------------------------------------------
   $tecI = array();
   $tecNivel = '0';
-  $tecI = $osFunction->dtDiff( $date1, $date2);
-  $tecII = $osFunction->somarHhValor($tecI, '10');
-  $res['outros'] = $tecII;
+  $local= '2';
+  $categoria= '1';
+  $tecI = $oss->ultimaOs( $local, $categoria);
+  //$tecII = $osFunction->somarHhValor($tecI, '10');
+  $res['outros'] = $tecI;
  
     
   

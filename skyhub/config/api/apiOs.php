@@ -179,6 +179,7 @@ if($action == 'cadastrar'):
   /*/
   //$tecnicosss = array();
 
+  $osUltimaMan = $oss->ultimaOs( $local, $categoria);
   
   $oss->setLoja($loja);
   $oss->setLojaNick($lojaNick);
@@ -187,20 +188,25 @@ if($action == 'cadastrar'):
   $oss->setCategoria($categoria);
   $oss->setServico($servico);
   $oss->setTipoServ($tipoServ);
-  $oss->setTecnicos($tecnicos);
   $oss->setData($data);
   $oss->setDtCadastro($dtCadastro);
+  $oss->setDtUltimoMan($osUltimaMan->dtUltima);
   $oss->setEstado($estado);
   $oss->setProcesso($processo);
   $oss->setStatus($status);
   $oss->setAtivo($ativo);
   # Insert
-  if($oss->insert()){
-    $res['error'] = false;
-    $res['message']= "OK, dados salvo com sucesso";
+  $osId = $oss->insert()
+  if($osId['error']){
+    $res['error'] = $osId['error'];
+    $res['message']= $osId['message'];
   }else{
-    $res['error'] = true; 
-    $res['message'] = "Error, nao foi possivel salvar os dados";      
+    
+    $item = $osFunction->insertOsTec( $tecnicos, $osId['data'] , $loja);
+    $res['error'] = $item['error'];
+    $res['message']= $item['message'];
+
+
   }
 endif;
 
@@ -432,7 +438,7 @@ if($action == 'modEdt'):
   $kmFinal  = $_POST['kmFinal'];
   $valor    = $_POST['valor'];
   $tempo    = $_POST['tempo'];
-  $hhValor    = $_POST['hhValor'];
+  $hhValor  = $_POST['hhValor'];
   
   #tecnicoI----------------------------------------------------------------------------------------------------------------------------
   $mods->setTrajeto($trajeto['id']);

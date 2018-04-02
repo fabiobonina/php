@@ -38,14 +38,15 @@ class OsTecnicos extends Crud{
 			$stmt->bindParam(':tecnico',$this->tecnico);
 			$stmt->bindParam(':user',$this->user);
 			$stmt->bindParam(':hh',$this->hh);
-			
-			return $stmt->execute();
-
+			$stmt->execute();
+			$res['error'] = false;
+			$res['message'] = "OK, dados inserio com sucesso";
+			return $res;
 		} catch(PDOException $e) {
-			$res['error'] = true;
-            echo $res['message'] = 'ERROR: ' . $e->getMessage();  
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
-	}
 
 	public function update($id){
 		try{
@@ -58,10 +59,13 @@ class OsTecnicos extends Crud{
 			$stmt->bindParam(':hh',$this->hh);
 			$stmt->bindParam(':id', $id);
 
-			return $stmt->execute();
+			$res['error'] = false;
+			$res['message'] = "OK, dados alterado com sucesso";
+			return $res;
 		} catch(PDOException $e) {
-			$res['error'] = true; 
-            echo $res['message'] = 'ERROR: ' . $e->getMessage();  
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 	}
 	public function findOs($os){
@@ -71,8 +75,11 @@ class OsTecnicos extends Crud{
 			$stmt->bindParam(':os', $os, PDO::PARAM_INT);
 			$stmt->execute();
 			return $stmt->fetchAll();
+
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 	}
 	

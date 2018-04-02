@@ -50,9 +50,6 @@ class Os extends Crud{
 	public function setTipoServ($tipoServ){
 		$this->tipoServ = $tipoServ;
 	}
-	public function setTecnicos($tecnicos){
-		$this->tecnicos = $tecnicos;
-	}
 	public function setData($data){
 		$this->data = $data;
 	}
@@ -92,8 +89,8 @@ class Os extends Crud{
 
 	public function insert(){
 		try{
-			$sql  = "INSERT INTO $this->table ( loja, lojaNick, local, servico, tipoServ, categoria, data, dtUltimoMan, dtCadastro, filial, os, dtOs, dtFech, dtTerm, estado, processo, status, ativo) ";
-			$sql .= "VALUES (:loja, :lojaNick, :local, :servico, :tipoServ, :categoria, :data, :dtUltimoMan, :dtCadastro, :filial, :os, :dtOs, :dtFech, :dtTerm, :estado, :processo, :status, :ativo)";
+			$sql  = "INSERT INTO $this->table ( loja, lojaNick, local, servico, tipoServ, categoria, data, dtUltimoMan, dtCadastro, estado, processo, status, ativo) ";
+			$sql .= "VALUES (:loja, :lojaNick, :local, :servico, :tipoServ, :categoria, :data, :dtUltimoMan, :dtCadastro, :estado, :processo, :status, :ativo)";
 			$stmt = DB::prepare($sql);
 			
 			$stmt->bindParam(':loja',		$this->loja);
@@ -106,15 +103,10 @@ class Os extends Crud{
 			$stmt->bindParam(':dtUltimoMan',$this->dtUltimoMan);
 			$stmt->bindParam(':dtCadastro',	$this->dtCadastro);
 			$stmt->bindParam(':filial',		$this->filial);
-			$stmt->bindParam(':os',			$this->os);
-			$stmt->bindParam(':dtOs',		$this->dtOs);
-			$stmt->bindParam(':dtFech',		$this->dtFech);
-			$stmt->bindParam(':dtTerm',		$this->dtTerm);
 			$stmt->bindParam(':estado',		$this->estado);
 			$stmt->bindParam(':processo',	$this->processo);
 			$stmt->bindParam(':status',		$this->status);
 			$stmt->bindParam(':ativo',		$this->ativo);
-
 			$stmt->execute();
 			$osId = DB::getInstance()->lastInsertId();
 			if($this->bem != null){
@@ -125,25 +117,13 @@ class Os extends Crud{
 				$stmt->execute();
 			}
 			
-			$tecnicos = json_decode( $this->tecnicos);
-			foreach ($tecnicos as $value){
-				$idTec = $value->id;
-				$userTec = $value->userNick;
-				$hhTec = $value->hh;
-				$sql  = "INSERT INTO $this->table2 ( os, loja, tecnico, user, hh ) ";
-				$sql .= "VALUES ( :os, :loja, :tecnico, :user, :hh )";
-				$stmt = DB::prepare($sql);
-				$stmt->bindParam(':os',		$osId);
-				$stmt->bindParam(':loja', 	$this->loja );
-				$stmt->bindParam(':tecnico',$idTec );
-				$stmt->bindParam(':user',	$userTec );
-				$stmt->bindParam(':hh', 	$hhTec );
-				$stmt->execute();
-			}
-			 $res['error'] = false;
-			 return $res['message']= "OK, dados salvo com sucesso";
+			$res['error'] = false;
+			$res['id'] = $osId;
+			return $res;
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 
 	}
@@ -266,13 +246,14 @@ class Os extends Crud{
 			echo 'ERROR: ' . $e->getMessage();
 		}
 	}
-	public function ultimaOs(){
+	public function ultimaOs( $local, $categoria ){
 		try{
-			$sql  = "SELECT local, servico, categoria, MAX(data) As UltimaData FROM $this->table GROUP BY local";
+			$sql  = "SELECT id, local, MAX(data) AS dtUltima FROM $this->table  WHERE BINARY local=:local AND categoria=:categoria GROUP BY local=:local, categoria=:categoria";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':status', $status, PDO::PARAM_INT);
+			$stmt->bindParam(':local', $local, PDO::PARAM_INT);
+			$stmt->bindParam(':categoria', $categoria, PDO::PARAM_INT);
 			$stmt->execute();
-			return $stmt->fetchAll();
+			return $stmt->fetch();
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
