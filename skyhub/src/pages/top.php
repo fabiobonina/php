@@ -7,7 +7,7 @@
           <div class="container">
             <div class="navbar-brand">
               <a class="navbar-item subtitle is-4 has-text-info" href="index.php" style="margin-bottom: 0;">
-                <img src="./img/bit-louc.png" alt="BitLOUC: Web | Mobi" width="28" height="28">
+                <img src="img/bit-louc.png" alt="BitLOUC: Web | Mobi" width="28" height="28">
                 <b class="title is-4 has-text-white">Bit</b>LOUC
               </a>
               <span class="navbar-burger burger" data-target="navbarMenuHeroA">
@@ -30,7 +30,7 @@
                   </a>
                 </span>
                 <a class="navbar-item" v-on:click="modalUser = true">
-                  <img :src="user.avatar" alt="Bulma: a modern CSS framework based on Flexbox" width="28" height="28"> {{ user.user }}
+                  <img :src="user.avatar" alt="BitLOUC: Web | Mobi" width="28" height="28"> {{ user.user }}
                 </a>
               </div>
             </div>
