@@ -100,7 +100,6 @@
 			$arErros = array();
 			#MODS.................................
 			$data = $mods->findOsTecAtiv( $osId, $tecId, $ativo );
-
 			if( count($data) > '1' ){
 				$res['error'] 	= true;
 				$res['message'] ='Error, Mais de 1 trajeto aberto!';
@@ -110,7 +109,7 @@
 				$res['data'] = '0';
 				return $res;
 			}else{
-				$value   = $data['0'];
+				$value   		= $data['0'];
 				$datas['modId']	= $value->id;
 				$dtInicio 		= $value->dtInicio;
 				$kmInicio 		= $value->kmInicio;
@@ -177,17 +176,20 @@
 				$mods->setValor($valor);
 				
 				# InsertFinal
-				if( $mods->insertInicio() ){
-					array_push($arSucesso, "OK, deslocamento salvo com sucesso");
-					if( $oss->upProcesso($osId, $statusProcesso )){
-						array_push($arSucesso, "OK, processo da OS alterado com sucesso");
-					}else{
-						$res['error'] = true;
-						array_push($arErros, "Error, nao foi possivel mudar processo OS");
-					}
+				$item = $mods->insertInicio();
+				if( $item['error'] ){
+					$res['error']	= $item['error'];
+					array_push($arErros, $item['message']);
+
 				}else{
-					$res['error']	= true;
-					array_push($arErros, "Error, nao foi possivel iniciar deslocamento");
+					$itemII = $oss->upProcesso($osId, $statusProcesso );
+					if( $itemII['error'] ){
+						array_push($arErros, $item['message']);
+					}else{
+						$res['error'] = $itemII['error'];
+						array_push($arSucesso, $item['message']);
+						array_push($arSucesso, $itemII['message']);
+					}
 				}
 			}else{
 				$res['error']	= true;
@@ -206,7 +208,7 @@
 			$mods 			= new Mod();
 			$oss 			= new Os();
 
-			$res['error'] 	= false;
+			//$res['error'] 	= false;
 			$arSucesso 		= array();
 			$arErros 		= array();
 

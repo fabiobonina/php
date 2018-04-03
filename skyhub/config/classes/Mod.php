@@ -80,29 +80,33 @@ class Mod extends Crud{
 			$stmt->bindParam(':valor',    	 $this->valor);
 			$stmt->bindParam(':trajeto', 	$this->trajeto);
 			$stmt->bindParam(':status', 	 $this->status);
-			return $stmt->execute();
+			$stmt->execute();
 			
+			$res['error'] = false;
+			$res['message'] = "OK, deslocamento aberto com sucesso";
+			return $res;
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 
 	}
 	public function insertFinal($id){
 		try{
-			$sql  = "UPDATE $this->table SET  dtFinal = :dtFinal, kmFinal = :kmFinal, tempo = :tempo, hhValor = :hhValor, valor = :valor, status = :status, trajeto = :trajeto, ativo = :ativo WHERE id = :id ";
+			$sql  = "UPDATE $this->table SET  dtFinal = :dtFinal, kmFinal = :kmFinal, tempo = :tempo, hhValor = :hhValor, valor = :valor, trajeto = :trajeto, ativo = :ativo WHERE id = :id ";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':dtFinal',  	$this->dtFinal);
 			$stmt->bindParam(':kmFinal', 	$this->kmFinal);
 			$stmt->bindParam(':tempo',    	$this->tempo);
 			$stmt->bindParam(':hhValor',    $this->hhValor);
 			$stmt->bindParam(':valor',    	$this->valor);
-			$stmt->bindParam(':status',		$this->status);
 			$stmt->bindParam(':trajeto',	$this->trajeto);
 			$stmt->bindParam(':ativo', 	 	$this->ativo);
 			$stmt->bindParam(':id', 		$id);
 			$stmt->execute();
 
-			$res['message'] = false;
+			$res['error'] = false;
 			$res['message'] = "OK, deslocamento fechado com sucesso";
 			return $res;
 		} catch(PDOException $e) {
@@ -163,8 +167,14 @@ class Mod extends Crud{
 		$stmt->bindParam(':ativo', $ativo );
 		$stmt->execute();
 		return $stmt->fetchAll();
+
+		//$res['message'] = false;
+		//$res['message'] = "OK, deslocamento fechado com sucesso";
+		//return $res;
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			//$res['error']	= true;
+			$res = $e->getMessage();
+			return $res;
 		}
 	}
 

@@ -27,7 +27,8 @@ $osFunction = new OsFunction();
 $res['message']    = array();
 $arDados= array();
 $arErros= array();
-$action = 'read';
+$arMessage= array();
+$action = 'cadastrar';
  
 
 //$res['user'] = $user;
@@ -138,8 +139,8 @@ if($action == 'read'):
 endif;
 
 #CADASTRAR
-if($action == 'cadastrar'):
-  /**/
+if($action == 'osAdd'):
+  //
   $loja       = $_POST['loja'];
   $lojaNick   = $_POST['lojaNick'];
   $local      = $_POST['local'];
@@ -147,15 +148,15 @@ if($action == 'cadastrar'):
   $categoria  = $_POST['categoria'];
   $servico    = $_POST['servico'];
   $tipoServ   = $_POST['tipoServ'];
-  $tecnicos   = json_encode($_POST['tecnicos'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+  $tecnicos   = $_POST['tecnicos'];
   $data       = $_POST['data'];
   $dtCadastro = $_POST['dtCadastro'];
   $estado     = $_POST['estado'];
   $processo   = $_POST['processo'];
   $status     = $_POST['status'];
   $ativo      = $_POST['ativo'];
-
   /*
+  
   $tecnicos = array();
   $tecnico1['id'] = '1';
   $tecnico2['id'] = '2';
@@ -165,11 +166,11 @@ if($action == 'cadastrar'):
   $loja = '1';
   $lojaNick = 'AGESPISA';
   $local = '2';
-  $bem = '1';
+  $bem = '3';
   $categoria = '1';
-  $servico = 'servico';
+  $servico = 'COR001';
   $tipoServ = '3';
-  $tecnicoss = json_encode($tecnicos, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);//$tecnicos = 'tecnicos';
+  //$tecnicos = 'tecnicos';
   $data = date("Y-m-d");
   $dtCadastro = date('Y-m-d H:i:s');
   $estado = '0';
@@ -177,10 +178,8 @@ if($action == 'cadastrar'):
   $status = '0';
   $ativo = '0';
   /*/
-  //$tecnicosss = array();
 
-  $osUltimaMan = $oss->ultimaOs( $local, $categoria);
-  
+  $osUltimoMan = $oss->ultimaOs( $local, $categoria);
   $oss->setLoja($loja);
   $oss->setLojaNick($lojaNick);
   $oss->setLocal($local);
@@ -190,23 +189,24 @@ if($action == 'cadastrar'):
   $oss->setTipoServ($tipoServ);
   $oss->setData($data);
   $oss->setDtCadastro($dtCadastro);
-  $oss->setDtUltimoMan($osUltimaMan->dtUltima);
+  $oss->setDtUltimoMan($osUltimoMan->dtUltimo);
   $oss->setEstado($estado);
   $oss->setProcesso($processo);
   $oss->setStatus($status);
   $oss->setAtivo($ativo);
   # Insert
-  $osId = $oss->insert()
+  $osId = $oss->insert();
+  
   if($osId['error']){
     $res['error'] = $osId['error'];
     $res['message']= $osId['message'];
   }else{
-    
-    $item = $osFunction->insertOsTec( $tecnicos, $osId['data'] , $loja);
+    $item = $osFunction->insertOsTec( $tecnicos, $osId['id'] , $loja);
+
     $res['error'] = $item['error'];
-    $res['message']= $item['message'];
-
-
+    array_push($arMessage, $osId['message']);
+    array_push($arMessage, $item['message']);
+    $res['message']= $arMessage;
   }
 endif;
 
@@ -400,28 +400,22 @@ if($action == 'desloc'):
   }else{
     #tecnicos----------------------------------------------------------------------------------------------------------------------------
     if($tecnicos ='' ){
-      foreach ( $tecnicos as $data){
-        $tecId   = $data['tecnico'];
-        $tecHh   = $data['hh'];
+      foreach ( $tecnicos as $tec){
+        
         $arMods   = array();
-        if( $tecId != $tecnico['tecnico'] ){
+        if( $tec['tecnico'] != $tecnico['tecnico'] ){
           $tecNivel = '1';
-          $tecII = $osFunction->insertTecMod( $osId, $tecId, $tecHh, $status['id'], $status['processo'], $status['categoria'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
+          $tecII = $osFunction->insertTecMod( $osId, $tec['tecnico'], $tec['hh'], $status['id'], $status['processo'], $status['categoria'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
           //$res['outro'] = $tecII;
-          if( $tecII['error'] ){
-            $res['error']   = $tecII['error'];
-            array_push( $res['message'], $tecII['message'] );
-          }else{
-            #desloc aberto
-            $res['error']   = $tecII['error'];
-            array_push( $res['message'], $tecII['message'] );
-          }
+          #desloc aberto
+          $res['error']   = $tecII['error'];
+          array_push( $res['message'], $tecII['message'] );
         }
       }
       #tecnicos----------------------------------------------------------------------------------------------------------------------------
     }
   }
-  $res['outros'] = $_POST;
+  //$res['outros'] = $_POST;
 endif;
 #DESLOCAMENTO----------------------------------------------------------------------
 #MOD-EDT----------------------------------------------------------------------

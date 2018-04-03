@@ -80,10 +80,10 @@ Vue.component('os-add', {
           ativo: this.ativo
         };
         //var formData = this.toFormData(postData);
-        console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=cadastrar', postData)
+        //console.log(postData);
+        this.$http.post('./config/api/apiOs.php?action=osAdd', postData)
           .then(function(response) {
-            console.log(response);
+            //console.log(response);
             if(response.data.error){
               this.errorMessage.push(response.data.message);
               this.isLoading = false;

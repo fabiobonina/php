@@ -93,16 +93,15 @@ class Os extends Crud{
 			$sql .= "VALUES (:loja, :lojaNick, :local, :servico, :tipoServ, :categoria, :data, :dtUltimoMan, :dtCadastro, :estado, :processo, :status, :ativo)";
 			$stmt = DB::prepare($sql);
 			
-			$stmt->bindParam(':loja',		$this->loja);
+			$stmt->bindParam(':loja',		$this->loja , PDO::PARAM_INT);
 			$stmt->bindParam(':lojaNick',	$this->lojaNick);
-			$stmt->bindParam(':local',		$this->local);
+			$stmt->bindParam(':local',		$this->local, PDO::PARAM_INT);
 			$stmt->bindParam(':servico',	$this->servico);
-			$stmt->bindParam(':tipoServ',	$this->tipoServ);
-			$stmt->bindParam(':categoria',	$this->categoria);
+			$stmt->bindParam(':tipoServ',	$this->tipoServ, PDO::PARAM_INT);
+			$stmt->bindParam(':categoria',	$this->categoria, PDO::PARAM_INT);
 			$stmt->bindParam(':data',		$this->data);
 			$stmt->bindParam(':dtUltimoMan',$this->dtUltimoMan);
 			$stmt->bindParam(':dtCadastro',	$this->dtCadastro);
-			$stmt->bindParam(':filial',		$this->filial);
 			$stmt->bindParam(':estado',		$this->estado);
 			$stmt->bindParam(':processo',	$this->processo);
 			$stmt->bindParam(':status',		$this->status);
@@ -116,9 +115,9 @@ class Os extends Crud{
 				$stmt->bindParam(':id', $osId);
 				$stmt->execute();
 			}
-			
 			$res['error'] = false;
 			$res['id'] = $osId;
+			$res['message'] = "OK, OS aberta com sucesso";
 			return $res;
 		} catch(PDOException $e) {
 			$res['error']	= true;
@@ -144,8 +143,6 @@ class Os extends Crud{
 			$stmt->bindParam(':filial',		$this->filial);
 			$stmt->bindParam(':os',			$this->os);
 			$stmt->bindParam(':dtOs',		$this->dtOs);
-			$stmt->bindParam(':dtFech',		$this->dtFech);
-			$stmt->bindParam(':dtTerm',		$this->dtTerm);
 			$stmt->bindParam(':estado',		$this->estado);
 			$stmt->bindParam(':processo',	$this->processo);
 			$stmt->bindParam(':status',		$this->status);
@@ -248,7 +245,7 @@ class Os extends Crud{
 	}
 	public function ultimaOs( $local, $categoria ){
 		try{
-			$sql  = "SELECT id, local, MAX(data) AS dtUltima FROM $this->table  WHERE BINARY local=:local AND categoria=:categoria GROUP BY local=:local, categoria=:categoria";
+			$sql  = "SELECT id, local, MAX(data) AS dtUltimo FROM $this->table  WHERE BINARY local=:local AND categoria=:categoria GROUP BY local=:local, categoria=:categoria";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':local', $local, PDO::PARAM_INT);
 			$stmt->bindParam(':categoria', $categoria, PDO::PARAM_INT);

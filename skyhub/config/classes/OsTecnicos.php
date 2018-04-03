@@ -47,7 +47,7 @@ class OsTecnicos extends Crud{
 			$res['message'] = $e->getMessage();
 			return $res;
 		}
-
+	}
 	public function update($id){
 		try{
 			$sql  = "UPDATE $this->table SET os = :os, loja = :loja,  tecnico = :tecnico, hh = :hh WHERE id = :id";
