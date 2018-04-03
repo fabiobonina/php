@@ -115,8 +115,8 @@ class Os extends Crud{
 				$stmt->bindParam(':id', $osId);
 				$stmt->execute();
 			}
-			$res['error'] = false;
 			$res['id'] = $osId;
+			$res['error'] = false;
 			$res['message'] = "OK, OS aberta com sucesso";
 			return $res;
 		} catch(PDOException $e) {
@@ -129,28 +129,26 @@ class Os extends Crud{
 
 	public function update($id){
 		try{
-			$sql  = "UPDATE $this->table SET loja = :loja,  lojaNick = :lojaNick, local = :local, servico = :servico, tipoServ = :tipoServ, categoria = :categoria, bem = :bem, tecnicos = :tecnicos, data = :data, dtUltimaMan = :dtUltimaMan, dtCadastro = :dtCadastro, filial = :filial, os = :os, dtOs = :dtOs, dtFech = :dtFech, dtTerm = :dtTerm, estado = :estado, processo = :processo, status = :status, ativo = :ativo WHERE id = :id";
+			$sql  = "UPDATE $this->table SET local = :local, bem = :bem, servico = :servico, tipoServ = :tipoServ, categoria = :categoria, data = :data, dtUltimoMan = :dtUltimoMan, ativo = :ativo WHERE id = :id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':loja',		$this->loja);
-			$stmt->bindParam(':lojaNick',	$this->lojaNick);
 			$stmt->bindParam(':local',		$this->local);
+			$stmt->bindParam(':bem',		$this->bem);
 			$stmt->bindParam(':servico',	$this->servico);
 			$stmt->bindParam(':tipoServ',	$this->tipoServ);
 			$stmt->bindParam(':categoria',	$this->categoria);
 			$stmt->bindParam(':data',		$this->data);
 			$stmt->bindParam(':dtUltimoMan',$this->dtUltimoMan);
-			$stmt->bindParam(':dtCadastro',	$this->dtCadastro);
-			$stmt->bindParam(':filial',		$this->filial);
-			$stmt->bindParam(':os',			$this->os);
-			$stmt->bindParam(':dtOs',		$this->dtOs);
-			$stmt->bindParam(':estado',		$this->estado);
-			$stmt->bindParam(':processo',	$this->processo);
-			$stmt->bindParam(':status',		$this->status);
 			$stmt->bindParam(':ativo',		$this->ativo);
 			$stmt->bindParam(':id', 		$id);
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, OS atualizado com sucesso";
+			return $res;
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 	}
 
@@ -162,7 +160,7 @@ class Os extends Crud{
 			$stmt->bindParam(':id'		,$id);
 			$stmt->execute();
 
-			$res['message'] = false;
+			$res['error'] = false;
 			$res['message'] = "OK, processo da OS alterado com sucesso";
 			return $res;
 		} catch(PDOException $e) {
@@ -245,7 +243,7 @@ class Os extends Crud{
 	}
 	public function ultimaOs( $local, $categoria ){
 		try{
-			$sql  = "SELECT id, local, MAX(data) AS dtUltimo FROM $this->table  WHERE BINARY local=:local AND categoria=:categoria GROUP BY local=:local, categoria=:categoria";
+			$sql  = "SELECT id, local, categoria, MAX(data) AS dtUltimo FROM $this->table  WHERE BINARY local=:local AND categoria=:categoria GROUP BY local=:local, categoria=:categoria";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':local', $local, PDO::PARAM_INT);
 			$stmt->bindParam(':categoria', $categoria, PDO::PARAM_INT);

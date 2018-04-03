@@ -9,10 +9,7 @@ Vue.component('os-edt', {
       errorMessage: [],
       successMessage: [],
       item:{},
-      servico: null, tecnico: null, dataOs: '', ativo: '0',
       isLoading: false,
-      bem: null,
-      categoria: null
     };
   },
   computed: {
@@ -29,9 +26,6 @@ Vue.component('os-edt', {
     },
     servicos() {
       return store.state.servicos;
-    },
-    tecnicos() {
-      return store.state.tecnicos;
     },
     categorias() {
       return store.state.categorias;
@@ -64,24 +58,19 @@ Vue.component('os-edt', {
       if(this.checkForm()){
         this.isLoading = true
         var postData = {
-          loja: this.loja.id,
-          lojaNick: this.loja.nick,
-          local: this.local.id,
-          bem: this.bem,
-          categoria: this.categoria.id,
-          servico: this.servico.id,
-          tipoServ: this.servico.tipo,
-          tecnicos: this.tecnico,
-          data: this.dataOs,
-          dtCadastro: new Date().toJSON(),
-          estado: '0',
-          processo: '0',
-          status: '0',
-          ativo: this.ativo
+          osId: this.data.id,
+          local: this.data.local.id,
+          bem: this.data.bem,
+          categoria: this.data.categoria.id,
+          servico: this.data.servico.id,
+          tipoServ: this.data.servico.tipo,
+          data: this.data.data,
+          dtUltimoMan: this.data.dtUltimoMan,
+          ativo: this.data.ativo
         };
         //var formData = this.toFormData(postData);
         //console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=cadastrar', postData)
+        this.$http.post('./config/api/apiOs.php?action=osEdt', postData)
           .then(function(response) {
             //console.log(response);
             if(response.data.error){
@@ -106,24 +95,15 @@ Vue.component('os-edt', {
     },
     checkForm:function(e) {
       this.errorMessage = [];
-      if(!this.servico) this.errorMessage.push("Serviço necessário.");
-      if(!this.dataOs) this.errorMessage.push("Data necessário.");
-      if(!this.tecnico) this.errorMessage.push("Tecnico necessário.");
-      if(!this.ativo) this.errorMessage.push("Ativo necessário.");
+      if(!this.data.servico) this.errorMessage.push("Serviço necessário.");
+      if(!this.data.data) this.errorMessage.push("Data necessário.");
+      if(!this.data.ativo) this.errorMessage.push("Ativo necessário.");
       if(!this.errorMessage.length) return true;
       e.preventDefault();
     },
-    dataT() {
-      var datetime = new Date().toLocaleString();
-      var res = datetime.split(" ");
-      var date = res[0].split("/");
-      var time = res[1].slice(0, -3);
-      var dtTime = date[2] + "-" + date[1] + "-" + date[0];
-      this.dataOs = dtTime;
-    },
     addCategoria: function () {
       if( this.data ) {
-        this.categoria = this.data.categoria;
+        this.categoria = this.data.bem.categoria;
         this.bem = this.data.id;
       }
     }

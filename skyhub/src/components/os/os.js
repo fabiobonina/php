@@ -148,6 +148,32 @@ var Os = Vue.extend({
         });
       }
     },
+    modDel: function(data) {
+      if(confirm('Deseja realmente deletar ' + data.status.tipo + '?')){
+        this.isLoading = true
+        var postData = {
+          id: data.id
+        };
+        //console.log(postData);
+        this.$http.post('./config/api/apiOs.php?action=modDel', postData).then(function(response) {
+          //console.log(response);
+          if(response.data.error){
+            this.errorMessage = response.data.message;
+            this.isLoading = false;
+          } else{
+            this.successMessage.push(response.data.message);
+            this.isLoading = false;
+            this.onAtualizar();
+            setTimeout(() => {
+              this.$emit('close');
+            }, 2000);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      }
+    },
     onAtualizar: function(){
       this.$store.dispatch("fetchOs").then(() => {
         console.log("Atualizando dados OS!")

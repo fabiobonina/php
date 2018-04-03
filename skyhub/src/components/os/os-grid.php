@@ -10,10 +10,10 @@
                 <h1 class="title is-4"> {{entry.lojaNick}} | {{entry.local.tipo}} - {{entry.local.name}} ({{entry.local.municipio}}/{{entry.local.uf}}) </h1>
               </a>
               <p class="subtitle" style="margin-bottom: 0;"> {{entry.data}} | {{entry.servico.name}}
-                <span class="pull-right"> <span class="tag">{{ entry.categoria.tag }}</span> &nbsp;  </span>
+                <span class="pull-right"> <span class="tag">{{ entry.categoria.name }}</span> &nbsp;  </span>
               </p>
               <p v-if="entry.bem" style="margin-bottom: 0;">{{entry.bem.name}} {{entry.bem.modelo}}  &nbsp; <a>#{{entry.bem.fabricanteNick}} </a> 
-              <p v-for="tecnico in entry.tecnicos"> <a><span class="icon mdi mdi-worker"></span> {{tecnico.user}} &nbsp;</a> </p>
+              <p > <span class="icon mdi mdi-worker"></span> <a v-for="tecnico in entry.tecnicos"> {{tecnico.user}} |</a> </p>
             </div>
             <div class="column is-6">
               <nav class="level">
@@ -73,15 +73,17 @@
 
           <div>
             <ul class="steps is-small">
-              <li :class="entry.processo > 0 && entry.processo < 1 ? entry.processo < 3  ? 'step-item is-completed is-info' : 'step-item is-completed is-info' : 'step-item'">
-                <div class="step-marker">
-                  <span class="mdi mdi-arrow-right-bold"></span>
-                </div>
+              <li :class="entry.processo > 0 ?
+                            'step-item is-completed is-info' : 'step-item'">
+                <div class="step-marker"><span class="mdi mdi-arrow-right-bold"></span></div>
                 <div class="step-details is-primary is-completed">
                   <p class="step-title">Em Transito</p>
                 </div>
               </li>
-              <li class="step-item is-info is-completed">
+              <li :class="entry.processo >= 1 ?
+                            entry.processo == 1 ? 'step-item is-completed is-success' :
+                            entry.processo == 2  ? 'step-item is-completed is-warning' : 'step-item is-completed is-info' 
+                          : 'step-item'">
                 <div class="step-marker">
                   <span class="icon mdi mdi-wrench"></span>
                 </div>
@@ -89,7 +91,10 @@
                   <p class="step-title">Atendendo</p>
                 </div>
               </li>
-              <li class="step-item is-warning is-completed">
+              <li :class="entry.processo >= 3 ?
+                            entry.processo == 3 ? 'step-item is-completed is-success' :
+                            entry.processo == 4  ? 'step-item is-completed is-warning' : 'step-item is-completed is-info' 
+                          : 'step-item'">
                 <div class="step-marker">
                   <span class="mdi mdi-redo-variant"></span>
                 </div>
@@ -97,9 +102,12 @@
                   <p class="step-title">Retorno</p>
                 </div>
               </li>
-              <li class="step-item is-danger is-active">
+              <li :class="entry.processo >= 5 ?
+                            entry.processo == 5 ? 'step-item is-completed is-success' :
+                            entry.processo == 6  ? 'step-item is-completed is-warning' : 'step-item is-completed is-info' 
+                          : 'step-item'">
                 <div class="step-marker">
-                  <span class="icon mdi mdi-flag-variant"></span>
+                  <span class="icon mdi mdi-check"></span>
                 </div>
                 <div class="step-details">
                   <p class="step-title">Completo</p>

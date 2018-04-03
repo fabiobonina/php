@@ -179,7 +179,11 @@ if($action == 'osAdd'):
   $ativo = '0';
   /*/
 
+  $dtUltimo   = '';
   $osUltimoMan = $oss->ultimaOs( $local, $categoria);
+  if(isset($osUltimoMan->dtUltimo) ){
+    $dtUltimo = $osUltimoMan->dtUltimo;
+  }
   $oss->setLoja($loja);
   $oss->setLojaNick($lojaNick);
   $oss->setLocal($local);
@@ -188,8 +192,8 @@ if($action == 'osAdd'):
   $oss->setServico($servico);
   $oss->setTipoServ($tipoServ);
   $oss->setData($data);
+  $oss->setDtUltimoMan($dtUltimo);
   $oss->setDtCadastro($dtCadastro);
-  $oss->setDtUltimoMan($osUltimoMan->dtUltimo);
   $oss->setEstado($estado);
   $oss->setProcesso($processo);
   $oss->setStatus($status);
@@ -208,6 +212,40 @@ if($action == 'osAdd'):
     array_push($arMessage, $item['message']);
     $res['message']= $arMessage;
   }
+
+
+
+endif;
+#CADASTRAR
+if($action == 'osEdt'):
+  //
+  
+  $osId       = $_POST['osId'];
+  $local      = $_POST['local'];
+  $bem        = $_POST['bem'];
+  $categoria  = $_POST['categoria'];
+  $servico    = $_POST['servico'];
+  $tipoServ   = $_POST['tipoServ'];
+  $data       = $_POST['data'];
+  $dtUltimo   = $_POST['dtUltimoMan'];
+  $ativo      = $_POST['ativo'];
+  
+  $osUltimoMan = $oss->ultimaOs( $local, $categoria);
+  if(isset($osUltimoMan)  && $osUltimoMan->id != $osId ){
+    $dtUltimo = $osUltimoMan->dtUltimo;
+  }
+
+  $oss->setLocal($local);
+  $oss->setBem($bem);
+  $oss->setCategoria($categoria);
+  $oss->setServico($servico);
+  $oss->setTipoServ($tipoServ);
+  $oss->setData($data);
+  $oss->setDtUltimoMan($dtUltimo);
+  $oss->setAtivo($ativo);
+  # Insert
+  $res = $oss->update($osId);
+
 endif;
 
 #ATUALIZAR
@@ -399,7 +437,7 @@ if($action == 'desloc'):
     array_push($res['message'], $tecI['message']);
   }else{
     #tecnicos----------------------------------------------------------------------------------------------------------------------------
-    if($tecnicos ='' ){
+    if( isset($tecnicos) ){
       foreach ( $tecnicos as $tec){
         
         $arMods   = array();
@@ -457,7 +495,20 @@ if($action == 'modEdt'):
   //$res['outros'] = $_POST;*/
 endif;
 #MOD-EDT----------------------------------------------------------------------
+if($action == 'modDel'):
+  #Novo
+  $modId    = $_POST['id'];
+  
+  if($mods->delete($modId)){
+    $res['error'] = false;
+    $res['message']= 'OK, Trajeto deletado!';
+  }else{
+    $res['error'] = true;
+    $res['message'] = "Error, nao foi possivel deletar os Trajeto"; 
+  }
 
+endif;
+#MOD-EDT----------------------------------------------------------------------
 #DELETAR
 if(isset($_GET['acao1']) && $_GET['acao1'] == 'deletar'):
   

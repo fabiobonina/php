@@ -75,11 +75,11 @@ class Mod extends Crud{
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':os', 	 	$this->os);
 			$stmt->bindParam(':tecnico', 	$this->tecnico);
-			$stmt->bindParam(':dtInicio',  	 $this->dtInicio);
-			$stmt->bindParam(':kmInicio', 	 $this->kmInicio);
-			$stmt->bindParam(':valor',    	 $this->valor);
+			$stmt->bindParam(':dtInicio',  	$this->dtInicio);
+			$stmt->bindParam(':kmInicio', 	$this->kmInicio);
+			$stmt->bindParam(':valor',    	$this->valor);
 			$stmt->bindParam(':trajeto', 	$this->trajeto);
-			$stmt->bindParam(':status', 	 $this->status);
+			$stmt->bindParam(':status', 	$this->status);
 			$stmt->execute();
 			
 			$res['error'] = false;

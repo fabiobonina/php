@@ -186,7 +186,7 @@
                     <span class="mdi mdi-transit-transfer"></span>
                   </a>
                   
-                  <a v-on:click="modDel(mod.id)" class="delete"></a>
+                  <a v-on:click="modDel(mod)" class="delete"></a>
                 </p>    
               </div>
             </div>    

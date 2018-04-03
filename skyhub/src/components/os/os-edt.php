@@ -48,7 +48,7 @@
           </div>
         </div>
 
-        <div v-if="!data" class="field is-horizontal">
+        <div v-if="!data.bem" class="field is-horizontal">
           <div class="field-label">
             <label class="label">Categoria</label>
           </div>
@@ -61,24 +61,6 @@
               </p>
               <p class="control">
                 <v-select label="name" v-model="data.categoria" :options="categorias"></v-select>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="field is-horizontal">
-          <div class="field-label">
-            <label class="label">Tecnicos</label>
-          </div>
-          <div class="field-body">
-            <div class="field has-addons">
-              <p class="control">
-                <a class="button is-static">
-                  <span class="mdi mdi-worker"></span>
-                </a>
-              </p>
-              <p class="control">
-                <v-select multiple label="user" v-model="data.tecnicos" :options="tecnicos"></v-select>
               </p>
             </div>
           </div>

@@ -162,11 +162,9 @@
 			$mods 			= new Mod();
 			$oss 			= new Os();
 			$ativo 			= '0';
-			$res['error'] = false;
 			$arSucesso 		= array();
 			$arErros 		= array();
 			if( count( $mods->findOsTecAtiv( $osId, $tecId, $ativo )) == '0'){
-				$res['message'] = array();
 				$mods->setOs($osId);
 				$mods->setTecnico($tecId);
 				$mods->setTrajeto($trajetoId);
@@ -178,13 +176,13 @@
 				# InsertFinal
 				$item = $mods->insertInicio();
 				if( $item['error'] ){
-					$res['error']	= $item['error'];
+					$res['error']		= $item['error'];
 					array_push($arErros, $item['message']);
 
 				}else{
 					$itemII = $oss->upProcesso($osId, $statusProcesso );
 					if( $itemII['error'] ){
-						array_push($arErros, $item['message']);
+						array_push($arErros, $itemII['message']);
 					}else{
 						$res['error'] = $itemII['error'];
 						array_push($arSucesso, $item['message']);
@@ -208,7 +206,6 @@
 			$mods 			= new Mod();
 			$oss 			= new Os();
 
-			//$res['error'] 	= false;
 			$arSucesso 		= array();
 			$arErros 		= array();
 
@@ -221,11 +218,26 @@
 			$mods->setAtivo('1');
 			
 			# InsertFinal
-			$res = $mods->insertFinal($modId);
-			if( $res['error'] ){
+			$item = $mods->insertFinal($modId);
+			if( $item['error'] ){
+				$res['error']		= $item['error'];
+				array_push($arErros, $item['message']);
+
+			}else{
+				$itemII = $oss->upProcesso($osId, $statusProcesso );
+				if( $itemII['error'] ){
+					array_push($arErros, $itemII['message']);
+				}else{
+					$res['error'] = $itemII['error'];
+					array_push($arSucesso, $item['message']);
+					array_push($arSucesso, $itemII['message']);
+				}
+			}
+			if($res['error']){
+				$res['message'] = $arErros;
 				return $res;
 			}else{
-				$res = $oss->upProcesso($osId, $statusProcesso );
+				$res['message'] = $arSucesso;
 				return $res;
 			}
 
@@ -242,12 +254,15 @@
 			#MODS--------------------------------------------------------------------------------------------
 		}
 		public function insertTecMod( $osId, $tecId, $tecHh, $statusId, $statusProcesso, $statusCategoria, $trajetoId, $tipoValor, $date, $km, $valor, $tecNivel ){
-			$res['error']   = false;
+			$arSucesso 		= array();
+			$arErros 		= array();
+			$res['error'] 	= false;
 			if( $trajetoId == '1' && $tecNivel == '1'){
 				$trajetoId 	= '3';
 				$tipoValor	= '0';
 				$km     	= '0';
 			}
+		
 			#validar informações
 			$tec = $this->listOsTecModValidacao( $osId, $tecId, $tecHh, $statusId, $trajetoId, $tipoValor, $date, $km, $valor );
 			if( $tec['error'] ){
@@ -257,15 +272,35 @@
 				#desloc aberto
 				if ( $tec['data'] == '1' ) {
 					# InsertFinal
-					$res = $this->modUp( $osId, $trajetoId, $statusProcesso, $date, $km, $tec['tempo'], $tec['hhValor'], $tec['valor'], $tec['modId']);
+					$itemI = $this->modUp( $osId, $trajetoId, $statusProcesso, $date, $km, $tec['tempo'], $tec['hhValor'], $tec['valor'], $tec['modId']);
+					if( $itemI['error'] ){
+						$res['error'] = $itemI['error'];
+						array_push($arErros, $itemI['message']);
+					}else{
+						$res['error'] = $itemI['error'];
+						array_push($arSucesso, $itemI['message']);
+					}
 				}
-				if ( $tec['data'] == '0' || $statusCategoria == '2') {
+				if ( ($tec['data'] == '0' || $statusCategoria == '2') && !$res['error'] ) {
 					#desloc inicial
-					$res =  $this->modAdd( $osId, $tecId, $trajetoId, $statusId, $statusProcesso, $date, $km, $valor );
+					$itemII =  $this->modAdd( $osId, $tecId, $trajetoId, $statusId, $statusProcesso, $date, $km, $valor );
+					if( $itemII['error'] ){
+						$res['error'] = $itemII['error'];
+						array_push($arErros, $itemII['message']);
+					}else{
+						$res['error'] = $itemII['error'];
+						array_push($arSucesso, $itemII['message']);
+					}
 				}
 			}
 
-			return $res;
+			if($res['error']){
+				$res['message'] = $arErros;
+				return $res;
+			}else{
+				$res['message'] = $arSucesso;
+				return $res;
+			}
 			
 		}
 	}

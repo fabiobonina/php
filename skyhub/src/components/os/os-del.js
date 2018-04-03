@@ -1,6 +1,6 @@
-Vue.component('os-edt', {
-  name: 'os-edt',
-  template: '#os-edt',
+Vue.component('os-del', {
+  name: 'os-del',
+  template: '#os-del',
   props: {
     data: Object
   },
