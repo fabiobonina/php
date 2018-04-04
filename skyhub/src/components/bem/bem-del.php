@@ -1,4 +1,4 @@
-<template id="bem-add">
+<template id="bem-del">
   <div class="modal is-active" >
     <div class="modal-background"></div>
     <div class="modal-card">

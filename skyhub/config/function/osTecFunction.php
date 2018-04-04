@@ -2,7 +2,7 @@
 
 	include( '_usoFunction.php');
 	include('../classes/Os.php');
-	include('../classes/osTecnicos.php');
+	include('../classes/OsTecnicos.php');
 	include('../classes/Mod.php');
 	include('../classes/Nota.php');
 	include('../classes/DeslocStatus.php');

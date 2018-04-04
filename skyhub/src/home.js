@@ -289,10 +289,6 @@ const getters = {
     return state.locais.find(todo => todo.id === id)
     //return state.lojas.filter(loja => loja.id === id)
   },
-  getLocalId: (state) => (id) => {
-    return state.locais.find(todo => todo.id === id)
-    //return state.lojas.filter(loja => loja.id === id)
-  },
   getLocalLoja: (state) => (loja) => {
     return state.locais.filter(todo => todo.loja === loja)
     //return state.lojas.filter(loja => loja.id === id)

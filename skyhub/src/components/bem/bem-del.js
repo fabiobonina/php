@@ -1,6 +1,6 @@
-Vue.component('bem-add', {
-  name: 'bem-add',
-  template: '#bem-add',
+Vue.component('bem-edt', {
+  name: 'bem-edt',
+  template: '#bem-edt',
   props: {
     data: {},
     filterKey: String

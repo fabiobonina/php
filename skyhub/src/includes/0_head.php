@@ -41,12 +41,18 @@ function __autoload($class_name){
   
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href='https://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700' rel='stylesheet' type='text/css'>
+  <!-- BLUMA CSS -->
   <link rel="stylesheet" href="./dist/css/bulma.min.css">
+  <!-- MATERIALDESINGN ICO -->
   <link rel="stylesheet" type="text/css" href="./dist/css/materialdesign/css/materialdesignicons.min.css" media="all" />
+
   <link rel="stylesheet" type="text/css" href="./dist/css/index.css">
   <link rel="stylesheet" type="text/css" href="./dist/css/_progress.css">
   <link rel="stylesheet" type="text/css" href="./dist/css/vuemaps.css" -->
-  <link rel="stylesheet" type="text/css" href="https://wikiki.github.io/css/documentation.css" -->
+  
+  <!-- BLUMA steps -->
+  <!-- link rel="stylesheet" type="text/css" href="https://wikiki.github.io/css/documentation.css" -->
+  <link rel="stylesheet" type="text/css" href="./dist/bulma-steps/dist/bulma-steps.min.css" >
 
   <script src="dist/lib/vue.min.js"></script>
   <script src="dist/lib/vuex.js"></script>
@@ -54,7 +60,10 @@ function __autoload($class_name){
   <script src="dist/lib/vue-resource.js"></script>
   <script src="dist/js/vue-select.js"></script>
   
-  <script src="https://wikiki.github.io/css/documentation.css?v=201801131648"></script>
+  <!-- BLUMA steps -->
+  <!--script src="https://wikiki.github.io/css/documentation.css?v=201801131648"></script-->
+  <script src="./dist/bulma-steps/dist/bulma-steps.min.js"></script-->
+  <!-- GOOGLE MAPS -->
   <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlfHdTSE_d9zwwYKs5gbL01mHElMLCFgE&libraries=places,geometry"></script>
     

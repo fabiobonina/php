@@ -5,6 +5,7 @@ header('Content-Type: text/html; charset=utf-8');
 include("_chave.php");
 include( '../function/osFunction.php');
 
+$osFunction = new OsFunction();
 function __autoload($class_name){
   require_once '../classes/' . $class_name . '.php';
 }
@@ -20,7 +21,7 @@ $mods         = new Mod();
 $osTecnicos   = new OsTecnicos();
 $notas        = new Nota();
 
-$osFunction = new OsFunction();
+
 
 //$res['outros'] = array();
 //$res    = array('error' => true);
