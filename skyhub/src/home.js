@@ -5,6 +5,7 @@
 //Todos os postdados são enviados como json
 //True para enviar como dados do formulário
 Vue.http.options.emulateJSON = true;
+const INDEXLIST = './config/api/apiProprietario.php?action=read';
 
 const state = {
   deslocTrajetos: [],
@@ -156,15 +157,15 @@ const actions = {
   },
   fetchIndex({ commit }) {
     return new Promise((resolve, reject) => {
-        Vue.http.get("./config/api/apiProprietario.php?action=read")
+        axios.get(INDEXLIST)
         .then((response) => {
-          if(response.body.error){
-            console.log(response.body.message);
+          if(response.data.error){
+            console.log(response.data.message);
           } else{
-            commit("SET_USER", response.body.user);
-            commit("SET_PROPRIETARIO", response.body.proprietarios);
-            commit("SET_LOJAS", response.body.lojas);
-            commit("SET_LOCAIS", response.body.locais);
+            commit("SET_USER", response.data.user);
+            commit("SET_PROPRIETARIO", response.data.proprietarios);
+            commit("SET_LOJAS", response.data.lojas);
+            commit("SET_LOCAIS", response.data.locais);
             resolve();
           }
         })

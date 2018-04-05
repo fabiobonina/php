@@ -46,6 +46,9 @@
         <nav class="tabs">
           <div class="container">
             <ul>
+              <li class="is-active">
+                <a @click="$router.go(-1)" class="btn btn-default"><span class=" title is-5 mdi mdi-arrow-left"></span></a>
+              </li>
               <li :class="$route.path == '/loja/'+ $route.params._id ? 'is-active' : ''">
                 <a><router-link :to="'/loja/'+ $route.params._id"> Locais</router-link></a>
               </li>

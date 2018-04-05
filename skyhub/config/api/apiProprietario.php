@@ -9,19 +9,19 @@ function __autoload($class_name){
 }
 
 #PROPRIETARIO
-$proprietario = new Proprietario();
+$proprietario     = new Proprietario();
 #LOJA
-$loja = new Loja();
-$lojaCategorias = new LojaCategorias();
+$loja             = new Loja();
+$lojaCategorias   = new LojaCategorias();
 #LOCAL
-$locais = new Locais();
-$localCategorias = new LocalCategorias();
+$locais           = new Locais();
+$localCategorias  = new LocalCategorias();
 #EQUIPAMENTOS
-$bens = new Bens();
-$bemLocalizacao = new BemLocalizacao();
-$categorias = new Categorias();
-$usuarios = new Usuarios();
-$ativos = new Ativos();
+$bens             = new Bens();
+$bemLocalizacao   = new BemLocalizacao();
+$categorias       = new Categorias();
+$usuarios         = new Usuarios();
+$ativos           = new Ativos();
 
 
 $res = array('error' => true);

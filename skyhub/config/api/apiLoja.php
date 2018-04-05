@@ -8,11 +8,11 @@
     require_once '../classes/' . $class_name . '.php';
   }
 
-  $lojas = new Loja();
-  $lojaCategorias = new LojaCategorias();
-  $locais = new Locais();
-  $localCategorias = new LocalCategorias();
-  $categorias = new Categorias();
+  $lojas            = new Loja();
+  $lojaCategorias   = new LojaCategorias();
+  $locais           = new Locais();
+  $localCategorias  = new LocalCategorias();
+  $categorias       = new Categorias();
 
   $res = array('error' => false);
   $arDados = array();

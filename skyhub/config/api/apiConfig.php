@@ -8,19 +8,19 @@ function __autoload($class_name){
   require_once '../classes/' . $class_name . '.php';
 }
 
-$tipos = new Tipos();
-$produtos = new Produtos();
-$categorias = new Categorias();
-$fabricantes = new Fabricantes();
-$loja = new Loja();
-$locais = new Locais();
-$sistemas = new Sistema();
-$grupos = new Grupo();
-$servicos = new Servicos();
-$seguimentos = new Seguimento();
-$tecnicos = new Tecnicos();
+$tipos          = new Tipos();
+$produtos       = new Produtos();
+$categorias     = new Categorias();
+$fabricantes    = new Fabricantes();
+$loja           = new Loja();
+$locais         = new Locais();
+$sistemas       = new Sistema();
+$grupos         = new Grupo();
+$servicos       = new Servicos();
+$seguimentos    = new Seguimento();
+$tecnicos       = new Tecnicos();
 $deslocTrajetos = new DeslocTrajetos();
-$deslocStatus = new DeslocStatus();
+$deslocStatus   = new DeslocStatus();
 
 $res = array('error' => false);
 $action = 'config';

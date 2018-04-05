@@ -2,6 +2,35 @@
   <div>
     <section class="container">      
       <div class="box content">
+        <div class="field has-addons">
+          <div class="control">
+            <input v-model="configs.search" class="input" type="text" placeholder="Search">
+          </div>
+          <div class="control">
+            <a class="button is-info"><span class="mdi mdi-magnify"></span></a>
+          </div>
+          &nbsp;
+          <div class="control">
+            <a @click="configs.order == 'asc'? configs.order = 'desc': configs.order = 'asc'" class="button is-info">
+              <span :class="configs.order == 'asc'? 'mdi mdi-sort-ascending': 'mdi-sort-descending'"class="mdi mdi-magnify"></span>
+            </a>
+          </div>
+          &nbsp;
+          <div class="control">
+            <div class="field is-horizontal">
+              <div class="field-body">
+                <p class="control"><a class="button is-static">Ordernar por:</a></p>
+                <span class="select">
+                  <select v-model="configs.orderBy">
+                    <option value="name">Nome</option>
+                    <option value="regional">Regional</option>
+                  </select>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <article class="post" v-for="entry in filteredData">
           <div class="columns">
             <div class="column is-6">

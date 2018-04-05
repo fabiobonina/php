@@ -8,15 +8,14 @@ header('Content-Type: text/html; charset=utf-8');
 		require_once '../classes/' . $class_name . '.php';
 	}
 
-  $usuarios = new Usuarios();
-  $loja = new Loja();
-  $lojaGrupos = new LojaGrupos();
-  $sistemas = new Sistema();
-  $grupos = new Grupos();
-  
-  $descricao = new Descricao();
-  $ativos = new Ativos();
-  $locais = new Locais();
+  $usuarios     = new Usuarios();
+  $loja         = new Loja();
+  $lojaGrupos   = new LojaGrupos();
+  $sistemas     = new Sistema();
+  $grupos       = new Grupos();
+  $descricao    = new Descricao();
+  $ativos       = new Ativos();
+  $locais       = new Locais();
   $locaisGrupos = new LocaisGrupos();
 
   $res = array('error' => false);

@@ -8,16 +8,16 @@ function __autoload($class_name){
   require_once '../classes/' . $class_name . '.php';
 }
 
-$usuarios = new Usuarios();
-$loja = new Loja();
-$lojaCategorias = new lojaCategorias();
-$locais = new Locais();
-$localCategorias = new LocalCategorias();
-$bens = new Bens();
-$bemLocalizacao = new BemLocalizacao();
-$categorias = new Categorias();
-$descricao = new Descricao();
-$ativos = new Ativos();
+$usuarios         = new Usuarios();
+$loja             = new Loja();
+$lojaCategorias   = new LojaCategorias();
+$locais           = new Locais();
+$localCategorias  = new LocalCategorias();
+$bens             = new Bens();
+$bemLocalizacao   = new BemLocalizacao();
+$categorias       = new Categorias();
+$descricao        = new Descricao();
+$ativos           = new Ativos();
 
 $res = array('error' => true);
 $arDados = array();

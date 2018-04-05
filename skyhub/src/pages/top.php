@@ -19,7 +19,7 @@
             <div id="navbarMenuHeroA" class="navbar-menu">
               <div class="navbar-end">
                 <a class="navbar-item is-active" ><router-link to="/"> Home </router-link></a>
-                <a class="navbar-item"><router-link to="/oss"> OS's</router-link> </a>
+                <!--a class="navbar-item"><router-link to="/oss"> OS's</router-link> </a-->
                 <a class="navbar-item" href="__index.php"> SkyHub </a>
                 <span class="navbar-item">
                   <a class="button is-primary is-inverted">
