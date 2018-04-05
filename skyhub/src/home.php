@@ -12,67 +12,67 @@
       </main>
     </div>
         
-    <?php include("src/pages/top.php");?>
-    <?php include("src/pages/rodape.php");?>
-    <?php include("src/pages/config.php");?>
-    <?php include("src/pages/dashboard.php");?>
+    <?php require_once 'src/pages/top.php';?>
+    <?php require_once 'src/pages/rodape.php';?>
+    <?php require_once 'src/pages/config.php';?>
+    <?php require_once 'src/pages/dashboard.php';?>
     <!-- components proprietario -->
-    <?php include("src/components/proprietario/proprietario.php");?>
+    <?php require_once 'src/components/proprietario/proprietario.php';?>
     <!-- /components proprietario -->
     <!-- components loja -->
-    <?php include("src/components/loja/loja-add.php");?>
-    <?php include("src/components/loja/loja-del.php");?>
-    <?php include("src/components/loja/loja-edt.php");?>
-    <?php include("src/components/loja/loja-cat.php");?>
-    <?php include("src/components/loja/loja.php");?>
-    <?php include("src/components/loja/lojas.php");?>
-    <?php include("src/components/loja/lojas-grid.php");?>
+    <?php require_once 'src/components/loja/loja-add.php';?>
+    <?php require_once 'src/components/loja/loja-del.php';?>
+    <?php require_once 'src/components/loja/loja-edt.php';?>
+    <?php require_once 'src/components/loja/loja-cat.php';?>
+    <?php require_once 'src/components/loja/loja.php';?>
+    <?php require_once 'src/components/loja/lojas.php';?>
+    <?php require_once 'src/components/loja/lojas-grid.php';?>
     <!-- /components loja -->
     <!-- components local -->
-    <?php include("src/components/local/local-geo.php");?>
-    <?php include("src/components/local/locais-grid.php");?>
-    <?php include("src/components/local/local.php");?>
-    <?php include("src/components/local/locais.php");?>
-    <?php include("src/components/local/local-add.php");?>
-    <?php include("src/components/local/local-edt.php");?>
-    <?php include("src/components/local/local-del.php");?>
-    <?php include("src/components/local/local-cat.php");?>
-    <?php include("src/components/local/maps.php");?>
+    <?php require_once 'src/components/local/local-geo.php';?>
+    <?php require_once 'src/components/local/locais-grid.php';?>
+    <?php require_once 'src/components/local/local.php';?>
+    <?php require_once 'src/components/local/locais.php';?>
+    <?php require_once 'src/components/local/local-add.php';?>
+    <?php require_once 'src/components/local/local-edt.php';?>
+    <?php require_once 'src/components/local/local-del.php';?>
+    <?php require_once 'src/components/local/local-cat.php';?>
+    <?php require_once 'src/components/local/maps.php';?>
     <!-- /components local-->
     <!-- components bem -->
-    <?php include("src/components/bem/bens-grid.php");?>
-    <?php include("src/components/bem/bem-add.php");?>
-    <?php include("src/components/bem/bem-edt.php");?>
-    <?php include("src/components/bem/bem-del.php");?>
-    <?php include("src/components/bem/bens.php");?>
+    <?php require_once 'src/components/bem/bens-grid.php';?>
+    <?php require_once 'src/components/bem/bem-add.php';?>
+    <?php require_once 'src/components/bem/bem-edt.php';?>
+    <?php require_once 'src/components/bem/bem-del.php';?>
+    <?php require_once 'src/components/bem/bens.php';?>
     <!-- /components bem -->
     <!-- components os -->
-    <?php include("src/components/os/oss.php");?>
-    <?php include("src/components/os/os.php");?>
-    <?php include("src/components/os/os-grid.php");?>
-    <?php include("src/components/os/os-add.php");?>
-    <?php include("src/components/os/os-edt.php");?>
-    <?php include("src/components/os/os-del.php");?>
-    <?php include("src/components/os/os-tec.php");?> 
-    <?php include("src/components/os/os-amarrac.php");?>    
-    <?php include("src/components/os/lojaOs.php");?>
-    <?php include("src/components/os/localOs.php");?>
+    <?php require_once 'src/components/os/oss.php';?>
+    <?php require_once 'src/components/os/os.php';?>
+    <?php require_once 'src/components/os/os-grid.php';?>
+    <?php require_once 'src/components/os/os-add.php';?>
+    <?php require_once 'src/components/os/os-edt.php';?>
+    <?php require_once 'src/components/os/os-del.php';?>
+    <?php require_once 'src/components/os/os-tec.php';?> 
+    <?php require_once 'src/components/os/os-amarrac.php';?>    
+    <?php require_once 'src/components/os/lojaOs.php';?>
+    <?php require_once 'src/components/os/localOs.php';?>
     
     <!-- /components os -->
     <!-- components user -->
-    <?php include("src/components/user/user.php");?>
+    <?php require_once 'src/components/user/user.php';?>
     <!-- /components user -->
     <!-- components _uso -->
-    <?php include("src/components/_uso/message.php");?>
+    <?php require_once 'src/components/_uso/message.php';?>
     <!-- /components _usor -->
     <!-- components servicos -->
-    <?php include("src/components/servicos/nota/nota-add.php");?>
-    <?php include("src/components/servicos/nota/nota-edt.php");?>
-    <?php include("src/components/servicos/tecnico/deslocamento/desloc-add.php");?>
-    <?php include("src/components/servicos/tecnico/deslocamento/desloc-chg.php");?>
-    <?php include("src/components/servicos/tecnico/deslocamento/desloc-edt.php");?>
-    <?php include("src/components/servicos/tecnico/mod/mod-edt.php");?>
-    <?php include("src/components/servicos/tecnico/tecnico.php");?>
+    <?php require_once 'src/components/servicos/nota/nota-add.php';?>
+    <?php require_once 'src/components/servicos/nota/nota-edt.php';?>
+    <?php require_once 'src/components/servicos/tecnico/deslocamento/desloc-add.php';?>
+    <?php require_once 'src/components/servicos/tecnico/deslocamento/desloc-chg.php';?>
+    <?php require_once 'src/components/servicos/tecnico/deslocamento/desloc-edt.php';?>
+    <?php require_once 'src/components/servicos/tecnico/mod/mod-edt.php';?>
+    <?php require_once 'src/components/servicos/tecnico/tecnico.php';?>
     <!-- /components servicos -->
 
     <template id="naoEncontrado">

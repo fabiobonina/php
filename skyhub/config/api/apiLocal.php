@@ -2,7 +2,7 @@
 header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
-include("_chave.php");
+require_once '_chave.php';
 
 function __autoload($class_name){
   require_once '../classes/' . $class_name . '.php';

@@ -2,8 +2,8 @@
 header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
-include("_chave.php");
-include( '../function/osFunction.php');
+require_once '_chave.php';
+require_once '../function/osFunction.php';
 
 $osFunction = new OsFunction();
 function __autoload($class_name){

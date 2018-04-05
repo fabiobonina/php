@@ -1,10 +1,10 @@
 <?php
-	include( '_usoFunction.php');
-	include('../classes/Os.php');
-	include('../classes/OsTecnicos.php');
-	include('../classes/Mod.php');
-	include('../classes/Nota.php');
-	include('../classes/DeslocStatus.php');
+	require_once '_usoFunction.php';
+	require_once '../classes/Os.php';
+	require_once '../classes/OsTecnicos.php';
+	require_once '../classes/Mod.php';
+	require_once '../classes/Nota.php';
+	require_once '../classes/DeslocStatus.php';
 	require_once '../classes/DeslocTrajetos.php';
 
 	class OsFunction extends UsoFunction {
