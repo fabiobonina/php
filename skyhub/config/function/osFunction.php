@@ -77,7 +77,7 @@
 		public function listOsTecMod( $osId, $tecId ){
 			$mods 			= new Mod();
 			$deslocStatus 	= new DeslocStatus();
-			$deslocTrajetos 	= new DeslocTrajetos();
+			$deslocTrajetos = new DeslocTrajetos();
 			$osTecnicos 	= new OsTecnicos();
 			#MODS--------------------------------------------------------------------------------------------
 			$arMods = array();
@@ -224,13 +224,14 @@
 				array_push($arErros, $item['message']);
 
 			}else{
+				array_push($arSucesso, $item);
+
 				$itemII = $oss->upProcesso($osId, $statusProcesso );
 				if( $itemII['error'] ){
 					array_push($arErros, $itemII['message']);
 				}else{
 					$res['error'] = $itemII['error'];
-					array_push($arSucesso, $item['message']);
-					array_push($arSucesso, $itemII['message']);
+					array_push($arSucesso, $itemII);
 				}
 			}
 			if($res['error']){

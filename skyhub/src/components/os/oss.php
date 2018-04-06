@@ -1,8 +1,8 @@
 
 <template id="oss">
     <section class="container">      
-        <div class="columns  is-mobile">
-            <div v-for=" osLoja in osLojas" class="column is-half">
+        <div class="columns is-multiline  is-mobile">
+            <div v-for=" osLoja in osLojas" class="column is-one-third ">
                 <div class="card">
                     <header class="card-header">
                     <p class="card-header-title"><a :href="'#/loja/' + osLoja.id +'/lojaos'" class="product-title">{{osLoja.nick}}</a></p>

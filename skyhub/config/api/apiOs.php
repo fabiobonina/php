@@ -432,13 +432,14 @@ if($action == 'desloc'):
   #tecnicoI----------------------------------------------------------------------------------------------------------------------------
   $tecNivel = '0';
   $tecI = $osFunction->insertTecMod( $osId, $tecnico['tecnico'], $tecnico['hh'], $status['id'], $status['processo'], $status['categoria'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
-  //$res['outros'] = $tecI;
+  $res['outros'] = $tecI;
   if( $tecI['error'] ){
     $res['error']     = $tecI['error'];
     array_push($res['message'], $tecI['message']);
   }else{
     #tecnicos----------------------------------------------------------------------------------------------------------------------------
-    if( isset($tecnicos) ){
+    //$res['outros']= $tecnicos;
+    if( $tecnicos != '' ){
       foreach ( $tecnicos as $tec){
         
         $arMods   = array();
