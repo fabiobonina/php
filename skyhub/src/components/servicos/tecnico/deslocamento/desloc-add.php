@@ -32,7 +32,7 @@
             <div class="field">
               <label class="label">Tecnico</label>
               <p class="control">
-                <v-select label="user" v-model="tecnico" :options="data.tecnicos"></v-select>
+                <v-select label="userNick" v-model="tecnico" :options="data.tecnicos"></v-select>
               </p>
             </div>
             <div class="field">
@@ -77,7 +77,7 @@
                 </a>
               </p>
               <p class="control">
-                <v-select multiple label="user" v-model="tecnicos" :options="data.tecnicos"></v-select>
+                <v-select multiple label="userNick" v-model="tecnicos" :options="data.tecnicos"></v-select>
               </p>
             </div>
           </div>

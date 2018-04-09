@@ -47,7 +47,6 @@
     <?php require_once 'src/components/bem/bens.php';?>
     <!-- /components bem -->
     <!-- components os -->
-    <?php require_once 'src/components/os/oss.php';?>
     <?php require_once 'src/components/os/os.php';?>
     <?php require_once 'src/components/os/os-grid.php';?>
     <?php require_once 'src/components/os/os-add.php';?>
@@ -57,8 +56,10 @@
     <?php require_once 'src/components/os/os-amarrac.php';?>    
     <?php require_once 'src/components/os/ossLoja.php';?>
     <?php require_once 'src/components/os/ossLocal.php';?>
+    <?php require_once 'src/components/os/ossStus.php';?>
     <?php require_once 'src/components/os/ossTec.php';?>
-    
+    <?php require_once 'src/components/os/oss.php';?>
+    <?php require_once 'src/components/os/ossHome.php';?>
     <!-- /components os -->
     <!-- components user -->
     <?php require_once 'src/components/user/user.php';?>
@@ -129,8 +130,10 @@
 <script src="src/components/os/os-amarrac.js"></script>
 <script src="src/components/os/ossLoja.js"></script>
 <script src="src/components/os/ossLocal.js"></script>
+<script src="src/components/os/ossStus.js"></script>
 <script src="src/components/os/ossTec.js"></script>
 <script src="src/components/os/oss.js"></script>
+<script src="src/components/os/ossHome.js"></script>
 <!-- /components os -->
 <!-- components user -->
 <script src="src/components/user/user.js"></script>

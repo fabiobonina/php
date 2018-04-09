@@ -348,7 +348,11 @@ var router = new VueRouter({
     {path: '/', component: Home,
       children: [
         { path: '', component: Dashboard },
-        { path: 'oss', component: Oss },
+        { path: 'oss', component: OssHome,
+          children: [
+          { path: '', component: Oss },
+          { path: 'oss-status', component: OssStus },
+        ] },
         { path: 'lojas', component: Lojas },
         { path: 'oss-tec', component: OssTec },
       ]

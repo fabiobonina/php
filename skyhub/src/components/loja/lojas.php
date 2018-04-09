@@ -1,5 +1,6 @@
 <template id="lojas">
   <div>
+  <br>
     <section class="container">
       <div class="field has-addons">
         &nbsp;

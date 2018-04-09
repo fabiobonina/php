@@ -1,6 +1,17 @@
 <template id="vue-map">
     <div>
+    <br>
         <div class="columns">
+            <div class="column is-three-quarters">
+                <p class="control has-icons-right">
+                  <input class="input" id="autocompleteInput" type="text"placeholder="Informar localidade">
+                  <span class="icon is-small is-right">
+                    <i class="material-icons">my_location</i>
+                  </span>
+                </p>
+                <div id="map_canvas2"></div>
+                <button @click='addUluru'>Adicionar Uluru</button>
+            </div>
             <div class="column">
                 <p class="control has-icons-right">
                   <input class="input" v-model="search" type="text" placeholder="Filtar localidade">
@@ -20,16 +31,6 @@
                 <h2 v-else>O sue ponto de visualização contém {{ visibleMarkers.length }} localidades,
                     se você quiser mostrar locais específicos, faça o zoom ou digite sua solicitação no campo de pesquisa.
                 </h2>
-            </div>
-            <div class="column is-three-quarters">
-                <p class="control has-icons-right">
-                  <input class="input" id="autocompleteInput" type="text"placeholder="Informar localidade">
-                  <span class="icon is-small is-right">
-                    <i class="material-icons">my_location</i>
-                  </span>
-                </p>
-                <div id="map_canvas2"></div>
-                <button @click='addUluru'>Adicionar Uluru</button>
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
-var OssTec = Vue.extend({
-  template: '#oss-tec',
-  name: 'oss-tec',
+var OssStus = Vue.extend({
+  template: '#oss-stus',
+  name: 'oss-stus',
   data: function () {
     return {
       errorMessage: '',
