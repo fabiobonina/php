@@ -1,5 +1,5 @@
 
-<template id="loja-oss">
+<template id="oss-loja">
   <div>
     <nav class="is-right" aria-label="breadcrumbs">
       <ul>

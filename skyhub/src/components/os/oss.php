@@ -5,7 +5,7 @@
             <div v-for=" osLoja in osLojas" class="column is-one-third ">
                 <div class="card">
                     <header class="card-header">
-                    <p class="card-header-title"><a :href="'#/loja/' + osLoja.id +'/lojaos'" class="product-title">{{osLoja.nick}}</a></p>
+                    <p class="card-header-title"><a :href="'#/loja/' + osLoja.id +'/oss-loja'" class="product-title">{{osLoja.nick}}</a></p>
                         <a href="#" class="card-header-icon" aria-label="more options">
                             <span class="icon">
                                 <i class="fa fa-angle-down" aria-hidden="true"></i>

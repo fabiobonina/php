@@ -55,8 +55,9 @@
     <?php require_once 'src/components/os/os-del.php';?>
     <?php require_once 'src/components/os/os-tec.php';?> 
     <?php require_once 'src/components/os/os-amarrac.php';?>    
-    <?php require_once 'src/components/os/lojaOs.php';?>
-    <?php require_once 'src/components/os/localOs.php';?>
+    <?php require_once 'src/components/os/ossLoja.php';?>
+    <?php require_once 'src/components/os/ossLocal.php';?>
+    <?php require_once 'src/components/os/ossTec.php';?>
     
     <!-- /components os -->
     <!-- components user -->
@@ -76,7 +77,7 @@
     <!-- /components servicos -->
 
     <template id="naoEncontrado">
-      <div><h2>No encuentro: 404</h2></div>
+      <div><h2>Pagina não encontrado: 404</h2></div>
       
     </template>
   </div>
@@ -119,15 +120,17 @@
 <!-- /components bem -->
 <!-- components os -->
 <script src="src/components/os/os-grid.js"></script>
-<script src="src/components/os/oss.js"></script>
+
 <script src="src/components/os/os.js"></script>
 <script src="src/components/os/os-add.js"></script>
 <script src="src/components/os/os-edt.js"></script>
 <script src="src/components/os/os-del.js"></script>
 <script src="src/components/os/os-tec.js"></script>
 <script src="src/components/os/os-amarrac.js"></script>
-<script src="src/components/os/lojaOs.js"></script>
-<script src="src/components/os/localOs.js"></script>
+<script src="src/components/os/ossLoja.js"></script>
+<script src="src/components/os/ossLocal.js"></script>
+<script src="src/components/os/ossTec.js"></script>
+<script src="src/components/os/oss.js"></script>
 <!-- /components os -->
 <!-- components user -->
 <script src="src/components/user/user.js"></script>

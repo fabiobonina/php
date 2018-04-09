@@ -13,7 +13,7 @@
                 <span class="pull-right"> <span class="tag">{{ entry.categoria.name }}</span> &nbsp;  </span>
               </p>
               <p v-if="entry.bem" style="margin-bottom: 0;">{{entry.bem.name}} {{entry.bem.modelo}}  &nbsp; <a>#{{entry.bem.fabricanteNick}} </a> 
-              <p > <span class="icon mdi mdi-worker"></span> <a v-for="tecnico in entry.tecnicos"> {{tecnico.user}} |</a> </p>
+              <p > <span class="icon mdi mdi-worker"></span> <a v-for="tecnico in entry.tecnicos"> {{tecnico.userNick}} |</a> </p>
             </div>
             <div class="column is-6">
               <nav class="level">

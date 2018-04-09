@@ -1,12 +1,13 @@
-var LojaOss = Vue.extend({
-  template: '#loja-oss',
-  name: 'loja-oss',
+var OssLocal = Vue.extend({
+  template: '#oss-local',
+  name: 'oss-local',
   data: function () {
     return {
       errorMessage: '',
       successMessage: '',
       searchQuery: '',
       gridColumns: ['nick', 'name'],
+      modalLocalAdd: false,
       active: '1',
       estado: {'nivel0': '0', 'nivel1': '1','nivel2': '2'}
     };
@@ -24,7 +25,7 @@ var LojaOss = Vue.extend({
       return store.getters.getLojaId(this.$route.params._id);
     },
     oss()  {
-      return store.getters.getOssLoja(this.$route.params._id);
+      return store.getters.getOssLocal(this.$route.params._local);
     },
   }, // computed
   methods: {

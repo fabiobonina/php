@@ -52,8 +52,8 @@
               <li :class="$route.path == '/loja/'+ $route.params._id ? 'is-active' : ''">
                 <a><router-link :to="'/loja/'+ $route.params._id"> Locais</router-link></a>
               </li>
-              <li :class="$route.path == '/loja/'+ $route.params._id +'/lojaos' ? 'is-active' : ''">
-                <a><router-link :to="'/loja/'+ $route.params._id +'/lojaos'"> OS´s</router-link></a>
+              <li :class="$route.path == '/loja/'+ $route.params._id +'/oss-loja' ? 'is-active' : ''">
+                <a><router-link :to="'/loja/'+ $route.params._id +'/oss-loja'"> OS´s Loja</router-link></a>
               </li>
             </ul>
           </div>

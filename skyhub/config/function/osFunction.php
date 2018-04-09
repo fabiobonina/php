@@ -10,24 +10,25 @@
 	class OsFunction extends UsoFunction {
 
 		public function insertOsTec($tecnicos, $osId, $idLoja){
-		
+			
+			$osTecnicos   = new OsTecnicos();
 			$cont1 = '0';
 			$cont2 = '0';
 			foreach ($tecnicos as $value){
-				$osTecnicos   = new OsTecnicos();
 				$cont1++;
-
 				$tecId = $value['id'];
-				$userTec = $value['userNick'];
+				$userTec = $value['user'];
+				$userNickTec = $value['userNick'];
 				$hhTec = $value['hh'];
 
-				$validar = $this->listOsTec($osId, $tecId);
+				$validar = $osTecnicos->findTecOs( $tecId, $osId );
 				if(	count($validar) == '0' ){ 
 					
 					$osTecnicos->setOs($osId);
 					$osTecnicos->setLoja($idLoja);
 					$osTecnicos->setTecnico($tecId);
 					$osTecnicos->setUser($userTec);
+					$osTecnicos->setUserNick($userNickTec);
 					$osTecnicos->setHh($hhTec);
 					if($osTecnicos->insert()){
 						$cont2++;
@@ -64,12 +65,17 @@
 
 			return $res;
 		}
-		public function listOsTec( $osId, $tecId ){
-			$osTecnicos   = new OsTecnicos();
+		public function listOsTec( $osId ){
+			$osTecnicos = new OsTecnicos();
+			$mods 		= new Mod();
 			$arTecnicos = array();
-			foreach($osTecnicos->findAll() as $key => $value):if($value->os == $osId && $value->tecnico == $tecId)  {
-			$arTecnico = (array) $value;
-			array_push($arTecnicos, $arTecnico);
+			foreach($osTecnicos->findOs( $osId ) as $key => $value): {
+				$arTecnico = (array) $value;
+	        	$tecId = $value->tecnico;
+          		#MODS-------------------------------------------------------
+          		$arTecnico['mods'] = $this->listOsTecMod( $osId, $tecId );
+          		#MODS-------------------------------------------------------
+				array_push($arTecnicos, $arTecnico);
 			}endforeach;
 			
 			return $arTecnicos;
@@ -304,4 +310,5 @@
 			}
 			
 		}
+
 	}

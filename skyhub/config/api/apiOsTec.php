@@ -49,6 +49,18 @@ if($action == 'read'):
   $contPp_OsTt = 0;
   $arProprietario = array();
   $arOss = array();
+
+  
+  $status              = '0';
+  //$res['outros'] = $_POST;
+  #tecnicoI----------------------------------------------------------------------------------------------------------------------------
+  $tecI = array();
+  $tecNivel = '0';
+  $local= '2';
+  $categoria= '1';
+  $tecI = $osTecnicos->findTecStatus(  $tecId, $status );
+  $tecII = $osFunction->listOsTec($osId);
+  $res['outros'] = $tecII;
   #PROPRITARIO-----------------------------------------------------------------------------------------
   foreach($proprietario->findAll() as $key => $value):if($value->id == $acessoProprietario && $value->ativo == '0' ) {
     $arProprietario['id'] = $value->id;
@@ -56,73 +68,8 @@ if($action == 'read'):
     $arLojas = array();
     
     foreach($lojas->findAll() as $key => $value):if($value->proprietario == $acessoProprietario && (( $acessoNivel > 1 && $acessoGrupo == 'P' ) || $value->id == $acessoloja )){
-      $arLoja = (array) $value;
-      $lojaId = $value->id;
-      
-      $contLj_OsTt = 0;
-      #OSS--------------------------------------------------------------------------------------------
-      $estado = 3;
-      foreach($oss->findAll() as $key => $value):if($value->loja == $lojaId && $value->estado < $estado) {
-        $arOs = (array) $value;
-        
-        $osId = $value->id;
-        $localId = $value->local;
-        $bemId = $value->bem;
-        $servId = $value->servico;
-        
-        $contPp_OsTt++;
-        $contLj_OsTt++;
 
-        #LOCAIS-------------------------------------------------------------------------------------------
-        foreach($locais->findAll() as $key => $value):if($value->id == $localId) {
-          $arLocal = (array) $value;
-          $arOs['local']= $arLocal;
-        }endforeach;
-        #LOCAIS-------------------------------------------------------------------------------------------
-        
-        #BEM---------------------------------------------------------------------------------------------
-        foreach($bens->findAll() as $key => $value):if($value->id == $bemId) {
-          $arBem = (array) $value; //Bem
-          $arOs['bem']= $arBem;
-        }endforeach;
-        #BEM---------------------------------------------------------------------------------------------
 
-        #SERVICOS----------------------------------------------------------------------------------------
-        foreach($servicos->findAll() as $key => $value):if($value->id == $servId)  {
-          $arItem = $value;
-          $arOs['servico'] = $arItem;
-        }endforeach;
-        #SERVICOS----------------------------------------------------------------------------------------
-
-        #OSTECNICOS--------------------------------------------------------------------------------------------
-        $arTecnicos = array();
-        foreach($osTecnicos->findAll() as $key => $value):if($value->os == $osId)  {
-          $arTecnico = (array) $value;
-          $idTecnico = $value->tecnico;
-          #MODS--------------------------------------------------------------------------------------------
-          $arMods = array();
-          foreach($mods->findAll() as $key => $value):if($value->os == $osId && $value->tecnico == $idTecnico)  {
-            $arItem = $value;
-            array_push($arMods, $arItem);
-          }endforeach;
-          $arTecnico['mods'] = $arMods;
-          #MODS--------------------------------------------------------------------------------------------
-          //$arTecnico = $value;
-          array_push($arTecnicos, $arTecnico);
-        }endforeach;
-        $arOs['tecnicos'] = $arTecnicos;
-        #OSTECNICOS--------------------------------------------------------------------------------------------
-        
-        array_push($arOss, $arOs);
-      }endforeach;
-      
-      #OSS--------------------------------------------------------------------------------------------
-      $arLoja['osQt']= $contLj_OsTt;
-      $arProprietario['osQt']= $contPp_OsTt;
-
-      if($contLj_OsTt > 0){
-        array_push($arLojas, $arLoja );   
-      }
     }endforeach;
     $res['oss']= $arOss;
     #LOJAS---------------------------------------------------------------------------------------------
@@ -211,8 +158,8 @@ endif;
 #ATUALIZAR
 if($action == 'teste'):
     
-  $osId               = '1';
-  $tecnico['id']      = '1';
+  $osId               = '10';
+  $tecId              = '1';
   $tecnico2['id']     = '2';
   $tecnicos[0]        = $tecnico2;
   $tipo['id']         = '1';
@@ -226,18 +173,18 @@ if($action == 'teste'):
   $km                 = '10';
 
   
-  $valor              = '0';
+  $status              = '0';
   //$res['outros'] = $_POST;
   #tecnicoI----------------------------------------------------------------------------------------------------------------------------
   $tecI = array();
   $tecNivel = '0';
   $local= '2';
   $categoria= '1';
-  $tecI = $oss->ultimaOs( $local, $categoria);
-  //$tecII = $osFunction->somarHhValor($tecI, '10');
-  $res['outros'] = $tecI;
+  $tecI = $osTecnicos->findTecStatus(  $tecId, $status );
+  $tecII = $osFunction->listOsTec($osId);
+  $res['outros'] = $tecII;
  
-    
+  //listOsTec
   
 endif;
 

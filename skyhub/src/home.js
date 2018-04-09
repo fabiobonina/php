@@ -300,6 +300,9 @@ const getters = {
   getOssLoja: (state) => (loja) => {
     return state.oss.filter(todo => todo.loja === loja)
   },
+  getOssLocal: (state) => (local) => {
+    return state.oss.filter(todo => todo.local === local)
+  },
   getOsId: (state) => (id) => {
     return state.oss.find(todo => todo.id === id)
   },
@@ -347,14 +350,23 @@ var router = new VueRouter({
         { path: '', component: Dashboard },
         { path: 'oss', component: Oss },
         { path: 'lojas', component: Lojas },
+        { path: 'oss-tec', component: OssTec },
       ]
     },
     {path: '/loja/:_id', component: Loja,
       children: [
         { path: '', component: Locais },
-        { path: 'lojaos', component: LojaOss },
+        { path: 'oss-loja', component: OssLoja },
       ]
      },
+    {path: '/loja/:_id/local/:_local', component: Local,
+      children: [
+        { path: '', component: Bens },
+        { path: 'oss-local', component: OssLocal },
+      ]
+    },
+    {path: '/oss/:_id/os/:_os', component: Os, name: 'os'},
+    {path: '*', component: NaoEncontrado},
     /*{path: '/config', component: Loja,
     children: [
         {path: '', components: { 
@@ -365,14 +377,6 @@ var router = new VueRouter({
             }, name:'Configuração'},
       ]
     },*/
-    {path: '/loja/:_id/local/:_local', component: Local,
-      children: [
-        { path: '', component: Bens },
-        { path: 'localos', component: LocalOs },
-      ]
-    },
-    {path: '/oss/:_id/os/:_os', component: Os, name: 'os'},
-    {path: '*', component: NaoEncontrado}
   ]
 });
 

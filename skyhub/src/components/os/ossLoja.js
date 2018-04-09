@@ -1,13 +1,12 @@
-var LocalOs = Vue.extend({
-  template: '#local-os',
-  name: 'local-os',
+var OssLoja = Vue.extend({
+  template: '#oss-loja',
+  name: 'oss-loja',
   data: function () {
     return {
       errorMessage: '',
       successMessage: '',
       searchQuery: '',
       gridColumns: ['nick', 'name'],
-      modalLocalAdd: false,
       active: '1',
       estado: {'nivel0': '0', 'nivel1': '1','nivel2': '2'}
     };

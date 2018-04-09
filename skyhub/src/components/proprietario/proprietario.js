@@ -4,8 +4,6 @@ var Home = Vue.extend({
     return {
       errorMessage: '',
       successMessage: '',
-      active: '0',
-      gridColumns: ['displayName', 'name']
     };
   },
   created() {

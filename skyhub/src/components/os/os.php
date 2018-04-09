@@ -14,7 +14,7 @@
                 <span class="pull-right"> <span class="tag">{{ _os.categoria.name }}</span> &nbsp;  </span>
               </p>
               <p v-if="_os.bem">{{_os.bem.name}} {{_os.bem.modelo}}  &nbsp; <a>#{{_os.bem.fabricanteNick}} </a> 
-              <p v-for="tecnico in _os.tecnicos"> <a><span class="icon mdi mdi-worker"></span> {{tecnico.user}} &nbsp;</a> </p>
+              <p v-for="tecnico in _os.tecnicos"> <a><span class="icon mdi mdi-worker"></span> {{tecnico.userNick}} &nbsp;</a> </p>
             </div>
             <div class="column">
               <nav class="level">
@@ -157,7 +157,7 @@
           <div class="column">
             <div v-for="tecnico in _os.tecnicos">
               <p class="panel-heading is-small" >
-                  <a>@{{tecnico.user}} &nbsp;</a>
+                  <a>@{{tecnico.userNick}} &nbsp;</a>
               </p>
               <div v-for="mod in tecnico.mods">
                 <p class="panel-block">
@@ -185,7 +185,6 @@
                   <a v-on:click="modalModEdt = true; selecItem(mod)" class="button is-link is-small is-al">
                     <span class="mdi mdi-transit-transfer"></span>
                   </a>
-                  
                   <a v-on:click="modDel(mod)" class="delete"></a>
                 </p>    
               </div>
@@ -211,26 +210,6 @@
           </div>
         </div>
       <div>
-        <section class="container">
-          <div>
-            <br>
-            <!--grid-local
-                :data="locais"
-                :columns="gridColumns"
-                :filter-key="searchQuery">
-            </grid-local-->
-            <div v-for="tecnico in _os.tecnicos">
-            <p> <a>@{{tecnico.user}} &nbsp;</a><p>
-            <div>
-            <a v-on:click="modalDeslocAdd = true" class="button is-link is-al">
-              <span class="mdi mdi-walk"></span> Desloc.
-            </a>
-            </div>
-           
-            
-          </div>
-          </div>
-        </section>
         <desloc-add v-if="modalDeslocAdd" v-on:close="modalDeslocAdd = false" :data="_os"></desloc-add>
         <desloc-edt v-if="modalDeslocChg" v-on:close="modalDeslocChg = false" :data="modalItem"></desloc-edt>
         <desloc-chg v-if="modalDeslocEdt" v-on:close="modalDeslocEdt = false" :data="modalItem"></desloc-chg>
