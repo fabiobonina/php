@@ -261,7 +261,24 @@ if($action == 'osAmarar'):
     $res['message'] = "Error, nao foi possivel salvar os dados";      
   }
 endif;
-
+#DELETAR
+if($action == 'osDel'):
+  
+  $osId   = $_POST['osId'];
+  
+  if($oss->delete($osId)){
+    if($osTecnicos->deleteOs($osId)){
+      $res['error']   = false;
+      $res['message'] = 'OK, OS deletada com sucesso';
+    }else{
+        $res['error']   = true;
+        $res['message'] = 'Error, tecnico(s) da OS não foi deletado';
+    }
+  }else{
+      $res['error']   = true;
+      $res['message'] = 'Error, não foi deletar OS';
+  }
+endif;
 #DESCRICAO ADD
 if($action =='osNotaAdd'):
 
@@ -448,7 +465,41 @@ if($action == 'desloc'):
   //$res['outros'] = $_POST;
 endif;
 #DESLOCAMENTO----------------------------------------------------------------------
-#MOD-EDT----------------------------------------------------------------------
+#MOD-ADD----------------------------------------------------------------------
+if($action == 'modAdd'):
+  #Novo
+  $osId     = $_POST['osId'];
+  $tecId    = $_POST['tecId'];
+  //$tecnicos = $_POST['tecnicos'];
+  $trajeto  = $_POST['trajeto'];
+  $status   = $_POST['status'];
+  $dtInicio = $_POST['dtInicio'];
+  $dtFinal  = $_POST['dtFinal'];
+  $kmInicio = $_POST['kmInicio'];
+  $kmFinal  = $_POST['kmFinal'];
+  $valor    = $_POST['valor'];
+  $tempo    = $_POST['tempo'];
+  $hhValor  = $_POST['hhValor'];
+  
+  #tecnicoI----------------------------------------------------------------------------------------------------------------------------
+  $mods->setOs($osId);
+  $mods->setTecnico($tecId);
+  $mods->setTrajeto($trajeto['id']);
+  $mods->setStatus($status['id']);
+  $mods->setDtInicio($dtInicio);
+  $mods->setDtFinal($dtFinal);
+  $mods->setKmInicio($kmInicio);
+  $mods->setKmFinal($kmFinal);
+  $mods->setTempo($tempo);
+  $mods->setHhValor($hhValor);
+  $mods->setValor($valor);
+  $mods->setAtivo('1');
+  $item = $mods->insert();
+
+  $res['error']     = $item['error'];
+  $res['message'] = $item['message'];
+endif;
+#MOD-ADD----------------------------------------------------------------------
 if($action == 'modEdt'):
   #Novo
   $modId    = $_POST['modId'];

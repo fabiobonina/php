@@ -54,17 +54,30 @@ class Mod extends Crud{
 
 	public function insert(){
 		try{
-		$sql  = "INSERT INTO $this->table (os, tecnico, dtInicio, dtFinal, tempo, kmInicio, kmFinal, valor, trajeto, status) ";
-		$sql .= "VALUES (:os, :tecnico, :dtInicio, :dtFinal, :tempo, :kmInicio, :kmFinal, :valor, :trajeto, :status)";
-		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':os',$this->os);
-		$stmt->bindParam(':tecnico',$this->tecnico);
-		$stmt->bindParam(':dtInicio',$this->dtInicio);
-		$stmt->bindParam(':data',$this->data);
+			$sql  = "INSERT INTO $this->table (os, tecnico, dtInicio, dtFinal, tempo, kmInicio, kmFinal, hhValor, valor, trajeto, status, ativo )";
+			$sql .= "VALUES (:os, :tecnico, :dtInicio, :dtFinal, :tempo, :kmInicio, :kmFinal, :hhValor, :valor, :trajeto, :status, :ativo )";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':os',			$this->os);
+			$stmt->bindParam(':tecnico',	$this->tecnico);
+			$stmt->bindParam(':dtInicio',  	$this->dtInicio);
+			$stmt->bindParam(':dtFinal',  	$this->dtFinal);
+			$stmt->bindParam(':kmInicio', 	$this->kmInicio);
+			$stmt->bindParam(':kmFinal', 	$this->kmFinal);
+			$stmt->bindParam(':tempo',    	$this->tempo);
+			$stmt->bindParam(':hhValor',    $this->hhValor);
+			$stmt->bindParam(':valor',    	$this->valor);
+			$stmt->bindParam(':trajeto',	$this->trajeto);
+			$stmt->bindParam(':status', 	$this->status);
+			$stmt->bindParam(':ativo', 	 	$this->ativo);
+			$stmt->execute();
 
-		return $stmt->execute();
+			$res['error'] = false;
+			$res['message'] = "OK, atividade salva!";
+			return $res;
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 
 	}

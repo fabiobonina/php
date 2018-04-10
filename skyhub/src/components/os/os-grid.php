@@ -23,8 +23,9 @@
                 <p class="control"><a class="button is-static">Ordernar por:</a></p>
                 <span class="select">
                   <select v-model="configs.orderBy">
-                    <option value="name">Nome</option>
-                    <option value="seguimento">Seguimento</option>
+                    <option value="data">Data</option>
+                    <option value="local.name">Local</option>
+                    <option value="loja">Loja</option>
                   </select>
                 </span>
               </div>
@@ -87,7 +88,7 @@
                           <a @click="modalEdt = true; selecItem(entry)" class="dropdown-item">
                             <span class="mdi mdi-pencil"></span>Editar
                           </a>
-                          <a @click="modalDel = true; selecItem(entry)" class="dropdown-item">
+                          <a v-if="entry.status == '0' && entry.processo == '0'" @click="modalDel = true; selecItem(entry)" class="dropdown-item">
                             <span class="mdi mdi-delete"></span>Delete
                           </a>
                         </div>

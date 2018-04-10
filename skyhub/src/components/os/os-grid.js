@@ -14,8 +14,8 @@ Vue.component('os-grid', {
       modalDel: false,
       modalOs: false,
       configs: {
-        orderBy: 'name',
-        order: 'asc',
+        orderBy: 'data',
+        order: 'desc',
         search: ''
       }
     }
@@ -32,15 +32,19 @@ Vue.component('os-grid', {
       });
     },
     filteredData() {
-      const status = this.status;
-      const filter = this.configs.search && this.configs.search.toLowerCase();
+      var status = this.status;
+      var filter = this.configs.search && this.configs.search.toLowerCase();
       var list = _.orderBy(this.data, this.configs.orderBy, this.configs.order);
       //_.filter(list, repo => repo.status.indexOf(filter) >= 0);
-      
-      
+      if(status){
+      list = list.filter(function (row) {
+        return Number(row.status) === Number(status);
+      });
+      }else{
         list = list.filter(function (row) {
-          return Number(row.status) === Number(this.status);
-        })
+          return Number(row.status) <= 1;
+        });
+      }
       
       if (filter) {
         list = list.filter(function (row) {
@@ -48,7 +52,6 @@ Vue.component('os-grid', {
             return String(row[key]).toLowerCase().indexOf(filter) > -1
           })
         })
-        
       }
       return list;
     }

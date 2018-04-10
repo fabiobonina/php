@@ -24,9 +24,6 @@ Vue.component('os-del', {
     loja()  {
       return store.getters.getLojaId(this.$route.params._id);
     },
-    local()  {
-      return store.getters.getLocalId(this.$route.params._local);
-    },
     servicos() {
       return store.state.servicos;
     },
@@ -50,68 +47,35 @@ Vue.component('os-del', {
       }
     }
   },
-  created: function() {
-    this.$store.dispatch('fetchProdutos').then(() => {
-      console.log("Buscando dados dos produtos!")
-    });
-    this.dataT();
-    this.addCategoria();
-  },
-  methods: {
-    saveItem: function(){
-      this.errorMessage = []
 
-      if(this.checkForm()){
+  methods: {
+    deletarItem: function(data) {
+      if(confirm('Deseja realmente deletar ' + this.data.local.name +' - '+ this.data.data +'?')){
         this.isLoading = true
         var postData = {
-          loja: this.loja.id,
-          lojaNick: this.loja.nick,
-          local: this.local.id,
-          bem: this.bem,
-          categoria: this.categoria.id,
-          servico: this.servico.id,
-          tipoServ: this.servico.tipo,
-          tecnicos: this.tecnico,
-          data: this.dataOs,
-          dtCadastro: new Date().toJSON(),
-          estado: '0',
-          processo: '0',
-          status: '0',
-          ativo: this.ativo
+          osId: this.data.id
         };
-        //var formData = this.toFormData(postData);
-        //console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=cadastrar', postData)
-          .then(function(response) {
-            //console.log(response);
-            if(response.data.error){
-              this.errorMessage.push(response.data.message);
-              this.isLoading = false;
-            } else{
-              this.successMessage.push(response.data.message);
-              this.$store.dispatch("fetchOs").then(() => {
-                console.log("Atualizando dados OS!")
-              });
-              this.isLoading = false;
-              setTimeout(() => {
-                this.$emit('close');
-              }, 2000);  
-            }
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
-          //this.$store.state.create(data)
+        console.log(postData);
+        this.$http.post('./config/api/apiOs.php?action=osDel', postData).then(function(response) {
+          console.log(response);
+          if(response.data.error){
+            this.errorMessage.push( response.data.message);
+            this.isLoading = false;
+          } else{
+            this.successMessage.push(response.data.message);
+            this.isLoading = false;
+            this.atualizacao();
+            setTimeout(() => {
+              this.$emit('close');
+              this.errorMessage = [];
+              this.successMessage = [];
+            }, 2000);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
       }
-    },
-    checkForm:function(e) {
-      this.errorMessage = [];
-      if(!this.servico) this.errorMessage.push("Serviço necessário.");
-      if(!this.dataOs) this.errorMessage.push("Data necessário.");
-      if(!this.tecnico) this.errorMessage.push("Tecnico necessário.");
-      if(!this.ativo) this.errorMessage.push("Ativo necessário.");
-      if(!this.errorMessage.length) return true;
-      e.preventDefault();
     },
     dataT() {
       var datetime = new Date().toLocaleString();
@@ -121,11 +85,10 @@ Vue.component('os-del', {
       var dtTime = date[2] + "-" + date[1] + "-" + date[0];
       this.dataOs = dtTime;
     },
-    addCategoria: function () {
-      if( this.data ) {
-        this.categoria = this.data.categoria;
-        this.bem = this.data.id;
-      }
+    atualizacao: function () {
+      this.$store.dispatch("fetchOs").then(() => {
+        console.log("Atualizando dados OS!")
+      });
     }
   },
 });

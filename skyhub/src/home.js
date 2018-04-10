@@ -301,7 +301,7 @@ const getters = {
     return state.oss.filter(todo => todo.loja === loja)
   },
   getOssLocal: (state) => (local) => {
-    return state.oss.filter(todo => todo.local === local)
+    return state.oss.filter(todo => todo.local.id === local)
   },
   getOssStatus: (state) => (status) => {
     return state.oss.filter(todo => todo.status === status)

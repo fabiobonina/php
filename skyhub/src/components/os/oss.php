@@ -2,16 +2,6 @@
 <template id="oss">
     <div>
         <section class="container">
-            <div class="tabs is-small">
-                <ul>
-                <li :class="active==1 ? 'is-active' : ''" @click="active='1'"><a>Operação</a></li>
-                <li :class="active==0 ? 'is-active' : ''" @click="active='0'"><a>Instalação</a></li>
-                <li :class="active==2 ? 'is-active' : ''" @click="active='2'"><a>Ocioso</a></li>
-                </ul>
-            </div>
-        </section>
-        <br>
-        <section class="container">
             <div class="columns is-multiline  is-mobile">
                 <div v-for=" osLoja in osLojas" class="column is-one-third ">
                     <div class="card">

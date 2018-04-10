@@ -157,8 +157,12 @@
           <div class="column">
             <div v-for="tecnico in _os.tecnicos">
               <p class="panel-heading is-small" >
-                  <a>@{{tecnico.userNick}} &nbsp;</a>
+                <a>@{{tecnico.userNick}} &nbsp;</a>
+                <a v-on:click="modalModAdd = true; selecItem(tecnico)" class="button is-link is-small is-al">
+                  <span class="mdi mdi-transit-transfer">Add</span>
+                </a>
               </p>
+              
               <div v-for="mod in tecnico.mods">
                 <p class="panel-block">
                   {{ mod.status.tipo }}
@@ -213,6 +217,7 @@
         <desloc-add v-if="modalDeslocAdd" v-on:close="modalDeslocAdd = false" :data="_os"></desloc-add>
         <desloc-edt v-if="modalDeslocChg" v-on:close="modalDeslocChg = false" :data="modalItem"></desloc-edt>
         <desloc-chg v-if="modalDeslocEdt" v-on:close="modalDeslocEdt = false" :data="modalItem"></desloc-chg>
+        <mod-add v-if="modalModAdd" v-on:close="modalModAdd = false" :data="modalItem"></mod-add>
         <mod-edt v-if="modalModEdt" v-on:close="modalModEdt = false" :data="modalItem"></mod-edt>
         <nota-add v-if="modalNotaAdd" v-on:close="modalNotaAdd = false" :data="_os"></nota-add>
         <nota-edt v-if="modalNotaEdt" v-on:close="modalNotaEdt = false" :data="_os"></nota-edt>

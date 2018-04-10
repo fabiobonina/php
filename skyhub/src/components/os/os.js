@@ -11,6 +11,7 @@ var Os = Vue.extend({
       modalDeslocAdd: false,
       modalDeslocChg: false,
       modalDeslocEdt: false,
+      modalModAdd:    false,
       modalModEdt:    false,
       modalNotaAdd:   false,
       modalNotaEdt:   false,

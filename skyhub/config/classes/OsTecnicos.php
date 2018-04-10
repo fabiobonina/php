@@ -135,5 +135,16 @@ class OsTecnicos extends Crud{
 			return $res;
 		}
 	}
+	public function deleteOs($os){
+		try{
+		$sql  = "DELETE FROM $this->table WHERE os = :os";
+		$stmt = DB::prepare($sql);
+		$stmt->bindParam(':os', $os, PDO::PARAM_INT);
+		
+		return $stmt->execute(); 
+		} catch(PDOException $e) {
+			echo 'ERROR: ' . $e->getMessage();
+		}
+	}
 
 }

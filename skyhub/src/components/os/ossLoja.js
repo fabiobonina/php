@@ -5,10 +5,7 @@ var OssLoja = Vue.extend({
     return {
       errorMessage: '',
       successMessage: '',
-      searchQuery: '',
-      gridColumns: ['nick', 'name'],
-      active: '1',
-      estado: {'nivel0': '0', 'nivel1': '1','nivel2': '2'}
+      status: null,
     };
   },
   created: function() {
