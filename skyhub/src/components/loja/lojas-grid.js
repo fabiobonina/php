@@ -2,8 +2,6 @@ Vue.component('grid-lojas', {
   template: '#grid-lojas',
   props: {
     data: Array,
-    columns: Array,
-    filterKey: String
   },
   data: function () {
     return {

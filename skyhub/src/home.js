@@ -303,6 +303,9 @@ const getters = {
   getOssLocal: (state) => (local) => {
     return state.oss.filter(todo => todo.local === local)
   },
+  getOssStatus: (state) => (status) => {
+    return state.oss.filter(todo => todo.status === status)
+  },
   getOsId: (state) => (id) => {
     return state.oss.find(todo => todo.id === id)
   },
@@ -351,6 +354,7 @@ var router = new VueRouter({
         { path: 'oss', component: OssHome,
           children: [
           { path: '', component: Oss },
+          { path: 'oss-tec', component: OssTec },
           { path: 'oss-status', component: OssStus },
         ] },
         { path: 'lojas', component: Lojas },

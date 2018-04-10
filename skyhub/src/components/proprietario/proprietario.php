@@ -42,10 +42,9 @@
         <nav class="tabs">
           <div class="container">
             <ul>
-              <li :class="$route.path == '/' ? 'is-active' : ''" ><a><router-link to="/"> Dashboard</router-link></a></li>
-              <li :class="$route.path == '/oss' ? 'is-active' : ''" ><a><router-link to="/oss"> OS´s</router-link></a></li>
-              <li :class="$route.path == '/lojas' ? 'is-active' : ''" ><a><router-link to="/lojas"> Lojas</router-link></a></li>
-              <li :class="$route.path == '/oss-tec' ? 'is-active' : ''" ><a><router-link to="/oss-tec"> Tec</router-link></a></li>
+              <li :class="$route.path == '/' ? 'is-active' : ''" ><a href="#/" >Dashboard</a></li>
+              <li :class="$route.path == '/oss' ? 'is-active' : ''" ><a href="#/oss" >OS´s</a></li>
+              <li :class="$route.path == '/lojas' ? 'is-active' : ''" ><a href="#/lojas" >Lojas</a></li>
             </ul>
           </div>
         </nav>
