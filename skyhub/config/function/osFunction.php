@@ -188,6 +188,7 @@
 				}else{
 					$itemII = $oss->upProcesso($osId, $statusProcesso );
 					if( $itemII['error'] ){
+						$res['error']     = $itemII['error'];
 						array_push($arErros, $itemII['message']);
 					}else{
 						$res['error'] = $itemII['error'];

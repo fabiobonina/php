@@ -29,6 +29,7 @@ $res['message']    = array();
 $arDados= array();
 $arErros= array();
 $arMessage= array();
+$arSucesso 		= array();
 $action = 'read';
  
 
@@ -495,9 +496,28 @@ if($action == 'modAdd'):
   $mods->setValor($valor);
   $mods->setAtivo('1');
   $item = $mods->insert();
-
-  $res['error']     = $item['error'];
-  $res['message'] = $item['message'];
+  if( $item['error'] ){
+    $res['error']     = $item['error'];
+    array_push($arErros, $itemII['message']);
+  }else{
+    $itemII = $oss->upProcesso($osId, $status['processo'] );
+    if( $itemII['error'] ){
+      $res['error']     = $itemII['error'];
+      array_push($arErros, $itemII['message']);
+    }else{
+      $res['error'] = $itemII['error'];
+      array_push($arSucesso, $item['message']);
+      array_push($arSucesso, $itemII['message']);
+    }
+  }
+  if($res['error']){
+    $res['message'] = $arErros;
+    return $res;
+  }else{
+    $res['message'] = $arSucesso;
+    return $res;
+  }
+  
 endif;
 #MOD-ADD----------------------------------------------------------------------
 if($action == 'modEdt'):

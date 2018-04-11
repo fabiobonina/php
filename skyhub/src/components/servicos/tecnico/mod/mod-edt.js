@@ -147,8 +147,10 @@ Vue.component('mod-edt', {
       if( Number(this.data.kmFinal) < Number(this.data.kmInicio) ){
         this.errorMessage.push("Km Inicio não pode ser maior que Km Final!");
         return false;
-      }else{
+      }else if( this.data.trajeto.categoria == '0' ){
         this.data.valor = (( Number(this.data.kmFinal) - Number(this.data.kmInicio) )* this.data.trajeto.valor).toFixed(2);
+        return true;
+      }else{
         return true;
       }
     },
