@@ -10,6 +10,19 @@
         <!--#CONTEUDO -->
         <message :success="successMessage" :error="errorMessage"></message>
         <!--#INICIO -->
+        <div>
+        
+        </div>
+        <div class="tabs is-toggle is-fullwidth">
+          <ul >
+            <li v-for="item in deslocStatus" :class="status && status.id == item.id ? 'is-active' : ''" >
+              <a  @click="status = item" >
+                <span class="icon"><i class="fas fa-angle-left" aria-hidden="true"></i></span>
+                <span>{{item.name }}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
         <div class="field is-horizontal">
           <div class="field-label">
             <label class="label">Data</label>
@@ -84,58 +97,8 @@
         </div>
         <br>
         <br>
-        <br>
-        <!--#INICIO -->
-        <!--#FINAL ->
-        <div class="field is-horizontal">
-          <div class="field-body">
-            <div class="field">
-              <label class="label">Status Final</label>
-              <p class="control is-expanded has-icons-left has-icons-right">
-                <div class="select">
-                  <select v-model="statusFinal">
-                    <option>Select</option>
-                    <option v-for="option in statusDeslocamentos" v-bind:value="option">{{ option.name }}</option>
-                  </select>
-                </div>
-              </p>
-            </div>
-            <div class="field">
-              <label class="label">Data Final</label>
-              <p class="control">
-                <input v-model="dtFinal" class="input" type="datetime-local" v-bind:value="dtFinal" placeholder="Informe data">
-              </p>
-            </div>            
-          </div>
-        </div>
-        <div class="field is-horizontal">
-          <div class="field-body">
-            <div class="field">
-              <label class="label">Tipo Trajeto</label>
-              <p class="control is-expanded has-icons-left has-icons-right">
-                <div class="select">
-                  <select v-model="trajeto">
-                    <option>Select</option>
-                    <option v-for="option in trajetoDeslocamentos" v-bind:value="option">{{ option.name }}</option>
-                  </select>
-                </div>
-              </p>
-            </div>
-            <div v-if="trajeto.categoria == 0 "class="field">
-              <label class="label">Km</label>
-              <div class="control">
-                <input v-model="kmFinal" class="input" type="text" placeholder="Km">
-              </div>
-            </div>
-            <div v-if="trajeto.categoria == 1 "class="field">
-              <label class="label">Valor</label>
-              <div class="control">
-                <input v-model="valor" class="input" type="text" placeholder="Valor">
-              </div>
-            </div>
-          </div>
-        </div>
-        <! - -#FINAL -->
+        <br>     
+        <!--#FINAL -->
         <!--#CONTEUDO -->
       </section>
       <footer class="modal-card-foot field is-grouped is-grouped-right">

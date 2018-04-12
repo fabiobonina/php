@@ -115,5 +115,10 @@ Vue.component('desloc-add', {
       this.dtInicio = dtTime;
       this.date = dtTime;
     },
+    status(data) {
+      var status = store.state.deslocStatus;
+      status.find(todo => todo.id === data)
+      this.status = status;
+    },
   },
 });
