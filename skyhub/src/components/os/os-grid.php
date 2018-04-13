@@ -34,28 +34,30 @@
         </div>
         <article class="post" v-for="entry in filteredData">
           <div class="columns">
-            <div class="column is-6">
-              <a :href="'#/oss/' + $route.params._id + '/os/' + entry.id">
-                <h1 class="title is-4"> {{entry.lojaNick}} | {{entry.local.tipo}} - {{entry.local.name}} ({{entry.local.municipio}}/{{entry.local.uf}}) </h1>
-              </a>
-              <p class="subtitle" style="margin-bottom: 0;"> {{entry.data}} | {{entry.servico.name}}
+            <div class="column is-6 has-text-left">
+              <h1 class="title is-6">
+                <a :href="'#/oss/' + entry.loja + '/os/' + entry.id" style="margin-bottom: 0;">
+                  {{entry.lojaNick}} | {{entry.local.tipo}} - {{entry.local.name}} ({{entry.local.municipio}}/{{entry.local.uf}}) 
+                </a>
+              </h1>
+              <p class="subtitle is-6" style="margin-bottom: 0;"> {{entry.data}} | {{entry.servico.name}}
                 <span class="pull-right"> <span class="tag">{{ entry.categoria.name }}</span> &nbsp;  </span>
               </p>
               <p v-if="entry.bem" style="margin-bottom: 0;">{{entry.bem.name}} {{entry.bem.modelo}}  &nbsp; <a>#{{entry.bem.fabricanteNick}} </a> 
-              <p > <span class="icon mdi mdi-worker"></span> <a v-for="tecnico in entry.tecnicos"> {{tecnico.userNick}} |</a> </p>
+              <p> <span class="icon mdi mdi-worker"></span> <a v-for="tecnico in entry.tecnicos"> {{tecnico.userNick}} |</a> </p>
             </div>
             <div class="column is-6">
               <nav class="level">
                 <div class="level-item has-text-centered">
                   <div>
-                    <p class="heading">OS <span class="icon is-small"><i class="fa fa-wrench"></i></span></p>
-                    <p class="title">  {{entry.filial}}| {{entry.os}} </p>
+                    <p class="heading">OS<span class="icon is-small"><i class="fa fa-wrench"></i></span></p>
+                    <p class="title is-4"> {{entry.filial}} | {{entry.os}} </p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
                     <p class="heading">Ativo <i class="fa fa-barcode"></i></p>
-                    <p v-if="entry.bem" class="title">{{ entry.bem.plaqueta }}</p>
+                    <p class="title is-4" v-if="entry.bem">{{ entry.bem.plaqueta }}</p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered">
@@ -104,9 +106,12 @@
             <ul class="steps is-small">
               <li :class="entry.processo > 0 ?
                             'step-item is-completed is-info' : 'step-item'">
+              </li>
+              <li :class="entry.processo > 0 ?
+                            'step-item is-completed is-info' : 'step-item'">
                 <div class="step-marker"><span class="mdi mdi-arrow-right-bold"></span></div>
                 <div class="step-details is-primary is-completed">
-                  <p class="step-title">Em Transito</p>
+                  <p class="step-title ">Em Transito</p>
                 </div>
               </li>
               <li :class="entry.processo >= 1 ?
@@ -143,6 +148,7 @@
                 </div>
               </li>
             </ul>
+           
           </div>
 
         </article>

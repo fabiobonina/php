@@ -14,7 +14,7 @@
                 <span class="pull-right"> <span class="tag">{{ _os.categoria.name }}</span> &nbsp;  </span>
               </p>
               <p v-if="_os.bem">{{_os.bem.name}} {{_os.bem.modelo}}  &nbsp; <a>#{{_os.bem.fabricanteNick}} </a> 
-              <p v-for="tecnico in _os.tecnicos"> <a><span class="icon mdi mdi-worker"></span> {{tecnico.userNick}} &nbsp;</a> </p>
+              <p><span class="icon mdi mdi-worker"></span>  <a v-for="tecnico in _os.tecnicos">{{tecnico.userNick}} |</a> </p>
             </div>
             <div class="column">
               <nav class="level">
