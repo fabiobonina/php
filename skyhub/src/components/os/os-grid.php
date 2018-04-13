@@ -102,7 +102,7 @@
             </div>
           </div>
 
-          <div>
+          <!--div>
             <ul class="steps is-small">
               <li :class="entry.processo > 0 ?
                             'step-item is-completed is-info' : 'step-item'">
@@ -149,8 +149,37 @@
               </li>
             </ul>
            
+          </div-->
+          <div class="buttons has-addons is-centered is-toggle is-fullwidth" style="width: 100%;">
+            <a :class="entry.processo >= 1 ?
+                entry.processo == 1 ? 'button is-success is-selected' : 'button is-info is-selected is-small'   
+                : 'button is-light is-selected is-small' " style="width: 20%;">
+              <span :class="entry.processo == 1 ? 'mdi mdi-loading mdi-spin' : 'mdi mdi-arrow-right-bold' "></span>
+              <span>Em trasito</span>
+              <span class="title is-4 has-text-white mdi mdi-chevron-right"></span>
+            </a>
+            <span :class="entry.processo >= 2 ?
+                entry.processo == 2 ? 'button is-success is-selected' : 'button is-info is-selected is-small'   
+                : 'button is-light is-selected is-small' " style="width: 20%;">
+              <span :class="entry.processo == 2 ? 'mdi mdi-loading mdi-spin' : 'mdi mdi-wrench' "></span>
+              <span>Atendendo</span>
+              <span class="title is-4 has-text-white mdi mdi-chevron-right"></span>
+            </span>
+            <span :class="entry.processo >= 3 ?
+                entry.processo == 3 ? 'button is-success is-selected' : 'button is-info is-selected is-small'   
+                : 'button is-light is-selected is-small' " style="width: 20%;">
+              <span :class="entry.processo == 3 ? 'mdi mdi-loading mdi-spin' : 'mdi mdi-redo-variant' "></span>
+              <span>Retorno Viagem</span>
+              <span class="title is-4 has-text-white mdi mdi-chevron-right"></span>
+            </span>
+            <span :class="entry.processo >= 4 ?
+                entry.processo == 4 ? 'button is-success is-selected' : 'button is-info is-selected is-small'   
+                : 'button is-light is-selected is-small' " style="width: 20%;">
+              <span :class="entry.processo == 4 ? 'mdi mdi-loading mdi-spin' : 'mdi mdi-check' "></span>
+              <span>Completo</span>
+              <span class="title is-4 has-text-white mdi mdi-chevron-right"></span>
+            </span>
           </div>
-
         </article>
       </div>
     </section>

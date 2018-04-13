@@ -439,7 +439,7 @@ if($action == 'desloc'):
 
   #tecnicoI----------------------------------------------------------------------------------------------------------------------------
   $tecNivel = '0';
-  $tecI = $osFunction->insertTecMod( $osId, $tecnico['tecnico'], $tecnico['hh'], $status['id'], $status['processo'], $status['categoria'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
+  $tecI = $osFunction->insertTecMod( $osId, $tecnico['tecnico'], $tecnico['hh'], $status['id'], $status['processo'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
   $res['outros'] = $tecI;
   if( $tecI['error'] ){
     $res['error']     = $tecI['error'];
@@ -453,7 +453,7 @@ if($action == 'desloc'):
         $arMods   = array();
         if( $tec['tecnico'] != $tecnico['tecnico'] ){
           $tecNivel = '1';
-          $tecII = $osFunction->insertTecMod( $osId, $tec['tecnico'], $tec['hh'], $status['id'], $status['processo'], $status['categoria'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
+          $tecII = $osFunction->insertTecMod( $osId, $tec['tecnico'], $tec['hh'], $status['id'], $status['processo'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
           //$res['outro'] = $tecII;
           #desloc aberto
           $res['error']   = $tecII['error'];

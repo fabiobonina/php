@@ -17,7 +17,6 @@
           <ul >
             <li v-for="item in deslocStatus" :class="status && status.id == item.id ? 'is-active' : ''" >
               <a  @click="status = item" >
-                <span class="icon"><i class="fas fa-angle-left" aria-hidden="true"></i></span>
                 <span>{{item.name }}</span>
               </a>
             </li>
@@ -58,12 +57,6 @@
         </div>
         <div class="field is-horizontal">
           <div class="field-body">
-            <div class="field">
-              <label class="label">Status</label>
-              <p class="control">
-                <v-select label="name" v-model="status" :options="deslocStatus"></v-select>
-              </p>
-            </div>
             <div v-if="trajeto != null && trajeto.categoria == 0" class="field">
               <label class="label">Km</label>
               <div class="control">
