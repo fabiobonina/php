@@ -3,28 +3,32 @@
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">Deslocamento: {{data.tecnico.user}} </p>
+        <p class="modal-card-title">Deslocamento: {{data.tecnico.userNick}} </p>
         <button class="delete" aria-label="close" v-on:click="$emit('close')"></button>
       </header>
       <section class="modal-card-body">
         <!--#CONTEUDO -->
         <message :success="successMessage" :error="errorMessage"></message>
         <!--#INICIO -->
-        <div class="field is-horizontal">
-          <div class="field-body">
-          <div class="field">
-              <label class="label">Status</label>
-              <p class="control">
-                <v-select label="name" v-model="data.status" :options="deslocStatus"></v-select>
-              </p>
-            </div>
-            <div class="field">
-              <label class="label">Tipo Trajeto</label>
-              <p class="control">
-                <v-select label="name" v-model="data.trajeto" :options="deslocTrajetos"></v-select>
-              </p>
-            </div>     
-          </div>
+        <label class="label">Status</label>
+        <div class="tabs is-toggle is-fullwidth is-small">
+          <ul >
+            <li v-for="item in deslocStatus" :class="data.status && data.status.id == item.id ? 'is-active' : ''" >
+              <a  @click="data.status = item" >
+                <span>{{item.name }}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <label class="label">Tipo Trajeto</label>
+        <div class="tabs is-toggle is-fullwidth is-small">
+          <ul >
+            <li v-for="item in deslocTrajetos" :class="data.trajeto && data.trajeto.id == item.id ? 'is-active' : ''" >
+              <a  @click="data.trajeto = item" >
+                <span>{{item.name }}</span>
+              </a>
+            </li>
+          </ul>
         </div>
         <div class="field is-horizontal">
           <div class="field-body">

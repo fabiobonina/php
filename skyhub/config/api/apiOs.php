@@ -24,13 +24,13 @@ $notas        = new Nota();
 
 
 //$res['outros'] = array();
-//$res    = array('error' => true);
+$res    = array('error' => true);
 $res['message']    = array();
 $arDados= array();
 $arErros= array();
 $arMessage= array();
 $arSucesso 		= array();
-$action = 'read';
+$action = 'modAdd';
  
 
 //$res['user'] = $user;
@@ -147,71 +147,52 @@ if($action == 'osAdd'):
   $processo   = $_POST['processo'];
   $status     = $_POST['status'];
   $ativo      = $_POST['ativo'];
-  /*
-  
-  $tecnicos = array();
-  $tecnico1['id'] = '1';
-  $tecnico2['id'] = '2';
-  array_push($tecnicos, $tecnico1 );
-  array_push($tecnicos, $tecnico2 );
 
-  $loja = '1';
-  $lojaNick = 'AGESPISA';
-  $local = '2';
-  $bem = '3';
-  $categoria = '1';
-  $servico = 'COR001';
-  $tipoServ = '3';
-  //$tecnicos = 'tecnicos';
-  $data = date("Y-m-d");
-  $dtCadastro = date('Y-m-d H:i:s');
-  $estado = '0';
-  $processo = '0';
-  $status = '0';
-  $ativo = '0';
-  /*/
 
-  $dtUltimo   = '';
-  $osUltimoMan = $oss->ultimaOs( $local, $categoria);
-  if(isset($osUltimoMan->dtUltimo) ){
-    $dtUltimo = $osUltimoMan->dtUltimo;
-  }
-  $oss->setLoja($loja);
-  $oss->setLojaNick($lojaNick);
-  $oss->setLocal($local);
-  $oss->setBem($bem);
-  $oss->setCategoria($categoria);
-  $oss->setServico($servico);
-  $oss->setTipoServ($tipoServ);
-  $oss->setData($data);
-  $oss->setDtUltimoMan($dtUltimo);
-  $oss->setDtCadastro($dtCadastro);
-  $oss->setEstado($estado);
-  $oss->setProcesso($processo);
-  $oss->setStatus($status);
-  $oss->setAtivo($ativo);
-  # Insert
-  $osId = $oss->insert();
+  $etapaI = $oss->validarOs( $local, $categoria, $bem, $data );
+
+  if( !$etapaI ){
+    $dtUltimo   = '';
+    $osUltimoMan = $oss->ultimaOs( $local, $categoria);
+    if(isset($osUltimoMan->dtUltimo) ){
+      $dtUltimo = $osUltimoMan->dtUltimo;
+    }
+    $oss->setLoja($loja);
+    $oss->setLojaNick($lojaNick);
+    $oss->setLocal($local);
+    $oss->setBem($bem);
+    $oss->setCategoria($categoria);
+    $oss->setServico($servico);
+    $oss->setTipoServ($tipoServ);
+    $oss->setData($data);
+    $oss->setDtUltimoMan($dtUltimo);
+    $oss->setDtCadastro($dtCadastro);
+    $oss->setEstado($estado);
+    $oss->setProcesso($processo);
+    $oss->setStatus($status);
+    $oss->setAtivo($ativo);
+    # Insert
+    $osId = $oss->insert();
   
-  if($osId['error']){
-    $res['error'] = $osId['error'];
-    $res['message']= $osId['message'];
+    if($osId['error']){
+      $res['error'] = $osId['error'];
+      $res['message']= $osId['message'];
+    }else{
+      $item = $osFunction->insertOsTec( $tecnicos, $osId['id'] , $loja);
+
+      $res['error'] = $item['error'];
+      array_push($arMessage, $osId['message']);
+      array_push($arMessage, $item['message']);
+      $res['message']= $arMessage;
+    }
   }else{
-    $item = $osFunction->insertOsTec( $tecnicos, $osId['id'] , $loja);
-
-    $res['error'] = $item['error'];
-    array_push($arMessage, $osId['message']);
-    array_push($arMessage, $item['message']);
-    $res['message']= $arMessage;
+    $res['error']   = true;
+    $res['message'] = 'Já existe OS aberta com esse dados!';
   }
-
-
-
 endif;
-#CADASTRAR
+#OS-EDITAR
 if($action == 'osEdt'):
   //
-  
   $osId       = $_POST['osId'];
   $local      = $_POST['local'];
   $bem        = $_POST['bem'];
@@ -240,7 +221,7 @@ if($action == 'osEdt'):
 
 endif;
 
-#ATUALIZAR
+#OS-AMARAR
 if($action == 'osAmarar'):
 
   $os     = $_POST['os'];
@@ -262,7 +243,7 @@ if($action == 'osAmarar'):
     $res['message'] = "Error, nao foi possivel salvar os dados";      
   }
 endif;
-#DELETAR
+#OS-DELETAR
 if($action == 'osDel'):
   
   $osId   = $_POST['osId'];
@@ -280,7 +261,7 @@ if($action == 'osDel'):
       $res['message'] = 'Error, não foi deletar OS';
   }
 endif;
-#DESCRICAO ADD
+#NOTA-ADD
 if($action =='osNotaAdd'):
 
     $os       = $_POST['os'];
@@ -298,7 +279,7 @@ if($action =='osNotaAdd'):
     }
 endif;
 
-#DESCRICAO Editar
+#NOTA-EDTAR
 if($action =='osNotaEdt'):
 
     $id       = $_POST['id'];
@@ -361,7 +342,9 @@ if($action == 'osFechar'):
   $osId     = $_POST['os'];
   $status   = $_POST['status'];
   $dtFech = date("Y-m-d H:i:s");
+  $processo   = $_POST['processo'];
 
+  $oss->setProcesso($processo);
   $oss->setStatus($status);
   $oss->setDtFech($dtFech);
   
@@ -402,68 +385,31 @@ if($action == 'desloc'):
   $km       = $_POST['km'];
   $valor    = $_POST['valor'];
   
-  //$osId               = '1';
-  //$tecnico['id']      = '1';
-  //$tecnico2['id']     = '2';
-  //$tecnicos[1]        = $tecnico2;
-  //$trajeto['id']         = '1';
-  //$trajeto['valor']      = '0.85';
-  #inicil
-  //$status['id']       = '1';
-  //$status['categoria']= '1';
-  //$status['processo'] = '1';
-  //$date               = date("2018-03-01 07:30:00");
-  //$km                 = '1';
-  #serviço
-  //$status['id']       = '4';
-  //$status['categoria']= '2';
-  //$status['processo'] = '4';
-  //$date               = date("2018-03-01 09:00:00");
-  //$km                 = '30';
-  #retorno
-  //$status['id']       = '8';
-  //$status['categoria']= '2';
-  //$status['processo'] = '8';
-  //$date               = date("2018-03-01 13:00:00");
-  //$km                 = '30';
-
-  #retorno
-  //$status['id']       = '11';
-  //$status['categoria']= '0';
-  //$status['processo'] = '11';
-  //$date               = date("2018-03-01 14:00:00");
-  //$km                 = '50';
-  
-  //$valor              = '0';
-  //$res['outros'] = $_POST;
-
   #tecnicoI----------------------------------------------------------------------------------------------------------------------------
   $tecNivel = '0';
-  $tecI = $osFunction->insertTecMod( $osId, $tecnico['tecnico'], $tecnico['hh'], $status['id'], $status['processo'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
-  $res['outros'] = $tecI;
-  if( $tecI['error'] ){
-    $res['error']     = $tecI['error'];
-    array_push($res['message'], $tecI['message']);
-  }else{
+  $tecI = $osFunction->insertTecMod( $osId, $tecnico['tecnico'], $tecnico['userNick'], $tecnico['hh'], $status['id'], $status['processo'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
+  
+  $res['error']     = $tecI['error'];
+  array_push($arMessage, $tecI['message']);
+  if( !$res['error'] ){
     #tecnicos----------------------------------------------------------------------------------------------------------------------------
-    //$res['outros']= $tecnicos;
+
     if( $tecnicos != '' ){
       foreach ( $tecnicos as $tec){
         
         $arMods   = array();
         if( $tec['tecnico'] != $tecnico['tecnico'] ){
           $tecNivel = '1';
-          $tecII = $osFunction->insertTecMod( $osId, $tec['tecnico'], $tec['hh'], $status['id'], $status['processo'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
-          //$res['outro'] = $tecII;
+          $tecII = $osFunction->insertTecMod( $osId, $tec['tecnico'], $tec['userNick'], $tec['hh'], $status['id'], $status['processo'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
           #desloc aberto
           $res['error']   = $tecII['error'];
-          array_push( $res['message'], $tecII['message'] );
+          array_push($arMessage, $tecII['message'] );
         }
       }
       #tecnicos----------------------------------------------------------------------------------------------------------------------------
     }
   }
-  //$res['outros'] = $_POST;
+  $res['message'] = $arMessage;
 endif;
 #DESLOCAMENTO----------------------------------------------------------------------
 #MOD-ADD----------------------------------------------------------------------
@@ -481,49 +427,50 @@ if($action == 'modAdd'):
   $valor    = $_POST['valor'];
   $tempo    = $_POST['tempo'];
   $hhValor  = $_POST['hhValor'];
+  $modId = '';
   
-  #tecnicoI----------------------------------------------------------------------------------------------------------------------------
-  $mods->setOs($osId);
-  $mods->setTecnico($tecId);
-  $mods->setTrajeto($trajeto['id']);
-  $mods->setStatus($status['id']);
-  $mods->setDtInicio($dtInicio);
-  $mods->setDtFinal($dtFinal);
-  $mods->setKmInicio($kmInicio);
-  $mods->setKmFinal($kmFinal);
-  $mods->setTempo($tempo);
-  $mods->setHhValor($hhValor);
-  $mods->setValor($valor);
-  $mods->setAtivo('1');
-  $item = $mods->insert();
-  if( $item['error'] ){
+  #Valida se periodo da data, foi usado pelo tecnico 
+  $validacaoI = $osFunction->validarTrajetoMod( $tecId, $dtInicio, $dtFinal, $modId );
+  $res['error'] = $validacaoI['error'];
+  $res['outros'] = $validacaoI;
+  if( !$res['error'] ){
+    #tecnicoI----------------------------------------------------------------------------------------------------------------------------
+    $mods->setOs($osId);
+    $mods->setTecnico($tecId);
+    $mods->setTrajeto($trajeto['id']);
+    $mods->setStatus($status['id']);
+    $mods->setDtInicio($dtInicio);
+    $mods->setDtFinal($dtFinal);
+    $mods->setKmInicio($kmInicio);
+    $mods->setKmFinal($kmFinal);
+    $mods->setTempo($tempo);
+    $mods->setHhValor($hhValor);
+    $mods->setValor($valor);
+    $mods->setAtivo('1');
+    $item = $mods->insert();
+    
     $res['error']     = $item['error'];
-    array_push($arErros, $itemII['message']);
-  }else{
-    $itemII = $oss->upProcesso($osId, $status['processo'] );
-    if( $itemII['error'] ){
+    array_push($arMessage, $item['message']);
+
+    if( !$res['error'] ){
+      $itemII = $oss->upProcesso($osId, $status['processo'] );
       $res['error']     = $itemII['error'];
-      array_push($arErros, $itemII['message']);
-    }else{
-      $res['error'] = $itemII['error'];
-      array_push($arSucesso, $item['message']);
-      array_push($arSucesso, $itemII['message']);
+      array_push($arMessage, $itemII['message']); 
     }
-  }
-  if($res['error']){
-    $res['message'] = $arErros;
-    return $res;
   }else{
-    $res['message'] = $arSucesso;
-    return $res;
+    $arMessage   = $validacaoI['message'];
   }
+  $res['message'] = $arMessage;
   
+
 endif;
-#MOD-ADD----------------------------------------------------------------------
+#MOD-EDT----------------------------------------------------------------------
 if($action == 'modEdt'):
   #Novo
+  
+  $osId     = $_POST['osId'];
   $modId    = $_POST['modId'];
-  //$tecnico  = $_POST['tecnico'];
+  $tecId  = $_POST['tecId'];
   //$tecnicos = $_POST['tecnicos'];
   $trajeto  = $_POST['trajeto'];
   $status   = $_POST['status'];
@@ -535,27 +482,38 @@ if($action == 'modEdt'):
   $tempo    = $_POST['tempo'];
   $hhValor  = $_POST['hhValor'];
   
-  #tecnicoI----------------------------------------------------------------------------------------------------------------------------
-  $mods->setTrajeto($trajeto['id']);
-  $mods->setStatus($status['id']);
-  $mods->setDtInicio($dtInicio);
-  $mods->setDtFinal($dtFinal);
-  $mods->setKmInicio($kmInicio);
-  $mods->setKmFinal($kmFinal);
-  $mods->setTempo($tempo);
-  $mods->setHhValor($hhValor);
-  $mods->setValor($valor);
-  $mods->setAtivo('1');
-  $item = $mods->update( $modId );
+  #Valida se periodo da data, foi usado pelo tecnico 
+  $validacaoI = $osFunction->validarTrajetoMod( $tecId, $dtInicio, $dtFinal, $modId );
+  $res['error'] = $validacaoI['error'];
+  $res['outros'] = $validacaoI;
+  if( !$res['error'] ){
+    #tecnicoI----------------------------------------------------------------------------------------------------------------------------
+    $mods->setTrajeto($trajeto['id']);
+    $mods->setStatus($status['id']);
+    $mods->setDtInicio($dtInicio);
+    $mods->setDtFinal($dtFinal);
+    $mods->setKmInicio($kmInicio);
+    $mods->setKmFinal($kmFinal);
+    $mods->setTempo($tempo);
+    $mods->setHhValor($hhValor);
+    $mods->setValor($valor);
+    $mods->setAtivo('1');
+    $item = $mods->update( $modId );
 
-  $res['error']     = $item['error'];
-  $res['message'] = $item['message'];
-  //$res['outros'] = $_POST;
-  /*/$res['outros'] = $tecI;
-  if( $tecI['error'] ){
-  $res['error']     = $tecI['error'];
-  array_push($res['message'], $tecI['message']);
-  //$res['outros'] = $_POST;*/
+    $res['error']   = $item['error'];
+    $res['message'] = $item['message'];
+
+    if( !$res['error'] ){
+      $itemII = $oss->upProcesso($osId, $status['processo'] );
+      $res['error']     = $itemII['error'];
+      array_push($arMessage, $itemII['message']); 
+    }
+  }else{
+    $arMessage   = $validacaoI['message'];
+  }
+  $res['message'] = $arMessage;
+  $res;
+
 endif;
 #MOD-EDT----------------------------------------------------------------------
 if($action == 'modDel'):

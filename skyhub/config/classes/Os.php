@@ -209,8 +209,9 @@ class Os extends Crud{
 	}
 	public function fechar($id){
 		try{
-			$sql  = "UPDATE $this->table SET dtFech = :dtFech, status = :status WHERE id = :id";
+			$sql  = "UPDATE $this->table SET processo = :processo,  dtFech = :dtFech, status = :status WHERE id = :id";
 			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':processo', $this->processo);
 			$stmt->bindParam(':dtFech',	$this->dtFech);
 			$stmt->bindParam(':status',	$this->status);
 			$stmt->bindParam(':id', 	$id);
@@ -253,6 +254,21 @@ class Os extends Crud{
 			echo 'ERROR: ' . $e->getMessage();
 		}
 	}
+	public function validarOs( $local, $categoria, $bem, $data ){
+		try{
+			$sql  = "SELECT * FROM $this->table  WHERE BINARY local = :local AND categoria = :categoria AND (bem = :bem OR bem IS NULL) AND data = :data";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':local', 		$local);			
+			$stmt->bindParam(':bem',		$bem, PDO::PARAM_INT);
+			$stmt->bindParam(':categoria',	$categoria);
+			$stmt->bindParam(':data',		$data);
+			$stmt->execute();
+			return $stmt->fetch();
+		} catch(PDOException $e) {
+			echo 'ERROR: ' . $e->getMessage();
+		}
+	}
+
 
 	
 

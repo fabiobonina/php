@@ -57,25 +57,7 @@ Vue.component('mod-edt', {
       return store.state.deslocTrajetos;
     },
     deslocStatus: function () {
-      //var filterKey = this.data.processo
       return data = store.state.deslocStatus;
-      /*return data = data.filter(function (row) {
-        if( filterKey == '0') {
-          return row.processo == '1';
-        }
-        if( filterKey == '1') {
-          return Number(row.processo) < 4 && Number(row.processo) >0 || Number(row.processo) == 10;
-        }
-        if( filterKey == '2') {
-          return Number(row.processo) < 2 ;
-        }
-        if( filterKey == '3') {
-          return Number(row.categoria) == 1 ;
-        }
-        if( filterKey == '4') {
-          return Number(row.processo) < 4 ;
-        }
-      });*/
     }
   },
   methods: {
@@ -92,7 +74,9 @@ Vue.component('mod-edt', {
           this.data.valor     = '0';
         }
         var postData = {
+          osId:     this.data.os,
           modId:    this.data.id,
+          tecId:    this.data.tecnico.id,
           trajeto:  this.data.trajeto,
           status:   this.data.status,
           dtInicio: this.data.dtInicio,
@@ -103,7 +87,7 @@ Vue.component('mod-edt', {
           hhValor:  this.data.hhValor,
           valor:    this.data.valor
         };
-        //console.log(postData);
+        console.log(postData);
         this.$http.post('./config/api/apiOs.php?action=modEdt', postData).then(function(response) {
           //console.log(response);
           if(response.data.error){

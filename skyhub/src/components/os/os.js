@@ -45,7 +45,7 @@ var Os = Vue.extend({
         this.isLoading = true
         var postData = {
           os: this._os.id,
-          processo: '7',
+          processo: '4',
           status: Number(this._os.status) + 1
         };
         //console.log(postData);
@@ -100,6 +100,7 @@ var Os = Vue.extend({
         this.isLoading = true
         var postData = {
           os: this._os.id,
+          processo: '4',
           status: '3'
         };
         //console.log(postData);
@@ -123,7 +124,7 @@ var Os = Vue.extend({
       }
     },
     osValidar: function() {
-      if(confirm('Deseja realmente Fechar a OS?')){
+      if(confirm('Deseja realmente Encerrar a OS?')){
         this.isLoading = true
         var postData = {
           os: this._os.id,

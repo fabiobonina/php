@@ -45,7 +45,7 @@
           </div>
         </div>
 
-        <div>
+        <!--div>
           <ul class="steps is-small">
             <li :class="_os.processo > 0 ?
                           'step-item is-completed is-info' : 'step-item'">
@@ -88,6 +88,36 @@
               </div>
             </li>
           </ul>
+        </div-->
+        <div class="buttons has-addons is-centered is-toggle is-fullwidth" style="width: 100%;">
+          <a :class="_os.processo >= 1 ?
+              _os.processo == 1 ? 'button is-success is-selected' : 'button is-info is-selected is-small'   
+              : 'button is-light is-selected is-small' " style="width: 20%;">
+            <span :class="_os.processo == 1 ? 'mdi mdi-loading mdi-spin' : 'mdi mdi-arrow-right-bold' "></span>
+            <span>Em trasito</span>
+            <span class="title is-4 has-text-white mdi mdi-chevron-right"></span>
+          </a>
+          <span :class="_os.processo >= 2 ?
+              _os.processo == 2 ? 'button is-success is-selected' : 'button is-info is-selected is-small'   
+              : 'button is-light is-selected is-small' " style="width: 20%;">
+            <span :class="_os.processo == 2 ? 'mdi mdi-loading mdi-spin' : 'mdi mdi-wrench' "></span>
+            <span>Atendendo</span>
+            <span class="title is-4 has-text-white mdi mdi-chevron-right"></span>
+          </span>
+          <span :class="_os.processo >= 3 ?
+              _os.processo == 3 ? 'button is-success is-selected' : 'button is-info is-selected is-small'   
+              : 'button is-light is-selected is-small' " style="width: 20%;">
+            <span :class="_os.processo == 3 ? 'mdi mdi-loading mdi-spin' : 'mdi mdi-redo-variant' "></span>
+            <span>Retorno Viagem</span>
+            <span class="title is-4 has-text-white mdi mdi-chevron-right"></span>
+          </span>
+          <span :class="_os.processo >= 4 ?
+              _os.processo == 4 ? 'button is-success is-selected' : 'button is-info is-selected is-small'   
+              : 'button is-light is-selected is-small' " style="width: 20%;">
+            <span :class="_os.processo == 4 ? 'mdi mdi-loading mdi-spin' : 'mdi mdi-check' "></span>
+            <span>Completo</span>
+            <span class="title is-4 has-text-white mdi mdi-chevron-right"></span>
+          </span>
         </div>
       </div>
       <!-- Hero footer: will stick at the bottom -->
@@ -95,11 +125,14 @@
         <nav class="tabs">
           <div class="container">
             <ul>
+              <li class="is-active">
+                <a @click="$router.go(-1)" class="btn btn-default"><span class=" title is-5 mdi mdi-arrow-left"></span></a>
+              </li>
               <li :class="$route.path == '/loja/'+ $route.params._id ? 'is-active' : ''">
-                <a><router-link :to="'/loja/'+ $route.params._id"> Bens</router-link></a>
+                <a :href="'#/loja/'+ _os.loja +'/local/'+ _os.local.id "> Local</a>
               </li>
               <li :class="$route.path == '/loja/'+ $route.params._id +'/lojaos' ? 'is-active' : ''">
-                <a><router-link :to="'/loja/'+ $route.params._id +'/lojaos'"> OS´s</router-link></a>
+                <a :href="'#/loja/'+ $route.params._id +'/lojaos'"> OS´s</a>
               </li>
             </ul>
           </div>
@@ -126,7 +159,7 @@
           <a v-if="!_os.notas" v-on:click="modalNotaAdd = true" class="button is-link is-al">
             <span class="mdi mdi-note-text"></span> Nota
           </a>
-          <a v-if="_os.notas && _os.processo >= 4 && _os.status == 1" v-on:click="osConcluir()" class="button is-info is-al">
+          <a v-if="_os.notas && _os.processo >= 2 && _os.status == 1" v-on:click="osConcluir()" class="button is-info is-al">
             <span class="mdi mdi-check"></span> Concluir OS
           </a>
         </div>

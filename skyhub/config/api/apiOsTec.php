@@ -158,31 +158,30 @@ endif;
 #ATUALIZAR
 if($action == 'teste'):
     
-  $osId               = '10';
-  $tecId              = '1';
-  $tecnico2['id']     = '2';
-  $tecnicos[0]        = $tecnico2;
-  $tipo['id']         = '1';
-  $tipo['valor']      = '0.85';
-  #inicil
-  $status['id']       = '2';
-  $status['categoria']= '0';
-  $status['processo'] = '2';
-  $date1               = "2018-03-27 08:59:00";
-  $date2               = "2018-03-27T09:23";
-  $km                 = '10';
-
+  $modId    = '127';
+  $tecId    = '1';
+  $tecName  = 'Fabio';
   
-  $status              = '0';
+  $dtFinal  = "2018-03-15 13:00:00";
+
   //$res['outros'] = $_POST;
   #tecnicoI----------------------------------------------------------------------------------------------------------------------------
-  $tecI = array();
-  $tecNivel = '0';
-  $local= '2';
-  $categoria= '1';
-  $tecI = $osTecnicos->findTecStatus(  $tecId, $status );
-  $tecII = $osFunction->listOsTec($osId);
-  $res['outros'] = $tecII;
+  
+  $local      = '8';
+  $categoria  = '1';
+  $bem        = '';
+  $data = "2018-03-15";
+  
+
+
+  $etapaI = $oss->validarOs( $local, $categoria, $bem, $data );
+  //$tecI = $osTecnicos->findTecStatus(  $tecId, $status );
+  //$tecII = $mods->ModValidoII($tecId, $modId, $dtInicio, $dtFinal);
+  //$tecIII = $mods->ModValidoIII($tecId, $modId, $dtInicio, $dtFinal);
+  //$tecII = $osFunction->validarTrajetoMod( $tecId, $dtInicio, $dtFinal, $modId );
+  $res['II'] = $etapaI;
+  //$res['III'] = $tecIII;
+  //$res['date'] = $date;
  
   //listOsTec
   

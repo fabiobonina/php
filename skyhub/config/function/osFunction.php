@@ -98,76 +98,70 @@
 			#MODS--------------------------------------------------------------------------------------------
 			
 		}
-		public function listOsTecModValidacao( $osId, $tecId, $tecHh, $statusId, $trajetoId, $tipoValor, $dtFinal, $kmFinal, $valor ){
+		public function listOsTecModValidacao( $osId, $tecId, $tecHh, $statusId, $trajetoId, $tipoValor, $date, $kmFinal, $valor ){
 			$mods = new Mod();
-			
 			$res['error'] = false;
 			$arMessage = array();
 			$ativo = '0';
-
-			#MODS.................................
-			$data = $mods->findOsTecAtiv( $osId, $tecId, $ativo );
-			if( count($data) > '1' ){
-				$res['error'] 	= true;
-				$res['message'] ='Error, Mais de 1 trajeto aberto!';
-				return $res;
-			}elseif( count($data) == '0' ){
-				$res['error'] = false;
-				$res['data'] = '0';
-				return $res;
-			}else{
-				$value   		= $data['0'];
-				$datas['modId']	= $value->id;
-				$dtInicio 		= $value->dtInicio;
-				$kmInicio 		= $value->kmInicio;
-				# validar Status
-				if( $statusId > $value->status ){
-					$datas['statusNivel'] 	= '2';
-				}elseif( $statusId == $value->status ){
-					$datas['statusNivel'] 	= '1';
+				#MODS.................................
+				$data = $mods->findOsTecAtiv( $osId, $tecId, $ativo );
+				if( count($data) > '1' ){
+					$res['error'] 	= true;
+					$res['message'] ='Error, Mais de 1 trajeto aberto!';
+					return $res;
+				}elseif( count($data) == '0' ){
+					$res['error'] = false;
+					$res['data'] = '0';
+					return $res;
 				}else{
-					$res['error'] = true;
-					array_push($arMessage, 'Error, Status inferior ao Status inicial');
-				}
-				# validar data
-				$tempo = $this->dtDiff($dtInicio, $dtFinal);
-				if( isset($tempo['error']) && $tempo['error'] == true ){
-					$res['error'] =  $tempo['error'];
-					array_push($arMessage, $tempo['message']);
-				}else{
-					$datas['tempo'] 	= $tempo;
-					$datas['hhValor'] 	= $this->somarHhValor($tempo, $tecHh );
-				}	
-				# validar TipoTrajeto
-				if( $value->trajeto != $trajetoId){
-					$res['error'] = true;
-					array_push($arMessage, 'Error, Tipo de trajeto é diferente do inicial');
-				}else{
-					# validar KM
-					if( $trajetoId == '1'){
-						$valor = $this->somarValorKm($kmInicio, $kmFinal, $tipoValor);
-						if( isset($valor['error']) && $valor['error'] == true ){
-							$res['error'] =  $valor['error'];
-							array_push($arMessage, $valor['message']);
-						}else{
-							$datas['valor'] = $valor;
-						}
-					}elseif( $trajetoId == '2'){
-						$datas['valor'] = $value->valor + $valor;
+					$value   		= $data['0'];
+					$res['modId']	= $value->id;
+					$dtInicio 		= $value->dtInicio;
+					$kmInicio 		= $value->kmInicio;
+					# validar Status
+					if( $statusId > $value->status ){
+						$res['statusNivel'] 	= '2';
+					}elseif( $statusId == $value->status ){
+						$res['statusNivel'] 	= '1';
 					}else{
-						$datas['valor'] = '0';
+						$res['error'] = true;
+						array_push($arMessage, 'Error, Status inferior ao Status inicial');
+					}
+					# validar data
+					$tempo = $this->dtDiff($dtInicio, $date);
+					if( isset($tempo['error']) && $tempo['error'] == true ){
+						$res['error'] =  $tempo['error'];
+						array_push($arMessage, $tempo['message']);
+					}else{
+						$res['tempo'] 	= $tempo;
+						$res['hhValor'] 	= $this->somarHhValor($tempo, $tecHh );
+					}	
+					# validar TipoTrajeto
+					if( $value->trajeto != $trajetoId){
+						$res['error'] = true;
+						array_push($arMessage, 'Error, Tipo de trajeto é diferente do inicial');
+					}else{
+						# validar KM
+						if( $trajetoId == '1'){
+							$valor = $this->somarValorKm($kmInicio, $kmFinal, $tipoValor);
+							if( isset($valor['error']) && $valor['error'] == true ){
+								$res['error'] =  $valor['error'];
+								array_push($arMessage, $valor['message']);
+							}else{
+								$res['valor'] = $valor;
+							}
+						}elseif( $trajetoId == '2'){
+							$res['valor'] = $value->valor + $valor;
+						}else{
+							$res['valor'] = '0';
+						}
 					}
 				}
-			}
-			if($res['error']){
+
 				$res['message'] = $arMessage;
+				$res['data'] 	= '1';
 				return $res;
-			}else{
-				$datas['error'] = false;
-				$datas['data'] 	= '1';
-				return $datas;
-			}
-	
+				
 		}
 		public function modAdd( $osId, $tecId, $trajetoId, $statusId, $statusProcesso, $date, $km, $valor ){
 			$mods 			= new Mod();
@@ -246,41 +240,79 @@
 			return  $arDatas;
 			#MODS--------------------------------------------------------------------------------------------
 		}
-		public function insertTecMod( $osId, $tecId, $tecHh, $statusId, $statusProcesso, $trajetoId, $tipoValor, $date, $km, $valor, $tecNivel ){
+		public function insertTecMod( $osId, $tecId, $tecName, $tecHh, $statusId, $statusProcesso, $trajetoId, $tipoValor, $date, $km, $valor, $tecNivel ){
+			
+			$mods = new Mod();
 			$arMessage 		= array();
 			$res['error'] 	= false;
 
-			if( $trajetoId == '1' && $tecNivel == '1'){
-				$trajetoId 	= '3';
-				$tipoValor	= '0';
-				$km     	= '0';
-			}
-		
-			#validar informações
-			$tec = $this->listOsTecModValidacao( $osId, $tecId, $tecHh, $statusId, $trajetoId, $tipoValor, $date, $km, $valor );
-			$res['error'] = $tec['error'];
-			if( $res['error'] ){
-				$res['message'] = $tec['message'];
-			}else{
-				#desloc aberto
-				if ( $tec['data'] == '1' ) {
-					# InsertFinal
-					$itemI = $this->modUp( $osId, $trajetoId, $statusProcesso, $date, $km, $tec['tempo'], $tec['hhValor'], $tec['valor'], $tec['modId']);
-					$res['error'] = $itemI['error'];
-					array_push($arMessage, $itemI['message']);
-					
-				}
-				if ( ($tec['data'] == '0' || $tec['statusNivel']  == '2') && !$res['error'] ) {
-					#desloc inicial
-					$itemII =  $this->modAdd( $osId, $tecId, $trajetoId, $statusId, $statusProcesso, $date, $km, $valor );
-					$res['error'] = $itemII['error'];
-					array_push($arMessage, $itemII['message']);
+			$etapaI = $mods->ModValido($tecId, $date);
+			
+			if( !$etapaI ){
 
+				if( $trajetoId == '1' && $tecNivel == '1'){
+					$trajetoId 	= '3';
+					$tipoValor	= '0';
+					$km     	= '0';
 				}
+			
+				#validar informações
+				$tec = $this->listOsTecModValidacao( $osId, $tecId, $tecHh, $statusId, $trajetoId, $tipoValor, $date, $km, $valor );
+				$res['error'] = $tec['error'];
+				if( $res['error'] ){
+					$res['message'] = $tec['message'];
+				}else{
+					#desloc aberto
+					if ( $tec['data'] == '1' ) {
+						# InsertFinal
+						$itemI = $this->modUp( $osId, $trajetoId, $statusProcesso, $date, $km, $tec['tempo'], $tec['hhValor'], $tec['valor'], $tec['modId']);
+						$res['error'] = $itemI['error'];
+						array_push($arMessage, $itemI['message']);
+						
+					}
+					if ( ($tec['data'] == '0' || $tec['statusNivel']  == '2') && !$res['error'] ) {
+						#desloc inicial
+						$itemII =  $this->modAdd( $osId, $tecId, $trajetoId, $statusId, $statusProcesso, $date, $km, $valor );
+						$res['error'] = $itemII['error'];
+						array_push($arMessage, $itemII['message']);
+
+					}
+				}
+			}else{
+				$res['error'] = true;
+				array_push($arMessage, $tecName.' já tem um trajeto nesse periodo ('. $etapaI->dtInicio .' ate '. $etapaI->dtFinal .' ).');
 			}
 			$res['message'] = $arMessage;
 			return $res;
 			
+			
+		}
+		public function validarTrajetoMod( $tecId, $dtInicio, $dtFinal, $modId ){
+			
+			$mods = new Mod();
+			$arMessage 		= array();
+			$res['error'] 	= false;
+
+			$etapaI = $mods->ModValido($tecId, $dtInicio);
+			$etapaII = $mods->ModValido($tecId, $dtFinal);
+			
+			if( !$etapaI || $modId == $etapaI->id ){
+
+				array_push($arMessage, 'OK');
+			}else{
+
+				$res['error'] = true;
+				array_push($arMessage, 'Error, já tem um trajeto nesse periodo ('. $etapaI->dtInicio .' ate '. $etapaI->dtFinal .' ) ');
+			}
+			if( !$etapaII || $modId == $etapaII->id ){
+				array_push($arMessage, 'OK');
+				
+			}else{
+				$res['error'] = true;
+				array_push($arMessage, 'Error, já tem um trajeto nesse periodo ('. $etapaII->dtInicio .' ate '. $etapaII->dtFinal .' ) ');
+			}
+			$res['message'] = $arMessage;
+			return $res;
 		}
 
 	}
