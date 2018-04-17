@@ -300,7 +300,7 @@
 
 				array_push($arMessage, 'OK');
 			}else{
-
+				
 				$res['error'] = true;
 				array_push($arMessage, 'Error, já tem um trajeto nesse periodo ('. $etapaI->dtInicio .' ate '. $etapaI->dtFinal .' ) ');
 			}

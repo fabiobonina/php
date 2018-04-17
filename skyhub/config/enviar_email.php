@@ -15,16 +15,16 @@
 	
 	//Configurações
 	$Mailer->SMTPAuth = true;
-	$Mailer->SMTPSecure = 'tls';
+	$Mailer->SMTPSecure = 'ssl';
 	
 	//nome do servidor
 	$Mailer->Host = 'smtp.gmail.com';
 	//Porta de saida de e-mail 
-	$Mailer->Port = 587;
+	$Mailer->Port = 465;
 	
 	//Dados do e-mail de saida - autenticação
 	$Mailer->Username = 'bit.louc@gmail.com';
-	$Mailer->Password = 'B1tl0uc@';
+	$Mailer->Password = 'b1tl0uc@';
 	
 	//E-mail remetente (deve ser o mesmo de quem fez a autenticação)
 	$Mailer->From = 'bit.louc@gmail.com';

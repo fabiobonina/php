@@ -50,10 +50,10 @@
                 <a @click="$router.go(-1)" class="btn btn-default"><span class=" title is-5 mdi mdi-arrow-left"></span></a>
               </li>
               <li :class="$route.path == '/loja/'+ $route.params._id ? 'is-active' : ''">
-                <a href="'#/loja/'+ $route.params._id">Locais</a>
+                <a :href="'#/loja/'+ $route.params._id">Locais</a>
               </li>
               <li :class="$route.path == '/loja/'+ $route.params._id +'/oss-loja' ? 'is-active' : ''">
-                <a href="'#/loja/'+ $route.params._id +'/oss-loja'"> OS´s Loja</router-link></a>
+                <a :href="'#/loja/'+ $route.params._id +'/oss-loja'"> OS´s Loja</router-link></a>
               </li>
             </ul>
           </div>
