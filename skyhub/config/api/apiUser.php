@@ -186,13 +186,11 @@ endif;
 #ATUALIZAR
 if(isset($_POST['atualizar'])):
 
-  
 endif;
 
 #DESLOCAMENTO
 if(isset($_POST['deslocamento'])):
 
-  
 endif;
 
 #DELETAR

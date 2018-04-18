@@ -24,13 +24,13 @@ $notas        = new Nota();
 
 
 //$res['outros'] = array();
-$res    = array('error' => true);
-$res['message']    = array();
-$arDados= array();
-$arErros= array();
-$arMessage= array();
-$arSucesso 		= array();
-$action = 'modAdd';
+$res            = array('error' => true);
+$res['message'] = array();
+$arDados        = array();
+$arErros        = array();
+$arMessage      = array();
+$arSucesso 		  = array();
+$action         = 'modAdd';
  
 
 //$res['user'] = $user;

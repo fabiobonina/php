@@ -314,5 +314,31 @@
 			$res['message'] = $arMessage;
 			return $res;
 		}
+		public function os( $osId ){
 
+			$_os = $oss->find();
+			
+			$mods = new Mod();
+			$arMessage 		= array();
+			$res['error'] 	= false;
+
+			
+			if( !$etapaI || $modId == $etapaI->id ){
+
+				array_push($arMessage, 'OK');
+			}else{
+				
+				$res['error'] = true;
+				array_push($arMessage, 'Error, já tem um trajeto nesse periodo ('. $etapaI->dtInicio .' ate '. $etapaI->dtFinal .' ) ');
+			}
+			if( !$etapaII || $modId == $etapaII->id ){
+				array_push($arMessage, 'OK');
+				
+			}else{
+				$res['error'] = true;
+				array_push($arMessage, 'Error, já tem um trajeto nesse periodo ('. $etapaII->dtInicio .' ate '. $etapaII->dtFinal .' ) ');
+			}
+			$res['message'] = $arMessage;
+			return $res;
+		}
 	}
