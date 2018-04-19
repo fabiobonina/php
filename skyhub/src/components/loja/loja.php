@@ -5,7 +5,7 @@
       <!-- Hero head: will stick at the top -->
       <top></top>
       <!-- Hero content: will be in the middle -->
-      <div class="hero-body">
+      <div class="hero-body" style="padding:0;">
         <div class="container has-text-centered">
           <div class="columns">
             <div class="column is-two-fifths has-text-left">

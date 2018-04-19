@@ -124,7 +124,7 @@ class OsTecnicos extends Crud{
 		$stmt->bindParam(':tecnico', $tecId );
 		$stmt->bindParam(':os', $os );
 		$stmt->execute();
-		return $stmt->fetchAll();
+		return $stmt->fetch();
 
 		//$res['message'] = false;
 		//$res['message'] = "OK, deslocamento fechado com sucesso";

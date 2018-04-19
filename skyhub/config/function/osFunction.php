@@ -22,7 +22,7 @@
 				$hhTec = $value['hh'];
 
 				$validar = $osTecnicos->findTecOs( $tecId, $osId );
-				if(	count($validar) == '0' ){ 
+				if(	!$validar ){ 
 					
 					$osTecnicos->setOs($osId);
 					$osTecnicos->setLoja($idLoja);
@@ -89,7 +89,7 @@
 			$arMods = array();
 			foreach($mods->findOsTec( $osId, $tecId ) as $key => $value):{
 				$arItem =(array) $value;
-				$arItem['tecnico']	= $osTecnicos->find($value->tecnico);
+				$arItem['tecnico']	= $osTecnicos->findTecOs($tecId, $osId);
 				$arItem['status'] 	= $deslocStatus->find($value->status);
 				$arItem['trajeto'] 	= $deslocTrajetos->find($value->trajeto);
 				array_push($arMods, $arItem);

@@ -282,8 +282,8 @@ endif;
 #NOTA-EDTAR
 if($action =='osNotaEdt'):
 
-    $id       = $_POST['id'];
-    $descricao= $_POST['descricao'];
+    $id         = $_POST['id'];
+    $descricao  = $_POST['descricao'];
 
     $notas->setDescricao($descricao);
 

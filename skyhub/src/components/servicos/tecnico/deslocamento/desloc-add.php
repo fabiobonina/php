@@ -46,22 +46,6 @@
             </div>
           </div>
         </div>
-        <div class="field is-horizontal">
-          <div class="field-body">
-            <div class="field">
-              <label class="label">Km</label>
-              <div class="control">
-                <input v-model="km" class="input" :disabled="trajeto && trajeto.categoria > 0" type="number" placeholder="Km">
-              </div>
-            </div>
-            <div class="field">
-              <label class="label">Valor</label>
-              <div class="control">
-                <input v-model="valor" class="input" :disabled="trajeto && trajeto.categoria != 1" type="number" placeholder="Valor">
-              </div>
-            </div>    
-          </div>
-        </div>
         <div v-if="trajeto != null && trajeto.categoria == 0" class="field is-horizontal">
           <div class="field-label">
             <label class="label">Outros Tecnicos</label>
@@ -79,6 +63,23 @@
             </div>
           </div>
         </div>
+        <div class="field is-horizontal">
+          <div class="field-body">
+            <div class="field">
+              <label class="label">Km</label>
+              <div class="control">
+                <input v-model="km" class="input" :disabled="trajeto && trajeto.categoria > 0" type="number" placeholder="Km">
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Valor</label>
+              <div class="control">
+                <input v-model="valor" class="input" :disabled="trajeto && trajeto.categoria != 1" type="number" placeholder="Valor">
+              </div>
+            </div>    
+          </div>
+        </div>
+        
         <br>
         <br>
         <br>     
