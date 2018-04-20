@@ -174,12 +174,12 @@ if($action == 'teste'):
   
 
 
-  $etapaI = $oss->validarOs( $local, $categoria, $bem, $data );
+  //$etapaI = $oss->validarOs( $local, $categoria, $bem, $data );
   //$tecI = $osTecnicos->findTecStatus(  $tecId, $status );
   //$tecII = $mods->ModValidoII($tecId, $modId, $dtInicio, $dtFinal);
   //$tecIII = $mods->ModValidoIII($tecId, $modId, $dtInicio, $dtFinal);
-  //$tecII = $osFunction->validarTrajetoMod( $tecId, $dtInicio, $dtFinal, $modId );
-  $res['II'] = $etapaI;
+  $tecII = $osFunction->osEmail( $tecId );
+  $res['II'] = $tecII;
   //$res['III'] = $tecIII;
   //$res['date'] = $date;
  

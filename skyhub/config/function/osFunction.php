@@ -229,17 +229,6 @@
 
 
 		}
-		public function listOsNota( $osId ){
-			$notas = new Nota();
-			#MODS--------------------------------------------------------------------------------------------
-			$arDatas = array();
-			foreach($notas->findAll() as $key => $value):if($value->os == $osId )  {
-				$arItem = $value;
-				array_push($arDatas, $arItem);
-			}endforeach;
-			return  $arDatas;
-			#MODS--------------------------------------------------------------------------------------------
-		}
 		public function insertTecMod( $osId, $tecId, $tecName, $tecHh, $statusId, $statusProcesso, $trajetoId, $tipoValor, $date, $km, $valor, $tecNivel ){
 			
 			$mods = new Mod();
@@ -314,31 +303,66 @@
 			$res['message'] = $arMessage;
 			return $res;
 		}
-		public function os( $osId ){
+		public function osFull( $osId ){
+			$oss		= new Os();
+			$locais     = new Locais();
+			$bens       = new Bens();
+			$servicos   = new Servicos();
+			$categorias = new Categorias();
+			$notas      = new Nota();
 
-			$_os = $oss->find();
-			
-			$mods = new Mod();
-			$arMessage 		= array();
-			$res['error'] 	= false;
+			$os 			= $oss->find( $osId );
+			$os->local 		= $locais->find( $os->local );
+			$os->bem		= $bens->find( $os->bem );
+			$os->servico	= $servicos->find( $os->servico );
+			$os->categoria	= $categorias->find( $os->categoria );
+			$os->tecnicos	= $this->listOsTec( $osId );
+			$os->notas		= $notas->motaOs( $osId );
 
-			
-			if( !$etapaI || $modId == $etapaI->id ){
+			return $os;
+		}
+		public function osEmail( $osId ){
 
-				array_push($arMessage, 'OK');
-			}else{
-				
-				$res['error'] = true;
-				array_push($arMessage, 'Error, já tem um trajeto nesse periodo ('. $etapaI->dtInicio .' ate '. $etapaI->dtFinal .' ) ');
+			$os	= $this->osFull( $osId );
+			/* Recuperar os Dados do Formulário de Envio*/
+			$txtNome = 'BitLOUC';//$_POST["txtNome"];
+			$txtAssunto = 'OS: '.$os->lojaNick.' | '.$os->local->tipo.' - '.$os->local->name.', '.$os->data.' | '.$os->categoria->name;//$_POST["txtAssunto"];
+			$txtEmail = 'fabiobonina@gmail.com';//$_POST["txtEmail"];
+			$txtMensagem = 'OK';//$_POST["txtMensagem"];
+			$txtTec 	= '';
+			if($os->bem){
+				$txtBem = $os->bem->name .' '.$os->bem->modelo. ' &nbsp; #'.$os->bem->fabricanteNick;
+			}{
+				$txtBem = $os->bem;
 			}
-			if( !$etapaII || $modId == $etapaII->id ){
-				array_push($arMessage, 'OK');
+			foreach ($os->tecnicos as $value){
 				
-			}else{
-				$res['error'] = true;
-				array_push($arMessage, 'Error, já tem um trajeto nesse periodo ('. $etapaII->dtInicio .' ate '. $etapaII->dtFinal .' ) ');
+				//$userTec 	= $value->user;
+				$userNickTec= $value['userNick'];
+
+				
+				array_push($txtTec, 'Error, já tem um trajeto nesse periodo ('. $userNickTec .' ) ');
+			
+				
 			}
-			$res['message'] = $arMessage;
-			return $res;
+			
+			
+			/* Montar o corpo do email*/
+			$corpoMensagem = '<b>Ordem de Serviço:</b> '.$os->filial.' - '.$os->os
+							.'<br><b>'.$txtAssunto.'</b> '
+							.'<br><b>Municio:</b> '.$os->local->municipio .'/'. $os->local->uf 
+							.'<br><b>Serviço:</b> '.$os->servico->name
+							.'<br><b>Bem:</b> '.$txtBem
+							.'<br><b>Tecnicos:</b> '.$txtTec;
+			
+			/*<div class="column is-two-thirds has-text-left">
+              <h1 class="title is-5"> .'$os.lojaNick'. | .'$os.local.tipo'. - .'$os.local.name'. (.'$os.local.municipio'./.'$os.local.uf'.) </h1>
+              <p class="subtitle" style="margin-bottom: 0;"> .'$os.data'. | .'$os.servico.name'.
+                <span class="pull-right"> <span class="tag">.' $os.categoria.name '.</span> &nbsp;  </span>
+              </p>
+               
+              <p><span class="icon mdi mdi-worker"></span>  <a v-for="tecnico in $os.tecnicos">.'tecnico.userNick'. |</a> </p>
+            </div>*/
+			return $corpoMensagem;
 		}
 	}

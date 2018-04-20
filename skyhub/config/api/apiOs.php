@@ -30,7 +30,7 @@ $arDados        = array();
 $arErros        = array();
 $arMessage      = array();
 $arSucesso 		  = array();
-$action         = 'modAdd';
+$action         = 'read';
  
 
 //$res['user'] = $user;
@@ -70,46 +70,15 @@ if($action == 'read'):
       #OSS--------------------------------------------------------------------------------------------
       $status = 5;
       foreach($oss->findAll() as $key => $value):if($value->loja == $lojaId && $value->status < $status) {
-        $arOs = (array) $value;
-        
-        $osId     = $value->id;
-        $localId  = $value->local;
-        $bemId    = $value->bem;
-        $servId   = $value->servico;
-        $catId    = $value->categoria;
-        
-        $contPp_OsTt++;
-        $contLj_OsTt++;
 
-        #LOCAIS-----------------------------------------------------------
-        $arOs['local'] = $locais->find($localId);
-        #LOCAIS-----------------------------------------------------------
-        
-        #BEM--------------------------------------------------------------
-        $arOs['bem']= $bens->find($bemId);
-        #BEM--------------------------------------------------------------
-
-        #SERVICOS---------------------------------------------------------
-        $arOs['servico'] = $servicos->find( $servId );
-        #SERVICOS---------------------------------------------------------
-        #SERVICOS---------------------------------------------------------
-        $arOs['categoria'] = $categorias->find( $catId );
-        #SERVICOS---------------------------------------------------------
-
-        #OSTECNICOS-------------------------------------------------------
-        $arOs['tecnicos'] = $osFunction->listOsTec($osId);
-        #OSTECNICOS-------------------------------------------------------
-        
-        #OSNOTAS--------------------------------------------------------------------------------------------
-        $nota = $osFunction->listOsNota( $osId );
-
-        if( count($nota) > '0'){
-          $arOs['notas'] = $nota['0'];
-        }else{
-          $arOs['notas'] = '';
+        if( $value->status < 3 ){
+          $contPp_OsTt++;
+          $contLj_OsTt++;
         }
-        #OSNOTAS--------------------------------------------------------------------------------------------
+        $arOs = $osFunction->osFull( $value->id );
+        
         array_push($arOss, $arOs);
+
       }endforeach;
       
       #OSS--------------------------------------------------------------------------------------------

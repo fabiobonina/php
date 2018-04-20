@@ -36,10 +36,23 @@ class Nota extends Crud{
 			$stmt->bindParam(':descricao', $this->descricao);
 			$stmt->bindParam(':id', $id);
 			return $stmt->execute();
+
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
 		
+	}
+	public function motaOs($os){
+		try{
+			$sql  = "SELECT * FROM $this->table WHERE os = :os";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':os', $os, PDO::PARAM_INT);
+			$stmt->execute();
+			return $stmt->fetch();
+
+		} catch(PDOException $e) {
+			echo 'ERROR: ' . $e->getMessage();
+		}
 	}
 
 }

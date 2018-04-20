@@ -268,6 +268,17 @@ class Os extends Crud{
 			echo 'ERROR: ' . $e->getMessage();
 		}
 	}
+	public function osLoja( $lojaId ){
+		try{
+			$sql  = "SELECT * FROM $this->table  WHERE loja:loja ";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':loja', $lojaId, PDO::PARAM_INT);
+			$stmt->execute();
+			return $stmt->fetch();
+		} catch(PDOException $e) {
+			echo 'ERROR: ' . $e->getMessage();
+		}
+	}
 
 
 	

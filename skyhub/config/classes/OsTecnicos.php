@@ -82,9 +82,7 @@ class OsTecnicos extends Crud{
 			return $stmt->fetchAll();
 
 		} catch(PDOException $e) {
-			$res['error']	= true;
-			$res['message'] = $e->getMessage();
-			return $res;
+			echo 'ERROR: ' . $e->getMessage();
 		}
 	}
 	
