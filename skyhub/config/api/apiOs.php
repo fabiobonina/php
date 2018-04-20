@@ -71,7 +71,7 @@ if($action == 'read'):
       $status = 5;
       foreach($oss->findAll() as $key => $value):if($value->loja == $lojaId && $value->status < $status) {
 
-        if( $value->status < 3 ){
+        if( $value->status < 2 ){
           $contPp_OsTt++;
           $contLj_OsTt++;
         }

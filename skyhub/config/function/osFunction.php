@@ -329,7 +329,7 @@
 			$txtAssunto = 'OS: '.$os->lojaNick.' | '.$os->local->tipo.' - '.$os->local->name.', '.$os->data.' | '.$os->categoria->name;//$_POST["txtAssunto"];
 			$txtEmail = 'fabiobonina@gmail.com';//$_POST["txtEmail"];
 			$txtMensagem = 'OK';//$_POST["txtMensagem"];
-			$txtTec 	= '';
+			$txtTec 	= array();
 			if($os->bem){
 				$txtBem = $os->bem->name .' '.$os->bem->modelo. ' &nbsp; #'.$os->bem->fabricanteNick;
 			}{
@@ -339,14 +339,12 @@
 				
 				//$userTec 	= $value->user;
 				$userNickTec= $value['userNick'];
-
 				
 				array_push($txtTec, 'Error, já tem um trajeto nesse periodo ('. $userNickTec .' ) ');
-			
 				
 			}
 			
-			
+			$txtTec = 
 			/* Montar o corpo do email*/
 			$corpoMensagem = '<b>Ordem de Serviço:</b> '.$os->filial.' - '.$os->os
 							.'<br><b>'.$txtAssunto.'</b> '
