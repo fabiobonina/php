@@ -9,7 +9,7 @@
         <div class="container has-text-centered">
           <div class="columns">
             <div class="column is-two-fifths has-text-left">
-              <h1 class="title"> {{ loja.nick }} </h1>
+              <h1 class="title  is-4"> {{ loja.nick }} </h1>
               <p class="subtitle" style="margin-bottom: 0;"> {{ loja.name }}
                 <span class="pull-right"  v-for="categoria in loja.categoria"> <span class="tag">{{ categoria.tag }}</span> &nbsp;  </span>
               </p>

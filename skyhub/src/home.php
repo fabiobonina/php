@@ -12,9 +12,9 @@
       </main>
     </div>
         
-    <?php require_once 'src/pages/top.php';?>
-    <?php require_once 'src/pages/rodape.php';?>
-    <?php require_once 'src/pages/config.php';?>
+    <?php require_once 'src/components/includes/top.php';?>
+    <?php require_once 'src/components/includes/rodape.php';?>
+    <?php require_once 'src/components/includes/config.php';?>
     <?php require_once 'src/pages/dashboard.php';?>
     <!-- components proprietario -->
     <?php require_once 'src/components/proprietario/proprietario.php';?>
@@ -65,7 +65,7 @@
     <?php require_once 'src/components/user/user.php';?>
     <!-- /components user -->
     <!-- components _uso -->
-    <?php require_once 'src/components/_uso/message.php';?>
+    <?php require_once 'src/components/includes/message.php';?>
     <!-- /components _usor -->
     <!-- components servicos -->
     <?php require_once 'src/components/servicos/nota/nota-add.php';?>
@@ -77,18 +77,20 @@
     <?php require_once 'src/components/servicos/tecnico/mod/mod-edt.php';?>
     <?php require_once 'src/components/servicos/tecnico/tecnico.php';?>
     <!-- /components servicos -->
+    <!-- components projeto -->
+    <?php require_once 'src/components/projeto/projeto.php';?>
+    <!-- /components projeto -->
 
     <template id="naoEncontrado">
       <div><h2>Pagina não encontrado: 404</h2></div>
-      
     </template>
   </div>
 <!-- /.container -->
 </div>
 <!-- /.content-wrapper -->
-<script src="src/pages/top.js"></script>
-<script src="src/pages/rodape.js"></script>
-<script src="src/pages/config.js"></script>
+<script src="src/components/includes/top.js"></script>
+<script src="src/components/includes/rodape.js"></script>
+<script src="src/components/includes/config.js"></script>
 <script src="src/pages/dashboard.js"></script>
 <!-- components proprietario -->
 <script src="src/components/proprietario/proprietario.js"></script>
@@ -140,7 +142,7 @@
 <script src="src/components/user/user.js"></script>
 <!-- /components user -->
 <!-- components _uso -->
-<script src="src/components/_uso/message.js"></script>
+<script src="src/components/includes/message.js"></script>
 <!-- /components _uso -->
 <!-- components servicos -->
 <script src="src/components/servicos/nota/nota-add.js"></script>
@@ -152,6 +154,8 @@
 <script src="src/components/servicos/tecnico/mod/mod-edt.js"></script>
 <script src="src/components/servicos/tecnico/tecnico.js"></script>
 <!-- /components servicos -->
-
+<!-- components projeto -->
+<script src="src/components/projeto/projeto.js"></script>
+<!-- /components projeto -->
 <!-- /components servicos -->
 <script src="src/home.js"></script>

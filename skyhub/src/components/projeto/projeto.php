@@ -1,4 +1,4 @@
-<template id="home">
+<template id="projeto">
   <div>
     <section class="hero is-link">
       <!-- Hero head: will stick at the top -->
@@ -51,6 +51,10 @@
       </div>
     </section>
     <div>
+      <input v-model="message" v-on:input="set_data()" >
+      <p>User input: {{ message }}</p>
+      <p>Data from storage: {{ item }}</p>
+      <button class="button is-info" v-on:click="remove_data()">Deletar</button>
       <router-view></router-view>
     </div>
   </div>

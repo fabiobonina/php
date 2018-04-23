@@ -8,7 +8,7 @@
         <div class="container has-text-centered">
           <div class="columns">
             <div class="column is-two-fifths has-text-left">
-              <h1 class="title"> {{ local.tipo }} - {{ local.name }}</h1>
+              <h1 class="title is-4"> {{ local.tipo }} - {{ local.name }}</h1>
               <p class="subtitle" style="margin-bottom: 0;"> {{ local.municipio }}/{{ local.uf }}
                 <span class="pull-right"  v-for="categoria in local.categoria"> <span class="tag">{{ categoria.tag }}</span> &nbsp;  </span>
               </p>

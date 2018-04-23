@@ -6,6 +6,7 @@
 	require_once '../classes/Nota.php';
 	require_once '../classes/DeslocStatus.php';
 	require_once '../classes/DeslocTrajetos.php';
+	require_once '../emailPHP.php';
 
 	class OsFunction extends UsoFunction {
 
@@ -322,36 +323,44 @@
 			return $os;
 		}
 		public function osEmail( $osId ){
-
-			$os	= $this->osFull( $osId );
+			
+			$tecnicos   = new Tecnicos();
+			$emailPhp   = new Email();
+			$os			= $this->osFull( $osId );
+			
 			/* Recuperar os Dados do Formulário de Envio*/
-			$txtNome = 'BitLOUC';//$_POST["txtNome"];
-			$txtAssunto = 'OS: '.$os->lojaNick.' | '.$os->local->tipo.' - '.$os->local->name.', '.$os->data.' | '.$os->categoria->name;//$_POST["txtAssunto"];
-			$txtEmail = 'fabiobonina@gmail.com';//$_POST["txtEmail"];
-			$txtMensagem = 'OK';//$_POST["txtMensagem"];
-			$txtTec 	= array();
+			$txtNome 		= 'BitLOUC';//$_POST["txtNome"];
+			$txtAssunto 	= 'OS: '.$os->lojaNick.' | '.$os->local->tipo.' - '.$os->local->name.', '.$os->data.' | '.$os->categoria->name;//$_POST["txtAssunto"];
+			$txtEmail 		= 'bitlouc@gmail.com';//$_POST["txtEmail"];
+			$txtMensagem 	= 'OK';//$_POST["txtMensagem"];
+			$txtTec 		= array();
+			$txtEmails	 	= array();
+			
 			if($os->bem){
 				$txtBem = $os->bem->name .' '.$os->bem->modelo. ' &nbsp; #'.$os->bem->fabricanteNick;
 			}{
 				$txtBem = $os->bem;
 			}
 			foreach ($os->tecnicos as $value){
+				$tec	= $tecnicos->find( $value['tecnico'] );
 				
-				//$userTec 	= $value->user;
-				$userNickTec= $value['userNick'];
-				
-				array_push($txtTec, 'Error, já tem um trajeto nesse periodo ('. $userNickTec .' ) ');
+				$user['email'] 		= $tec->email;
+				$user['userNick'] 	= $value['userNick'];
+
+				array_push($txtTec, $user['userNick'] );
+				array_push($txtEmails, $user );
 				
 			}
-			
-			$txtTec = 
+			//$array = array('lastname', 'email', 'phone');
+			$comma_separated = implode(", ", $txtTec);
+
 			/* Montar o corpo do email*/
 			$corpoMensagem = '<b>Ordem de Serviço:</b> '.$os->filial.' - '.$os->os
 							.'<br><b>'.$txtAssunto.'</b> '
 							.'<br><b>Municio:</b> '.$os->local->municipio .'/'. $os->local->uf 
 							.'<br><b>Serviço:</b> '.$os->servico->name
 							.'<br><b>Bem:</b> '.$txtBem
-							.'<br><b>Tecnicos:</b> '.$txtTec;
+							.'<br><b>Tecnicos:</b> '.$comma_separated;
 			
 			/*<div class="column is-two-thirds has-text-left">
               <h1 class="title is-5"> .'$os.lojaNick'. | .'$os.local.tipo'. - .'$os.local.name'. (.'$os.local.municipio'./.'$os.local.uf'.) </h1>
@@ -360,7 +369,8 @@
               </p>
                
               <p><span class="icon mdi mdi-worker"></span>  <a v-for="tecnico in $os.tecnicos">.'tecnico.userNick'. |</a> </p>
-            </div>*/
-			return $corpoMensagem;
+			</div>*/
+			return $emailPhp->smtpmailer($txtEmails, $txtEmail, $txtNome, $txtAssunto, $corpoMensagem);
+			//return $corpoMensagem;
 		}
 	}

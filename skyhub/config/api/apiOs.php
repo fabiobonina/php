@@ -148,7 +148,7 @@ if($action == 'osAdd'):
       $res['message']= $osId['message'];
     }else{
       $item = $osFunction->insertOsTec( $tecnicos, $osId['id'] , $loja);
-
+      $tecII = $osFunction->osEmail( $osId['id'] );
       $res['error'] = $item['error'];
       array_push($arMessage, $osId['message']);
       array_push($arMessage, $item['message']);

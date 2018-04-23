@@ -158,8 +158,8 @@ endif;
 #ATUALIZAR
 if($action == 'teste'):
     
-  $modId    = '127';
-  $tecId    = '1';
+  $modId    = '150';
+  $tecId    = '150';
   $tecName  = 'Fabio';
   
   $dtFinal  = "2018-03-15 13:00:00";

@@ -374,6 +374,19 @@ var router = new VueRouter({
       ]
     },
     {path: '/oss/:_id/os/:_os', component: Os, name: 'os'},
+    {path: '/projeto', component: Projeto,
+      children: [
+        { path: '', component: Dashboard },
+        { path: 'oss', component: OssHome,
+          children: [
+          { path: '', component: Oss },
+          { path: 'oss-tec', component: OssTec },
+          { path: 'oss-status', component: OssStus },
+        ] },
+        { path: 'lojas', component: Lojas },
+        { path: 'oss-tec', component: OssTec },
+      ]
+    },
     {path: '*', component: NaoEncontrado},
     /*{path: '/config', component: Loja,
     children: [

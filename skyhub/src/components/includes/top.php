@@ -1,6 +1,4 @@
 <template id="top">
-
-
       <!-- Hero head: will stick at the top -->
       <div class="hero-head">
         <nav class="navbar">
@@ -18,9 +16,10 @@
             </div>
             <div id="navbarMenuHeroA" class="navbar-menu">
               <div class="navbar-end">
-                <a class="navbar-item is-active" ><router-link to="/"> Home </router-link></a>
+                <a :class="$route.path == '/' ? 'navbar-item is-active': 'navbar-item' " ><router-link to="/"> Home </router-link></a>
+                <a v-if="user.nivel > 2" :class="$route.path == '/projeto' ? 'navbar-item is-active': 'navbar-item' " ><router-link to="/projeto"> Projeto </router-link></a>
                 <!--a class="navbar-item"><router-link to="/oss"> OS's</router-link> </a-->
-                <a class="navbar-item" href="__index.php"> SkyHub </a>
+                <a v-if="user.nivel > 2" class="navbar-item" href="__index.php"> SkyHub </a>
                 <span class="navbar-item">
                   <a class="button is-primary is-inverted">
                     <span class="icon">
