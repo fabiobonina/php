@@ -47,6 +47,34 @@
                     <p><button v-on:click="modalOsAdd = true; selecItem(entry)" class="button">Abrir OS</button></p>
                   </div>
                 </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Ação</p>
+                    <div class="dropdown is-right is-hoverable">
+                      <div class="dropdown-trigger">
+                        <a aria-haspopup="true" aria-controls="dropdown-menu1">
+                          <span class="title is-2 mdi mdi-apps"></span>
+                        </a>
+                      </div>
+                      <div class="dropdown-menu" id="dropdown-menu1" role="menu">
+                        <div class="dropdown-content">
+                          <a @click="modalOsAdd = true; selecItem(entry)" class="dropdown-item">
+                            <span class="mdi mdi-wrench"></span>OS
+                          </a>
+                          <a @click="modalCat = true; selecItem(entry)" class="dropdown-item">
+                            <span class="mdi mdi-tag-multiple"></span>Categoria
+                          </a>
+                          <a @click="modalEdt = true; selecItem(entry)" class="dropdown-item">
+                            <span class="mdi mdi-pencil"></span>Edit
+                          </a>
+                          <a @click="modalDel = true; selecItem(entry)" class="dropdown-item">
+                            <span class="mdi mdi-delete"></span>Delete
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </nav>
             </div>
           </div>

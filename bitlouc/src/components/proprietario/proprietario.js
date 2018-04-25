@@ -1,16 +1,23 @@
-var List = Vue.extend({
-  template: '#list',
+var Home = Vue.extend({
+  template: '#home',
   data: function () {
     return {
       errorMessage: '',
       successMessage: '',
-      active: '0',
-      gridColumns: ['displayName', 'name']
     };
   },
   created() {
+    this.$store.dispatch("fetchIndex").then(() => {
+      console.log("Buscando dados para inicial!")
+    });
+    this.$store.dispatch("fetchOs").then(() => {
+      console.log("Buscando dados OS!")
+    });
   },
   computed: {
+    user() {
+      return store.state.user;
+    },
     proprietario() {
       return store.state.proprietario;
     },

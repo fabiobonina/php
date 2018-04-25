@@ -4,14 +4,14 @@ require_once '_crud.php';
 class Usuarios extends Crud{
 	
 	protected $table = 'users';
-	private $nome;
+	private $name;
 	private $email;
 	private $nickuser;
 	private $senha;
 	private $nivel;
 	private $avatar;
 	private $proprientario;
-	private $grupoLoja;
+	private $grupo;
 	private $loja;
 	private $ativo;
 	private $datacadastro;
@@ -19,12 +19,12 @@ class Usuarios extends Crud{
 
 
 
-	public function setNome($nome){
-		$nome = iconv('UTF-8', 'ASCII//TRANSLIT', $nome);
-		$this->nome = strtoupper ($nome);
+	public function setName($name){
+		$name = iconv('UTF-8', 'ASCII//TRANSLIT', $name);
+		$this->name = strtoupper ($name);
 	}
-	public function getNome(){
-		return $this->nome;
+	public function getName(){
+		return $this->name;
 	}
 	public function setEmail($email){
 		$this->email = $email;
@@ -41,8 +41,8 @@ class Usuarios extends Crud{
 	public function setProprietario($proprietario){
 		$this->proprietario = $proprietario;
 	}
-	public function setGrupoLoja($grupoLoja){
-		$this->grupoLoja = $grupoLoja;
+	public function setGrupo($grupo){
+		$this->grupo = $grupo;
 	}
 	public function setLoja($loja){
 		$this->loja = $loja;
@@ -66,7 +66,7 @@ class Usuarios extends Crud{
 		$sql  = "INSERT INTO $this->table (name, email, user, password, avatar, nivel, ativo, data_cadastro, data_ultimo_login) ";
 		$sql .= "VALUES (:name, :email, :user, :password, :avatar, :nivel, :ativo, :data_cadastro, :data_ultimo_login)";
 		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':name',$this->nome);
+		$stmt->bindParam(':name',$this->name);
 		$stmt->bindParam(':email',$this->email);
 		$stmt->bindParam(':user',$this->nickuser);
 		$stmt->bindParam(':password',$this->senha);
@@ -85,9 +85,9 @@ class Usuarios extends Crud{
 
 	public function update($id){
 		try{
-			$sql  = "UPDATE $this->table SET nome = :nome, email = :email, nickuser = :nickuser, senha = :senha, WHERE id = :id";
+			$sql  = "UPDATE $this->table SET name = :name, email = :email, nickuser = :nickuser, senha = :senha, WHERE id = :id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':nome', $this->nome);
+			$stmt->bindParam(':name', $this->name);
 			$stmt->bindParam(':email', $this->email);
 			$stmt->bindParam(':nickuser',$this->nickuser);
 			$stmt->bindParam(':senha',$this->senha);
@@ -117,10 +117,11 @@ class Usuarios extends Crud{
 						$loginUser = $show->user;
 						$loginAvatar = $show->avatar;
 						$loginProprietario = $show->proprietario;
-						$loginGrupo = $show->grupoLoja;
+						$loginGrupo = $show->grupo;
 						$loginLoja = $show->loja;
 						$loginNivel = $show->nivel;
 						$loginAtivo = $show->ativo;
+						$loginDtCadastro = $show->data_cadastro;
 					}
 					if($loginAtivo == 0){
 						try{
@@ -141,30 +142,44 @@ class Usuarios extends Crud{
 						$_SESSION['loginGrupo'] = $loginGrupo;
 						$_SESSION['loginLoja'] = $loginLoja;
 						$_SESSION['loginNivel'] = $loginNivel;
+						$_SESSION['loginDtCadastro'] = $loginDtCadastro;
 
-						echo '<div class="alert alert-success">
-								<button type="button" class="close" data-dismiss="alert">×</button>
-								<strong>Logado com Sucesso!</strong> Redirecionando para o sistema.
-							</div>';
+						echo '<div class="alert alert-success alert-dismissible">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						<h4><i class="icon fa fa-check"></i> Logado!</h4>
+						Sucesso, redirecionando para o sistema.
+					  	</div>';
 						header("Refresh: 1, index.php?acao=welcome");
-						
 					}else{
-						echo '<div class="alert alert-danger">
-								<button type="button" class="close" data-dismiss="alert">×</button>
-								<strong>Erro ao logar!</strong> contate o administrador do sistema.
-							</div>';
+						echo '<div class="alert alert-danger alert-dismissible">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						<h4><i class="icon fa fa-ban"></i> Erro ao logar!</h4>
+						Contate o administrador do sistema.
+						</div>';
 					}
 					
 				}else{
-					echo '<div class="alert alert-danger">
-						<button type="button" class="close" data-dismiss="alert">×</button>
-						<strong>Erro ao logar!</strong> Os dados estão incorretos.
-					</div>';
+					echo '<div class="alert alert-danger alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<h4><i class="icon fa fa-ban"></i> Erro!</h4>
+					Os dados estão incorretos.
+				    </div>';
 				}
 			} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
-		
+	}
+	public function updateLogar($id){
+		// SELECIONAR BANCO DE DADOS
+		try{
+			$sql  = "UPDATE $this->table SET data_ultimo_login = :data_ultimo_login WHERE id = :id";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':data_ultimo_login', $this->datalogin);
+			$stmt->bindParam(':id', $id);
+			return $stmt->execute();
+		} catch(PDOException $e) {
+			echo 'ERROR: ' . $e->getMessage();
+		}
 	}
 
 

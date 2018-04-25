@@ -2,23 +2,58 @@ Vue.component('os-grid', {
   template: '#os-grid',
   props: {
     data: Array,
-    columns: Array,
-    estado: String
+    status: String,
   },
   data: function () {
     return {
       sortKey: '',
       showModal: false,
-      modalItem: {}
+      modalItem: {},
+      modalTec: false,
+      modalEdt: false,
+      modalDel: false,
+      modalOs: false,
+      configs: {
+        orderBy: 'data',
+        order: 'desc',
+        search: ''
+      }
     }
   },
   computed: {
-    filteredData: function () {
-      var filterKey = this.estado
+    user()  {
+      return store.state.user;
+    },
+    filteredData2: function () {
+      var filterKey = 0
       var data = this.data
       return data = data.filter(function (row) {
         return row.processo === filterKey;
       });
+    },
+    filteredData() {
+      var status = this.status;
+      var filter = this.configs.search && this.configs.search.toLowerCase();
+      var list = _.orderBy(this.data, this.configs.orderBy, this.configs.order);
+      //_.filter(list, repo => repo.status.indexOf(filter) >= 0);
+      if(status){
+      list = list.filter(function (row) {
+        return Number(row.status) === Number(status);
+      });
+      }else{
+        list = list.filter(function (row) {
+          return Number(row.status) <= 1;
+        });
+      }
+      
+      if (filter) {
+        list = list.filter(function (row) {
+          return Object.keys(row).some(function (key) {
+            return String(row[key]).toLowerCase().indexOf(filter) > -1
+          })
+        })
+      }
+      return list;
     }
   },
   methods: {

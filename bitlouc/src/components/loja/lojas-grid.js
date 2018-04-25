@@ -2,51 +2,50 @@ Vue.component('grid-lojas', {
   template: '#grid-lojas',
   props: {
     data: Array,
-    columns: Array,
-    filterKey: String
   },
   data: function () {
-    var sortOrders = {}
-    this.columns.forEach(function (key) {
-      sortOrders[key] = 1
-    })
     return {
-      sortKey: '',
-      sortOrders: sortOrders
+      modalItem: {},
+      modalEdt: false,
+      modalDel: false,
+      modalCat: false,
+      configs: {
+        orderBy: 'name',
+        order: 'asc',
+        search: ''
+      }
     }
   },
   computed: {
-    filteredData: function () {
-      var sortKey = this.sortKey
-      var filterKey = store.state.search && store.state.search.toLowerCase()
-      var order = this.sortOrders[sortKey] || 1
-      var data = this.data
-      if (filterKey) {
-        data = data.filter(function (row) {
-          return Object.keys(row).some(function (key) {
-            return String(row[key]).toLowerCase().indexOf(filterKey) > -1
-          })
-        })
+    user()  {
+      return store.state.user;
+    },
+    filteredData() {
+      const filter = this.configs.search && this.configs.search.toLowerCase(); 
+      const list = _.orderBy(this.data, this.configs.orderBy, this.configs.order);
+      if (_.isEmpty(filter)) {
+        return list;
       }
-      if (sortKey) {
-        data = data.slice().sort(function (a, b) {
-          a = a[sortKey]
-          b = b[sortKey]
-          return (a === b ? 0 : a > b ? 1 : -1) * order
+      //return _.filter(list, repo => repo.name.indexOf(filter) >= 0);
+
+      return _.filter(list, function (row) {
+        return Object.keys(row).some(function (key) {
+          return String(row[key]).toLowerCase().indexOf(filter) > -1
         })
-      }
-      return data
-    }
-  },
-  filters: {
-    capitalize: function (str) {
-      return str.charAt(0).toUpperCase() + str.slice(1)
+      })
     }
   },
   methods: {
-    sortBy: function (key) {
-      this.sortKey = key
-      this.sortOrders[key] = this.sortOrders[key] * -1
+    selecItem: function(data){
+      this.modalItem = data;
+    },
+    onAtualizar: function(){
+      this.$store.dispatch("fetchIndex").then(() => {
+        console.log("Buscando dados para inicial!")
+      });
+      this.modalEdt = false,
+      this.modalDel = false,
+      this.modalCat = false
     }
   }
 });

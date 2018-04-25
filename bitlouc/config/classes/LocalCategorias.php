@@ -5,39 +5,29 @@ try {
 class LocalCategorias extends Crud{
 
 	protected $table = 'tb_local_categoria';
-	private $cliente;
-	private $localida;
-	private $plaqueta;
+	private $local;
+	private $categoria;
+	private $ativo;
 
-	public function setCliente($cliente){
-		$this->cliente = $cliente;
+	public function setLocal($local){
+		$this->local = $local;
 	}
-	public function setLocalidade($localidade){
-		$this->localidade = $localidade;
+	public function setCategoria($categoria){
+		$this->categoria = $categoria;
 	}
-	public function setPlaqueta($plaqueta){
-		$plaqueta = iconv('UTF-8', 'ASCII//TRANSLIT', $plaqueta);
-		$this->plaqueta = strtoupper ($plaqueta);
+	public function setAtivo($ativo){
+		$this->ativo = $ativo;
 	}
-	public function getPlaqueta(){
-		return $this->plaqueta;
-	}
-	public function setData($data){
-		$this->data = $data;
-	}
-
 
 	public function insert(){
 		try{
-		$sql  = "INSERT INTO $this->table (cliente, localidade, plaqueta, data) ";
-		$sql .= "VALUES (:cliente, :localidade, :plaqueta, :data)";
-		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':cliente',$this->cliente);
-		$stmt->bindParam(':localidade',$this->localidade);
-		$stmt->bindParam(':plaqueta',$this->plaqueta);
-		$stmt->bindParam(':data',$this->data);
-
-		return $stmt->execute();
+			$sql  = "INSERT INTO $this->table ( local, categoria ) ";
+			$sql .= "VALUES ( :local, :categoria )";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':local', $this->local );
+			$stmt->bindParam(':categoria', $this->categoria );
+				
+			return $stmt->execute();
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
@@ -46,12 +36,9 @@ class LocalCategorias extends Crud{
 
 	public function update($id){
 		try{
-		$sql  = "UPDATE $this->table SET cliente = :cliente, localidade = :localidade, plaqueta = :plaqueta, data = :data WHERE id = :id ";
+		$sql  = "UPDATE $this->table SET ativo = :ativo WHERE id = :id ";
 		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':cliente',$this->cliente);
-		$stmt->bindParam(':localidade', $this->localidade);
-		$stmt->bindParam(':plaqueta',$this->plaqueta);
-		$stmt->bindParam(':data',$this->data);
+		$stmt->bindParam(':ativo',$this->ativo);
 		$stmt->bindParam(':id', $id);
 		return $stmt->execute();
 		} catch(PDOException $e) {
@@ -59,27 +46,20 @@ class LocalCategorias extends Crud{
 		}
 		
 	}
-
-	public function findAtiv($Cod){
+	public function deleteLocal($local){
 		try{
-		$sql  = "SELECT * FROM $this->table WHERE id = :id";
+		$sql  = "DELETE FROM $this->table WHERE local = :local";
 		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':id', $Cod, PDO::PARAM_INT);
-		$stmt->execute();
-		return $stmt->fetch();
+		$stmt->bindParam(':local', $local, PDO::PARAM_INT);
+		
+		return $stmt->execute(); 
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
 	}
 
-
-	
-
-
 }
 }catch( Exception $e ) {
-
     echo $e->getMessage();
     return false;
-
 }

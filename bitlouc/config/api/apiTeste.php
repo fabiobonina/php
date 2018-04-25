@@ -4,23 +4,25 @@ header('Content-Type: text/html; charset=utf-8');
 
 
 
+  require_once '../function/osFunction.php';
+  $osFunction = new OsFunction();
+
   function __autoload($class_name){
 		require_once '../classes/' . $class_name . '.php';
 	}
 
-  $usuarios = new Usuarios();
-  $loja = new Loja();
-  $lojaGrupos = new LojaGrupos();
-  $sistemas = new Sistema();
-  $grupos = new Grupos();
-  
-  $descricao = new Descricao();
-  $ativos = new Ativos();
-  $locais = new Locais();
-  $locaisGrupos = new LocaisGrupos();
+  $usuarios     = new Usuarios();
+  $osTecnicos   = new OsTecnicos();
+  //$lojaGrupos   = new LojaGrupos();
+  $sistemas     = new Sistema();
+  //$grupos       = new Grupos();
+  $descricao    = new Descricao();
+  $ativos       = new Ativos();
+  $locais       = new Locais();
+  //$locaisGrupos = new LocaisGrupos();
 
   $res = array('error' => false);
-  $action = 'read';
+  $action = 'teste';
 
   if(isset($_GET['action'])){
 		$action = $_GET['action'];
@@ -115,53 +117,17 @@ header('Content-Type: text/html; charset=utf-8');
     }endforeach;
     
   }
-  if($action == 'local'){
+  if($action == 'teste'){
     
-          //Montar Array locais-------------------------------------------------------
-         /*foreach($locais->findAll() as $key => $value): {
-            $arLocal = (array) $value;
-            $localId = $value->id;
-    
-            if( $value->latitude <> 0.00000 && $value->longitude <> 0.00000){
-              $cont_localGeo++;
-            }
-            
-            //Montar Array grupos----------------------------------------------------
-            */
-            $arGrupos = array();
-            $arLocalGrupos = array();
-            foreach($locaisGrupos->findAll() as $key => $value): {
-              $gruposId = $value->grupo;
-              foreach($grupos->findAll() as $key => $value):if($value->id == $gruposId) {
-                $arGrupo = (array) $value;
-                array_push($arGrupos, $arGrupo );
-              }endforeach;
-              
-            }endforeach;
-            echo json_encode($arLocalGrupos);
+    $os = '7';
+    $tec = '1';
+    $e1 = $osFunction->listOsTecMod($os, $tec);
+    $res['teste'] = $e1;
 
-
-            //Montar Array grupos----------------------------------------------------
-  
-            
-          /*}endforeach;
-          $locaisTt = count($arrayLocais);
-          if($locaisTt > 0){
-            $geoStatus = round(($cont_localGeo/$locaisTt)*100, 1);
-           }else{
-             $geoStatus = 0;
-           }
-          
-          $arLoja['locais']= $arrayLocais;
-          $arLoja['locaisQt']= $locaisTt;
-          $arLoja['locaisGeoQt']= $cont_localGeo;
-          $arLoja['locaisGeoStatus']= $geoStatus;*/
-          //Montar Array locais------------------------------------------------------
+    $res['tecnico']	= $osTecnicos->findTecOs($tec, $os);
     
-        //Montar Array lojas------------------------------------------------------------
-    
-      }
+  }
 
-  $res['dados'] = $arGrupos;
+  //$res['dados'] = $arGrupos;
   header("Content-Type: application/json");
   echo json_encode($res);
