@@ -5,6 +5,18 @@
       <main id="app">
         <v-app id="inspire">
           <v-navigation-drawer  fixed   v-model="drawer"  app>
+            <v-toolbar flat class="transparent">
+              <v-list class="pa-0">
+                <v-list-tile avatar>
+                  <v-list-tile-avatar>
+                    <img src="https://randomuser.me/api/portraits/men/85.jpg" >
+                  </v-list-tile-avatar>
+                  <v-list-tile-content>
+                    <v-list-tile-title>John Leider</v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </v-list>
+            </v-toolbar>
             <v-list dense>
               <v-list-tile @click="">
                 <v-list-tile-action>
@@ -24,14 +36,12 @@
               </v-list-tile>
             </v-list>
           </v-navigation-drawer>
-          <v-toolbar color="indigo" dark fixed app>
+          <v-toolbar color="blue" dark fixed app>
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
             <a href="/en/" class="d-flex ml-3 router-link-active"><img src="img/bit-louc.png" height="36px" width="36px"></a>
-            <div class="toolbar__title pb-1 hidden-xs-only"><b class="title is-4 has-text-white">Bit</b>LOUC</div>
+            <div class="toolbar__title pb-1 hidden-xs-only"><b>Bit</b>LOUC</div>
 
-                  <v-toolbar-title>
-                  <b class="title is-4 has-text-white">Bit</b>LOUC
-                  </v-toolbar-title>
+              <v-toolbar-title><b>Bit</b>LOUC </v-toolbar-title>
           </v-toolbar>
           <v-content>
             <v-container fluid fill-height>
