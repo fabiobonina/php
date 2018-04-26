@@ -3,6 +3,7 @@ Vue.component('top', {
   template: '#top',
   data: function () {
     return {
+      drawer: null,
       errorMessage: '',
       successMessage: '',
       searchQuery: '',

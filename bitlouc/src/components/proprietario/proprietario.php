@@ -2,7 +2,6 @@
   <div>
     <section class="hero is-link">
       <!-- Hero head: will stick at the top -->
-      <top></top>
       <!-- Hero content: will be in the middle -->
       <div class="hero-body"    style="padding:0;">
         <div class="container has-text-centered">
