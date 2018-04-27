@@ -7,7 +7,9 @@ Vue.component('user', {
       successMessage: '',
       searchQuery: '',
       modalLocalAdd: false,
-      active: 1
+      active: 1,
+      dialog2: true,
+      dialog3: true
     };
   },
   created: function() {
