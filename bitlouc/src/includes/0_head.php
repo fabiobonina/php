@@ -30,7 +30,8 @@ session_start();
   <script src="dist/js/vue-select.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.2/lodash.min.js"></script>
-  <script src="https://unpkg.com/vuetify/dist/vuetify.js"></script>
+  <script src="dist/lib/vuetify.js"></script>
+  <script src="dist/lib/vee-validate.js"></script>
   
   <!-- BLUMA steps -->
 

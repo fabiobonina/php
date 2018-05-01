@@ -1,7 +1,7 @@
 <template id="top">
       <!-- Hero head: will stick at the top -->
       <div>
-      <v-navigation-drawer  fixed   v-model="drawer"  app>
+          <v-navigation-drawer  fixed   v-model="drawer"  app>
             <v-toolbar flat class="transparent">
               <v-list class="pa-0">
                 <v-list-tile avatar>
@@ -52,8 +52,8 @@
               </a>
             </v-toolbar-items>
           </v-toolbar>
-
+          
           <user v-if="modalUser" v-on:close="modalUser = false"></user>
-
+          <is-login></is-login> 
       </div>
 </template>

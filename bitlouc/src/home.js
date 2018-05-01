@@ -11,7 +11,12 @@ const LOCALLIST   ='./config/api/apiLocal.php?action=read';
 const OSLIST      ='./config/api/apiOs.php?action=read';
 const CONFIGPROD  ='./config/api/apiConfig.php?action=prod';
 
+const LOGIN = "LOGIN";
+const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+const LOGOUT = "LOGOUT";
+
 const state = {
+  isLoggedIn: sessionStorage.getItem("token"),
   deslocTrajetos: [],
   deslocStatus: [],
   proprietario:{},
@@ -38,6 +43,16 @@ const state = {
 }
 
 const mutations = {
+  [LOGIN](state) {
+    state.pending = true;
+  },
+  [LOGIN_SUCCESS](state) {
+    state.isLoggedIn = true;
+    state.pending = false;
+  },
+  [LOGOUT](state) {
+    state.isLoggedIn = false;
+  },
   SET_SEARCH(state, search) {
     state.search = search
   },
@@ -110,6 +125,21 @@ const mutations = {
 }
 
 const actions = {
+  login({ state, commit, rootState }, creds) {
+    console.log("login...", creds);
+    commit(LOGIN); // show spinner
+    return new Promise(resolve => {
+      setTimeout(() => {
+        sessionStorage.setItem("token", "JWT");
+        commit(LOGIN_SUCCESS);
+        resolve();
+      }, 1000);
+    });
+  },
+  logout({ commit }) {
+    sessionStorage.removeItem("token");
+    commit(LOGOUT);
+  },
   setSearch({ commit }, search) {
     commit("SET_SEARCH", search)
   },
@@ -254,6 +284,9 @@ const actions = {
 }
 
 const getters = {
+  isLoggedIn: state => {
+    return state.isLoggedIn;
+  },
   //getSearch: state => state.tipoDeslocamentos,
   getSearch: state => state.search,
   getUser: state => state.user,
@@ -400,13 +433,4 @@ var App = {}
 new Vue({
   router,
   store,
-  data: () => ({
-    drawer: null,
-    message:  {
-        avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
-        name: 'John Leider',
-        title: 'Welcome to Vuetify.js!',
-        excerpt: 'Thank you for joining our community...'
-      },
-  })
 }).$mount('#app')
