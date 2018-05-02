@@ -21,7 +21,9 @@
     <?php require_once 'src/components/includes/top.php';?>
     <?php require_once 'src/components/includes/rodape.php';?>
     <?php require_once 'src/components/includes/config.php';?>
+    <?php require_once 'src/components/includes/isLogin.php';?>
     <?php require_once 'src/components/includes/login.php';?>
+    <?php require_once 'src/components/includes/registrar.php';?>
     <?php require_once 'src/pages/dashboard.php';?>
     <?php //require_once 'src/pages/login.php';?>
     <!-- components proprietario -->
@@ -99,9 +101,10 @@
 <script src="src/components/includes/top.js"></script>
 <script src="src/components/includes/rodape.js"></script>
 <script src="src/components/includes/config.js"></script>
+<script src="src/components/includes/isLogin.js"></script>
 <script src="src/components/includes/login.js"></script>
+<script src="src/components/includes/registrar.js"></script>
 <script src="src/pages/dashboard.js"></script>
-<script src="src/pages/login.js"></script>
 <!-- components proprietario -->
 <script src="src/components/proprietario/proprietario.js"></script>
 <!-- /components proprietario -->
