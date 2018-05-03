@@ -38,13 +38,7 @@ Vue.component('register', {
           
           password: {
             required: () => 'Senha é obrigatório',
-            max: 'O campo de nome não pode ter mais de 20 caracteres'
-            // custom messages
-          },
-          
-          passwordR: {
-            required: () => 'O usuario é obrigatório',
-            max: 'O campo de nome não pode ter mais de 20 caracteres'
+            min: 'O campo de nome deve ter mais de 6 caracteres'
             // custom messages
           },
         }

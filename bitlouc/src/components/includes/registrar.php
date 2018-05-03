@@ -45,10 +45,10 @@
           <v-text-field
             name="input-10-1"
             label="Senha"
-            hint="Pelo menos 6 caracteres"
             v-model="password"
             v-validate="'required|min:6'"
             data-vv-name="password"
+            :error-messages="errors.collect('password')"
             :append-icon="e1 ? 'visibility' : 'visibility_off'"
             :append-icon-cb="() => (e1 = !e1)"
             :type="e1 ? 'password' : 'text'"
@@ -58,14 +58,14 @@
           <v-text-field
             name="input-10-1"
             label="Senha confime"
-            hint="Pelo menos 6 caracteres"
             v-model="passwordR"
-            min="6"
-            v-validate="'required|confirmed:$password'"
+            v-validate="'required|min:6|confirmed:password'"
+            :error-messages="errors.collect('passwordR')"
             :append-icon="e1 ? 'visibility' : 'visibility_off'"
             :append-icon-cb="() => (e1 = !e1)"
             :type="e1 ? 'password' : 'text'"
             counter
+            required
           ></v-text-field>
         </v-form>
       </v-card-text>
