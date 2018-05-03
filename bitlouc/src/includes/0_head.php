@@ -33,6 +33,8 @@ session_start();
   <script src="dist/lib/vuetify.js"></script>
   <script src="dist/lib/vee-validate.js"></script>
   
+  <script src="https://unpkg.com/vee-validate@2.0.8/dist/locale/pt_BR.js"></script>
+  
   <!-- BLUMA steps -->
 
   <!-- GOOGLE MAPS -->

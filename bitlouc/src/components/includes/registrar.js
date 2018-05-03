@@ -20,13 +20,31 @@ Vue.component('register', {
       ],
       dictionary: {
         attributes: {
-          email: 'Endereço de e-mail'
+          email: 'E-mail',
+          emailR: 'E-mail Confimer'
           // custom attributes
         },
         custom: {
           name: {
-            required: () => 'O nome não pode estar vazio',
-            max: 'O campo de nome não pode ter mais de 10 caracteres'
+            required: () => 'O nome é obrigatório',
+            max: 'O campo de nome não pode ter mais de 50 caracteres'
+            // custom messages
+          },
+          user: {
+            required: () => 'O usuario é obrigatório',
+            max: 'O campo de nome não pode ter mais de 20 caracteres'
+            // custom messages
+          },
+          
+          password: {
+            required: () => 'Senha é obrigatório',
+            max: 'O campo de nome não pode ter mais de 20 caracteres'
+            // custom messages
+          },
+          
+          passwordR: {
+            required: () => 'O usuario é obrigatório',
+            max: 'O campo de nome não pode ter mais de 20 caracteres'
             // custom messages
           },
         }
@@ -34,7 +52,7 @@ Vue.component('register', {
     }
   },
   mounted () {
-    this.$validator.localize('en', this.dictionary)
+    this.$validator.localize('pt_BR', this.dictionary)
   },
   computed: {
     temMessage () {
@@ -50,32 +68,40 @@ Vue.component('register', {
   methods: {
 
     registrar: function() {
-      if(this.$refs.form.validate()){
-        this.isLoading = true
-        var postData = {
-          name: this.name,
-          user: this.user,
-          email: this.email,
-          password: this.password
-        };
-        //console.log(postData);
-        this.$http.post('./config/api/apiUser.php?action=registrar', postData).then(function(response) {
-          //console.log(response);
-          if(response.data.error){
-            this.errorMessage.push(response.data.message);
-            this.isLoading = false;
-          } else{
-            this.successMessage.push(response.data.message);
-            this.isLoading = false;
-            setTimeout(() => {
-              this.$emit('close');
-            }, 2000);
+				this.$validator.validateAll().then((result) => {
+          if (result) {
+            this.isLoading = true
+            var postData = {
+              name: this.name,
+              user: this.user,
+              email: this.email,
+              password: this.password
+            };
+            //console.log(postData);
+            this.$http.post('./config/api/apiUser.php?action=registrar', postData).then(function(response) {
+              //console.log(response);
+              if(response.data.error){
+                this.errorMessage.push(response.data.message);
+                this.isLoading = false;
+              } else{
+                this.successMessage.push(response.data.message);
+                this.isLoading = false;
+                setTimeout(() => {
+                  this.$emit('close');
+                }, 2000);
+              }
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+
           }
-        })
-        .catch(function(error) {
-          console.log(error);
+  
         });
-      }
+      /*if( this.$validator.validateAll() ){
+        console.log(this.$validator.validateAll().PromiseValue)
+        
+      }*/
     },
     checkForm:function(e) {
       this.errorMessage = [];

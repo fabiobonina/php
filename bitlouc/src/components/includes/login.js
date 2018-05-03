@@ -49,7 +49,7 @@ Vue.component('login', {
   },
   methods: {
     logar: function() {
-      if(this.$refs.form.validate()){
+      if(this.$validator.validateAll() ){
         this.isLoading = true
         //const data = {'id': this.data.id, 'modelo': this.modelo
         //'cadastro': new Date().toJSON() }
