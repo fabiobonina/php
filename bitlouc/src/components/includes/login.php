@@ -7,24 +7,25 @@
       <v-card-text>
         
         <message :success="successMessage" :error="errorMessage"></message>
-        <v-form v-model="valid" ref="form" lazy-validation>
-          <v-text-field
-            label="E-mail"
+        <v-form>
+        <v-text-field
             v-model="email"
-            :rules="emailRules"
+            label="E-mail"
+            :error-messages="errors.collect('email')"
+            v-validate="'required|email'"
+            data-vv-name="email"
             required
           ></v-text-field>
           <v-text-field
-            name="input-10-1"
             label="Senha"
-            hint="Pelo menos 6 caracteres"
             v-model="password"
-            min="6"
+            v-validate="'required|min:6'"
+            data-vv-name="password"
+            :error-messages="errors.collect('password')"
             :append-icon="e1 ? 'visibility' : 'visibility_off'"
             :append-icon-cb="() => (e1 = !e1)"
             :type="e1 ? 'password' : 'text'"
             required
-            counter
           ></v-text-field>
         </v-form>
       </v-card-text>

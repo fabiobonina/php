@@ -1,3 +1,4 @@
+const { v4 } = uuid;
 Vue.use(VeeValidate)
 
 Vue.component('register', {
@@ -10,10 +11,10 @@ Vue.component('register', {
     return {
       errorMessage: [],
       successMessage: [],
-      valid: true,
       isLoading: false,
       e1: true,
-      name:'', email:'', emailR:'', user:'', password:'', passwordR:'',
+      id: v4(),
+      name:'', email:'', emailR:'', user:'', password:null, passwordR:null,
       dictionary: {
         attributes: {
           email: 'E-mail',
@@ -23,16 +24,7 @@ Vue.component('register', {
           // custom attributes
         },
         custom: {
-          name: {
-            required: () => 'O nome é obrigatório',
-            max: 'O campo de nome não pode ter mais de 50 caracteres'
-            // custom messages
-          },
-          user: {
-            required: () => 'O usuario é obrigatório',
-            max: 'O campo de nome não pode ter mais de 20 caracteres'
-            // custom messages
-          },
+
         }
       }
     }
@@ -46,10 +38,6 @@ Vue.component('register', {
       if(this.successMessage.length > 0) return true
       return false
     },
-    user() {
-      return store.state.user;
-    },    
-    ...Vuex.mapGetters(["isLoggedIn"])
   },
   methods: {
 

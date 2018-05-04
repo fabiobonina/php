@@ -8,6 +8,7 @@ class Usuarios extends Crud{
 	private $email;
 	private $nickuser;
 	private $senha;
+	private $chave;
 	private $nivel;
 	private $avatar;
 	private $proprientario;
@@ -34,6 +35,9 @@ class Usuarios extends Crud{
 	}
 	public function setSenha($senha){
 		$this->senha = $senha;
+	}
+	public function setChave($chave){
+		$this->chave = $chave;
 	}
 	public function setAvatar($avatar){
 		$this->avatar = $avatar;
@@ -63,13 +67,14 @@ class Usuarios extends Crud{
 
 	public function insert(){
 		try{
-		$sql  = "INSERT INTO $this->table (name, email, user, password, avatar, nivel, ativo, data_cadastro, data_ultimo_login) ";
-		$sql .= "VALUES (:name, :email, :user, :password, :avatar, :nivel, :ativo, :data_cadastro, :data_ultimo_login)";
+		$sql  = "INSERT INTO $this->table (name, email, user, password, chave, avatar, nivel, ativo, data_cadastro, data_ultimo_login) ";
+		$sql .= "VALUES (:name, :email, :user, :password, :chave, :avatar, :nivel, :ativo, :data_cadastro, :data_ultimo_login)";
 		$stmt = DB::prepare($sql);
 		$stmt->bindParam(':name',$this->name);
 		$stmt->bindParam(':email',$this->email);
 		$stmt->bindParam(':user',$this->nickuser);
 		$stmt->bindParam(':password',$this->senha);
+		$stmt->bindParam(':chave',$this->chave);
 		$stmt->bindParam(':avatar', $this->avatar);
 		$stmt->bindParam(':nivel',$this->nivel);
 		$stmt->bindParam(':ativo',$this->ativo);
@@ -99,82 +104,96 @@ class Usuarios extends Crud{
 		
 	}
 
-	public function logar(){
+	public function isLoggedIn( $chave ){
 		// SELECIONAR BANCO DE DADOS
-		$sql = "SELECT * from $this->table WHERE BINARY email=:email AND BINARY password=:password ";
-			try{
-				$stmt = DB::prepare($sql);
-				$stmt->bindParam(':email', $this->email);
-				$stmt->bindParam(':password', $this->senha);
-				$stmt->execute();
-				$contar = $stmt->rowCount();
-				if($contar>0){
-					$loop = $stmt->fetchAll();
-					foreach ($loop as $show){
-						$loginId = $show->id;
-						$loginName = $show->name;
-						$loginEmail = $show->email;
-						$loginUser = $show->user;
-						$loginAvatar = $show->avatar;
-						$loginProprietario = $show->proprietario;
-						$loginGrupo = $show->grupo;
-						$loginLoja = $show->loja;
-						$loginNivel = $show->nivel;
-						$loginAtivo = $show->ativo;
-						$loginDtCadastro = $show->data_cadastro;
-					}
-					if($loginAtivo == 0){
-						try{
-							$sql  = "UPDATE $this->table SET data_ultimo_login = :data_ultimo_login WHERE id = :id";
-							$stmt = DB::prepare($sql);
-							$stmt->bindParam(':data_ultimo_login', $this->datalogin);
-							$stmt->bindParam(':id', $id);
-							$stmt->execute();
-						} catch(PDOException $e) {
-							echo 'ERROR: ' . $e->getMessage();
-						}
-						$_SESSION['loginId'] = $loginId;
-						$_SESSION['loginName'] = $loginName;
-						$_SESSION['loginEmail'] = $loginEmail;
-						$_SESSION['loginUser'] = $loginUser;
-						$_SESSION['loginAvatar'] = $loginAvatar;
-						$_SESSION['loginProprietario'] = $loginProprietario;
-						$_SESSION['loginGrupo'] = $loginGrupo;
-						$_SESSION['loginLoja'] = $loginLoja;
-						$_SESSION['loginNivel'] = $loginNivel;
-						$_SESSION['loginDtCadastro'] = $loginDtCadastro;
-
-						echo '<div class="alert alert-success alert-dismissible">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						<h4><i class="icon fa fa-check"></i> Logado!</h4>
-						Sucesso, redirecionando para o sistema.
-					  	</div>';
-						header("Refresh: 1, index.php?acao=welcome");
-					}else{
-						echo '<div class="alert alert-danger alert-dismissible">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						<h4><i class="icon fa fa-ban"></i> Erro ao logar!</h4>
-						Contate o administrador do sistema.
-						</div>';
-					}
+		try{
+			$sql = "SELECT * from $this->table WHERE BINARY chave= :chave ";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':chave', $this->chave);
+			$stmt->execute();
+			$contar = $stmt->rowCount();
+			if($contar>0){
+				$loop = $stmt->fetchAll();
+				foreach ($loop as $show){
+					$login['id'] = $show->id;
+					$login['name'] = $show->name;
+					$login['email'] = $show->email;
+					$login['user'] = $show->user;
+					$login['avatar'] = $show->avatar;
+					$login['proprietario'] = $show->proprietario;
+					$login['grupo'] = $show->grupo;
+					$login['loja'] = $show->loja;
+					$login['nivel'] = $show->nivel;
+					$login['ativo'] = $show->ativo;
+					$login['dtCadastro'] = $show->data_cadastro;
 					
-				}else{
-					echo '<div class="alert alert-danger alert-dismissible">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					<h4><i class="icon fa fa-ban"></i> Erro!</h4>
-					Os dados estão incorretos.
-				    </div>';
 				}
-			} catch(PDOException $e) {
+				if($login['ativo'] == 0){
+					$datalogin = date("Y-m-d H:i:s");
+					$this->updateLogar( $login['id'], $datalogin);
+					
+					$login['error'] = false;
+					$login['isLoggedIn'] = true;
+					return $login;
+
+				}else{
+					$res['error'] = true;
+					$res['isLoggedIn'] = false;
+					return $res;
+				}
+				
+			}else{
+				$res['error'] = true;
+				$res['isLoggedIn'] = false;
+				return $res;
+			}
+			
+		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
 	}
-	public function updateLogar($id){
+	public function findKey($chave){
+		try{
+			$sql  = "SELECT * FROM $this->table WHERE BINARY chave = :chave ";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':chave', $this->chave);
+			$stmt->execute();
+			$contar = $stmt->rowCount();
+			if($contar>0){
+				$loop = $stmt->fetchAll();
+				foreach ($loop as $show){
+					$loginId = $show->id;
+					$loginName = $show->name;
+					$loginEmail = $show->email;
+					$loginUser = $show->user;
+					$loginAvatar = $show->avatar;
+					$loginProprietario = $show->proprietario;
+					$loginGrupo = $show->grupo;
+					$loginLoja = $show->loja;
+					$loginNivel = $show->nivel;
+					$loginAtivo = $show->ativo;
+					$loginDtCadastro = $show->data_cadastro;
+				}
+				if($loginAtivo == 0){
+					
+				}else{
+
+				}
+				
+			}else{
+
+			}
+			return $stmt->fetch();
+		} catch(PDOException $e) {
+			echo 'ERROR: ' . $e->getMessage();
+		}
+	}
+	public function updateLogar($id, $datalogin ){
 		// SELECIONAR BANCO DE DADOS
 		try{
 			$sql  = "UPDATE $this->table SET data_ultimo_login = :data_ultimo_login WHERE id = :id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':data_ultimo_login', $this->datalogin);
+			$stmt->bindParam(':data_ultimo_login', $datalogin);
 			$stmt->bindParam(':id', $id);
 			return $stmt->execute();
 		} catch(PDOException $e) {

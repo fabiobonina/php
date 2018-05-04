@@ -7,10 +7,13 @@ header('Content-Type: text/html; charset=utf-8');
 
 //include("_chave.php");
 
+require_once '../function/_usoFunction.php';
+
 function __autoload($class_name){
   require_once '../classes/' . $class_name . '.php';
 }
-	
+
+$usoFunction = new UsoFunction();
 $usuarios = new Usuarios();
 
 $res = array('error' => true);
@@ -56,8 +59,7 @@ if($action == 'logar'):
         $loginDtUltimoLogin = $value->data_ultimo_login;
         
         #ATUALIZAÇÃO ULTIMO LOGIN
-        $usuarios->setDatalogin($datalogin);
-        if($usuarios->updateLogar($loginId)){
+        if($usuarios->updateLogar($loginId, $datalogin)){
           $res['error'] = false;
           $arDados = "Logado com sucesso!";
           $res['message']= $arDados;
@@ -108,6 +110,7 @@ endif;
 #REGISTRAR
 if($action == 'registrar'):
   #Novo Usuario
+  $chave = $_POST['cahve'];
   $name  = $_POST['name'];
   $email = $_POST['email'];
   $user = $_POST['user'];
@@ -119,19 +122,9 @@ if($action == 'registrar'):
   //$senha = 'password';
 
   #USUARIOS-------------------------------------------------------------------------------------------
-  $duplicado = false;
-  $acentos = array(
-    'À', 'Á','Â','Ã','Ä','Å','Ç','È','É','Ê','Ë','Ì','Í','Î','Ï','Ò','Ó','Ô','Õ','Ö','Ù','Ú','Û','Ü','Ý',
-    'à','á','â','ã','ä','å','ç','è','é','ê','ë','ì','í','î','ï','ð','ò','ó','ô','õ','ö','ù','ú','û','ü','ý','ÿ', ' '
-  );
-  $sem_acentos = array(
-    'A','A','A','A','A','A','C','E','E','E','E','I','I','I','I','O','O','O','O','O','U','U','U','U','Y',
-    'a','a','a','a','a','a','c','e','e','e','e','i','i','i','i','o','o','o','o','o','o','u','u','u','u','y','y', '_'
-  );
+  
+
   foreach($usuarios->findAll() as $key => $value): {
-    $txtnome2 = $value->user;
-    $txtnome1 = str_replace($acentos, $sem_acentos, $user);
-    $txtnome2 = str_replace($acentos, $sem_acentos, $txtnome2);
     
     if($value->email == $email ):
       $duplicado = true;
@@ -140,12 +133,13 @@ if($action == 'registrar'):
       array_push($arErros, $arError);
     endif;
 
-    if(strtolower(utf8_decode($txtnome1)) == strtolower(utf8_decode($txtnome2))):
+    if( $check = $usoFunction->checkDuplicity($user, $value->user) ):
       $duplicado = true;
       $res['error'] = true;
       $arError = "Error, Nome do Usuario já ultilizado!";
       array_push($arErros, $arError);
     endif;
+    
   }endforeach;
   #USUARIOS-------------------------------------------------------------------------------------------
   

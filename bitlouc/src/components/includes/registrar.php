@@ -34,16 +34,15 @@
             data-vv-name="email"
             required
           ></v-text-field>
-          <v-text-field
+          <!--v-text-field
             v-model="emailR"
             label="E-mail Confime"
             :error-messages="errors.collect('emailR')"
             v-validate="'required|email|confirmed:email'"
             data-vv-name="emailR"
             required
-          ></v-text-field>
+          ></v-text-field-->
           <v-text-field
-            name="input-10-1"
             label="Senha"
             v-model="password"
             v-validate="'required|min:6'"
@@ -54,18 +53,18 @@
             :type="e1 ? 'password' : 'text'"
             required
           ></v-text-field>
-          <v-text-field
+          <!--v-text-field
             name="input-10-1"
             label="Senha confime"
             v-model="passwordR"
-            v-validate="'confirmed:password'"
+            v-validate="'required|confirmed:password'"
             :error-messages="errors.collect('passwordR')"
             :append-icon="e1 ? 'visibility' : 'visibility_off'"
             :append-icon-cb="() => (e1 = !e1)"
             :type="e1 ? 'password' : 'text'"
             data-vv-name="passwordR"
             required
-          ></v-text-field>
+          ></v-text-field-->
         </v-form>
       </v-card-text>
       <v-card-actions>

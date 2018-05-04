@@ -34,7 +34,7 @@ session_start();
   <script src="https://unpkg.com/vee-validate@2.0.8/dist/vee-validate.js"></script>
   
   <script src="https://unpkg.com/vee-validate@2.0.8/dist/locale/pt_BR.js"></script>
-  <script src="https://unpkg.com/babel-polyfill/dist/polyfill.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/node-uuid/1.4.7/uuid.js"></script>
 
   
   
