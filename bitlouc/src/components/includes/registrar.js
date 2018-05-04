@@ -14,14 +14,12 @@ Vue.component('register', {
       isLoading: false,
       e1: true,
       name:'', email:'', emailR:'', user:'', password:'', passwordR:'',
-      emailRules: [
-        v => !!v || 'E-mail é obrigatório',
-        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
-      ],
       dictionary: {
         attributes: {
           email: 'E-mail',
-          emailR: 'E-mail Confimer'
+          emailR: 'E-mail Confime',
+          password: 'Senha',
+          passwordR: 'Senha Confime'
           // custom attributes
         },
         custom: {
@@ -33,12 +31,6 @@ Vue.component('register', {
           user: {
             required: () => 'O usuario é obrigatório',
             max: 'O campo de nome não pode ter mais de 20 caracteres'
-            // custom messages
-          },
-          
-          password: {
-            required: () => 'Senha é obrigatório',
-            min: 'O campo de nome deve ter mais de 6 caracteres'
             // custom messages
           },
         }

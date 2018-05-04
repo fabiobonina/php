@@ -31,9 +31,12 @@ session_start();
   <script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.2/lodash.min.js"></script>
   <script src="dist/lib/vuetify.js"></script>
-  <script src="dist/lib/vee-validate.js"></script>
+  <script src="https://unpkg.com/vee-validate@2.0.8/dist/vee-validate.js"></script>
   
   <script src="https://unpkg.com/vee-validate@2.0.8/dist/locale/pt_BR.js"></script>
+  <script src="https://unpkg.com/babel-polyfill/dist/polyfill.min.js"></script>
+
+  
   
   <!-- BLUMA steps -->
 

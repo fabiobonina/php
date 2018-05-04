@@ -38,7 +38,7 @@
             v-model="emailR"
             label="E-mail Confime"
             :error-messages="errors.collect('emailR')"
-            v-validate="'required|email'"
+            v-validate="'required|email|confirmed:email'"
             data-vv-name="emailR"
             required
           ></v-text-field>
@@ -52,19 +52,18 @@
             :append-icon="e1 ? 'visibility' : 'visibility_off'"
             :append-icon-cb="() => (e1 = !e1)"
             :type="e1 ? 'password' : 'text'"
-            counter
             required
           ></v-text-field>
           <v-text-field
             name="input-10-1"
             label="Senha confime"
             v-model="passwordR"
-            v-validate="'required|min:6|confirmed:password'"
+            v-validate="'confirmed:password'"
             :error-messages="errors.collect('passwordR')"
             :append-icon="e1 ? 'visibility' : 'visibility_off'"
             :append-icon-cb="() => (e1 = !e1)"
             :type="e1 ? 'password' : 'text'"
-            counter
+            data-vv-name="passwordR"
             required
           ></v-text-field>
         </v-form>
