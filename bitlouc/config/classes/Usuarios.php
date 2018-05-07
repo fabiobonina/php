@@ -109,26 +109,27 @@ class Usuarios extends Crud{
 		try{
 			$sql = "SELECT * from $this->table WHERE BINARY chave= :chave ";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':chave', $this->chave);
+			$stmt->bindParam(':chave', $chave);
 			$stmt->execute();
 			$contar = $stmt->rowCount();
 			if($contar>0){
-				$loop = $stmt->fetchAll();
-				foreach ($loop as $show){
-					$login['id'] = $show->id;
-					$login['name'] = $show->name;
-					$login['email'] = $show->email;
-					$login['user'] = $show->user;
-					$login['avatar'] = $show->avatar;
-					$login['proprietario'] = $show->proprietario;
-					$login['grupo'] = $show->grupo;
-					$login['loja'] = $show->loja;
-					$login['nivel'] = $show->nivel;
-					$login['ativo'] = $show->ativo;
-					$login['dtCadastro'] = $show->data_cadastro;
+				$loop = $stmt->fetch();
+				//foreach ($loop as $show){
+					$login['id']            = $loop->id;
+					$login['name']          = $loop->name;
+					$login['email']         = $loop->email;
+					$login['user']          = $loop->user;
+					$login['avatar']        = $loop->avatar;
+					$login['token']         = $loop->chave;
+					$login['proprietario']  = $loop->proprietario;
+					$login['grupo']         = $loop->grupo;
+					$login['loja']          = $loop->loja;
+					$login['nivel']         = $loop->nivel;
+					$login['dtCadastro']    = $loop->data_cadastro;
+					$login['dtUltimoLogin'] = $loop->data_ultimo_login;
 					
-				}
-				if($login['ativo'] == 0){
+				//}
+				if($loop->ativo == 0){
 					$datalogin = date("Y-m-d H:i:s");
 					$this->updateLogar( $login['id'], $datalogin);
 					

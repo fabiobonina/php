@@ -24,7 +24,7 @@
             :error-messages="errors.collect('password')"
             :append-icon="e1 ? 'visibility' : 'visibility_off'"
             :append-icon-cb="() => (e1 = !e1)"
-            :type="e1 ? 'password' : 'text'"
+            type="password"
             required
           ></v-text-field>
         </v-form>

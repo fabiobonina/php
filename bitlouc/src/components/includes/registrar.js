@@ -13,7 +13,7 @@ Vue.component('register', {
       successMessage: [],
       isLoading: false,
       e1: true,
-      id: v4(),
+      chave: v4(),
       name:'', email:'', emailR:'', user:'', password:null, passwordR:null,
       dictionary: {
         attributes: {
@@ -49,17 +49,19 @@ Vue.component('register', {
               name: this.name,
               user: this.user,
               email: this.email,
-              password: this.password
+              password: this.password,
+              chave: this.chave
             };
             //console.log(postData);
-            this.$http.post('./config/api/apiUser.php?action=registrar', postData).then(function(response) {
+            this.$http.post('./config/api/apiUser.php?action=registrar', postData)
+              .then(function(response) {
               //console.log(response);
               if(response.data.error){
                 this.errorMessage.push(response.data.message);
-                this.isLoading = false;
+                this.isLoading = response.data.dados.isLoggedIn;
               } else{
                 this.successMessage.push(response.data.message);
-                this.isLoading = false;
+                this.isLoading = response.data.message;
                 setTimeout(() => {
                   this.$emit('close');
                 }, 2000);

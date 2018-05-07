@@ -8,12 +8,12 @@
           <top></top>
           <v-content>
             <v-container fluid fill-height>
-            <configuracao></configuracao>
-            <router-view></router-view>
-              
+              <configuracao></configuracao>
+              <router-view></router-view>
             </v-container>
           </v-content>
           <rodape></rodape>
+          
         </v-app>      
       </main>
     </div>

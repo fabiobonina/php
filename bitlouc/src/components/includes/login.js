@@ -53,9 +53,21 @@ Vue.component('login', {
               this.isLoading = false;
             } else{
               this.successMessage.push(response.data.message);
-              this.isLoading = false;
+              //this.$store.dispatch('setUser', response.data.dados);
               setTimeout(() => {
-                window.location.href = "./index.php";
+                this.$store.dispatch("login", {
+                isLoggedIn: response.data.isLoggedIn,
+                token: response.data.token,
+                user: response.data.dados
+                }).then(res => {
+                  this.$router.push( this.$route.fullPath );
+                  this.$emit('close');
+                })
+              
+                //localStorage.setItem("isLoggedIn", btoa( response.data.isLoggedIn ))
+                //localStorage.setItem("token", btoa( response.data.token ));
+                //this.$router.push(this.$route.fullPath);
+                //console.log('teste');
               }, 2000);
             }
           })
@@ -66,32 +78,7 @@ Vue.component('login', {
         }
 
       });
-      if(this.$validator.validateAll() ){
-        this.isLoading = true
-        //const data = {'id': this.data.id, 'modelo': this.modelo
-        //'cadastro': new Date().toJSON() }
-        var postData = {
-          email: this.email,
-          password: this.password
-        };
-        //var formData = this.toFormData(postData);
-        this.$http.post('./config/api/apiUser.php?action=logar', postData)
-          .then(function(response) {
-          if(response.data.error){
-            this.errorMessage.push(response.data.message);
-            this.isLoading = false;
-          } else{
-            this.successMessage.push(response.data.message);
-            this.isLoading = false;
-            setTimeout(() => {
-              window.location.href = "./index.php";
-            }, 2000);
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      }
+
     },
     checkForm:function(e) {
       this.errorMessage = [];

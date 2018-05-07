@@ -338,7 +338,7 @@
 			
 			if($os->bem){
 				$txtBem = $os->bem->name .' '.$os->bem->modelo. ' &nbsp; #'.$os->bem->fabricanteNick;
-			}{
+			}else{
 				$txtBem = $os->bem;
 			}
 			foreach ($os->tecnicos as $value){

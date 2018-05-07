@@ -5,7 +5,7 @@
 //Todos os postdados são enviados como json
 //True para enviar como dados do formulário
 Vue.http.options.emulateJSON = true;
-const INDEXLIST   = './config/api/apiProprietario.php?action=read';
+const INDEXLIST   ='./config/api/apiProprietario.php?action=read';
 const CONFIG      ='./config/api/apiConfig.php?action=config';
 const LOCALLIST   ='./config/api/apiLocal.php?action=read';
 const OSLIST      ='./config/api/apiOs.php?action=read';
@@ -16,7 +16,8 @@ const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 const LOGOUT = "LOGOUT";
 
 const state = {
-  isLoggedIn: sessionStorage.getItem("token"),
+  isLoggedIn: !!localStorage.getItem("token"),
+  token: atob(localStorage.getItem("token")),
   deslocTrajetos: [],
   deslocStatus: [],
   proprietario:{},
@@ -52,6 +53,7 @@ const mutations = {
   },
   [LOGOUT](state) {
     state.isLoggedIn = false;
+    state.token = '';
   },
   SET_SEARCH(state, search) {
     state.search = search
@@ -64,6 +66,11 @@ const mutations = {
   },
   SET_USER(state, user) {
     state.user = user
+  },
+  SET_LOGAR(state, creds) {
+    state.user = creds.user
+    state.isLoggedIn = creds.isLoggedIn;
+    state.token = creds.token ;
   },
   SET_LOJAS(state, lojas) {
     state.lojas = lojas
@@ -126,18 +133,19 @@ const mutations = {
 
 const actions = {
   login({ state, commit, rootState }, creds) {
-    console.log("login...", creds);
     commit(LOGIN); // show spinner
     return new Promise(resolve => {
       setTimeout(() => {
-        sessionStorage.setItem("token", "JWT");
+        localStorage.setItem("token", btoa( creds.token ));
+        commit("SET_LOGAR", creds);
         commit(LOGIN_SUCCESS);
         resolve();
       }, 1000);
     });
   },
   logout({ commit }) {
-    sessionStorage.removeItem("token");
+    localStorage.removeItem("token");
+    localStorage.removeItem("isLoggedIn");
     commit(LOGOUT);
   },
   setSearch({ commit }, search) {
@@ -181,26 +189,36 @@ const actions = {
   },
   fetchIndex({ commit }) {
     return new Promise((resolve, reject) => {
-        axios.get(INDEXLIST)
-        .then((response) => {
-          if(response.data.error){
-            console.log(response.data.message);
-          } else{
-            commit("SET_USER", response.data.user);
-            commit("SET_PROPRIETARIO", response.data.proprietarios);
-            commit("SET_LOJAS", response.data.lojas);
-            commit("SET_LOCAIS", response.data.locais);
-            resolve();
+      var postData = { token: state.token };
+      //postData.json()
+      //console.log(postData);
+      axios.post(INDEXLIST, JSON.stringify( {token: state.token} ) )
+      //axios.post('./config/api/apiProprietario.php?action=read', postData)
+      .then(function(response) {
+          //console.log( response.data ); 
+        if(response.data.error){
+          console.log(response.data.message);
+          if(!response.data.isLoggedIn){
+            localStorage.removeItem("token");
+            localStorage.removeItem("isLoggedIn");
+            commit(LOGOUT);
           }
-        })
-        .catch((error => {
-            console.log(error.statusText);
-        }));
+        } else{
+          commit("SET_USER", response.data.user);
+          commit("SET_PROPRIETARIO", response.data.proprietarios);
+          commit("SET_LOJAS", response.data.lojas);
+          commit("SET_LOCAIS", response.data.locais);
+          resolve();
+        }
+      })
+      .catch((error => {
+          console.log(error.statusText);
+      }));
     });
   },
   fetchConfig({ commit }) {
     return new Promise((resolve, reject) => {
-        axios.get(CONFIG)
+      axios.get(CONFIG)
       .then((response) => {
         if(response.body.error){
           console.log(response.body.message);

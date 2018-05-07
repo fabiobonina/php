@@ -27,8 +27,8 @@ if(isset($_GET['action'])){
 
 if($action == 'logar'):
 
-  $email=$_POST["email"];
-  $senha=$_POST["password"];
+  $email= $_POST["email"];
+  $senha= $_POST["password"];
 
   $datalogin = date("Y-m-d H:i:s");
   $password = md5($senha);
@@ -46,40 +46,45 @@ if($action == 'logar'):
       #CONFINAÇÃO ATIVO
       $loginAtivo = $value->ativo;
       if($loginAtivo == 0){
-        $loginId = $value->id;
-        $loginName = $value->name;
-        $loginEmail = $value->email;
-        $loginUser = $value->user;
-        $loginAvatar = $value->avatar;
-        $loginProprietario = $value->proprietario;
-        $loginGrupo = $value->grupo;
-        $loginLoja = $value->loja;
-        $loginNivel = $value->nivel;
-        $loginDtCadastro = $value->data_cadastro;
-        $loginDtUltimoLogin = $value->data_ultimo_login;
+        //$login = array();
+        $login['id']            = $value->id;
+        $login['name']          = $value->name;
+        $login['email']         = $value->email;
+        $login['user']          = $value->user;
+        $login['avatar']        = $value->avatar;
+        $login['token']         = $value->chave;
+        $login['proprietario']  = $value->proprietario;
+        $login['grupo']         = $value->grupo;
+        $login['loja']          = $value->loja;
+        $login['nivel']         = $value->nivel;
+        $login['dtCadastro']    = $value->data_cadastro;
+        $login['dtUltimoLogin'] = $value->data_ultimo_login;
         
         #ATUALIZAÇÃO ULTIMO LOGIN
-        if($usuarios->updateLogar($loginId, $datalogin)){
+        if($usuarios->updateLogar($login['id'], $datalogin)){
           $res['error'] = false;
-          $arDados = "Logado com sucesso!";
-          $res['message']= $arDados;
+          $res['isLoggedIn']= true;
+          $res['dados']= $login;
+          $res['token']= $value->chave;
+          $res['message']= 'Logado com sucesso!';
         }else{
           $arError = "Atenção, data não atualizada";
           array_push($arErros, $arError);
         }
 
         #CRIAR SESSÃO
-        $_SESSION['loginId'] = $loginId;
-        $_SESSION['loginName'] = $loginName;
-        $_SESSION['loginEmail'] = $loginEmail;
-        $_SESSION['loginUser'] = $loginUser;
-        $_SESSION['loginAvatar'] = $loginAvatar;
-        $_SESSION['loginProprietario'] = $loginProprietario;
-        $_SESSION['loginGrupo'] = $loginGrupo;
-        $_SESSION['loginLoja'] = $loginLoja;
-        $_SESSION['loginNivel'] = $loginNivel;
-        $_SESSION['loginDtCadastro'] = $loginDtCadastro;
-        $_SESSION['loginDtUltimoLogin'] = $loginDtUltimoLogin;
+        $_SESSION['loginId']            = $login['id'];
+        $_SESSION['loginName']          = $login['name'];
+        $_SESSION['loginEmail']         = $login['email'];
+        $_SESSION['loginUser']          = $login['user'];
+        $_SESSION['loginToken']         = $login['token'];
+        $_SESSION['loginAvatar']        = $login['avatar'];
+        $_SESSION['loginProprietario']  = $login['proprietario'];
+        $_SESSION['loginGrupo']         = $login['grupo'];
+        $_SESSION['loginLoja']          = $login['loja'];
+        $_SESSION['loginNivel']         = $login['nivel'];
+        $_SESSION['loginDtCadastro']    = $login['dtCadastro'];
+        $_SESSION['loginDtUltimoLogin'] = $login['dtUltimoLogin'];
 
       }else{
         $res['error'] = true;
@@ -192,6 +197,6 @@ if(isset($_GET['acao1']) && $_GET['acao1'] == 'deletar'):
   
 endif;
 
-$res['dados'] = $arDados;
+//$res['dados'] = $arDados;
 header("Content-Type: application/json");
 echo json_encode($res, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

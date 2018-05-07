@@ -24,6 +24,6 @@ Vue.component('user', {
     },
   }, // computed
   methods: {
-    
+    ...Vuex.mapActions(["logout"])
   },
 });
