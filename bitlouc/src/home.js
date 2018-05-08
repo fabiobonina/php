@@ -195,7 +195,7 @@ const actions = {
       axios.post(INDEXLIST, JSON.stringify( {token: state.token} ) )
       //axios.post('./config/api/apiProprietario.php?action=read', postData)
       .then(function(response) {
-          //console.log( response.data ); 
+          console.log( response.data ); 
         if(response.data.error){
           console.log(response.data.message);
           if(!response.data.isLoggedIn){

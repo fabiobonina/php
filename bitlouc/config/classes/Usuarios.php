@@ -135,6 +135,20 @@ class Usuarios extends Crud{
 					
 					$login['error'] = false;
 					$login['isLoggedIn'] = true;
+					
+					$_SESSION['loginId']            = $login['id'];
+					$_SESSION['loginName']          = $login['name'];
+					$_SESSION['loginEmail']         = $login['email'];
+					$_SESSION['loginUser']          = $login['user'];
+					$_SESSION['loginToken']         = $login['token'];
+					$_SESSION['loginAvatar']        = $login['avatar'];
+					$_SESSION['loginProprietario']  = $login['proprietario'];
+					$_SESSION['loginGrupo']         = $login['grupo'];
+					$_SESSION['loginLoja']          = $login['loja'];
+					$_SESSION['loginNivel']         = $login['nivel'];
+					$_SESSION['loginDtCadastro']    = $login['dtCadastro'];
+					$_SESSION['loginDtUltimoLogin'] = $login['dtUltimoLogin'];
+
 					return $login;
 
 				}else{

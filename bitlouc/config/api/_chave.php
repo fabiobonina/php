@@ -19,13 +19,14 @@
         $user['name']           = $_SESSION['loginName'];
         $user['email']          = $_SESSION['loginEmail'];
         $user['user']           = $_SESSION['loginUser'];
-        $user['token']          = $_SESSION['loginUser'];
+        $user['token']          = $_SESSION['loginToken'];
         $user['avatar']         = $_SESSION['loginAvatar'];
         $user['proprietario']   = $_SESSION['loginProprietario'];
         $user['grupo']          = $_SESSION['loginGrupo'];
         $user['loja']           = $_SESSION['loginLoja'];
         $user['nivel']          = $_SESSION['loginNivel'];
         $user['data']           = $_SESSION['loginDtCadastro'];
+        $user['error']          = false;
 
         
 

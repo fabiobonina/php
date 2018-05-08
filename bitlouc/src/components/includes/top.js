@@ -8,7 +8,7 @@ Vue.component('top', {
       successMessage: '',
       modalUser: false,
       admins: [
-        ['Management', 'people_outline'],
+        {name:'OSs', icon:'people_outline'},
         ['Settings', 'settings']
       ],
       cruds: [
@@ -16,7 +16,12 @@ Vue.component('top', {
         ['Read', 'insert_drive_file'],
         ['Update', 'update'],
         ['Delete', 'delete']
-      ]
+      ],
+      items: [
+        { title: 'OsLojas', router: '#/oss', icon: 'dashboard' },
+        { title: 'OSsTec', router: '#/oss-tec', icon: 'settings' },
+        { title: 'OSsStatus', router: '#/oss-status', icon: 'settings' }
+      ],
     };
   },
   created: function() {
