@@ -195,7 +195,7 @@ const actions = {
       axios.post(INDEXLIST, JSON.stringify( {token: state.token} ) )
       //axios.post('./config/api/apiProprietario.php?action=read', postData)
       .then(function(response) {
-          console.log( response.data ); 
+          //console.log( response.data ); 
         if(response.data.error){
           console.log(response.data.message);
           if(!response.data.isLoggedIn){
@@ -220,19 +220,19 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios.get(CONFIG)
       .then((response) => {
-        if(response.body.error){
-          console.log(response.body.message);
+        if(response.data.error){
+          console.log(response.data.message);
         } else{
-          //console.log(response.body);
-          commit("SET_TIPOS", response.body.tipos);
-          commit("SET_CATEGORIAS", response.body.categorias);
-          commit("SET_FABRICANTES", response.body.fabricantes);
-          commit("SET_SERVICOS", response.body.servicos);
-          commit("SET_TECNICOS", response.body.tecnicos);
-          commit("SET_SEGUIMENTOS", response.body.seguimentos);
-          commit("SET_GRUPOS", response.body.grupos);
-          commit("SET_DESLOC_STATUS", response.body.deslocStatus);
-          commit("SET_DESLOC_TRAJETOS", response.body.deslocTrajetos);
+          //console.log(response.data);
+          commit("SET_TIPOS", response.data.tipos);
+          commit("SET_CATEGORIAS", response.data.categorias);
+          commit("SET_FABRICANTES", response.data.fabricantes);
+          commit("SET_SERVICOS", response.data.servicos);
+          commit("SET_TECNICOS", response.data.tecnicos);
+          commit("SET_SEGUIMENTOS", response.data.seguimentos);
+          commit("SET_GRUPOS", response.data.grupos);
+          commit("SET_DESLOC_STATUS", response.data.deslocStatus);
+          commit("SET_DESLOC_TRAJETOS", response.data.deslocTrajetos);
           resolve();
         }
       })
@@ -245,14 +245,14 @@ const actions = {
     return new Promise((resolve, reject) => {
         axios.get(OSLIST)
       .then((response) => {
-        if(response.body.error){
-          console.log(response.body.message);
+        if(response.data.error){
+          console.log(response.data.message);
         } else{
-          //console.log(response.body);
-          commit("SET_OSPROPRIETARIO", response.body.osProprietario);
-          commit("SET_OSLOJAS", response.body.osLojas);
-          commit("SET_OSS", response.body.oss);
-          commit("SET_MODS", response.body.mod);
+          //console.log(response.data);
+          commit("SET_OSPROPRIETARIO", response.data.osProprietario);
+          commit("SET_OSLOJAS", response.data.osLojas);
+          commit("SET_OSS", response.data.oss);
+          commit("SET_MODS", response.data.mod);
           resolve();
         }
       })
@@ -269,12 +269,12 @@ const actions = {
       //console.log(postData);
       axios.post(LOCALLIST,postData)
         .then((response) => {
-          if(response.body.error){
-            console.log(response.body.message);
+          if(response.data.error){
+            console.log(response.data.message);
           } else{
-            //console.log(response.body);
-            commit("SET_LOCAIS", response.body.locais);
-            commit("SET_BENS", response.body.bens);
+            //console.log(response.data);
+            commit("SET_LOCAIS", response.data.locais);
+            commit("SET_BENS", response.data.bens);
             resolve();
           }
         })
@@ -287,10 +287,10 @@ const actions = {
     return new Promise((resolve, reject) => {
         axios.get(CONFIGPROD)
         .then((response) => {
-          if(response.body.error){
-            console.log(response.body.message);
+          if(response.data.error){
+            console.log(response.data.message);
           } else{
-            commit("SET_PRODUTOS", response.body.produtos);
+            commit("SET_PRODUTOS", response.data.produtos);
             resolve();
           }
         })

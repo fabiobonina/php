@@ -17,10 +17,14 @@ Vue.component('top', {
         ['Update', 'update'],
         ['Delete', 'delete']
       ],
+      itemsLojas: [
+        { title: 'Lojas', router: '#/lojas', icon: 'dashboard' },
+        { title: 'Localidades', router: '#/localidades', icon: 'settings' }
+      ],
       items: [
         { title: 'OsLojas', router: '#/oss', icon: 'dashboard' },
-        { title: 'OSsTec', router: '#/oss-tec', icon: 'settings' },
-        { title: 'OSsStatus', router: '#/oss-status', icon: 'settings' }
+        { title: 'OSsTec', router: '#/oss/oss-tec', icon: 'settings' },
+        { title: 'OSsStatus', router: '#/oss/oss-status', icon: 'settings' }
       ],
     };
   },

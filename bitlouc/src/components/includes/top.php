@@ -1,82 +1,53 @@
 <template id="top">
       <!-- Hero head: will stick at the top -->
       <div>
-          <v-navigation-drawer  fixed   v-model="drawer"  app>
-            <v-toolbar flat class="transparent">
-              <v-list class="pa-0">
-                <v-list-tile avatar>
-                  <v-list-tile-avatar>
-                    <img :src="user.avatar" >
-                  </v-list-tile-avatar>
-                  <v-list-tile-content>
-                    <v-list-tile-title>
-                      <a v-on:click="modalUser = true"> {{ user.user }} </a>
-                    </v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-              </v-list>
-            </v-toolbar>
-            <v-list dense>
-              <v-list-tile  @click="" href="#/">
-                <v-list-tile-action>
-                  <v-icon>home</v-icon>
-                </v-list-tile-action>
+        <v-navigation-drawer  fixed   v-model="drawer"  app>
+          <v-toolbar flat class="transparent">
+            <v-list class="pa-0">
+              <v-list-tile avatar>
+                <v-list-tile-avatar>
+                  <img :src="user.avatar" >
+                </v-list-tile-avatar>
                 <v-list-tile-content>
-                  <v-list-tile-title>Home</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
-              <v-list-tile  @click="" href="#/oss">
-                <v-list-tile-action>
-                  <v-icon>home</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                  <v-list-tile-title>Home</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
-              <v-list-tile @click="">
-                <v-list-tile-action>
-                  <v-icon>contact_mail</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                  <v-list-tile-title>Contact</v-list-tile-title>
+                  <v-list-tile-title>
+                    <a v-on:click="modalUser = true"> {{ user.user }} </a>
+                  </v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
             </v-list>
+          </v-toolbar>
+
 
 
       <v-list>
-        <v-list-tile>
+        <v-list-tile  @click="" href="#/">
           <v-list-tile-action>
             <v-icon>home</v-icon>
           </v-list-tile-action>
           <v-list-tile-title>Home</v-list-tile-title>
         </v-list-tile>
+        
         <v-list-group prepend-icon="account_circle" value="true" >
           <v-list-tile slot="activator">
-            <v-list-tile-title>Users</v-list-tile-title>
+            <v-list-tile-title>Oss</v-list-tile-title>
           </v-list-tile>
-          <v-list-group sub-group no-action value="true">
-            <v-list-tile slot="activator">
-              <v-list-tile-title>OSs</v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile v-for="item in items" :key="item.title" :href="item.router" @click="">
-              <v-list-tile-action>
-                <v-icon>{{ item.icon }}</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-title >{{ item.title }}</v-list-tile-title>
-            </v-list-tile>
-          </v-list-group>
-          <v-list-group sub-group no-action>
-            <v-list-tile slot="activator">
-              <v-list-tile-title>Actions</v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile v-for="(crud, i) in cruds" :key="i" @click="">
-              <v-list-tile-title v-text="crud[0]"></v-list-tile-title>
-              <v-list-tile-action>
-                <v-icon v-text="crud[1]"></v-icon>
-              </v-list-tile-action>
-            </v-list-tile>
-          </v-list-group>
+          <v-list-tile v-for="item in items" :key="item.title" :href="item.router" @click="">
+            <v-list-tile-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title >{{ item.title }}</v-list-tile-title>
+          </v-list-tile>
+        </v-list-group>
+        <v-list-group prepend-icon="account_circle" value="false" >
+          <v-list-tile slot="activator">
+            <v-list-tile-title>Lojas</v-list-tile-title>
+          </v-list-tile>
+          <v-list-tile v-for="item in itemsLojas" :key="item.title" :href="item.router" @click="">
+            <v-list-tile-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title >{{ item.title }}</v-list-tile-title>
+          </v-list-tile>
         </v-list-group>
       </v-list>
     </v-navigation-drawer>

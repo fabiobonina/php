@@ -4,6 +4,7 @@ var Home = Vue.extend({
     return {
       errorMessage: '',
       successMessage: '',
+
     };
   },
   created() {
