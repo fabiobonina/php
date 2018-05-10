@@ -75,3 +75,5 @@
     </v-card>
   </div>
 </template>
+
+<script src="src/components/includes/registrar.js"></script>

@@ -97,14 +97,7 @@
   </div>
 <!-- /.container -->
 </div>
-<!-- /.content-wrapper -->
-<script src="src/components/includes/top.js"></script>
-<script src="src/components/includes/rodape.js"></script>
-<script src="src/components/includes/config.js"></script>
-<script src="src/components/includes/isLogin.js"></script>
-<script src="src/components/includes/login.js"></script>
-<script src="src/components/includes/registrar.js"></script>
-<script src="src/pages/dashboard.js"></script>
+
 <!-- components proprietario -->
 <script src="src/components/proprietario/proprietario.js"></script>
 <!-- /components proprietario -->
@@ -126,7 +119,6 @@
 <script src="src/components/local/local-edt.js"></script>
 <script src="src/components/local/local-del.js"></script>
 <script src="src/components/local/local-cat.js"></script>
-<script src="src/components/local/maps.js"></script>
 <!-- /components local-->
 <!-- components bem -->
 <script src="src/components/bem/bens-grid.js"></script>

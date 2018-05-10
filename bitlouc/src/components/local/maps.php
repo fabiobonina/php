@@ -35,3 +35,5 @@
         </div>
     </div>
 </template>
+
+<script src="src/components/local/maps.js"></script>

@@ -3,3 +3,6 @@
     <vue-map></vue-map>
   </div>
 </template>
+    
+<?php require_once 'src/components/local/maps.php';?>
+<script src="src/pages/dashboard.js"></script>

@@ -73,3 +73,4 @@
           <is-login v-if="isLoggedIn !== true" v-on:close="atualizar()"></is-login> 
       </div>
 </template>
+<script src="src/components/includes/top.js"></script>

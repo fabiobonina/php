@@ -37,3 +37,5 @@
     </v-card>
   </div>
 </template>
+
+<script src="src/components/includes/login.js"></script>

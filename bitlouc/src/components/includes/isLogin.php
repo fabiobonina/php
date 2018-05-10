@@ -38,3 +38,4 @@
 
       </div>
 </template>
+<script src="src/components/includes/isLogin.js"></script>

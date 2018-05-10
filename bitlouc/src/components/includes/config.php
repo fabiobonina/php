@@ -3,3 +3,5 @@
     
   </div>
 </template>
+
+<script src="src/components/includes/config.js"></script>

@@ -50,15 +50,16 @@ if( !$user['error'] ):
   //$acessoloja = 1;
 
   if($action == 'read'):
-    //$acessoProprietario = $_POST['acessoProprietario'];
 
     #PROPRITARIO--------------------------------------------------------------------------------------------------------------------------------------
+    $arProprietario = array();
     $arLojas = array();
     $arrayLocais = array();
     $arBens = array();
+    
     foreach($proprietario->findAll() as $key => $value):if($value->id == $acessoProprietario && $value->ativo == '0' ) {
+      
       $arProprietario = (array) $value;
-
       $contPp_localTt = 0;
       $contPp_localGeo = 0;
       $contPp_bemTt = 0;
