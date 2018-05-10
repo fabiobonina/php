@@ -37,3 +37,4 @@
     </section>
   </div>
 </template>
+<script src="src/components/bem/bens.js"></script>

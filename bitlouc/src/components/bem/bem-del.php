@@ -98,3 +98,4 @@
     </div>
   </div>
 </template>
+<script src="src/components/bem/bem-del.js"></script>

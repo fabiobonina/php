@@ -9,3 +9,4 @@
         </v-alert>
     </div>
 </template>
+<script src="src/components/includes/message.js"></script>

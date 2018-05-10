@@ -31,3 +31,5 @@
     </v-dialog>
   </div>
 </template>
+
+<script src="src/components/user/user.js"></script>

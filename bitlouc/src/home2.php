@@ -21,7 +21,6 @@
     <?php require_once 'src/components/includes/top.php';?>
     <?php require_once 'src/components/includes/rodape.php';?>
     <?php require_once 'src/components/includes/config.php';?>
-    <?php require_once 'src/components/includes/isLogin.php';?>
     <?php require_once 'src/components/includes/login.php';?>
     <?php require_once 'src/components/includes/registrar.php';?>
     <?php require_once 'src/pages/dashboard.php';?>
@@ -72,7 +71,6 @@
     <?php require_once 'src/components/os/ossHome.php';?>
     <!-- /components os -->
     <!-- components user -->
-    <?php require_once 'src/components/user/user.php';?>
     <!-- /components user -->
     <!-- components _uso -->
     <?php require_once 'src/components/includes/message.php';?>
@@ -120,13 +118,6 @@
 <script src="src/components/local/local-del.js"></script>
 <script src="src/components/local/local-cat.js"></script>
 <!-- /components local-->
-<!-- components bem -->
-<script src="src/components/bem/bens-grid.js"></script>
-<script src="src/components/bem/bem-add.js"></script>
-<script src="src/components/bem/bem-edt.js"></script>
-<script src="src/components/bem/bem-del.js"></script>
-<script src="src/components/bem/bens.js"></script>
-<!-- /components bem -->
 <!-- components os -->
 <script src="src/components/os/os-grid.js"></script>
 
@@ -143,11 +134,7 @@
 <script src="src/components/os/oss.js"></script>
 <script src="src/components/os/ossHome.js"></script>
 <!-- /components os -->
-<!-- components user -->
-<script src="src/components/user/user.js"></script>
-<!-- /components user -->
 <!-- components _uso -->
-<script src="src/components/includes/message.js"></script>
 <!-- /components _uso -->
 <!-- components servicos -->
 <script src="src/components/servicos/nota/nota-add.js"></script>
