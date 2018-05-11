@@ -70,5 +70,6 @@
   </div>
 </template>
 <script src="src/components/includes/top.js"></script>
+
 <?php require_once 'src/components/user/user.php';?>
 <?php require_once 'src/components/includes/isLogin.php';?>

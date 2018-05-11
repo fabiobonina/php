@@ -65,10 +65,6 @@
     <?php require_once 'src/components/os/os-amarrac.php';?>    
     <?php require_once 'src/components/os/ossLoja.php';?>
     <?php require_once 'src/components/os/ossLocal.php';?>
-    <?php require_once 'src/components/os/ossStus.php';?>
-    <?php require_once 'src/components/os/ossTec.php';?>
-    <?php require_once 'src/components/os/oss.php';?>
-    <?php require_once 'src/components/os/ossHome.php';?>
     <!-- /components os -->
     <!-- components user -->
     <!-- /components user -->
@@ -118,22 +114,7 @@
 <script src="src/components/local/local-del.js"></script>
 <script src="src/components/local/local-cat.js"></script>
 <!-- /components local-->
-<!-- components os -->
-<script src="src/components/os/os-grid.js"></script>
 
-<script src="src/components/os/os.js"></script>
-<script src="src/components/os/os-add.js"></script>
-<script src="src/components/os/os-edt.js"></script>
-<script src="src/components/os/os-del.js"></script>
-<script src="src/components/os/os-tec.js"></script>
-<script src="src/components/os/os-amarrac.js"></script>
-<script src="src/components/os/ossLoja.js"></script>
-<script src="src/components/os/ossLocal.js"></script>
-<script src="src/components/os/ossStus.js"></script>
-<script src="src/components/os/ossTec.js"></script>
-<script src="src/components/os/oss.js"></script>
-<script src="src/components/os/ossHome.js"></script>
-<!-- /components os -->
 <!-- components _uso -->
 <!-- /components _uso -->
 <!-- components servicos -->

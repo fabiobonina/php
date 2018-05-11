@@ -1,5 +1,5 @@
 
-<template id="oss-stus">
+<template id="os-stus">
   <div>
     <section class="container">
       <div class="field has-addons">
@@ -31,3 +31,4 @@
     </section>
   </div>
 </template>
+<script src="src/components/os/osStus.js"></script>

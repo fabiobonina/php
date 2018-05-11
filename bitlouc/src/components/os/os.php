@@ -259,3 +259,4 @@
     </section>
   </div>
 </template>
+<script src="src/components/os/os.js"></script>

@@ -1,5 +1,5 @@
 
-<template id="oss">
+<template id="os-lojas">
     <div>
         <section class="container">
             <div class="columns is-multiline  is-mobile">
@@ -45,3 +45,4 @@
         </section>
     </div>      
 </template>
+<script src="src/components/os/osLojas.js"></script>

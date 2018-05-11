@@ -111,3 +111,4 @@
     </div>
   </div>
 </template>
+<script src="src/components/os/os-add.js"></script>

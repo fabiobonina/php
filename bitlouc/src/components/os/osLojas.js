@@ -1,5 +1,5 @@
-var OssHome = Vue.extend({
-    template: '#oss-home',
+var OsLojas = Vue.extend({
+    template: '#os-lojas',
     data: function () {
         return {
             errorMessage: '',

@@ -192,7 +192,7 @@ const actions = {
       var postData = { token: state.token };
       axios.post(INDEXLIST, JSON.stringify( {token: state.token} ) )
       .then(function(response) {
-        console.log( response.data ); 
+        //console.log( response.data ); 
         if(response.data.error){
           console.log(response.data.message);
           if(!response.data.isLoggedIn){
@@ -395,14 +395,14 @@ var router = new VueRouter({
         { path: '', component: Dashboard },
       ]
     },
-    /*{ path: 'oss', component: OssHome,
+    { path: '/oss', component: Oss,
         children: [
-        { path: '', component: Oss },
-        { path: 'oss-tec', component: OssTec },
-        { path: 'oss-status', component: OssStus },
+        { path: '', component: OsLojas },
+        { path: '/os-tec', component: OsTec },
+        { path: '/os-status', component: OsStus },
       ] 
     },
-    { path: 'lojas', component: Lojas,
+    /*{ path: 'lojas', component: Lojas,
       children:[
         { path: '', component: Locais },
         { path: '/loja/:_id', component: Loja},
@@ -428,7 +428,7 @@ var router = new VueRouter({
         { path: 'lojas', component: Lojas },
         { path: 'oss-tec', component: OssTec },
       ]
-    },
+    },*/
     {path: '*', component: NaoEncontrado},
     /*{path: '/config', component: Loja,
     children: [

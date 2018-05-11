@@ -53,3 +53,4 @@
     </div>
   </div>
 </template>
+<script src="src/components/os/os-tec.js"></script>

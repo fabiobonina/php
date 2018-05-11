@@ -39,3 +39,7 @@
       </div>
 </template>
 <script src="src/components/includes/isLogin.js"></script>
+
+
+<?php require_once 'src/components/includes/login.php';?>
+<?php require_once 'src/components/includes/registrar.php';?>

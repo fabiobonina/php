@@ -191,3 +191,4 @@
     </div>
   </div>
 </template>
+<script src="src/components/os/os-grid.js"></script>
