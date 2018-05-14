@@ -60,7 +60,7 @@
                             $oatLocal = $value->nome;
                           }endforeach;             
                           foreach($servicos->findAll() as $key => $value):if($value->id == $oatServId) {
-                            $oatServico = $value->descricao;
+                            $oatServico = $value->name;
                           }endforeach;
                           foreach($sistemas->findAll() as $key => $value):if($value->id == $oatSistId) {
                             $oatSistema =  $value->descricao;

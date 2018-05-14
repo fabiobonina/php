@@ -43,7 +43,7 @@
                           $oatLocalId = $value->localidade;
                           $oatFilial = $value->filial;
                           $oatOs = $value->os;
-                          $oatServId = $value->servico;
+                          echo $oatServId = $value->servico;
                           $oatSistId = $value->sistema;
                           $oatData = $value->data;
                           $oatDataOs = $value->data_os;
@@ -54,9 +54,10 @@
                           $oatAtivo = $value->ativo;
                           foreach($localidades->findAll() as $key => $value):if($value->id == $oatLocalId) {
                             $oatLocal = $value->nome;
-                          }endforeach;             
+                          }endforeach;    
                           foreach($servicos->findAll() as $key => $value):if($value->id == $oatServId) {
-                            $oatServico = $value->descricao;
+
+                            echo $oatServico = $value->name;
                           }endforeach;
                           foreach($sistemas->findAll() as $key => $value):if($value->id == $oatSistId) {
                             $oatSistema =  $value->descricao;
