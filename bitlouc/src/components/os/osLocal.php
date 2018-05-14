@@ -1,5 +1,5 @@
 
-<template id="oss-local">
+<template id="os-local">
   <div>
     <section class="container">
       <div>

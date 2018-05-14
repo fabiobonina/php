@@ -398,8 +398,8 @@ var router = new VueRouter({
     { path: '/oss', component: Oss,
         children: [
         { path: '', component: OsLojas },
+        { path: 'os-status', component: OsStus },
         { path: '/os-tec', component: OsTec },
-        { path: '/os-status', component: OsStus },
       ] 
     },
     /*{ path: 'lojas', component: Lojas,

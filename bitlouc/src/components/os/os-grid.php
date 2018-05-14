@@ -1,10 +1,106 @@
 <template id="os-grid">
   <div>
-    <!-- #/SELEÇÃO DE CATEGORIA -->
-    <section class="container">      
-      <div class="box content">
-        <div class="field has-addons">
-          <div class="control">
+  <template>
+  <v-layout row>
+    <v-flex xs12 offset-sm3>
+      <v-card>
+        <v-toolbar  dense >
+      <v-text-field v-model="configs.search" prepend-icon="search" hide-details single-line></v-text-field>
+      <v-btn icon>
+        <v-icon>my_location</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-icon>more_vert</v-icon>
+      </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn icon>
+            <v-icon>search</v-icon>
+          </v-btn>
+          <v-btn icon>
+            <v-icon>check_circle</v-icon>
+          </v-btn>
+        </v-toolbar>
+        <v-list two-line>
+          <template v-for="(item, index) in filteredData">
+            <v-list-tile :key="item.name" avatar ripple :href="'#/oss/' + item.loja + '/os/' + item.id" @click="" >
+              <v-list-tile-content>
+                <v-list-tile-title>{{item.lojaNick}} | {{item.local.tipo}} - {{item.local.name}} ({{item.local.municipio}}/{{item.local.uf}})</v-list-tile-title>
+              </v-list-tile-content>
+              <v-list-tile-action>
+                <v-list-tile-action>{{item.filial}} - {{item.os}}</v-list-tile-action>
+              </v-list-tile-action>
+            </v-list-tile>
+            <v-list-tile :key="item.name" avatar ripple @click="" >
+              <v-list-tile-content>
+                <v-list-tile-sub-title class="text--primary">{{item.data}} | {{item.servico.name}}</v-list-tile-sub-title>
+                <v-list-tile-sub-title v-if="item.bem">{{item.bem.name}} {{item.bem.modelo}}  &nbsp; #{{item.bem.fabricanteNick}} </v-list-tile-sub-title>
+                <v-list-tile-sub-title> <span v-for="tecnico in item.tecnicos"> {{tecnico.userNick}} | </span> </v-list-tile-sub-title>
+                <v-list-tile-sub-title>
+              
+                </v-list-tile-sub-title>
+              </v-list-tile-content>
+              <v-list-tile-action>
+                <a v-if=" 0.000000 != item.local.latitude"
+                    :href="'https://maps.google.com/maps?q='+ item.local.latitude + ',' + item.local.longitude"
+                    target="_blank">
+                      <span class="title is-3 has-text-info mdi mdi-directions"></span>
+                </a>
+                
+                
+              </v-list-tile-action>
+              <v-menu bottom left  @click="">
+            <v-btn slot="activator" icon dark>
+              <v-icon>more_vert</v-icon>
+            </v-btn>
+            <v-list>
+              <v-list-tile @click="">
+                <v-list-tile-title>teste{{ }}</v-list-tile-title>
+              </v-list-tile>
+            </v-list>
+          </v-menu>
+            </v-list-tile>
+
+            <v-container fluid class="pa-0">
+              <v-layout row wrap>
+                <v-flex xs12 sm3>
+                  <v-btn block color="blue">
+                    <v-icon>favorite</v-icon>
+                  </v-btn>
+                </v-flex>
+                <v-flex xs12 sm3>
+                  <v-btn block color="blue">
+                    <v-icon>star</v-icon>
+                  </v-btn>
+                </v-flex>
+                <v-flex xs12 sm3>
+                  <v-btn block color="blue">
+                    <v-icon>cached</v-icon>
+                  </v-btn>
+                </v-flex>
+                <v-flex xs12 sm3>
+                  <v-btn block color="blue">
+                    <v-icon>thumb_up</v-icon>
+                  </v-btn>
+                </v-flex>
+              </v-layout>
+            </v-container>
+            <v-card>
+              <v-card-text>
+                <v-slider :tick-labels="labels" :max="3"></v-slider>
+              </v-card-text>
+            </v-card>
+
+            <v-divider v-if="index + 1 < filteredData.length" :key="index"></v-divider>
+          </template>
+        </v-list>
+      </v-card>
+    </v-flex>
+  </v-layout>
+</template>
+    <section>      
+      <div>
+        <div>
+          <div>
             <input v-model="configs.search" class="input" type="text" placeholder="Search">
           </div>
           <div class="control">
@@ -101,55 +197,7 @@
               </nav>
             </div>
           </div>
-
-          <!--div>
-            <ul class="steps is-small">
-              <li :class="entry.processo > 0 ?
-                            'step-item is-completed is-info' : 'step-item'">
-              </li>
-              <li :class="entry.processo > 0 ?
-                            'step-item is-completed is-info' : 'step-item'">
-                <div class="step-marker"><span class="mdi mdi-arrow-right-bold"></span></div>
-                <div class="step-details is-primary is-completed">
-                  <p class="step-title ">Em Transito</p>
-                </div>
-              </li>
-              <li :class="entry.processo >= 1 ?
-                            entry.processo == 1 ? 'step-item is-completed is-success' :
-                            entry.processo == 2  ? 'step-item is-completed is-warning' : 'step-item is-completed is-info' 
-                          : 'step-item'">
-                <div class="step-marker">
-                  <span class="icon mdi mdi-wrench"></span>
-                </div>
-                <div class="step-details">
-                  <p class="step-title">Atendendo</p>
-                </div>
-              </li>
-              <li :class="entry.processo >= 3 ?
-                            entry.processo == 3 ? 'step-item is-completed is-success' :
-                            entry.processo == 4  ? 'step-item is-completed is-warning' : 'step-item is-completed is-info' 
-                          : 'step-item'">
-                <div class="step-marker">
-                  <span class="mdi mdi-redo-variant"></span>
-                </div>
-                <div class="step-details">
-                  <p class="step-title">Retorno</p>
-                </div>
-              </li>
-              <li :class="entry.processo >= 5 ?
-                            entry.processo == 5 ? 'step-item is-completed is-success' :
-                            entry.processo == 6  ? 'step-item is-completed is-warning' : 'step-item is-completed is-info' 
-                          : 'step-item'">
-                <div class="step-marker">
-                  <span class="icon mdi mdi-check"></span>
-                </div>
-                <div class="step-details">
-                  <p class="step-title">Completo</p>
-                </div>
-              </li>
-            </ul>
-           
-          </div-->
+s
           <div class="buttons has-addons is-centered is-toggle is-fullwidth" style="width: 100%;">
             <a :class="entry.processo >= 1 ?
                 entry.processo == 1 ? 'button is-success is-selected' : 'button is-info is-selected is-small'   

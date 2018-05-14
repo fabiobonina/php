@@ -13,11 +13,13 @@ Vue.component('os-grid', {
       modalEdt: false,
       modalDel: false,
       modalOs: false,
+      selected: [2],
       configs: {
         orderBy: 'data',
         order: 'desc',
         search: ''
-      }
+      },
+      labels: ['Spring', 'Summer', 'Fall', 'Winter']
     }
   },
   computed: {

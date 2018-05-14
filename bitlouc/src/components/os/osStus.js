@@ -1,11 +1,16 @@
 var OsStus = Vue.extend({
-  template: '#os-stus',
-  name: 'os-stus',
+  template: '#os-status',
+  name: 'os-status',
   data: function () {
     return {
       errorMessage: '',
       successMessage: '',
-      status: '0',
+      ativo: '0',
+      status: [
+        { name: 'sem Amaração', ativo: '0', icon: 'done' },
+        { name: 'Abertas', ativo: '1', icon: 'done' },
+        { name: 'Retornos', ativo: '2', icon: 'done' },
+      ],
     };
   },
   created: function() {

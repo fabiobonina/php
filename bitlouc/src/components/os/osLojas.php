@@ -1,48 +1,34 @@
 
 <template id="os-lojas">
     <div>
-        <section class="container">
-            <div class="columns is-multiline  is-mobile">
-                <div v-for=" osLoja in osLojas" class="column is-one-third ">
-                    <div class="card">
-                        <header class="card-header">
-                        <p class="card-header-title"><a :href="'#/loja/' + osLoja.id +'/oss-loja'" class="product-title">{{osLoja.nick}}</a></p>
-                            <a href="#" class="card-header-icon" aria-label="more options">
-                                <span class="icon">
-                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
-                                </span>
-                            </a>
-                        </header>
-                        <div class="card-content">
-                            <div class="content">
-                                <nav class="level">
-                                    <div class="level-item has-text-centered">
-                                        <div>
-                                            <p class="heading">OS´s <span class="mdi mdi-wrench"></span></p>
-                                            <p class="title"> {{ osLoja.osQt }} </p>
-                                        </div>
-                                    </div>
-                                    <div class="level-item has-text-centered">
-                                        <div>
-                                            <p class="heading">Following</p>
-                                            <p class="title">123</p>
-                                        </div>
-                                    </div>
-                                    <div class="level-item has-text-centered">
-                                        <div>
-                                            <p class="heading">Followers</p>
-                                            <p class="title">456K</p>
-                                        </div>
-                                    </div>
-                                </nav>
-                            </div>
-                        </div>
-                        <footer class="card-footer">
-                        </footer>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <v-container grid-list-md text-xs-center>
+    <v-layout row wrap>
+    <v-flex v-for=" osLoja in osLojas" xs4>
+        <v-card>
+        <v-toolbar color="blue darken-4" dark>
+          <v-toolbar-title> {{osLoja.nick}}</v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+          <v-list two-line subheader>
+          <v-list-tile key="OSs" :href="'#/loja/' + osLoja.id +'/oss-loja'" avatar @click="">
+            <v-list-tile-avatar>
+              <v-icon class="">build</v-icon>
+            </v-list-tile-avatar>
+            <v-list-tile-content>
+              <v-list-tile-title>OSs</v-list-tile-title>
+              <v-list-tile-sub-title>{{ osLoja.osQt }}</v-list-tile-sub-title>
+            </v-list-tile-content>
+            <v-list-tile-action>
+              <v-btn icon ripple>
+                <v-icon color="grey lighten-1">info</v-icon>
+              </v-btn>
+            </v-list-tile-action>
+          </v-list-tile>
+        </v-list>
+        </v-card>
+      </v-flex>
+      </v-layout>
+      </v-container>
     </div>      
 </template>
 <script src="src/components/os/osLojas.js"></script>

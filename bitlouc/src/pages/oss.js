@@ -5,7 +5,11 @@ var Oss = Vue.extend({
             errorMessage: '',
             successMessage: '',
             active: '0',
-            gridColumns: ['displayName', 'name']
+            router: [
+                { title: 'OS Lojas', router: '/oss', icon: 'store' },
+                { title: 'OS Status', router: '/oss/os-status', icon: 'trending_up' },
+                { title: 'Suas OS', router: '/oss/os-tec', icon: 'person' },
+            ],
         };
     },
     created() {
