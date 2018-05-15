@@ -5,13 +5,14 @@
     <v-flex xs12 offset-sm3>
       <v-card>
         <v-toolbar  dense >
-      <v-text-field v-model="configs.search" prepend-icon="search" hide-details single-line></v-text-field>
-      <v-btn icon>
-        <v-icon>my_location</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>more_vert</v-icon>
-      </v-btn>
+          <v-text-field v-model="configs.search" 
+          prepend-icon="search"
+          append-icon="mic"
+          label="Search"
+          solo-inverted
+          class="mx-3"
+          flat
+        ></v-text-field>         
           <v-spacer></v-spacer>
           <v-btn icon>
             <v-icon>search</v-icon>
@@ -35,32 +36,45 @@
                 <v-list-tile-sub-title class="text--primary">{{item.data}} | {{item.servico.name}}</v-list-tile-sub-title>
                 <v-list-tile-sub-title v-if="item.bem">{{item.bem.name}} {{item.bem.modelo}}  &nbsp; #{{item.bem.fabricanteNick}} </v-list-tile-sub-title>
                 <v-list-tile-sub-title> <span v-for="tecnico in item.tecnicos"> {{tecnico.userNick}} | </span> </v-list-tile-sub-title>
-                <v-list-tile-sub-title>
-              
-                </v-list-tile-sub-title>
+
               </v-list-tile-content>
               <v-list-tile-action>
                 <a v-if=" 0.000000 != item.local.latitude"
-                    :href="'https://maps.google.com/maps?q='+ item.local.latitude + ',' + item.local.longitude"
-                    target="_blank">
-                      <span class="title is-3 has-text-info mdi mdi-directions"></span>
+                :href="'https://maps.google.com/maps?q='+ item.local.latitude + ',' + item.local.longitude"
+                target="_blank">
+                  <v-icon>directions</v-icon>
                 </a>
-                
-                
               </v-list-tile-action>
-              <v-menu bottom left  @click="">
-            <v-btn slot="activator" icon dark>
-              <v-icon>more_vert</v-icon>
-            </v-btn>
-            <v-list>
-              <v-list-tile @click="">
-                <v-list-tile-title>teste{{ }}</v-list-tile-title>
-              </v-list-tile>
-            </v-list>
-          </v-menu>
+              <v-menu v-if="user.nivel > 2 && user.grupo == 'P'" bottom left  @click="">
+                <v-btn slot="activator" icon>
+                  <v-icon>more_vert</v-icon>
+                </v-btn>
+                <v-list>
+                  <v-list-tile @click="modalOs = true; selecItem(item)">
+                    <v-list-tile-title>
+                      <span class="mdi mdi-wrench"></span>Amarrar OS
+                    </v-list-tile-title>
+                  </v-list-tile>
+                  <v-list-tile @click="modalTec = true; selecItem(item)">
+                    <v-list-tile-title>
+                      <span class="mdi mdi-worker"></span>Tecnicos
+                    </v-list-tile-title>
+                  </v-list-tile>
+                  <v-list-tile @click="modalEdt = true; selecItem(item)">
+                    <v-list-tile-title>
+                      <span class="mdi mdi-pencil"></span>Editar
+                    </v-list-tile-title>
+                  </v-list-tile>
+                  <v-list-tile v-if="item.status == '0' && item.processo == '0' || user.nivel > 3" @click="modalDel = true; selecItem(item)">
+                    <v-list-tile-title>
+                      <span class="mdi mdi-delete"></span>Delete
+                    </v-list-tile-title>
+                  </v-list-tile>
+                </v-list>
+              </v-menu>
             </v-list-tile>
-
-            <v-container fluid class="pa-0">
+                  
+            <!--v-container fluid class="pa-0">
               <v-layout row wrap>
                 <v-flex xs12 sm3>
                   <v-btn block color="blue">
@@ -83,13 +97,12 @@
                   </v-btn>
                 </v-flex>
               </v-layout>
-            </v-container>
+            </v-container-->
             <v-card>
               <v-card-text>
-                <v-slider :tick-labels="labels" :max="3"></v-slider>
+                <v-slider :tick-labels="labels" v-model="item.processo"  :max="3" always-dirty></v-slider>
               </v-card-text>
             </v-card>
-
             <v-divider v-if="index + 1 < filteredData.length" :key="index"></v-divider>
           </template>
         </v-list>
@@ -197,7 +210,6 @@
               </nav>
             </div>
           </div>
-s
           <div class="buttons has-addons is-centered is-toggle is-fullwidth" style="width: 100%;">
             <a :class="entry.processo >= 1 ?
                 entry.processo == 1 ? 'button is-success is-selected' : 'button is-info is-selected is-small'   

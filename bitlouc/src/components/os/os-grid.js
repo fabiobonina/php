@@ -19,7 +19,7 @@ Vue.component('os-grid', {
         order: 'desc',
         search: ''
       },
-      labels: ['Spring', 'Summer', 'Fall', 'Winter']
+      labels: ['Em trasito', 'Atendendo', 'Retorno Viagem', 'Completo']
     }
   },
   computed: {
