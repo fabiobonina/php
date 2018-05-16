@@ -69,10 +69,16 @@
 		public function listOsTec( $osId ){
 			$osTecnicos = new OsTecnicos();
 			$mods 		= new Mod();
+			$tecnicos	= new Tecnicos();
+			$user 		= new Usuarios();
+
 			$arTecnicos = array();
 			foreach($osTecnicos->findOs( $osId ) as $key => $value): {
 				$arTecnico = (array) $value;
-	        	$tecId = $value->tecnico;
+				$tecId = $value->tecnico;
+				$tecItem = $tecnicos->find( $tecId );
+				$userItem = $user->find( $tecItem->user );
+				$arTecnico['avatar'] = $userItem->avatar;
           		#MODS-------------------------------------------------------
           		$arTecnico['mods'] = $this->listOsTecMod( $osId, $tecId );
           		#MODS-------------------------------------------------------
