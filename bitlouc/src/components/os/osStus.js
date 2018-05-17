@@ -6,7 +6,7 @@ var OsStus = Vue.extend({
       errorMessage: '',
       successMessage: '',
       ativo: '0',
-      status: [
+      itens: [
         { name: 'sem Amaração', ativo: '0', icon: 'done' },
         { name: 'Abertas', ativo: '1', icon: 'done' },
         { name: 'Retornos', ativo: '2', icon: 'done' },
@@ -27,9 +27,15 @@ var OsStus = Vue.extend({
     },
     oss()  {
       return store.state.oss;
+    },
+    status()  {
+      return store.state.status;
     }
   }, // computed
   methods: {
+    status(item){
+      this.$store.dispatch("setStatus", item );
 
+    }
   },
 });

@@ -15,11 +15,17 @@ Vue.component('os-grid', {
       modalOs: false,
       selected: [2],
       configs: {
-        orderBy: 'data',
+        orderBy: { name: 'Data', state: 'data' },
         order: 'desc',
         search: ''
       },
-      labels: ['Em trasito', 'Atendendo', 'Retorno Viagem', 'Completo']
+      labels: ['Em trasito', 'Atendendo', 'Retorno Viagem', 'Completo' ],
+      labels2: ['Atendimento', 'Concluido', 'Fechado', 'Validado' ],
+      itens: [
+        { name: 'Data', state: 'data' },
+        { name: 'Local', state: 'local.name' },
+        { name: 'Loja', state: 'loja' }
+      ],
     }
   },
   computed: {
@@ -36,7 +42,7 @@ Vue.component('os-grid', {
     filteredData() {
       var status = this.status;
       var filter = this.configs.search && this.configs.search.toLowerCase();
-      var list = _.orderBy(this.data, this.configs.orderBy, this.configs.order);
+      var list = _.orderBy(this.data, this.configs.orderBy.state, this.configs.order);
       //_.filter(list, repo => repo.status.indexOf(filter) >= 0);
       if(status){
       list = list.filter(function (row) {

@@ -4,7 +4,7 @@
     <v-container fluid class="pa-0">
       <v-layout row wrap>
           <v-btn-toggle v-if="user.nivel > 1 && user.grupo == 'P'"  v-model="ativo">
-            <v-btn flat  v-for="n in status" v-on:click="ativo = n.ativo" :value="n.ativo">
+            <v-btn flat  v-for="n in itens" v-on:click="status( n.ativo)" :value="n.ativo">
               <v-icon>{{ n.icon }}</v-icon>
               <span>{{ n.name }}</span>
             </v-btn>

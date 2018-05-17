@@ -41,6 +41,7 @@ const state = {
   grupos:[],
   seguimentos:[],
   search:'',
+  status:'',
 }
 
 const mutations = {
@@ -57,6 +58,9 @@ const mutations = {
   },
   SET_SEARCH(state, search) {
     state.search = search
+  },
+  SET_STATUS(state, status) {
+    state.status = status
   },
   SET_PROPRIETARIO(state, proprietario) {
     state.proprietario = proprietario
@@ -150,6 +154,9 @@ const actions = {
   },
   setSearch({ commit }, search) {
     commit("SET_SEARCH", search)
+  },
+  setStatus({ commit }, status) {
+    commit("SET_STATUS", status)
   },
   setProprietario({ commit }, proprietario) {
     commit("SET_PROPRIETARIO", proprietario)
@@ -304,6 +311,7 @@ const getters = {
   },
   //getSearch: state => state.tipoDeslocamentos,
   getSearch: state => state.search,
+  getStatus: state => state.status,
   getUser: state => state.user,
   getUsers: state => state.users,
   getProprietario: state => state.proprietario,
@@ -376,7 +384,7 @@ var NaoEncontrado = Vue.extend({
   }
 });
 
-Vue.component('v-select', VueSelect.VueSelect);
+//Vue.component('v-select', VueSelect.VueSelect);
 
 Vue.component('todo-item', {
   template: `
