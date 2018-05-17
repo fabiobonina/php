@@ -22,23 +22,30 @@
           </v-list-tile-action>
           <v-list-tile-title>Home</v-list-tile-title>
         </v-list-tile>
+        <v-list-tile  @click="" href="#/oss">
+          <v-list-tile-action>
+            <v-icon>build</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title>OSs</v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile  @click="" href="#/lojas">
+          <v-list-tile-action>
+            <v-icon>store</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title>Lojas</v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile  @click="" href="#/localidades">
+          <v-list-tile-action>
+            <v-icon>location_city</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title>Localidades</v-list-tile-title>
+        </v-list-tile>
         
         <v-list-group prepend-icon="account_circle" value="true" >
           <v-list-tile slot="activator">
             <v-list-tile-title>Oss</v-list-tile-title>
           </v-list-tile>
           <v-list-tile v-for="item in items" :key="item.title" :href="item.router" @click="">
-            <v-list-tile-action>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-title >{{ item.title }}</v-list-tile-title>
-          </v-list-tile>
-        </v-list-group>
-        <v-list-group prepend-icon="account_circle" value="false" >
-          <v-list-tile slot="activator">
-            <v-list-tile-title>Lojas</v-list-tile-title>
-          </v-list-tile>
-          <v-list-tile v-for="item in itemsLojas" :key="item.title" :href="item.router" @click="">
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>

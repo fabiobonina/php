@@ -41,7 +41,7 @@ const state = {
   grupos:[],
   seguimentos:[],
   search:'',
-  status:'',
+  status:'0',
 }
 
 const mutations = {
@@ -410,6 +410,7 @@ var router = new VueRouter({
         { path: '/os-tec', component: OsTec },
       ] 
     },
+    {path: '/oss/:_id/os/:_os', component: Os, name: 'os'},
     /*{ path: 'lojas', component: Lojas,
       children:[
         { path: '', component: Locais },

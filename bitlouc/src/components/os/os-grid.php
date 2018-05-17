@@ -85,7 +85,7 @@
               </v-menu>
             </v-list-tile>
             <div>
-              <v-chip small v-for="tecnico in item.tecnicos">
+              <v-chip small v-for="tecnico in item.tecnicos" :key="tecnico.id">
                 <v-avatar small>
                   <img :src="tecnico.avatar" alt="trevor">
                 </v-avatar>

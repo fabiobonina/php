@@ -5,18 +5,15 @@ var OsStus = Vue.extend({
     return {
       errorMessage: '',
       successMessage: '',
-      ativo: '0',
       itens: [
-        { name: 'sem Amaração', ativo: '0', icon: 'done' },
-        { name: 'Abertas', ativo: '1', icon: 'done' },
-        { name: 'Retornos', ativo: '2', icon: 'done' },
+        { id:1, name: 'sem Amaração', ativo: '0', icon: 'done' },
+        { id:2, name: 'Abertas', ativo: '1', icon: 'done' },
+        { id:3, name: 'Retornos', ativo: '2', icon: 'done' },
       ],
     };
   },
   created: function() {
-    //this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
-      //console.log("Buscando dados das locais!")
-    //});
+    //this.$store.dispatch('setStatus', this.ativo);
   },
   mounted: function() {
     //this.modalLocalAdd = true;
@@ -28,14 +25,22 @@ var OsStus = Vue.extend({
     oss()  {
       return store.state.oss;
     },
-    status()  {
-      return store.state.status;
+    status: {
+      // getter
+      get: function () {
+        return store.state.status;
+      },
+      // setter
+      set: function (newValue) {
+        var name = newValue
+        this.$store.dispatch("setStatus", name );
+      }
     }
   }, // computed
   methods: {
-    status(item){
-      this.$store.dispatch("setStatus", item );
-
+    setStatus(item){
+      var name = item;
+      this.$store.dispatch("setStatus", name );
     }
   },
 });
