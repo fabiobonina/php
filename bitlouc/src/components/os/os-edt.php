@@ -93,3 +93,4 @@
     </div>
   </div>
 </template>
+<script src="src/components/loja/loja-edt.js"></script>

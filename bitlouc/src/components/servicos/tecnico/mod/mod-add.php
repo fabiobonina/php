@@ -97,3 +97,4 @@
     </div>
   </div>
 </template>
+<script src="src/components/servicos/tecnico/mod/mod-add.js"></script>

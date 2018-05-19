@@ -106,3 +106,4 @@
     </div>
   </div>
 </template>
+<script src="src/components/local/locais-grid.js"></script>

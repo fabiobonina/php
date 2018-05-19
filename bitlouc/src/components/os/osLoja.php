@@ -9,4 +9,4 @@
     </section>
   </div>
 </template>
-<script src="src/components/os/ossLoja.js"></script>
+<script src="src/components/os/osLoja.js"></script>

@@ -93,3 +93,4 @@
     </div>
   </div>
 </template>
+<script src="src/components/servicos/tecnico/deslocamento/desloc-add.js"></script>

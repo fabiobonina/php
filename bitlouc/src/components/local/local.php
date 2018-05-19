@@ -76,3 +76,4 @@
 
   </div>
 </template>
+<script src="src/components/local/local.js"></script>

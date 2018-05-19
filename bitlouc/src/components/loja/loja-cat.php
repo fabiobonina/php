@@ -1,11 +1,63 @@
 <template id="loja-cat">
+      <v-dialog v-model="dialog" max-width="500px">
+        <v-card>
+          <v-card-title>
+          {{ proprietario.nick }} - {{ loja.nick }} 
+          </v-card-title>
+          <v-card-text>
+          <message :success="successMessage" :error="errorMessage"></message>
+        <v-form>
+          <div>
+            <v-chip small v-for="categoria in loja.categoria" close @input="remove(categoria.id)" :key="categoria.id">
+              {{ categoria.name }}
+            </v-chip>
+          </div>
+
+          
+        <v-autocomplete
+          :items="categorias"
+          v-model="categoria"
+          label="Categorias"
+          item-text="name"
+          item-value="name"
+          multiple
+          chips
+          max-height="auto"
+        >
+          <template slot="selection" slot-scope="data">
+            <v-chip
+              :selected="data.selected"
+              :key="JSON.stringify(data.item)"
+              close
+              class="chip--select-multi"
+              @input="data.parent.selectItem(data.item)"
+            >
+              {{ data.item.name }}
+            </v-chip>
+          </template>
+          <template slot="item" slot-scope="data">
+            <template v-if="typeof data.item !== 'object'">
+              <v-list-tile-content v-text="data.item"></v-list-tile-content>
+            </template>
+            <template v-else>
+              <v-list-tile-content>
+                <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
+              </v-list-tile-content>
+            </template>
+          </template>
+        </v-autocomplete>
+          
+        </v-form>
+            
+          </v-card-text>
+          <v-card-actions>
+            <v-btn color="primary" flat @click.stop="$emit('close')">Close</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
   <div class="modal is-active" >
     <div class="modal-background"></div>
     <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title">{{ proprietario.nick }} - {{ loja.nick }} <span class="mdi mdi-store"></span></p>
-        <button class="delete" aria-label="close" v-on:click="$emit('close')"></button>
-      </header>
       <section class="modal-card-body">
         <message :success="successMessage" :error="errorMessage"></message>
         <!--#CONTEUDO -->
@@ -72,3 +124,4 @@
     </div>
   </div>
 </template>
+<script src="src/components/loja/loja-cat.js"></script>

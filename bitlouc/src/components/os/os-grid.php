@@ -137,3 +137,9 @@
   </div>
 </template>
 <script src="src/components/os/os-grid.js"></script>
+
+
+<?php require_once 'src/components/os/os-edt.php';?>
+<?php require_once 'src/components/os/os-del.php';?>
+<?php require_once 'src/components/os/os-tec.php';?> 
+<?php require_once 'src/components/os/os-amarrac.php';?>

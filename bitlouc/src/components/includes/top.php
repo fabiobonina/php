@@ -16,25 +16,25 @@
         </v-list>
       </v-toolbar>
       <v-list>
-        <v-list-tile  @click="" href="#/">
+        <v-list-tile  @click="" to="/" append>
           <v-list-tile-action>
             <v-icon>home</v-icon>
           </v-list-tile-action>
           <v-list-tile-title>Home</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile  @click="" href="#/oss">
+        <v-list-tile  @click="" append to="/oss">
           <v-list-tile-action>
             <v-icon>build</v-icon>
           </v-list-tile-action>
           <v-list-tile-title>OSs</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile  @click="" href="#/lojas">
+        <v-list-tile  @click="" to="/lojas"append >
           <v-list-tile-action>
             <v-icon>store</v-icon>
           </v-list-tile-action>
           <v-list-tile-title>Lojas</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile  @click="" href="#/localidades">
+        <v-list-tile  v-if="user.nivel > 2 && user.grupo == 'P'" @click="" href="#/localidades">
           <v-list-tile-action>
             <v-icon>location_city</v-icon>
           </v-list-tile-action>

@@ -14,4 +14,4 @@
     </section>
   </div>
 </template>
-<script src="src/components/os/ossLocal.js"></script>
+<script src="src/components/os/osLocal.js"></script>

@@ -10,10 +10,14 @@ Vue.component('grid-lojas', {
       modalDel: false,
       modalCat: false,
       configs: {
-        orderBy: 'name',
+        orderBy: { name: 'Nome', state: 'name' },
         order: 'asc',
         search: ''
-      }
+      },
+      itens: [
+        { name: 'Nome', state: 'name' },
+        { name: 'Seguimento', state: 'seguimento' }
+      ],
     }
   },
   computed: {
@@ -22,7 +26,7 @@ Vue.component('grid-lojas', {
     },
     filteredData() {
       const filter = this.configs.search && this.configs.search.toLowerCase(); 
-      const list = _.orderBy(this.data, this.configs.orderBy, this.configs.order);
+      const list = _.orderBy(this.data, this.configs.orderBy.state, this.configs.order);
       if (_.isEmpty(filter)) {
         return list;
       }

@@ -12,6 +12,10 @@
     <?php require_once 'src/components/includes/config.php';?>
     <?php require_once 'src/pages/home.php';?>
     <?php require_once 'src/pages/oss.php';?>
+    <?php require_once 'src/pages/lojas.php';?>
+    <?php require_once 'src/pages/locais.php';?>
+
+    <?php require_once 'src/components/includes/message.php';?>
 
     <template id="naoEncontrado">
       <div><h2>Pagina não encontrado: 404</h2></div>

@@ -24,3 +24,4 @@
     </div>
   </div>
 </template>
+<script src="src/components/servicos/nota/nota-edt.js"></script>

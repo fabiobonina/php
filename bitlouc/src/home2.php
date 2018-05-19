@@ -17,25 +17,12 @@
         </v-app>      
       </main>
     </div>
-    <link rel="import" href="./src/pages/login.html">
-    <?php require_once 'src/components/includes/top.php';?>
-    <?php require_once 'src/components/includes/rodape.php';?>
-    <?php require_once 'src/components/includes/config.php';?>
-    <?php require_once 'src/components/includes/login.php';?>
-    <?php require_once 'src/components/includes/registrar.php';?>
-    <?php require_once 'src/pages/dashboard.php';?>
-    <?php //require_once 'src/pages/login.php';?>
+
     <!-- components proprietario -->
     <?php require_once 'src/components/proprietario/proprietario.php';?>
     <!-- /components proprietario -->
-    <!-- components loja -->
-    <?php require_once 'src/components/loja/loja-add.php';?>
-    <?php require_once 'src/components/loja/loja-del.php';?>
-    <?php require_once 'src/components/loja/loja-edt.php';?>
-    <?php require_once 'src/components/loja/loja-cat.php';?>
-    <?php require_once 'src/components/loja/loja.php';?>
-    <?php require_once 'src/components/loja/lojas.php';?>
-    <?php require_once 'src/components/loja/lojas-grid.php';?>
+    <!-- components loja -->    
+    
     <!-- /components loja -->
     <!-- components local -->
     <?php require_once 'src/components/local/local-geo.php';?>
@@ -66,8 +53,6 @@
     <?php require_once 'src/components/os/ossLoja.php';?>
     <?php require_once 'src/components/os/ossLocal.php';?>
     <!-- /components os -->
-    <!-- components user -->
-    <!-- /components user -->
     <!-- components _uso -->
     <?php require_once 'src/components/includes/message.php';?>
     <!-- /components _usor -->
@@ -92,43 +77,5 @@
 <!-- /.container -->
 </div>
 
-<!-- components proprietario -->
-<script src="src/components/proprietario/proprietario.js"></script>
-<!-- /components proprietario -->
-<!-- components loja -->
-<script src="src/components/loja/lojas-grid.js"></script>
-<script src="src/components/loja/loja-add.js"></script>
-<script src="src/components/loja/loja-del.js"></script>
-<script src="src/components/loja/loja-edt.js"></script>
-<script src="src/components/loja/loja-cat.js"></script>
-<script src="src/components/loja/loja.js"></script>
-<script src="src/components/loja/lojas.js"></script>
-<!-- /components loja -->
-<!-- components local-->
-<script src="src/components/local/local-geo.js"></script>
-<script src="src/components/local/locais-grid.js"></script>
-<script src="src/components/local/local.js"></script>
-<script src="src/components/local/locais.js"></script>
-<script src="src/components/local/local-add.js"></script>
-<script src="src/components/local/local-edt.js"></script>
-<script src="src/components/local/local-del.js"></script>
-<script src="src/components/local/local-cat.js"></script>
-<!-- /components local-->
-
-<!-- components _uso -->
-<!-- /components _uso -->
-<!-- components servicos -->
-<script src="src/components/servicos/nota/nota-add.js"></script>
-<script src="src/components/servicos/nota/nota-edt.js"></script>
-<script src="src/components/servicos/tecnico/deslocamento/desloc-add.js"></script>
-<script src="src/components/servicos/tecnico/deslocamento/desloc-chg.js"></script>
-<script src="src/components/servicos/tecnico/deslocamento/desloc-edt.js"></script>
-<script src="src/components/servicos/tecnico/mod/mod-add.js"></script>
-<script src="src/components/servicos/tecnico/mod/mod-edt.js"></script>
 <script src="src/components/servicos/tecnico/tecnico.js"></script>
-<!-- /components servicos -->
-<!-- components projeto -->
-<script src="src/components/projeto/projeto.js"></script>
-<!-- /components projeto -->
-<!-- /components servicos -->
 <script src="src/home.js"></script>

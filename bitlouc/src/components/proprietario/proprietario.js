@@ -1,5 +1,6 @@
-var Home = Vue.extend({
-  template: '#home',
+Vue.component('proprietario', {
+  name: 'proprietario',
+  template: '#proprietario',
   data: function () {
     return {
       errorMessage: '',

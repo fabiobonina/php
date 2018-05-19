@@ -411,14 +411,14 @@ var router = new VueRouter({
       ] 
     },
     {path: '/oss/:_id/os/:_os', component: Os, name: 'os'},
-    /*{ path: 'lojas', component: Lojas,
+    { path: '/lojas', component: Lojas,
       children:[
         { path: '', component: Locais },
         { path: '/loja/:_id', component: Loja},
-        { path: 'oss-loja', component: OssLoja },
+        //{ path: 'oss-loja', component: OsLoja },
       ]
      },
-    { path: '/loja/:_id/local/:_local', component: Local,
+    /*{ path: '/loja/:_id/local/:_local', component: Local,
       children: [
         { path: '', component: Bens },
         { path: 'oss-local', component: OssLocal },

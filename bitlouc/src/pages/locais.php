@@ -14,4 +14,4 @@
     </section>
   </div>
 </template>
-<script src="src/components/local/locais.js"></script>
+<script src="src/pages/locais.js"></script>

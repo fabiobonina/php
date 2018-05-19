@@ -129,3 +129,4 @@
     </div>
   </div>
 </template>
+<script src="src/components/servicos/tecnico/deslocamento/desloc-chg.js"></script>

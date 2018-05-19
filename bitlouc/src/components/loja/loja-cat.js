@@ -6,6 +6,7 @@ Vue.component('loja-cat', {
   },
   data: function () {
     return {
+      dialog: true,
       errorMessage: [],
       successMessage: [],
       isLoading: false,
@@ -127,6 +128,10 @@ Vue.component('loja-cat', {
       if(this.categoria.length == 0) this.errorMessage.push("Categoria necessário.");
       if(!this.errorMessage.length) return true;
       e.preventDefault();
+    },
+    remove (item) {
+      this.chips.splice(this.chips.indexOf(item), 1)
+      this.chips = [...this.chips]
     },
     addNewTodo: function () {
       this.categoria.push(this.item)

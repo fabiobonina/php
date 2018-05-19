@@ -117,3 +117,4 @@
     </div>
   </div>
 </template>
+<script src="src/components/loja/loja-add.js"></script>

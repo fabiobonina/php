@@ -10,7 +10,7 @@
           <v-spacer></v-spacer>
         </v-toolbar>
           <v-list two-line subheader>
-          <v-list-tile key="OSs" :href="'#/loja/' + osLoja.id +'/oss-loja'" avatar @click="">
+          <v-list-tile key="OSs" :to="'#/loja/' + osLoja.id +'/oss-loja'" avatar @click="">
             <v-list-tile-avatar>
               <v-icon class="">build</v-icon>
             </v-list-tile-avatar>
@@ -19,7 +19,7 @@
               <v-list-tile-sub-title>{{ osLoja.osQt }}</v-list-tile-sub-title>
             </v-list-tile-content>
             <v-list-tile-action>
-              <v-btn icon ripple>
+              <v-btn icon ripple >
                 <v-icon color="grey lighten-1">info</v-icon>
               </v-btn>
             </v-list-tile-action>

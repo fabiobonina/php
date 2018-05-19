@@ -66,3 +66,4 @@
     </div>
   </div>
 </template>
+<script src="src/components/loja/loja.js"></script>

@@ -59,3 +59,4 @@
     </div>
   </div>
 </template>
+<script src="src/components/projeto/projeto.js"></script>

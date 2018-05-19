@@ -1,6 +1,6 @@
-<template id="home">
-  
+<template id="proprietario">
   <div>
+    
     <template>
       <v-layout align-center>
         <v-flex xs12 sm4 text-xs>
@@ -50,30 +50,6 @@
         </v-flex>
       </v-layout>
     </template>
-
-      <section>
-      <template>
-  <div class="text-xs-center">
-    <v-badge left>
-      <span slot="badge">9999</span>
-      <span>Examples</span>
-    </v-badge>
-    &nbsp;&nbsp;
-    <v-badge color="green">
-      <v-icon slot="badge" dark small>list</v-icon>
-      <span>Lists</span>
-    </v-badge>
   </div>
 </template>
-        
-      </section>
-
-      <section>
-
-      </section>
-      <div>
-        <router-view></router-view>
-      </div>
-
-  </div>
-</template>
+<script src="src/components/proprietario/proprietario.js"></script>
