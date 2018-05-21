@@ -8,8 +8,19 @@
           <message :success="successMessage" :error="errorMessage"></message>
         <v-form>
           <div>
-            <v-chip small v-for="categoria in loja.categoria" close @input="remove(categoria.id)" :key="categoria.id">
-              {{ categoria.name }}
+            <v-chip small v-for="categoria in loja.categoria" close @input="catDelete(categoria)" :key="categoria.id"
+            color="green" text-color="white">
+            <v-avatar>
+              <v-icon>check_circle</v-icon>
+            </v-avatar>
+              <strong>{{ categoria.name }}</strong>&nbsp;
+              <span>
+                <v-btn flat small icon color=""
+                  @click="catStatus(categoria); categoria.ativo == '0'? categoria.ativo = '1' : categoria.ativo = '0' ">
+                  <v-icon v-if="categoria.ativo == '0'" dark>check_circle </v-icon>
+                  <v-icon v-else dark>panorama_fish_eye</v-icon>
+                </v-btn>
+              </span>
             </v-chip>
           </div>
 

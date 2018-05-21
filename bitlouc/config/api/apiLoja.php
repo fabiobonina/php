@@ -255,7 +255,7 @@
   #CATEGORIA-ATIVO----------------------------------------------------------------------
   if($action == 'catStatus'):
     $ativo = $_POST['ativo'];
-    $id = $_POST['id'];
+    $id     = $_POST['id'];
 
     $lojaCategorias->setAtivo($ativo);
 

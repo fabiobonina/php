@@ -101,9 +101,9 @@ Vue.component('loja-cat', {
         ativo: this.ativo,
         id: data.id
       };
-      //console.log(postData);
-      this.$http.post('./config/api/apiLoja.php?action=catStatus', postData).then(function(response) {
-        //console.log(response);
+      console.log(postData);
+      this.$http.post('./config/api/apiLoja.php?action=catStatus',JSON.stringify( postData )).then(function(response) {
+        console.log(response);
         if(response.data.error){
           this.errorMessage = response.data.message;
           this.isLoading = false;
