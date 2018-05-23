@@ -311,8 +311,7 @@
         # Insert
         if($lojaCategorias->insert()){
           $res['error'] = false;
-          $arDados = "OK, dados salvo com sucesso";
-          $res['message']= $arDados;
+          $res['message']= "OK, dados salvo com sucesso";
         }else{
           $res['error'] = true; 
           $arError = "Error, nao foi possivel salvar os dados";

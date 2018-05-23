@@ -75,7 +75,7 @@
     <div>
       <loja-edt v-if="modalEdt" v-on:close="modalEdt = false" :data="modalItem" @atualizar="onAtualizar"></loja-edt>
       <loja-del v-if="modalDel" v-on:close="modalDel = false" :data="modalItem" @atualizar="onAtualizar"></loja-del>
-      <loja-cat v-if="modalCat" v-on:close="modalCat = false" :data="modalItem" @atualizar="onAtualizar"></loja-cat>
+      <loja-cat v-if="modalCat" v-on:close="modalCat = false" :data="modalItem" :dialog ="modalCat" @atualizar="onAtualizar"></loja-cat>
     </div>
   </div>
 </template>

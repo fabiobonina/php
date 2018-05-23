@@ -2,11 +2,11 @@ Vue.component('loja-cat', {
   name: 'loja-cat',
   template: '#loja-cat',
   props: {
-    data: Object
+    data: Object,
+    dialog: Boolean
   },
   data: function () {
     return {
-      dialog: true,
       errorMessage: [],
       successMessage: [],
       isLoading: false,
@@ -40,13 +40,13 @@ Vue.component('loja-cat', {
           loja: this.data.id
         };
         //console.log(postData);
-        this.$http.post('./config/api/apiLoja.php?action=catCadastrar', postData).then(function(response) {
-          //console.log(response);
+        axios.post('./config/api/apiLoja.php?action=catCadastrar',JSON.stringify( postData )).then(function(response) {
+          console.log(response.data.message);
           if(response.data.error){
             this.errorMessage = response.data.message;
             this.isLoading = false;
           } else{
-            this.successMessage.push(response.data.message);
+            this.successMessage = response.data.message;
             this.isLoading = false;
             this.$store.dispatch("fetchIndex").then(() => {
               console.log("Atualizado lojas!")
@@ -70,7 +70,7 @@ Vue.component('loja-cat', {
           id: data.id
         };
         //console.log(postData);
-        this.$http.post('./config/api/apiLoja.php?action=catDelete', postData).then(function(response) {
+        this.$http.post('./config/api/apiLoja.php?action=catDelete',JSON.stringify( postData )).then(function(response) {
           //console.log(response);
           if(response.data.error){
             this.errorMessage = response.data.message;
@@ -78,7 +78,7 @@ Vue.component('loja-cat', {
           } else{
             this.successMessage.push(response.data.message);
             this.isLoading = false;
-            this.$store.dispatch("fetchIndex").then(() => {
+            this.$store.dispatch('fetchIndex').then(() => {
               console.log("Atualizado lojas!")
             });
             setTimeout(() => {
