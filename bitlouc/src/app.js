@@ -197,9 +197,9 @@ const actions = {
   fetchIndex({ commit }) {
     return new Promise((resolve, reject) => {
       var postData = { token: state.token };
-      axios.post(INDEXLIST, JSON.stringify( postData ) )
+      Vue.http.post(INDEXLIST, postData )
       .then(function(response) {
-        //console.log( response.data ); 
+        //console.log( response); 
         if(response.data.error){
           //console.log(response.data.message);
           if(!response.data.isLoggedIn){
@@ -222,7 +222,7 @@ const actions = {
   },
   fetchConfig({ commit }) {
     return new Promise((resolve, reject) => {
-      axios.get(CONFIG)
+      Vue.http.get(CONFIG)
       .then((response) => {
         if(response.data.error){
           console.log(response.data.message);
@@ -247,7 +247,7 @@ const actions = {
   },
   fetchOs({ commit }) {
     return new Promise((resolve, reject) => {
-        axios.get(OSLIST)
+        Vue.http.get(OSLIST)
       .then((response) => {
         if(response.data.error){
           console.log(response.data.message);
@@ -271,7 +271,7 @@ const actions = {
       loja: loja,
       }
       //console.log(postData);
-      axios.post(LOCALLIST,postData)
+      Vue.http.post(LOCALLIST,postData)
         .then((response) => {
           if(response.data.error){
             console.log(response.data.message);
@@ -289,7 +289,7 @@ const actions = {
   },
   fetchProdutos({ commit }) {
     return new Promise((resolve, reject) => {
-        axios.get(CONFIGPROD)
+        Vue.http.get(CONFIGPROD)
         .then((response) => {
           if(response.data.error){
             console.log(response.data.message);

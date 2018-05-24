@@ -7,7 +7,7 @@
     $usuarios = new Usuarios();
     // login
     
-    $_POST = (array) json_decode(file_get_contents('php://input'), true);
+    //$_POST = (array) json_decode(file_get_contents('php://input'), true);
     $token ='';
     if(isset($_POST['token'])){
         $token = $_POST['token'];
