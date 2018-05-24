@@ -1,8 +1,12 @@
 Vue.component('os-tec', {
   name: 'os-tec',
   template: '#os-tec',
+  $_veeValidate: {
+    validator: 'new'
+  },
   props: {
-    data: Object
+    data: Object,
+    dialog: Boolean
   },
   data() {
     return {
@@ -12,6 +16,9 @@ Vue.component('os-tec', {
       tecnicos: null,
       isLoading: false,
     };
+  },
+  mounted () {
+    this.$validator.localize('pt_BR', this.dictionary)
   },
   computed: {
     temMessage() {

@@ -1,8 +1,12 @@
 Vue.component('local-edt', {
   name: 'local-edt',
   template: '#local-edt',
+  $_veeValidate: {
+    validator: 'new'
+  },
   props: {
-    data: {}
+    data: Object,
+    dialog: Boolean
   },
   data() {
     return {
@@ -27,6 +31,8 @@ Vue.component('local-edt', {
   },
   methods: {
     saveItem: function(){
+      this.$validator.validateAll().then((result) => {
+        if (result) {
       this.errorMessage = []
       if(this.checkForm()){
         this.isLoading = true
@@ -67,7 +73,8 @@ Vue.component('local-edt', {
             console.log(error);
           });
           //this.$store.state.create(data)
-      }
+      }}
+    });
     },
     checkForm:function(e) {
       this.errorMessage = [];

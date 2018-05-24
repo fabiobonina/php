@@ -1,8 +1,12 @@
 Vue.component('os-amarrac', {
   name: 'os-amarrac',
   template: '#os-amarrac',
+  $_veeValidate: {
+    validator: 'new'
+  },
   props: {
-    data: {}
+    data: Object,
+    dialog: Boolean
   },
   data() {
     return {
@@ -18,6 +22,9 @@ Vue.component('os-amarrac', {
         {id:'5', name: 'SBO'},            
       ]
     };
+  },
+  mounted () {
+    this.$validator.localize('pt_BR', this.dictionary)
   },
   computed: {
     temMessage () {

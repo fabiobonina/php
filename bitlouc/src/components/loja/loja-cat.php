@@ -13,7 +13,7 @@
               :color="item.ativo =='0'? 'green' : '' " text-color="white">
                 <v-avatar>
                   <v-btn flat small icon color=""
-                    @click="catStatus(item); item.ativo == '0'? item.ativo = '1' : item.ativo = '0' ">
+                    @click.stop="catStatus(item); item.ativo == '0'? item.ativo = '1' : item.ativo = '0' ">
                     <v-icon v-if="item.ativo == '0'" dark>check_circle </v-icon>
                     <v-icon v-else dark>panorama_fish_eye</v-icon>
                   </v-btn>
@@ -25,6 +25,10 @@
               :items="categorias"
               v-model="categoria"
               label="Categorias"
+              :error-messages="errors.collect('categoria')"
+              v-validate="'required'"
+              data-vv-name="categoria"
+              required
               multiple
               chips
               max-height="auto"

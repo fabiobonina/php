@@ -42,42 +42,37 @@ Vue.component('register', {
   methods: {
 
     registrar: function() {
-				this.$validator.validateAll().then((result) => {
-          if (result) {
-            this.isLoading = true
-            var postData = {
-              name: this.name,
-              user: this.user,
-              email: this.email,
-              password: this.password,
-              chave: this.chave
-            };
-            //console.log(postData);
-            this.$http.post('./config/api/apiUser.php?action=registrar', postData)
-              .then(function(response) {
-              //console.log(response);
-              if(response.data.error){
-                this.errorMessage.push(response.data.message);
-                this.isLoading = response.data.dados.isLoggedIn;
-              } else{
-                this.successMessage.push(response.data.message);
-                this.isLoading = response.data.message;
-                setTimeout(() => {
-                  this.$emit('close');
-                }, 2000);
-              }
-            })
-            .catch(function(error) {
-              console.log(error);
-            });
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          this.isLoading = true
+          var postData = {
+            name: this.name,
+            user: this.user,
+            email: this.email,
+            password: this.password,
+            chave: this.chave
+          };
+          //console.log(postData);
+          this.$http.post('./config/api/apiUser.php?action=registrar', postData)
+            .then(function(response) {
+            //console.log(response);
+            if(response.data.error){
+              this.errorMessage.push(response.data.message);
+              this.isLoading = response.data.dados.isLoggedIn;
+            } else{
+              this.successMessage.push(response.data.message);
+              this.isLoading = response.data.message;
+              setTimeout(() => {
+                this.$emit('close');
+              }, 2000);
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
 
-          }
-  
-        });
-      /*if( this.$validator.validateAll() ){
-        console.log(this.$validator.validateAll().PromiseValue)
-        
-      }*/
+        }
+      });
     },
     checkForm:function(e) {
       this.errorMessage = [];

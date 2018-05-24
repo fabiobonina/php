@@ -395,7 +395,7 @@ Vue.component('todo-item', {
   `,
   props: ['user']
 });
-
+Vue.use(VeeValidate)
 var router = new VueRouter({
   routes: [
     { path: '/', component: Home,

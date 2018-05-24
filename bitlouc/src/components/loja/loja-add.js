@@ -1,6 +1,9 @@
 Vue.component('loja-add', {
   name: 'loja-add',
   template: '#loja-add',
+  $_veeValidate: {
+    validator: 'new'
+  },
   data: function () {
     return {
       errorMessage: [],
@@ -9,6 +12,9 @@ Vue.component('loja-add', {
       item:{},
       nick:'', name:'', grupo:'C', seguimento:'', ativo:'0', categoria: []
     }
+  },
+  mounted () {
+    this.$validator.localize('pt_BR', this.dictionary)
   },
   computed: {
     temMessage () {
@@ -31,6 +37,8 @@ Vue.component('loja-add', {
   },
   methods: {
     saveItem: function() {
+      this.$validator.validateAll().then((result) => {
+        if (result) {
       if(this.checkForm()){
         this.isLoading = true
         var postData = {
@@ -63,6 +71,8 @@ Vue.component('loja-add', {
           console.log(error);
         });
       }
+        }
+      });
     },
     checkForm:function(e) {
       this.errorMessage = [];

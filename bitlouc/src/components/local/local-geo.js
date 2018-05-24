@@ -1,6 +1,12 @@
 Vue.component('local-geo', {
   name: 'local-geo',
   template: '#local-geo',
+  $_veeValidate: {
+    validator: 'new'
+  },
+  props: {
+    dialog: Boolean
+  },
   data() {
     return {
       errorMessage: [],
@@ -23,6 +29,8 @@ Vue.component('local-geo', {
   },
   methods: {
     saveItem: function(){
+      this.$validator.validateAll().then((result) => {
+        if (result) {
       this.errorMessage = []
       if(this.formValido()){
         this.isLoading = true
@@ -54,7 +62,8 @@ Vue.component('local-geo', {
           .catch(function(error) {
             console.log(error);
           });
-      }
+      }}
+    });
     },
     ehVazia () {
       if(this.coordenadas.length == 0){

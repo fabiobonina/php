@@ -1,15 +1,34 @@
 Vue.component('loja-edt', {
   name: 'loja-edt',
   template: '#loja-edt',
+  $_veeValidate: {
+    validator: 'new'
+  },
   props: {
-    data: Object
+    data: Object,
+    dialog: Boolean
   },
   data: function () {
     return {
       errorMessage: [],
       successMessage: [],
       isLoading: false,
+      dictionary: {
+        attributes: {
+          email: 'E-mail',
+          emailR: 'E-mail Confime',
+          password: 'Senha',
+          passwordR: 'Senha Confime'
+          // custom attributes
+        },
+        custom: {
+
+        }
+      }
     }
+  },
+  mounted () {
+    this.$validator.localize('pt_BR', this.dictionary)
   },
   computed: {
     temMessage () {
@@ -32,6 +51,8 @@ Vue.component('loja-edt', {
   },
   methods: {
     saveItem: function() {
+      this.$validator.validateAll().then((result) => {
+        if (result) {
       if(this.checkForm()){
         this.isLoading = true
         var postData = {
@@ -63,6 +84,8 @@ Vue.component('loja-edt', {
           console.log(error);
         });
       }
+        }
+      });
     },
     checkForm:function(e) {
       this.errorMessage = [];

@@ -1,8 +1,12 @@
 Vue.component('os-del', {
   name: 'os-del',
   template: '#os-del',
+  $_veeValidate: {
+    validator: 'new'
+  },
   props: {
-    data: Object
+    data: Object,
+    dialog: Boolean
   },
   data() {
     return {

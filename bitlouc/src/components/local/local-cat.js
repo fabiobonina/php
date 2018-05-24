@@ -1,8 +1,12 @@
 Vue.component('local-cat', {
   name: 'local-cat',
   template: '#local-cat',
+  $_veeValidate: {
+    validator: 'new'
+  },
   props: {
-    data: Object
+    data: Object,
+    dialog: Boolean
   },
   data: function () {
     return {
@@ -32,6 +36,8 @@ Vue.component('local-cat', {
   },
   methods: {
     saveItem: function() {
+      this.$validator.validateAll().then((result) => {
+        if (result) {
       if(this.checkForm()){
         this.isLoading = true
         var postData = {
@@ -61,7 +67,8 @@ Vue.component('local-cat', {
         .catch(function(error) {
           console.log(error);
         });
-      }
+      }}
+    });
     },
     catDelete: function(data) {
       if(confirm('Deseja realmente deletar ' + data.name + '?')){

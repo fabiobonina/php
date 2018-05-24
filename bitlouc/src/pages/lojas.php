@@ -12,11 +12,9 @@
         <grid-lojas :data="lojas"></grid-lojas>
         </v-container>
     </v-content>
-        
     
-    <loja-add v-if="modalLojaAdd" v-on:close="modalLojaAdd = false"></loja-add>
-
     <rodape></rodape>
+
   </div>
 </template>
 

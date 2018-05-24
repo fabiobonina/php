@@ -1,8 +1,12 @@
 Vue.component('os-edt', {
   name: 'os-edt',
   template: '#os-edt',
+  $_veeValidate: {
+    validator: 'new'
+  },
   props: {
-    data: Object
+    data: Object,
+    dialog: Boolean
   },
   data() {
     return {
@@ -11,6 +15,9 @@ Vue.component('os-edt', {
       item:{},
       isLoading: false,
     };
+  },
+  mounted () {
+    this.$validator.localize('pt_BR', this.dictionary)
   },
   computed: {
     temMessage () {

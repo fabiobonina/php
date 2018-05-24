@@ -1,8 +1,12 @@
 Vue.component('local-add', {
   name: 'local-add',
   template: '#local-add',
+  $_veeValidate: {
+    validator: 'new'
+  },
   props: {
-    data: {}
+    data: Object,
+    dialog: Boolean
   },
   data() {
     return {
@@ -12,6 +16,9 @@ Vue.component('local-add', {
       item:{},
       isLoading: false
     };
+  },
+  mounted () {
+    this.$validator.localize('pt_BR', this.dictionary)
   },
   computed: {
     temMessage () {
@@ -31,6 +38,8 @@ Vue.component('local-add', {
   },
   methods: {
     saveItem: function(){
+      this.$validator.validateAll().then((result) => {
+        if (result) {
       this.errorMessage = []
       if(this.checkForm()){
         this.isLoading = true
@@ -71,7 +80,8 @@ Vue.component('local-add', {
           .catch(function(error) {
             console.log(error);
           });
-      }
+      } }
+    });
     },
     checkForm:function(e) {
       this.errorMessage = [];

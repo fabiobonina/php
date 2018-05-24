@@ -1,6 +1,9 @@
 Vue.component('loja-cat', {
   name: 'loja-cat',
   template: '#loja-cat',
+  $_veeValidate: {
+    validator: 'new'
+  },
   props: {
     data: Object,
     dialog: Boolean
@@ -14,6 +17,9 @@ Vue.component('loja-cat', {
       ativo:'',
       item:{},
     }
+  },
+  mounted () {
+    this.$validator.localize('pt_BR', this.dictionary)
   },
   computed: {
     temMessage () {
@@ -33,35 +39,39 @@ Vue.component('loja-cat', {
   },
   methods: {
     saveItem: function() {
-      if(this.checkForm()){
-        this.isLoading = true
-        var postData = {
-          categoria: this.categoria,
-          loja: this.data.id
-        };
-        //console.log(postData);
-        this.$http.post('./config/api/apiLoja.php?action=catCadastrar', postData ).then(function(response) {
-          //console.log(response.data.message);
-          if(response.data.error){
-            this.errorMessage = response.data.message;
-            this.isLoading = false;
-          } else{
-            this.successMessage.push(response.data.message);
-            this.isLoading = false;
-            this.$store.dispatch("fetchIndex").then(() => {
-              console.log("Atualizado lojas!")
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          if(this.checkForm()){
+            this.isLoading = true
+            var postData = {
+              categoria: this.categoria,
+              loja: this.data.id
+            };
+            //console.log(postData);
+            this.$http.post('./config/api/apiLoja.php?action=catCadastrar', postData ).then(function(response) {
+              //console.log(response.data.message);
+              if(response.data.error){
+                this.errorMessage = response.data.message;
+                this.isLoading = false;
+              } else{
+                this.successMessage.push(response.data.message);
+                this.isLoading = false;
+                this.$store.dispatch("fetchIndex").then(() => {
+                  console.log("Atualizado lojas!")
+                });
+                setTimeout(() => {
+                  this.errorMessage = [];
+                  this.successMessage = [];
+                  this.categoria = [];
+                }, 2000);
+              }
+            })
+            .catch(function(error) {
+              console.log(error);
             });
-            setTimeout(() => {
-              this.errorMessage = [];
-              this.successMessage = [];
-              this.categoria = [];
-            }, 2000);
           }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      }
+        }
+      });
     },
     catDelete: function(data) {
       if(confirm('Deseja realmente deletar ' + data.name + '?')){

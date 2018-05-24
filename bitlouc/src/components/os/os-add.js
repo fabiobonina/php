@@ -1,8 +1,12 @@
 Vue.component('os-add', {
   name: 'os-add',
   template: '#os-add',
+  $_veeValidate: {
+    validator: 'new'
+  },
   props: {
-    data: {}
+    data: Object,
+    dialog: Boolean
   },
   data() {
     return {
@@ -14,6 +18,9 @@ Vue.component('os-add', {
       bem: null,
       categoria: null
     };
+  },
+  mounted () {
+    this.$validator.localize('pt_BR', this.dictionary)
   },
   computed: {
     temMessage () {
