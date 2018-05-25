@@ -9,6 +9,7 @@ Vue.component('grid-lojas', {
       modalEdt: false,
       modalDel: false,
       modalCat: false,
+      modalAdd: false,
       configs: {
         orderBy: { name: 'Nome', state: 'name' },
         order: 'asc',

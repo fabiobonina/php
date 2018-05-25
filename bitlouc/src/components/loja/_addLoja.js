@@ -4,6 +4,9 @@ Vue.component('loja-add', {
   $_veeValidate: {
     validator: 'new'
   },
+  props: {
+    dialog: Boolean
+  },
   data: function () {
     return {
       errorMessage: [],

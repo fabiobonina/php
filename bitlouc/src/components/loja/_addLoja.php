@@ -4,25 +4,31 @@
     <v-dialog v-model="dialog" max-width="500px">
       <v-card>
         <v-card-title>
-          CATEGORIAS: {{ proprietario.nick }} - {{ loja.nick }} 
+          {{ proprietario.nick }} - Nova Loja 
         </v-card-title>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage"></message>
           <v-form>
-            <div>
-              <v-chip small v-for="item in loja.categoria" close @input="catDelete(item)" :key="item.id"
-              :color="item.ativo =='0'? 'green' : '' " text-color="white">
-                <v-avatar>
-                  <v-btn flat small icon color=""
-                    @click.stop="catStatus(item); item.ativo == '0'? item.ativo = '1' : item.ativo = '0' ">
-                    <v-icon v-if="item.ativo == '0'" dark>check_circle </v-icon>
-                    <v-icon v-else dark>panorama_fish_eye</v-icon>
-                  </v-btn>
-                </v-avatar>
-                <strong>{{ item.name }}</strong>
-              </v-chip>
-            </div>
-            <v-autocomplete
+          <v-text-field
+            v-model="name"
+            label="Nome completo"
+            :counter="50"
+            :error-messages="errors.collect('name')"
+            v-validate="'required|max:50'"
+            data-vv-name="name"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="nick"
+            label="Usuario"
+            :counter="20"
+            :error-messages="errors.collect('user')"
+            v-validate="'required|max:20'"
+            data-vv-name="user"
+            required
+          ></v-text-field>
+
+          <v-autocomplete
               :items="categorias"
               v-model="categoria"
               label="Categorias"
@@ -56,7 +62,8 @@
                 </template>
               </template>
             </v-autocomplete>
-          </v-form>
+
+        </v-form>
         </v-card-text>
         <v-card-actions>
           <template v-if="isLoading">
@@ -73,16 +80,8 @@
       </v-card>
     </v-dialog>
   </div>
-    <div class="modal-background"></div>
     <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title">{{ proprietario.nick }} - Nova Loja <span class="mdi mdi-store"></span></p>
-        <button class="delete" aria-label="close" v-on:click="$emit('close')"></button>
-      </header>
       <section class="modal-card-body">
-        <message :success="successMessage" :error="errorMessage"></message>
-        <!--#CONTEUDO -->
-
         <div class="field">
           <p class="control has-icons-right">
             <input v-model="name" class="input" type="text" placeholder="Nome">
@@ -190,4 +189,4 @@
     </div>
   </div>
 </template>
-<script src="src/components/loja/loja-add.js"></script>
+<script src="src/components/loja/_addLoja.js"></script>

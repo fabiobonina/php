@@ -25,9 +25,9 @@
 
 <?php require_once 'src/components/proprietario/proprietario.php';?>
 <?php require_once 'src/components/loja/lojas-grid.php';?>
-<?php require_once 'src/components/loja/loja-add.php';?>
-<?php require_once 'src/components/loja/loja-del.php';?>
+<?php require_once 'src/components/loja/_addLoja.php';?>
 <?php require_once 'src/components/loja/loja-edt.php';?>
-<?php require_once 'src/components/loja/loja-cat.php';?>
+<?php require_once 'src/components/loja/loja-del.php';?>
+<?php require_once 'src/components/loja/_catLoja.php';?>
 <?php require_once 'src/components/loja/loja.php';?>
 

@@ -73,4 +73,4 @@
     </v-dialog>
   </div>
 </template>
-<script src="src/components/loja/loja-cat.js"></script>
+<script src="src/components/loja/_catLoja.js"></script>

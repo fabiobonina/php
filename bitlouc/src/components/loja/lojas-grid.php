@@ -4,8 +4,6 @@
     <v-flex xs12>
       <v-card>
         <v-toolbar dense color="blue">
-        
-              
           <v-text-field v-model="configs.search" prepend-icon="search" append-icon="mic" label="Search" solo-inverted class="mx-3" flat></v-text-field>
             <v-flex xs12 sm1>
               <v-subheader v-text="'Ordernar por:'"></v-subheader>
@@ -21,7 +19,7 @@
             </v-btn>
           </v-flex>
           <v-spacer></v-spacer>
-          <v-btn color="pink" dark small absolute fab right>
+          <v-btn  @click="modalAdd=true" color="pink" dark small absolute fab right>
             <v-icon>add</v-icon>
           </v-btn>
         </v-toolbar>
@@ -78,10 +76,10 @@
   </v-layout>
 
     <div>
-      <loja-add v-if="modalLojaAdd" v-on:close="modalLojaAdd = false"></loja-add>
-      <loja-edt v-if="modalEdt" v-on:close="modalEdt = false" :data="modalItem" :dialog ="modalEdt" @atualizar="onAtualizar"></loja-edt>
-      <loja-del v-if="modalDel" v-on:close="modalDel = false" :data="modalItem" :dialog ="modalDel" @atualizar="onAtualizar"></loja-del>
-      <loja-cat v-if="modalCat" v-on:close="modalCat = false" :data="modalItem" :dialog ="modalCat" @atualizar="onAtualizar"></loja-cat>
+      <loja-add v-if="modalAdd" v-on:close="modalAdd = false" :dialog="modalAdd" ></loja-add>
+      <loja-edt v-if="modalEdt" v-on:close="modalEdt = false" :dialog="modalEdt" :data="modalItem" @atualizar="onAtualizar"></loja-edt>
+      <loja-del v-if="modalDel" v-on:close="modalDel = false" :dialog="modalDel" :data="modalItem" @atualizar="onAtualizar"></loja-del>
+      <loja-cat v-if="modalCat" v-on:close="modalCat = false" :dialog="modalCat" :data="modalItem" @atualizar="onAtualizar"></loja-cat>
     </div>
   </div>
 </template>
