@@ -1,5 +1,5 @@
 
-<template id="loja">
+<template id="loja-locais">
   <div>
     <section class="hero is-link">
       <!-- Hero head: will stick at the top -->
@@ -66,4 +66,4 @@
     </div>
   </div>
 </template>
-<script src="src/components/loja/loja.js"></script>
+<script src="src/components/loja/loja-locais.js"></script>

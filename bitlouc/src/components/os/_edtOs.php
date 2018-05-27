@@ -93,4 +93,4 @@
     </div>
   </div>
 </template>
-<script src="src/components/loja/loja-edt.js"></script>
+<script src="src/components/os/_edtOs.js"></script>

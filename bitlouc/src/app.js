@@ -404,27 +404,28 @@ var router = new VueRouter({
       ]
     },
     { path: '/oss', component: Oss,
-        children: [
+      children: [
         { path: '', component: OsLojas },
         { path: 'os-status', component: OsStus },
-        { path: '/os-tec', component: OsTec },
+        { path: 'os-tec', component: OsTec },
       ] 
     },
-    {path: '/oss/:_id/os/:_os', component: Os, name: 'os'},
-    { path: '/lojas', component: Lojas,
-      children:[
-        { path: '', component: Locais },
-        { path: '/loja/:_id', component: Loja},
-        //{ path: 'oss-loja', component: OsLoja },
+    { path: '/oss/:_id/os/:_os', component: Os, name: 'os'},
+    { path: '/lojas', component: Lojas, name: 'lojas' },
+    { path: '/loja/:_id', component: Loja,
+      children: [
+        { path: '', component: LojaLocais },
+        //{ path: 'oss', component: LojaOss },
+        //{ path: 'bens', component: LojaBens },
       ]
-     },
+    },
     /*{ path: '/loja/:_id/local/:_local', component: Local,
       children: [
         { path: '', component: Bens },
         { path: 'oss-local', component: OssLocal },
       ]
     },
-    {path: '/oss/:_id/os/:_os', component: Os, name: 'os'},
+    /*{path: '/oss/:_id/os/:_os', component: Os, name: 'os'},
     {path: '/projeto', component: Projeto,
       children: [
         { path: '', component: Dashboard },

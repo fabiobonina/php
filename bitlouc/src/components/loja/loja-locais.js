@@ -1,5 +1,5 @@
-var Loja = Vue.extend({
-  template: '#loja',
+var LojaLocais = Vue.extend({
+  template: '#loja-locais',
   data: function () {
     return {
       errorMessage: '',

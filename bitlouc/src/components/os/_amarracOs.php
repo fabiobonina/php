@@ -40,4 +40,4 @@
     </div>
   </div>
 </template>
-<script src="src/components/os/os-amarrac.js"></script>
+<script src="src/components/os/_amarracOs.js"></script>

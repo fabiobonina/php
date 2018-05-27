@@ -14,6 +14,7 @@
     <?php require_once 'src/pages/oss.php';?>
     <?php require_once 'src/pages/lojas.php';?>
     <?php require_once 'src/pages/locais.php';?>
+    <?php require_once 'src/pages/loja.php';?>
 
     <?php require_once 'src/components/includes/message.php';?>
 
