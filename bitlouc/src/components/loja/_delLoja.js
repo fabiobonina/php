@@ -2,7 +2,8 @@ Vue.component('loja-del', {
   name: 'loja-del',
   template: '#loja-del',
   props: {
-    data: Object
+    data: Object,
+    dialog: Boolean
   },
   data: function () {
     return {

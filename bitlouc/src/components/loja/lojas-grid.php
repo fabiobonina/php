@@ -19,7 +19,7 @@
             </v-btn>
           </v-flex>
           <v-spacer></v-spacer>
-          <v-btn  @click="modalAdd=true" color="pink" dark small absolute fab right>
+          <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="modalAdd=true" color="pink" dark small absolute fab right>
             <v-icon>add</v-icon>
           </v-btn>
         </v-toolbar>

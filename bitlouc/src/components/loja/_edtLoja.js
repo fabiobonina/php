@@ -15,14 +15,14 @@ Vue.component('loja-edt', {
       isLoading: false,
       dictionary: {
         attributes: {
-          email: 'E-mail',
-          emailR: 'E-mail Confime',
-          password: 'Senha',
-          passwordR: 'Senha Confime'
+          name: 'Nome',
+          nick: 'Nome Fantasia',
+          grupo: 'Grupo',
+          seguimento: 'Seguimento',
+          ativo: 'ativo',          
           // custom attributes
         },
         custom: {
-
         }
       }
     }

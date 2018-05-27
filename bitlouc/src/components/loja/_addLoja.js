@@ -13,7 +13,16 @@ Vue.component('loja-add', {
       successMessage: [],
       isLoading: false,
       item:{},
-      nick:'', name:'', grupo:'C', seguimento:'', ativo:'0', categoria: []
+      nick:'', name:'', grupo:'C', seguimento:'', ativo:'0', categoria: [],
+      dictionary: {
+        attributes: {
+          name: 'Nome',
+          nick: 'Nome Fantasia',
+          // custom attributes
+        },
+        custom: {
+        }
+      }
     }
   },
   mounted () {

@@ -1,16 +1,15 @@
-<template id="loja-add">
+<template id="loja-edt">
   <div>
-
-    <v-dialog v-model="dialog" persistent scrollable  max-width="500px">
+    <v-dialog v-model="dialog" persistent scrollable max-width="500px">
       <v-card>
         <v-card-title>
-          <span class="headline">{{ proprietario.nick }} - Nova Loja</span>
+          <span class="headline">{{ proprietario.nick }} - Editar Loja</span>
         </v-card-title>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage"></message>
           <v-form>
             <v-text-field
-              v-model="name"
+              v-model="data.name"
               label="Nome"
               :error-messages="errors.collect('name')"
               v-validate="'required'"
@@ -18,7 +17,7 @@
               required
             ></v-text-field>
             <v-text-field
-              v-model="nick"
+              v-model="data.nick"
               label="Nome Fantasia"
               :counter="20"
               :error-messages="errors.collect('nick')"
@@ -28,7 +27,7 @@
             ></v-text-field>
             <v-select
               :items="grupos"
-              v-model="grupo"
+              v-model="data.grupo"
               item-text="name"
               item-value="id"
               label="Grupo"
@@ -39,7 +38,7 @@
             ></v-select>
             <v-select
               :items="seguimentos"
-              v-model="seguimento"
+              v-model="data.seguimento"
               item-text="name"
               item-value="id"
               label="Seguimento"
@@ -48,34 +47,8 @@
               data-vv-name="seguimento"
               required
             ></v-select>
-            <v-autocomplete
-              :items="categorias" v-model="categoria" label="Categorias"
-              :error-messages="errors.collect('categoria')" v-validate="'required'" data-vv-name="categoria"
-              required multiple chips max-height="auto"
-              >
-              <template slot="selection" slot-scope="data">
-                <v-chip
-                  :selected="data.selected"
-                  :key="JSON.stringify(data.item)"
-                  close class="chip--select-multi"
-                  @input="data.parent.selectItem(data.item)"
-                >
-                  {{ data.item.name }}
-                </v-chip>
-              </template>
-              <template slot="item" slot-scope="data">
-                <template v-if="typeof data.item !== 'object'">
-                  <v-list-tile-content v-text="data.item"></v-list-tile-content>
-                </template>
-                <template v-else>
-                  <v-list-tile-content>
-                    <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
-                  </v-list-tile-content>
-                </template>
-              </template>
-            </v-autocomplete>
             <p>Ativo?</p>
-            <v-radio-group v-model="ativo" row>
+            <v-radio-group v-model="data.ativo" row>
               <v-radio label="Sim" value="0" ></v-radio>
               <v-radio label="Não" value="1"></v-radio>
             </v-radio-group>
@@ -96,8 +69,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
   </div>
 </template>
 
-<script src="src/components/loja/_addLoja.js"></script>
+<script src="src/components/loja/_edtLoja.js"></script>
