@@ -10,6 +10,8 @@ var Loja = Vue.extend({
                 { title: 'OSs', router: '/loja-locais', icon: 'trending_up' },
                 { title: 'Bens', router: '/loja-bens', icon: 'person' },
             ],
+            model: 'tab-2',
+            text: 'Lorem ipsum dolor '
         };
     },
     created() {

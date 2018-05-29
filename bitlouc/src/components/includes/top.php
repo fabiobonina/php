@@ -63,12 +63,6 @@
         <v-btn href="#/" flat>Home </v-btn>
         <v-btn v-if="user.nivel > 2" href="#/projetos"  flat>Projetos</v-btn>
         <v-btn v-if="user.nivel > 2" href="__index.php" flat>SkyHub</v-btn>
-        <a href="#/en/store" class="btn btn--flat btn--router-active" style="min-width:64px;">
-          <div class="btn__content">
-            <span class="hidden-sm-and-down">Store</span>
-            <i aria-hidden="true" class="icon icon--right material-icons">store</i>
-          </div>
-        </a>
       </v-toolbar-items>
     </v-toolbar>
           

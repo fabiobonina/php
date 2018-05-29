@@ -85,4 +85,4 @@
     </div>
   </div>
 </template>
-<script src="src/components/local/local-edt.js"></script>
+<script src="src/components/local/_edtLocal.js"></script>

@@ -414,7 +414,7 @@ var router = new VueRouter({
     { path: '/lojas', component: Lojas, name: 'lojas' },
     { path: '/loja/:_id', component: Loja,
       children: [
-        { path: '', component: LojaLocais },
+        { path: '', component: LocaisData },
         //{ path: 'oss', component: LojaOss },
         //{ path: 'bens', component: LojaBens },
       ]

@@ -1,27 +1,18 @@
-var Locais = Vue.extend({
-  name: 'locais',
-  template: '#locais',
+var LocaisData = Vue.extend({
+  name: 'locais-data',
+  template: '#locais-data',
   props: {
-    proprietario: String,
-    nivel: String,
-    grupo: String
   },
   data: function () {
     return {
       errorMessage: '',
       successMessage: '',
-      search: '',
-      modalLocalAdd: false,
-      gridColumns: ['displayName', 'name']
     };
   },
   created: function() {
     
   },
   computed: {
-    dados() {
-      return store.state.lojas;
-    },
     locais()  {
       return store.getters.getLocalLoja(this.$route.params._id);
     },

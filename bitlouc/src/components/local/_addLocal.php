@@ -117,4 +117,4 @@
     </div>
   </div>
 </template>
-<script src="src/components/local/local-add.js"></script>
+<script src="src/components/local/_addLocal.js"></script>

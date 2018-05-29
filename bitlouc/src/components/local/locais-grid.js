@@ -1,4 +1,3 @@
-
 Vue.component('grid-local', {
   template: '#grid-local',
   props: {
@@ -14,10 +13,14 @@ Vue.component('grid-local', {
       modalGeo: false,
       repos: [],
       configs: {
-        orderBy: 'name',
+        orderBy: { name: 'Nome', state: 'name' },
         order: 'asc',
         search: ''
-      }
+      },
+      itens: [
+        { name: 'Nome', state: 'name' },
+        { name: 'Regional', state: 'regional' }
+      ],
     }
   },
   /*mounted() {
@@ -27,9 +30,12 @@ Vue.component('grid-local', {
       .then(data => Vue.set(this, 'repos', data));
   },*/
   computed: {
+    user()  {
+      return store.state.user;
+    },
     filteredData() {
       const filter = this.configs.search && this.configs.search.toLowerCase(); 
-      const list = _.orderBy(this.data, this.configs.orderBy, this.configs.order);
+      const list = _.orderBy(this.data, this.configs.orderBy.state, this.configs.order);
       if (_.isEmpty(filter)) {
         return list;
       }
@@ -43,9 +49,6 @@ Vue.component('grid-local', {
     }
   },
   methods: {
-    onClose: function(){
-      this.showModal = false;
-    },
     selecItem: function(data){
       this.modalItem = data;
     },
@@ -54,5 +57,6 @@ Vue.component('grid-local', {
         this.showModal = false;
       });
     },
+    
   }
 });

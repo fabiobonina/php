@@ -72,4 +72,4 @@
     </div>
   </div>
 </template>
-<script src="src/components/local/local-cat.js"></script>
+<script src="src/components/local/_catLocal.js"></script>

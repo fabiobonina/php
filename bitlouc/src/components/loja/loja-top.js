@@ -1,5 +1,5 @@
-var LojaLocais = Vue.extend({
-  template: '#loja-locais',
+Vue.component('loja-top',{
+  template: '#loja-top',
   data: function () {
     return {
       errorMessage: '',
@@ -8,7 +8,14 @@ var LojaLocais = Vue.extend({
       gridColumns: ['nick', 'name'],
       modalLocalAdd: false,
       active: 1,
-      modalCat: false
+      modalCat: false,
+      router: [
+        { title: 'Locais', router: '', icon: 'store' },
+        { title: 'OSs', router: '/loja-locais', icon: 'trending_up' },
+        { title: 'Bens', router: '/loja-bens', icon: 'person' },
+    ],
+    model: 'tab-2',
+    text: 'Lorem ipsum '
     };
   },
   created: function() {

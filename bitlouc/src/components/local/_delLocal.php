@@ -22,4 +22,4 @@
     </div>
   </div>
 </template>
-<script src="src/components/local/local-del.js"></script>
+<script src="src/components/local/_delLocal.js"></script>

@@ -34,4 +34,4 @@
     </div>
   </div>
 </template>
-<script src="src/components/local/local-geo.js"></script>
+<script src="src/components/local/_geoLocal.js"></script>
