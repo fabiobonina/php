@@ -29,7 +29,6 @@ session_start();
   <script src="dist/lib/vue-router.js"></script>
   <script src="dist/lib/vue-resource.js"></script>
   <!--script src="dist/js/vue-select.js"></script-->
-  <script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.2/lodash.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.1.0-beta.0/vuetify.js"></script>
   <script src="https://unpkg.com/vee-validate@2.0.8/dist/vee-validate.js"></script>

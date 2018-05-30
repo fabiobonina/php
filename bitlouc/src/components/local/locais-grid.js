@@ -6,7 +6,7 @@ Vue.component('grid-local', {
   data: function () {
     return {
       modalItem: {},
-      modalAdd: false,
+      modalAdd: true,
       modalEdt: false,
       modalDel: false,
       modalCat: false,
