@@ -333,6 +333,10 @@ const getters = {
     return state.lojas.find(todo => todo.id === id)
     //return state.lojas.filter(loja => loja.id === id)
   },
+  getLojaAtivo: (state) => () => {
+    return state.lojas.filter(todo => todo.ativo === '0')
+    //return state.lojas.filter(loja => loja.id === id)
+  },
   getTodoBy: (state) => (id) => {
     return state.lojas.find(todo => todo.id === id)
   },
@@ -341,6 +345,7 @@ const getters = {
     //return state.lojas.filter(loja => loja.id === id)
   },
   getLocalLoja: (state) => (loja) => {
+    state.locais.filter(todo => todo.ativo === '0')
     return state.locais.filter(todo => todo.loja === loja)
     //return state.lojas.filter(loja => loja.id === id)
   },
@@ -414,8 +419,15 @@ var router = new VueRouter({
     { path: '/lojas', component: Lojas, name: 'lojas' },
     { path: '/loja/:_id', component: Loja,
       children: [
-        { path: '', component: LocaisData },
-        //{ path: 'oss', component: LojaOss },
+        { path: '', component: LocaisIndex },
+        { path: 'oss', component: LojaOss },
+        //{ path: 'bens', component: LojaBens },
+      ]
+    },
+    { path: '/proprietario', component: Proprietario,
+      children: [
+        { path: '', component: LocaisPlus },
+        { path: 'oss', component: LojaOss },
         //{ path: 'bens', component: LojaBens },
       ]
     },

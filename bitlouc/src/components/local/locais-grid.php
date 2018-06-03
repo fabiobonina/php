@@ -24,24 +24,23 @@
             </v-btn>
           </v-toolbar>
           <v-list two-line>
-            <template v-for="(item, index) in filteredData" >
-              <v-list-tile :key="item.name" :to="'/loja/' + item.id" append v-on:click.native="" activator slot>
+            <template v-for="(item, index) in filteredData" :key="item.id">
+              <v-list-tile :to="'/loja/' + item.id" append v-on:click.native="" activator slot>
                 <v-list-tile-content dense>
                   <v-list-tile-title :key="item.id"> {{item.tipo}} - {{item.name}} </v-list-tile-title>
                   <v-list-tile-sub-title class="text--primary">  {{item.municipio}} /{{item.uf}} </v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
                   Localidades: {{ item.locaisQt }} {{ item.locaisGeoStatus }}% ({{ item.locaisGeoQt }})
-
                 </v-list-tile-action>
                 
               </v-list-tile>
               <v-list-tile @click="" light>
                 <v-list-tile-content>
-                  <v-chip small >Regional: {{item.regional}} </v-chip>
+                  <v-chip small  color="primary" text-color="white" >Regional: {{item.regional}} </v-chip>
                 </v-list-tile-content>
                 <div>
-                  <v-chip small v-for="categoria in item.categoria" :key="categoria.id">
+                  <v-chip small v-for="categoria in item.categoria" :key="categoria.id" color="green" text-color="white">
                     {{ categoria.tag }}
                   </v-chip>
                 </div>
@@ -56,22 +55,22 @@
                     <v-list>
                       <v-list-tile @click="modalGeo = true; selecItem(item)">
                         <v-list-tile-title>
-                          <span class="mdi mdi-wrench"></span>Geoposição
+                          <v-icon>location_on</v-icon>Geoposição
                         </v-list-tile-title>
                       </v-list-tile>
                       <v-list-tile @click="modalCat = true; selecItem(item)">
                         <v-list-tile-title>
-                          <span class="mdi mdi-wrench"></span>Categoria
+                          <v-icon>label</v-icon></span>Categoria
                         </v-list-tile-title>
                       </v-list-tile>
                       <v-list-tile @click="modalEdt = true; selecItem(item)">
                         <v-list-tile-title>
-                          <span class="mdi mdi-pencil"></span>Editar
+                          <v-icon>create</v-icon>Editar
                         </v-list-tile-title>
                       </v-list-tile>
                       <v-list-tile v-if="user.nivel > 3" @click="modalDel = true; selecItem(item)">
                         <v-list-tile-title>
-                          <span class="mdi mdi-delete"></span>Delete
+                          <v-icon>delete</v-icon>Delete
                         </v-list-tile-title>
                       </v-list-tile>
                     </v-list>

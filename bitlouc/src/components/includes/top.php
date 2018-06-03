@@ -16,36 +16,17 @@
         </v-list>
       </v-toolbar>
       <v-list>
-        <v-list-tile  @click="" to="/" append>
+        <v-list-tile v-for="item in home" :key="item.title" :to="item.router" @click="" append>
           <v-list-tile-action>
-            <v-icon>home</v-icon>
+            <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title>Home</v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile  @click="" append to="/oss">
-          <v-list-tile-action>
-            <v-icon>build</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>OSs</v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile  @click="" to="/lojas"append >
-          <v-list-tile-action>
-            <v-icon>store</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Lojas</v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile  v-if="user.nivel > 2 && user.grupo == 'P'" @click="" href="#/localidades">
-          <v-list-tile-action>
-            <v-icon>location_city</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Localidades</v-list-tile-title>
-        </v-list-tile>
-        
-        <v-list-group prepend-icon="account_circle" value="true" >
+          <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+        </v-list-tile>        
+        <v-list-group v-if="user.nivel > 2 && user.grupo == 'P'" prepend-icon="settings_applications" value="true" >
           <v-list-tile slot="activator">
-            <v-list-tile-title>Oss</v-list-tile-title>
+            <v-list-tile-title>CONFIGURAÇÃO</v-list-tile-title>
           </v-list-tile>
-          <v-list-tile v-for="item in items" :key="item.title" :href="item.router" @click="">
+          <v-list-tile v-for="item in items" :key="item.title" :to="'/proprietario'+ item.router" @click="">
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>

@@ -1,4 +1,3 @@
-
 <template id="loja-top">
   <div>
     <v-toolbar color="cyan" dark tabs extended>
@@ -23,22 +22,16 @@
       <v-btn icon>
         <v-icon>more_vert</v-icon>
       </v-btn>
-      <v-tabs
-        slot="extension"
-        v-model="model"
-        centered
-        color="cyan"
-        slider-color="yellow"
-        >
-        <v-tab v-for="n in router" :key="n.title" :to="$route.params._id + n.router" ripple> {{ n.title }} </v-tab>
+      <v-tabs slot="extension" centered color="cyan" slider-color="yellow">
+        <v-tab v-for="n in router" :key="n.title" :to="'/loja/'+ $route.params._id + n.router" ripple> {{ n.title }} </v-tab>
       </v-tabs>
     </v-toolbar>
 
-    <section class="hero is-link">
+    <section>
       <div class="hero-body" style="padding:0;">
-        <div class="container has-text-centered">
-          <div class="columns">
-            <div class="column is-two-fifths has-text-left">
+        <div>
+          <div>
+            <div>
               <h1 class="title  is-4"> {{ loja.nick }} </h1>
               <p class="subtitle" style="margin-bottom: 0;"> {{ loja.name }}
                 <span class="pull-right"  v-for="categoria in loja.categoria"> <span class="tag">{{ categoria.tag }}</span> &nbsp;  </span>
@@ -48,7 +41,6 @@
           </div>
         </div>
       </div>
-
     </section>
     <br>
   </div>

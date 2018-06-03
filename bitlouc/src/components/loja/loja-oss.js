@@ -1,6 +1,6 @@
-var OssLoja = Vue.extend({
-  template: '#oss-loja',
-  name: 'oss-loja',
+var LojaOss = Vue.extend({
+  template: '#loja-oss',
+  name: 'loja-oss',
   data: function () {
     return {
       errorMessage: '',

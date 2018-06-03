@@ -14,7 +14,16 @@ Vue.component('local-add', {
       successMessage: [],
       tipo: '', regional: '', name: '', municipio: '', uf: '', coordenadas:'', ativo: '0', categoria: [],
       item:{},
-      isLoading: false
+      isLoading: false,
+      dictionary: {
+        attributes: {
+          name: 'Nome',
+          nick: 'Nome Fantasia',
+          // custom attributes
+        },
+        custom: {
+        }
+      }
     };
   },
   mounted () {

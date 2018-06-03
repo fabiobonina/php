@@ -1,88 +1,103 @@
 <template id="local-edt">
-  <div class="modal is-active" >
-    <div class="modal-background"></div>
-    <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title">{{loja.nick}} - Editar Local</p>
-        <button class="delete" aria-label="close" v-on:click="$emit('close')"></button>
-      </header>
-      <section class="modal-card-body">
-        <message :success="successMessage" :error="errorMessage"></message>
-        <!--#CONTEUDO -->
-        <div class="field">
-          <p class="control has-icons-right">
-            <input v-model="data.regional" class="input" type="text" placeholder="Regional">
-            <span class="icon is-small is-right">
-              <span class="mdi "></span>
-            </span>
-          </p>
-        </div>
-        <div class="field has-addons">
-          <p class="control">
-            <span class="select">
-              <select v-model="data.tipo" class="form-control">
-                <option v-for="option in tipos" v-bind:value="option.id">{{ option.name }}</option>
-              </select>
-            </span>
-          </p>
-          <p class="control is-expanded">
-            <input v-model="data.name" class="input" type="text" placeholder="Nome*">
-          </p>
-        </div>
+  <div>
+    <v-dialog v-model="dialog" persistent scrollable  max-width="500px">
+      <v-card>
+        <v-card-title>
+          <span class="headline">{{ loja.nick }} - Editar Local</span>
+        </v-card-title>
+        <v-card-text>
+          <message :success="successMessage" :error="errorMessage"></message>
+          <v-container grid-list-md>
+            <v-layout wrap>
+              <v-flex xs12>
+                <v-text-field
+                  v-model="data.regional"
+                  label="Regional"
+                  :error-messages="errors.collect('regional')"
+                  v-validate="''"
+                  data-vv-name="regional"
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md4>
+                <v-select
+                  :items="tipos"
+                  v-model="data.tipo"
+                  item-text="name"
+                  item-value="id"
+                  label="Tipo"
+                  :error-messages="errors.collect('tipo')"
+                  v-validate="'required'"
+                  data-vv-name="tipo"
+                  required
+                ></v-select>
+              </v-flex>
+              <v-flex xs12 sm6 md8>
+                <v-text-field
+                  v-model="data.name"
+                  label="Nome"
+                  :error-messages="errors.collect('name')"
+                  v-validate="'required'"
+                  data-vv-name="name"
+                  required
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md8>
+                <v-text-field
+                  v-model="data.municipio"
+                  label="Municipio"
+                  :error-messages="errors.collect('municipio')"
+                  v-validate="'required'"
+                  data-vv-name="municipio"
+                  required
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md4>
+                <v-text-field
+                  v-model="data.uf"
+                  label="UF"
+                  :error-messages="errors.collect('uf')"
+                  v-validate="'required'"
+                  data-vv-name="uf"
+                  required
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field
+                  v-model="coordenadas"
+                  label="Coordenadas"
+                  :error-messages="errors.collect('coordenadas')"
+                  v-validate="''"
+                  data-vv-name="coordenadas"
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md2>
+                <small class="subheading">Ativo?</small>
+              </v-flex>
+              <v-flex xs12 sm6 md10>
+                <v-radio-group v-model="data.ativo" row>
+                  <v-radio label="Sim" value="0" ></v-radio>
+                  <v-radio label="Não" value="1"></v-radio>
+                </v-radio-group>
+              </v-flex>
+            </v-layout>
+          </v-container>
+          <small>*indica campo obrigatório</small>
 
-        <div class="field is-horizontal">
-          <div class="field-body">
-            <div class="field">
-              <p class="control is-expanded has-icons-left">
-                <input v-model="data.municipio" class="input" type="text" placeholder="Municipio*">
-                <span class="icon is-small is-left">
-                  <i class="fas fa-user"></i>
-                </span>
-              </p>
-            </div>
-            <div class="field">
-              <p class="control is-expanded has-icons-right">
-                <input v-model="data.uf" class="input" type="uf" placeholder="UF*">
-                <span class="icon is-small is-right">
-                  <i class="fas fa-check"></i>
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="field">
-          <p class="control has-icons-right">
-            <input v-model="coordenadas" class="input" type="text" placeholder="Coordenadas">
-            <span class="icon is-small is-right">
-              <span class="mdi mdi-map-marker"></span>
-            </span>
-          </p>
-        </div>
-        
-        <div class="field is-horizontal">
-          <div class="field-label">
-            <label class="label">Ativo?</label>
-          </div>
-          <div class="field-body">
-            <div class="field is-narrow">
-              <div class="control">
-                <input type="radio" value="1" v-model="data.ativo">
-                <label for="one">Não</label>
-                <input type="radio" value="0" v-model="data.ativo">
-                <label for="two">Sim</label>
-              </div>
-            </div>
-          </div>
-        </div>        
-        <!--#CONTEUDO -->
-      </section>
-      <footer class="modal-card-foot field is-grouped is-grouped-right">
-        <button class="button" v-on:click="$emit('close')">Cancel</button>
-        <button :class="isLoading ? 'button is-info is-loading' : 'button is-info'" v-on:click="saveItem()">Save</button>
-      </footer>
-    </div>
+        </v-card-text>
+        <v-card-actions>
+          <template v-if="isLoading">
+              <v-spacer></v-spacer>
+              <v-progress-circular :size="40" :width="5" indeterminate color="primary"></v-progress-circular>
+              <v-spacer></v-spacer>
+          </template>
+          <template v-else>
+            <v-btn flat @click.stop="$emit('close')">Fechar</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" flat @click.stop="saveItem()">Salvar</v-btn>
+          </template>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 <script src="src/components/local/_edtLocal.js"></script>

@@ -200,11 +200,10 @@ endif;
 if($action == 'deletar'):
   #delete
   $id = $_POST['id'];
-  if($lojas->delete($id)){
+  if($locais->delete($id)){
     if($localCategorias->deleteLocal($id)){
-    $res['error'] = false;
-    $arDados = "OK, registro deletado";
-    $res['message']= $arDados;
+      $res['error'] = false;
+      $res['message']= "OK, registro deletado";
     }else{
       $res['error'] = true; 
       $arError = "Error, nao foi possivel deletar os dados";

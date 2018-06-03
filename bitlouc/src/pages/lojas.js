@@ -23,7 +23,8 @@ var Lojas = Vue.extend({
       return store.state.osProprietario;
     },
     lojas() {
-      return store.state.lojas;
+      return store.getters.getLojaAtivo();
+      //return store.state.lojas;
     },
   },
   methods: {

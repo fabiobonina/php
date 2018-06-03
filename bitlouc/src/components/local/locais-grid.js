@@ -6,7 +6,7 @@ Vue.component('grid-local', {
   data: function () {
     return {
       modalItem: {},
-      modalAdd: true,
+      modalAdd: false,
       modalEdt: false,
       modalDel: false,
       modalCat: false,
@@ -51,12 +51,6 @@ Vue.component('grid-local', {
   methods: {
     selecItem: function(data){
       this.modalItem = data;
-    },
-    onAtualizar: function(){
-      this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
-        this.showModal = false;
-      });
-    },
-    
+    },    
   }
 });

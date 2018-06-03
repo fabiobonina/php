@@ -1,7 +1,7 @@
 
-<template id="oss-loja">
+<template id="loja-oss">
   <div>  
-    <section class="container">
+    <section>
       <div>
         <os-grid :data="oss" :status="status"></os-grid>
       </div>
@@ -9,4 +9,4 @@
     </section>
   </div>
 </template>
-<script src="src/components/os/osLoja.js"></script>
+<script src="src/components/loja/loja-oss.js"></script>

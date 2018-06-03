@@ -3,7 +3,6 @@
 
     <top></top>
     <v-content>
-      <proprietario></proprietario>
       <v-container fluid>
         <grid-lojas :data="lojas"></grid-lojas>
       </v-container>
@@ -18,7 +17,6 @@
 <?php require_once 'src/components/includes/top.php';?>
 <?php require_once 'src/components/includes/rodape.php';?>
 
-<?php require_once 'src/components/proprietario/proprietario.php';?>
 <?php require_once 'src/components/loja/lojas-grid.php';?>
 <?php require_once 'src/components/loja/_addLoja.php';?>
 <?php require_once 'src/components/loja/_edtLoja.php';?>

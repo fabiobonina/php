@@ -1,6 +1,6 @@
-var Locais = Vue.extend({
-  name: 'locais',
-  template: '#locais',
+var LocaisPlus = Vue.extend({
+  name: 'locais-plus',
+  template: '#locais-plus',
   props: {
   },
   data: function () {
@@ -13,7 +13,6 @@ var Locais = Vue.extend({
     
   },
   computed: {
-
     locais()  {
       return store.state.locais;
     },

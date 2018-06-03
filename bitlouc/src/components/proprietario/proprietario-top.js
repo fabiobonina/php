@@ -1,11 +1,16 @@
-Vue.component('proprietario', {
-  name: 'proprietario',
-  template: '#proprietario',
+Vue.component('proprietario-top', {
+  name: 'proprietario-top',
+  template: '#proprietario-top',
   data: function () {
     return {
       errorMessage: '',
       successMessage: '',
-
+      router: [
+        { title: 'Locais', router: '', icon: 'store' },
+        { title: 'Lojas', router: 'lojas', icon: 'trending_up' },
+        { title: 'Bens', router: 'bens', icon: 'person' },
+      ],
+      model: 'tab-2',
     };
   },
   created() {

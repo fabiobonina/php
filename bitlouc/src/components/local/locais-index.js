@@ -1,6 +1,6 @@
-var Locais = Vue.extend({
-  name: 'locais',
-  template: '#locais',
+var LocaisIndex = Vue.extend({
+  name: 'locais-index',
+  template: '#locais-index',
   props: {
   },
   data: function () {
@@ -13,9 +13,8 @@ var Locais = Vue.extend({
     
   },
   computed: {
-
     locais()  {
-      return store.state.locais;
+      return store.getters.getLocalLoja(this.$route.params._id);
     },
   },
   methods: {

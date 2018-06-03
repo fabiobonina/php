@@ -2,7 +2,8 @@ Vue.component('local-del', {
   name: 'local-del',
   template: '#local-del',
   props: {
-    data: Object
+    data: Object,
+    dialog: Boolean
   },
   data() {
     return {
