@@ -19,7 +19,7 @@
 <?php require_once 'src/components/includes/rodape.php';?>
 
 <?php require_once 'src/components/proprietario/proprietario-top.php';?>
-<?php require_once 'src/components/loja/loja-oss.php';?>
+<?php require_once 'src/components/loja/lojas-plus.php';?>
 <?php require_once 'src/components/local/locais-plus.php';?>
 
 

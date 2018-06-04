@@ -4,8 +4,8 @@
     <div>
       <main id="app">
         <v-app id="inspire">
-            <configuracao></configuracao>
-            <router-view></router-view>
+          <configuracao></configuracao>
+          <router-view></router-view>
         </v-app>
       </main>
     </div>

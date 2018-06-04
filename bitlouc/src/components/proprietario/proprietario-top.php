@@ -8,7 +8,7 @@
         <v-toolbar-title> {{ proprietario.nick  }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <div class="text-xs-center">
-          <v-badge left>
+          <v-badge>
             <v-icon slot="badge" dark small>location_city</v-icon>
             <span>Local: {{ proprietario.locaisQt }}</span>
           </v-badge>
@@ -16,6 +16,11 @@
           <v-badge color="green">
             <v-icon slot="badge" dark small>place</v-icon>
             <span>{{ proprietario.locaisGeoStatus }}% ({{ proprietario.locaisGeoQt }})</span>
+          </v-badge>
+          &nbsp;&nbsp;
+          <v-badge color="blue">
+            <v-icon slot="badge" dark small>place</v-icon>
+            <span>OS: {{ osProprietario.osQt }}</span>
           </v-badge>
           &nbsp;
         </div>
@@ -27,7 +32,7 @@
           <v-tab v-for="n in router" :key="n.title" :to="'/proprietario/' + n.router" ripple> {{ n.title }} </v-tab>
         </v-tabs>
       </v-toolbar>
-      </div>
+    </div>
       <v-layout align-center>
         <v-flex xs12 sm4 text-xs>
           <div>

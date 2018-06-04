@@ -6,8 +6,8 @@ Vue.component('proprietario-top', {
       errorMessage: '',
       successMessage: '',
       router: [
-        { title: 'Locais', router: '', icon: 'store' },
-        { title: 'Lojas', router: 'lojas', icon: 'trending_up' },
+        { title: 'Lojas', router: '', icon: 'trending_up' },
+        { title: 'Locais', router: 'locais', icon: 'store' },
         { title: 'Bens', router: 'bens', icon: 'person' },
       ],
       model: 'tab-2',

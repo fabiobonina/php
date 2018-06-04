@@ -426,8 +426,9 @@ var router = new VueRouter({
     },
     { path: '/proprietario', component: Proprietario,
       children: [
-        { path: '', component: LocaisPlus },
-        { path: 'oss', component: LojaOss },
+        { path: '', component: LojasPlus },
+        { path: 'locais', component: LocaisPlus },
+        //{ path: 'oss', component: OsPlus },
         //{ path: 'bens', component: LojaBens },
       ]
     },

@@ -12,7 +12,7 @@
               <v-select :items="itens" v-model="configs.orderBy" item-text="name" item-value="state" return-object label="Select" solo></v-select>
             </v-flex>
             <v-flex xs12 sm1>
-              <v-btn flat icon color=""
+              <v-btn flat icon
               @click.native="configs.order == 'asc'? configs.order = 'desc': configs.order = 'asc'">
               <v-icon v-if="configs.order == 'asc'" dark>arrow_downward</v-icon>
               <v-icon v-else dark>arrow_upward</v-icon>
@@ -24,8 +24,8 @@
             </v-btn>
           </v-toolbar>
           <v-list two-line>
-            <template v-for="(item, index) in filteredData" :key="item.id">
-              <v-list-tile :to="'/loja/' + item.id" append v-on:click.native="" activator slot>
+            <template v-for="(item, index) in filteredData">
+              <v-list-tile :to="'/local/' + item.id" append v-on:click.native="" activator slot>
                 <v-list-tile-content dense>
                   <v-list-tile-title :key="item.id"> {{item.tipo}} - {{item.name}} </v-list-tile-title>
                   <v-list-tile-sub-title class="text--primary">  {{item.municipio}} /{{item.uf}} </v-list-tile-sub-title>

@@ -84,3 +84,8 @@
   </div>
 </template>
 <script src="src/components/loja/lojas-grid.js"></script>
+
+<?php require_once 'src/components/loja/_addLoja.php';?>
+<?php require_once 'src/components/loja/_edtLoja.php';?>
+<?php require_once 'src/components/loja/_delLoja.php';?>
+<?php require_once 'src/components/loja/_catLoja.php';?>

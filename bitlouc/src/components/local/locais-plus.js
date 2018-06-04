@@ -18,7 +18,6 @@ var LocaisPlus = Vue.extend({
     },
   },
   methods: {
-    
     // Bu metot http post ile formdan alınan verileri apiye iletir
     // Apiden dönen cevap users dizisine push edilir
   }
