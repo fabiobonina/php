@@ -424,6 +424,13 @@ var router = new VueRouter({
         //{ path: 'bens', component: LojaBens },
       ]
     },
+    { path: '/local/:_local', component: Local,
+      children: [
+        { path: '', component: Bens },
+        //{ path: 'oss', component: LojaOss },
+        //{ path: 'bens', component: LojaBens },
+      ]
+    },
     { path: '/proprietario', component: Proprietario,
       children: [
         { path: '', component: LojasPlus },

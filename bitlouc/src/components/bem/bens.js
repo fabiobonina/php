@@ -14,7 +14,6 @@ var Bens = Vue.extend({
       modalAdd: false,
       modalOs: false,
       active: '1',
-      gridColumns: ['displayName', 'name'],
       modalItem: null
     };
   },
@@ -24,9 +23,6 @@ var Bens = Vue.extend({
   computed: {
     local()  {
       return store.getters.getLocalId(this.$route.params._local);
-    },
-    loja()  {
-      return store.getters.getLojaId(this.$route.params._id);
     },
     bens()  {
       return store.getters.getBensLocal(this.$route.params._local);

@@ -42,7 +42,6 @@
         </div>
       </div>
     </section>
-    <br>
   </div>
 </template>
 <script src="src/components/loja/loja-top.js"></script>

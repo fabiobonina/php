@@ -1,5 +1,31 @@
-<template id="local">
+<template id="local-top">
   <div>
+  <v-toolbar color="cyan" dark tabs extended>
+      <v-btn @click="$router.go(-1)" icon>
+        <v-icon>arrow_back</v-icon>
+      </v-btn>
+      <v-toolbar-title> {{ local.name }}</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <div class="text-xs-center">
+        <v-badge left>
+          <v-icon slot="badge" dark small>location_city</v-icon>
+          <span>Local: {{ local.locaisQt }}</span>
+        </v-badge>
+        &nbsp;&nbsp;
+        <v-badge color="green">
+          <v-icon slot="badge" dark small>place</v-icon>
+          <span>{{ local.locaisGeoStatus }}% ({{ local.locaisGeoQt }})</span>
+        </v-badge>
+        &nbsp;
+      </div>
+
+      <v-btn icon>
+        <v-icon>more_vert</v-icon>
+      </v-btn>
+      <v-tabs slot="extension" centered color="cyan" slider-color="yellow">
+        <v-tab v-for="n in router" :key="n.title" :to="'/loja/'+ $route.params._id + n.router" ripple> {{ n.title }} </v-tab>
+      </v-tabs>
+    </v-toolbar>
     <section class="hero is-link">
       <!-- Hero head: will stick at the top -->
       <top></top>
@@ -76,4 +102,4 @@
 
   </div>
 </template>
-<script src="src/components/local/local.js"></script>
+<script src="src/components/local/local-top.js"></script>
