@@ -4,12 +4,12 @@
       <v-btn @click="$router.go(-1)" icon>
         <v-icon>arrow_back</v-icon>
       </v-btn>
-      <v-toolbar-title> {{ local.name }}</v-toolbar-title>
+      <v-toolbar-title> {{ local.tipo }} - {{ local.name }} </v-toolbar-title>
       <v-spacer></v-spacer>
       <div class="text-xs-center">
         <v-badge left>
           <v-icon slot="badge" dark small>location_city</v-icon>
-          <span>Local: {{ local.locaisQt }}</span>
+          <span> {{ local.id }}</span>
         </v-badge>
         &nbsp;&nbsp;
         <v-badge color="green">
@@ -18,7 +18,9 @@
         </v-badge>
         &nbsp;
       </div>
-
+      <v-btn :disabled=" 0.000000 == local.latitude" :href="'https://maps.google.com/maps?q='+ local.latitude + ',' + local.longitude" target="_blank" fab icon dark color="primary">
+        <v-icon dark>directions</v-icon>
+      </v-btn>
       <v-btn icon>
         <v-icon>more_vert</v-icon>
       </v-btn>
@@ -38,36 +40,8 @@
               <p class="subtitle" style="margin-bottom: 0;"> {{ local.municipio }}/{{ local.uf }}
                 <span class="pull-right"  v-for="categoria in local.categoria"> <span class="tag">{{ categoria.tag }}</span> &nbsp;  </span>
               </p>
-              <p>{{ loja.nick }}: Regional: &nbsp; <a>#{{local.regional}} </a></p>
+              <p>{{  }}: Regional: &nbsp; <a>#{{local.regional}} </a></p>
             </div>
-            <div class="column">
-              <nav class="level">
-                <div class="level-item has-text-centered">
-                  <div>
-                    <p class="heading">Local</p>
-                    <p class="title is-4"> {{ loja.locaisQt }} <span class="icon is-small"> <i class="fa fa-building-o"></i></span></p>
-                    <p> {{ loja.locaisGeoStatus }}% ({{ loja.locaisGeoQt }})<span class="icon"><i class="fa fa-map-marker"></i></span></p>
-                  </div>
-                </div>
-                <div class="level-item has-text-centered">
-                  <div>
-                    <p class="heading">OS´s</p>
-                    <p class="title is-4"> {{  }} <span class="icon mdi mdi-wrench"></span></p>
-                  </div>
-                </div>
-                <div class="level-item has-text-centered">
-                  <div>
-                    <p class="heading">Rota</p>
-                    <a v-if=" 0.000000 != local.latitude"
-                    :href="'https://maps.google.com/maps?q='+ local.latitude + ',' + local.longitude"
-                    target="_blank">
-                      <span class="title is-3 has-text-info mdi mdi-directions"></span>
-                    </a>
-                  </div>
-                </div>
-              </nav>
-            </div>
-          </div>
         </div>
       </div>
       <!-- Hero footer: will stick at the bottom -->

@@ -424,13 +424,13 @@ var router = new VueRouter({
         //{ path: 'bens', component: LojaBens },
       ]
     },
-    { path: '/local/:_local', component: Local,
+    /*{ path: '/local/:_local', component: Local,
       children: [
         { path: '', component: Bens },
         //{ path: 'oss', component: LojaOss },
         //{ path: 'bens', component: LojaBens },
       ]
-    },
+    },*/
     { path: '/proprietario', component: Proprietario,
       children: [
         { path: '', component: LojasPlus },
@@ -439,7 +439,7 @@ var router = new VueRouter({
         //{ path: 'bens', component: LojaBens },
       ]
     },
-    /*{ path: '/loja/:_id/local/:_local', component: Local,
+    { path: '/loja/:_id/local/:_local', component: Local,
       children: [
         { path: '', component: Bens },
         { path: 'oss-local', component: OssLocal },
