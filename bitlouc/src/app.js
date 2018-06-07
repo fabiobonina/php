@@ -442,7 +442,7 @@ var router = new VueRouter({
     { path: '/loja/:_id/local/:_local', component: Local,
       children: [
         { path: '', component: Bens },
-        { path: 'oss-local', component: OssLocal },
+        //{ path: 'oss-local', component: OssLocal },
       ]
     },
     /*{path: '/oss/:_id/os/:_os', component: Os, name: 'os'},

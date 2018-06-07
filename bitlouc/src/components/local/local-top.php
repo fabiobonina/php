@@ -40,7 +40,7 @@
               <p class="subtitle" style="margin-bottom: 0;"> {{ local.municipio }}/{{ local.uf }}
                 <span class="pull-right"  v-for="categoria in local.categoria"> <span class="tag">{{ categoria.tag }}</span> &nbsp;  </span>
               </p>
-              <p>{{  }}: Regional: &nbsp; <a>#{{local.regional}} </a></p>
+              <p>{{ loja.nick }}: Regional: &nbsp; <a>#{{local.regional}} </a></p>
             </div>
         </div>
       </div>

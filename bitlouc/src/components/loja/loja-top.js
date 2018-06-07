@@ -12,8 +12,6 @@ Vue.component('loja-top',{
         { title: 'OSs', router: '/oss', icon: 'trending_up' },
         { title: 'Bens', router: '/bens', icon: 'person' },
       ],
-      model: 'tab-2',
-      text: 'Lorem ipsum '
     };
   },
   created: function() {

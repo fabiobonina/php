@@ -25,7 +25,7 @@
           </v-toolbar>
           <v-list two-line>
             <template v-for="(item, index) in filteredData">
-              <v-list-tile :to="'/local/' + item.id" append v-on:click.native="" activator slot>
+              <v-list-tile :to="'/loja/' + $route.params._id + '/local/' + item.id" append v-on:click.native="" activator slot>
                 <v-list-tile-content dense>
                   <v-list-tile-title :key="item.id"> {{item.tipo}} - {{item.name}} </v-list-tile-title>
                   <v-list-tile-sub-title class="text--primary">  {{item.municipio}} /{{item.uf}} </v-list-tile-sub-title>
