@@ -6,9 +6,8 @@ Vue.component('local-top',{
       searchQuery: '',
       modalBemAdd: false,
       router: [
-        { title: 'Locais', router: '', icon: 'store' },
-        { title: 'OSs', router: '/oss', icon: 'trending_up' },
-        { title: 'Bens', router: '/bens', icon: 'person' },
+        { title: 'Bens', router: '', icon: 'store' },
+        { title: 'OSs', router: '/oss', icon: 'trending_up' }
       ],
     };
   },

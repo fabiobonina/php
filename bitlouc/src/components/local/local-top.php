@@ -25,7 +25,7 @@
         <v-icon>more_vert</v-icon>
       </v-btn>
       <v-tabs slot="extension" centered color="cyan" slider-color="yellow">
-        <v-tab v-for="n in router" :key="n.title" :to="'/loja/'+ $route.params._id + n.router" ripple> {{ n.title }} </v-tab>
+        <v-tab v-for="n in router" :key="n.title" :to="'/loja/'+ $route.params._id +'/local/'+ $route.params._local + n.router" ripple> {{ n.title }} </v-tab>
       </v-tabs>
     </v-toolbar>
     <section class="hero is-link">
@@ -45,27 +45,7 @@
         </div>
       </div>
       <!-- Hero footer: will stick at the bottom -->
-      <div class="hero-foot">
-        <nav class="tabs">
-          <div class="container">
-            <ul>
-              <li class="is-active">
-                <a @click="$router.go(-1)" class="btn btn-default"><span class="title is-5 mdi mdi-arrow-left"></span></a>
-              </li>
-              <li :class="$route.path == '/loja/'+ $route.params._id +'/local/'+ $route.params._local ? 'is-active' : ''">
-                <a :href="'#/loja/'+ $route.params._id +'/local/'+ $route.params._local">Bens</a>
-              </li>
-              <li :class="$route.path == '/loja/'+ $route.params._id +'/local/'+ $route.params._local +'/oss-local' ? 'is-active' : ''">
-                <a :href="'#/loja/'+ $route.params._id +'/local/'+ $route.params._local +'/oss-local'" >OS´s Local</a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </div>
     </section>
-    <div>
-      <router-view></router-view>
-    </div>
     <nav class="breadcrumb is-right" aria-label="breadcrumbs">
       <ul>
         <li><router-link to="/"> Home</router-link></li>
