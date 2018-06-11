@@ -1,7 +1,7 @@
 <template id="bens">
   <div>
-    <section class="container">
-      <div class="tabs is-small">
+    <section>
+      <div>
         <ul>
           <li :class="active==1 ? 'is-active' : ''" @click="active='1'"><a>Operação</a></li>
           <li :class="active==0 ? 'is-active' : ''" @click="active='0'"><a>Instalação</a></li>
@@ -9,23 +9,22 @@
         </ul>
       </div>
     </section>
-    <br>
-    <section class="container">
-      <div class="field has-addons">
-        <div class="control">
+    <section>
+      <div>
+        <div>
           <input v-model="search" class="input" type="text" placeholder="Search">
         </div>
-        <div class="control">
+        <div>
           <a class="button is-info"><span class="mdi mdi-magnify"></span></a>
         </div>
         &nbsp;
-        <div class="control">
+        <div>
           <a v-on:click="modalAdd = true" class="button is-link is-al">
             <span class="mdi mdi-file-tree"></span> Bem
           </a>
         </div>
         &nbsp;
-        <div class="control">
+        <div>
           <a v-on:click="modalOs = true" class="button is-link is-al">
             <span class="mdi mdi-wrench"></span> OS
           </a>
@@ -38,3 +37,8 @@
   </div>
 </template>
 <script src="src/components/bem/bens.js"></script>
+
+<?php require_once 'src/components/bem/bens-grid.php';?>
+<?php require_once 'src/components/bem/bem-add.php';?>
+<?php require_once 'src/components/bem/bem-edt.php';?>
+<?php require_once 'src/components/bem/bem-del.php';?>

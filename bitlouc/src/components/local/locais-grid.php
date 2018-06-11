@@ -83,7 +83,6 @@
         </v-card>
       </v-flex>
     </v-layout>
-
     <div>
       <local-add v-if="modalAdd" v-on:close="modalAdd = false" :dialog="modalAdd"></local-add>
       <local-geo v-if="modalGeo" v-on:close="modalGeo = false" :dialog="modalGeo" :data="modalItem"></local-geo>

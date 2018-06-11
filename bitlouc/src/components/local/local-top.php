@@ -28,17 +28,17 @@
         <v-tab v-for="n in router" :key="n.title" :to="'/loja/'+ $route.params._id +'/local/'+ $route.params._local + n.router" ripple> {{ n.title }} </v-tab>
       </v-tabs>
     </v-toolbar>
-    <section class="hero is-link">
+    <section>
       <!-- Hero head: will stick at the top -->
       <top></top>
       <!-- Hero content: will be in the middle -->
-      <div class="hero-body" style="padding:0;">
-        <div class="container has-text-centered">
-          <div class="columns">
-            <div class="column is-two-fifths has-text-left">
-              <h1 class="title is-4"> {{ local.tipo }} - {{ local.name }}</h1>
-              <p class="subtitle" style="margin-bottom: 0;"> {{ local.municipio }}/{{ local.uf }}
-                <span class="pull-right"  v-for="categoria in local.categoria"> <span class="tag">{{ categoria.tag }}</span> &nbsp;  </span>
+      <div>
+        <div>
+          <div>
+            <div>
+              <h1> {{ local.tipo }} - {{ local.name }}</h1>
+              <p> {{ local.municipio }}/{{ local.uf }}
+                <span v-for="categoria in local.categoria"> <span >{{ categoria.tag }}</span> &nbsp;  </span>
               </p>
               <p>{{ loja.nick }}: Regional: &nbsp; <a>#{{local.regional}} </a></p>
             </div>
@@ -46,14 +46,6 @@
       </div>
       <!-- Hero footer: will stick at the bottom -->
     </section>
-    <nav class="breadcrumb is-right" aria-label="breadcrumbs">
-      <ul>
-        <li><router-link to="/"> Home</router-link></li>
-        <li><router-link :to="'/loja/' + $route.params._id"> Loja</router-link></li>
-        <li class="is-active"><a aria-current="page">Local</a></li>
-      </ul>
-    </nav>
-
   </div>
 </template>
 <script src="src/components/local/local-top.js"></script>

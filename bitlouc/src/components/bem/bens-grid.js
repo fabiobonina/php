@@ -13,13 +13,25 @@ Vue.component('bens-grid', {
       modalOsAdd: false,
       modalItem: {},
       geolocalizacao: '',
-      selectedCategoria: 'All'
+      selectedCategoria: 'All',
+      configs: {
+        orderBy: { name: 'Nome', state: 'name' },
+        order: 'asc',
+        search: ''
+      },
+      itens: [
+        { name: 'Nome', state: 'name' },
+        { name: 'Regional', state: 'regional' }
+      ],
     }
   },
   mounted: function() {
     //this.modalOsAdd = true;
   },
   computed: {
+    user()  {
+      return store.state.user;
+    },
     filteredData: function () {
       var vm = this;
       var categoria = vm.selectedCategoria;

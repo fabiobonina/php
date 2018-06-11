@@ -36,11 +36,7 @@
     <?php require_once 'src/components/local/maps.php';?>
     <!-- /components local-->
     <!-- components bem -->
-    <?php require_once 'src/components/bem/bens-grid.php';?>
-    <?php require_once 'src/components/bem/bem-add.php';?>
-    <?php require_once 'src/components/bem/bem-edt.php';?>
-    <?php require_once 'src/components/bem/bem-del.php';?>
-    <?php require_once 'src/components/bem/bens.php';?>
+    
     <!-- /components bem -->
     <!-- components os -->
     <?php require_once 'src/components/os/os.php';?>
