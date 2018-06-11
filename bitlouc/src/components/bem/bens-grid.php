@@ -29,43 +29,40 @@
               </v-btn>
             </v-flex>
             <v-spacer></v-spacer>
-            <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="modalAdd=true" color="pink" dark small absolute fab right>
+            <v-btn @click="modalOs = true"  dark small fab right>
+              <v-icon color="grey lighten-1">build</v-icon>
+            </v-btn>
+            <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="modalAdd=true" color="pink" dark small fab right>
               <v-icon>add</v-icon>
             </v-btn>
           </v-toolbar>
           <v-list two-line>
             <template v-for="(item, index) in filteredData">
-              <v-list-tile :to="'/loja/' + $route.params._id + '/local/' + item.id" append v-on:click.native="" activator slot>
-                <v-list-tile-content dense>
-                  <v-list-tile-title :key="item.id"> {{item.name}} - {{item.modelo}} </v-list-tile-title>
-                  <v-list-tile-sub-title class="text--primary">  {{item.fabricanteNick}} #{{item.proprietarioNick}} </v-list-tile-sub-title>
+              <v-list-tile  append v-on:click.native="" activator slot>
+                <v-list-tile-content v-on:click.native=""    dense>
+                  <a :to="'/loja/' + $route.params._id + '/local/' + $route.params._local ">
+                    <v-list-tile-title    :key="item.id"> {{item.name}} - {{item.modelo}} </v-list-tile-title>
+                    <v-list-tile-sub-title class="text--primary">  {{item.fabricanteNick}} #{{item.proprietarioNick}} </v-list-tile-sub-title>
+                  </a>
                 </v-list-tile-content>
+                <v-btn @click="modalOs = true; selecItem(item)" icon ripple>
+                  <v-icon color="grey lighten-1">build</v-icon>
+                </v-btn>
+                <v-chip small color="green" text-color="white">
+                  {{ item.categoria.tag }}
+                </v-chip>
                 <v-list-tile-action>
                   <v-list-tile-action-text>TAG: {{ item.numeracao }}</v-list-tile-action-text>
                   <v-list-tile-action-text>Ativo: {{ item.plaqueta }}</v-list-tile-action-text>
-                </v-list-tile-action>                
-              </v-list-tile>
-              <v-list-tile @click="" light>
-                <v-list-tile-content>
-                  <v-chip small  color="primary" text-color="white" >Regional: {{item.regional}} </v-chip>
-                </v-list-tile-content>
-                <div>
-                  <v-chip small v-for="categoria in item.categoria" :key="categoria.id" color="green" text-color="white">
-                    {{ categoria.tag }}
-                  </v-chip>
-                </div>
-                <v-btn :disabled=" 0.000000 == item.latitude" :href="'https://maps.google.com/maps?q='+ item.latitude + ',' + item.longitude" target="_blank" fab dark color="primary">
-                  <v-icon dark>directions</v-icon>
-                </v-btn>
-                <v-list-tile-action>
-                  <v-menu v-if="user.nivel > 2 && user.grupo == 'P'" open-on-hover top offset-y left  @click="">
-                    <v-btn slot="activator" icon>
-                      <v-icon>more_vert</v-icon>
+                </v-list-tile-action>
+                <v-menu v-if="user.nivel > 2 && user.grupo == 'P'" open-on-hover top offset-y left  @click="">
+                    <v-btn slot="activator" icon ripple>
+                      <v-icon color="grey lighten-1">info</v-icon>
                     </v-btn>
                     <v-list>
-                      <v-list-tile @click="modalGeo = true; selecItem(item)">
+                      <v-list-tile @click="modalOs = true; selecItem(item)">
                         <v-list-tile-title>
-                          <v-icon>location_on</v-icon>Geoposição
+                          <v-icon>build</v-icon>OS
                         </v-list-tile-title>
                       </v-list-tile>
                       <v-list-tile @click="modalCat = true; selecItem(item)">
@@ -85,7 +82,6 @@
                       </v-list-tile>
                     </v-list>
                   </v-menu>
-                </v-list-tile-action>
               </v-list-tile>
               <v-divider v-if="index + 1 < filteredData.length" :key="index"></v-divider>
             </template>
@@ -103,41 +99,13 @@
                     <p><button v-on:click="modalOsAdd = true; selecItem(item)" class="button">Abrir OS</button></p>
                   </div>
                 </div>
-                <div class="level-item has-text-centered">
-                  <div>
-                    <p class="heading">Ação</p>
-                    <div class="dropdown is-right is-hoverable">
-                      <div class="dropdown-trigger">
-                        <a aria-haspopup="true" aria-controls="dropdown-menu1">
-                          <span class="title is-2 mdi mdi-apps"></span>
-                        </a>
-                      </div>
-                      <div class="dropdown-menu" id="dropdown-menu1" role="menu">
-                        <div class="dropdown-content">
-                          <a @click="modalOsAdd = true; selecItem(item)" class="dropdown-item">
-                            <span class="mdi mdi-wrench"></span>OS
-                          </a>
-                          <a @click="modalCat = true; selecItem(item)" class="dropdown-item">
-                            <span class="mdi mdi-tag-multiple"></span>Categoria
-                          </a>
-                          <a @click="modalEdt = true; selecItem(item)" class="dropdown-item">
-                            <span class="mdi mdi-pencil"></span>Edit
-                          </a>
-                          <a @click="modalDel = true; selecItem(item)" class="dropdown-item">
-                            <span class="mdi mdi-delete"></span>Delete
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </nav>
             </div>
           </div>
         </article>
       </div>
     </section>
-    <os-add v-if="modalOsAdd" v-on:close="modalOsAdd = false"  v-on:atualizar="onAtualizar" :data="modalItem"></os-add>
+    <os-add v-if="modalOs" v-on:close="modalOs = false"  v-on:atualizar="onAtualizar" :data="modalItem"></os-add>
   </div>
 </template>
 <script src="src/components/bem/bens-grid.js"></script>

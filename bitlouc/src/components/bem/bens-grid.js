@@ -8,11 +8,12 @@ Vue.component('bens-grid', {
   },
   data: function () {
     return {
-      sortKey: '',
-      sortOrders: '',
-      modalOsAdd: false,
       modalItem: {},
-      geolocalizacao: '',
+      modalAdd: false,
+      modalEdt: false,
+      modalDel: false,
+      modalCat: false,
+      modalOs: false,
       selectedCategoria: 'All',
       configs: {
         orderBy: { name: 'Nome', state: 'name' },
