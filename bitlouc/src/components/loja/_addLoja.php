@@ -1,6 +1,5 @@
 <template id="loja-add">
   <div>
-
     <v-dialog v-model="dialog" persistent scrollable  max-width="500px">
       <v-card>
         <v-card-title>

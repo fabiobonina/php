@@ -1,4 +1,4 @@
-<template id="bem-del">
+<template id="bem-add">
   <div class="modal is-active" >
     <div class="modal-background"></div>
     <div class="modal-card">
@@ -98,4 +98,4 @@
     </div>
   </div>
 </template>
-<script src="src/components/bem/bem-del.js"></script>
+<script src="src/components/bem/_addBem.js"></script>

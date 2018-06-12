@@ -98,4 +98,4 @@
     </div>
   </div>
 </template>
-<script src="src/components/bem/bem-edt.js"></script>
+<script src="src/components/bem/_edtBem.js"></script>
