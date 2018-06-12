@@ -25,10 +25,12 @@
         </v-toolbar>
         <v-list two-line>
           <template v-for="(item, index) in filteredData" >
-            <v-list-tile :key="item.name" :to="'/loja/' + item.id" append v-on:click.native="" activator slot>
-              <v-list-tile-content dense>
+            <v-list-tile :key="item.name" @click="" append activator slot>
+              <v-list-tile-content dense >
+                <router-link :to="'/loja/' + item.id">
                 <v-list-tile-title :key="item.id">{{item.nick}}</v-list-tile-title>
                 <v-list-tile-sub-title class="text--primary"> {{ item.name }} </v-list-tile-sub-title>
+                </router-link>
               </v-list-tile-content>
               <v-list-tile-action>
                 Localidades: {{ item.locaisQt }} {{ item.locaisGeoStatus }}% ({{ item.locaisGeoQt }})
