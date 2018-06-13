@@ -1,6 +1,6 @@
-var OsLocal = Vue.extend({
-  template: '#os-local',
-  name: 'os-local',
+var LocalOss = Vue.extend({
+  template: '#local-oss',
+  name: 'local-oss',
   data: function () {
     return {
       modalLocalAdd: false,

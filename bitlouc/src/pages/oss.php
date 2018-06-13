@@ -27,5 +27,5 @@
 <!-- components os -->
 <?php require_once 'src/components/os/os.php';?>
 <?php require_once 'src/components/os/os-grid.php';?>
-<?php require_once 'src/components/os/osLocal.php';?>
+<?php require_once 'src/components/os/localOss.php';?>
 <!-- /components os -->

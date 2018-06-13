@@ -10,21 +10,36 @@
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12>
-                <div v-if='data'>
-                  <p>{{ data.name }} - {{ data.modelo }} <i class="fa fa-qrcode"></i> {{ data.numeracao }} <i class="fa fa-fw fa-barcode"></i>{{ data.plaqueta }}</p>
+                <div v-if="data">
+                  <p>{{ data.name }} - {{ data.modelo }}, Code: {{ data.numeracao }}, Ativo: {{ data.plaqueta }}</p>
+                </div>
+                <div v-else>
+                  <v-autocomplete
+                    :items="categorias"
+                    v-model="categoria"
+                    item-text="name"
+                    label="Cagetoria"
+                    :error-messages="errors.collect('categoria')"
+                    v-validate="'required'"
+                    data-vv-name="categoria"
+                    return-object
+                    required
+                  ></v-autocomplete>
                 </div>
               </v-flex>
-              <v-flex xs12 sm6 md4>
+              <v-flex xs12 sm6 md5>
                 <v-text-field
+                  type="date"
                   v-model="dataOs"
                   label="Data"
                   :error-messages="errors.collect('dataOs')"
                   v-validate="'required'"
                   data-vv-name="dataOs"
+                  item-text="name"
                   required
                 ></v-text-field>
               </v-flex>
-              <v-flex xs12 sm6 md8>
+              <v-flex xs12 sm6 md7>
                 <v-autocomplete
                   :items="servicos"
                   v-model="servico"
@@ -33,58 +48,24 @@
                   :error-messages="errors.collect('servico')"
                   v-validate="'required'"
                   data-vv-name="servico"
+                  return-object
                   required
                 ></v-autocomplete>
               </v-flex>
-              <v-flex xs12 sm6 md4 v-if="!data">
-                <v-autocomplete
-                  :items="categorias"
-                  v-model="categoria"
-                  item-text="name"
-                  label="Serviços"
-                  :error-messages="errors.collect('categoria')"
-                  v-validate="'required'"
-                  data-vv-name="categoria"
-                  required
-                ></v-autocomplete>
-              </v-flex>
+              
 
               <v-flex xs12>
                 <v-autocomplete
-                  :items="tecnicos" v-model="tecnico" label="Tecnico"
-                  :error-messages="errors.collect('tecnico')" v-validate="'required'" data-vv-name="tecnico"
-                  required multiple chips max-height="auto"
-                  >
-                  <template slot="selection" slot-scope="data">
-                    <v-chip
-                      :selected="data.selected"
-                      :key="JSON.stringify(data.item)"
-                      close class="chip--select-multi"
-                      @input="data.parent.selectItem(data.item)"
-                    >
-                      {{ data.item.userNick }}
-                    </v-chip>
-                  </template>
-                  <template slot="item" slot-scope="data">
-                    <template v-if="typeof data.item !== 'object'">
-                      <v-list-tile-content v-text="data.item"></v-list-tile-content>
-                    </template>
-                    <template v-else>
-                      <v-list-tile-content>
-                        <v-list-tile-title v-html="data.item.userNick"></v-list-tile-title>
-                      </v-list-tile-content>
-                    </template>
-                  </template>
-                </v-autocomplete>
-                <v-autocomplete
                   :items="tecnicos"
                   v-model="tecnico"
-                  label="Select"
+                  label="Tecnico"
                   item-text="userNick"
-                  item-value="name"
                   multiple
                   chips
+                  return-object
                   max-height="auto"
+                  :error-messages="errors.collect('tecnico')" v-validate="'required'" data-vv-name="tecnico"
+                  required
                 >
                   <template slot="selection" slot-scope="data">
                     <v-chip

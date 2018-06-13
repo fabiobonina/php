@@ -1,14 +1,42 @@
 
 <template id="os">
   <div>
-    <section class="hero is-link">
+  <top></top>
+  <v-content>
+    <v-toolbar color="cyan" dark tabs extended>
+      <v-btn @click="$router.go(-1)" icon>
+        <v-icon>arrow_back</v-icon>
+      </v-btn>
+      <v-toolbar-title> {{_os.lojaNick}} | {{_os.local.tipo}} - {{_os.local.name}} ({{_os.local.municipio}}/{{_os.local.uf}})</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <div class="text-xs-center">
+        <v-badge left>
+          <v-icon slot="badge" dark small>location_city</v-icon>
+          <span>Local: {{ loja.locaisQt }}</span>
+        </v-badge>
+        &nbsp;&nbsp;
+        <v-badge color="green">
+          <v-icon slot="badge" dark small>place</v-icon>
+          <span>{{ loja.locaisGeoStatus }}% ({{ loja.locaisGeoQt }})</span>
+        </v-badge>
+        &nbsp;
+      </div>
+
+      <v-btn icon>
+        <v-icon>more_vert</v-icon>
+      </v-btn>
+      <v-tabs slot="extension" centered color="cyan" slider-color="yellow">
+        <v-tab v-for="n in router" :key="n.title" :to="'/loja/'+ $route.params._id + n.router" ripple> {{ n.title }} </v-tab>
+      </v-tabs>
+    </v-toolbar>
+    <v-container fluid>
       <!-- Hero head: will stick at the top -->
-      <top></top>
+      
       <!-- Hero content: will be in the middle -->
-      <div class="hero-body" style="padding:0;">
-        <div class="container has-text-centered">
-          <div class="columns">
-            <div class="column is-two-thirds has-text-left">
+      <div>
+        <div>
+          <div>
+            <div>
               <h1 class="title is-5"> {{_os.lojaNick}} | {{_os.local.tipo}} - {{_os.local.name}} ({{_os.local.municipio}}/{{_os.local.uf}}) </h1>
               <p class="subtitle" style="margin-bottom: 0;"> {{_os.data}} | {{_os.servico.name}}
                 <span class="pull-right"> <span class="tag">{{ _os.categoria.name }}</span> &nbsp;  </span>
@@ -16,7 +44,7 @@
               <p v-if="_os.bem">{{_os.bem.name}} {{_os.bem.modelo}}  &nbsp; <a>#{{_os.bem.fabricanteNick}} </a> 
               <p><span class="icon mdi mdi-worker"></span>  <a v-for="tecnico in _os.tecnicos">{{tecnico.userNick}} |</a> </p>
             </div>
-            <div class="column">
+            <div>
               <nav class="level">
                 <div class="level-item has-text-centered">
                   <div>
@@ -44,51 +72,6 @@
             </div>
           </div>
         </div>
-
-        <!--div>
-          <ul class="steps is-small">
-            <li :class="_os.processo > 0 ?
-                          'step-item is-completed is-info' : 'step-item'">
-              <div class="step-marker"><span class="mdi mdi-arrow-right-bold"></span></div>
-              <div class="step-details is-primary is-completed">
-                <p class="step-title">Em Transito</p>
-              </div>
-            </li>
-            <li :class="_os.processo >= 1 ?
-                          _os.processo == 1 ? 'step-item is-completed is-success' :
-                          _os.processo == 2  ? 'step-item is-completed is-warning' : 'step-item is-completed is-info' 
-                        : 'step-item'">
-              <div class="step-marker">
-                <span class="icon mdi mdi-wrench"></span>
-              </div>
-              <div class="step-details">
-                <p class="step-title">Atendendo</p>
-              </div>
-            </li>
-            <li :class="_os.processo >= 3 ?
-                          _os.processo == 3 ? 'step-item is-completed is-success' :
-                          _os.processo == 4  ? 'step-item is-completed is-warning' : 'step-item is-completed is-info' 
-                        : 'step-item'">
-              <div class="step-marker">
-                <span class="mdi mdi-redo-variant"></span>
-              </div>
-              <div class="step-details">
-                <p class="step-title">Retorno</p>
-              </div>
-            </li>
-            <li :class="_os.processo >= 5 ?
-                          _os.processo == 5 ? 'step-item is-completed is-success' :
-                          _os.processo == 6  ? 'step-item is-completed is-warning' : 'step-item is-completed is-info' 
-                        : 'step-item'">
-              <div class="step-marker">
-                <span class="icon mdi mdi-check"></span>
-              </div>
-              <div class="step-details">
-                <p class="step-title">Completo</p>
-              </div>
-            </li>
-          </ul>
-        </div-->
         <div class="buttons has-addons is-centered is-toggle is-fullwidth" style="width: 100%;">
           <a :class="_os.processo >= 1 ?
               _os.processo == 1 ? 'button is-success is-selected' : 'button is-info is-selected is-small'   
@@ -139,10 +122,7 @@
         </nav>
       </div>
     </section>
-    <div>
-      <router-view></router-view>
-    </div>
-    <br>
+
     <section class="container">
       <div class="field has-addons">
         <div class="control">
@@ -256,7 +236,15 @@
         <nota-edt v-if="modalNotaEdt" v-on:close="modalNotaEdt = false" :data="_os"></nota-edt>
       </div>
       <!-- /.box -->
+
+      </v-container>
+    </v-content>
+    <rodape></rodape>
+    <section>
     </section>
   </div>
 </template>
 <script src="src/components/os/os.js"></script>
+
+<?php require_once 'src/components/includes/top.php';?>
+<?php require_once 'src/components/includes/rodape.php';?>

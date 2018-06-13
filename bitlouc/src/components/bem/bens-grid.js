@@ -8,7 +8,7 @@ Vue.component('bens-grid', {
   },
   data: function () {
     return {
-      modalItem: {},
+      modalItem: null,
       modalAdd: false,
       modalEdt: false,
       modalDel: false,

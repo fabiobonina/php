@@ -26,5 +26,6 @@
 
 <?php require_once 'src/components/loja/loja-oss.php';?>
 <?php require_once 'src/components/local/locais-index.php';?>
+<?php require_once 'src/components/os/localOss.php';?>
 
 

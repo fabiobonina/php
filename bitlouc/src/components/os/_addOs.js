@@ -67,47 +67,50 @@ Vue.component('os-add', {
   methods: {
     saveItem: function(){
       this.errorMessage = []
-
-      if(this.checkForm()){
-        this.isLoading = true
-        var postData = {
-          loja: this.loja.id,
-          lojaNick: this.loja.nick,
-          local: this.local.id,
-          bem: this.bem,
-          categoria: this.categoria.id,
-          servico: this.servico.id,
-          tipoServ: this.servico.tipo,
-          tecnicos: this.tecnico,
-          data: this.dataOs,
-          dtCadastro: new Date().toJSON(),
-          estado: '0',
-          processo: '0',
-          status: '0',
-          ativo: this.ativo
-        };
-        //var formData = this.toFormData(postData);
-        //console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=osAdd', postData)
-          .then(function(response) {
-            console.log(response);
-            if(response.data.error){
-              this.errorMessage.push(response.data.message);
-              this.isLoading = false;
-            } else{
-              this.successMessage.push(response.data.message);
-              this.atualizacao();
-              this.isLoading = false;
-              setTimeout(() => {
-                this.$emit('close');
-              }, 2000);  
-            }
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
-          //this.$store.state.create(data)
-      }
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          if(this.checkForm()){
+            this.isLoading = true
+            var postData = {
+              loja: this.loja.id,
+              lojaNick: this.loja.nick,
+              local: this.local.id,
+              bem: this.bem,
+              categoria: this.categoria.id,
+              servico: this.servico.id,
+              tipoServ: this.servico.tipo,
+              tecnicos: this.tecnico,
+              data: this.dataOs,
+              dtCadastro: new Date().toJSON(),
+              estado: '0',
+              processo: '0',
+              status: '0',
+              ativo: this.ativo
+            };
+            //var formData = this.toFormData(postData);
+            //console.log(postData);
+            this.$http.post('./config/api/apiOs.php?action=osAdd', postData)
+            .then(function(response) {
+              //console.log(response);
+              if(response.data.error){
+                this.errorMessage.push(response.data.message);
+                this.isLoading = false;
+              } else{
+                this.successMessage.push(response.data.message);
+                this.atualizacao();
+                this.isLoading = false;
+                setTimeout(() => {
+                  this.$emit('close');
+                }, 2000);  
+              }
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+              //this.$store.state.create(data)
+          }
+        }
+      });
     },
     atualizacao: function(){
       this.$store.dispatch("fetchOs").then(() => {

@@ -24,8 +24,8 @@
                 </v-btn>
               </v-flex>
               <v-spacer></v-spacer>
-              <v-btn @click="modalOs = true"  dark small fab right>
-                <v-icon color="grey lighten-1">build</v-icon>
+              <v-btn @click="modalOs = true" color="deep-orange" dark small fab right>
+                <v-icon>build</v-icon>
               </v-btn>
               <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="modalAdd=true" color="pink" dark small fab right>
                 <v-icon>add</v-icon>
@@ -85,7 +85,7 @@
         </v-flex>
       </v-layout>
     </div>
-    <os-add v-if="modalOs" v-on:close="modalOs = false" :dialog="modalOs" :data="modalItem"></os-add>
+    <os-add v-if="modalOs" v-on:close="modalOs = false; modalItem = null" :dialog="modalOs" :data="modalItem"></os-add>
   </div>
 </template>
 <script src="src/components/bem/bens-grid.js"></script>

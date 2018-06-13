@@ -1,5 +1,5 @@
 
-<template id="os-local">
+<template id="local-oss">
   <div>
     <section class="container">
       <div>
@@ -14,4 +14,4 @@
     </section>
   </div>
 </template>
-<script src="src/components/os/osLocal.js"></script>
+<script src="src/components/os/localOss.js"></script>

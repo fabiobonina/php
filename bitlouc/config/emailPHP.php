@@ -31,8 +31,8 @@ class Email {
 		}
 		$mail->AddAddress('fabio.bonina@gruposabara.com', 'Fabio Bonina');		
 		//$mail->AddAddress('alexandre.melo@gruposabara.com', 'Alexandre Melo');
-		//$mail->AddAddress('ailton.silva@gruposabara.com', 'Ailton Silva');
-		//$mail->AddAddress('thonpson.carvalho@gruposabara.com', 'Thonpson Carvalho');
+		$mail->AddAddress('ailton.silva@gruposabara.com', 'Ailton Silva');
+		$mail->AddAddress('thonpson.carvalho@gruposabara.com', 'Thonpson Carvalho');
 		$mail->IsHTML(true);
 		
 		/* Função Responsável por Enviar o Email*/

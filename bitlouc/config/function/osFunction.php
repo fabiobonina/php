@@ -1,6 +1,7 @@
 <?php
 	require_once '_usoFunction.php';
 	require_once '../classes/Os.php';
+	require_once '../classes/Servicos.php';
 	require_once '../classes/OsTecnicos.php';
 	require_once '../classes/Mod.php';
 	require_once '../classes/Nota.php';
@@ -336,14 +337,14 @@
 			
 			/* Recuperar os Dados do Formulário de Envio*/
 			$txtNome 		= 'BitLOUC';//$_POST["txtNome"];
-			$txtAssunto 	= 'OS: '.$os->lojaNick.' | '.$os->local->tipo.' - '.$os->local->name.', '.$os->data.' | '.$os->categoria->name;//$_POST["txtAssunto"];
+			$txtAssunto 	= 'OS: '.$os->lojaNick.' | '.$os->local->tipo.' - '.$os->local->name.', '.$os->categoria->name.' ('.$os->id.')';//$_POST["txtAssunto"];
 			$txtEmail 		= 'bitlouc@gmail.com';//$_POST["txtEmail"];
 			$txtMensagem 	= 'OK';//$_POST["txtMensagem"];
 			$txtTec 		= array();
 			$txtEmails	 	= array();
 			
 			if($os->bem){
-				$txtBem = $os->bem->name .' '.$os->bem->modelo. ' &nbsp; #'.$os->bem->fabricanteNick;
+				$txtBem = $os->bem->name .' '.$os->bem->modelo. ' &nbsp; #'.$os->bem->fabricanteNick. '  (Code: '.$os->bem->numeracao.' | Ativo: '. $os->bem->plaqueta .' )' ;
 			}else{
 				$txtBem = $os->bem;
 			}
@@ -361,12 +362,13 @@
 			$comma_separated = implode(", ", $txtTec);
 
 			/* Montar o corpo do email*/
-			$corpoMensagem = '<b>Ordem de Serviço:</b> '.$os->filial.' - '.$os->os
+			$corpoMensagem = '<b>N. OS:</b> '.$os->filial.' - '.$os->os. ' (Data: '. $os->data .')' 
 							.'<br><b>'.$txtAssunto.'</b> '
-							.'<br><b>Municio:</b> '.$os->local->municipio .'/'. $os->local->uf 
+							.'<br><b>Municipio:</b> '.$os->local->municipio .'/'. $os->local->uf 
 							.'<br><b>Serviço:</b> '.$os->servico->name
 							.'<br><b>Bem:</b> '.$txtBem
-							.'<br><b>Tecnicos:</b> '.$comma_separated;
+							.'<br><b>Tecnicos:</b> '.$comma_separated
+							.'<br><br>(Criado por: '. $_SESSION['loginUser'].')';
 			
 			/*<div class="column is-two-thirds has-text-left">
               <h1 class="title is-5"> .'$os.lojaNick'. | .'$os.local.tipo'. - .'$os.local.name'. (.'$os.local.municipio'./.'$os.local.uf'.) </h1>
