@@ -78,9 +78,9 @@
                 </v-autocomplete>
                 <v-autocomplete
                   :items="tecnicos"
-                  v-model="e11"
+                  v-model="tecnico"
                   label="Select"
-                  item-text="name"
+                  item-text="userNick"
                   item-value="name"
                   multiple
                   chips
@@ -97,7 +97,7 @@
                       <v-avatar>
                         <img :src="data.item.avatar">
                       </v-avatar>
-                      {{ data.item.name }}
+                      {{ data.item.userNick }}
                     </v-chip>
                   </template>
                   <template slot="item" slot-scope="data">
@@ -109,8 +109,8 @@
                         <img :src="data.item.avatar">
                       </v-list-tile-avatar>
                       <v-list-tile-content>
-                        <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
-                        <v-list-tile-sub-title v-html="data.item.group"></v-list-tile-sub-title>
+                        <v-list-tile-title v-html="data.item.userNick"></v-list-tile-title>
+                        <v-list-tile-sub-title v-html="data.item.email"></v-list-tile-sub-title>
                       </v-list-tile-content>
                     </template>
                   </template>
