@@ -7,7 +7,10 @@
       <v-btn @click="$router.go(-1)" icon>
         <v-icon>arrow_back</v-icon>
       </v-btn>
-      <v-toolbar-title> {{_os.lojaNick}} | {{_os.local.tipo}} - {{_os.local.name}} ({{_os.local.municipio}}/{{_os.local.uf}})</v-toolbar-title>
+      <div>
+        <div class="headline">{{_os.lojaNick}} | {{_os.local.tipo}} - {{_os.local.name}} ({{_os.local.municipio}}/{{_os.local.uf}})</div>
+        <div>{{_os.data}} | {{_os.servico.name}} - {{ _os.categoria.name }}</div>
+      </div>
       <v-spacer></v-spacer>
       <div class="text-xs-center">
         <v-badge left>
@@ -28,7 +31,44 @@
       <v-tabs slot="extension" centered color="cyan" slider-color="yellow">
         <v-tab v-for="n in router" :key="n.title" :to="'/loja/'+ $route.params._id + n.router" ripple> {{ n.title }} </v-tab>
       </v-tabs>
+      
     </v-toolbar>
+    <div>
+              <v-chip small v-for="tecnico in _os.tecnicos" :key="tecnico.id">
+                <v-avatar small>
+                  <img :src="tecnico.avatar" alt="trevor">
+                </v-avatar>
+                {{tecnico.userNick}}
+              </v-chip>
+            </div>
+            <template>
+  <v-card
+    color="grey lighten-4"
+    flat
+    height="200px"
+    tile
+  >
+    <v-toolbar prominent extended>
+      <v-toolbar-side-icon></v-toolbar-side-icon>
+
+      <v-toolbar-title>Title</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <v-btn icon>
+        <v-icon>search</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>favorite</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>more_vert</v-icon>
+      </v-btn>
+    </v-toolbar>
+  </v-card>
+</template>
     <v-container fluid>
       <!-- Hero head: will stick at the top -->
       
@@ -37,9 +77,9 @@
         <div>
           <div>
             <div>
-              <h1 class="title is-5"> {{_os.lojaNick}} | {{_os.local.tipo}} - {{_os.local.name}} ({{_os.local.municipio}}/{{_os.local.uf}}) </h1>
-              <p class="subtitle" style="margin-bottom: 0;"> {{_os.data}} | {{_os.servico.name}}
-                <span class="pull-right"> <span class="tag">{{ _os.categoria.name }}</span> &nbsp;  </span>
+              <h1 class="title is-5"> </h1>
+              <p class="subtitle" style="margin-bottom: 0;"> 
+                <span class="pull-right"> <span class="tag"></span> &nbsp;  </span>
               </p>
               <p v-if="_os.bem">{{_os.bem.name}} {{_os.bem.modelo}}  &nbsp; <a>#{{_os.bem.fabricanteNick}} </a> 
               <p><span class="icon mdi mdi-worker"></span>  <a v-for="tecnico in _os.tecnicos">{{tecnico.userNick}} |</a> </p>
