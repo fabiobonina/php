@@ -3,73 +3,56 @@
   <div>
   <top></top>
   <v-content>
-    <v-toolbar color="cyan" dark tabs extended>
-      <v-btn @click="$router.go(-1)" icon>
-        <v-icon>arrow_back</v-icon>
-      </v-btn>
-      <div>
-        <div class="headline">{{_os.lojaNick}} | {{_os.local.tipo}} - {{_os.local.name}} ({{_os.local.municipio}}/{{_os.local.uf}})</div>
-        <div>{{_os.data}} | {{_os.servico.name}} - {{ _os.categoria.name }}</div>
-      </div>
-      <v-spacer></v-spacer>
-      <div class="text-xs-center">
-        <v-badge left>
-          <v-icon slot="badge" dark small>location_city</v-icon>
-          <span>Local: {{ loja.locaisQt }}</span>
-        </v-badge>
-        &nbsp;&nbsp;
-        <v-badge color="green">
-          <v-icon slot="badge" dark small>place</v-icon>
-          <span>{{ loja.locaisGeoStatus }}% ({{ loja.locaisGeoQt }})</span>
-        </v-badge>
-        &nbsp;
-      </div>
-
-      <v-btn icon>
-        <v-icon>more_vert</v-icon>
-      </v-btn>
-      <v-tabs slot="extension" centered color="cyan" slider-color="yellow">
-        <v-tab v-for="n in router" :key="n.title" :to="'/loja/'+ $route.params._id + n.router" ripple> {{ n.title }} </v-tab>
-      </v-tabs>
-      
-    </v-toolbar>
-    <div>
-              <v-chip small v-for="tecnico in _os.tecnicos" :key="tecnico.id">
-                <v-avatar small>
-                  <img :src="tecnico.avatar" alt="trevor">
-                </v-avatar>
-                {{tecnico.userNick}}
-              </v-chip>
-            </div>
             <template>
-  <v-card
-    color="grey lighten-4"
-    flat
-    height="200px"
-    tile
-  >
-    <v-toolbar prominent extended>
-      <v-toolbar-side-icon></v-toolbar-side-icon>
+              <v-card color="cyan" flat height="200px" tile>
+                <v-toolbar color="cyan" prominent class="white--text">
+                <v-btn @click="$router.go(-1)" icon >
+                    <v-icon class="white--text">arrow_back</v-icon>
+                  </v-btn>
+                  <div>
+                    <div class="headline">{{_os.lojaNick}} | {{_os.local.tipo}} - {{_os.local.name}} ({{_os.local.municipio}}/{{_os.local.uf}})</div>
+                    <div>{{_os.data}} | {{_os.servico.name}} - {{ _os.categoria.name }}</div>
+                    <div v-if="_os.bem">{{_os.bem.name}} {{_os.bem.modelo}} (CODE: {{_os.bem.numeracao}} | Ativo: {{_os.bem.plaqueta}} )  &nbsp; <a>#{{_os.bem.fabricanteNick}} </a> </div>
+                  </div>
+                  <div slot="extension" class="white--text">
+                      <v-chip small v-for="tecnico in _os.tecnicos" :key="tecnico.id">
+                        <v-avatar small>
+                          <img :src="tecnico.avatar" alt="trevor">
+                        </v-avatar>
+                        {{tecnico.userNick}}
+                      </v-chip>
+                    </div>
+                  <v-spacer></v-spacer>
+                  <div class="text-xs-center">
+                    <v-badge left>
+                      <v-icon slot="badge" dark small>location_city</v-icon>
+                      <span>Local: {{ loja.locaisQt }}</span>
+                    </v-badge>
+                    &nbsp;&nbsp;
+                    <v-badge color="green">
+                      <v-icon slot="badge" dark small>place</v-icon>
+                      <span>{{ loja.locaisGeoStatus }}% ({{ loja.locaisGeoQt }})</span>
+                    </v-badge>
+                    &nbsp;
+                  </div>
+                  <v-btn icon>
+                    <v-icon>search</v-icon>
+                  </v-btn>
 
-      <v-toolbar-title>Title</v-toolbar-title>
+                  <v-btn icon>
+                    <v-icon>favorite</v-icon>
+                  </v-btn>
 
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>search</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>favorite</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>more_vert</v-icon>
-      </v-btn>
-    </v-toolbar>
-  </v-card>
-</template>
-    <v-container fluid>
+                  <v-btn icon>
+                    <v-icon>more_vert</v-icon>
+                  </v-btn>
+                </v-toolbar>
+                <div>
+                      
+                </div>
+              </v-card>
+            </template>
+          <v-container fluid>
       <!-- Hero head: will stick at the top -->
       
       <!-- Hero content: will be in the middle -->
@@ -81,7 +64,7 @@
               <p class="subtitle" style="margin-bottom: 0;"> 
                 <span class="pull-right"> <span class="tag"></span> &nbsp;  </span>
               </p>
-              <p v-if="_os.bem">{{_os.bem.name}} {{_os.bem.modelo}}  &nbsp; <a>#{{_os.bem.fabricanteNick}} </a> 
+               
               <p><span class="icon mdi mdi-worker"></span>  <a v-for="tecnico in _os.tecnicos">{{tecnico.userNick}} |</a> </p>
             </div>
             <div>
