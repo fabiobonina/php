@@ -3,98 +3,71 @@
   <div>
   <top></top>
   <v-content>
-            <template>
-              <v-card color="cyan" flat height="200px" tile>
-                <v-toolbar color="cyan" prominent class="white--text">
-                <v-btn @click="$router.go(-1)" icon >
-                    <v-icon class="white--text">arrow_back</v-icon>
-                  </v-btn>
-                  <div>
-                    <div class="headline">{{_os.lojaNick}} | {{_os.local.tipo}} - {{_os.local.name}} ({{_os.local.municipio}}/{{_os.local.uf}})</div>
-                    <div>{{_os.data}} | {{_os.servico.name}} - {{ _os.categoria.name }}</div>
-                    <div v-if="_os.bem">{{_os.bem.name}} {{_os.bem.modelo}} (CODE: {{_os.bem.numeracao}} | Ativo: {{_os.bem.plaqueta}} )  &nbsp; <a>#{{_os.bem.fabricanteNick}} </a> </div>
-                  </div>
-                  <div slot="extension" class="white--text">
-                      <v-chip small v-for="tecnico in _os.tecnicos" :key="tecnico.id">
-                        <v-avatar small>
-                          <img :src="tecnico.avatar" alt="trevor">
-                        </v-avatar>
-                        {{tecnico.userNick}}
-                      </v-chip>
-                    </div>
-                  <v-spacer></v-spacer>
-                  <div class="text-xs-center">
-                    <v-badge left>
-                      <v-icon slot="badge" dark small>location_city</v-icon>
-                      <span>Local: {{ loja.locaisQt }}</span>
-                    </v-badge>
-                    &nbsp;&nbsp;
-                    <v-badge color="green">
-                      <v-icon slot="badge" dark small>place</v-icon>
-                      <span>{{ loja.locaisGeoStatus }}% ({{ loja.locaisGeoQt }})</span>
-                    </v-badge>
-                    &nbsp;
-                  </div>
-                  <v-btn icon>
-                    <v-icon>search</v-icon>
-                  </v-btn>
+    <template>
+      <v-card flat height="200px" tile>
+        <v-toolbar color="cyan" prominent class="white--text" height="80px">
+          <v-btn @click="$router.go(-1)" icon >
+            <v-icon class="white--text">arrow_back</v-icon>
+          </v-btn>
+          <div>
+            <div class="title">{{_os.lojaNick}} | {{_os.local.tipo}} - {{_os.local.name}} ({{_os.local.municipio}}/{{_os.local.uf}})</div>
+            <div>{{_os.data}} | {{_os.servico.name}} - {{ _os.categoria.name }}</div>
+            <div v-if="_os.bem">{{_os.bem.name}} {{_os.bem.modelo}} 
+              <v-chip small color="green" text-color="white">
+                <v-avatar class="green darken-4">
+                  <v-icon small class="mdi mdi-qrcode"></v-icon>
+                </v-avatar>
+                {{_os.bem.numeracao}}
+              </v-chip>
+              <v-chip small color="orange" text-color="white">
+                <v-avatar class="orange darken-4">
+                  <v-icon small class="mdi mdi-barcode"></v-icon>
+                </v-avatar>
+                {{_os.bem.plaqueta}}
+              </v-chip>
+              <a>#{{_os.bem.fabricanteNick}} </a>
+            </div>
+          </div>
+          <div slot="extension" class="white--text">
+            <v-chip small v-for="tecnico in _os.tecnicos" :key="tecnico.id">
+              <v-avatar small>
+                <img :src="tecnico.avatar" alt="trevor">
+              </v-avatar>
+              {{tecnico.userNick}}
+            </v-chip>
+          </div>
+          <v-spacer></v-spacer>
+          <v-chip color="indigo" text-color="white">
+            <v-avatar>
+              <v-icon class="icon mdi mdi-wrench"></v-icon>
+            </v-avatar>
+            OS: {{_os.filial}} - {{_os.os}}
+          </v-chip>
 
-                  <v-btn icon>
-                    <v-icon>favorite</v-icon>
-                  </v-btn>
+          <v-btn :disabled=" 0.000000 == _os.local.latitude" :href="'https://maps.google.com/maps?q='+ _os.local.latitude + ',' + _os.local.longitude" target="_blank" icon  color="primary">
+            <v-icon dark>directions</v-icon>
+          </v-btn>
 
-                  <v-btn icon>
-                    <v-icon>more_vert</v-icon>
-                  </v-btn>
-                </v-toolbar>
-                <div>
-                      
-                </div>
-              </v-card>
-            </template>
-          <v-container fluid>
+          <v-btn icon>
+            <v-icon>favorite</v-icon>
+          </v-btn>
+
+          <v-btn icon>
+            <v-icon>more_vert</v-icon>
+          </v-btn>
+        </v-toolbar>
+        <div>
+          <v-card-text>
+            <v-slider :tick-labels="labels" v-model="_os.processo" thumb-color="green" :max="4" :disabled="_os.processo === '0'" always-dirty></v-slider>
+          </v-card-text>
+        </div>
+      </v-card>
+    </template>
+  <v-container fluid>
       <!-- Hero head: will stick at the top -->
       
       <!-- Hero content: will be in the middle -->
       <div>
-        <div>
-          <div>
-            <div>
-              <h1 class="title is-5"> </h1>
-              <p class="subtitle" style="margin-bottom: 0;"> 
-                <span class="pull-right"> <span class="tag"></span> &nbsp;  </span>
-              </p>
-               
-              <p><span class="icon mdi mdi-worker"></span>  <a v-for="tecnico in _os.tecnicos">{{tecnico.userNick}} |</a> </p>
-            </div>
-            <div>
-              <nav class="level">
-                <div class="level-item has-text-centered">
-                  <div>
-                    <p class="heading">OS <span class="icon mdi mdi-wrench"></span></p>
-                    <p class="title">  {{_os.filial}}| {{_os.os}} </p>
-                  </div>
-                </div>
-                <div class="level-item has-text-centered">
-                  <div>
-                    <p class="heading">Ativo <span class="title is-6 mdi mdi-barcode"></span></p>
-                    <p v-if="_os.bem" class="title">{{ _os.bem.plaqueta }}</p>
-                  </div>
-                </div>
-                <div class="level-item has-text-centered">
-                  <div>
-                  <p class="heading">ROTA</p>
-                    <a v-if=" 0.000000 != _os.local.latitude"
-                      :href="'https://maps.google.com/maps?q='+ _os.local.latitude + ',' + _os.local.longitude"
-                      target="_blank">
-                      <span class="title is-3 mdi mdi-directions"></span>
-                    </a>
-                  </div>
-                </div>
-              </nav>
-            </div>
-          </div>
-        </div>
         <div class="buttons has-addons is-centered is-toggle is-fullwidth" style="width: 100%;">
           <a :class="_os.processo >= 1 ?
               _os.processo == 1 ? 'button is-success is-selected' : 'button is-info is-selected is-small'   
@@ -127,24 +100,47 @@
         </div>
       </div>
       <!-- Hero footer: will stick at the bottom -->
-      <div class="hero-foot">
-        <nav class="tabs">
-          <div class="container">
-            <ul>
-              <li class="is-active">
-                <a @click="$router.go(-1)" class="btn btn-default"><span class=" title is-5 mdi mdi-arrow-left"></span></a>
-              </li>
-              <li :class="$route.path == '/loja/'+ $route.params._id ? 'is-active' : ''">
-                <a :href="'#/loja/'+ _os.loja +'/local/'+ _os.local.id "> Local</a>
-              </li>
-              <li :class="$route.path == '/loja/'+ $route.params._id +'/lojaos' ? 'is-active' : ''">
-                <a :href="'#/loja/'+ $route.params._id +'/lojaos'"> OS´s</a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </div>
     </section>
+    <v-container fluid>
+      <v-layout row wrap align-center >
+        <v-flex xs12 sm3>
+          <v-btn block :small="_os.processo != 1" b :class="_os.processo >= 1 ?
+              _os.processo == 1 ? 'green accent-4 white--text' : 'blue white--text small'   
+              : 'light white--text small' ">
+            <v-icon :small="_os.processo != 1" :class="_os.processo == 1 ? 'mdi mdi-loading mdi-spin' : 'mdi mdi-arrow-right-bold' "></v-icon>
+            Em trasito
+            <v-icon class="title is-4 has-text-white mdi mdi-chevron-right"></v-icon>
+          </v-btn>
+        </v-flex>
+        <v-flex xs12 sm3>
+          <v-btn block :small="_os.processo != 2" b :class="_os.processo >= 2 ?
+              _os.processo == 2 ? 'green accent-4 white--text' : 'small blue white--text'   
+              : 'small light' ">
+            <v-icon :small="_os.processo != 2" :class="_os.processo == 2 ? 'mdi mdi-loading mdi-spin' : 'mdi mdi-wrench' "></v-icon>
+            Atendimento
+            <v-icon class="mdi mdi-chevron-right"></v-icon>
+          </v-btn>
+        </v-flex>
+        <v-flex xs12 sm3>
+          <v-btn block :small="_os.processo != 3" b :class="_os.processo >= 3 ?
+              _os.processo == 3 ? 'green accent-4 white--text' : 'small blue white--text'   
+              : 'small light' ">
+            <v-icon :small="_os.processo != 3" :class="_os.processo == 3 ? 'mdi mdi-loading mdi-spin' : 'mdi mdi-redo-variant' "></v-icon>
+            Retorno Viagem
+            <v-icon class="mdi mdi-chevron-right"></v-icon>
+          </v-btn>
+        </v-flex>
+        <v-flex xs12 sm3>
+          <v-btn block :small="_os.processo != 4" b :class="_os.processo >= 4 ?
+              _os.processo == 4 ? 'green accent-4 white--text' : 'small blue white--text'   
+              : 'small light' ">
+            <v-icon :small="_os.processo != 4" :class="_os.processo == 4 ? 'mdi mdi-loading mdi-spin' : 'mdi mdi-redo-variant' "></v-icon>
+            Completo
+            <v-icon class="mdi mdi-chevron-right"></v-icon>
+          </v-btn>
+        </v-flex>
+      </v-layout>
+    </v-container>
 
     <section class="container">
       <div class="field has-addons">
@@ -180,13 +176,7 @@
         </div>
       </div>
     </section>
-    <nav class="breadcrumb is-right" aria-label="breadcrumbs">
-      <ul>
-        <li><router-link to="/"> Home</router-link></li>
-        <li><router-link :to="'/loja/' + $route.params._id"> Loja</router-link></li>
-        <li class="is-active"><a aria-current="page">Local</a></li>
-      </ul>
-    </nav>
+
     <section class="container">
 
        <div class="columns">
