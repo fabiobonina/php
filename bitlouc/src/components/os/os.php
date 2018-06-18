@@ -58,100 +58,13 @@
         </v-toolbar>
         <div>
           <v-card-text>
-            <v-slider :tick-labels="labels" v-model="_os.processo" thumb-color="green" :max="4" :disabled="_os.processo === '0'" always-dirty></v-slider>
+            <progresso-os :data="_os.processo"></progresso-os>
           </v-card-text>
         </div>
       </v-card>
     </template>
-  <v-container fluid>
-      <!-- Hero head: will stick at the top -->
-      
-      <!-- Hero content: will be in the middle -->
-      <div>
-        <div class="buttons has-addons is-centered is-toggle is-fullwidth" style="width: 100%;">
-          <a :class="_os.processo >= 1 ?
-              _os.processo == 1 ? 'button is-success is-selected' : 'button is-info is-selected is-small'   
-              : 'button is-light is-selected is-small' " style="width: 20%;">
-            <span :class="_os.processo == 1 ? 'mdi mdi-loading mdi-spin' : 'mdi mdi-arrow-right-bold' "></span>
-            <span>Em trasito</span>
-            <span class="title is-4 has-text-white mdi mdi-chevron-right"></span>
-          </a>
-          <span :class="_os.processo >= 2 ?
-              _os.processo == 2 ? 'button is-success is-selected' : 'button is-info is-selected is-small'   
-              : 'button is-light is-selected is-small' " style="width: 20%;">
-            <span :class="_os.processo == 2 ? 'mdi mdi-loading mdi-spin' : 'mdi mdi-wrench' "></span>
-            <span>Atendendo</span>
-            <span class="title is-4 has-text-white mdi mdi-chevron-right"></span>
-          </span>
-          <span :class="_os.processo >= 3 ?
-              _os.processo == 3 ? 'button is-success is-selected' : 'button is-info is-selected is-small'   
-              : 'button is-light is-selected is-small' " style="width: 20%;">
-            <span :class="_os.processo == 3 ? 'mdi mdi-loading mdi-spin' : 'mdi mdi-redo-variant' "></span>
-            <span>Retorno Viagem</span>
-            <span class="title is-4 has-text-white mdi mdi-chevron-right"></span>
-          </span>
-          <span :class="_os.processo >= 4 ?
-              _os.processo == 4 ? 'button is-success is-selected' : 'button is-info is-selected is-small'   
-              : 'button is-light is-selected is-small' " style="width: 20%;">
-            <span :class="_os.processo == 4 ? 'mdi mdi-loading mdi-spin' : 'mdi mdi-check' "></span>
-            <span>Completo</span>
-            <span class="title is-4 has-text-white mdi mdi-chevron-right"></span>
-          </span>
-        </div>
-      </div>
-      <!-- Hero footer: will stick at the bottom -->
-    </section>
     <v-container fluid>
-      <v-layout row wrap align-center >
-        <v-flex xs12 sm3>
-          <v-btn block :small="_os.processo != 1" b :class="_os.processo >= 1 ?
-              _os.processo == 1 ? 'green accent-4 white--text' : 'blue white--text small'   
-              : 'light white--text small' ">
-            <v-icon :small="_os.processo != 1" :class="_os.processo == 1 ? 'mdi mdi-loading mdi-spin' : 'mdi mdi-arrow-right-bold' "></v-icon>
-            Em trasito
-            <v-icon class="title is-4 has-text-white mdi mdi-chevron-right"></v-icon>
-          </v-btn>
-        </v-flex>
-        <v-flex xs12 sm3>
-          <v-btn block :small="_os.processo != 2" b :class="_os.processo >= 2 ?
-              _os.processo == 2 ? 'green accent-4 white--text' : 'small blue white--text'   
-              : 'small light' ">
-            <v-icon :small="_os.processo != 2" :class="_os.processo == 2 ? 'mdi mdi-loading mdi-spin' : 'mdi mdi-wrench' "></v-icon>
-            Atendimento
-            <v-icon class="mdi mdi-chevron-right"></v-icon>
-          </v-btn>
-        </v-flex>
-        <v-flex xs12 sm3>
-          <v-btn block :small="_os.processo != 3" b :class="_os.processo >= 3 ?
-              _os.processo == 3 ? 'green accent-4 white--text' : 'small blue white--text'   
-              : 'small light' ">
-            <v-icon :small="_os.processo != 3" :class="_os.processo == 3 ? 'mdi mdi-loading mdi-spin' : 'mdi mdi-redo-variant' "></v-icon>
-            Retorno Viagem
-            <v-icon class="mdi mdi-chevron-right"></v-icon>
-          </v-btn>
-        </v-flex>
-        <v-flex xs12 sm3>
-          <v-btn block :small="_os.processo != 4" b :class="_os.processo >= 4 ?
-              _os.processo == 4 ? 'green accent-4 white--text' : 'small blue white--text'   
-              : 'small light' ">
-            <v-icon :small="_os.processo != 4" :class="_os.processo == 4 ? 'mdi mdi-loading mdi-spin' : 'mdi mdi-redo-variant' "></v-icon>
-            Completo
-            <v-icon class="mdi mdi-chevron-right"></v-icon>
-          </v-btn>
-        </v-flex>
-      </v-layout>
-    </v-container>
-
-    <section class="container">
-      <div class="field has-addons">
-        <div class="control">
-          <input v-model="search" class="input" type="text" placeholder="Search">
-        </div>
-        <div class="control">
-          <a class="button is-info"><span class="mdi mdi-magnify"></span></a>
-        </div>
-        &nbsp;
-        <div v-if="user.nivel > 1 && user.grupo == 'P'" class="control">
+    <div v-if="user.nivel > 1 && user.grupo == 'P'" class="control">
           <a v-if="_os.status <= 1 " v-on:click="modalDeslocAdd = true" class="button is-link is-al">
             <span class="mdi mdi-walk"></span> Desloc.
           </a>
@@ -174,20 +87,154 @@
             <span class="mdi mdi-check"></span> Validar OS
           </a>
         </div>
-      </div>
-    </section>
-
-    <section class="container">
-
-       <div class="columns">
-          <div class="column">
+      <div>
+      <v-flex xs12>
+            <v-container grid-list-xl>
+        <v-layout row wrap>
+          <v-flex xs12 md8>
+            <div>
+            <div>
             <div v-for="tecnico in _os.tecnicos">
-              <p class="panel-heading is-small" >
-                <a>@{{tecnico.userNick}} &nbsp;</a>
-                <a v-on:click="modalModAdd = true; selecItem(tecnico)" class="button is-link is-small is-al">
-                  <span class="mdi mdi-transit-transfer">Add</span>
-                </a>
-              </p>
+            <v-card>
+              <v-toolbar dense color="blue">
+                <v-toolbar-title class="white--text">@{{tecnico.userNick}}</v-toolbar-title>
+
+                <v-flex xs12 sm1>
+                  <v-btn flat icon class="white--text"
+                  @click.native="configs.order == 'asc'? configs.order = 'desc': configs.order = 'asc'">
+                  <v-icon v-if="configs.order == 'asc'" dark>arrow_downward</v-icon>
+                  <v-icon v-else dark>arrow_upward</v-icon>
+                  </v-btn>
+                </v-flex>
+                <v-spacer></v-spacer>
+                <v-btn  @click="modalAdd=true" color="pink" dark small absolute fab right>
+                  <v-icon>add</v-icon>
+                </v-btn>
+              </v-toolbar>
+                <v-list>
+                  <v-list-group
+                    v-for="item in tecnico.mods"
+                    :key="item.id"
+                    prepend-icon="mdi-calendar"
+                    no-action
+                  >
+                    <v-list-tile slot="activator">
+                    <v-list-tile-action>
+                      {{ item.status.tipo }}
+                    </v-list-tile-action>
+                    <v-list-tile-content dense>
+                      <v-list-tile-title> {{item.dtInicio}} </v-list-tile-title>
+                      <v-list-tile-title>  {{item.dtFinal}} </v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-content>
+                      <v-list-tile-title> {{ item.tempo }}h </v-list-tile-title>
+                      <v-list-tile-title> {{ item.hhValor }}hh </v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-content>
+                    <v-list-tile-title>{{ item.kmInicio }}Km</v-list-tile-title>
+                    <v-list-tile-title>{{ item.kmFinal }}Km</v-list-tile-title>
+                    </v-list-tile-content>
+
+                    </v-list-tile>
+
+                    <v-list-tile @click="">
+                      <v-list-tile-content>
+                        <v-list-tile-title> </v-list-tile-title>
+                      </v-list-tile-content>
+                      <v-btn v-on:click="modalModEdt = true; selecItem(mod)" small fab dark color="primary">
+                      <v-icon dark>mdi-transit-transfer</v-icon>
+                    </v-btn>
+                    <v-btn v-on:click="modalModEdt = true; selecItem(mod)" small fab dark color="primary">
+                      <v-icon dark>mdi-transit-transfer</v-icon>
+                    </v-btn>
+                      <v-list-tile-action>
+                        <v-icon></v-icon>
+                      </v-list-tile-action>
+                    </v-list-tile>
+                  </v-list-group>
+                </v-list>
+              <v-list two-line>
+                <template v-for="(item, index) in tecnico.mods">
+                
+                  <v-list-tile append v-on:click.native="" activator slot :key="item.id">
+                    <v-list-tile-action>
+                      {{ item.status.tipo }}
+                    </v-list-tile-action>
+                    <v-list-tile-content dense>
+                      <v-list-tile-title> {{item.dtInicio}} </v-list-tile-title>
+                      <v-list-tile-title>  {{item.dtFinal}} </v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-content>
+                      <v-list-tile-title> {{ item.tempo }}h </v-list-tile-title>
+                      <v-list-tile-title> {{ item.hhValor }}hh </v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-content>
+                    <v-list-tile-title>{{ item.kmInicio }}Km</v-list-tile-title>
+                    <v-list-tile-title>{{ item.kmFinal }}Km</v-list-tile-title>
+                    </v-list-tile-content>
+                    <strong>
+                    <a> {{ item.kmFinal - item.kmInicio }}km </a><br>
+                    <a>{{ item.valor }}</a><span class="mdi mdi-cash-usd"></span>&nbsp;
+                  </strong>&nbsp;
+                  <a  class="button is-link is-small is-al">
+                    <span class="mdi mdi-transit-transfer"></span>
+                  </a>
+                  <a v-on:click="modDel(mod)" class="delete"></a>
+                  <v-list-tile-action>
+                    <v-btn v-on:click="modalModEdt = true; selecItem(mod)" small fab dark color="primary">
+                      <v-icon dark>mdi-transit-transfer</v-icon>
+                    </v-btn>
+                    <v-btn v-on:click="modalModEdt = true; selecItem(mod)" small fab dark color="primary">
+                      <v-icon dark>mdi-transit-transfer</v-icon>
+                    </v-btn>
+                  </v-list-tile-action>
+                  </v-list-tile>
+                  <v-list-tile @click="" light>
+                    <v-list-tile-content>
+                      <v-chip small  color="primary" text-color="white" >Regional: {{item.regional}} </v-chip>
+                    </v-list-tile-content>
+                    <div>
+                      <v-chip small v-for="categoria in item.categoria" :key="categoria.id" color="green" text-color="white">
+                        {{ categoria.tag }}
+                      </v-chip>
+                    </div>
+                    <v-btn :disabled=" 0.000000 == item.latitude" :href="'https://maps.google.com/maps?q='+ item.latitude + ',' + item.longitude" target="_blank" fab dark color="primary">
+                      <v-icon dark>directions</v-icon>
+                    </v-btn>
+                    <v-list-tile-action>
+                      <v-menu v-if="user.nivel > 2 && user.grupo == 'P'" open-on-hover top offset-y left  @click="">
+                        <v-btn slot="activator" icon>
+                          <v-icon>more_vert</v-icon>
+                        </v-btn>
+                        <v-list>
+                          <v-list-tile @click="modalGeo = true; selecItem(item)">
+                            <v-list-tile-title>
+                              <v-icon>location_on</v-icon>Geoposição
+                            </v-list-tile-title>
+                          </v-list-tile>
+                          <v-list-tile @click="modalCat = true; selecItem(item)">
+                            <v-list-tile-title>
+                              <v-icon>label</v-icon></span>Categoria
+                            </v-list-tile-title>
+                          </v-list-tile>
+                          <v-list-tile @click="modalEdt = true; selecItem(item)">
+                            <v-list-tile-title>
+                              <v-icon>create</v-icon>Editar
+                            </v-list-tile-title>
+                          </v-list-tile>
+                          <v-list-tile v-if="user.nivel > 3" @click="modalDel = true; selecItem(item)">
+                            <v-list-tile-title>
+                              <v-icon>delete</v-icon>Delete
+                            </v-list-tile-title>
+                          </v-list-tile>
+                        </v-list>
+                      </v-menu>
+                    </v-list-tile-action>
+                  </v-list-tile>
+                  <v-divider v-if="index + 1 < tecnico.mods.length" :key="index"></v-divider>
+                </template>
+              </v-list>
+            </v-card>
               
               <div v-for="mod in tecnico.mods">
                 <p class="panel-block">
@@ -220,6 +267,11 @@
               </div>
             </div>    
           </div>
+
+            </div>
+          </v-flex>
+
+          <v-flex xs12 md4>
           <div class="column">
             <div class="box">
               <article class="media">
@@ -238,26 +290,32 @@
               </article>
             </div>
           </div>
-        </div>
-      <div>
-        <desloc-add v-if="modalDeslocAdd" v-on:close="modalDeslocAdd = false" :data="_os"></desloc-add>
-        <desloc-edt v-if="modalDeslocChg" v-on:close="modalDeslocChg = false" :data="modalItem"></desloc-edt>
-        <desloc-chg v-if="modalDeslocEdt" v-on:close="modalDeslocEdt = false" :data="modalItem"></desloc-chg>
-        <mod-add v-if="modalModAdd" v-on:close="modalModAdd = false" :data="modalItem"></mod-add>
-        <mod-edt v-if="modalModEdt" v-on:close="modalModEdt = false" :data="modalItem"></mod-edt>
-        <nota-add v-if="modalNotaAdd" v-on:close="modalNotaAdd = false" :data="_os"></nota-add>
-        <nota-edt v-if="modalNotaEdt" v-on:close="modalNotaEdt = false" :data="_os"></nota-edt>
+
+          </v-flex>
+        </v-layout>
+        </v-container>
+        </v-flex>
+            
       </div>
-      <!-- /.box -->
+    
+        
+        <div>
+          <desloc-add v-if="modalDeslocAdd" v-on:close="modalDeslocAdd = false" :data="_os"></desloc-add>
+          <desloc-edt v-if="modalDeslocChg" v-on:close="modalDeslocChg = false" :data="modalItem"></desloc-edt>
+          <desloc-chg v-if="modalDeslocEdt" v-on:close="modalDeslocEdt = false" :data="modalItem"></desloc-chg>
+          <mod-add v-if="modalModAdd" v-on:close="modalModAdd = false" :data="modalItem"></mod-add>
+          <mod-edt v-if="modalModEdt" v-on:close="modalModEdt = false" :data="modalItem"></mod-edt>
+          <nota-add v-if="modalNotaAdd" v-on:close="modalNotaAdd = false" :data="_os"></nota-add>
+          <nota-edt v-if="modalNotaEdt" v-on:close="modalNotaEdt = false" :data="_os"></nota-edt>
+        </div>
 
       </v-container>
     </v-content>
-    <rodape></rodape>
-    <section>
-    </section>
   </div>
 </template>
 <script src="src/components/os/os.js"></script>
 
 <?php require_once 'src/components/includes/top.php';?>
 <?php require_once 'src/components/includes/rodape.php';?>
+
+<?php require_once 'src/components/os/_progresso.php';?>

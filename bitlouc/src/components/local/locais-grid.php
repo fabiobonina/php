@@ -12,7 +12,7 @@
               <v-select :items="itens" v-model="configs.orderBy" item-text="name" item-value="state" return-object label="Select" solo></v-select>
             </v-flex>
             <v-flex xs12 sm1>
-              <v-btn flat icon
+              <v-btn flat icon class="white--text"
               @click.native="configs.order == 'asc'? configs.order = 'desc': configs.order = 'asc'">
               <v-icon v-if="configs.order == 'asc'" dark>arrow_downward</v-icon>
               <v-icon v-else dark>arrow_upward</v-icon>

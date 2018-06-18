@@ -18,7 +18,16 @@ var Os = Vue.extend({
       selectedCategoria: 'All',
       labels: ['','Em trasito', 'Atendendo', 'Retorno Viagem', 'Completo' ],
       labels2: ['Atendimento', 'Concluido', 'Fechado', 'Validado' ],
-      active: '1',        
+      active: '1',
+      configs: {
+        orderBy: { name: 'Nome', state: 'name' },
+        order: 'asc',
+        search: ''
+      },
+      itens: [
+        { name: 'Nome', state: 'name' },
+        { name: 'Regional', state: 'regional' }
+      ],    
     };
   },
   created: function() {

@@ -92,33 +92,9 @@
                 {{tecnico.userNick}}
               </v-chip>
             </div>
-            <!--v-container fluid class="pa-0">
-              <v-layout row wrap>
-                <v-flex xs12 sm3>
-                  <v-btn block color="blue">
-                    <v-icon>favorite</v-icon>
-                  </v-btn>
-                </v-flex>
-                <v-flex xs12 sm3>
-                  <v-btn block color="blue">
-                    <v-icon>star</v-icon>
-                  </v-btn>
-                </v-flex>
-                <v-flex xs12 sm3>
-                  <v-btn block color="blue">
-                    <v-icon>cached</v-icon>
-                  </v-btn>
-                </v-flex>
-                <v-flex xs12 sm3>
-                  <v-btn block color="blue">
-                    <v-icon>thumb_up</v-icon>
-                  </v-btn>
-                </v-flex>
-              </v-layout>
-            </v-container-->
             <v-card>
               <v-card-text>
-                <v-slider :tick-labels="labels" v-model="item.processo" thumb-color="green" :max="3" :disabled="item.processo === '0'" always-dirty></v-slider>
+              <progresso-os :data="item.processo"></progresso-os>
               </v-card-text>
             </v-card>
             <v-divider v-if="index + 1 < filteredData.length" :key="index"></v-divider>
