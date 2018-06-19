@@ -134,19 +134,32 @@
                     <v-list-tile-title>{{ item.kmInicio }}Km</v-list-tile-title>
                     <v-list-tile-title>{{ item.kmFinal }}Km</v-list-tile-title>
                     </v-list-tile-content>
+                    <v-list-tile-content>
+                    <v-list-tile-title> {{ item.kmFinal - item.kmInicio }}km </v-list-tile-title>
+                    <v-list-tile-title>{{ item.valor }} <span class="mdi mdi-cash-usd"></span></v-list-tile-title>
+                    </v-list-tile-content>
 
                     </v-list-tile>
 
                     <v-list-tile @click="">
-                      <v-list-tile-content>
-                        <v-list-tile-title> </v-list-tile-title>
-                      </v-list-tile-content>
+
+                      <div class="text-xs-center">
+                        <v-btn fab dark small color="primary">
+                          <v-icon dark>remove</v-icon>
+                        </v-btn>
+
+                        <v-btn fab dark small color="pink">
+                          <v-icon dark>favorite</v-icon>
+                        </v-btn>
+
+                        
+                      </div>
                       <v-btn v-on:click="modalModEdt = true; selecItem(mod)" small fab dark color="primary">
-                      <v-icon dark>mdi-transit-transfer</v-icon>
-                    </v-btn>
-                    <v-btn v-on:click="modalModEdt = true; selecItem(mod)" small fab dark color="primary">
-                      <v-icon dark>mdi-transit-transfer</v-icon>
-                    </v-btn>
+                        <v-icon dark>mdi-transit-transfer</v-icon>
+                      </v-btn>
+                      <v-btn v-on:click="modDel = true; selecItem(mod)" small fab dark color="error">
+                        <v-icon dark>mdi-transit-transfer</v-icon>
+                      </v-btn>
                       <v-list-tile-action>
                         <v-icon></v-icon>
                       </v-list-tile-action>
@@ -172,10 +185,10 @@
                     <v-list-tile-title>{{ item.kmInicio }}Km</v-list-tile-title>
                     <v-list-tile-title>{{ item.kmFinal }}Km</v-list-tile-title>
                     </v-list-tile-content>
-                    <strong>
-                    <a> {{ item.kmFinal - item.kmInicio }}km </a><br>
-                    <a>{{ item.valor }}</a><span class="mdi mdi-cash-usd"></span>&nbsp;
-                  </strong>&nbsp;
+                    <v-list-tile-content>
+                    <v-list-tile-title> {{ item.kmFinal - item.kmInicio }}km </v-list-tile-title>
+                    <v-list-tile-title>{{ item.valor }} <span class="mdi mdi-cash-usd"></span></v-list-tile-title>
+                    </v-list-tile-content>
                   <a  class="button is-link is-small is-al">
                     <span class="mdi mdi-transit-transfer"></span>
                   </a>
@@ -184,24 +197,8 @@
                     <v-btn v-on:click="modalModEdt = true; selecItem(mod)" small fab dark color="primary">
                       <v-icon dark>mdi-transit-transfer</v-icon>
                     </v-btn>
-                    <v-btn v-on:click="modalModEdt = true; selecItem(mod)" small fab dark color="primary">
-                      <v-icon dark>mdi-transit-transfer</v-icon>
-                    </v-btn>
                   </v-list-tile-action>
-                  </v-list-tile>
-                  <v-list-tile @click="" light>
-                    <v-list-tile-content>
-                      <v-chip small  color="primary" text-color="white" >Regional: {{item.regional}} </v-chip>
-                    </v-list-tile-content>
-                    <div>
-                      <v-chip small v-for="categoria in item.categoria" :key="categoria.id" color="green" text-color="white">
-                        {{ categoria.tag }}
-                      </v-chip>
-                    </div>
-                    <v-btn :disabled=" 0.000000 == item.latitude" :href="'https://maps.google.com/maps?q='+ item.latitude + ',' + item.longitude" target="_blank" fab dark color="primary">
-                      <v-icon dark>directions</v-icon>
-                    </v-btn>
-                    <v-list-tile-action>
+                  <v-list-tile-action>
                       <v-menu v-if="user.nivel > 2 && user.grupo == 'P'" open-on-hover top offset-y left  @click="">
                         <v-btn slot="activator" icon>
                           <v-icon>more_vert</v-icon>
@@ -229,6 +226,27 @@
                           </v-list-tile>
                         </v-list>
                       </v-menu>
+                          <v-speed-dial
+                            v-model="fab"
+                            bottom="bottom"
+                            direction="left"
+                            :open-on-hover="hover"
+                            transition="slide-x-reverse-transition"
+                          >
+                            <v-btn slot="activator" v-model="fab" color="blue darken-2" dark fab>
+                              <v-icon>account_circle</v-icon>
+                              <v-icon>close</v-icon>
+                            </v-btn>
+                            <v-btn fab dark small color="green">
+                              <v-icon>edit</v-icon>
+                            </v-btn>
+                            <v-btn fab dark small color="indigo">
+                              <v-icon>add</v-icon>
+                            </v-btn>
+                            <v-btn fab dark small color="red" >
+                              <v-icon>delete</v-icon>
+                            </v-btn>
+                          </v-speed-dial>
                     </v-list-tile-action>
                   </v-list-tile>
                   <v-divider v-if="index + 1 < tecnico.mods.length" :key="index"></v-divider>
