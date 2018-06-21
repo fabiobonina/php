@@ -92,7 +92,7 @@
                         </v-btn>
                       </v-flex>
                       <v-spacer></v-spacer>
-                      <v-btn  @click="modAdd=true" color="pink" dark small absolute fab right>
+                      <v-btn  @click="modAdd=true; selecItem(tecnico)" color="pink" dark small absolute fab right>
                         <v-icon>add</v-icon>
                       </v-btn>
                     </v-toolbar>
