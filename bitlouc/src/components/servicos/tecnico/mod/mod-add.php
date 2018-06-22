@@ -8,9 +8,10 @@
         <v-card-text>
           <message :success="successMessage" :error="errorMessage"></message>
           <v-container grid-list-md>
+            
             <label class="label">Status</label>
             <v-layout row wrap align-center >
-              <v-flex xs12 sm4 v-for="item in deslocStatus">
+              <v-flex xs12 sm4 v-for="item in deslocStatus" :key="item.id">
                 <v-btn block small @click="status = item" :class="status && status.id == item.id ? 'blue white--text' : 'light'">
                   <span>{{item.name }}</span>
                 </v-btn>
@@ -18,13 +19,14 @@
             </v-layout>
             <label class="label">Tipo Trajeto</label>
             <v-layout row wrap align-center >
-              <v-flex xs12 sm4 v-for="item in deslocTrajetos">
+              <v-flex xs12 sm4 v-for="item in deslocTrajetos" :key="item.id">
                 <v-btn block small @click="trajeto = item" :class="trajeto && trajeto.id == item.id ? 'blue white--text' : 'light'">
                   <span>{{item.name }}</span>
                 </v-btn>
               </v-flex>
             </v-layout>
-            <v-flex xs12 sm6 md6>
+            <v-layout wrap>
+            <v-flex xs12 sm6 md7>
               <v-text-field
                 type="datetime-local"
                 v-model="dtInicio"
@@ -36,7 +38,7 @@
                 required
               ></v-text-field>
             </v-flex>
-            <v-flex xs12 sm6 md6>
+            <v-flex xs12 sm6 md5>
               <v-text-field 
                 type="number"
                 v-model="kmInicio"
@@ -49,7 +51,7 @@
               ></v-text-field>
             </v-flex>
             
-            <v-flex xs12 sm6 md6>
+            <v-flex xs12 sm6 md5>
               <v-text-field 
                 type="number"
                 v-model="kmInicio"
@@ -61,7 +63,7 @@
                 :disabled="trajeto && trajeto.categoria > 0"
               ></v-text-field>
             </v-flex>
-            <v-flex xs12 sm6 md6>
+            <v-flex xs12 sm6 md5>
               <v-text-field 
                 type="number"
                 v-model="valor"
@@ -73,6 +75,7 @@
                 :disabled="trajeto && trajeto.categoria != 1"
               ></v-text-field>
             </v-flex>
+            </v-layout>
 
         <div class="field is-horizontal">
           <div class="field-body">
