@@ -2,7 +2,8 @@ Vue.component('nota-add', {
   name: 'nota-add',
   template: '#nota-add',
   props: {
-    data: {}
+    data: {},
+    dialog: Boolean
   },
   data() {
     return {

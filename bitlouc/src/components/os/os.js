@@ -5,15 +5,15 @@ var Os = Vue.extend({
       errorMessage: [],
       successMessage: [],
       search: '',
-      modalItem: null,
+      _item: null,
       isLoading: false,
-      modalDeslocAdd: false,
-      modalDeslocChg: false,
-      modalDeslocEdt: false,
+      deslocAdd: false,
+      deslocChg: false,
+      deslocEdt: false,
       modAdd:    false,
       modEdt:    false,
-      modalNotaAdd:   false,
-      modalNotaEdt:   false,
+      notaAdd:   false,
+      notaEdt:   false,
       fab: false,
       hover: false,
       selectedCategoria: 'All',
@@ -192,7 +192,7 @@ var Os = Vue.extend({
       });
     },
     selecItem: function(data){
-      this.modalItem = data;
+      this._item = data;
     },
   },
 });

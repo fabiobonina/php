@@ -55,10 +55,10 @@
     </template>
     <v-container fluid>
         <div v-if="user.nivel > 1 && user.grupo == 'P'">
-          <v-btn v-if="_os.status <= 1 " v-on:click="modalDeslocAdd = true" dark small color="primary">
+          <v-btn v-if="_os.status <= 1 " v-on:click="deslocAdd = true" dark small color="primary">
             <v-icon dark>mdi-walk</v-icon> Desloc.
           </v-btn>
-          <v-btn v-if="!_os.notas" v-on:click="modalNotaAdd = true" dark small color="primary">
+          <v-btn v-if="!_os.notas" v-on:click="notaAdd = true" dark small color="primary">
             <v-icon dark>mdi-note-text</v-icon> Nota
           </v-btn>
           <v-btn v-if="_os.notas && _os.processo >= 2 && _os.status == 1" v-on:click="osConcluir()" dark small color="primary">
@@ -129,7 +129,7 @@
                                 <v-icon>mdi-information-variant</v-icon>
                                 <v-icon>close</v-icon>
                               </v-btn>
-                              <v-btn v-on:click="modalModEdt = true; selecItem(mod)" fab dark small color="green">
+                              <v-btn v-on:click="modEdt = true; selecItem(mod)" fab dark small color="green">
                                 <v-icon>edit</v-icon>
                               </v-btn>
                               <v-btn fab dark small color="indigo">
@@ -158,7 +158,7 @@
                         </div>
                         <nav class="level is-mobile">
                           <div class="level-left">
-                            <a v-if="_os.notas" v-on:click="modalNotaEdt = true" class="level-item">
+                            <a v-if="_os.notas" v-on:click="notaEdt = true" class="level-item">
                               <span class="mdi mdi-note-text"></span> Editar
                             </a>
                           </div>
@@ -172,17 +172,13 @@
           </v-container>
         </v-flex>
       </div>
-    
-        
-        <div>
-          <desloc-add v-if="modalDeslocAdd" v-on:close="modalDeslocAdd = false" :data="_os"></desloc-add>
-          <desloc-edt v-if="modalDeslocChg" v-on:close="modalDeslocChg = false" :data="modalItem"></desloc-edt>
-          <desloc-chg v-if="modalDeslocEdt" v-on:close="modalDeslocEdt = false" :data="modalItem"></desloc-chg>
-          <mod-add v-if="modAdd" v-on:close="modAdd = false" :data="modalItem"></mod-add>
-          <mod-edt v-if="modEdt" v-on:close="modEdt = false" :data="modalItem"></mod-edt>
-          <nota-add v-if="modalNotaAdd" v-on:close="modalNotaAdd = false" :data="_os"></nota-add>
-          <nota-edt v-if="modalNotaEdt" v-on:close="modalNotaEdt = false" :data="_os"></nota-edt>
-        </div>
+      <div>
+        <mod-add v-if="modAdd" v-on:close="modAdd = false" :dialog="modAdd" :data="_item"></mod-add>
+        <mod-edt v-if="modEdt" v-on:close="modEdt = false" :dialog="modEdt" :data="_item"></mod-edt>
+        <nota-add v-if="notaAdd" v-on:close="notaAdd = false" :dialog="notaAdd" :data="_os"></nota-add>
+        <nota-edt v-if="notaEdt" v-on:close="notaEdt = false" :dialog="notaEdt" :data="_os"></nota-edt>
+        <desloc-add v-if="deslocAdd" v-on:close="deslocAdd = false" :dialog="deslocAdd" :data="_os"></desloc-add>
+      </div>
 
       </v-container>
     </v-content>
@@ -195,8 +191,6 @@
 <?php require_once 'src/components/servicos/nota/nota-add.php';?>
 <?php require_once 'src/components/servicos/nota/nota-edt.php';?>
 <?php require_once 'src/components/servicos/tecnico/deslocamento/desloc-add.php';?>
-<?php require_once 'src/components/servicos/tecnico/deslocamento/desloc-chg.php';?>
-<?php require_once 'src/components/servicos/tecnico/deslocamento/desloc-edt.php';?>
 <?php require_once 'src/components/servicos/tecnico/mod/mod-add.php';?>
 <?php require_once 'src/components/servicos/tecnico/mod/mod-edt.php';?>
 <?php require_once 'src/components/servicos/tecnico/tecnico.php';?>

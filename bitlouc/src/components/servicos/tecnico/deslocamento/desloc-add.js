@@ -2,7 +2,8 @@ Vue.component('desloc-add', {
   name: 'desloc-add',
   template: '#desloc-add',
   props: {
-    data: Object
+    data: Object,
+    dialog: Boolean
   },
   data() {
     return {

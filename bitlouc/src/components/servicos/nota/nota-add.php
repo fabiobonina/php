@@ -3,100 +3,22 @@
     <v-dialog v-model="dialog" persistent scrollable  max-width="500px">
       <v-card>
         <v-card-title>
-          <span class="headline">{{ local.tipo }} {{ local.name }} - Descrição OS</span>
+          <span class="headline">{{ data.local.tipo }} - {{ data.local.name }} - Descrição serviço</span>
         </v-card-title>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage"></message>
-          <v-container grid-list-md>
+          <v-container>
             <v-layout wrap>
               <v-flex xs12>
                 <div>
                 <v-text-field
-                name="input-1"
-                label="Label Text"
-                textarea
-              ></v-text-field>
+                  name="input-1"
+                  label="Nota do Serviço"
+                  v-model="descricao"
+                  textarea
+                ></v-text-field>
 
                 </div>
-              </v-flex>
-              <v-flex xs12 sm6 md5>
-                <v-text-field
-                  type="date"
-                  v-model="dataOs"
-                  label="Data"
-                  :error-messages="errors.collect('dataOs')"
-                  v-validate="'required'"
-                  data-vv-name="dataOs"
-                  item-text="name"
-                  required
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs12 sm6 md7>
-                <v-autocomplete
-                  :items="servicos"
-                  v-model="servico"
-                  item-text="name"
-                  label="Serviços"
-                  :error-messages="errors.collect('servico')"
-                  v-validate="'required'"
-                  data-vv-name="servico"
-                  return-object
-                  required
-                ></v-autocomplete>
-              </v-flex>
-              
-
-              <v-flex xs12>
-                <v-autocomplete
-                  :items="tecnicos"
-                  v-model="tecnico"
-                  label="Tecnico"
-                  item-text="userNick"
-                  multiple
-                  chips
-                  return-object
-                  max-height="auto"
-                  :error-messages="errors.collect('tecnico')" v-validate="'required'" data-vv-name="tecnico"
-                  required
-                >
-                  <template slot="selection" slot-scope="data">
-                    <v-chip
-                      :selected="data.selected"
-                      :key="JSON.stringify(data.item)"
-                      close
-                      class="chip--select-multi"
-                      @input="data.parent.selectItem(data.item)"
-                    >
-                      <v-avatar>
-                        <img :src="data.item.avatar">
-                      </v-avatar>
-                      {{ data.item.userNick }}
-                    </v-chip>
-                  </template>
-                  <template slot="item" slot-scope="data">
-                    <template v-if="typeof data.item !== 'object'">
-                      <v-list-tile-content v-text="data.item"></v-list-tile-content>
-                    </template>
-                    <template v-else>
-                      <v-list-tile-avatar>
-                        <img :src="data.item.avatar">
-                      </v-list-tile-avatar>
-                      <v-list-tile-content>
-                        <v-list-tile-title v-html="data.item.userNick"></v-list-tile-title>
-                        <v-list-tile-sub-title v-html="data.item.email"></v-list-tile-sub-title>
-                      </v-list-tile-content>
-                    </template>
-                  </template>
-                </v-autocomplete>
-              </v-flex>
-              <v-flex xs12 sm3>
-                <v-subheader v-text="'Ativo?'"></v-subheader>
-              </v-flex>
-              <v-flex xs12 sm9>
-                <v-radio-group v-model="ativo" row>
-                  <v-radio label="Sim" value="0"></v-radio>
-                  <v-radio label="Não" value="1"></v-radio>
-                </v-radio-group>
               </v-flex>
             </v-layout>
           </v-container>
@@ -117,30 +39,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </div>
-  <div class="modal is-active" >
-    <div class="modal-background"></div>
-    <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title">OS: {{ data.local.tipo }} - {{ data.local.name }}</p>
-        <button class="delete" aria-label="close" v-on:click="$emit('close')"></button>
-      </header>
-      <section class="modal-card-body">
-        <!--#CONTEUDO -->
-        <message :success="successMessage" :error="errorMessage"></message>
-        <div class="field">
-          <label class="label">Nota do Serviço</label>
-          <div class="control">
-            <textarea v-model="descricao" class="textarea" placeholder="Nota do Serviço" rows="10"></textarea>
-          </div>
-        </div>
-        <!--#CONTEUDO -->
-      </section>
-      <footer class="modal-card-foot field is-grouped is-grouped-right">
-        <button class="button" v-on:click="$emit('close')">Cancel</button>
-        <button :class="isLoading ? 'button is-info is-loading' : 'button is-info'" v-on:click="saveItem()">Save</button>
-      </footer>
-    </div>
   </div>
 </template>
 <script src="src/components/servicos/nota/nota-add.js"></script>

@@ -2,7 +2,8 @@ Vue.component('mod-add', {
   name: 'mod-add',
   template: '#mod-add',
   props: {
-    data: Object
+    data: Object,
+    dialog: Boolean
   },
   data() {
     return {

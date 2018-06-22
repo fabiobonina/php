@@ -53,7 +53,6 @@
                 ></v-autocomplete>
               </v-flex>
               
-
               <v-flex xs12>
                 <v-autocomplete
                   :items="tecnicos"
