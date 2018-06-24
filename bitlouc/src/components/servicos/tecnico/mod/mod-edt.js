@@ -2,7 +2,8 @@ Vue.component('mod-edt', {
   name: 'mod-edt',
   template: '#mod-edt',
   props: {
-    data: Object
+    data: Object,
+    dialog: Boolean
   },
   data() {
     return {
