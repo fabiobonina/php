@@ -129,13 +129,13 @@
                                 <v-icon>mdi-information-variant</v-icon>
                                 <v-icon>close</v-icon>
                               </v-btn>
-                              <v-btn v-on:click="modEdt = true; selecItem(mod)" fab dark small color="green">
+                              <v-btn v-on:click="modEdt = true; selecItem(item)" fab dark small color="green">
                                 <v-icon>edit</v-icon>
                               </v-btn>
                               <v-btn fab dark small color="indigo">
                                 <v-icon>add</v-icon>
                               </v-btn>
-                              <v-btn v-on:click="modDel(mod)" fab dark small color="red" >
+                              <v-btn v-on:click="modDel(item)" fab dark small color="red" >
                                 <v-icon>delete</v-icon>
                               </v-btn>
                             </v-speed-dial>
@@ -150,10 +150,10 @@
 
               <v-flex xs12 md5>
                 <div class="column">
-                  <div class="box">
-                    <article class="media">
-                      <div class="media-content">
-                        <div class="content">
+                  <v-card>
+                    <v-container>
+                      <div>
+                        <div>
                           <p>{{ _os.notas.descricao}}</p>
                         </div>
                         <nav class="level is-mobile">
@@ -164,8 +164,8 @@
                           </div>
                         </nav>
                       </div>
-                    </article>
-                  </div>
+                    </v-container>
+                  </v-card>
                 </div>
               </v-flex>
             </v-layout>

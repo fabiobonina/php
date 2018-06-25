@@ -2,7 +2,8 @@ Vue.component('nota-edt', {
   name: 'nota-edt',
   template: '#nota-edt',
   props: {
-    data: {}
+    data: {},
+    dialog: Boolean
   },
   data() {
     return {

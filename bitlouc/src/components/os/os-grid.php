@@ -105,15 +105,14 @@
   </v-layout>
     
     <div>
-      <os-tec v-if="modalTec" v-on:close="modalTec = false" :data="modalItem"></os-tec>
-      <os-edt v-if="modalEdt" v-on:close="modalEdt = false" :data="modalItem"></os-edt>
-      <os-del v-if="modalDel" v-on:close="modalDel = false" :data="modalItem"></os-del>
-      <os-amarrac v-if="modalOs" v-on:close="modalOs = false" :data="modalItem"></os-amarrac>
+      <os-tec v-if="modalTec" v-on:close="modalTec = false" :dialog="modalTec" data="modalItem" :data="modalItem"></os-tec>
+      <os-edt v-if="modalEdt" v-on:close="modalEdt = false" :dialog="modalEdt" :data="modalItem"></os-edt>
+      <os-del v-if="modalDel" v-on:close="modalDel = false" :dialog="modalDel" :data="modalItem"></os-del>
+      <os-amarrac v-if="modalOs" v-on:close="modalOs = false" :dialog="modalOs" :data="modalItem"></os-amarrac>
     </div>
   </div>
 </template>
 <script src="src/components/os/os-grid.js"></script>
-
 
 <?php require_once 'src/components/os/_addOs.php';?>
 <?php require_once 'src/components/os/_edtOs.php';?>
