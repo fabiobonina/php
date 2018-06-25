@@ -15,13 +15,13 @@
             <div v-if="_os.bem">{{_os.bem.name}} {{_os.bem.modelo}} 
               <v-chip small color="green" text-color="white">
                 <v-avatar class="green darken-4">
-                  <v-icon small class="mdi mdi-qrcode"></v-icon>
+                  <v-icon small>mdi-qrcode</v-icon>
                 </v-avatar>
                 {{_os.bem.numeracao}}
               </v-chip>
               <v-chip small color="orange" text-color="white">
                 <v-avatar class="orange darken-4">
-                  <v-icon small class="mdi mdi-barcode"></v-icon>
+                  <v-icon small>mdi-barcode</v-icon>
                 </v-avatar>
                 {{_os.bem.plaqueta}}
               </v-chip>
@@ -37,8 +37,8 @@
             </v-chip>
           </div>
           <v-spacer></v-spacer>
-          <v-chip color="indigo" text-color="white">
-            <v-avatar >
+          <v-chip small color="indigo" text-color="white">
+            <v-avatar class="indigo darken-4">
               <v-icon small class="icon">mdi-wrench</v-icon>
             </v-avatar>
             OS: {{_os.filial}} - {{_os.os}}

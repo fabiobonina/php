@@ -1,6 +1,6 @@
-var OsTec = Vue.extend({
-  template: '#os-tec',
-  name: 'os-tec',
+var TecOs = Vue.extend({
+  template: '#tec-os',
+  name: 'tec-os',
   data: function () {
     return {
       errorMessage: '',

@@ -22,7 +22,7 @@
 
 <?php require_once 'src/components/os/osLojas.php';?>
 <?php require_once 'src/components/os/osStus.php';?>
-<?php require_once 'src/components/os/osTec.php';?>
+<?php require_once 'src/components/os/tecOs.php';?>
 
 <!-- components os -->
 <?php require_once 'src/components/os/os.php';?>

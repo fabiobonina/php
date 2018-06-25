@@ -1,5 +1,5 @@
 
-<template id="os-tec">
+<template id="tec-os">
   <div>
     <section class="container">
       <div>
@@ -8,4 +8,4 @@
     </section>
   </div>
 </template>
-<script src="src/components/os/osTec.js"></script>
+<script src="src/components/os/tecOs.js"></script>

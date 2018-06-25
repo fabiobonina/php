@@ -26,6 +26,8 @@ Vue.component('os-grid', {
         { name: 'Local', state: 'local.name' },
         { name: 'Loja', state: 'loja' }
       ],
+      fab: false,
+      hover: false,
     }
   },
   computed: {

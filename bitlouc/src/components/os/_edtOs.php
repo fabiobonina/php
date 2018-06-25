@@ -30,11 +30,11 @@
               <v-flex xs12 sm6 md5>
                 <v-text-field
                   type="date"
-                  v-model="data.dataOs"
+                  v-model="data.data"
                   label="Data"
-                  :error-messages="errors.collect('dataOs')"
+                  :error-messages="errors.collect('data')"
                   v-validate="'required'"
-                  data-vv-name="dataOs"
+                  data-vv-name="data"
                   item-text="name"
                   required
                 ></v-text-field>
@@ -56,7 +56,7 @@
               <v-flex xs12>
                 <v-autocomplete
                   :items="tecnicos"
-                  v-model="data.tecnico"
+                  v-model="data.tecnicos"
                   label="Tecnico"
                   item-text="userNick"
                   multiple

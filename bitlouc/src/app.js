@@ -412,7 +412,7 @@ var router = new VueRouter({
       children: [
         { path: '', component: OsLojas },
         { path: 'os-status', component: OsStus },
-        { path: 'os-tec', component: OsTec },
+        { path: 'os-tec', component: TecOs },
       ] 
     },
     { path: '/oss/:_id/os/:_os', component: Os, name: 'os'},

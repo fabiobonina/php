@@ -30,35 +30,41 @@
         </v-toolbar>
         <v-list two-line>
           <template v-for="(item, index) in filteredData">
-            <v-list-tile :key="item.name" avatar ripple :href="'#/oss/' + item.loja + '/os/' + item.id" @click="" >
-              <v-list-tile-content>
-                <v-list-tile-title>{{item.lojaNick}} | {{item.local.tipo}} - {{item.local.name}} ({{item.local.municipio}}/{{item.local.uf}})</v-list-tile-title>
-              </v-list-tile-content>
-              <v-list-tile-action>
-                <v-list-tile-action>{{item.filial}} - {{item.os}}</v-list-tile-action>
-              </v-list-tile-action>
-            </v-list-tile>
+          <v-card>
             <v-list-tile :key="item.name" avatar ripple @click="" >
               <v-list-tile-content>
+                <router-link :to="'/oss/' + item.loja + '/os/' + item.id">
+                <v-list-tile-title>{{item.lojaNick}} | {{item.local.tipo}} - {{item.local.name}} ({{item.local.municipio}}/{{item.local.uf}})</v-list-tile-title>
                 <v-list-tile-sub-title class="text--primary">{{item.data}} | {{item.servico.name}} {{ item.categoria.name }}</v-list-tile-sub-title>
-                <v-list-tile-sub-title v-if="item.bem">{{item.bem.name}} {{item.bem.modelo}}  &nbsp; #{{item.bem.fabricanteNick}} </v-list-tile-sub-title>
-              
+                </router-link>
+                <v-list-tile-sub-title v-if="item.bem">{{item.bem.name}} {{item.bem.modelo}}  &nbsp; #{{item.bem.fabricanteNick}}
+                  <v-chip small color="green" text-color="white">
+                    <v-avatar class="green darken-4">
+                      <v-icon small>mdi-qrcode</v-icon>
+                    </v-avatar>
+                    {{item.bem.numeracao}}
+                  </v-chip>
+                  <v-chip small color="orange" text-color="white">
+                    <v-avatar class="orange darken-4">
+                      <v-icon small>mdi-barcode</v-icon>
+                    </v-avatar>
+                    {{item.bem.plaqueta}}
+                  </v-chip>
+                </v-list-tile-sub-title>
+                
               </v-list-tile-content>
-              <div>
-              <v-chip small v-if="item.bem">Ativo: {{ item.bem.plaqueta }}</v-chip>
-              </div>
-              <v-list-tile-action>
-              
-                <a v-if=" 0.000000 != item.local.latitude"
-                :href="'https://maps.google.com/maps?q='+ item.local.latitude + ',' + item.local.longitude"
-                target="_blank">
-                  <v-icon>directions</v-icon>
-                </a>
-
-              </v-list-tile-action>
+              <v-chip small color="indigo" text-color="white">
+                <v-avatar class="indigo darken-4">
+                  <v-icon small class="icon">mdi-wrench</v-icon>
+                </v-avatar>
+                OS: {{item.filial}} - {{item.os}}
+              </v-chip>
+              <v-btn icon dark large color="primary" :disabled=" 0.000000 == item.local.latitude" :href="'https://maps.google.com/maps?q='+ item.local.latitude + ',' + item.local.longitude" target="_blank"> 
+                <v-icon>directions</v-icon>
+              </v-btn>
               <v-menu v-if="user.nivel > 2 && user.grupo == 'P'" bottom left  @click="">
-                <v-btn slot="activator" icon>
-                  <v-icon>more_vert</v-icon>
+                <v-btn slot="activator" small color="blue darken-2" dark fab>
+                  <v-icon>mdi-information-variant</v-icon>
                 </v-btn>
                 <v-list>
                   <v-list-tile @click="modalOs = true; selecItem(item)">
@@ -92,7 +98,7 @@
                 {{tecnico.userNick}}
               </v-chip>
             </div>
-            <v-card>
+            
               <v-card-text>
               <progresso-os :data="item.processo"></progresso-os>
               </v-card-text>
