@@ -19,7 +19,8 @@ Vue.component('os-amarrac', {
         {id:'1', name: 'PE'},
         {id:'3', name: 'CE'},
         {id:'4', name: 'GO'},
-        {id:'5', name: 'SBO'},            
+        {id:'5', name: 'SBO'},
+        {id:'0', name: 'WT'},
       ]
     };
   },

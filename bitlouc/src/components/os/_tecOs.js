@@ -56,7 +56,7 @@ Vue.component('os-tec', {
         //console.log(postData);
         this.$http.post('./config/api/apiOsTec.php?action=osTecAdd', postData)
           .then(function(response) {
-            console.log(response);
+            //console.log(response);
             if(response.data.error){
               this.errorMessage.push(response.data.message);
               this.isLoading = false;
@@ -77,11 +77,11 @@ Vue.component('os-tec', {
           //this.$store.state.create(data)
       }
     },
-    tecDelete: function(data) {
-      if(confirm('Deseja realmente deletar ' + data.user + '?')){
+    tecDelete: function(item) {
+      if(confirm('Deseja realmente remover ' + item.userNick + '?')){
         this.isLoading = true
         var postData = {
-          id: data.id,
+          id: item.id,
           os: this.data.id,
         };
         //console.log(postData);
@@ -91,7 +91,7 @@ Vue.component('os-tec', {
             this.errorMessage.push( response.data.message);
             this.isLoading = false;
           } else{
-            this.successMessage.push(response.data.message);
+            this.successMessage = response.data.message;
             this.isLoading = false;
             this.atualizacao();
             setTimeout(() => {
