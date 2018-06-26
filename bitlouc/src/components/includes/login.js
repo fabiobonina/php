@@ -46,6 +46,7 @@ Vue.component('login', {
             email: this.email,
             password: this.password
           };
+          console.log(postData);
           this.$http.post('./config/api/apiUser.php?action=logar', postData)
             .then(function(response) {
             if(response.data.error){

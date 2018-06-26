@@ -8,7 +8,7 @@
           <v-spacer></v-spacer>
           
         </v-card-title>
-        <v-container fill-height fluid>
+        <v-container>
           <v-list>
             <v-list-tile avatar @click="">
               <v-list-tile-avatar>

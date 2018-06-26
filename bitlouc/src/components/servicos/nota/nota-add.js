@@ -49,6 +49,7 @@ Vue.component('nota-add', {
               setTimeout(() => {
                 this.errorMessage = [];
                 this.successMessage = [];
+                this.$emit('close');
               }, 2000);
             }
           })
@@ -62,7 +63,7 @@ Vue.component('nota-add', {
       this.errorMessage = [];
       if(!this.descricao){
         this.errorMessage.push("Nota necessário.");
-      } else if(this.descricao.length < 100) {
+      } else if(this.descricao.length < 70) {
         this.errorMessage.push("Descrição curta.");
       }
       if(!this.errorMessage.length) return true;

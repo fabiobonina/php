@@ -37,13 +37,12 @@
     </v-navigation-drawer>
     <v-toolbar color="blue" dark fixed app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <a href="#/" class="d-flex ml-3 router-link-active"><img src="img/bit-louc.png" height="36px" width="36px"></a>
+      <a href="#/" class="d-flex ml-3 router-link-active"><img src="dist/img/bit-louc.png" height="36px" width="36px"></a>
       <v-toolbar-title><b>Bit</b>LOUC </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn href="#/" flat>Home </v-btn>
         <v-btn v-if="user.nivel > 2" href="#/projetos"  flat>Projetos</v-btn>
-        <v-btn v-if="user.nivel > 2" href="__index.php" flat>SkyHub</v-btn>
       </v-toolbar-items>
     </v-toolbar>
           

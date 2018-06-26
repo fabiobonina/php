@@ -22,8 +22,11 @@ Vue.component('user', {
     user()  {
       return store.state.user;
     },
+    ...Vuex.mapActions(["logout"])
   }, // computed
   methods: {
-    ...Vuex.mapActions(["logout"])
+    logout(){
+      this.logout;
+    }
   },
 });

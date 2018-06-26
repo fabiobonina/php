@@ -46,6 +46,7 @@ Vue.component('nota-edt', {
               setTimeout(() => {
                 this.errorMessage = [];
                 this.successMessage = [];
+                this.$emit('close');
               }, 2000);
             }
           })
@@ -59,7 +60,7 @@ Vue.component('nota-edt', {
       this.errorMessage = [];
       if(!this.data.notas.descricao){
         this.errorMessage.push("Nota necessário.");
-      } else if(this.data.notas.descricao.length < 100) {
+      } else if(this.data.notas.descricao.length < 70) {
         this.errorMessage.push("Descrição curta.");
       }
       if(!this.errorMessage.length) return true;

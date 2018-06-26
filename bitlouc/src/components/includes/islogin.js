@@ -1,7 +1,7 @@
 
 Vue.component('is-login', {
-  name: 'is-login',
-  template: '#is-login',
+    name: 'is-login',
+    template: '#is-login',
 
   data: function () {
     return {

@@ -49,7 +49,7 @@ const mutations = {
     state.pending = true;
   },
   [LOGIN_SUCCESS](state) {
-    state.isLoggedIn = true;
+    state.isLoggedIn = atob(localStorage.getItem("isLoggedIn"));
     state.pending = false;
   },
   [LOGOUT](state) {
@@ -141,6 +141,7 @@ const actions = {
     return new Promise(resolve => {
       setTimeout(() => {
         localStorage.setItem("token", btoa( creds.token ));
+        localStorage.setItem("isLoggedIn", btoa( creds.isLoggedIn ));
         commit("SET_LOGAR", creds);
         commit(LOGIN_SUCCESS);
         resolve();

@@ -17,7 +17,7 @@
               <v-flex xs12 sm6 md5>
                 <v-autocomplete
                   :items="filiais"
-                  v-model="name"
+                  v-model="filial"
                   item-text="name"
                   label="Filial"
                   :error-messages="errors.collect('filial')"

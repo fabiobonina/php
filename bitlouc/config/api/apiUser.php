@@ -27,8 +27,8 @@ if(isset($_GET['action'])){
 
 if($action == 'logar'):
 
-  $email= $_POST["email"];
-  $senha= $_POST["password"];
+  $email= 'fabiobonina@gmail.com';//$_POST["email"];
+  $senha= '123abc';//$_POST["password"];
 
   $datalogin = date("Y-m-d H:i:s");
   $password = md5($senha);

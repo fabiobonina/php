@@ -8,7 +8,7 @@ var Oss = Vue.extend({
             router: [
                 { title: 'OS Lojas', router: '/oss', icon: 'store' },
                 { title: 'OS Status', router: '/oss/os-status', icon: 'trending_up' },
-                { title: 'Suas OS', router: '/oss/os-tec', icon: 'person' },
+                { title: 'Minhas OS', router: '/oss/os-tec', icon: 'person' },
             ],
         };
     },
