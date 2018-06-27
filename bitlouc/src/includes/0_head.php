@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="./dist/css/materialdesign/css/materialdesignicons.min.css" media="all">
     <link rel="stylesheet" type="text/css" href="./dist/css/vuemaps.css">
     
-    <link href="dist/vuetify/vuetify.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/vuetify@1.1.0-alpha.1/dist/vuetify.css" rel="stylesheet">
     <!-- Vuejs -->
     <script src="dist/vue/vue.js"></script>
     <script src="dist/vue/vuex.js"></script>
@@ -30,7 +30,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.2/lodash.min.js"></script>
     <!-- Vuetify -->
-    <script src="dist/vuetify/vuetify.js"></script>
+    <script src="https://unpkg.com/vuetify@1.1.0-alpha.1/dist/vuetify.js"></script>
     <!-- Vee-Validade -->
     <script src="dist/vee-validade/vee-validate.min.js"></script>
     <script src="dist/vee-validade/pt_BR.js"></script>
