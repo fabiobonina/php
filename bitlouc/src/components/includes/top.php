@@ -47,7 +47,7 @@
     </v-toolbar>
           
     <user v-if="modalUser" v-on:close="modalUser = false"></user>
-    <is-login v-if="isLoggedIn !== true" v-on:close="atualizar()"></is-login> 
+    <is-login v-if="isLoggedIn !== true" v-on:atualizar="dialog = false"></is-login> 
   </div>
 </template>
 <script src="src/components/includes/top.js"></script>

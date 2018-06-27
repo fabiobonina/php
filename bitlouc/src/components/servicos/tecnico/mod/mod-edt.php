@@ -128,13 +128,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-        <!--#CONTEUDO -->
-      </section>
-      <footer class="modal-card-foot field is-grouped is-grouped-right">
-        <button class="button" v-on:click="$emit('close')">Cancel</button>
-        <button :class="isLoading ? 'button is-info is-loading' : 'button is-info'" v-on:click="saveItem()">Save</button>
-      </footer>
-    </div>
   </div>
 </template>
 <script src="src/components/servicos/tecnico/mod/mod-edt.js"></script>

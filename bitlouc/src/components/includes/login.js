@@ -46,9 +46,8 @@ Vue.component('login', {
             email: this.email,
             password: this.password
           };
-          console.log(postData);
-          this.$http.post('./config/api/apiUser.php?action=logar', postData)
-            .then(function(response) {
+          
+          this.$http.post('./config/api/apiUser.php?action=logar', postData).then(function(response) {
             if(response.data.error){
               this.errorMessage.push(response.data.message);
               this.isLoading = false;
@@ -56,14 +55,17 @@ Vue.component('login', {
               this.successMessage.push(response.data.message);
               //this.$store.dispatch('setUser', response.data.dados);
               setTimeout(() => {
+                if(response.data.isLoggedIn){
+                localStorage.setItem("isLoggedIn", btoa( response.data.isLoggedIn ))
                 this.$store.dispatch("login", {
-                isLoggedIn: response.data.isLoggedIn,
-                token: response.data.token,
-                user: response.data.dados
+                    isLoggedIn: response.data.isLoggedIn,
+                    token: response.data.token,
+                    user: response.data.dados
                 }).then(res => {
+                  this.$emit('atualizar');
                   this.$router.push( this.$route.fullPath );
-                  this.$emit('close');
                 })
+               }
               
                 //localStorage.setItem("isLoggedIn", btoa( response.data.isLoggedIn ))
                 //localStorage.setItem("token", btoa( response.data.token ));

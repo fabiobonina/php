@@ -10,6 +10,7 @@ Vue.component('is-login', {
       successMessage: '',
       novo: false,
       dialog: true,
+      isLoading: false,
     };
   },
   mounted () {
@@ -24,6 +25,10 @@ Vue.component('is-login', {
     // sempre que a pergunta mudar, essa função será executada
   },
   methods: {
+    atualizar(){
+      this.isLoading = true;
+      this.dialog = false;
+    }
 
   }
 });

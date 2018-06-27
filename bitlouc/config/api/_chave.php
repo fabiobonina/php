@@ -26,6 +26,7 @@
         $user['loja']           = $_SESSION['loginLoja'];
         $user['nivel']          = $_SESSION['loginNivel'];
         $user['data']           = $_SESSION['loginDtCadastro'];
+		$user['isLoggedIn']     = true;
         $user['error']          = false;
 
         

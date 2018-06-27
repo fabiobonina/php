@@ -18,10 +18,15 @@
           </v-toolbar>
           <v-card-text>
             <v-flex xs12 sm6 offset-sm3>
-
-              <login  v-if="!novo" v-on:close="novo = true" ></login>
-              <register v-if="novo" v-on:close="novo = false"></register>
-            
+              <template v-if="isLoading" ustify-center>
+                <v-spacer></v-spacer>
+                <v-progress-circular :size="40" :width="5" indeterminate color="primary"></v-progress-circular>
+                <v-spacer></v-spacer>
+              </template>
+              <template v-else>
+                <login  v-if="!novo" v-on:close="novo = true" v-on:atualizar="isLoading = true;dialog = false"></login>
+                <register v-if="novo" v-on:close="novo = false"></register>
+              </template>
             <v-flex>            
           </v-card-text>
 
