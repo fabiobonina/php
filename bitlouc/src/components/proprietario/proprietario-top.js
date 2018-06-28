@@ -34,7 +34,7 @@ Vue.component('proprietario-top', {
     },
     lojas() {
       return store.state.lojas;
-    },
+    }
   },
   methods: {
   }
