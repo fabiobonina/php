@@ -49,7 +49,7 @@ const mutations = {
     state.pending = true;
   },
   [LOGIN_SUCCESS](state) {
-    state.isLoggedIn = atob(localStorage.getItem("isLoggedIn"));
+    state.isLoggedIn = !!localStorage.getItem("token");
     state.pending = false;
   },
   [LOGOUT](state) {
@@ -436,7 +436,7 @@ var router = new VueRouter({
       children: [
         { path: '', component: LojasPlus },
         { path: 'locais', component: LocaisPlus },
-        //{ path: 'oss', component: OsPlus },
+        { path: 'oss', component: OssPlus },
         //{ path: 'bens', component: LojaBens },
       ]
     },

@@ -44,7 +44,7 @@ Vue.component('top', {
     // sempre que a pergunta mudar, essa função será executada
   },
   methods: {
-    atualizar(){
+    atualizar: function (){
       this.isLoggedIn
     }
   }

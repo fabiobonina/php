@@ -8,6 +8,7 @@ Vue.component('proprietario-top', {
       router: [
         { title: 'Lojas', router: '', icon: 'trending_up' },
         { title: 'Locais', router: 'locais', icon: 'store' },
+        { title: 'Oss', router: 'oss', icon: 'person' },
         { title: 'Bens', router: 'bens', icon: 'person' },
       ],
       model: 'tab-2',

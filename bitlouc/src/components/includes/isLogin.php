@@ -1,15 +1,6 @@
 <template id="is-login">
-  <div>
     <v-layout row justify-center>
-      
-      <v-dialog
-        v-model="dialog"
-        fullscreen
-        hide-overlay
-        transition="dialog-bottom-transition"
-        scrollable
-        >
-      
+      <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
         <v-card tile color="blue">
           <v-toolbar card dark color="blue">
             <img src="dist/img/bit-louc.png" height="36px" width="36px">
@@ -29,13 +20,10 @@
               </template>
             <v-flex>            
           </v-card-text>
-
           <div style="flex: 1 1 auto;"></div>
         </v-card>
       </v-dialog>
-        
     </v-layout>
-  </div>
 </template>
 <script src="src/components/includes/isLogin.js"></script>
 

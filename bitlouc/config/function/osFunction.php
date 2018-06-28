@@ -363,7 +363,7 @@
 
 			/* Montar o corpo do email*/
 			$corpoMensagem = '<b>N. OS: </b>'.$os->filial.' - '.$os->os. ' (Data: '. $os->data .')' 
-							.'<br><a href="http://http://skyhub.esy.es/#/oss/'. $os->loja .'/os/'. $os->id .'" target="_blank">'.$txtAssunto.'</a> '
+							.'<br><a href="http://skyhub.esy.es/#/oss/'. $os->loja .'/os/'. $os->id .'" target="_blank">'.$txtAssunto.'</a> '
 							.'<br><b>Municipio:</b> '.$os->local->municipio .'/'. $os->local->uf 
 							.'<br><b>Serviço:</b> '.$os->servico->name
 							.'<br><b>Bem:</b> '.$txtBem

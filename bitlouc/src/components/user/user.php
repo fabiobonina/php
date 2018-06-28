@@ -25,7 +25,7 @@
         <v-card-actions>
           <v-btn color="primary" flat @click.stop="$emit('close')">Close</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="primary" @click.stop="logout()">Logout</v-btn>
+          <v-btn color="primary" @click="logout()">Logout</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

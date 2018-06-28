@@ -5,7 +5,6 @@
       <div>
         <section class="container">
           <div>
-            <br>
             <os-grid :data="oss" :status="status"></os-grid>
           </div>
         </section>
