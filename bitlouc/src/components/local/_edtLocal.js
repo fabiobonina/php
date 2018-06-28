@@ -23,7 +23,7 @@ Vue.component('local-edt', {
       return false
     },
     loja()  {
-      return store.getters.getLojaId(this.$route.params._id);
+      return store.getters.getLojaId(this.data.loja);
     },
     tipos() {
       return store.state.tipos;

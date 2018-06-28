@@ -5,7 +5,8 @@ Vue.component('local-geo', {
     validator: 'new'
   },
   props: {
-    dialog: Boolean
+    dialog: Boolean,
+    data: {}
   },
   data() {
     return {
@@ -14,11 +15,6 @@ Vue.component('local-geo', {
       coordenadas:'',
       isLoading: false
     };
-  },
-  props: {
-    title: { type: String, default: '' },
-    message: { type: String, default: 'Confirm' },
-    data: {}
   },
   computed: {
     temMessage () {
@@ -42,7 +38,7 @@ Vue.component('local-geo', {
           latitude: geoposicao[0],
           longitude: geoposicao[1]
         };        
-        this.$http.post('./config/api/apiLocalFull.php?action=coordenadas', postData)
+        this.$http.post('./config/api/apiLocal.php?action=coordenadas', postData)
           .then(function(response) {
             //console.log(response);
             if(response.data.error){

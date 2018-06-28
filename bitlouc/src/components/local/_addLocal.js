@@ -77,7 +77,7 @@ Vue.component('local-add', {
               this.isLoading = false;
             } else{
               this.successMessage.push(response.data.message);
-              this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
+              this.$store.dispatch('fetchLocais', this.data.loja).then(() => {
                 console.log("Atulizando dados das localidades!")
               });
               this.isLoading = false;

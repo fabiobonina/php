@@ -19,7 +19,7 @@ Vue.component('local-del', {
       return false
     },
     loja()  {
-      return store.getters.getLojaId(this.$route.params._id);
+      return store.getters.getLojaId(this.data.loja);
     },
   },
   methods: {

@@ -25,7 +25,7 @@ Vue.component('local-cat', {
       return false
     },
     loja()  {
-      return store.getters.getLojaId(this.$route.params._id);
+      return store.getters.getLojaId(this.data.loja);
     },
     local()  {
       return store.getters.getLocalId(this.data.id);
