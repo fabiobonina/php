@@ -55,6 +55,9 @@
     </template>
     <v-container fluid>
         <div v-if="user.nivel > 1 && user.grupo == 'P'">
+          <v-btn v-if="_os.status <= 1 " v-on:click="modFull = true" dark small color="primary">
+            <v-icon dark>mdi-walk</v-icon> Full
+          </v-btn>
           <v-btn v-if="_os.status <= 1 " v-on:click="deslocAdd = true" dark small color="primary">
             <v-icon dark>mdi-walk</v-icon> Desloc.
           </v-btn>
@@ -92,6 +95,9 @@
                         </v-btn>
                       </v-flex>
                       <v-spacer></v-spacer>
+                      <v-btn  @click="modFull=true; selecItem(tecnico)" color="pink" dark small fab right>
+                        <v-icon>add</v-icon>
+                      </v-btn>
                       <v-btn  @click="modAdd=true; selecItem(tecnico)" color="pink" dark small absolute fab right>
                         <v-icon>add</v-icon>
                       </v-btn>
@@ -175,6 +181,7 @@
       <div>
         <mod-add v-if="modAdd" v-on:close="modAdd = false" :dialog="modAdd" :data="_item"></mod-add>
         <mod-edt v-if="modEdt" v-on:close="modEdt = false" :dialog="modEdt" :data="_item"></mod-edt>
+        <mod-full v-if="modFull" v-on:close="modFull = false" :dialog="modFull" :data="_item"></mod-full>
         <nota-add v-if="notaAdd" v-on:close="notaAdd = false" :dialog="notaAdd" :data="_os"></nota-add>
         <nota-edt v-if="notaEdt" v-on:close="notaEdt = false" :dialog="notaEdt" :data="_os"></nota-edt>
         <desloc-add v-if="deslocAdd" v-on:close="deslocAdd = false" :dialog="deslocAdd" :data="_os"></desloc-add>
@@ -193,6 +200,7 @@
 <?php require_once 'src/components/servicos/tecnico/deslocamento/desloc-add.php';?>
 <?php require_once 'src/components/servicos/tecnico/mod/mod-add.php';?>
 <?php require_once 'src/components/servicos/tecnico/mod/mod-edt.php';?>
+<?php require_once 'src/components/servicos/tecnico/mod/mod-full.php';?>
 <?php require_once 'src/components/servicos/tecnico/tecnico.php';?>
 
 <?php require_once 'src/components/os/_progresso.php';?>

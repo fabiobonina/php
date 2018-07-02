@@ -9,7 +9,7 @@ var Os = Vue.extend({
       isLoading: false,
       deslocAdd: false,
       deslocChg: false,
-      deslocEdt: false,
+      modFull:    false,
       modAdd:    false,
       modEdt:    false,
       notaAdd:   false,

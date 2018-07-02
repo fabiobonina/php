@@ -1,6 +1,6 @@
-Vue.component('mod-add', {
-  name: 'mod-add',
-  template: '#mod-add',
+Vue.component('mod-full', {
+  name: 'mod-full',
+  template: '#mod-full',
   props: {
     data: Object,
     dialog: Boolean
@@ -13,6 +13,10 @@ Vue.component('mod-add', {
       tecnicos: null,
       status: null,
       trajeto: null,
+      dtAtenInicio: '',
+      dtAtenFinal: '',
+      dtServInicio: '',
+      dtServFinal: '',
       dtInicio: '',
       dtFinal:  '',
       kmInicio: '',
@@ -21,29 +25,11 @@ Vue.component('mod-add', {
       hhValor:  '',
       valor:    '',
       isLoading: false,
+      e1: '1'
     };
   },
   watch: {
-    'kmFinal': function (newQuestion, oldQuestion) {
-      setTimeout(() => {
-        this.validarKm()
-      }, 700);
-    },
-    'kmInicio': function (newQuestion, oldQuestion) {
-      setTimeout(() => {
-        this.validarKm()
-      }, 700);
-    },
-    'dtFinal': function (newQuestion, oldQuestion) {
-      setTimeout(() => {
-        this.validarDate()
-      }, 700);
-    },
-    'dtInicio': function (newQuestion, oldQuestion) {
-      setTimeout(() => {
-        this.validarDate()
-      }, 700);
-    },
+
   },
   created: function() {
     this.dataT();
