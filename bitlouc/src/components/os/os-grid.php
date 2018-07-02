@@ -4,9 +4,9 @@
     <v-flex xs12>
       <v-card>
         <v-toolbar  dense >
-          <v-text-field v-model="configs.search" prepend-icon="search" append-icon="mic" label="Search" solo-inverted class="mx-3" flat></v-text-field>
-            <v-flex xs12 sm2>
-              <v-subheader v-text="'Ordernar por:'"></v-subheader>
+          <v-text-field v-model="configs.search" append-icon="search" label="Search" solo-inverted class="mx-3" flat></v-text-field>
+            <v-flex xs12 sm1>
+              <v-subheader v-text="'Orden:'"></v-subheader>
             </v-flex>
             <v-flex xs12 sm2>
             <v-select

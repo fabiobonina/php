@@ -64,7 +64,7 @@
               </v-flex>
             </v-layout>
             <v-layout wrap>
-              <v-flex xs12 sm6 md7>
+              <v-flex xs12>
                 <v-text-field
                   type="datetime-local"
                   v-model="dtAtenInicio"
@@ -76,7 +76,7 @@
                   required
                 ></v-text-field>
               </v-flex>
-              <v-flex xs12 sm6 md5>
+              <v-flex xs12 sm6 md6>
                 <v-text-field 
                   type="number"
                   v-model="kmInicio"
@@ -88,7 +88,7 @@
                   :disabled="trajeto && trajeto.categoria > 0"
                 ></v-text-field>
               </v-flex>
-              <v-flex xs12 sm6 md4>
+              <v-flex xs12 sm6 md6>
                 <v-text-field 
                   type="number"
                   v-model="valor"
