@@ -4123,7 +4123,7 @@ p {
   transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
   vertical-align: text-bottom;
 }
-.v-icon--link {
+.v-icon.v-icon.v-icon--link {
   cursor: pointer;
 }
 .v-icon.v-icon--large {
@@ -4139,6 +4139,11 @@ p {
   pointer-events: none;
 }
 
+.v-autocomplete.v-input,
+.v-autocomplete .v-menu__activator,
+.v-autocomplete .v-menu__activator * {
+  cursor: text;
+}
 .v-autocomplete input {
   align-self: center;
 }
@@ -4583,6 +4588,7 @@ p {
   color: rgba(0,0,0,0.87);
 }
 .v-select {
+  cursor: pointer;
   position: relative;
 }
 .v-select .v-menu {
@@ -4796,14 +4802,6 @@ p {
   position: relative;
   vertical-align: middle;
 }
-.v-menu--disabled {
-  cursor: default;
-}
-.v-menu--disabled .v-menu__activator,
-.v-menu--disabled .v-menu__activator > * {
-  cursor: default;
-  pointer-events: none;
-}
 .v-menu__activator {
   align-items: center;
   cursor: pointer;
@@ -4811,8 +4809,11 @@ p {
   height: 100%;
   position: relative;
 }
-.v-menu__activator input[readonly] {
+.v-menu__activator * {
   cursor: pointer;
+}
+.v-menu__activator--disabled {
+  pointer-events: none;
 }
 .v-menu__content {
   position: absolute;
@@ -4983,7 +4984,7 @@ p {
 .v-input--selection-controls__input {
   color: inherit;
   display: inline-flex;
-  flex: 0 1 auto;
+  flex: 0 0 auto;
   height: 24px;
   position: relative;
   margin-right: 8px;
@@ -4991,13 +4992,21 @@ p {
   transition: color 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: color 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), -webkit-transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   width: 24px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 .v-input--selection-controls__input input {
   position: absolute;
   opacity: 0;
 }
 .v-input--selection-controls__input + .v-label {
-  flex: 1 1;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
 }
 .v-input--selection-controls__ripple {
   cursor: pointer;
@@ -5025,13 +5034,8 @@ p {
 }
 .v-input--selection-controls.v-input .v-label {
   align-items: center;
-  cursor: pointer;
   display: inline-flex;
   top: 0;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
   height: auto;
 }
 .v-input--selection-controls.v-input--is-focused .v-input--selection-controls__ripple:before,
@@ -5146,7 +5150,6 @@ p {
   outline: none;
 }
 .v-input .v-label {
-  cursor: text;
   height: 20px;
   line-height: 20px;
 }
@@ -5194,7 +5197,6 @@ p {
 .v-input__slot {
   align-items: center;
   color: inherit;
-  cursor: text;
   display: flex;
   margin-bottom: 8px;
   min-height: inherit;
@@ -5234,7 +5236,6 @@ p {
   color: rgba(255,255,255,0.5);
 }
 .v-label {
-  cursor: pointer;
   font-size: 16px;
   line-height: 1;
   min-height: 8px;
@@ -5474,6 +5475,7 @@ p {
 .v-divider--vertical {
   flex: 0 1 auto;
   height: 100%;
+  max-width: 1px;
   min-width: 1px;
   width: 1px;
 }
@@ -6046,6 +6048,15 @@ p {
 }
 .v-dialog:not(.v-dialog--fullscreen) {
   max-height: 90%;
+}
+.v-dialog__activator {
+  cursor: pointer;
+}
+.v-dialog__activator * {
+  cursor: pointer;
+}
+.v-dialog__activator--disabled {
+  pointer-events: none;
 }
 .v-dialog__container {
   display: inline-block;
@@ -6970,6 +6981,10 @@ p {
 .v-overflow-btn {
   margin-top: 12px;
 }
+.v-overflow-btn:not(.v-overflow-btn--editable) .v-menu__activator,
+.v-overflow-btn:not(.v-overflow-btn--editable) .v-menu__activator * {
+  cursor: pointer;
+}
 .v-overflow-btn .v-select__slot {
   height: 48px;
 }
@@ -6986,6 +7001,7 @@ p {
   content: none;
 }
 .v-overflow-btn .v-label {
+  margin-left: 16px;
   top: calc(50% - 10px);
 }
 .v-overflow-btn .v-input__append-inner {
@@ -6995,6 +7011,7 @@ p {
   align-items: center;
   margin-top: 0;
   padding: 0;
+  flex-shrink: 0;
 }
 .v-overflow-btn .v-input__append-outer,
 .v-overflow-btn .v-input__prepend-outer {
@@ -7012,7 +7029,10 @@ p {
 }
 .v-overflow-btn.v-input--is-focused .v-input__slot,
 .v-overflow-btn.v-select--is-menu-active .v-input__slot {
-  box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12);
+  box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+}
+.v-overflow-btn .v-select__selections {
+  width: 0px;
 }
 .v-overflow-btn--segmented .v-select__selections {
   flex-wrap: nowrap;
@@ -7029,6 +7049,10 @@ p {
 }
 .v-overflow-btn--segmented .v-select__selections .v-btn__content::before {
   background-color: transparent;
+}
+.v-overflow-btn--editable .v-input__append-inner,
+.v-overflow-btn--editable .v-input__append-inner * {
+  cursor: pointer;
 }
 
 /* Theme */
@@ -8974,6 +8998,9 @@ table.v-table tfoot tr td {
 .v-input--radio-group__input {
   display: flex;
   width: 100%;
+}
+.v-input--radio-group__input > .v-label {
+  padding-bottom: 8px;
 }
 .v-input--radio-group--row .v-input--radio-group__input {
   flex-direction: row;

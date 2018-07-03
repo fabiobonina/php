@@ -1,7 +1,18 @@
 <template id="mod-full">
   <div>
-    <v-dialog v-model="dialog" persistent scrollable  max-width="600px">
-    <v-card>
+    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition" persistent>
+    <v-btn slot="activator" color="primary" dark>Open Dialog</v-btn>
+      <v-card>
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click.stop="$emit('close')">
+            <v-icon>close</v-icon>
+          </v-btn>
+          <v-toolbar-title>Atendimento</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn dark flat @click.stop="saveItem()">Salvar</v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
       <v-stepper v-model="e1" alt-labels>
         <v-stepper-header>
           <v-stepper-step :complete="e1 > 1" step="1">Inicio</v-stepper-step>
@@ -16,9 +27,14 @@
           <v-divider></v-divider>
           <v-stepper-step :complete="e1 > 6" step="6">Completo</v-stepper-step>
         </v-stepper-header>
-      
+        <message v-if="temMessage" :success="successMessage" :error="errorMessage"></message>
+        <template v-if="isLoading">
+            <v-spacer></v-spacer>
+            <v-progress-circular :size="40" :width="5" indeterminate color="primary"></v-progress-circular>
+            <v-spacer></v-spacer>
+        </template> 
+        <template v-else>
         <v-stepper-items>
-          <message :success="successMessage" :error="errorMessage"></message>
           <v-stepper-content step="1">
             <v-card class="mb-5" color="grey lighten-1" max-width="500px">
               <v-card-title align-center>
@@ -33,16 +49,14 @@
                   <v-layout align-center>
                     <v-flex xs12 text-xs-center>
                       <div>
-                        <v-btn small>Trajeto!</v-btn>
-                        <v-btn small color="primary">Serviço!</v-btn>
+                        <v-btn @click="trajetoI()" small>Trajeto!</v-btn>
+                        <v-btn @click="servico()" small color="primary">Serviço!</v-btn>
                       </div>
                     </v-flex>
                   </v-layout>
                 </template>
               </v-card-text>
             </v-card>
-            <v-btn color="primary" @click="e1 = 2"> Continue </v-btn>
-            <v-btn flat>Cancel</v-btn>
           </v-stepper-content>
 
           <v-stepper-content step="2">
@@ -57,14 +71,6 @@
               <v-card-text align-center>
                 <template>
                 <v-container grid-list-md>
-                <label class="label">Tipo Trajeto</label>
-                <v-layout row wrap align-center >
-                  <v-flex xs12 sm4 v-for="item in deslocTrajetos" :key="item.id">
-                    <v-btn block small @click="trajeto = item" :class="trajeto && trajeto.id == item.id ? 'blue white--text' : 'light'">
-                      <span>{{item.name }}</span>
-                    </v-btn>
-                  </v-flex>
-                </v-layout>
                 <v-layout wrap>
                   <v-flex xs12>
                     <v-text-field
@@ -78,18 +84,13 @@
                       required
                     ></v-text-field>
                   </v-flex>
-                  <v-flex xs12 sm6 md6>
-                    <v-text-field 
-                      type="number"
-                      v-model="kmInicio"
-                      label="Km Inicio"
-                      :error-messages="errors.collect('kmInicio')"
-                      v-validate="''"
-                      data-vv-name="kmInicio"
-                      item-text="name"
-                      :disabled="trajeto && trajeto.categoria > 0"
-                    ></v-text-field>
-                  </v-flex>
+                  <v-flex xs12 text-xs-center>
+                      <div>
+                        <v-btn @click="trajetoI()" small>Trajeto!</v-btn>
+                        <v-btn @click="servico()" small color="primary">Serviço!</v-btn>
+                      </div>
+                    </v-flex>
+                  </v-layout>
                   <v-flex xs12 sm6 md6>
                     <v-text-field 
                       type="number"
@@ -103,6 +104,16 @@
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
+                <template>
+                  <v-layout align-center>
+                    <v-flex xs12 text-xs-center>
+                      <div>
+                        <v-btn @click="trajetoI()" small>Trajeto!</v-btn>
+                        <v-btn @click="servico()" small color="primary">Serviço!</v-btn>
+                      </div>
+                    </v-flex>
+                  </v-layout>
+                </template>
               </v-container>
               <small>*indica campo obrigatório</small>
                 </template>
@@ -252,6 +263,7 @@
             <v-btn flat>Cancel</v-btn>
           </v-stepper-content>
         </v-stepper-items>
+        </template>
       </v-stepper>
 
         <!--v-card-title>
@@ -366,18 +378,6 @@
           </v-container>
           <small>*indica campo obrigatório</small>
         </v-card-text-->
-        <v-card-actions>
-          <template v-if="isLoading">
-              <v-spacer></v-spacer>
-              <v-progress-circular :size="40" :width="5" indeterminate color="primary"></v-progress-circular>
-              <v-spacer></v-spacer>
-          </template>
-          <template v-else>
-            <v-btn flat @click.stop="$emit('close')">Fechar</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click.stop="saveItem()">Salvar</v-btn>
-          </template>
-        </v-card-actions>
       </v-card>
     </v-dialog>
   </div>

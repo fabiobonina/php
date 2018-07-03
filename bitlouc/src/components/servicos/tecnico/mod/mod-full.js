@@ -13,6 +13,8 @@ Vue.component('mod-full', {
       tecnicos: null,
       status: null,
       trajeto: null,
+      trajInicio: null,
+      trajFinal: null,
       dtAtenInicio: '',
       dtAtenFinal: '',
       dtServInicio: '',
@@ -29,7 +31,6 @@ Vue.component('mod-full', {
     };
   },
   watch: {
-
   },
   created: function() {
     this.dataT();
@@ -59,10 +60,11 @@ Vue.component('mod-full', {
       //this.errorMessage = []
       if(this.checkForm() && this.validarKm() && this.validarDate() ){
         this.isLoading = true
-        if( this.trajeto.categoria == '1'){
+        if( this.trajInicio ){
           this.kmInicio  = '0';
           this.kmFinal   = '0';
-        }else if( this.trajeto.categoria == '2' ){
+        }
+        if( this.trajFinal ){
           this.kmInicio  = '0';
           this.kmFinal   = '0';
           this.valor     = '0';
@@ -100,6 +102,28 @@ Vue.component('mod-full', {
         .catch(function(error) {
           console.log(error);
         });
+      }
+    },
+    trajetoI() {
+      this.trajeto = true;
+      this.e1= '2';
+     
+    },
+    servico() {
+      this.trajeto = false;
+      this.e1= '3';
+     
+    },
+    validarKm() {
+      this.errorMessage = [];
+      if( Number(this.kmFinal) < Number(this.kmInicio) ){
+        this.errorMessage.push("Km Inicio não pode ser maior que Km Final!");
+        return false;
+      }else if( this.trajeto.categoria == '0' ){
+        this.valor = (( Number(this.kmFinal) - Number(this.kmInicio) )* this.trajeto.valor).toFixed(2);
+        return true;
+      }else{
+        return true;
       }
     },
     checkForm:function(e) {
