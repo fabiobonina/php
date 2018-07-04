@@ -1,7 +1,6 @@
 <template id="mod-full">
   <div>
-    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition" persistent>
-    <v-btn slot="activator" color="primary" dark>Open Dialog</v-btn>
+    <v-dialog v-model="dialog" fullscreen hide-overlay persistent>
       <v-card>
         <v-toolbar dark color="primary">
           <v-btn icon dark @click.stop="$emit('close')">
@@ -27,13 +26,10 @@
           <v-divider></v-divider>
           <v-stepper-step :complete="e1 > 6" step="6">Completo</v-stepper-step>
         </v-stepper-header>
+
         <message v-if="temMessage" :success="successMessage" :error="errorMessage"></message>
-        <template v-if="isLoading">
-            <v-spacer></v-spacer>
-            <v-progress-circular :size="40" :width="5" indeterminate color="primary"></v-progress-circular>
-            <v-spacer></v-spacer>
-        </template> 
-        <template v-else>
+        <loader :dialog="isLoading"></loader>
+
         <v-stepper-items>
           <v-stepper-content step="1">
             <v-card class="mb-5" color="grey lighten-1" max-width="500px">
@@ -61,7 +57,7 @@
 
           <v-stepper-content step="2">
             <v-card class="mb-5" color="grey lighten-1" max-width="500px">
-              <v-card-title align-center>
+              <v-card-title>
                 <v-layout align-center>
                   <v-flex xs12 text-xs-center>
                   <span class="headline">Trajeto</span>
@@ -75,7 +71,7 @@
                   <v-flex xs12>
                     <v-text-field
                       type="datetime-local"
-                      v-model="dtAtenInicio"
+                      v-model="dtInicio"
                       label="Data Inicio"
                       :error-messages="errors.collect('dtInicio')"
                       v-validate="'required'"
@@ -85,49 +81,37 @@
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12 text-xs-center>
-                      <div>
-                        <v-btn @click="trajetoI()" small>Trajeto!</v-btn>
-                        <v-btn @click="servico()" small color="primary">Serviço!</v-btn>
-                      </div>
-                    </v-flex>
-                  </v-layout>
                   <v-flex xs12 sm6 md6>
-                    <v-text-field 
-                      type="number"
-                      v-model="valor"
-                      label="Valor Trajeto"
-                      :error-messages="errors.collect('valor')"
-                      v-validate="''"
-                      data-vv-name="valor"
-                      item-text="name"
-                      :disabled="trajeto && trajeto.categoria != 1"
-                    ></v-text-field>
                   </v-flex>
-                </v-layout>
-                <template>
-                  <v-layout align-center>
-                    <v-flex xs12 text-xs-center>
-                      <div>
-                        <v-btn @click="trajetoI()" small>Trajeto!</v-btn>
-                        <v-btn @click="servico()" small color="primary">Serviço!</v-btn>
-                      </div>
                     </v-flex>
                   </v-layout>
-                </template>
+                  <template>
+                    <v-container fluid grid-list-xl>
+                      <v-layout row justify-center>
+                        <v-flex xs2>
+                          <km-desp :data="data"></km-desp>
+                        </v-flex>
+                        <v-flex xs2>
+                          <km-desp :data="data"></km-desp>
+                        </v-flex>
+                      </v-layout>
+                    </v-container>
+                  </template>
+                </v-layout>
               </v-container>
               <small>*indica campo obrigatório</small>
                 </template>
-              </v-card-text>
+              </v-card-text>            
             </v-card>
-
-            <v-btn
-              color="primary"
-              @click="e1 = 3"
-            >
-              Continue
-            </v-btn>
-
-            <v-btn flat>Cancel</v-btn>
+            <template>
+              <v-container grid-list-xl text-xs-center>
+                <v-layout row wrap>
+                  <v-flex xs12 >
+                    <v-btn color="primary" @click="e1 = 3" right> Continue </v-btn>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </template>
           </v-stepper-content>
 
           <v-stepper-content step="3">
@@ -263,7 +247,7 @@
             <v-btn flat>Cancel</v-btn>
           </v-stepper-content>
         </v-stepper-items>
-        </template>
+
       </v-stepper>
 
         <!--v-card-title>
@@ -383,3 +367,5 @@
   </div>
 </template>
 <script src="src/components/servicos/tecnico/mod/mod-full.js"></script>
+
+<?php require_once 'src/components/servicos/despesa/_km.php';?>

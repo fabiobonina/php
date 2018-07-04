@@ -15,19 +15,18 @@ Vue.component('mod-full', {
       trajeto: null,
       trajInicio: null,
       trajFinal: null,
-      dtAtenInicio: '',
-      dtAtenFinal: '',
+      dtInicio: '',
       dtServInicio: '',
       dtServFinal: '',
-      dtInicio: '',
-      dtFinal:  '',
+      dtFinal: '',
       kmInicio: '',
       kmFinal:  '',
       tempo:    '',
       hhValor:  '',
       valor:    '',
       isLoading: false,
-      e1: '1'
+      e1: '1',
+      dialog2: false
     };
   },
   watch: {
@@ -107,12 +106,10 @@ Vue.component('mod-full', {
     trajetoI() {
       this.trajeto = true;
       this.e1= '2';
-     
     },
     servico() {
       this.trajeto = false;
       this.e1= '3';
-     
     },
     validarKm() {
       this.errorMessage = [];
@@ -180,6 +177,8 @@ Vue.component('mod-full', {
       var time = res[1].slice(0, -3);
       var dtTime = date[2] + "-" + date[1] + "-" + date[0] + "T" + time;
       this.dtInicio = dtTime;
+      this.dtServInicio = dtTime;
+      this.dtServFinal = dtTime;
       this.dtFinal = dtTime;
     },
     errorLimpar(){

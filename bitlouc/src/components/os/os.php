@@ -202,5 +202,7 @@
 <?php require_once 'src/components/servicos/tecnico/mod/mod-edt.php';?>
 <?php require_once 'src/components/servicos/tecnico/mod/mod-full.php';?>
 <?php require_once 'src/components/servicos/tecnico/tecnico.php';?>
+<?php require_once 'src/components/servicos/despesa/_km.php';?>
+<?php require_once 'src/components/servicos/despesa/despesa.php';?>
 
 <?php require_once 'src/components/os/_progresso.php';?>

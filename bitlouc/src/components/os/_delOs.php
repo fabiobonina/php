@@ -7,6 +7,7 @@
         </v-card-title>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage"></message>
+          <loader :dialog="isLoading"></loader>
           <v-form>
             <div v-if='data.bem'>
               <p>{{ data.bem.name }} - {{ data.bem.modelo }} <i class="fa fa-qrcode"></i> {{ data.bem.numeracao }} <i class="fa fa-fw fa-barcode"></i>{{ data.bem.plaqueta }}</p>
@@ -18,16 +19,9 @@
 
         </v-card-text>
         <v-card-actions>
-          <template v-if="isLoading">
-              <v-spacer></v-spacer>
-              <v-progress-circular :size="40" :width="5" indeterminate color="primary"></v-progress-circular>
-              <v-spacer></v-spacer>
-          </template>
-          <template v-else>
             <v-btn flat @click.stop="$emit('close')">Fechar</v-btn>
             <v-spacer></v-spacer>
             <v-btn color="error" flat @click.stop="deletarItem()">Deletar</v-btn>
-          </template>
         </v-card-actions>
       </v-card>
     </v-dialog>

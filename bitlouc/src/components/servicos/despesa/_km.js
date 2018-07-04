@@ -1,9 +1,8 @@
-Vue.component('desp-km', {
-  name: 'desp-km',
-  template: '#desp-km',
+Vue.component('km-desp', {
+  name: 'km-desp',
+  template: '#km-desp',
   props: {
     data: Object,
-    dialog: Boolean
   },
   data() {
     return {
@@ -15,6 +14,7 @@ Vue.component('desp-km', {
       tipo: 'km',
       kmInicio:'', kmFinal:'', valor: '',
       isLoading: false,
+      dialog: false
     };
   },
   watch: {

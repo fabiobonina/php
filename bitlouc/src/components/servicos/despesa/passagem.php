@@ -7,6 +7,7 @@
         </v-card-title>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage"></message>
+          <loader :dialog="isLoading"></loader>
           <v-container grid-list-md>
             <label class="label">Status</label>
             <v-layout row wrap align-center>
@@ -115,16 +116,9 @@
           <small>*indica campo obrigatório</small>
         </v-card-text>
         <v-card-actions>
-          <template v-if="isLoading">
-              <v-spacer></v-spacer>
-              <v-progress-circular :size="40" :width="5" indeterminate color="primary"></v-progress-circular>
-              <v-spacer></v-spacer>
-          </template>
-          <template v-else>
-            <v-btn flat @click.stop="$emit('close')">Fechar</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click.stop="saveItem()">Salvar</v-btn>
-          </template>
+          <v-btn flat @click.stop="$emit('close')">Fechar</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" flat @click.stop="saveItem()">Salvar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
