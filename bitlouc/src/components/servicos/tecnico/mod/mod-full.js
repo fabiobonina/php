@@ -9,8 +9,7 @@ Vue.component('mod-full', {
     return {
       errorMessage: [],
       successMessage: [],
-      tecnico: null,
-      tecnicos: null,
+      tecnicos: this.data.tecnicos,
       status: null,
       atendimentoStatus: [
         {id: 1, name: 'Pausar Atendimento', status: '4'},
@@ -30,8 +29,9 @@ Vue.component('mod-full', {
       hhValor:  '',
       valor:    '',
       isLoading: false,
-      e1: '1',
-      dialog2: false
+      e1: '0',
+      dialog2: false,
+      dialogInicial: true
     };
   },
   watch: {
@@ -60,39 +60,26 @@ Vue.component('mod-full', {
     }
   },
   methods: {
-    saveItem: function(){
-      //this.errorMessage = []
-      if(this.checkForm() && this.validarKm() && this.validarDate() ){
-        this.isLoading = true
-        if( this.trajInicio ){
-          this.kmInicio  = '0';
-          this.kmFinal   = '0';
-        }
-        if( this.trajFinal ){
-          this.kmInicio  = '0';
-          this.kmFinal   = '0';
-          this.valor     = '0';
-        }
+    saveItem: function()  {
+      this.errorMessage = []
+      this.isLoading = true
+      if(!this.trajeto){
+        this.dtInicio = this.dtServInicio;
+      };
         var postData = {
-          osId:     this.$route.params._os,
-          tecId:    this.data.tecnico,
-          trajeto:  this.trajeto,
-          status:   this.status,
-          dtInicio: this.dtInicio,
-          dtFinal:  this.dtFinal,
-          kmInicio: this.kmInicio,
-          kmFinal:  this.kmFinal,
-          tempo:    this.tempo,
-          hhValor:  this.hhValor,
-          valor:    this.valor
+          osId:         this.data.id,
+          tecnicos:     this.tecnicos,
+          trajeto:      this.trajeto,
+          status:       this.status,
+          dtInicio:     this.dtInicio,
+          dtServInicio: this.dtServInicio,
+          dtServFinal:  this.dtServFinal,
+          dtFinal:      this.dtFinal,
         };
-        //console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=modAdd', postData).then(function(response) {
-          //console.log(response);
-          if(response.data.error){
-            this.errorMessage.push(response.data.message);
-            this.isLoading = false;
-          } else{
+        console.log(postData);
+        /*this.$http.post('./config/api/apiDespesa.php?action=desloc', postData).then(function(response) {
+          console.log(response);
+          if(response.data.success){
             this.successMessage.push(response.data.message);
             this.isLoading = false;
             this.$store.dispatch("fetchOs").then(() => {
@@ -101,20 +88,42 @@ Vue.component('mod-full', {
             setTimeout(() => {
               this.$emit('close');
             }, 2000);  
+
+          } else{
+            this.errorMessage.push(response.data.message);
+            this.isLoading = false;
+            console.log(response);
           }
         })
         .catch(function(error) {
           console.log(error);
-        });
+        });*/
+    },
+    atendimento(starus) {
+      if(starus == '1'){
+        this.trajeto  = true;
+        this.trajetoI();
+      }else if(starus == '2') {
+        this.trajeto  = false;
+        this.servicoI()
+      } else {
+        
       }
     },
-    trajetoI() {
-      this.trajeto = true;
-      this.e1= '2';
+    trajetoI(){
+      this.dtInicio = this.dataT();
+      this.e1       = '1';
+      this.inicio();
     },
-    servico() {
-      this.trajeto = false;
-      this.e1= '3';
+    servicoI() {
+      this.dtServInicio = this.dataT();
+      this.e1           = '2';
+      this.inicio();
+    },
+    inicio() {
+      if(this.e1 > '0'){
+        this.dialogInicial = false
+      }
     },
     validarKm() {
       this.errorMessage = [];
@@ -145,18 +154,6 @@ Vue.component('mod-full', {
       if(!this.errorMessage.length) return true;
       e.preventDefault();
     },
-    validarKm() {
-      this.errorMessage = [];
-      if( Number(this.kmFinal) < Number(this.kmInicio) ){
-        this.errorMessage.push("Km Inicio não pode ser maior que Km Final!");
-        return false;
-      }else if( this.trajeto.categoria == '0' ){
-        this.valor = (( Number(this.kmFinal) - Number(this.kmInicio) )* this.trajeto.valor).toFixed(2);
-        return true;
-      }else{
-        return true;
-      }
-    },
     validarDate() {
       this.errorMessage = [];
       var data1 = new Date( this.dtInicio );
@@ -181,10 +178,7 @@ Vue.component('mod-full', {
       var date = res[0].split("/");
       var time = res[1].slice(0, -3);
       var dtTime = date[2] + "-" + date[1] + "-" + date[0] + "T" + time;
-      this.dtInicio = dtTime;
-      this.dtServInicio = dtTime;
-      this.dtServFinal = dtTime;
-      this.dtFinal = dtTime;
+      return dtTime;
     },
     errorLimpar(){
       setTimeout(() => {

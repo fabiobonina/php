@@ -3,7 +3,7 @@ header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
 require_once '_chave.php';
-require_once '../function/osFunction.php';
+require_once '../function/osFunctionFull.php';
 
 $osFunction = new OsFunction();
 function __autoload($class_name){
@@ -24,7 +24,7 @@ $notas        = new Nota();
 
 
 //$res['outros'] = array();
-$res            = array('error' => true);
+$res            = array('success' => false);
 $res['message'] = array();
 $arDados        = array();
 $arErros        = array();
@@ -95,7 +95,7 @@ if($action == 'read'):
   #PROPRITARIO-----------------------------------------------------------------------------------------
   $res['osProprietario']= $arProprietario;
   $res['osLojas']= $arLojas;
-  $res['error'] = false;
+  $res['success'] = false;
 
 endif;
 
@@ -143,19 +143,19 @@ if($action == 'osAdd'):
     # Insert
     $osId = $oss->insert();
   
-    if($osId['error']){
-      $res['error'] = $osId['error'];
+    if($osId['success']){
+      $res['success'] = $osId['success'];
       $res['message']= $osId['message'];
     }else{
       $item = $osFunction->insertOsTec( $tecnicos, $osId['id'] , $loja);
       $tecII = $osFunction->osEmail( $osId['id'] );
-      $res['error'] = $item['error'];
+      $res['success'] = $item['success'];
       array_push($arMessage, $osId['message']);
       array_push($arMessage, $item['message']);
       $res['message']= $arMessage;
     }
   }else{
-    $res['error']   = true;
+    $res['success']   = true;
     $res['message'] = 'Já existe OS aberta com esse dados!';
   }
 endif;
@@ -205,11 +205,11 @@ if($action == 'osAmarar'):
   $oss->setStatus($status);
   # Amarar
   if($oss->amarar($id)){
-    $res['error'] = false;
+    $res['success'] = false;
     $res['message']= "OK, dados salvo com sucesso";
   }else{
-    $res['error'] = true; 
-    $res['message'] = "Error, nao foi possivel salvar os dados";      
+    $res['success'] = true; 
+    $res['message'] = "success, nao foi possivel salvar os dados";      
   }
 endif;
 #OS-DELETAR
@@ -219,15 +219,15 @@ if($action == 'osDel'):
   
   if($oss->delete($osId)){
     if($osTecnicos->deleteOs($osId)){
-      $res['error']   = false;
+      $res['success']   = false;
       $res['message'] = 'OK, OS deletada com sucesso';
     }else{
-        $res['error']   = true;
-        $res['message'] = 'Error, tecnico(s) da OS não foi deletado';
+        $res['success']   = true;
+        $res['message'] = 'success, tecnico(s) da OS não foi deletado';
     }
   }else{
-      $res['error']   = true;
-      $res['message'] = 'Error, não foi deletar OS';
+      $res['success']   = true;
+      $res['message'] = 'success, não foi deletar OS';
   }
 endif;
 #NOTA-ADD
@@ -240,11 +240,11 @@ if($action =='osNotaAdd'):
     $notas->setDescricao($descricao);
     # Insert
     if($notas->insert()){
-      $res['error'] = false;
+      $res['success'] = false;
       $res['message']= "OK, dados salvo com sucesso";
     }else{
-      $res['error'] = true; 
-      $res['message'] = "Error, nao foi possivel salvar os dados";      
+      $res['success'] = true; 
+      $res['message'] = "success, nao foi possivel salvar os dados";      
     }
 endif;
 
@@ -257,11 +257,11 @@ if($action =='osNotaEdt'):
     $notas->setDescricao($descricao);
 
     if($notas->update($id)){
-      $res['error'] = false;
+      $res['success'] = false;
       $res['message']= "OK, dados alterado com sucesso";
     }else{
-      $res['error'] = true; 
-      $res['message'] = "Error, nao foi possivel salvar os dados"; 
+      $res['success'] = true; 
+      $res['message'] = "success, nao foi possivel salvar os dados"; 
     }
   
 endif;
@@ -279,11 +279,11 @@ if($action == 'osConcluir'):
   $oss->setDtConcluido($dtConcluido);
   
   if($oss->concluir($osId)){
-      $res['error']   = false;
+      $res['success']   = false;
       $res['message'] = 'OK, OS concluida com sucesso';
   }else{
-      $res['error']   = true;
-      $res['message'] = 'Error, não foi possivel concluir a OS';
+      $res['success']   = true;
+      $res['message'] = 'success, não foi possivel concluir a OS';
   }
   
 endif;
@@ -297,11 +297,11 @@ if($action == 'osReabrir'):
   $oss->setStatus($status);
   
   if($oss->reabrir($osId)){
-    $res['error']   = false;
+    $res['success']   = false;
     $res['message'] = 'OK, OS foi reaberta';
   }else{
-    $res['error']   = true;
-    $res['message'] = 'Error, não foi possivel rabrir a OS';
+    $res['success']   = true;
+    $res['message'] = 'success, não foi possivel rabrir a OS';
   }
   
 endif;
@@ -318,14 +318,15 @@ if($action == 'osFechar'):
   $oss->setDtFech($dtFech);
   
   if($oss->fechar($osId)){
-    $res['error']   = false;
+    $res['success']   = false;
     $res['message'] = 'OK, OS fechada com sucesso';
   }else{
-    $res['error']   = true;
-    $res['message'] = 'Error, não foi possivel fechar a OS';
+    $res['success']   = true;
+    $res['message'] = 'success, não foi possivel fechar a OS';
   }
   
 endif;
+
 if($action == 'osValidar'):
   
   $osId     = $_POST['os'];
@@ -334,11 +335,11 @@ if($action == 'osValidar'):
   $oss->setStatus($status);
   
   if($oss->avalidar($osId)){
-    $res['error']   = false;
+    $res['success']   = false;
     $res['message'] = 'OK, OS aprovada com sucesso';
   }else{
-    $res['error']   = true;
-    $res['message'] = 'Error, não foi possivel validar a OS';
+    $res['success']   = true;
+    $res['message'] = 'success, não foi possivel validar a OS';
   }
   
 endif;
@@ -346,23 +347,15 @@ endif;
 if($action == 'desloc'):
   #Novo
   $osId     = $_POST['os'];
-  $tecnico  = $_POST['tecnico'];
   $tecnicos = $_POST['tecnicos'];
-  $trajeto  = $_POST['trajeto'];
   $status   = $_POST['status'];
   $date     = $_POST['date'];
-  $km       = $_POST['km'];
   $valor    = $_POST['valor'];
   
-  #tecnicoI----------------------------------------------------------------------------------------------------------------------------
-  $tecNivel = '0';
-  $tecI = $osFunction->insertTecMod( $osId, $tecnico['tecnico'], $tecnico['userNick'], $tecnico['hh'], $status['id'], $status['processo'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
-  
-  $res['error']     = $tecI['error'];
+  $res['success']     = $tecI['success'];
   array_push($arMessage, $tecI['message']);
-  if( !$res['error'] ){
+  if( !$res['success'] ){
     #tecnicos----------------------------------------------------------------------------------------------------------------------------
-
     if( $tecnicos != '' ){
       foreach ( $tecnicos as $tec){
         
@@ -371,7 +364,7 @@ if($action == 'desloc'):
           $tecNivel = '1';
           $tecII = $osFunction->insertTecMod( $osId, $tec['tecnico'], $tec['userNick'], $tec['hh'], $status['id'], $status['processo'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
           #desloc aberto
-          $res['error']   = $tecII['error'];
+          $res['success']   = $tecII['success'];
           array_push($arMessage, $tecII['message'] );
         }
       }
@@ -400,9 +393,9 @@ if($action == 'modAdd'):
   
   #Valida se periodo da data, foi usado pelo tecnico 
   $validacaoI = $osFunction->validarTrajetoMod( $tecId, $dtInicio, $dtFinal, $modId );
-  $res['error'] = $validacaoI['error'];
+  $res['success'] = $validacaoI['success'];
   $res['outros'] = $validacaoI;
-  if( !$res['error'] ){
+  if( !$res['success'] ){
     #tecnicoI----------------------------------------------------------------------------------------------------------------------------
     $mods->setOs($osId);
     $mods->setTecnico($tecId);
@@ -418,12 +411,12 @@ if($action == 'modAdd'):
     $mods->setAtivo('1');
     $item = $mods->insert();
     
-    $res['error']     = $item['error'];
+    $res['success']     = $item['success'];
     array_push($arMessage, $item['message']);
 
-    if( !$res['error'] ){
+    if( !$res['success'] ){
       $itemII = $oss->upProcesso($osId, $status['processo'] );
-      $res['error']     = $itemII['error'];
+      $res['success']     = $itemII['success'];
       array_push($arMessage, $itemII['message']); 
     }
   }else{
@@ -451,9 +444,9 @@ if($action == 'modEdt'):
   
   #Valida se periodo da data, foi usado pelo tecnico 
   $validacaoI = $osFunction->validarTrajetoMod( $tecId, $dtInicio, $dtFinal, $modId );
-  $res['error'] = $validacaoI['error'];
+  $res['success'] = $validacaoI['success'];
   $res['outros'] = $validacaoI;
-  if( !$res['error'] ){
+  if( !$res['success'] ){
     #tecnicoI----------------------------------------------------------------------------------------------------------------------------
     $mods->setTrajeto($trajeto['id']);
     $mods->setStatus($status['id']);
@@ -467,12 +460,12 @@ if($action == 'modEdt'):
     $mods->setAtivo('1');
     $item = $mods->update( $modId );
 
-    $res['error']   = $item['error'];
+    $res['success']   = $item['success'];
     $res['message'] = $item['message'];
 
-    if( !$res['error'] ){
+    if( !$res['success'] ){
       $itemII = $oss->upProcesso($osId, $status['processo'] );
-      $res['error']     = $itemII['error'];
+      $res['success']     = $itemII['success'];
       array_push($arMessage, $itemII['message']); 
     }
   }else{
@@ -488,11 +481,11 @@ if($action == 'modDel'):
   $modId    = $_POST['id'];
   
   if($mods->delete($modId)){
-    $res['error'] = false;
+    $res['success'] = false;
     $res['message']= 'OK, Trajeto deletado!';
   }else{
-    $res['error'] = true;
-    $res['message'] = "Error, nao foi possivel deletar os Trajeto"; 
+    $res['success'] = true;
+    $res['message'] = "success, nao foi possivel deletar os Trajeto"; 
   }
 
 endif;
@@ -516,9 +509,9 @@ if($action == 'modFull'):
   
   #Valida se periodo da data, foi usado pelo tecnico 
   $validacaoI = $osFunction->validarTrajetoMod( $tecId, $dtInicio, $dtFinal, $modId );
-  $res['error'] = $validacaoI['error'];
+  $res['success'] = $validacaoI['success'];
   $res['outros'] = $validacaoI;
-  if( !$res['error'] ){
+  if( !$res['success'] ){
     #tecnicoI----------------------------------------------------------------------------------------------------------------------------
     $mods->setOs($osId);
     $mods->setTecnico($tecId);
@@ -534,12 +527,12 @@ if($action == 'modFull'):
     $mods->setAtivo('1');
     $item = $mods->insert();
     
-    $res['error']     = $item['error'];
+    $res['success']     = $item['success'];
     array_push($arMessage, $item['message']);
 
-    if( !$res['error'] ){
+    if( !$res['success'] ){
       $itemII = $oss->upProcesso($osId, $status['processo'] );
-      $res['error']     = $itemII['error'];
+      $res['success']     = $itemII['success'];
       array_push($arMessage, $itemII['message']); 
     }
   }else{

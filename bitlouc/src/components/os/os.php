@@ -55,7 +55,7 @@
     </template>
     <v-container fluid>
         <div v-if="user.nivel > 1 && user.grupo == 'P'">
-          <v-btn v-if="_os.status <= 1 " v-on:click="modFull = true" dark small color="primary">
+          <v-btn v-if="_os.status <= 1 " v-on:click="modFull = true; selecItem(_os)" dark small color="primary">
             <v-icon dark>mdi-walk</v-icon> Full
           </v-btn>
           <v-btn v-if="_os.status <= 1 " v-on:click="deslocAdd = true" dark small color="primary">
@@ -98,9 +98,9 @@
                       <v-btn  @click="modFull=true; selecItem(tecnico)" color="pink" dark small fab right>
                         <v-icon>add</v-icon>
                       </v-btn>
-                      <v-btn  @click="modAdd=true; selecItem(tecnico)" color="pink" dark small absolute fab right>
+                      <!--v-btn  @click="modAdd=true; selecItem(tecnico)" color="pink" dark small absolute fab right>
                         <v-icon>add</v-icon>
-                      </v-btn>
+                      </v-btn-->
                     </v-toolbar>
                     <v-list two-line>
                       <template v-for="(item, index) in tecnico.mods">

@@ -1,6 +1,6 @@
 <template id="loader">
   <div class="text-xs-center">
-    <v-dialog v-model="dialog"hide-overlay persistent width="300">
+    <v-dialog v-model="dialog" persistent width="300">
       <v-card color="primary" dark>
         <v-card-text> 
           Por favor espere
