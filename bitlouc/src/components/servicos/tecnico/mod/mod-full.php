@@ -68,7 +68,7 @@
                 <template>
                 <v-container grid-list-md>
                 <v-layout wrap>
-                  <v-flex xs12>
+                  <v-flex xs12 sm6 md7>
                     <v-text-field
                       type="datetime-local"
                       v-model="dtInicio"
@@ -80,23 +80,9 @@
                       required
                     ></v-text-field>
                   </v-flex>
-                  <v-flex xs12 text-xs-center>
-                  <v-flex xs12 sm6 md6>
+                  <v-flex xs12 sm6 md2>
+                    <km-desp :data="data"></km-desp>
                   </v-flex>
-                    </v-flex>
-                  </v-layout>
-                  <template>
-                    <v-container fluid grid-list-xl>
-                      <v-layout row justify-center>
-                        <v-flex xs2>
-                          <km-desp :data="data"></km-desp>
-                        </v-flex>
-                        <v-flex xs2>
-                          <km-desp :data="data"></km-desp>
-                        </v-flex>
-                      </v-layout>
-                    </v-container>
-                  </template>
                 </v-layout>
               </v-container>
               <small>*indica campo obrigatório</small>
@@ -116,91 +102,91 @@
 
           <v-stepper-content step="3">
             <v-card class="mb-5" color="grey lighten-1" max-width="500px">
-              <v-card-title align-center>
+              <v-card-title>
                 <v-layout align-center>
                   <v-flex xs12 text-xs-center>
-                  <span class="headline">Trajeto</span>
+                  <span class="headline">Inicio do Serviço</span>
                   </v-flex>
                 </v-layout>
               </v-card-title>
               <v-card-text align-center>
                 <template>
                 <v-container grid-list-md>
-                <label class="label">Tipo Trajeto</label>
-                <v-layout row wrap align-center >
-                  <v-flex xs12 sm4 v-for="item in deslocTrajetos" :key="item.id">
-                    <v-btn block small @click="trajeto = item" :class="trajeto && trajeto.id == item.id ? 'blue white--text' : 'light'">
-                      <span>{{item.name }}</span>
-                    </v-btn>
-                  </v-flex>
-                </v-layout>
                 <v-layout wrap>
-                  <v-flex xs12>
+                  <v-flex xs12 sm6 md7>
                     <v-text-field
                       type="datetime-local"
                       v-model="dtServInicio"
-                      label="Data Inicio"
-                      :error-messages="errors.collect('dtInicio')"
+                      label="Inicio do Serviço"
+                      :error-messages="errors.collect('dtServInicio')"
                       v-validate="'required'"
-                      data-vv-name="dtInicio"
+                      data-vv-name="dtServInicio"
                       item-text="name"
                       required
                     ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md2>
+                    <km-desp :data="data"></km-desp>
                   </v-flex>
                 </v-layout>
               </v-container>
               <small>*indica campo obrigatório</small>
                 </template>
-              </v-card-text>
+              </v-card-text>            
             </v-card>
-
-            <v-btn color="primary" @click="e1 = 4" >Continue</v-btn>
-
-            <v-btn flat>Cancel</v-btn>
+            <template>
+              <v-container grid-list-xl text-xs-center>
+                <v-layout row wrap>
+                  <v-flex xs12 >
+                    <v-btn color="primary" @click="e1 = 4" right> Continue </v-btn>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </template>
           </v-stepper-content>
           <v-stepper-content step="4">
             <v-card class="mb-5" color="grey lighten-1" max-width="500px">
-              <v-card-title align-center>
+              <v-card-title>
                 <v-layout align-center>
                   <v-flex xs12 text-xs-center>
-                  <span class="headline">Trajeto</span>
+                  <span class="headline">Final do Serviço</span>
                   </v-flex>
                 </v-layout>
               </v-card-title>
               <v-card-text align-center>
                 <template>
                 <v-container grid-list-md>
-                <label class="label">Tipo Trajeto</label>
-                <v-layout row wrap align-center >
-                  <v-flex xs12 sm4 v-for="item in deslocTrajetos" :key="item.id">
-                    <v-btn block small @click="trajeto = item" :class="trajeto && trajeto.id == item.id ? 'blue white--text' : 'light'">
-                      <span>{{item.name }}</span>
-                    </v-btn>
-                  </v-flex>
-                </v-layout>
                 <v-layout wrap>
-                  <v-flex xs12>
+                  <v-flex xs12 sm6 md7>
                     <v-text-field
                       type="datetime-local"
-                      v-model="dtServInicio"
-                      label="Data Inicio"
-                      :error-messages="errors.collect('dtInicio')"
+                      v-model="dtServFinal"
+                      label="Final do Serviço"
+                      :error-messages="errors.collect('dtServFinal')"
                       v-validate="'required'"
-                      data-vv-name="dtInicio"
+                      data-vv-name="dtServFinal"
                       item-text="name"
                       required
                     ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md2>
+                    <km-desp :data="data"></km-desp>
                   </v-flex>
                 </v-layout>
               </v-container>
               <small>*indica campo obrigatório</small>
                 </template>
-              </v-card-text>
+              </v-card-text>            
             </v-card>
-
-            <v-btn color="primary" @click="e1 = 5" >Continue</v-btn>
-
-            <v-btn flat>Cancel</v-btn>
+            <template>
+              <v-container grid-list-xl text-xs-center>
+                <v-layout row wrap>
+                  <v-flex xs12 >
+                    <v-btn color="primary" @click="e1 = 5" right> Continue </v-btn>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </template>
           </v-stepper-content>
           <v-stepper-content step="5">
             <v-card class="mb-5" color="grey lighten-1" max-width="500px">

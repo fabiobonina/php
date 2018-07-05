@@ -18,19 +18,19 @@ Vue.component('km-desp', {
     };
   },
   watch: {
-    'data.kmFinal': function (newQuestion, oldQuestion) {
+    'kmFinal': function (newQuestion, oldQuestion) {
       setTimeout(() => {
         this.validarKm()
       }, 700);
     },
-    'data.kmInicio': function (newQuestion, oldQuestion) {
+    'kmInicio': function (newQuestion, oldQuestion) {
       setTimeout(() => {
         this.validarKm()
       }, 700);
     },
   },
   created: function() {
-    this.dataAjuste();
+    //this.dataAjuste();
   },
   mounted: function() {
     //this.dataAjuste();
@@ -51,7 +51,7 @@ Vue.component('km-desp', {
   methods: {
     saveItem: function(){
       //this.errorMessage = []
-      if(this.checkForm() && this.validarKm() && this.validarDate() ){
+      if(this.checkForm() && this.validarKm() ){
         this.isLoading = true
         if( this.data.trajeto.categoria == '1'){
           this.data.kmInicio  = '0';
@@ -64,12 +64,12 @@ Vue.component('km-desp', {
         var postData = {
           osId:     this.data.os,
           trajeto:  this.tipo,
-          kmInicio: this.data.kmInicio,
-          kmFinal:  this.data.kmFinal,
-          valor:    this.data.valor
+          kmInicio: this.kmInicio,
+          kmFinal:  this.kmFinal,
+          valor:    this.valor
         };
         console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=modEdt', postData).then(function(response) {
+        this.$http.post('./config/api/apiOs.php?action=km', postData).then(function(response) {
           //console.log(response);
           if(response.data.error){
             this.errorMessage.push(response.data.message);
@@ -92,18 +92,10 @@ Vue.component('km-desp', {
     },
     checkForm:function(e) {
       this.errorMessage = [];
-      if(!this.data.status) this.errorMessage.push("Status necessário.");
-      if(!this.data.dtInicio) this.errorMessage.push("Data Inicial necessário.");
-      if(!this.data.dtFinal) this.errorMessage.push("Data Final necessário.");
-      if(!this.data.trajeto) this.errorMessage.push("Trajeto necessário.");
-      if(this.data.trajeto.categoria == '0'){
-        if( !this.data.kmInicio )this.errorMessage.push("Para o Trajeto escolhido o Km Inicial é necessário.");
-        if( !this.data.kmFinal )this.errorMessage.push("Para o Trajeto escolhido o Km Final é necessário.");
-      }else if ( this.data.trajeto.categoria == '1' ) {
-        if( !this.data.valor )this.errorMessage.push("Para o Trajeto escolhido o Valor é necessário.");
-      }
-      this.validarKm();
-      this.validarDate();
+      if( !this.data.kmInicio )this.errorMessage.push("Km Inicial é necessário.");
+      
+      //this.validarKm();
+      //this.validarDate();
       if(!this.errorMessage.length) return true;
       e.preventDefault();
     },

@@ -12,6 +12,11 @@ Vue.component('mod-full', {
       tecnico: null,
       tecnicos: null,
       status: null,
+      atendimentoStatus: [
+        {id: 1, name: 'Pausar Atendimento', status: '4'},
+        {id: 2, name: 'Iniciar Retorno', status: '5'},
+        {id: 3, name: 'Concluir Atendimento', status: '6'},
+      ],
       trajeto: null,
       trajInicio: null,
       trajFinal: null,

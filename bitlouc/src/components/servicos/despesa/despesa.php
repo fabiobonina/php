@@ -124,4 +124,4 @@
     </v-dialog>
   </div>
 </template>
-<script src="src/components/servicos/despesa/desp-km.js"></script>
+<script src="src/components/servicos/despesa/despesa.js"></script>
