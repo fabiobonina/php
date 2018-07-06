@@ -375,19 +375,17 @@ endif;
 #MOD-ADD----------------------------------------------------------------------
 if($action == 'modAdd'):
   #Novo
-  $osId     = $_POST['osId'];
-  $tecId    = $_POST['tecId'];
-  //$tecnicos = $_POST['tecnicos'];
-  $trajeto  = $_POST['trajeto'];
-  $status   = $_POST['status'];
-  $dtInicio = $_POST['dtInicio'];
-  $dtFinal  = $_POST['dtFinal'];
-  $kmInicio = $_POST['kmInicio'];
-  $kmFinal  = $_POST['kmFinal'];
-  $valor    = $_POST['valor'];
-  $tempo    = $_POST['tempo'];
-  $hhValor  = $_POST['hhValor'];
-  $modId = '';
+  $osId         = $_POST['osId'];
+  $tecnicos     = $_POST['tecnicos'];
+  $status       = $_POST['status'];
+  $dtInicio     = $_POST['dtInicio'];
+  $dtFinal      = $_POST['dtFinal'];
+  $dtServInicio = $_POST['dtServInicio'];
+  $dtServFinal  = $_POST['dtServFinal'];
+  $tempo        = $_POST['tempo'];
+  $tempoServ    = $_POST['tempoServ'];
+  $hhValor      = $_POST['hhValor'];
+  $modId        = '';
   
   #Valida se periodo da data, foi usado pelo tecnico 
   $validacaoI = $osFunction->validarTrajetoMod( $tecId, $dtInicio, $dtFinal, $modId );
@@ -401,11 +399,11 @@ if($action == 'modAdd'):
     $mods->setStatus($status['id']);
     $mods->setDtInicio($dtInicio);
     $mods->setDtFinal($dtFinal);
-    $mods->setKmInicio($kmInicio);
-    $mods->setKmFinal($kmFinal);
+    $mods->setDtServInicio($dtServInicio);
+    $mods->setDtServFinal($dtServFinal);
     $mods->setTempo($tempo);
+    $mods->setTempoServ($tempoServ);
     $mods->setHhValor($hhValor);
-    $mods->setValor($valor);
     $mods->setAtivo('1');
     $item = $mods->insert();
     

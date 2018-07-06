@@ -24,11 +24,11 @@ try {
 		public function setTempo($tempo){
 			$this->tempo = $tempo;
 		}
-		public function setKmInicio($kmInicio){
-			$this->kmInicio = $kmInicio;
+		public function setdtServInicio($dtServInicio){
+			$this->dtServInicio = $dtServInicio;
 		}
-		public function setKmFinal($kmFinal){
-			$this->kmFinal = $kmFinal;
+		public function setdtServFinal($dtServFinal){
+			$this->dtServFinal = $dtServFinal;
 		}
 		public function setHhValor($hhValor){
 			$this->hhValor = $hhValor;
@@ -51,28 +51,28 @@ try {
 
 		public function insert(){
 			try{
-				$sql  = "INSERT INTO $this->table (os, tecnico, dtInicio, dtFinal, tempo, kmInicio, kmFinal, hhValor, valor, trajeto, status, ativo )";
-				$sql .= "VALUES (:os, :tecnico, :dtInicio, :dtFinal, :tempo, :kmInicio, :kmFinal, :hhValor, :valor, :trajeto, :status, :ativo )";
+				$sql  = "INSERT INTO $this->table (os, tecnico, dtInicio, dtFinal, tempo, dtServInicio, dtServFinal, hhValor, valor, trajeto, status, ativo)";
+				$sql .= 				"VALUES (:os, :tecnico, :dtInicio, :dtFinal, :tempo, :dtServInicio, :dtServFinal, :hhValor, :valor, :trajeto, :status, :ativo)";
 				$stmt = DB::prepare($sql);
-				$stmt->bindParam(':os',			$this->os);
-				$stmt->bindParam(':tecnico',	$this->tecnico);
-				$stmt->bindParam(':dtInicio',  	$this->dtInicio);
-				$stmt->bindParam(':dtFinal',  	$this->dtFinal);
-				$stmt->bindParam(':kmInicio', 	$this->kmInicio);
-				$stmt->bindParam(':kmFinal', 	$this->kmFinal);
-				$stmt->bindParam(':tempo',    	$this->tempo);
-				$stmt->bindParam(':hhValor',    $this->hhValor);
-				$stmt->bindParam(':valor',    	$this->valor);
-				$stmt->bindParam(':trajeto',	$this->trajeto);
-				$stmt->bindParam(':status', 	$this->status);
-				$stmt->bindParam(':ativo', 	 	$this->ativo);
+				$stmt->bindParam(':os',				$this->os);
+				$stmt->bindParam(':tecnico',		$this->tecnico);
+				$stmt->bindParam(':dtInicio',  		$this->dtInicio);
+				$stmt->bindParam(':dtFinal',  		$this->dtFinal);
+				$stmt->bindParam(':dtServInicio', 	$this->dtServInicio);
+				$stmt->bindParam(':dtServFinal', 	$this->dtServFinal);
+				$stmt->bindParam(':tempo',    		$this->tempo);
+				$stmt->bindParam(':hhValor',    	$this->hhValor);
+				$stmt->bindParam(':valor',    		$this->valor);
+				$stmt->bindParam(':trajeto',		$this->trajeto);
+				$stmt->bindParam(':status', 		$this->status);
+				$stmt->bindParam(':ativo', 	 		$this->ativo);
 				$stmt->execute();
 
-				$res['error'] = false;
+				$res['success'] = true;
 				$res['message'] = "OK, atividade salva!";
 				return $res;
 			} catch(PDOException $e) {
-				$res['error']	= true;
+				$res['success']	= false;
 				$res['message'] = $e->getMessage();
 				return $res;
 			}
@@ -80,23 +80,21 @@ try {
 		}
 		public function insertInicio(){
 			try{
-				$sql  = "INSERT INTO $this->table ( os, tecnico, dtInicio, kmInicio, valor, trajeto, status) ";
-				$sql .= "VALUES ( :os, :tecnico, :dtInicio, :kmInicio, :valor, :trajeto, :status)";
+				$sql  = "INSERT INTO $this->table ( os, tecnico, dtInicio, dtServInicio, status)";
+				$sql .= "VALUES ( :os, :tecnico, :dtInicio, :dtServInicio, :status)";
 				$stmt = DB::prepare($sql);
-				$stmt->bindParam(':os', 	 	$this->os);
-				$stmt->bindParam(':tecnico', 	$this->tecnico);
-				$stmt->bindParam(':dtInicio',  	$this->dtInicio);
-				$stmt->bindParam(':kmInicio', 	$this->kmInicio);
-				$stmt->bindParam(':valor',    	$this->valor);
-				$stmt->bindParam(':trajeto', 	$this->trajeto);
-				$stmt->bindParam(':status', 	$this->status);
+				$stmt->bindParam(':os', 	 		$this->os);
+				$stmt->bindParam(':tecnico', 		$this->tecnico);
+				$stmt->bindParam(':dtInicio',  		$this->dtInicio);
+				$stmt->bindParam(':dtServInicio', 	$this->dtServInicio);
+				$stmt->bindParam(':status', 		$this->status);
 				$stmt->execute();
 				
-				$res['error'] = false;
-				$res['message'] = "OK, deslocamento aberto com sucesso";
+				$res['success'] = true;
+				$res['message'] = "OK, atividade salva";
 				return $res;
 			} catch(PDOException $e) {
-				$res['error']	= true;
+				$res['success']	= false;
 				$res['message'] = $e->getMessage();
 				return $res;
 			}
@@ -104,10 +102,10 @@ try {
 		}
 		public function insertFinal($id){
 			try{
-				$sql  = "UPDATE $this->table SET  dtFinal = :dtFinal, kmFinal = :kmFinal, tempo = :tempo, hhValor = :hhValor, valor = :valor, trajeto = :trajeto, ativo = :ativo WHERE id = :id ";
+				$sql  = "UPDATE $this->table SET  dtFinal = :dtFinal, dtServFinal = :dtServFinal, tempo = :tempo, hhValor = :hhValor, valor = :valor, trajeto = :trajeto, ativo = :ativo WHERE id = :id ";
 				$stmt = DB::prepare($sql);
 				$stmt->bindParam(':dtFinal',  	$this->dtFinal);
-				$stmt->bindParam(':kmFinal', 	$this->kmFinal);
+				$stmt->bindParam(':dtServFinal', 	$this->dtServFinal);
 				$stmt->bindParam(':tempo',    	$this->tempo);
 				$stmt->bindParam(':hhValor',    $this->hhValor);
 				$stmt->bindParam(':valor',    	$this->valor);
@@ -116,11 +114,11 @@ try {
 				$stmt->bindParam(':id', 		$id);
 				$stmt->execute();
 
-				$res['error'] = false;
+				$res['success'] = true;
 				$res['message'] = "OK, deslocamento fechado com sucesso";
 				return $res;
 			} catch(PDOException $e) {
-				$res['error']	= true;
+				$res['success']	= false;
 				$res['message'] = $e->getMessage();
 				return $res;
 			}
@@ -128,12 +126,12 @@ try {
 		}
 		public function update($id){
 			try{
-				$sql  = "UPDATE $this->table SET dtInicio = :dtInicio, dtFinal = :dtFinal, kmInicio = :kmInicio, kmFinal = :kmFinal, tempo = :tempo, hhValor = :hhValor, valor = :valor, trajeto = :trajeto, status = :status, ativo = :ativo WHERE id = :id ";
+				$sql  = "UPDATE $this->table SET dtInicio = :dtInicio, dtFinal = :dtFinal, dtServInicio = :dtServInicio, dtServFinal = :dtServFinal, tempo = :tempo, hhValor = :hhValor, valor = :valor, trajeto = :trajeto, status = :status, ativo = :ativo WHERE id = :id ";
 				$stmt = DB::prepare($sql);
 				$stmt->bindParam(':dtInicio',  	$this->dtInicio);
 				$stmt->bindParam(':dtFinal',  	$this->dtFinal);
-				$stmt->bindParam(':kmInicio', 	$this->kmInicio);
-				$stmt->bindParam(':kmFinal', 	$this->kmFinal);
+				$stmt->bindParam(':dtServInicio', 	$this->dtServInicio);
+				$stmt->bindParam(':dtServFinal', 	$this->dtServFinal);
 				$stmt->bindParam(':tempo',    	$this->tempo);
 				$stmt->bindParam(':hhValor',    $this->hhValor);
 				$stmt->bindParam(':valor',    	$this->valor);
@@ -143,11 +141,11 @@ try {
 				$stmt->bindParam(':id', 		$id);
 				$stmt->execute();
 
-				$res['error'] = false;
+				$res['success'] = true;
 				$res['message'] = "OK, atividade alterado com sucesso";
 				return $res;
 			} catch(PDOException $e) {
-				$res['error']	= true;
+				$res['success']	= false;
 				$res['message'] = $e->getMessage();
 				return $res;
 			}
@@ -179,7 +177,7 @@ try {
 			//$res['message'] = "OK, deslocamento fechado com sucesso";
 			//return $res;
 			} catch(PDOException $e) {
-				//$res['error']	= true;
+				//$res['success']	= false;
 				$res = $e->getMessage();
 				return $res;
 			}
