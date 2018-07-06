@@ -346,31 +346,29 @@ endif;
 #DESLOCAMENTO----------------------------------------------------------------------
 if($action == 'desloc'):
   #Novo
-  $osId     = $_POST['os'];
-  $tecnicos = $_POST['tecnicos'];
-  $status   = $_POST['status'];
-  $date     = $_POST['date'];
-  $valor    = $_POST['valor'];
+  $osId         = $_POST['os'];
+  $tecnicos     = $_POST['tecnicos'];
+  $status       = $_POST['status'];
+  $dtInicio     = $_POST['dtInicio'];
+  $dtServInicio = $_POST['dtServInicio'];
+  $dtServFinal  = $_POST['dtServFinal'];
+  $dtFinal      = $_POST['dtFinal'];
+  $tempo        = $_POST['tempo'];
+  $hhValor      = $_POST['hhValor'];
   
-  $res['success']     = $tecI['success'];
-  array_push($arMessage, $tecI['message']);
-  if( !$res['success'] ){
-    #tecnicos----------------------------------------------------------------------------------------------------------------------------
-    if( $tecnicos != '' ){
-      foreach ( $tecnicos as $tec){
-        
-        $arMods   = array();
-        if( $tec['tecnico'] != $tecnico['tecnico'] ){
-          $tecNivel = '1';
-          $tecII = $osFunction->insertTecMod( $osId, $tec['tecnico'], $tec['userNick'], $tec['hh'], $status['id'], $status['processo'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
-          #desloc aberto
-          $res['success']   = $tecII['success'];
-          array_push($arMessage, $tecII['message'] );
-        }
-      }
-      #tecnicos----------------------------------------------------------------------------------------------------------------------------
+  #tecnicos----------------------------------------------------------------------------------------------------------------------------
+  foreach ( $tecnicos as $tec){
+    
+    $arMods   = array();
+    if( $tec['tecnico'] != $tecnico['tecnico'] ){
+      $tecNivel = '1';
+      $tecII = $osFunction->insertTecMod( $osId, $tec['tecnico'], $tec['userNick'], $tec['hh'], $status['id'], $status['processo'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
+      #desloc aberto
+      $res['success']   = $tecII['success'];
+      array_push($arMessage, $tecII['message'] );
     }
   }
+  #tecnicos----------------------------------------------------------------------------------------------------------------------------
   $res['message'] = $arMessage;
 endif;
 #DESLOCAMENTO----------------------------------------------------------------------
