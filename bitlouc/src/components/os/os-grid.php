@@ -3,27 +3,27 @@
   <v-layout row>
     <v-flex xs12>
       <v-card>
-        <v-toolbar  dense >
+        <v-toolbar  dense>
           <v-text-field v-model="configs.search" append-icon="search" label="Search" solo-inverted class="mx-3" flat></v-text-field>
-            <v-flex xs12 sm1>
-              <v-subheader v-text="'Orden:'"></v-subheader>
-            </v-flex>
-            <v-flex xs12 sm2>
+          <v-flex xs12 sm1>
+            <v-subheader v-text="'Orden:'"></v-subheader>
+          </v-flex>
+          <v-flex xs12 sm2>
             <v-select
-            :items="itens"
-            v-model="configs.orderBy"
-            item-text="name"
-            item-value="state"
-            return-object
-            label="Select"
-            solo
-          ></v-select>
+              :items="itens"
+              v-model="configs.orderBy"
+              item-text="name"
+              item-value="state"
+              return-object
+              label="Select"
+              solo
+            ></v-select>
           </v-flex>
           <v-flex xs12 sm1>
             <v-btn flat icon color="blue"
-            @click.native="configs.order == 'asc'? configs.order = 'desc': configs.order = 'asc'">
-            <v-icon v-if="configs.order == 'asc'" dark>arrow_downward</v-icon>
-            <v-icon v-else dark>arrow_upward</v-icon>
+              @click.native="configs.order == 'asc'? configs.order = 'desc': configs.order = 'asc'">
+              <v-icon v-if="configs.order == 'asc'" dark>arrow_downward</v-icon>
+              <v-icon v-else dark>arrow_upward</v-icon>
             </v-btn>
           </v-flex>
           <v-spacer></v-spacer>

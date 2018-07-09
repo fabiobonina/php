@@ -9,25 +9,21 @@ Vue.component('mod-full', {
     return {
       errorMessage: [],
       successMessage: [],
-      tecnicos: this.data.tecnicos,
-      status: null,
       atendimentoStatus: [
         {id: 1, name: 'Pausar Atendimento', status: '4'},
         {id: 2, name: 'Iniciar Retorno', status: '5'},
         {id: 3, name: 'Concluir Atendimento', status: '6'},
       ],
+      tecnicos: this.data.tecnicos,
       trajeto: null,
       trajInicio: null,
       trajFinal: null,
+      status: null,
       dtInicio: '',
       dtServInicio: '',
       dtServFinal: '',
       dtFinal: '',
-      kmInicio: '',
-      kmFinal:  '',
       tempo:    '',
-      hhValor:  '',
-      valor:    '',
       isLoading: false,
       e1: '0',
       dialog2: false,
@@ -98,11 +94,11 @@ Vue.component('mod-full', {
           console.log(error);
         });*/
     },
-    atendimento(starus) {
-      if(starus == '1'){
+    atendimento(status) {
+      if(status == '1'){
         this.trajeto  = true;
         this.trajetoI();
-      }else if(starus == '2') {
+      }else if(status == '2') {
         this.trajeto  = false;
         this.servicoI()
       } else {
@@ -114,9 +110,19 @@ Vue.component('mod-full', {
       this.e1       = '1';
       this.inicio();
     },
-    servicoI() {
+    servInicio() {
       this.dtServInicio = this.dataT();
       this.e1           = '2';
+      this.inicio();
+    },
+    servFim() {
+      this.dtServFinal = this.dtServInicio;
+      this.e1           = '3';
+      this.inicio();
+    },
+    atenFim(status) {
+      this.dtFinal = this.dtServFim;
+      this.e1           = '4';
       this.inicio();
     },
     inicio() {
@@ -142,14 +148,6 @@ Vue.component('mod-full', {
       if(!this.dtInicio) this.errorMessage.push("Data Inicial necessário.");
       if(!this.dtFinal) this.errorMessage.push("Data Final necessário.");
       if(!this.trajeto) this.errorMessage.push("Trajeto necessário.");
-      if(this.trajeto.categoria == '0'){
-        if( !this.kmInicio )this.errorMessage.push("Para o Trajeto escolhido o Km Inicial é necessário.");
-        if( !this.kmFinal )this.errorMessage.push("Para o Trajeto escolhido o Km Final é necessário.");
-      }else if ( this.trajeto.categoria == '1' ) {
-        if( !this.valor )this.errorMessage.push("Para o Trajeto escolhido o Valor é necessário.");
-      }
-      this.validarKm();
-      this.validarDate();
       if(!this.errorMessage.length) return true;
       e.preventDefault();
     },
@@ -168,6 +166,26 @@ Vue.component('mod-full', {
         this.hhValor = valorHh;
 
         //console.log(valorHh);
+        return true;
+      }
+    },
+    valideDtMenor(dateI, dateII) {
+      this.errorMessage = [];
+      var data1 = new Date( dateI );
+      var data2 = new Date( dateII );
+      if( data2 < data1 ){
+        return false;
+      }else{
+        return true;
+      }
+    },
+    valideDtMaior(dateI, dateII) {
+      this.errorMessage = [];
+      var data1 = new Date( dateI );
+      var data2 = new Date( dateII );
+      if( data2 > data1 ){
+        return false;
+      }else{
         return true;
       }
     },

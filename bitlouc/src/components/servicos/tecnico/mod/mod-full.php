@@ -115,7 +115,7 @@
               <v-container grid-list-xl text-xs-center>
                 <v-layout row wrap>
                   <v-flex xs12 >
-                    <v-btn v-if="dtServInicio == ''" @click="servicoI()" color="primary" right> Continue </v-btn>
+                    <v-btn v-if="dtServInicio == ''" @click="servInicio()" color="primary" right> Continue </v-btn>
                     <v-btn v-else @click="e1 = 2" color="primary" right> Continue </v-btn>
                   </v-flex>
                 </v-layout>
@@ -161,14 +161,14 @@
               <v-container grid-list-xl text-xs-center>
                 <v-layout row wrap>
                   <v-flex xs12 >
-                    <v-btn v-if="dtServFinal == ''" @click="servicoF()" color="primary" right>Continue</v-btn>
+                    <v-btn v-if="dtServFinal == ''" @click="servFim()" color="primary" right>Continue</v-btn>
                     <v-btn v-else @click="e1 = 3" color="primary" right>Continue</v-btn>
                   </v-flex>
                 </v-layout>
               </v-container>
             </template>
           </v-stepper-content>
-          <v-stepper-content step="4">
+          <v-stepper-content step="3">
             <v-card class="mb-5" color="grey lighten-1" max-width="500px">
               <v-card-title>
                 <v-layout align-center>
@@ -206,7 +206,7 @@
               <v-container grid-list-xl text-xs-center>
                 <v-layout row wrap>
                   <v-flex xs12 >
-                    <v-btn color="primary" @click="e1 = 5" right> Continue </v-btn>
+                    <v-btn color="primary" @click="e1 = 4" right> Continue </v-btn>
                   </v-flex>
                 </v-layout>
               </v-container>
