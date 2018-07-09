@@ -30,7 +30,7 @@ class Email {
 		foreach ($para as $user){
 			
 			$mail->AddAddress($user['email'] , $user['userNick']);
-			if($user['email'] == 'jose.alves@gruposabara.com'){
+			if($user['email'] == 'jose.alves@gruposabara.com' || $user['email'] == 'producaope@gruposabara.com' ){
 				$wt = true;
 			}
 

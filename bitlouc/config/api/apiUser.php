@@ -115,11 +115,11 @@ endif;
 #REGISTRAR
 if($action == 'registrar'):
   #Novo Usuario
-  $chave = $_POST['cahve'];
-  $name  = $_POST['name'];
-  $email = $_POST['email'];
-  $user = $_POST['user'];
-  $senha = $_POST['password'];
+  $chave  = $_POST['chave'];
+  $name   = $_POST['name'];
+  $email  = $_POST['email'];
+  $user   = $_POST['user'];
+  $senha  = $_POST['password'];
 
   //$name  = 'Fabio';
   //$email = 'fabiobonina@gmail.com';
@@ -160,6 +160,7 @@ if($action == 'registrar'):
     $usuarios->setNickuser($user);
     $usuarios->setSenha($password);
     $usuarios->setAvatar($avatar);
+    $usuarios->setChave($chave);
     $usuarios->setDataCadastro($datacadastro);
     $usuarios->setDatalogin($datalogin);
     $usuarios->setNivel($nivel);

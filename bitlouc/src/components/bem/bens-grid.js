@@ -14,7 +14,7 @@ Vue.component('bens-grid', {
       modalDel: false,
       modalCat: false,
       modalOs: false,
-      selectedCategoria: 'All',
+      selectedCategoria: '0',
       configs: {
         orderBy: { name: 'Nome', state: 'name' },
         order: 'asc',
@@ -33,19 +33,36 @@ Vue.component('bens-grid', {
     user()  {
       return store.state.user;
     },
-    filteredData: function () {
-      var vm = this;
-      var categoria = vm.selectedCategoria;
-      if(categoria === "All") {
-        return vm.data.filter(function(person) {
-          return person.status === vm.status;
-        });
-      } else {
-        return vm.data.filter(function(person) {
-          return person.categoria === categoria && person.status === vm.status;
+    filteredData() {
+      var status = this.status;
+      var filter = this.configs.search && this.configs.search.toLowerCase();
+      var list = _.orderBy(this.data, this.configs.orderBy.state, this.configs.order);
+      var categoria = this.selectedCategoria;
+      //_.filter(list, repo => repo.status.indexOf(filter) >= 0);
+      if(categoria !== "0") {
+        list = list.filter(function(row) {
+          return Number(row.categoria.id) === Number(categoria);
         });
       }
-    }
+      if(status){
+        list = list.filter(function (row) {
+          return Number(row.status) === Number(status);
+        });
+      }else{
+        list = list.filter(function (row) {
+          return Number(row.status) <= 1;
+        });
+      }
+      
+      if (filter) {
+        list = list.filter(function (row) {
+          return Object.keys(row).some(function (key) {
+            return String(row[key]).toLowerCase().indexOf(filter) > -1
+          })
+        })
+      }
+      return list;
+    },
   },
   filters: {
     capitalize: function (str) {
