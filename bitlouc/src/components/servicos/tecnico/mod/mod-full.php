@@ -159,6 +159,30 @@
                 <template>
                 <v-container grid-list-md>
                 <v-layout wrap>
+                <v-flex xs12 sm6 md7>
+                <v-text-field
+                  type="date"
+                  v-model="dtInicio"
+                  label="Data Inicio"
+                  :error-messages="errors.collect('dtInicio')"
+                  v-validate="'required'"
+                  data-vv-name="dtInicio"
+                  item-text="name"
+                  required
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md5>
+                <v-text-field 
+                  type="number"
+                  v-model="kmInicio"
+                  label="Km Inicio"
+                  :error-messages="errors.collect('kmInicio')"
+                  v-validate="''"
+                  data-vv-name="kmInicio"
+                  item-text="name"
+                  :disabled="trajeto && trajeto.categoria > 0"
+                ></v-text-field>
+              </v-flex>
                   <v-flex xs12 sm6 md7>
                     <v-text-field
                       type="datetime-local"
@@ -184,7 +208,7 @@
               <v-container grid-list-xl text-xs-center>
                 <v-layout row wrap>
                   <v-flex xs12>
-                    <v-btn v-if="dtFinal == ''" @click="atendFim()" color="primary" right>Continue</v-btn>
+                    <v-btn v-if="dtFinal == ''" @click="dialogStatusServFinal = true" color="primary" right>Continue</v-btn>
                     <v-btn v-else @click="e1 = 4" color="primary" right>Continue</v-btn>
                   </v-flex>
                 </v-layout>
@@ -194,9 +218,8 @@
         </v-stepper-items>
         
         <template>
-          <!-- status inical -->
           <div class="text-xs-center">
-            <v-dialog v-model="dialogInicial" hide-overlay persistent width="300">
+            <v-dialog v-model="dialogStatusAtenInicio" hide-overlay persistent width="300">
               <v-card color="primary" dark>
                 <v-card-text>
                   <span class="headline">Iniciar Trajeto ou Servio?</span>
@@ -216,9 +239,28 @@
           </div>
         </template>
         <template>
-          <!-- status inical -->
           <div class="text-xs-center">
-            <v-dialog v-model="dialogFinal" hide-overlay persistent width="300">
+            <v-dialog v-model="dialogStatusServFinal" hide-overlay persistent width="300">
+              <v-card color="primary" dark>
+                <v-card-text>
+                  <span class="headline">Escolhar o Status do Atendimento</span>
+                  <template>
+                    <v-layout align-center>
+                      <v-flex xs12 text-xs-center>
+                        <div v-for="item in statusServFinal" :key="item.id">
+                          <v-btn @click="atendimento(tem.status)" small color="cyan">{{item.name }}</v-btn>
+                        </div>
+                      </v-flex>
+                    </v-layout>
+                  </template>
+                </v-card-text>
+              </v-card>
+            </v-dialog>
+          </div>
+        </template>
+        <template>
+          <div class="text-xs-center">
+            <v-dialog v-model="dialogStatusAtenFinal" hide-overlay persistent width="300">
               <v-card color="primary" dark>
                 <v-card-text>
                   <span class="headline">Escolhar o Status do Atendimento</span>

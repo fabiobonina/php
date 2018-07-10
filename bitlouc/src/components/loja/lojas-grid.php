@@ -4,25 +4,36 @@
     <v-flex xs12>
       <v-card>
         <v-toolbar dense color="blue">
-          <v-text-field v-model="configs.search" append-icon="search" label="Search" solo-inverted class="mx-3" flat></v-text-field>
-            <v-flex xs12 sm1>
-              <v-subheader v-text="'Orden:'"></v-subheader>
-            </v-flex>
-            <v-flex xs12 sm2>
-              <v-select :items="itens" v-model="configs.orderBy" item-text="name" item-value="state" return-object label="Select" solo></v-select>
-            </v-flex>
-          <v-flex xs12 sm1>
-            <v-btn flat icon class="white--text"
-            @click.native="configs.order == 'asc'? configs.order = 'desc': configs.order = 'asc'">
-            <v-icon v-if="configs.order == 'asc'"  dark>arrow_downward</v-icon>
-            <v-icon v-else dark>arrow_upward</v-icon>
-            </v-btn>
-          </v-flex>
+          <v-toolbar-title class="white--text">lojas</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="modalAdd=true" color="pink" dark small absolute fab right>
             <v-icon>add</v-icon>
           </v-btn>
         </v-toolbar>
+        <v-layout wrap>
+          <v-text-field v-model="configs.search" append-icon="search" label="Search" solo-inverted class="mx-3" flat></v-text-field>
+          <v-flex xs3 sm6 md1>
+            <v-subheader v-text="'Orden:'"></v-subheader>
+          </v-flex>
+          <v-flex xs5 sm6 md2>
+            <v-select
+              :items="itens"
+              v-model="configs.orderBy"
+              item-text="name"
+              item-value="state"
+              return-object
+              label="Select"
+              solo
+            ></v-select>
+          </v-flex>
+          <v-flex xs1 sm2 md1>
+            <v-btn flat icon color="blue"
+              @click.native="configs.order == 'asc'? configs.order = 'desc': configs.order = 'asc'">
+              <v-icon v-if="configs.order == 'asc'" dark>arrow_downward</v-icon>
+              <v-icon v-else dark>arrow_upward</v-icon>
+            </v-btn>
+          </v-flex>
+        </v-layout>
         <v-list two-line>
           <template v-for="(item, index) in filteredData" >
             <v-list-tile :key="item.name" @click="" append activator slot>

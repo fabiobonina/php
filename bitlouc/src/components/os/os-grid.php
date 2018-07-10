@@ -3,12 +3,16 @@
   <v-layout row>
     <v-flex xs12>
       <v-card>
-        <v-toolbar  dense>
+        <v-toolbar  dense color="blue">
+          <v-toolbar-title class="white--text">oss</v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+        <v-layout wrap>
           <v-text-field v-model="configs.search" append-icon="search" label="Search" solo-inverted class="mx-3" flat></v-text-field>
-          <v-flex xs12 sm1>
+          <v-flex xs3 sm6 md1>
             <v-subheader v-text="'Orden:'"></v-subheader>
           </v-flex>
-          <v-flex xs12 sm2>
+          <v-flex xs5 sm6 md2>
             <v-select
               :items="itens"
               v-model="configs.orderBy"
@@ -19,15 +23,14 @@
               solo
             ></v-select>
           </v-flex>
-          <v-flex xs12 sm1>
+          <v-flex xs1 sm2 md1>
             <v-btn flat icon color="blue"
               @click.native="configs.order == 'asc'? configs.order = 'desc': configs.order = 'asc'">
               <v-icon v-if="configs.order == 'asc'" dark>arrow_downward</v-icon>
               <v-icon v-else dark>arrow_upward</v-icon>
             </v-btn>
           </v-flex>
-          <v-spacer></v-spacer>
-        </v-toolbar>
+        </v-layout>
         <v-list two-line>
           <template v-for="(item, index) in filteredData">
           <v-card>

@@ -9,7 +9,7 @@
         <v-flex xs12>
           <v-card>
             <v-toolbar dense color="blue">
-              <v-toolbar-title class="white--text">Bens</v-toolbar-title>
+              <v-toolbar-title class="white--text">bens</v-toolbar-title>
               <v-spacer></v-spacer>
               <v-btn @click="modalOs = true" color="deep-orange" dark small fab right>
                 <v-icon>build</v-icon>
@@ -41,7 +41,7 @@
                   <v-icon v-else dark>arrow_upward</v-icon>
                 </v-btn>
               </v-flex>
-              </v-layout>
+            </v-layout>
             <v-list two-line>
             
               <template v-for="(item, index) in filteredData">

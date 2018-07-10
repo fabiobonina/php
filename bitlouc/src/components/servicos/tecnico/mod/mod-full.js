@@ -9,26 +9,45 @@ Vue.component('mod-full', {
     return {
       errorMessage: [],
       successMessage: [],
-      atendimentoStatus: [
-        {id: 1, name: 'Pausar Atendimento', status: '4'},
-        {id: 2, name: 'Iniciar Retorno', status: '5'},
+      statusAtenInicio: [
+        {id: 1, name: 'Trajeto', status: '1'},
+        {id: 2, name: 'Serviço', status: '2'},
+      ],
+      statusServFinal: [
+        {id: 1, name: 'Iniciar Retorno', status: '4'},
+        {id: 2, name: 'Pausar Atendimento', status: '5'},
         {id: 3, name: 'Concluir Atendimento', status: '6'},
       ],
-      tecnicos: this.data.tecnicos,
-      trajeto: null,
-      trajInicio: null,
-      trajFinal: null,
-      status: null,
-      dtInicio: '',
+      statusAtenFinal: [
+        {id: 2, name: 'Pausar Atendimento', status: '5'},
+        {id: 3, name: 'Concluir Atendimento', status: '6'},
+      ],
+      dialogStatusAtenInicio: true,
+      dialogStatusServFinal: false,
+      dialogStatusAtenFinal: false,
+      isLoading:  false,
+      trajeto:    null,
+      e1:         '0',
+
+      dateInicio:     '',
+      horaInicio:     '',
+      dateFinal:      '',
+      horaFinal:      '',
+      dateServInicio: '',
+      horaServInicio: '',
+      dateServFinal:  '',
+      horaServFinal:  '',
+      
+      tecnicos:     this.data.tecnicos,
+      status:       null,
+      dtInicio:     '',
+      dtFinal:      '',
       dtServInicio: '',
-      dtServFinal: '',
-      dtFinal: '',
-      tempo:    '',
-      isLoading: false,
-      e1: '0',
-      dialog2: false,
-      dialogInicial: true,
-      dialogFinal: false,
+      dtServFinal:  '',
+
+      trajInicio: null,
+      trajFinal:  null,
+      
     };
   },
   watch: {
@@ -66,7 +85,6 @@ Vue.component('mod-full', {
         var postData = {
           osId:         this.data.id,
           tecnicos:     this.tecnicos,
-          trajeto:      this.trajeto,
           status:       this.status,
           dtInicio:     this.dtInicio,
           dtServInicio: this.dtServInicio,
@@ -101,10 +119,18 @@ Vue.component('mod-full', {
         this.trajetoI();
       }else if(status == '2') {
         this.trajeto  = false;
-        this.servicoI()
-      } else {
-        
+        this.servInicio();
+      }else if(status == '3') {
+        this.dialogStatusServFinal  = true;
+        this.servInicio();
+      }else if(status == '4') {
+        this.dialogStatusServFinal  = false;
+        this.servInicio();
+      }else if(status == '5') {
+        this.trajeto  = false;
+        this.servInicio();
       }
+
     },
     trajetoI(){
       this.dtInicio = this.dataT();
@@ -121,14 +147,13 @@ Vue.component('mod-full', {
       this.e1           = '3';
       this.inicio();
     },
-    atendFim(status) {
+    statusAtendFim() {
       this.dtFinal = this.dtServFim;
-      this.e1           = '4';
-      this.inicio();
+      this.e1      = ''
     },
     inicio() {
       if(this.e1 > '0'){
-        this.dialogInicial = false
+        this.dialogStatusAtenInicio = false
       }
     },
     validarKm() {
