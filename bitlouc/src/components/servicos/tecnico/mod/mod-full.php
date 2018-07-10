@@ -26,28 +26,6 @@
         <message v-if="temMessage" :success="successMessage" :error="errorMessage"></message>
         <loader :dialog="isLoading"></loader>
         <template>
-          <!-- status inical -->
-          <div class="text-xs-center">
-            <v-dialog v-model="dialogInicial" hide-overlay persistent width="300">
-              <v-card color="primary" dark>
-                <v-card-text>
-                  <span class="headline">Iniciar Trajeto ou Servio?</span>
-                  <template>
-                    <v-layout align-center>
-                      <v-flex xs12 text-xs-center>
-                        <div>
-                          <v-btn @click="atendimento('1')" small color="cyan">Trajeto!</v-btn>
-                          <v-btn @click="atendimento('2')" small color="success">Serviço!</v-btn>
-                        </div>
-                      </v-flex>
-                    </v-layout>
-                  </template>
-                </v-card-text>
-              </v-card>
-            </v-dialog>
-          </div>
-        </template>
-        <template>
           <!-- tecnicos -->
           <v-autocomplete multiple chips return-object max-height="auto"
             :items="data.tecnicos" v-model="tecnicos" label="Tecnicos" item-text="userNick"
@@ -205,14 +183,59 @@
             <template>
               <v-container grid-list-xl text-xs-center>
                 <v-layout row wrap>
-                  <v-flex xs12 >
-                    <v-btn color="primary" @click="e1 = 4" right> Continue </v-btn>
+                  <v-flex xs12>
+                    <v-btn v-if="dtFinal == ''" @click="atendFim()" color="primary" right>Continue</v-btn>
+                    <v-btn v-else @click="e1 = 4" color="primary" right>Continue</v-btn>
                   </v-flex>
                 </v-layout>
               </v-container>
             </template>
           </v-stepper-content>
         </v-stepper-items>
+        
+        <template>
+          <!-- status inical -->
+          <div class="text-xs-center">
+            <v-dialog v-model="dialogInicial" hide-overlay persistent width="300">
+              <v-card color="primary" dark>
+                <v-card-text>
+                  <span class="headline">Iniciar Trajeto ou Servio?</span>
+                  <template>
+                    <v-layout align-center>
+                      <v-flex xs12 text-xs-center>
+                        <div>
+                          <v-btn @click="atendimento('1')" small color="cyan">Trajeto!</v-btn>
+                          <v-btn @click="atendimento('2')" small color="success">Serviço!</v-btn>
+                        </div>
+                      </v-flex>
+                    </v-layout>
+                  </template>
+                </v-card-text>
+              </v-card>
+            </v-dialog>
+          </div>
+        </template>
+        <template>
+          <!-- status inical -->
+          <div class="text-xs-center">
+            <v-dialog v-model="dialogFinal" hide-overlay persistent width="300">
+              <v-card color="primary" dark>
+                <v-card-text>
+                  <span class="headline">Escolhar o Status do Atendimento</span>
+                  <template>
+                    <v-layout align-center>
+                      <v-flex xs12 text-xs-center>
+                        <div v-for="item in deslocStatus">
+                          <v-btn @click="atendimento('1')" small color="cyan">Trajeto!</v-btn>
+                        </div>
+                      </v-flex>
+                    </v-layout>
+                  </template>
+                </v-card-text>
+              </v-card>
+            </v-dialog>
+          </div>
+        </template>
 
       </v-stepper>
 

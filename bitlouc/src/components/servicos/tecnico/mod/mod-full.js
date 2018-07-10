@@ -27,7 +27,8 @@ Vue.component('mod-full', {
       isLoading: false,
       e1: '0',
       dialog2: false,
-      dialogInicial: true
+      dialogInicial: true,
+      dialogFinal: false,
     };
   },
   watch: {
@@ -120,7 +121,7 @@ Vue.component('mod-full', {
       this.e1           = '3';
       this.inicio();
     },
-    atenFim(status) {
+    atendFim(status) {
       this.dtFinal = this.dtServFim;
       this.e1           = '4';
       this.inicio();
@@ -144,9 +145,11 @@ Vue.component('mod-full', {
     },
     checkForm:function(e) {
       this.errorMessage = [];
-      if(!this.status) this.errorMessage.push("Status necessário.");
+      //if(!this.status) this.errorMessage.push("Status necessário.");
       if(!this.dtInicio) this.errorMessage.push("Data Inicial necessário.");
       if(!this.dtFinal) this.errorMessage.push("Data Final necessário.");
+      if(!this.dtServInicio) this.errorMessage.push("Data Serviço necessário.");
+      if(!this.dtServFinal) this.errorMessage.push("Data Serviço Final necessário.");
       if(!this.trajeto) this.errorMessage.push("Trajeto necessário.");
       if(!this.errorMessage.length) return true;
       e.preventDefault();
