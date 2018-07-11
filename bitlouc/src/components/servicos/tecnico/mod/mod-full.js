@@ -45,6 +45,7 @@ Vue.component('mod-full', {
       dtServInicio: '',
       dtServFinal:  '',
 
+      status: '',
       trajInicio: null,
       trajFinal:  null,
       
@@ -53,7 +54,7 @@ Vue.component('mod-full', {
   watch: {
   },
   created: function() {
-    this.dataT();
+    this.dataT(detetime);
   },
   mounted: function() {
     //this.dataAjuste();
@@ -115,11 +116,17 @@ Vue.component('mod-full', {
     },
     atendimento(status) {
       if(status == '1'){
-        this.trajeto  = true;
-        this.trajetoI();
+        this.dateInicio = this.dataT('dete');
+        this.horaInicio = this.dataT('time');
+        this.trajeto    = true;
+        this.e1         = '1';
+        this.inicio();
       }else if(status == '2') {
-        this.trajeto  = false;
-        this.servInicio();
+        this.dateServInicio = this.dataT('dete');
+        this.horaServInicio = this.dataT('time');
+        this.trajeto        = false;
+        this.e1             = '2';
+        this.inicio();
       }else if(status == '3') {
         this.dialogStatusServFinal  = true;
         this.servInicio();
@@ -129,16 +136,19 @@ Vue.component('mod-full', {
       }else if(status == '5') {
         this.trajeto  = false;
         this.servInicio();
+      }else if(status == '6') {
+        this.trajeto  = false;
+        this.servInicio();
       }
 
     },
     trajetoI(){
-      this.dtInicio = this.dataT();
-      this.e1       = '1';
-      this.inicio();
+      if(!this.trajeto){
+        this.dtInicio = this.dtServInicio;
+      };
     },
     servInicio() {
-      this.dtServInicio = this.dataT();
+      this.dateServInicio = this.dateInicio;
       this.e1           = '2';
       this.inicio();
     },
@@ -217,12 +227,14 @@ Vue.component('mod-full', {
         return true;
       }
     },
-    dataT() {
+    dataT(variavel) {
       var datetime = new Date().toLocaleString();
       var res = datetime.split(" ");
       var date = res[0].split("/");
       var time = res[1].slice(0, -3);
       var dtTime = date[2] + "-" + date[1] + "-" + date[0] + "T" + time;
+      if(variavel == 'date') return date;
+      if(variavel == 'time') return time;
       return dtTime;
     },
     errorLimpar(){

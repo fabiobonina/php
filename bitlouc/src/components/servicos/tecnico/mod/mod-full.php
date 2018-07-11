@@ -12,7 +12,7 @@
             <v-btn dark flat @click.stop="saveItem()">Salvar</v-btn>
           </v-toolbar-items>
         </v-toolbar>
-      <v-stepper v-model="e1" alt-labels>
+      <v-stepper v-model="e1" light alt-labels>
         <v-stepper-header>
           <v-stepper-step :complete="e1 > 1" step="1">Trajeto</v-stepper-step>
           <v-divider></v-divider>
@@ -61,27 +61,39 @@
               <v-card-title>
                 <v-layout align-center>
                   <v-flex xs12 text-xs-center>
-                  <span class="headline">Trajeto</span>
+                    <span class="headline">Trajeto Inicial</span>
                   </v-flex>
                 </v-layout>
               </v-card-title>
               <v-card-text align-center>
                 <template>
                   <v-container grid-list-md>
-                    <v-layout wrap>                    
-                      <v-flex xs12 sm6 md7>
+                    <v-layout wrap>
+                      <v-flex xs7 sm7 md7>
                         <v-text-field
-                          type="datetime-local"
-                          v-model="dtInicio"
+                          type="date"
+                          v-model="dateInicio"
                           label="Data Inicio"
-                          :error-messages="errors.collect('dtInicio')"
+                          :error-messages="errors.collect('dateInicio')"
                           v-validate="'required'"
-                          data-vv-name="dtInicio"
+                          data-vv-name="dateInicio"
                           item-text="name"
                           required
                         ></v-text-field>
                       </v-flex>
-                      <v-flex xs12 sm6 md2>
+                      <v-flex xs5 sm5 md5>
+                        <v-text-field
+                          type="time"
+                          v-model="horaInicio"
+                          label="Hora Inicio"
+                          :error-messages="errors.collect('horaInicio')"
+                          v-validate="'required'"
+                          data-vv-name="horaInicio"
+                          item-text="name"
+                          required
+                        ></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm12 md12>
                         <km-desp :data="data"></km-desp>
                       </v-flex>
                     </v-layout>
@@ -114,19 +126,31 @@
                 <template>
                   <v-container grid-list-md>
                     <v-layout wrap>
-                      <v-flex xs12 sm6 md7>
+                      <v-flex xs7 sm7 md7>
                         <v-text-field
-                          type="datetime-local"
-                          v-model="dtServInicio"
-                          label="Inicio do Serviço"
-                          :error-messages="errors.collect('dtServInicio')"
+                          type="date"
+                          v-model="dateServInicio"
+                          label="Data"
+                          :error-messages="errors.collect('dateServInicio')"
                           v-validate="'required'"
-                          data-vv-name="dtServInicio"
+                          data-vv-name="dateServInicio"
                           item-text="name"
                           required
                         ></v-text-field>
                       </v-flex>
-                      <v-flex xs12 sm6 md2>
+                      <v-flex xs5 sm5 md5>
+                        <v-text-field
+                          type="time"
+                          v-model="horaServInicio"
+                          label="Hora"
+                          :error-messages="errors.collect('horaServInicio')"
+                          v-validate="'required'"
+                          data-vv-name="horaServInicio"
+                          item-text="name"
+                          required
+                        ></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm12 md12>
                         <km-desp :data="data"></km-desp>
                       </v-flex>
                     </v-layout>
@@ -157,48 +181,93 @@
               </v-card-title>
               <v-card-text align-center>
                 <template>
-                <v-container grid-list-md>
-                <v-layout wrap>
-                <v-flex xs12 sm6 md7>
-                <v-text-field
-                  type="date"
-                  v-model="dtInicio"
-                  label="Data Inicio"
-                  :error-messages="errors.collect('dtInicio')"
-                  v-validate="'required'"
-                  data-vv-name="dtInicio"
-                  item-text="name"
-                  required
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs12 sm6 md5>
-                <v-text-field 
-                  type="number"
-                  v-model="kmInicio"
-                  label="Km Inicio"
-                  :error-messages="errors.collect('kmInicio')"
-                  v-validate="''"
-                  data-vv-name="kmInicio"
-                  item-text="name"
-                  :disabled="trajeto && trajeto.categoria > 0"
-                ></v-text-field>
-              </v-flex>
-                  <v-flex xs12 sm6 md7>
-                    <v-text-field
-                      type="datetime-local"
-                      v-model="dtServFinal"
-                      label="Final do Serviço"
-                      :error-messages="errors.collect('dtServFinal')"
-                      v-validate="'required'"
-                      data-vv-name="dtServFinal"
-                      item-text="name"
-                      required
-                    ></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md2>
-                    <km-desp :data="data"></km-desp>
+                  <v-container grid-list-md>
+                    <v-layout wrap>
+                      <v-flex xs7 sm7 md7>
+                        <v-text-field
+                          type="date"
+                          v-model="dateServFinal"
+                          label="Data"
+                          :error-messages="errors.collect('dateServFinal')"
+                          v-validate="'required'"
+                          data-vv-name="dateServFinal"
+                          item-text="name"
+                          required
+                        ></v-text-field>
+                      </v-flex>
+                      <v-flex xs5 sm5 md5>
+                        <v-text-field
+                          type="time"
+                          v-model="horaServFinal"
+                          label="Hora"
+                          :error-messages="errors.collect('horaServFinal')"
+                          v-validate="'required'"
+                          data-vv-name="horaServFinal"
+                          item-text="name"
+                          required
+                        ></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm12 md12>
+                        <km-desp :data="data"></km-desp>
+                      </v-flex>
+                    </v-layout>
+              </v-container>
+              <small>*indica campo obrigatório</small>
+                </template>
+              </v-card-text>            
+            </v-card>
+            <template>
+              <v-container grid-list-xl text-xs-center>
+                <v-layout row wrap>
+                  <v-flex xs12>
+                    <v-btn v-if="dtFinal == ''" @click="dialogStatusServFinal = true" color="primary" right>Continue</v-btn>
+                    <v-btn v-else @click="e1 = 4" color="primary" right>Continue</v-btn>
                   </v-flex>
                 </v-layout>
+              </v-container>
+            </template>
+          </v-stepper-content>
+          <v-stepper-content step="4">
+            <v-card class="mb-5" color="grey lighten-1" max-width="500px">
+              <v-card-title>
+                <v-layout align-center>
+                  <v-flex xs12 text-xs-center>
+                  <span class="headline">Atendimento Final</span>
+                  </v-flex>
+                </v-layout>
+              </v-card-title>
+              <v-card-text align-center>
+                <template>
+                  <v-container grid-list-md>
+                    <v-layout wrap>
+                      <v-flex xs7 sm7 md7>
+                        <v-text-field
+                          type="date"
+                          v-model="dateFinal"
+                          label="Data"
+                          :error-messages="errors.collect('dateFinal')"
+                          v-validate="'required'"
+                          data-vv-name="dateFinal"
+                          item-text="name"
+                          required
+                        ></v-text-field>
+                      </v-flex>
+                      <v-flex xs5 sm5 md5>
+                        <v-text-field
+                          type="time"
+                          v-model="horaFinal"
+                          label="Hora"
+                          :error-messages="errors.collect('horaFinal')"
+                          v-validate="'required'"
+                          data-vv-name="horaFinal"
+                          item-text="name"
+                          required
+                        ></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm12 md12>
+                        <km-desp :data="data"></km-desp>
+                      </v-flex>
+                    </v-layout>
               </v-container>
               <small>*indica campo obrigatório</small>
                 </template>
@@ -243,13 +312,13 @@
             <v-dialog v-model="dialogStatusServFinal" hide-overlay persistent width="300">
               <v-card color="primary" dark>
                 <v-card-text>
-                  <span class="headline">Escolhar o Status do Atendimento</span>
                   <template>
-                    <v-layout align-center>
-                      <v-flex xs12 text-xs-center>
-                        <div v-for="item in statusServFinal" :key="item.id">
-                          <v-btn @click="atendimento(tem.status)" small color="cyan">{{item.name }}</v-btn>
-                        </div>
+                    <v-layout row wrap align-center>
+                    <p class="text-xs-center headline">Escolhar o Status do Final do Serviço</p>
+                      <v-flex xs12 sm12 v-for="item in statusServFinal" :key="item.id">
+                        <v-btn block color="cyan" @click="atendimento(tem.status)">
+                          <span>{{item.name }}</span>
+                        </v-btn>
                       </v-flex>
                     </v-layout>
                   </template>
@@ -270,6 +339,14 @@
                         <div v-for="item in deslocStatus">
                           <v-btn @click="atendimento('1')" small color="cyan">Trajeto!</v-btn>
                         </div>
+                      </v-flex>
+                    </v-layout>
+                    <label class="label">Status</label>
+                    <v-layout row wrap align-center>
+                      <v-flex xs12 sm4 v-for="item in deslocStatus" :key="item.id">
+                        <v-btn block small @click="status = item" :class="status && status.id == item.id ? 'blue white--text' : 'light'">
+                          <span>{{item.name }}</span>
+                        </v-btn>
                       </v-flex>
                     </v-layout>
                   </template>
