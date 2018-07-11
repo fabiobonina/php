@@ -105,7 +105,7 @@
               <v-container grid-list-xl text-xs-center>
                 <v-layout row wrap>
                   <v-flex xs12 >
-                    <v-btn v-if="dtServInicio == ''" @click="servInicio()" color="primary" right> Continue </v-btn>
+                    <v-btn v-if="dateServInicio == ''" @click="servInicio()" color="primary" right> Continue </v-btn>
                     <v-btn v-else @click="e1 = 2" color="primary" right> Continue </v-btn>
                   </v-flex>
                 </v-layout>
@@ -163,7 +163,7 @@
               <v-container grid-list-xl text-xs-center>
                 <v-layout row wrap>
                   <v-flex xs12 >
-                    <v-btn v-if="dtServFinal == ''" @click="servFim()" color="primary" right>Continue</v-btn>
+                    <v-btn v-if="dateServFinal == ''" @click="servFim()" color="primary" right>Continue</v-btn>
                     <v-btn v-else @click="e1 = 3" color="primary" right>Continue</v-btn>
                   </v-flex>
                 </v-layout>
@@ -220,7 +220,7 @@
               <v-container grid-list-xl text-xs-center>
                 <v-layout row wrap>
                   <v-flex xs12>
-                    <v-btn v-if="dtFinal == ''" @click="dialogStatusServFinal = true" color="primary" right>Continue</v-btn>
+                    <v-btn v-if="dateFinal == ''" @click="dialogStatusServFinal = true" color="primary" right>Continue</v-btn>
                     <v-btn v-else @click="e1 = 4" color="primary" right>Continue</v-btn>
                   </v-flex>
                 </v-layout>
@@ -277,8 +277,7 @@
               <v-container grid-list-xl text-xs-center>
                 <v-layout row wrap>
                   <v-flex xs12>
-                    <v-btn v-if="dtFinal == ''" @click="dialogStatusServFinal = true" color="primary" right>Continue</v-btn>
-                    <v-btn v-else @click="e1 = 4" color="primary" right>Continue</v-btn>
+                    <v-btn @click="dialogStatusAtenFinal = true" color="primary" right>Continue</v-btn>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -314,7 +313,7 @@
                 <v-card-text>
                   <template>
                     <v-layout row wrap align-center>
-                    <p class="text-xs-center headline">Escolhar o Status do Final do Serviço</p>
+                      <p class="text-xs-center headline">Escolhar o Status do Final do Serviço</p>
                       <v-flex xs12 sm12 v-for="item in statusServFinal" :key="item.id">
                         <v-btn block color="cyan" @click="atendimento(tem.status)">
                           <span>{{item.name }}</span>
@@ -332,19 +331,11 @@
             <v-dialog v-model="dialogStatusAtenFinal" hide-overlay persistent width="300">
               <v-card color="primary" dark>
                 <v-card-text>
-                  <span class="headline">Escolhar o Status do Atendimento</span>
                   <template>
-                    <v-layout align-center>
-                      <v-flex xs12 text-xs-center>
-                        <div v-for="item in deslocStatus">
-                          <v-btn @click="atendimento('1')" small color="cyan">Trajeto!</v-btn>
-                        </div>
-                      </v-flex>
-                    </v-layout>
-                    <label class="label">Status</label>
                     <v-layout row wrap align-center>
-                      <v-flex xs12 sm4 v-for="item in deslocStatus" :key="item.id">
-                        <v-btn block small @click="status = item" :class="status && status.id == item.id ? 'blue white--text' : 'light'">
+                      <p class="text-xs-center headline">Escolhar o Status Final</p>
+                      <v-flex xs12 sm12 v-for="item in statusAtenFinal" :key="item.id">
+                        <v-btn block color="cyan" @click="atendimento(tem.status)">
                           <span>{{item.name }}</span>
                         </v-btn>
                       </v-flex>

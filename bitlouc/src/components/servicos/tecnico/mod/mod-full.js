@@ -45,7 +45,7 @@ Vue.component('mod-full', {
       dtServInicio: '',
       dtServFinal:  '',
 
-      status: '',
+      count: 0,
       trajInicio: null,
       trajFinal:  null,
       
@@ -116,13 +116,13 @@ Vue.component('mod-full', {
     },
     atendimento(status) {
       if(status == '1'){
-        this.dateInicio = this.dataT('dete');
+        this.dateInicio = this.dataT('date');
         this.horaInicio = this.dataT('time');
         this.trajeto    = true;
         this.e1         = '1';
         this.inicio();
       }else if(status == '2') {
-        this.dateServInicio = this.dataT('dete');
+        this.dateServInicio = this.dataT('date');
         this.horaServInicio = this.dataT('time');
         this.trajeto        = false;
         this.e1             = '2';
@@ -142,23 +142,33 @@ Vue.component('mod-full', {
       }
 
     },
-    trajetoI(){
+    atendInicio(){
+      this.increment();
       if(!this.trajeto){
-        this.dtInicio = this.dtServInicio;
+        this.dateInicio = this.dateServInicio;
+        this.horaInicio = this.horaServInicio;
       };
     },
     servInicio() {
+      this.increment();
       this.dateServInicio = this.dateInicio;
-      this.e1           = '2';
+      if( this.checkForm() ){
+        
+        this.e1 = '2';
+      }
       this.inicio();
     },
     servFim() {
-      this.dtServFinal = this.dtServInicio;
-      this.e1           = '3';
+      this.atendInicio();
+      this.dateServFinal = this.dateServInicio;
+      if( this.checkForm() ){
+        this.e1 = '3';
+      }
       this.inicio();
     },
     statusAtendFim() {
-      this.dtFinal = this.dtServFim;
+      this.increment();
+      this.dateFinal = this.dateServFim;
       this.e1      = ''
     },
     inicio() {
@@ -166,26 +176,24 @@ Vue.component('mod-full', {
         this.dialogStatusAtenInicio = false
       }
     },
-    validarKm() {
-      this.errorMessage = [];
-      if( Number(this.kmFinal) < Number(this.kmInicio) ){
-        this.errorMessage.push("Km Inicio não pode ser maior que Km Final!");
-        return false;
-      }else if( this.trajeto.categoria == '0' ){
-        this.valor = (( Number(this.kmFinal) - Number(this.kmInicio) )* this.trajeto.valor).toFixed(2);
-        return true;
-      }else{
-        return true;
-      }
-    },
     checkForm:function(e) {
       this.errorMessage = [];
-      //if(!this.status) this.errorMessage.push("Status necessário.");
-      if(!this.dtInicio) this.errorMessage.push("Data Inicial necessário.");
-      if(!this.dtFinal) this.errorMessage.push("Data Final necessário.");
-      if(!this.dtServInicio) this.errorMessage.push("Data Serviço necessário.");
-      if(!this.dtServFinal) this.errorMessage.push("Data Serviço Final necessário.");
-      if(!this.trajeto) this.errorMessage.push("Trajeto necessário.");
+      if(this.count > 0){
+        if(!this.dateInicio) this.errorMessage.push("Atend. Inicial data necessário.");
+        if(!this.horaInicio) this.errorMessage.push("Atend. Inicial hora necessário.");
+      }
+      if(this.count > 1){
+        if(!this.dateServInicio) this.errorMessage.push("Serviço Inicial data necessário.");
+        if(!this.horaServInicio) this.errorMessage.push("Serviço Inicial hora necessário.");
+      }
+      if(this.count > 2){
+        if(!this.dateServFinal) this.errorMessage.push("Serviço Final data necessário.");
+        if(!this.horaServFinal) this.errorMessage.push("Serviço Final hora necessário.");
+      }
+      if(this.count > 3){
+        if(!this.dateFinal) this.errorMessage.push("Atend. Final data necessário.");
+        if(!this.horaFinal) this.errorMessage.push("Atend. Final hora necessário.");
+      }
       if(!this.errorMessage.length) return true;
       e.preventDefault();
     },
@@ -202,7 +210,6 @@ Vue.component('mod-full', {
         var valorHh = ( diffDays * this.data.hh ).toFixed(2);
         this.tempo = diffDays;
         this.hhValor = valorHh;
-
         //console.log(valorHh);
         return true;
       }
@@ -228,12 +235,13 @@ Vue.component('mod-full', {
       }
     },
     dataT(variavel) {
-      var datetime = new Date().toLocaleString();
-      var res = datetime.split(" ");
-      var date = res[0].split("/");
-      var time = res[1].slice(0, -3);
-      var dtTime = date[2] + "-" + date[1] + "-" + date[0] + "T" + time;
-      if(variavel == 'date') return date;
+      var datetime  = new Date().toLocaleString();
+      var res       = datetime.split(" ");
+      var date      = res[0].split("/");
+      var dt        = date[2] + "-" + date[1] + "-" + date[0];
+      var time      = res[1].slice(0, -3);
+      var dtTime    = dt + "T" + time;
+      if(variavel == 'date') return dt;
       if(variavel == 'time') return time;
       return dtTime;
     },
@@ -241,6 +249,9 @@ Vue.component('mod-full', {
       setTimeout(() => {
         this.errorMessage = [];
       }, 2000);
+    },
+    increment () {
+      this.count++
     }
   },
 });

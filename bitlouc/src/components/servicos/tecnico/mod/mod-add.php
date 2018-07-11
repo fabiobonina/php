@@ -1,82 +1,75 @@
 <template id="mod-add">
   <div>
-    <v-dialog v-model="dialog" persistent scrollable  max-width="500px">
-      <v-card>
+    <v-dialog v-model="dialog" persistent scrollable  max-width="600px">
+      <v-card color="light-blue lighten-3">
         <v-card-title>
-          <span class="headline">{{data.tecnico.userNick}} - Deslocamento</span>
+          <span class="headline">{{data.tecnico.userNick}} - Atendimento</span>
         </v-card-title>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage"></message>
           <loader :dialog="isLoading"></loader>
           <v-container grid-list-md>
-            <label class="label">Status</label>
-            <v-layout row wrap align-center>
-              <v-flex xs12 sm4 v-for="item in deslocStatus" :key="item.id">
-                <v-btn block small @click="status = item" :class="status && status.id == item.id ? 'blue white--text' : 'light'">
-                  <span>{{item.name }}</span>
-                </v-btn>
-              </v-flex>
-            </v-layout>
-            <label class="label">Tipo Trajeto</label>
-            <v-layout row wrap align-center >
-              <v-flex xs12 sm4 v-for="item in deslocTrajetos" :key="item.id">
-                <v-btn block small @click="trajeto = item" :class="trajeto && trajeto.id == item.id ? 'blue white--text' : 'light'">
-                  <span>{{item.name }}</span>
-                </v-btn>
-              </v-flex>
-            </v-layout>
             <v-layout wrap>
+              <v-flex xs12 sm6 md5>
+                <v-switch :label="trajetoInicial ? 'C/Trajeto inicial' : 'S/Trajeto inicial'" v-model="trajetoInicial" color="info"></v-switch>
+              </v-flex>
               <v-flex xs12 sm6 md7>
-                <v-text-field
+                <v-text-field solo
                   type="datetime-local"
                   v-model="dtInicio"
-                  label="Data Inicio"
+                  label="Inicio trajeto"
                   :error-messages="errors.collect('dtInicio')"
-                  v-validate="'required'"
+                  :v-validate="!trajetoInicial ?'required':''"
                   data-vv-name="dtInicio"
                   item-text="name"
+                  :disabled="!trajetoInicial"
+                  :required="!trajetoInicial"
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md6>
+                <v-text-field solo
+                  type="datetime-local"
+                  v-model="dtServInicio"
+                  label="Inicio serviço"
+                  :error-messages="errors.collect('dtServInicio')"
+                  v-validate="'required'"
+                  data-vv-name="dtServInicio"
+                  item-text="name"
                   required
                 ></v-text-field>
               </v-flex>
-              <v-flex xs12 sm6 md5>
-                <v-text-field 
-                  type="number"
-                  v-model="kmInicio"
-                  label="Km Inicio"
-                  :error-messages="errors.collect('kmInicio')"
-                  v-validate="''"
-                  data-vv-name="kmInicio"
+              <v-flex xs12 sm6 md6>
+                <v-text-field solo
+                  type="datetime-local"
+                  v-model="dtServFinal"
+                  label="Final serviço"
+                  :error-messages="errors.collect('dtServFinal')"
+                  v-validate="'required'"
+                  data-vv-name="dtServFinal"
                   item-text="name"
-                  :disabled="trajeto && trajeto.categoria > 0"
+                  required
                 ></v-text-field>
+              </v-flex>
+              
+              <v-flex xs12 sm6 md5>
+                <v-switch :label="trajetoFinal ? 'C/Trajeto final' : 'S/Trajeto final'" v-model="trajetoFinal" color="info"></v-switch>
               </v-flex>
               <v-flex xs12 sm6 md7>
-                <v-text-field
+                <v-text-field solo
                   type="datetime-local"
-                  v-model="dtFinal"
-                  label="Data Final"
-                  :error-messages="errors.collect('dtFinal')"
-                  v-validate="'required'"
-                  data-vv-name="dtFinal"
+                  v-model="dtInicio"
+                  label="Inicio trajeto"
+                  :error-messages="errors.collect('dtInicio')"
+                  :v-validate="!trajetoFinal ?'required':''"
+                  data-vv-name="dtInicio"
                   item-text="name"
-                  required
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs12 sm6 md5>
-                <v-text-field 
-                  type="number"
-                  v-model="kmFinal"
-                  label="Km Final"
-                  :error-messages="errors.collect('kmFinal')"
-                  v-validate="''"
-                  data-vv-name="kmFinal"
-                  item-text="name"
-                  :disabled="trajeto && trajeto.categoria > 0"
+                  :disabled="!trajetoFinal"
+                  :required="!trajetoFinal"
                 ></v-text-field>
               </v-flex>
 
-              <v-flex xs12 sm6 md4>
-                <v-text-field 
+              <v-flex xs6 sm6 md6>
+                <v-text-field solo
                   type="number"
                   v-model="tempo"
                   label="Tempo"
@@ -87,8 +80,8 @@
                   disabled
                 ></v-text-field>
               </v-flex>
-              <v-flex xs12 sm6 md4>
-                <v-text-field 
+              <v-flex xs6 sm6 md6>
+                <v-text-field solo
                   type="number"
                   v-model="hhValor"
                   label="ValorHh"
@@ -97,18 +90,6 @@
                   data-vv-name="hhValor"
                   item-text="name"
                   disabled
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs12 sm6 md4>
-                <v-text-field 
-                  type="number"
-                  v-model="valor"
-                  label="Valor Trajeto"
-                  :error-messages="errors.collect('valor')"
-                  v-validate="''"
-                  data-vv-name="valor"
-                  item-text="name"
-                  :disabled="trajeto && trajeto.categoria != 1"
                 ></v-text-field>
               </v-flex>
             </v-layout>
