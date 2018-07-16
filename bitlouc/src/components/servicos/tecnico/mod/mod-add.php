@@ -1,6 +1,6 @@
 <template id="mod-add">
   <div>
-    <v-dialog v-model="dialog" persistent scrollable  max-width="600px">
+    <v-dialog v-model="dialog" fullscreen hide-overlay persistent>
       <v-card color="light-blue lighten-3">
         <v-card-title>
           <span class="headline">{{data.tecnico.userNick}} - Atendimento</span>
@@ -12,6 +12,32 @@
             <v-layout wrap>
               <v-flex xs12 sm6 md5>
                 <v-switch :label="trajetoInicial ? 'C/Trajeto inicial' : 'S/Trajeto inicial'" v-model="trajetoInicial" color="info"></v-switch>
+              </v-flex>
+              <v-flex xs8 sm8 md4>
+                <v-text-field solo
+                  type="date"
+                  v-model="dateInicio"
+                  label="Inicio trajeto"
+                  :error-messages="errors.collect('dateInicio')"
+                  :v-validate="!trajetoInicial ?'required':''"
+                  data-vv-name="dateInicio"
+                  item-text="name"
+                  :disabled="!trajetoInicial"
+                  :required="!trajetoInicial"
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs4 sm4 md3>
+                <v-text-field solo
+                  type="time"
+                  v-model="horaInicio"
+                  label="Inicio trajeto"
+                  :error-messages="errors.collect('horaInicio')"
+                  :v-validate="!trajetoInicial ?'required':''"
+                  data-vv-name="horaInicio"
+                  item-text="name"
+                  :disabled="!trajetoInicial"
+                  :required="!trajetoInicial"
+                ></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md7>
                 <v-text-field solo

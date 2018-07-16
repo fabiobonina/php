@@ -22,6 +22,14 @@ Vue.component('mod-add', {
       hhValor:  '',
       valor:    '',
       isLoading: false,
+      dateInicio:     '',
+      horaInicio:     '',
+      dateFinal:      '',
+      horaFinal:      '',
+      dateServInicio: '',
+      horaServInicio: '',
+      dateServFinal:  '',
+      horaServFinal:  '',
     };
   },
   watch: {
