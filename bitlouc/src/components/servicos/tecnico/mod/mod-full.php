@@ -211,8 +211,8 @@
                         <km-desp :data="data"></km-desp>
                       </v-flex>
                     </v-layout>
-              </v-container>
-              <small>*indica campo obrigatório</small>
+                  </v-container>
+                  <small>*indica campo obrigatório</small>
                 </template>
               </v-card-text>            
             </v-card>
