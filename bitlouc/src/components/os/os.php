@@ -95,7 +95,7 @@
                         </v-btn>
                       </v-flex>
                       <v-spacer></v-spacer>
-                      <v-btn  @click="modAdd=true; selecItem(tecnico)" color="pink" dark small fab right>
+                      <v-btn  @click="modAdd=true; selecItem(_os)" color="pink" dark small fab right>
                         <v-icon>add</v-icon>
                       </v-btn>
                       <!--v-btn  @click="modAdd=true; selecItem(tecnico)" color="pink" dark small absolute fab right>

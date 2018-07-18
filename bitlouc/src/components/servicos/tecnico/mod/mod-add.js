@@ -9,8 +9,7 @@ Vue.component('mod-add', {
     return {
       errorMessage: [],
       successMessage: [],
-      tecnico: null,
-      tecnicos: null,
+      tecnicos:     this.data.tecnicos,
       status: null,
       trajetoInicial: true,
       trajetoFinal: true,
@@ -22,14 +21,15 @@ Vue.component('mod-add', {
       hhValor:  '',
       valor:    '',
       isLoading: false,
-      dateInicio:     '',
+      dateInicio:     this.data.data,
       horaInicio:     '',
-      dateFinal:      '',
+      dateFinal:      this.data.data,
       horaFinal:      '',
-      dateServInicio: '',
+      dateServInicio: this.data.data,
       horaServInicio: '',
-      dateServFinal:  '',
+      dateServFinal:  this.data.data,
       horaServFinal:  '',
+      e6: 1
     };
   },
   watch: {
