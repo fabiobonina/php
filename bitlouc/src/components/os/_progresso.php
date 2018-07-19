@@ -6,7 +6,7 @@
             data == 1 ? 'green accent-4 white--text' : 'blue white--text small'   
             : 'small light' ">
           <v-icon v-if="data == 1" >mdi-loading mdi-spin</v-icon>
-          <v-icon v-else small>mdi-arrow-right-bold</v-icon> Em trasito
+          <v-icon v-else small>mdi-arrow-right-bold</v-icon> Em transito
           <v-icon>mdi-chevron-right</v-icon>
         </v-btn>
       </v-flex>

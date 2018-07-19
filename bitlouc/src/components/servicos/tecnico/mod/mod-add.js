@@ -29,7 +29,11 @@ Vue.component('mod-add', {
       horaServInicio: '',
       dateServFinal:  this.data.data,
       horaServFinal:  '',
-      e6: 1
+      e6: 1,
+      tab: null,
+        items: [
+          'web', 'shopping', 'videos', 'images', 'news'
+        ],
     };
   },
   watch: {

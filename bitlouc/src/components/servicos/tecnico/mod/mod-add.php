@@ -52,6 +52,55 @@
               <v-flex xs12 sm6 md5>
                 <v-switch :label="trajetoFinal ? 'C/Trajeto final' : 'S/Trajeto final'" v-model="trajetoFinal" color="info"></v-switch>
               </v-flex>
+              <template>
+                <v-container grid-list-md text-xs-center>
+                  <v-layout row wrap>
+                    <v-flex xs4>
+                      <v-card dark color="primary">
+                        <v-card-text class="px-0">
+                          <span>Trajeto</span><br>
+                          <span>Inicial</span>
+                        </v-card-text>
+                      </v-card>
+                    </v-flex>
+                    <v-flex xs4>
+                      <v-card dark color="primary">
+                        <v-card-text class="px-0">
+                        <span>Serviço</span><br>
+                        <span>Executado</span>
+                        </v-card-text>
+                      </v-card>
+                    </v-flex>
+                    <v-flex xs4>
+                      <v-card dark color="primary">
+                        <v-card-text class="px-0">
+                          <span>Trajeto</span><br>
+                          <span>Final</span>
+                        </v-card-text>
+                      </v-card>
+                    </v-flex>
+                  </v-layout>
+                </v-container>
+              </template>
+              <v-layout row wrap align-center >
+                <v-flex xs4 sm4>
+                  <v-btn  @click="trajetoInicial = !trajetoInicial" block large b :class="trajetoInicial ? 'blue white--text' : 'grey white--text' ">
+                    <v-icon>mdi-run</v-icon>
+                    <span>Inicial</span>
+                  </v-btn>
+                </v-flex>
+                <v-flex xs4 sm4>
+                  <v-btn block large  b class="blue white--text">
+                    <v-icon>mdi-worker</v-icon>Serviço
+                  </v-btn>
+                </v-flex>
+                <v-flex xs4 sm4>
+                  <v-btn  @click="trajetoFinal = !trajetoFinal" block large  b :class="trajetoFinal ? 'blue white--text' : 'grey white--text' ">
+                    <v-icon v-if="data == 1" >mdi-run</v-icon>
+                    <v-icon v-else>mdi-run</v-icon>Final
+                  </v-btn>
+                </v-flex>
+              </v-layout>
               <v-flex xs6 sm6 md6>
                 <v-text-field solo
                   type="number"
@@ -64,30 +113,18 @@
                   disabled
                 ></v-text-field>
               </v-flex>
-              <v-flex xs6 sm6 md6>
-                <v-text-field solo
-                  type="number"
-                  v-model="hhValor"
-                  label="ValorHh"
-                  :error-messages="errors.collect('hhValor')"
-                  v-validate="''"
-                  data-vv-name="hhValor"
-                  item-text="name"
-                  disabled
-                ></v-text-field>
-              </v-flex>
             </v-layout>
           </v-container>
         </v-card-text>
 
       <template>
         <v-stepper v-model="e6" vertical>
-          <v-stepper-step editable :complete="e6 > 1" step="1">
+          <v-stepper-step v-if="trajetoFinal" editable :complete="e6 > 1" step="1">
             {{ dateInicio }} {{ horaInicio }}
             <small>Inicio Atendimento</small>
           </v-stepper-step>
 
-          <v-stepper-content step="1">
+          <v-stepper-content step="1" >
             <v-card class="mb-5" color="grey lighten-1" max-width="500px">
               <v-card-title>
                 <v-layout align-center>
