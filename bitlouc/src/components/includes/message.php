@@ -1,12 +1,14 @@
 <template id="message">
     <div>
-        <v-alert type="success" :value="temMessage">
-            <p v-for="message in success">{{ message }} </p>
-        </v-alert>
 
-        <v-alert type="error" :value="temErros">
+        <v-snackbar v-model="temErros" color="error" top multi-line :timeout="timeout">
             <p v-for="message in error">{{ message }} </p>
-        </v-alert>
+            <v-btn dark flat @click="temErros = false">Close</v-btn>
+        </v-snackbar>
+        <v-snackbar v-model="temMessage" color="success" top multi-line :timeout="timeout">
+            <p v-for="message in success">{{ message }} </p>
+            <v-btn dark flat @click="snackbar = false">Close</v-btn>
+        </v-snackbar>
     </div>
 </template>
 <script src="src/components/includes/message.js"></script>

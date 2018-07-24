@@ -1,20 +1,26 @@
 Vue.component('message', {
     name: 'message',
     template: '#message',
+    props: {
+      error: Array,
+      success: Array,
+      alerta: Boolean
+    },
     data() {
       return {
+        snackbar: false,
+        snackbar1: false,
+        timeout: 10000,
       };
-    },
-    props: {
-        error: Array,
-        success: Array,
     },
     computed: {
       temErros () {
-        return this.error.length > 0
+        if(this.error.length > 0) return this.snackbar = true
+        return this.snackbar = false
       },
       temMessage () {
-        return this.success.length > 0
+        if(this.success.length > 0) return this.snackbar1 = true
+        return this.snackbar1 = false
       }
     },
     methods: {

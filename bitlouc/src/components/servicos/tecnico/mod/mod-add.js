@@ -30,13 +30,12 @@ Vue.component('mod-add', {
       dateServFinal:  this.data.data,
       horaServFinal:  '',
       e6: 1,
-      tab: null,
-        items: [
-          'web', 'shopping', 'videos', 'images', 'news'
-        ],
     };
   },
   watch: {
+    'e6': function (newQuestion, oldQuestion) {
+        this.checkDate()
+    },
     'kmFinal': function (newQuestion, oldQuestion) {
       setTimeout(() => {
         this.validarKm()
@@ -95,19 +94,15 @@ Vue.component('mod-add', {
           this.valor     = '0';
         }
         var postData = {
-          osId:     this.$route.params._os,
-          tecId:    this.data.tecnico,
-          trajeto:  this.trajeto,
-          status:   this.status,
+          osId:         this.$route.params._os,
+          tecnicos:     this.tecnicos,
+          trajeto:      this.trajeto,
+          status:       this.status,
           dtInicio:     '',
           dtFinal:      '',
           dtServInicio: '',
           dtServFinal:  '',
-          kmInicio: this.kmInicio,
-          kmFinal:  this.kmFinal,
-          tempo:    this.tempo,
-          hhValor:  this.hhValor,
-          valor:    this.valor
+          tempo:        this.tempo,
         };
         //console.log(postData);
         this.$http.post('./config/api/apiOs.php?action=modAdd', postData).then(function(response) {
@@ -130,6 +125,34 @@ Vue.component('mod-add', {
           console.log(error);
         });
       }
+    },
+    checkDate:function(e) {
+      this.errorMessage = [];
+      if(this.e6 > 1){
+        if( !this.dateInicio & !this.horaInicio )this.errorMessage.push("Trajeto Inicial: data e hora necessário.");
+      }else if ( this.e6 > 2 ) {
+        if( !this.dateServInicio & !this.horaServInicio )this.errorMessage.push("Serviço Inicial: data e hora necessário.");
+      }
+      else if ( this.e6 > 3 ) {
+        if( !this.dateServFinal & !this.horaServFinal )this.errorMessage.push("Serviço Final: data e hora necessário.");
+      }
+      else if ( this.e6 == 4 ) {
+        if( !this.dateFinal & !this.horaFinal )this.errorMessage.push("Trajeto Final: data e hora necessário.");
+      }
+      if(trajetoInicial) this.errorMessage.push("Status necessário.");
+      if(!this.dtInicio) this.errorMessage.push("Data Inicial necessário.");
+      if(!this.dtFinal) this.errorMessage.push("Data Final necessário.");
+      if(!this.trajeto) this.errorMessage.push("Trajeto necessário.");
+      if(this.trajeto.categoria == '0'){
+        if( !this.kmInicio )this.errorMessage.push("Para o Trajeto escolhido o Km Inicial é necessário.");
+        if( !this.kmFinal )this.errorMessage.push("Para o Trajeto escolhido o Km Final é necessário.");
+      }else if ( this.trajeto.categoria == '1' ) {
+        if( !this.valor )this.errorMessage.push("Para o Trajeto escolhido o Valor é necessário.");
+      }
+      this.validarKm();
+      this.validarDate();
+      if(!this.errorMessage.length) return true;
+      e.preventDefault();
     },
     checkForm:function(e) {
       this.errorMessage = [];
@@ -175,6 +198,26 @@ Vue.component('mod-add', {
         this.hhValor = valorHh;
 
         //console.log(valorHh);
+        return true;
+      }
+    },
+    valideDtMenor(dateI, dateII) {
+      this.errorMessage = [];
+      var data1 = new Date( dateI );
+      var data2 = new Date( dateII );
+      if( data2 < data1 ){
+        return false;
+      }else{
+        return true;
+      }
+    },
+    valideDtMaior(dateI, dateII) {
+      this.errorMessage = [];
+      var data1 = new Date( dateI );
+      var data2 = new Date( dateII );
+      if( data2 > data1 ){
+        return false;
+      }else{
         return true;
       }
     },
