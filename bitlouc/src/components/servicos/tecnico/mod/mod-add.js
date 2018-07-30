@@ -129,17 +129,17 @@ Vue.component('mod-add', {
     checkDate:function(e) {
       this.errorMessage = [];
       if(this.e6 > 1){
-        if( !this.dateInicio & !this.horaInicio )this.errorMessage.push("Trajeto Inicial: data e hora necessário.");
+        if( !this.dateInicio | !this.horaInicio )this.errorMessage.push("Trajeto Inicial: data e hora necessário.");
       }else if ( this.e6 > 2 ) {
-        if( !this.dateServInicio & !this.horaServInicio )this.errorMessage.push("Serviço Inicial: data e hora necessário.");
+        if( !this.dateServInicio | !this.horaServInicio )this.errorMessage.push("Serviço Inicial: data e hora necessário.");
       }
       else if ( this.e6 > 3 ) {
-        if( !this.dateServFinal & !this.horaServFinal )this.errorMessage.push("Serviço Final: data e hora necessário.");
+        if( !this.dateServFinal | !this.horaServFinal )this.errorMessage.push("Serviço Final: data e hora necessário.");
       }
       else if ( this.e6 == 4 ) {
-        if( !this.dateFinal & !this.horaFinal )this.errorMessage.push("Trajeto Final: data e hora necessário.");
+        if( !this.dateFinal | !this.horaFinal )this.errorMessage.push("Trajeto Final: data e hora necessário.");
       }
-      if(trajetoInicial) this.errorMessage.push("Status necessário.");
+      //if(trajetoInicial) this.errorMessage.push("Status necessário.");
       if(!this.dtInicio) this.errorMessage.push("Data Inicial necessário.");
       if(!this.dtFinal) this.errorMessage.push("Data Final necessário.");
       if(!this.trajeto) this.errorMessage.push("Trajeto necessário.");

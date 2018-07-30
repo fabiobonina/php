@@ -1,6 +1,5 @@
 <template id="message">
     <div>
-
         <v-snackbar v-model="temErros" color="error" top multi-line :timeout="timeout">
             <p v-for="message in error">{{ message }} </p>
             <v-btn dark flat @click="temErros = false">Close</v-btn>
