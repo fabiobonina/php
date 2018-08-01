@@ -25,10 +25,6 @@ Vue.component('mod-add', {
       horaInicio:     '',
       dateFinal:      this.data.data,
       horaFinal:      '',
-      dateServInicio: this.data.data,
-      horaServInicio: '',
-      dateServFinal:  this.data.data,
-      horaServFinal:  '',
       e6: 1,
     };
   },
@@ -130,13 +126,7 @@ Vue.component('mod-add', {
       this.errorMessage = [];
       if(this.e6 > 1){
         if( !this.dateInicio | !this.horaInicio )this.errorMessage.push("Trajeto Inicial: data e hora necessário.");
-      }else if ( this.e6 > 2 ) {
-        if( !this.dateServInicio | !this.horaServInicio )this.errorMessage.push("Serviço Inicial: data e hora necessário.");
-      }
-      else if ( this.e6 > 3 ) {
-        if( !this.dateServFinal | !this.horaServFinal )this.errorMessage.push("Serviço Final: data e hora necessário.");
-      }
-      else if ( this.e6 == 4 ) {
+      else if ( this.e6 == 2 ) {
         if( !this.dateFinal | !this.horaFinal )this.errorMessage.push("Trajeto Final: data e hora necessário.");
       }
       //if(trajetoInicial) this.errorMessage.push("Status necessário.");

@@ -45,39 +45,17 @@
                 </template>
               </v-autocomplete>
             </template>
-
-            <v-layout row wrap align-center >
-              <v-flex xs4 sm4>
-                <v-btn  @click="trajetoInicial = !trajetoInicial" block large b :class="trajetoInicial ? 'blue white--text' : 'grey white--text' ">
-                  <v-icon>mdi-run</v-icon>
-                  <span>Inicial</span>
-                </v-btn>
-              </v-flex>
-              <v-flex xs4 sm4>
-                <v-btn block large  b class="blue white--text">
-                  <v-icon>mdi-worker</v-icon>Serviço
-                </v-btn>
-              </v-flex>
-              <v-flex xs4 sm4>
-                <v-btn  @click="trajetoFinal = !trajetoFinal" block large  b :class="trajetoFinal ? 'blue white--text' : 'grey white--text' ">
-                  <v-icon v-if="data == 1" >mdi-run</v-icon>
-                  <v-icon v-else>mdi-run</v-icon>Final
-                </v-btn>
-              </v-flex>
-            </v-layout>
-              
-            </v-layout>
           </v-container>
         </v-card-text>
 
         <template>
           <v-stepper v-model="e6" vertical>
-            <v-stepper-step v-if="trajetoInicial" editable :complete="e6 > 1" step="1">
+            <v-stepper-step editable :complete="e6 > 1" step="1">
               {{ dateInicio }} {{ horaInicio }}
               <small>Inicio Atendimento</small>
             </v-stepper-step>
 
-            <v-stepper-content v-if="trajetoInicial" step="1" >
+            <v-stepper-content step="1" >
               <v-card class="mb-5" color="grey lighten-1" max-width="500px">
                 <v-card-title>
                   <v-layout align-center>
@@ -124,111 +102,11 @@
               </v-card>
             </v-stepper-content>
 
-            <v-stepper-step editable :complete="e6 > 2" step="2">
-              {{ dateServInicio }} {{ horaServInicio }}
-              <small>Serviço Inicial</small>
-            </v-stepper-step>
-
-            <v-stepper-content step="2">
-              <v-card class="mb-5" color="grey lighten-1" max-width="500px">
-                <v-card-title>
-                  <v-layout align-center>
-                    <v-flex xs12 text-xs-center>
-                    <span class="headline">Inicio do Serviço</span>
-                    </v-flex>
-                  </v-layout>
-                </v-card-title>
-                <v-card-text align-center>
-                  <template>
-                    <v-container grid-list-md>
-                      <v-layout wrap>
-                        <v-flex xs7 sm7 md7>
-                          <v-text-field
-                            type="date"
-                            v-model="dateServInicio"
-                            label="Data"
-                            :error-messages="errors.collect('dateServInicio')"
-                            v-validate="'required'"
-                            data-vv-name="dateServInicio"
-                            item-text="name"
-                            required
-                          ></v-text-field>
-                        </v-flex>
-                        <v-flex xs5 sm5 md5>
-                          <v-text-field
-                            type="time"
-                            v-model="horaServInicio"
-                            label="Hora"
-                            :error-messages="errors.collect('horaServInicio')"
-                            v-validate="'required'"
-                            data-vv-name="horaServInicio"
-                            item-text="name"
-                            required
-                          ></v-text-field>
-                        </v-flex>
-                      </v-layout>
-                    </v-container>
-                    <small>*indica campo obrigatório</small>
-                  </template>
-                </v-card-text>            
-              </v-card>
-            </v-stepper-content>
-
-            <v-stepper-step editable :complete="e6 > 3" step="3">
-              {{ dateServFinal }} {{ horaServFinal }}
-              <small>Serviço Final</small>
-            </v-stepper-step>
-
-            <v-stepper-content step="3">
-              <v-card class="mb-5" color="grey lighten-1" max-width="500px">
-                <v-card-title>
-                  <v-layout align-center>
-                    <v-flex xs12 text-xs-center>
-                    <span class="headline">Final do Serviço</span>
-                    </v-flex>
-                  </v-layout>
-                </v-card-title>
-                <v-card-text align-center>
-                  <template>
-                    <v-container grid-list-md>
-                      <v-layout wrap>
-                        <v-flex xs7 sm7 md7>
-                          <v-text-field
-                            type="date"
-                            v-model="dateServFinal"
-                            label="Data"
-                            :error-messages="errors.collect('dateServFinal')"
-                            v-validate="'required'"
-                            data-vv-name="dateServFinal"
-                            item-text="name"
-                            required
-                          ></v-text-field>
-                        </v-flex>
-                        <v-flex xs5 sm5 md5>
-                          <v-text-field
-                            type="time"
-                            v-model="horaServFinal"
-                            label="Hora"
-                            :error-messages="errors.collect('horaServFinal')"
-                            v-validate="'required'"
-                            data-vv-name="horaServFinal"
-                            item-text="name"
-                            required
-                          ></v-text-field>
-                        </v-flex>
-                      </v-layout>
-                    </v-container>
-                    <small>*indica campo obrigatório</small>
-                  </template>
-                </v-card-text>            
-              </v-card>
-            </v-stepper-content>
-
-            <v-stepper-step v-if="trajetoFinal" editable step="4">
+            <v-stepper-step editable step="2">
               {{ dateFinal }} {{ horaFinal }}
               <small>Final Atendimento</small>
             </v-stepper-step>
-            <v-stepper-content v-if="trajetoFinal" step="4">
+            <v-stepper-content step="2">
               <v-card class="mb-5" color="grey lighten-1" max-width="500px">
                 <v-card-title>
                   <v-layout align-center>
