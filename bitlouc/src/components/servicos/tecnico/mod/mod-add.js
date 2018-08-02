@@ -18,13 +18,11 @@ Vue.component('mod-add', {
       kmInicio: '',
       kmFinal:  '',
       tempo:    '',
-      hhValor:  '',
-      valor:    '',
-      isLoading: false,
-      dateInicio:     this.data.data,
-      horaInicio:     '',
-      dateFinal:      this.data.data,
-      horaFinal:      '',
+      isLoading:  false,
+      dateInicio: this.data.data,
+      horaInicio: '',
+      dateFinal:  this.data.data,
+      horaFinal:  '',
       e6: 1,
     };
   },
@@ -54,7 +52,7 @@ Vue.component('mod-add', {
     },
   },
   created: function() {
-    this.dataT();
+    //this.dataT();
   },
   mounted: function() {
     //this.dataAjuste();
@@ -81,14 +79,6 @@ Vue.component('mod-add', {
       //this.errorMessage = []
       if(this.checkForm() && this.validarKm() && this.validarDate() ){
         this.isLoading = true
-        if( this.trajeto.categoria == '1'){
-          this.kmInicio  = '0';
-          this.kmFinal   = '0';
-        }else if( this.trajeto.categoria == '2' ){
-          this.kmInicio  = '0';
-          this.kmFinal   = '0';
-          this.valor     = '0';
-        }
         var postData = {
           osId:         this.$route.params._os,
           tecnicos:     this.tecnicos,

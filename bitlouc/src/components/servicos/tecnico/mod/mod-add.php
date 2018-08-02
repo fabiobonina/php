@@ -17,7 +17,7 @@
           <loader :dialog="isLoading"></loader>
             <template>
               <!-- tecnicos -->
-              <v-autocomplete outline multiple chips return-object max-height="auto"
+              <v-autocomplete solo multiple chips return-object max-height="auto"
                 :items="data.tecnicos" v-model="tecnicos" label="Tecnicos" item-text="userNick"
                 :error-messages="errors.collect('tecnico')" v-validate="'required'" data-vv-name="tecnico" required>
                 <template slot="selection" slot-scope="data">
@@ -54,15 +54,12 @@
               {{ dateInicio }} {{ horaInicio }}
               <small>Atendimento Inicial</small>
             </v-stepper-step>
-
             <v-stepper-content step="1">
-              <v-layout align-center>
-                <v-flex xs12 text-xs-center>
-                  <span class="headline">Atendimento Inicial</span>
+              <v-layout wrap align-center>
+                <v-flex xs12 sm12 md3>
+                  <span class="headline white--text">Atendimento Inicial</span>
                 </v-flex>
-              </v-layout>
-              <v-layout wrap>
-                <v-flex xs7 sm7 md7>
+                <v-flex xs7 sm7 md4 >
                   <v-text-field outline
                     type="date"
                     v-model="dateInicio"
@@ -74,8 +71,8 @@
                     required
                   ></v-text-field>
                 </v-flex>
-                <v-flex xs5 sm5 md5>
-                  <v-text-field outline
+                <v-flex xs5 sm5 md2>
+                  <v-text-field outline 
                     type="time"
                     v-model="horaInicio"
                     label="Hora Inicio"
@@ -94,14 +91,12 @@
               <small>Atendimento Final</small>
             </v-stepper-step>
             <v-stepper-content step="2">
-              <v-layout align-center>
-                <v-flex xs12 text-xs-center>
-                <span class="headline">Atendimento Final</span>
+              <v-layout wrap align-center>
+                <v-flex xs12 sm12 md3>
+                  <span class="headline white--text">Atendimento Final</span>
                 </v-flex>
-              </v-layout>
-              <v-layout wrap>
-                <v-flex xs7 sm7 md7>
-                  <v-text-field outline
+                <v-flex xs7 sm7 md4>
+                  <v-text-field outline 
                     type="date"
                     v-model="dateFinal"
                     label="Data"
@@ -112,8 +107,8 @@
                     required
                   ></v-text-field>
                 </v-flex>
-                <v-flex xs5 sm5 md5>
-                  <v-text-field outline
+                <v-flex xs5 sm5 md2>
+                  <v-text-field outline 
                     type="time"
                     v-model="horaFinal"
                     label="Hora"
@@ -129,12 +124,10 @@
             </v-stepper-content>
           </v-stepper>
         </template>
-        <v-layout wrap>
-        <v-flex xs12 sm12 md12>
-          <km-desp :data="data"></km-desp>
-        </v-flex>
+        <v-container fluid grid-list-xl>
+        <v-layout wrap align-center>
         <v-flex>
-          <v-text-field outline
+          <v-text-field solo 
             type="number"
             v-model="tempo"
             label="Tempo"
@@ -146,6 +139,7 @@
           ></v-text-field>
         </v-flex>
         </v-layout>
+        </v-container>
       </v-card>
     </v-dialog>
   </div>
