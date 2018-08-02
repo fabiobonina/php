@@ -10,8 +10,13 @@ Vue.component('message', {
       return {
         snackbar: false,
         snackbar1: false,
-        timeout: 10000,
+        timeout: 20000,
       };
+    },
+    watch: {
+      'error': function (newQuestion, oldQuestion) {
+        this.snackbar = true
+      },
     },
     computed: {
       temErros () {
