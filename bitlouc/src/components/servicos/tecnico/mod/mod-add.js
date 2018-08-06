@@ -23,11 +23,11 @@ Vue.component('mod-add', {
       horaInicio: '',
       dateFinal:  this.data.data,
       horaFinal:  '',
-      e6: 1,
+      progresso: '1',
     };
   },
   watch: {
-    'e6': function (newQuestion, oldQuestion) {
+    'progresso': function (newQuestion, oldQuestion) {
         this.checkDate()
     },
     'dateInicio': function (newQuestion, oldQuestion) {
@@ -77,8 +77,18 @@ Vue.component('mod-add', {
   methods: {
     saveItem: function(){
       //this.errorMessage = []
-      if(this.checkForm() && this.validarKm() && this.validarDate() ){
+      if(this.checkForm() && this.validarDate() ){
         this.isLoading = true
+        //var obj   = this.tecnicos;
+        //var user  = store.state.user;
+        //var usert = "7";
+        //var value = [];
+        for (var tec of this.tecnicos) {
+          var valorHh = ( diffDays * tec.hh ).toFixed(2);
+          tec.hhValor.push( valorHh);
+          console.log(tec);
+        }
+           
         var postData = {
           osId:         this.$route.params._os,
           tecnicos:     this.tecnicos,
@@ -90,7 +100,7 @@ Vue.component('mod-add', {
           dtServFinal:  '',
           tempo:        this.tempo,
         };
-        //console.log(postData);
+        console.log(postData); /*
         this.$http.post('./config/api/apiOs.php?action=modAdd', postData).then(function(response) {
           //console.log(response);
           if(response.data.error){
@@ -109,16 +119,16 @@ Vue.component('mod-add', {
         })
         .catch(function(error) {
           console.log(error);
-        });
+        });    */
       }
     },
-    checkDate:function(e) {
+    checkDate:function() {
       this.errorMessage = [];
-      if(this.e6 > 1){
+      if(Number(this.progresso) > 1){
         if( !this.dateInicio | !this.horaInicio ) {
           this.errorMessage.push("Atendimento inicial: data e hora necessário.");
-        } 
-        else if ( this.e6 == 2 ) {
+        }
+        else if ( Number(this.progresso) == 2 ) {
           if( !this.dateFinal | !this.horaFinal ){
             this.errorMessage.push("Atendimento final: data e hora necessário.");
           }
@@ -127,7 +137,7 @@ Vue.component('mod-add', {
         }
       }
       if(!this.errorMessage.length) return true;
-      e.preventDefault();
+      //e.preventDefault();
     },
     checkForm:function(e) {
       this.errorMessage = [];
@@ -135,28 +145,9 @@ Vue.component('mod-add', {
       if(!this.dtInicio) this.errorMessage.push("Data Inicial necessário.");
       if(!this.dtFinal) this.errorMessage.push("Data Final necessário.");
       if(!this.trajeto) this.errorMessage.push("Trajeto necessário.");
-      if(this.trajeto.categoria == '0'){
-        if( !this.kmInicio )this.errorMessage.push("Para o Trajeto escolhido o Km Inicial é necessário.");
-        if( !this.kmFinal )this.errorMessage.push("Para o Trajeto escolhido o Km Final é necessário.");
-      }else if ( this.trajeto.categoria == '1' ) {
-        if( !this.valor )this.errorMessage.push("Para o Trajeto escolhido o Valor é necessário.");
-      }
-      this.validarKm();
       this.validarDate();
       if(!this.errorMessage.length) return true;
       e.preventDefault();
-    },
-    validarKm() {
-      this.errorMessage = [];
-      if( Number(this.kmFinal) < Number(this.kmInicio) ){
-        this.errorMessage.push("Km Inicio não pode ser maior que Km Final!");
-        return false;
-      }else if( this.trajeto.categoria == '0' ){
-        this.valor = (( Number(this.kmFinal) - Number(this.kmInicio) )* this.trajeto.valor).toFixed(2);
-        return true;
-      }else{
-        return true;
-      }
     },
     validarDate() {
       this.errorMessage = [];
@@ -167,12 +158,12 @@ Vue.component('mod-add', {
         return false;
       }else{
         var timeDiff = Math.abs(data1.getTime() - data2.getTime());
-        var diffDays = (timeDiff / 1000 / 60 / 60 ).toFixed(2);   
-        var valorHh = ( diffDays * this.data.hh ).toFixed(2);
+        var diffDays = (timeDiff / 1000 / 60 / 60 ).toFixed(2);
+        //var valorHh = ( diffDays * this.data.hh ).toFixed(2);
         this.tempo = diffDays;
-        this.hhValor = valorHh;
+        //this.hhValor = valorHh;
 
-        //console.log(valorHh);
+        console.log(tempo);
         return true;
       }
     },

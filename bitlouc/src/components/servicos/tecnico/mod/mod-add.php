@@ -49,8 +49,8 @@
         </v-card-text>
 
         <template>
-          <v-stepper v-model="e6" vertical light dark>
-            <v-stepper-step editable :complete="e6 > 1" step="1">
+          <v-stepper v-model="progresso" vertical light dark>
+            <v-stepper-step editable :complete="Number(progresso) > 1" step="1">
               {{ dateInicio }} {{ horaInicio }}
               <small>Atendimento Inicial</small>
             </v-stepper-step>
@@ -59,7 +59,7 @@
                 <v-flex xs12 sm12 md3>
                   <span class="headline white--text">Atendimento Inicial</span>
                 </v-flex>
-                <v-flex xs7 sm7 md4 >
+                <v-flex xs7 sm7 md3 >
                   <v-text-field outline
                     type="date"
                     v-model="dateInicio"
@@ -95,7 +95,7 @@
                 <v-flex xs12 sm12 md3>
                   <span class="headline white--text">Atendimento Final</span>
                 </v-flex>
-                <v-flex xs7 sm7 md4>
+                <v-flex xs7 sm7 md2>
                   <v-text-field outline 
                     type="date"
                     v-model="dateFinal"
