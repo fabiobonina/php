@@ -9,7 +9,7 @@
           <v-toolbar-title>Atendimento</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <v-btn dark flat @click.stop="saveItem()">Salvar</v-btn>
+            <v-btn dark flat @click="saveItem()">Salvar</v-btn>
           </v-toolbar-items>
         </v-toolbar>
         <v-card-text>

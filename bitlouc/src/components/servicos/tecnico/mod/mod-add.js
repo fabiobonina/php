@@ -77,18 +77,22 @@ Vue.component('mod-add', {
   methods: {
     saveItem: function(){
       //this.errorMessage = []
-      if(this.checkForm() && this.validarDate() ){
+      if(this.checkDate() && this.validarDate() ){
         this.isLoading = true
         //var obj   = this.tecnicos;
         //var user  = store.state.user;
         //var usert = "7";
         //var value = [];
+        var data1 = new Date( this.dateInicio + "T" + this.horaInicio );
+        var data2 = new Date( this.dateFinal + "T" + this.horaFinal  );
+        var timeDiff = Math.abs(data1.getTime() - data2.getTime());
+        var diffDays = (timeDiff / 1000 / 60 / 60 ).toFixed(2);
         for (var tec of this.tecnicos) {
           var valorHh = ( diffDays * tec.hh ).toFixed(2);
           tec.hhValor.push( valorHh);
           console.log(tec);
         }
-           
+          
         var postData = {
           osId:         this.$route.params._os,
           tecnicos:     this.tecnicos,
@@ -163,7 +167,7 @@ Vue.component('mod-add', {
         this.tempo = diffDays;
         //this.hhValor = valorHh;
 
-        console.log(tempo);
+        console.log(this.tempo);
         return true;
       }
     },
