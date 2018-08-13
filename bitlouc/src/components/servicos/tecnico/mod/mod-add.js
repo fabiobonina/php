@@ -89,8 +89,8 @@ Vue.component('mod-add', {
         var diffDays = (timeDiff / 1000 / 60 / 60 ).toFixed(2);
         for (var tec of this.tecnicos) {
           var valorHh = ( diffDays * tec.hh ).toFixed(2);
-          tec.hhValor.push( valorHh);
-          console.log(tec);
+          //tec.push( valorHh);
+          console.log(valorHh);
         }
           
         var postData = {
