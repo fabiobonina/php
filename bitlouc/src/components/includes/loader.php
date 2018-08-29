@@ -11,4 +11,17 @@
   </div>
 </template>
 
-<script src="src/components/includes/loader.js"></script>
+<script>
+Vue.component('loader', {
+  name: 'loader',
+  template: '#loader',
+  props: {
+    dialog: Boolean
+  },
+  data: function () {
+    return {
+
+    };
+  },
+});
+</script>

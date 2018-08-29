@@ -41,4 +41,19 @@
     <!--v-slider :tick-labels="labels" v-model="data" thumb-color="green" :max="4" :disabled="data === '0'" always-dirty></v-slider-->
   </div>
 </template>
-<script src="src/components/os/_progresso.js"></script>
+<script>
+Vue.component('progresso-os', {
+  name: 'progresso',
+  template: '#progresso-os',
+  props: {
+    data: String
+  },
+  data() {
+    return {
+      
+    };
+  },
+
+});
+
+</script>
