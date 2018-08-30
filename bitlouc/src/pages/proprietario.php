@@ -13,7 +13,28 @@
   </div>
 </template>
 
-<script src="src/pages/proprietario.js"></script>
+<script>
+  var Proprietario = Vue.extend({
+    template: '#proprietario',
+    data: function () {
+        return {
+            errorMessage: '',
+            successMessage: '',
+        };
+    },
+    created() {
+    },
+    computed: {
+        osLojas() {
+            return store.state.osLojas;
+        },
+    },
+    methods: {
+        
+    }
+  });
+
+</script>
 
 <?php require_once 'src/components/includes/top.php';?>
 <?php require_once 'src/components/includes/rodape.php';?>

@@ -15,7 +15,34 @@
     <rodape></rodape>
   </div>    
 </template>
-<script src="src/pages/oss.js"></script>
+<script>
+  var Oss = Vue.extend({
+    template: '#oss',
+    data: function () {
+        return {
+            errorMessage: '',
+            successMessage: '',
+            active: '0',
+            router: [
+                { title: 'OS Lojas', router: '/oss', icon: 'store' },
+                { title: 'OS Status', router: '/oss/os-status', icon: 'trending_up' },
+                { title: 'Minhas OS', router: '/oss/os-tec', icon: 'person' },
+            ],
+        };
+    },
+    created() {
+    },
+    computed: {
+        osLojas() {
+            return store.state.osLojas;
+        },
+    },
+    methods: {
+        
+    }
+});
+
+</script>
 
 <?php require_once 'src/components/includes/top.php';?>
 <?php require_once 'src/components/includes/rodape.php';?>

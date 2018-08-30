@@ -9,7 +9,43 @@
         <rodape></rodape>
     </div>
 </template>
-<script src="src/pages/home.js"></script>
+<script>
+    var Home = Vue.extend({
+    template: '#home',
+    data: function () {
+      return {
+        errorMessage: '',
+        successMessage: '',
+  
+      };
+    },
+    created() {
+      this.$store.dispatch("fetchIndex").then(() => {
+        console.log("Buscando dados para inicial!")
+      });
+      this.$store.dispatch("fetchOs").then(() => {
+        console.log("Buscando dados OS!")
+      });
+    },
+    computed: {
+      user() {
+        return store.state.user;
+      },
+      proprietario() {
+        return store.state.proprietario;
+      },
+      osProprietario() {
+        return store.state.osProprietario;
+      },
+      lojas() {
+        return store.state.lojas;
+      },
+    },
+    methods: {
+    }
+  });
+
+</script>
 
 <?php require_once 'src/pages/dashboard.php';?>
 

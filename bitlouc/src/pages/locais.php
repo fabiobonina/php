@@ -23,4 +23,31 @@
 
 <?php require_once 'src/components/loja/loja-oss.php';?>
 <?php require_once 'src/components/local/locais-index.php';?>
-<script src="src/pages/locais.js"></script>
+<script>
+  var Locais = Vue.extend({
+  name: 'locais',
+  template: '#locais',
+  props: {
+  },
+  data: function () {
+    return {
+      errorMessage: '',
+      successMessage: '',
+    };
+  },
+  created: function() {
+    
+  },
+  computed: {
+
+    locais()  {
+      return store.state.locais;
+    },
+  },
+  methods: {
+    
+    // Bu metot http post ile formdan alınan verileri apiye iletir
+    // Apiden dönen cevap users dizisine push edilir
+  }
+});
+</script>
