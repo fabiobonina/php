@@ -13,17 +13,17 @@
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <script type="text/javascript" src="js/jquery.js"></script>
   <script type="text/javascript">
-	$(document).ready(function(){
-		atualiza();
-	});
+    $(document).ready(function(){
+      atualiza();
+    });
 
-	function atualiza(){
-	   $.get('processa_lista.php', function(resultado){
-		$('#tabela').html(resultado);
-	   })
-	   setTimeout('atualiza()', 3000);
-	}
-   </script>
+    function atualiza(){
+      $.get('processa_lista.php', function(resultado){
+      $('#tabela').html(resultado);
+      })
+      setTimeout('atualiza()', 3000);
+    }
+  </script>
 </head>
 
 
@@ -46,33 +46,29 @@
     </div>
   </div>
   <?php
+    $ip = 'http://192.168.10.247/';
+    $stringAnalog = $ip.'ina';
+    $stringDig = $ip.'ind';
+    $redirecionar_1 = 'index.php';
 
-      $ip = 'http://192.168.10.247/';
-      $stringAnalog = $ip.'ina';
-      $stringDig = $ip.'ind';
-      $redirecionar_1 = 'index.php';
-
-      if(isset($_POST['comando'])):
-
-							$rele = $_POST['id'];
-              $status = $_POST['status'];
-              echo $rele;
-              echo $status;
-              //echo '<iframe src="http://192.168.10.247/ON'. $rele .'.htm" height="100" width="100"/>';
-              //header("Refresh: 1, ".$redirecionar_1);
-							if($status == 0){
-								echo '<iframe src="http://192.168.10.247/ON'. $rele .'.htm" height="1" width="1"/>';
-                header("Refresh: 0, ".$redirecionar_1);
-							}
-              if($status == 1){
-								echo '<iframe src="http://192.168.10.247/OF'. $rele .'.htm" height="1" width="1"/>';
-                header("Refresh: 0, ".$redirecionar_1);
-							}
-				endif;
+    if(isset($_POST['comando'])):
+      $rele = $_POST['id'];
+      $status = $_POST['status'];
+      echo $rele;
+      echo $status;
+      //echo '<iframe src="http://192.168.10.247/ON'. $rele .'.htm" height="100" width="100"/>';
+      //header("Refresh: 1, ".$redirecionar_1);
+      if($status == 0){
+        echo '<iframe src="http://192.168.10.247/ON'. $rele .'.htm" height="1" width="1"/>';
+        header("Refresh: 0, ".$redirecionar_1);
+      }
+      if($status == 1){
+        echo '<iframe src="http://192.168.10.247/OF'. $rele .'.htm" height="1" width="1"/>';
+        header("Refresh: 0, ".$redirecionar_1);
+      }
+		endif;
             
-?>
-
-
+  ?>
   <div class="container">
     <div class="section">
       <!--   Icon Section   -->

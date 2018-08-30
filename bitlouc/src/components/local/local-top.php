@@ -46,6 +46,13 @@
       </div>
       <!-- Hero footer: will stick at the bottom -->
     </section>
+    <div>
+      <local-add v-if="modalAdd" v-on:close="modalAdd = false" :dialog="modalAdd"></local-add>
+      <local-geo v-if="modalGeo" v-on:close="modalGeo = false" :dialog="modalGeo" :data="modalItem"></local-geo>
+      <local-edt v-if="modalEdt" v-on:close="modalEdt = false" :dialog="modalEdt" :data="modalItem"></local-edt>
+      <local-del v-if="modalDel" v-on:close="modalDel = false" :dialog="modalDel" :data="modalItem"></local-del>
+      <local-cat v-if="modalCat" v-on:close="modalCat = false" :dialog="modalCat" :data="modalItem"></local-cat>
+    </div>
   </div>
 </template>
 <script>

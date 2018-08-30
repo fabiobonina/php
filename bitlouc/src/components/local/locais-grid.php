@@ -51,25 +51,7 @@
                 <v-btn icon dark large color="primary" :disabled=" 0.000000 == item.latitude" :href="'https://maps.google.com/maps?q='+ item.latitude + ',' + item.longitude" target="_blank">
                   <v-icon dark>directions</v-icon>
                 </v-btn>
-                
-                <v-speed-dial v-if="user.nivel > 2 && user.grupo == 'P'" direction="left" transition="slide-x-reverse-transition">
-                  <v-btn slot="activator" small color="blue darken-2" dark fab>
-                    <v-icon>mdi-information-variant</v-icon>
-                    <v-icon>close</v-icon>
-                  </v-btn>
-                  <v-btn @click="modalGeo = true; selecItem(item)" fab dark small color="indigo">
-                    <v-icon>mdi-map-marker-plus</v-icon>
-                  </v-btn>
-                  <v-btn @click="modalCat = true; selecItem(item)" fab dark small color="purple">
-                    <v-icon>label</v-icon></span>
-                  </v-btn>
-                  <v-btn @click="modalEdt = true; selecItem(item)" fab dark small color="green">
-                    <v-icon>edit</v-icon>
-                  </v-btn>
-                  <v-btn v-if="user.nivel > 3" @click="modalDel = true; selecItem(item)" fab dark small color="red">
-                    <v-icon>delete</v-icon>
-                  </v-btn>
-                </v-speed-dial>
+                <local-crud :data="item"/>
               </v-list-tile>
                 <div>
                   <v-chip small v-for="categoria in item.categoria" :key="categoria.id" color="green" text-color="white">
@@ -82,71 +64,48 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <div>
-      <local-add v-if="modalAdd" v-on:close="modalAdd = false" :dialog="modalAdd"></local-add>
-      <local-geo v-if="modalGeo" v-on:close="modalGeo = false" :dialog="modalGeo" :data="modalItem"></local-geo>
-      <local-edt v-if="modalEdt" v-on:close="modalEdt = false" :dialog="modalEdt" :data="modalItem"></local-edt>
-      <local-del v-if="modalDel" v-on:close="modalDel = false" :dialog="modalDel" :data="modalItem"></local-del>
-      <local-cat v-if="modalCat" v-on:close="modalCat = false" :dialog="modalCat" :data="modalItem"></local-cat>
-    </div>
   </div>
 </template>
+
+<?php require_once 'src/components/local/_crudLocal.php';?>
+
 <script>
-Vue.component('grid-local', {
-  template: '#grid-local',
-  props: {
-    data: Array
-  },
-  data: function () {
-    return {
-      modalItem: {},
-      modalAdd: false,
-      modalEdt: false,
-      modalDel: false,
-      modalCat: false,
-      modalGeo: false,
-      hover: false,
-      repos: [],
-      configs: {
-        orderBy: { name: 'Nome', state: 'name' },
-        order: 'asc',
-        search: ''
-      },
-      itens: [
-        { name: 'Nome', state: 'name' },
-        { name: 'Regional', state: 'regional' }
-      ],
-    }
-  },
-  computed: {
-    user()  {
-      return store.state.user;
+  Vue.component('grid-local', {
+    template: '#grid-local',
+    props: {
+      data: Array
     },
-    filteredData() {
-      const filter = this.configs.search && this.configs.search.toLowerCase(); 
-      const list = _.orderBy(this.data, this.configs.orderBy.state, this.configs.order);
-      if (_.isEmpty(filter)) {
-        return list;
+    data: function () {
+      return {
+        configs: {
+          orderBy: { name: 'Nome', state: 'name' },
+          order: 'asc',
+          search: ''
+        },
+        itens: [
+          { name: 'Nome', state: 'name' },
+          { name: 'Regional', state: 'regional' }
+        ],
       }
-      //return _.filter(list, repo => repo.name.indexOf(filter) >= 0);
-
-      return _.filter(list, function (row) {
-        return Object.keys(row).some(function (key) {
-          return String(row[key]).toLowerCase().indexOf(filter) > -1
+    },
+    computed: {
+      user()  {
+        return store.state.user;
+      },
+      filteredData() {
+        const filter = this.configs.search && this.configs.search.toLowerCase(); 
+        const list = _.orderBy(this.data, this.configs.orderBy.state, this.configs.order);
+        if (_.isEmpty(filter)) {
+          return list;
+        }
+        return _.filter(list, function (row) {
+          return Object.keys(row).some(function (key) {
+            return String(row[key]).toLowerCase().indexOf(filter) > -1
+          })
         })
-      })
+      }
+    },
+    methods: {   
     }
-  },
-  methods: {
-    selecItem: function(data){
-      this.modalItem = data;
-    },    
-  }
-});
+  });
 </script>
-
-<?php require_once 'src/components/local/_addLocal.php';?>
-<?php require_once 'src/components/local/_geoLocal.php';?>
-<?php require_once 'src/components/local/_edtLocal.php';?>
-<?php require_once 'src/components/local/_delLocal.php';?>
-<?php require_once 'src/components/local/_catLocal.php';?>
