@@ -1,72 +1,57 @@
 <template id="grid-local">
   <div>
-    <v-layout row>
-      <v-flex xs12>
-        <v-card>
-          <v-toolbar dense color="blue">
-            <v-toolbar-title class="white--text">locais</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="modalAdd=true" color="pink" dark small absolute fab right>
-              <v-icon>add</v-icon>
-            </v-btn>
-          </v-toolbar>
-          <v-layout wrap>
-            <v-text-field v-model="configs.search" append-icon="search" label="Search" solo-inverted class="mx-3" flat></v-text-field>
-            <v-flex xs3 sm6 md1>
-              <v-subheader v-text="'Orden:'"></v-subheader>
-            </v-flex>
-            <v-flex xs5 sm6 md2>
-              <v-select
-                :items="itens"
-                v-model="configs.orderBy"
-                item-text="name"
-                item-value="state"
-                return-object
-                label="Select"
-                solo
-              ></v-select>
-            </v-flex>
-            <v-flex xs1 sm2 md1>
-              <v-btn flat icon color="blue"
-                @click.native="configs.order == 'asc'? configs.order = 'desc': configs.order = 'asc'">
-                <v-icon v-if="configs.order == 'asc'" dark>arrow_downward</v-icon>
-                <v-icon v-else dark>arrow_upward</v-icon>
-              </v-btn>
-            </v-flex>
-          </v-layout>
-          <v-list two-line>
-            <template v-for="(item, index) in filteredData">
-              <v-list-tile append v-on:click.native="" activator slot>
-                <v-list-tile-content dense>
-                  <router-link :to="'/loja/' +  item.loja + '/local/' + item.id">
-                    <v-list-tile-title :key="item.id"> {{item.tipo}} - {{item.name}} </v-list-tile-title>
-                    <v-list-tile-sub-title class="text--primary">  {{item.municipio}} /{{item.uf}} </v-list-tile-sub-title>
-                  </router-link>
-                  <v-list-tile-sub-title>
-                  <v-chip small  color="primary" text-color="white" >
-                    Regional: {{item.regional}} 
-                  </v-chip>
-                </v-list-tile-sub-title>
+    <v-card>
+      <v-card-title>
+        <v-toolbar-title>Locais</v-toolbar-title>
+        <v-divider class="mx-2" inset vertical></v-divider>
+        <v-spacer></v-spacer>
+        <v-text-field  v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+        <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="modalAdd=true" color="pink" fab small dark>
+          <v-icon>add</v-icon>
+        </v-btn>
+      </v-card-title>
+      <v-data-table :headers="headers" :items="data" :search="search">
+        <template slot="items" slot-scope="props">
+          <td>
+            <v-list>
+              <v-list-tile :to="'/loja/' +  props.item.loja + '/local/' + props.item.id" :key="props.item.id" @click="" append activator slot>
+              <v-list-tile-content>
+                <v-list-tile-title> {{ props.item.tipo }} {{ props.item.name }} </v-list-tile-title>
+                <v-list-tile-sub-title class="text--primary">Regional: {{ props.item.regional }} </v-list-tile-sub-title>
                 </v-list-tile-content>
-                <v-btn icon dark large color="primary" :disabled=" 0.000000 == item.latitude" :href="'https://maps.google.com/maps?q='+ item.latitude + ',' + item.longitude" target="_blank">
-                  <v-icon dark>directions</v-icon>
-                </v-btn>
-                <local-crud :data="item"/>
               </v-list-tile>
-                <div>
-                  <v-chip small v-for="categoria in item.categoria" :key="categoria.id" color="green" text-color="white">
-                    {{ categoria.tag }}
-                  </v-chip>
-                </div>
-              <v-divider v-if="index + 1 < filteredData.length" :key="index"></v-divider>
-            </template>
-          </v-list>
-        </v-card>
-      </v-flex>
-    </v-layout>
+            </v-list>
+          </td>
+          <td>{{ props.item.municipio }}/ {{ props.item.uf }}</td>
+          <td>
+            <v-btn icon dark large color="primary" 
+              :disabled=" 0.000000 == props.item.latitude" 
+              :href="'https://maps.google.com/maps?q='+ props.item.latitude + ',' + props.item.longitude" target="_blank">
+              <v-icon dark>directions</v-icon>
+            </v-btn>
+          </td>
+          <td> {{ props.item.latitude }},{{ props.item.longitude }} </td>
+          <td>
+            <v-chip v-for="categoria in props.item.categoria" :key="categoria.id" small  color="green" text-color="white">
+              {{ categoria.tag }}
+            </v-chip>
+          </td>
+          <td class="text-xs-right"> 
+            <local-crud :data="props.item"/>
+          </td>
+        </template>
+        <v-alert slot="no-results" :value="true" color="error" icon="warning">
+          Your search for "{{ search }}" found no results.
+        </v-alert>
+      </v-data-table>
+    </v-card>
+    <div>
+      <local-add v-if="modalAdd" v-on:close="modalAdd = false" :dialog="modalAdd"></local-add>
+    </div>
   </div>
 </template>
 
+<?php require_once 'src/components/local/_addLocal.php';?>
 <?php require_once 'src/components/local/_crudLocal.php';?>
 
 <script>
@@ -77,6 +62,16 @@
     },
     data: function () {
       return {
+        modalAdd: false,
+        search: '',
+        headers: [
+          { text: 'Nome', align: 'left', value: 'name' },
+          { text: 'Municipio/UF', value: 'municipio' },
+          { text: 'Rota', sortable: false, value: 'latitude' },
+          { text: 'Lat&Long', sortable: false, value: 'latitude' },
+          { text: 'Categoria', sortable: false, value: 'categoria' },
+          { text: 'Info', sortable: false, value: 'info' }
+        ],
         configs: {
           orderBy: { name: 'Nome', state: 'name' },
           order: 'asc',

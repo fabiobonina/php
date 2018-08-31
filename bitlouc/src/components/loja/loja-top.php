@@ -26,22 +26,6 @@
         <v-tab v-for="n in router" :key="n.title" :to="'/loja/'+ $route.params._id + n.router" ripple> {{ n.title }} </v-tab>
       </v-tabs>
     </v-toolbar>
-
-    <section>
-      <div class="hero-body" style="padding:0;">
-        <div>
-          <div>
-            <div>
-              <h1 class="title  is-4"> {{ loja.nick }} </h1>
-              <p class="subtitle" style="margin-bottom: 0;"> {{ loja.name }}
-                <span class="pull-right"  v-for="categoria in loja.categoria"> <span class="tag">{{ categoria.tag }}</span> &nbsp;  </span>
-              </p>
-              <p>Seguimento:  &nbsp; <a>#{{loja.seguimento}} </a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
   </div>
 </template>
 <script>

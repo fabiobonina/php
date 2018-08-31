@@ -9,17 +9,16 @@
           <v-list-tile-title>
             <span class="mdi mdi-wrench"></span>Categoria
           </v-list-tile-title>
-          </v-list-tile>
-          <v-list-tile @click="modalEdt = true; selecItem(item)">
-            <v-list-tile-title>
-              <span class="mdi mdi-pencil"></span>Editar
-            </v-list-tile-title>
-          </v-list-tile>
-          <v-list-tile v-if="user.nivel > 3" @click="modalDel = true; selecItem(item)">
-            <v-list-tile-title>
-              <span class="mdi mdi-delete"></span>Delete
-            </v-list-tile-title>
-          </v-list-tile>
+        </v-list-tile>
+        <v-list-tile @click="modalEdt = true; selecItem(item)">
+          <v-list-tile-title>
+            <span class="mdi mdi-pencil"></span>Editar
+          </v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile v-if="user.nivel > 3" @click="modalDel = true; selecItem(item)">
+          <v-list-tile-title>
+            <span class="mdi mdi-delete"></span>Delete
+          </v-list-tile-title>
         </v-list-tile>
       </v-list>
     </v-menu>

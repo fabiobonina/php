@@ -16,11 +16,6 @@
 <?php require_once 'src/components/includes/rodape.php';?>
 
 <?php require_once 'src/components/loja/loja-top.php';?>
-<?php require_once 'src/components/loja/_addLoja.php';?>
-<?php require_once 'src/components/loja/_edtLoja.php';?>
-<?php require_once 'src/components/loja/_delLoja.php';?>
-<?php require_once 'src/components/loja/_catLoja.php';?>
-
 <?php require_once 'src/components/loja/loja-oss.php';?>
 <?php require_once 'src/components/local/locais-index.php';?>
 <script>
@@ -45,9 +40,6 @@
     },
   },
   methods: {
-    
-    // Bu metot http post ile formdan alınan verileri apiye iletir
-    // Apiden dönen cevap users dizisine push edilir
   }
 });
 </script>

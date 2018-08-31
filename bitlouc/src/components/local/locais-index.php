@@ -3,6 +3,9 @@
     <grid-local :data="locais"></grid-local>
   </div>
 </template>
+
+<?php require_once 'src/components/local/locais-grid.php';?>
+
 <script>
   var LocaisIndex = Vue.extend({
     name: 'locais-index',
@@ -30,4 +33,3 @@
 
 </script>
 
-<?php require_once 'src/components/local/locais-grid.php';?>
