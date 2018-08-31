@@ -35,7 +35,7 @@
               {{ categoria.tag }}
             </v-chip>
           </td>
-          <td class="text-xs-right"> <loja-crud :data="props.item"/> </td>
+          <td class="text-xs-right"> <loja-crud :data="props.item"></loja-crud> </td>
         </template>
         <v-alert slot="no-results" :value="true" color="error" icon="warning">
           Your search for "{{ search }}" found no results.

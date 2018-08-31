@@ -37,7 +37,7 @@
             </v-chip>
           </td>
           <td class="text-xs-right"> 
-            <local-crud :data="props.item"/>
+            <local-crud :data="props.item"></local-crud>
           </td>
         </template>
         <v-alert slot="no-results" :value="true" color="error" icon="warning">
@@ -68,7 +68,7 @@
           { text: 'Nome', align: 'left', value: 'name' },
           { text: 'Municipio/UF', value: 'municipio' },
           { text: 'Rota', sortable: false, value: 'latitude' },
-          { text: 'Lat&Long', sortable: false, value: 'latitude' },
+          { text: 'Geolocalização', sortable: false, value: 'latitude' },
           { text: 'Categoria', sortable: false, value: 'categoria' },
           { text: 'Info', sortable: false, value: 'info' }
         ],
