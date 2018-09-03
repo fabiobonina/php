@@ -72,33 +72,12 @@
           { text: 'Categoria', sortable: false, value: 'categoria' },
           { text: 'Info', sortable: false, value: 'info' }
         ],
-        configs: {
-          orderBy: { name: 'Nome', state: 'name' },
-          order: 'asc',
-          search: ''
-        },
-        itens: [
-          { name: 'Nome', state: 'name' },
-          { name: 'Regional', state: 'regional' }
-        ],
       }
     },
     computed: {
       user()  {
         return store.state.user;
       },
-      filteredData() {
-        const filter = this.configs.search && this.configs.search.toLowerCase(); 
-        const list = _.orderBy(this.data, this.configs.orderBy.state, this.configs.order);
-        if (_.isEmpty(filter)) {
-          return list;
-        }
-        return _.filter(list, function (row) {
-          return Object.keys(row).some(function (key) {
-            return String(row[key]).toLowerCase().indexOf(filter) > -1
-          })
-        })
-      }
     },
     methods: {   
     }

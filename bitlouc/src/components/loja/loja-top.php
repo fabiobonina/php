@@ -35,8 +35,6 @@ Vue.component('loja-top',{
       errorMessage: '',
       successMessage: '',
       searchQuery: '',
-      modalCat: false,
-      active: 1,
       router: [
         { title: 'Locais', router: '', icon: 'store' },
         { title: 'OSs', router: '/oss', icon: 'trending_up' },

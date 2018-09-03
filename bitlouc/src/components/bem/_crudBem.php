@@ -1,18 +1,21 @@
-<template id="local-crud">
+<template id="bem-crud">
   <div>
-    <v-menu v-if="user.nivel > 2 && user.grupo == 'P'" bottom left  @click="">
+    <v-btn @click="modalOs = true" color="deep-orange" dark small fab>
+      <v-icon color="grey lighten-1">build</v-icon>
+    </v-btn>
+    <v-menu v-if="user.nivel > 2 && user.grupo == 'P'" bottom @click="">
       <v-btn slot="activator" small color="blue darken-2" dark fab>
         <v-icon>mdi-information-variant</v-icon>
       </v-btn>
       <v-list>
-        <v-list-tile @click="modalGeo = true">
+        <v-list-tile @click="modalOs = true">
           <v-list-tile-title>
-            <v-icon>mdi-map-marker-plus</v-icon>Geolocalização
+            <v-icon>build</v-icon>OS
           </v-list-tile-title>
         </v-list-tile>
         <v-list-tile @click="modalCat = true">
           <v-list-tile-title>
-            <v-icon>mdi-tag</v-icon>Categoria
+            <v-icon>mdi-tag</v-icon></span>Categoria
           </v-list-tile-title>
         </v-list-tile>
         <v-list-tile @click="modalEdt = true">
@@ -28,21 +31,21 @@
       </v-list>
     </v-menu>
     <div>
-      <local-geo v-if="modalGeo" v-on:close="modalGeo = false" :dialog="modalGeo" :data="data"></local-geo>
-      <local-edt v-if="modalEdt" v-on:close="modalEdt = false" :dialog="modalEdt" :data="data"></local-edt>
-      <local-del v-if="modalDel" v-on:close="modalDel = false" :dialog="modalDel" :data="data"></local-del>
-      <local-cat v-if="modalCat" v-on:close="modalCat = false" :dialog="modalCat" :data="data"></local-cat>
+      <os-add v-if="modalOs" v-on:close="modalOs = false" :dialog="modalOs" :data="data"></os-add>
+      <bem-edt v-if="modalEdt" v-on:close="modalEdt = false" :dialog="modalEdt" :data="data"></bem-edt>
+      <bem-del v-if="modalDel" v-on:close="modalDel = false" :dialog="modalDel" :data="data"></bem-del>
+      <bem-cat v-if="modalCat" v-on:close="modalCat = false" :dialog="modalCat" :data="data"></bem-cat>
     </div>
   </div>
 </template>
-<?php require_once 'src/components/local/_geoLocal.php';?>
-<?php require_once 'src/components/local/_edtLocal.php';?>
-<?php require_once 'src/components/local/_delLocal.php';?>
-<?php require_once 'src/components/local/_catLocal.php';?>
+
+<?php require_once 'src/components/bem/_edtBem.php';?>
+<?php require_once 'src/components/bem/_delBem.php';?>
+<?php require_once 'src/components/os/_addOs.php';?>
 
 <script>
-Vue.component('local-crud', {
-  template: '#local-crud',
+Vue.component('bem-crud', {
+  template: '#bem-crud',
   props: {
     data: Object
   },
@@ -53,7 +56,7 @@ Vue.component('local-crud', {
       modalEdt: false,
       modalDel: false,
       modalCat: false,
-      modalGeo: false,
+      modalOs: false,
     }
   },
   computed: {

@@ -1,5 +1,22 @@
 <template id="bem-add">
-  <div class="modal is-active" >
+  <div>
+  <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="dialog = true" color="pink" fab small dark>
+    <v-icon>add</v-icon>
+  </v-btn>
+  <v-layout row justify-center>
+    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+      <v-card>
+      <v-toolbar dark color="primary">
+          <v-btn icon dark @click.native="dialog = false">
+            <v-icon>close</v-icon>
+          </v-btn>
+          <v-toolbar-title>{{ loja.nick }}: {{ local.tipo }} - {{ local.name }}</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn dark flat @click.native="dialog = false">Save</v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
+      <div class="modal is-active" >
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
@@ -97,6 +114,11 @@
       </footer>
     </div>
   </div>
+      </v-card>
+    </v-dialog>
+  </v-layout>
+  </div>
+  
 </template>
 <script>
 Vue.component('bem-add', {
@@ -110,6 +132,7 @@ Vue.component('bem-add', {
     return {
       errorMessage: [],
       successMessage: [],
+      dialog: false,
       produto: null, modelo: '', numeracao:'', modelo:'', fabricante: null,
       categoria: null, plaqueta: '', dataFab: '', dataCompra: '', ativo: '',
       isLoading: false,
@@ -117,6 +140,9 @@ Vue.component('bem-add', {
     };
   },  
   computed: {
+    user()  {
+      return store.state.user;
+    },
     temMessage () {
       if(this.errorMessage.length > 0) return true
       if(this.successMessage.length > 0) return true

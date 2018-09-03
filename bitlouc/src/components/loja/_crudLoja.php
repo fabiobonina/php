@@ -5,17 +5,17 @@
         <v-icon>mdi-information-variant</v-icon>
       </v-btn>
       <v-list>
-        <v-list-tile @click="modalCat = true; selecItem(item)">
+        <v-list-tile @click="modalCat = true">
           <v-list-tile-title>
             <span class="mdi mdi-wrench"></span>Categoria
           </v-list-tile-title>
         </v-list-tile>
-        <v-list-tile @click="modalEdt = true; selecItem(item)">
+        <v-list-tile @click="modalEdt = true">
           <v-list-tile-title>
             <span class="mdi mdi-pencil"></span>Editar
           </v-list-tile-title>
         </v-list-tile>
-        <v-list-tile v-if="user.nivel > 3" @click="modalDel = true; selecItem(item)">
+        <v-list-tile v-if="user.nivel > 3" @click="modalDel = true">
           <v-list-tile-title>
             <span class="mdi mdi-delete"></span>Delete
           </v-list-tile-title>
