@@ -1,8 +1,13 @@
 <template id="dashboard">
   <div>
-    <vue-map></vue-map>
+    <os-statusec></os-statusec>
+    <vue-map></vue-map> 
   </div>
 </template>
+
+<?php require_once 'src/components/local/maps.php';?>
+<?php require_once 'src/components/os/osStatusTec.php';?>
+
 <script>
 var Dashboard = Vue.extend({
   name: 'dashboard',
@@ -37,5 +42,5 @@ var Dashboard = Vue.extend({
 
 </script>
 
-<?php require_once 'src/components/local/maps.php';?>
+
 
