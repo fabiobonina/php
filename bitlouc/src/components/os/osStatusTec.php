@@ -1,11 +1,15 @@
 
 <template id="os-statustec">
   <div>
-    <section class="container">
-      <div>
-        <bar-chart :data="osStatusTec" :colors="['#2196f3 ', '#666']"></bar-chart>
-      </div>
-    </section>
+    <v-card>
+      <v-card-title primary-title>
+        <div>
+          <div class="headline">OSs vs Tecnicos</div>
+          <span class="grey--text">Quantidade abertas: {{ ossAbertas }}</span>
+        </div>
+      </v-card-title>
+      <bar-chart :data="osStatusTec" :colors="['#2196f3 ', '#666']" label="OSs" xtitle="OS" ytitle="Tecnico(s)"></bar-chart>
+    </v-card>
   </div>
 </template>
 <script>
@@ -17,6 +21,7 @@ Vue.component('os-statusec', {
       errorMessage: '',
       successMessage: '',
       status: null,
+      ossAbertas: null,
     };
   },
   created: function() {
@@ -41,6 +46,7 @@ Vue.component('os-statusec', {
       oss = oss.filter(function (row) {
         return Number(row.status) <= 1;
       });
+      this.ossAbertas = oss.length;
       var tecnicos  = store.state.tecnicos;
       var value = [];
       for (var user of tecnicos) {
