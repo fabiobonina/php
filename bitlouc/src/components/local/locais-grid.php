@@ -24,7 +24,8 @@
           </td>
           <td>{{ props.item.municipio }}/ {{ props.item.uf }}</td>
           <td>
-            <v-btn icon dark large color="primary" 
+            <local-rota :lat="props.item.latitude" :long="props.item.longitude"></local-rota>
+            <v-btn icon dark large color="primary"
               :disabled=" 0.000000 == props.item.latitude" 
               :href="'https://maps.google.com/maps?q='+ props.item.latitude + ',' + props.item.longitude" target="_blank">
               <v-icon dark>directions</v-icon>
@@ -52,6 +53,7 @@
 </template>
 
 <?php require_once 'src/components/local/_addLocal.php';?>
+<?php require_once 'src/components/local/_rotaLocal.php';?>
 <?php require_once 'src/components/local/_crudLocal.php';?>
 
 <script>

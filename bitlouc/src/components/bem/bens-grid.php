@@ -13,11 +13,7 @@
         <v-btn @click="modalOs = true" color="deep-orange" dark small fab>
           <v-icon>build</v-icon>
         </v-btn>
-        
         <bem-add></bem-add>
-        <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="modalAdd=true" color="pink" fab small dark>
-          <v-icon>add</v-icon>
-        </v-btn>
       </v-card-title>
       <v-data-table :headers="headers" :items="data" :search="search">
         <template slot="items" slot-scope="props">
@@ -41,6 +37,7 @@
         </v-alert>
       </v-data-table>
     </v-card>
+    <os-add v-if="modalOs" v-on:close="modalOs = false" :dialog="modalOs" :data="modalItem"></os-add>
   </div>
 </template>
 

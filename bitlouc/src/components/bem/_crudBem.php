@@ -1,7 +1,7 @@
 <template id="bem-crud">
   <div>
     <v-btn @click="modalOs = true" color="deep-orange" dark small fab>
-      <v-icon color="grey lighten-1">build</v-icon>
+      <v-icon>build</v-icon>
     </v-btn>
     <v-menu v-if="user.nivel > 2 && user.grupo == 'P'" bottom @click="">
       <v-btn slot="activator" small color="blue darken-2" dark fab>

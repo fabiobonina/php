@@ -11,7 +11,7 @@
             <v-toolbar dense color="blue">
               <v-toolbar-title class="white--text">bens</v-toolbar-title>
               <v-spacer></v-spacer>
-              <v-btn @click="modalOs = true" color="deep-orange" dark small fab right>
+              <v-btn @click="modalOs = true" color="deep-orange" dark small fab left>
                 <v-icon>build</v-icon>
               </v-btn>
               <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="modalAdd=true" color="pink" dark small fab right>
