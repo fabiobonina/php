@@ -320,7 +320,41 @@
                   ></v-text-field>
                 </v-flex>
               </v-layout>
-
+            </v-stepper-content>
+            <v-stepper-step editable step="3">
+              {{ dateFinal }} {{ horaFinal }}
+              <small>Atendimento Final</small>
+            </v-stepper-step>
+            <v-stepper-content step="3">
+              <v-layout wrap align-center>
+                <v-flex xs12 sm12 md3>
+                  <span class="headline white--text">Atendimento Final</span>
+                </v-flex>
+                <v-flex xs7 sm7 md2>
+                  <v-text-field outline 
+                    type="date"
+                    v-model="dateFinal"
+                    label="Data"
+                    :error-messages="errors.collect('dateFinal')"
+                    v-validate="'required'"
+                    data-vv-name="dateFinal"
+                    item-text="name"
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs5 sm5 md2>
+                  <v-text-field outline 
+                    type="time"
+                    v-model="horaFinal"
+                    label="Hora"
+                    :error-messages="errors.collect('horaFinal')"
+                    v-validate="'required'"
+                    data-vv-name="horaFinal"
+                    item-text="name"
+                    required
+                  ></v-text-field>
+                </v-flex>
+              </v-layout>
             </v-stepper-content>
           </v-stepper>
         </template>
