@@ -6,9 +6,7 @@
       </v-btn>
       <v-toolbar-title> {{ local.tipo }} - {{ local.name }} </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn small :disabled=" 0.000000 == local.latitude" :href="'https://maps.google.com/maps?q='+ local.latitude + ',' + local.longitude" target="_blank" fab icon dark color="primary">
-        <v-icon dark>directions</v-icon>
-      </v-btn>
+      <local-rota :lat="local.latitude" :long="local.longitude"></local-rota>
       <local-crud :data="local"></local-crud>
       <v-tabs slot="extension" centered color="cyan" slider-color="yellow">
         <v-tab v-for="n in router" :key="n.title" :to="'/loja/'+ $route.params._id +'/local/'+ $route.params._local + n.router" ripple> {{ n.title }} </v-tab>
@@ -21,6 +19,7 @@
 </template>
 
 <?php require_once 'src/components/local/_crudLocal.php';?>
+<?php require_once 'src/components/local/_rotaLocal.php';?>
 
 <script>
   Vue.component('local-top',{

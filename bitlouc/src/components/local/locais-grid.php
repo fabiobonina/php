@@ -13,23 +13,12 @@
       <v-data-table :headers="headers" :items="data" :search="search">
         <template slot="items" slot-scope="props">
           <td>
-            <v-list>
-              <v-list-tile :to="'/loja/' +  props.item.loja + '/local/' + props.item.id" :key="props.item.id" @click="" append activator slot>
-              <v-list-tile-content>
-                <v-list-tile-title> {{ props.item.tipo }} {{ props.item.name }} </v-list-tile-title>
-                <v-list-tile-sub-title class="text--primary">Regional: {{ props.item.regional }} </v-list-tile-sub-title>
-                </v-list-tile-content>
-              </v-list-tile>
-            </v-list>
+            <router-link :to="'/loja/' +  props.item.loja + '/local/' + props.item.id"> {{ props.item.tipo }} {{ props.item.name }} </router-link>
           </td>
+          <td> {{ props.item.regional }} </td>
           <td>{{ props.item.municipio }}/ {{ props.item.uf }}</td>
           <td>
             <local-rota :lat="props.item.latitude" :long="props.item.longitude"></local-rota>
-            <v-btn icon dark large color="primary"
-              :disabled=" 0.000000 == props.item.latitude" 
-              :href="'https://maps.google.com/maps?q='+ props.item.latitude + ',' + props.item.longitude" target="_blank">
-              <v-icon dark>directions</v-icon>
-            </v-btn>
           </td>
           <td> {{ props.item.latitude }},{{ props.item.longitude }} </td>
           <td>
@@ -37,6 +26,7 @@
               {{ categoria.tag }}
             </v-chip>
           </td>
+          <td class="text-xs-right"> {{ props.item.id }} </td>
           <td class="text-xs-right"> 
             <local-crud :data="props.item"></local-crud>
           </td>
@@ -68,11 +58,13 @@
         search: '',
         headers: [
           { text: 'Nome', align: 'left', value: 'name' },
+          { text: 'Regional', value: 'regional' },
           { text: 'Municipio/UF', value: 'municipio' },
           { text: 'Rota', sortable: false, value: 'latitude' },
           { text: 'Geolocalização', sortable: false, value: 'latitude' },
           { text: 'Categoria', sortable: false, value: 'categoria' },
-          { text: 'Info', sortable: false, value: 'info' }
+          { text: 'ID', value: 'id' },
+          { text: 'Info', sortable: false, value: 'info' },
         ],
       }
     },

@@ -61,9 +61,7 @@
                 </v-avatar>
                 OS: {{item.filial}} - {{item.os}}
               </v-chip>
-              <v-btn icon dark large color="primary" :disabled=" 0.000000 == item.local.latitude" :href="'https://maps.google.com/maps?q='+ item.local.latitude + ',' + item.local.longitude" target="_blank"> 
-                <v-icon>directions</v-icon>
-              </v-btn>
+              <local-rota :lat="item.local.latitude" :long="item.local.longitude"></local-rota>
               <v-menu v-if="user.nivel > 2 && user.grupo == 'P'" bottom left  @click="">
                 <v-btn slot="activator" small color="blue darken-2" dark fab>
                   <v-icon>mdi-information-variant</v-icon>
@@ -126,6 +124,7 @@
 <?php require_once 'src/components/os/_delOs.php';?>
 <?php require_once 'src/components/os/_tecOs.php';?> 
 <?php require_once 'src/components/os/_amarracOs.php';?>
+<?php require_once 'src/components/local/_rotaLocal.php';?>
 
 <script>
 Vue.component('os-grid', {

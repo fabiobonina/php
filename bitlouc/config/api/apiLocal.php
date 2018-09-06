@@ -29,8 +29,8 @@ if(isset($_GET['action'])){
 }
   
 if($action == 'read'):
-  $lojaId = $_POST['loja'];
-  //$lojaId = '1';
+  //$lojaId = $_POST['loja'];
+  $lojaId = '1';
 
   $arLocais = array();
   $arBens = array();
@@ -66,7 +66,7 @@ if($action == 'read'):
         $arBem['loja']= $lojaId;
         $arBem['local']= $localId;
         $arBem['status']=$bemStatus;
-        foreach($categorias->findAll() as $key => $value):if($value->id == $arBem['categoria']) {
+        foreach($categorias->findAll() as $key => $value):if($value->id == $arBem['categoria_id']) {
           $arBem['categoria'] = $value;
         }endforeach;
         array_push($arBens, $arBem );
