@@ -65,6 +65,18 @@
         { text: 'Ativo', value: 'plaqueta' },
         { text: 'Info', sortable: false, value: 'info' }
       ],
+      editedItem: {
+        proprietario: null, localizacao: null,
+        name: '', modelo: '', numeracao:'', plaqueta: '',
+        produto: null, fabricante: null,
+        categoria: null, dataFab: '', dataCompra: '', ativo: '',
+      },
+      defaultItem: {
+        proprietario: null, local: null, local: null,
+        produto: null, fabricante: null, categoria: null,
+        name: '', modelo: '', numeracao:'', plaqueta: '',
+        dataFab: '', dataCompra: '', ativo: '',
+      }
     }),
 
   computed: {
@@ -103,6 +115,16 @@
     },
   },
   methods: {
+    editItem (item) {
+      this.editedIndex = this.desserts.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialog = true
+    },
+    deleteItem (item) {
+      const index = this.desserts.indexOf(item)
+      this.dialog = true
+    },
+    
     close () {
       this.deleteItem = false;
       this.editItem = false;
