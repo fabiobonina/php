@@ -412,6 +412,12 @@ Vue.component('bem-add', {
       if(this.successMessage.length > 0) return true
       return false
     },
+    proprietario()  {
+      return store.getters.getLojaId(this.$route.params._id);
+    },
+    local()  {
+      return store.getters.getLocalId(this.$route.params._local);
+    },
     loja()  {
       return store.getters.getLojaId(this.$route.params._id);
     },
