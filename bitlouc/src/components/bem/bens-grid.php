@@ -115,7 +115,7 @@
     },
   },
   methods: {
-    editItem (item) {
+    /*editItem (item) {
       this.editedIndex = this.desserts.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
@@ -123,7 +123,7 @@
     deleteItem (item) {
       const index = this.desserts.indexOf(item)
       this.dialog = true
-    },
+    },*/
     
     close () {
       this.deleteItem = false;
