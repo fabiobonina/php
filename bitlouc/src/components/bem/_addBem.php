@@ -305,8 +305,8 @@ Vue.component('bem-add', {
           var postData = {
             produto: this.produto.id,
             tag: this.produto.tag,
-            modelo: this.modelo,
             name: this.name,
+            modelo: this.modelo,
             fabricante: this.fabricante.id,
             fabricanteNick: this.fabricante.nick,
             proprietario: this.proprietario.id,

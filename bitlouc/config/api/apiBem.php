@@ -3,6 +3,9 @@ header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
 include("_chave.php");
+require_once '../function/EquipamentosFunction.php';
+
+
 
 function __autoload($class_name){
   require_once '../classes/' . $class_name . '.php';
@@ -18,6 +21,7 @@ $bemLocalizacao   = new BemLocalizacao();
 $categorias       = new Categorias();
 $descricao        = new Descricao();
 $ativos           = new Ativos();
+$equiFunction     = new EquipamentosFunction();
 
 $res = array('error' => true);
 $arDados = array();
@@ -95,21 +99,23 @@ endif;
 
 #CADASTRAR
 if($action == 'cadastrar'):
-  $produto = $_POST['produto'];
-  $tag = $_POST['tag'];
-  $name = $_POST['name'];
-  $modelo = $_POST['modelo'];
-  $numeracao = $_POST['numeracao'];
-  $fabricante = $_POST['fabricante'];
-  $fabricanteNick = $_POST['fabricanteNick'];
-  $proprietario = $_POST['proprietario'];
-  $proprietarioNick = $_POST['proprietarioNick'];
-  $proprietarioLocal = $_POST['proprietarioLocal'];
-  $categoria = $_POST['categoria'];
-  $plaqueta = $_POST['plaqueta'];
-  $dataFab = $_POST['dataFab'];
-  $dataCompra = $_POST['dataCompra'];
-  $ativo = $_POST['ativo'];
+  $produto            = $_POST['produto'];
+  $tag                = $_POST['tag'];
+  $name               = $_POST['name'];
+  $modelo             = $_POST['modelo'];
+  $fabricante         = $_POST['fabricante'];
+  $fabricanteNick     = $_POST['fabricanteNick'];
+  $proprietario       = $_POST['proprietario'];
+  $proprietarioNick   = $_POST['proprietarioNick'];
+  $proprietarioLocal  = $_POST['proprietarioLocal'];
+  $categoria          = $_POST['categoria'];
+  $numeracao          = $_POST['numeracao'];
+  $plaqueta           = $_POST['plaqueta'];
+  $dataFab            = $_POST['dataFab'];
+  $dataCompra         = $_POST['dataCompra'];
+  $loja               = $_POST['loja'];
+  $local              = $_POST['local'];
+  $ativo              = $_POST['ativo'];
 
   /*$produto = '1';
   $tag = 'tag';
@@ -127,21 +133,25 @@ if($action == 'cadastrar'):
   $dataCompra = date("Y-m-d");
   $ativo = '0';*/
 
-  $bens->setProduto($produto);
-  $bens->setTag($tag);
-  $bens->setName($name);
-  $bens->setModelo($modelo);
-  $bens->setNumeracao($numeracao);
-  $bens->setFabricante($fabricante);
-  $bens->setFabricanteNick($fabricanteNick);
-  $bens->setProprietario($proprietario);
-  $bens->setProprietarioNick($proprietarioNick);
-  $bens->setProprietarioLocal($proprietarioLocal);
-  $bens->setCategoria($categoria);
-  $bens->setPlaqueta($plaqueta);
-  $bens->setDataFabricacao($dataFab);
-  $bens->setDataCompra($dataCompra);
-  $bens->setAtivo($ativo);
+  $item = $osFunction->insertOsTec(
+    $produto,
+    $tag,
+    $name,
+    $modelo,
+    $fabricante,
+    $fabricanteNick,
+    $proprietario,
+    $proprietarioNick,
+    $proprietarioLocal,
+    $categoria,
+    $numeracao,
+    $plaqueta,
+    $dataFab,
+    $dataCompra,
+    $loja,
+    $local,
+    $ativo
+  );
   # Insert
   if($bens->insert()){
     $res['error'] = false;
