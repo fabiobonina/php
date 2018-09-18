@@ -24,45 +24,26 @@
 			$local,
 			$ativo
 		){
-			$osTecnicos   = new OsTecnicos();
-			foreach ($tecnicos as $value){
-				$cont1++;
-				$tecId = $value['id'];
-				$userTec = $value['user'];
-				$userNickTec = $value['userNick'];
-				$hhTec = $value['hh'];
+			
+			$equipamento->setProduto($produto);
+			$equipamento->setTag($tag);
+			$equipamento->setName($name);
+			$equipamento->setModelo($modelo);
+			$equipamento->setNumeracao($numeracao);
+			$equipamento->setFabricante($fabricante);
+			$equipamento->setFabricanteNick($fabricanteNick);
+			$equipamento->setProprietario($proprietario);
+			$equipamento->setProprietarioNick($proprietarioNick);
+			$equipamento->setProprietarioLocal($proprietarioLocal);
+			$equipamento->setCategoria($categoria);
+			$equipamento->setPlaqueta($plaqueta);
+			$equipamento->setDataFabricacao($dataFab);
+			$equipamento->setDataCompra($dataCompra);
+			$equipamento->setLoja($loja);
+			$equipamento->setLocal($local);
+			$equipamento->setAtivo($ativo);
 
-				$validar = $osTecnicos->findTecOs( $tecId, $osId );
-				if(	!$validar ){ 
-					
-					$osTecnicos->setOs($osId);
-					$osTecnicos->setLoja($idLoja);
-					$osTecnicos->setTecnico($tecId);
-					$osTecnicos->setUser($userTec);
-					$osTecnicos->setUserNick($userNickTec);
-					$osTecnicos->setHh($hhTec);
-					if($osTecnicos->insert()){
-						$cont2++;
-					}
-					$equipamento->setProduto($produto);
-					$equipamento->setTag($tag);
-					$equipamento->setName($name);
-					$equipamento->setModelo($modelo);
-					$equipamento->setNumeracao($numeracao);
-					$equipamento->setFabricante($fabricante);
-					$equipamento->setFabricanteNick($fabricanteNick);
-					$equipamento->setProprietario($proprietario);
-					$equipamento->setProprietarioNick($proprietarioNick);
-					$equipamento->setProprietarioLocal($proprietarioLocal);
-					$equipamento->setCategoria($categoria);
-					$equipamento->setPlaqueta($plaqueta);
-					$equipamento->setDataFabricacao($dataFab);
-					$equipamento->setDataCompra($dataCompra);
-					$equipamento->setLoja($loja);
-					$equipamento->setLocal($local);
-					$equipamento->setAtivo($ativo);
-				}
-			}
+			$item = $equipamento->insert();
 			if($cont2 == '0'){
 				$res['error'] = true;
 				$res['message'] = "Error, nao foi possivel salvar os dados";    

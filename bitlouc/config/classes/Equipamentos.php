@@ -78,8 +78,8 @@ class Equipamentos extends Crud{
 
 	public function insert(){
 		try{
-			$sql  = "INSERT INTO $this->table (produto, tag, name, modelo, numeracao, fabricante, fabricanteNick, proprietario, proprietarioNick, proprietarioLocal, categoria, plaqueta, dataFrabricacao, dataCompra) ";
-			$sql .= "VALUES (:produto, :tag, :name, :modelo, :numeracao, :fabricante, :fabricanteNick, :proprietario, :proprietarioNick, :proprietarioLocal, :categoria, :plaqueta, :dataFrabricacao, :dataCompra)";
+			$sql  = "INSERT INTO $this->table (produto, tag, name, modelo, numeracao, fabricante, fabricanteNick, proprietario, proprietarioNick, proprietarioLocal, categoria, plaqueta, dataFrabricacao, dataCompra, loja, local) ";
+			$sql .= "VALUES (:produto, :tag, :name, :modelo, :numeracao, :fabricante, :fabricanteNick, :proprietario, :proprietarioNick, :proprietarioLocal, :categoria, :plaqueta, :dataFrabricacao, :dataCompra, :loja, :local)";
 			$stmt = DB::prepare($sql);
 			try{
 				$stmt->bindParam(':produto',$this->produto);
@@ -101,6 +101,10 @@ class Equipamentos extends Crud{
 				$stmt->execute();
 				
 				$bemId = DB::getInstance()->lastInsertId();
+
+				$res['id'] = $osId;
+				$res['error'] = false;
+				$res['message'] = "OK, inserido com sucesso";
 				$status = '0';
 				try{
 					$sql  = "INSERT INTO $this->table2 (bem, loja, local, dataInicial, status)";

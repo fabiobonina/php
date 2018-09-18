@@ -133,7 +133,7 @@ if($action == 'cadastrar'):
   $dataCompra = date("Y-m-d");
   $ativo = '0';*/
 
-  $item = $osFunction->insertOsTec(
+  $item = $equiFunction->insertSistema(
     $produto,
     $tag,
     $name,
@@ -153,7 +153,7 @@ if($action == 'cadastrar'):
     $ativo
   );
   # Insert
-  if($bens->insert()){
+  if( $item ){
     $res['error'] = false;
     $res['message']= "OK, dados salvo com sucesso";
   }else{
