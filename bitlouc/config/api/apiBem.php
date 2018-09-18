@@ -98,7 +98,7 @@ if($action == 'coordenadas'):
 endif;
 
 #CADASTRAR
-if($action == 'cadastrar'):
+if($action == 'insert'):
   $produto            = $_POST['produto'];
   $tag                = $_POST['tag'];
   $name               = $_POST['name'];
@@ -115,6 +115,7 @@ if($action == 'cadastrar'):
   $dataCompra         = $_POST['dataCompra'];
   $loja               = $_POST['loja'];
   $local              = $_POST['local'];
+  $status             = $_POST['status'];
   $ativo              = $_POST['ativo'];
 
   /*$produto = '1';
@@ -150,16 +151,12 @@ if($action == 'cadastrar'):
     $dataCompra,
     $loja,
     $local,
+    $status,
     $ativo
   );
   # Insert
-  if( $item ){
-    $res['error'] = false;
-    $res['message']= "OK, dados salvo com sucesso";
-  }else{
-    $res['error'] = true; 
-    $res['message'] = "Error, nao foi possivel salvar os dados";      
-  }
+  $res = $this->statusReturn($item);
+
 endif;
 
 #ATUALIZAR

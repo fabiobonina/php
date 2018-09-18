@@ -58,5 +58,15 @@
 			return number_format($hhValor,2);
 			
 		}
+		public function statusReturn($item){
+			if($item['error'] == true){
+				$res['error'] 	= true;
+			}else{
+				$res['error'] 	= false;
+			}
+			$res['message']	= $item['message'];
+			return $res;
+			
+		}
 		
 	}

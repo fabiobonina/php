@@ -18,6 +18,11 @@ const LOGOUT = "LOGOUT";
 const state = {
   isLoggedIn: !!localStorage.getItem("token"),
   token: atob(localStorage.getItem("token")),
+  statusBem: [
+    { id:1, name: 'Operação', ativo: '1', icon: 'done' },
+    { id:2, name: 'Instalação', ativo: '0', icon: 'done' },
+    { id:3, name: 'Ocioso', ativo: '2', icon: 'done' },
+  ],
   deslocTrajetos: [],
   deslocStatus: [],
   proprietario:{},

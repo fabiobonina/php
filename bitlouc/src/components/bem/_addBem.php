@@ -197,6 +197,19 @@
                       required
                     ></v-text-field>
                   </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-select outline
+                      :items="fabricantes"
+                      v-model="fabricante"
+                      item-text="name"
+                      label="Fabricante"
+                      :error-messages="errors.collect('fabricante')"
+                      v-validate="'required'"
+                      data-vv-name="fabricante"
+                      return-object
+                      required
+                    ></v-select>
+                  </v-flex>
                   <v-flex xs3 sm2 md1>
                     <small class="subheading">Ativo?</small>
                   </v-flex>

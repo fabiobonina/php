@@ -1,6 +1,7 @@
 <?php
 	require_once '_usoFunction.php';
 	require_once '../classes/Equipamentos.php';
+	require_once '../classes/EquipamentosLocal.php';
 	require_once '../emailPHP.php';
 
 	class EquipamentosFunction extends UsoFunction {
@@ -22,8 +23,10 @@
 			$dataCompra,
 			$loja,
 			$local,
+			$status,
 			$ativo
 		){
+			$equipamento	= new Equipamento();
 			
 			$equipamento->setProduto($produto);
 			$equipamento->setTag($tag);
@@ -44,139 +47,41 @@
 			$equipamento->setAtivo($ativo);
 
 			$item = $equipamento->insert();
-			if($cont2 == '0'){
-				$res['error'] = true;
-				$res['message'] = "Error, nao foi possivel salvar os dados";    
+			if($item['error'] == true ){
+				$res = $this->statusReturn($item);
 			}else{
-				$res['error'] = false;
-				$res['message']= 'OK, salvo '.$cont2.'/ '.$cont1.' enviados';
+				$item = $this->insertSistemaLocal(
+					$item['id'],
+					$dataCompra,
+					$loja,
+					$local,
+					$status
+				);
+				$res = $this->statusReturn($item);
 			}
+			return $res;
+		}
+		public function insertSistemaLocal(
+			$bem,
+			$data,
+			$loja,
+			$local,
+			$status
+		){
+			$equipamentoLocal 	= new EquipamentoLocal();
+
+			$equipamentoLocal->setBem($bem);
+			$equipamentoLocal->setData($data);
+			$equipamentoLocal->setLoja($loja);
+			$equipamentoLocal->setLocal($local);
+			$equipamentoLocal->setStatus($status);
+			
+			$res = $equipamentoLocal->insert();
 
 			return $res;
 		}
-		public function deleteOsTec($tecId, $osId){
-			$osTecnicos   = new OsTecnicos();
 
-			$validar = $this->listOsTecMod($osId, $tecId);
-			if(	count($validar) == '0' ){ 
-				if($osTecnicos->delete($tecId)){
-					$res['error'] = false;
-					$res['message']= 'OK, Tecnico deletado!';
-				}else{
-					$res['error'] = true;
-					$res['message'] = "Error, nao foi possivel deletar os dados"; 
-				}
-			}else{
-				$res['error'] = true;
-				$res['message'] = "Error, tecnico com deslocamento amarado a OS"; 
-			}
 
-			return $res;
-		}
-		public function listOsTec( $osId ){
-			$osTecnicos = new OsTecnicos();
-			$mods 		= new Mod();
-			$tecnicos	= new Tecnicos();
-			$user 		= new Usuarios();
-
-			$arTecnicos = array();
-			foreach($osTecnicos->findOs( $osId ) as $key => $value): {
-				$arTecnico = (array) $value;
-				$tecId = $value->tecnico;
-				$tecItem = $tecnicos->find( $tecId );
-				$userItem = $user->find( $tecItem->user );
-				$arTecnico['avatar'] = $userItem->avatar;
-          		#MODS-------------------------------------------------------
-          		$arTecnico['mods'] = $this->listOsTecMod( $osId, $tecId );
-          		#MODS-------------------------------------------------------
-				array_push($arTecnicos, $arTecnico);
-			}endforeach;
-			
-			return $arTecnicos;
-		}
-		public function listOsTecMod( $osId, $tecId ){
-			$mods 			= new Mod();
-			$deslocStatus 	= new DeslocStatus();
-			$deslocTrajetos = new DeslocTrajetos();
-			$osTecnicos 	= new OsTecnicos();
-			#MODS--------------------------------------------------------------------------------------------
-			$arMods = array();
-			foreach($mods->findOsTec( $osId, $tecId ) as $key => $value):{
-				$arItem =(array) $value;
-				$arItem['tecnico']	= $osTecnicos->findTecOs($tecId, $osId);
-				$arItem['status'] 	= $deslocStatus->find($value->status);
-				$arItem['trajeto'] 	= $deslocTrajetos->find($value->trajeto);
-				array_push($arMods, $arItem);
-			}endforeach;
-			return  $arMods;
-			#MODS--------------------------------------------------------------------------------------------
-			
-		}
-		public function listOsTecModValidacao( $osId, $tecId, $tecHh, $statusId, $trajetoId, $tipoValor, $date, $kmFinal, $valor ){
-			$mods = new Mod();
-			$res['error'] = false;
-			$arMessage = array();
-			$ativo = '0';
-				#MODS.................................
-				$data = $mods->findOsTecAtiv( $osId, $tecId, $ativo );
-				if( count($data) > '1' ){
-					$res['error'] 	= true;
-					$res['message'] ='Error, Mais de 1 trajeto aberto!';
-					return $res;
-				}elseif( count($data) == '0' ){
-					$res['error'] = false;
-					$res['data'] = '0';
-					return $res;
-				}else{
-					$value   		= $data['0'];
-					$res['modId']	= $value->id;
-					$dtInicio 		= $value->dtInicio;
-					$kmInicio 		= $value->kmInicio;
-					# validar Status
-					if( $statusId > $value->status ){
-						$res['statusNivel'] 	= '2';
-					}elseif( $statusId == $value->status ){
-						$res['statusNivel'] 	= '1';
-					}else{
-						$res['error'] = true;
-						array_push($arMessage, 'Error, Status inferior ao Status inicial');
-					}
-					# validar data
-					$tempo = $this->dtDiff($dtInicio, $date);
-					if( isset($tempo['error']) && $tempo['error'] == true ){
-						$res['error'] =  $tempo['error'];
-						array_push($arMessage, $tempo['message']);
-					}else{
-						$res['tempo'] 	= $tempo;
-						$res['hhValor'] 	= $this->somarHhValor($tempo, $tecHh );
-					}	
-					# validar TipoTrajeto
-					if( $value->trajeto != $trajetoId){
-						$res['error'] = true;
-						array_push($arMessage, 'Error, Tipo de trajeto é diferente do inicial');
-					}else{
-						# validar KM
-						if( $trajetoId == '1'){
-							$valor = $this->somarValorKm($kmInicio, $kmFinal, $tipoValor);
-							if( isset($valor['error']) && $valor['error'] == true ){
-								$res['error'] =  $valor['error'];
-								array_push($arMessage, $valor['message']);
-							}else{
-								$res['valor'] = $valor;
-							}
-						}elseif( $trajetoId == '2'){
-							$res['valor'] = $value->valor + $valor;
-						}else{
-							$res['valor'] = '0';
-						}
-					}
-				}
-
-				$res['message'] = $arMessage;
-				$res['data'] 	= '1';
-				return $res;
-				
-		}
 		public function modAdd( $osId, $tecId, $trajetoId, $statusId, $statusProcesso, $date, $km, $valor ){
 			$mods 			= new Mod();
 			$oss 			= new Os();
