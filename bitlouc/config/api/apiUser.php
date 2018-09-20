@@ -7,13 +7,13 @@ header('Content-Type: text/html; charset=utf-8');
 
 //include("_chave.php");
 
-require_once '../function/_usoFunction.php';
+require_once '../control/_global.php';
 
 function __autoload($class_name){
-  require_once '../classes/' . $class_name . '.php';
+  require_once '../model/' . $class_name . '.php';
 }
 
-$usoFunction = new UsoFunction();
+$globalControl = new GlobalControl();
 $usuarios = new Usuarios();
 
 $res = array('error' => true);
@@ -138,7 +138,7 @@ if($action == 'registrar'):
       array_push($arErros, $arError);
     endif;
 
-    if( $check = $usoFunction->checkDuplicity($user, $value->user) ):
+    if( $check = $globalControl->checkDuplicity($user, $value->user) ):
       $duplicado = true;
       $res['error'] = true;
       $arError = "Error, Nome do Usuario já ultilizado!";

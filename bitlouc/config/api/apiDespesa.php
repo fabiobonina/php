@@ -3,11 +3,11 @@ header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
 require_once '_chave.php';
-require_once '../function/osFunctionFull.php';
+require_once '../control/osControl.php';
 
-$osFunction = new OsFunction();
+$osControl = new OsControl();
 function __autoload($class_name){
-  require_once '../classes/' . $class_name . '.php';
+  require_once '../model/' . $class_name . '.php';
 }
 
 $proprietario = new Proprietario();
@@ -75,7 +75,7 @@ if($action == 'read'):
           $contPp_OsTt++;
           $contLj_OsTt++;
         }
-        $arOs = $osFunction->osFull( $value->id );
+        $arOs = $osControl->osFull( $value->id );
         
         array_push($arOss, $arOs);
 
@@ -147,8 +147,8 @@ if($action == 'osAdd'):
       $res['success'] = $osId['success'];
       $res['message']= $osId['message'];
     }else{
-      $item = $osFunction->insertOsTec( $tecnicos, $osId['id'] , $loja);
-      $tecII = $osFunction->osEmail( $osId['id'] );
+      $item = $osControl->insertOsTec( $tecnicos, $osId['id'] , $loja);
+      $tecII = $osControl->osEmail( $osId['id'] );
       $res['success'] = $item['success'];
       array_push($arMessage, $osId['message']);
       array_push($arMessage, $item['message']);
@@ -362,7 +362,7 @@ if($action == 'desloc'):
     $arMods   = array();
     if( $tec['tecnico'] != $tecnico['tecnico'] ){
       $tecNivel = '1';
-      $tecII = $osFunction->insertTecMod( $osId, $tec['tecnico'], $tec['userNick'], $tec['hh'], $status['id'], $status['processo'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
+      $tecII = $osControl->insertTecMod( $osId, $tec['tecnico'], $tec['userNick'], $tec['hh'], $status['id'], $status['processo'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
       #desloc aberto
       $res['success']   = $tecII['success'];
       array_push($arMessage, $tecII['message'] );
@@ -388,7 +388,7 @@ if($action == 'modAdd'):
   $modId        = '';
   
   #Valida se periodo da data, foi usado pelo tecnico 
-  $validacaoI = $osFunction->validarTrajetoMod( $tecId, $dtInicio, $dtFinal, $modId );
+  $validacaoI = $osControl->validarTrajetoMod( $tecId, $dtInicio, $dtFinal, $modId );
   $res['success'] = $validacaoI['success'];
   $res['outros'] = $validacaoI;
   if( !$res['success'] ){
@@ -439,7 +439,7 @@ if($action == 'modEdt'):
   $hhValor  = $_POST['hhValor'];
   
   #Valida se periodo da data, foi usado pelo tecnico 
-  $validacaoI = $osFunction->validarTrajetoMod( $tecId, $dtInicio, $dtFinal, $modId );
+  $validacaoI = $osControl->validarTrajetoMod( $tecId, $dtInicio, $dtFinal, $modId );
   $res['success'] = $validacaoI['success'];
   $res['outros'] = $validacaoI;
   if( !$res['success'] ){
@@ -504,7 +504,7 @@ if($action == 'modFull'):
   $modId = '';
   
   #Valida se periodo da data, foi usado pelo tecnico 
-  $validacaoI = $osFunction->validarTrajetoMod( $tecId, $dtInicio, $dtFinal, $modId );
+  $validacaoI = $osControl->validarTrajetoMod( $tecId, $dtInicio, $dtFinal, $modId );
   $res['success'] = $validacaoI['success'];
   $res['outros'] = $validacaoI;
   if( !$res['success'] ){

@@ -199,14 +199,14 @@
                   </v-flex>
                   <v-flex xs12 sm6 md4>
                     <v-select outline
-                      :items="fabricantes"
-                      v-model="fabricante"
+                      :items="statusBens"
+                      v-model="status"
+                      item-value="id"
                       item-text="name"
-                      label="Fabricante"
-                      :error-messages="errors.collect('fabricante')"
+                      label="status"
+                      :error-messages="errors.collect('status')"
                       v-validate="'required'"
-                      data-vv-name="fabricante"
-                      return-object
+                      data-vv-name="status"
                       required
                     ></v-select>
                   </v-flex>
@@ -254,7 +254,7 @@ Vue.component('bem-add', {
       produto: null, modelo: '', numeracao:'', modelo:'', fabricante: null,
       categoria: null, plaqueta: '', dataFab: '', dataCompra: '', ativo: '0',
       proprietario: null, proprietarioLocal: null, proprietarioLocais: [],
-      loja: null, local: null, locais : [],
+      loja: null, local: null, locais : [], status: '1',
       progresso: '3',
       item:{},
     };
@@ -290,6 +290,9 @@ Vue.component('bem-add', {
     },
     categorias() {
       return store.state.categorias;
+    },
+    statusBens() {
+      return store.state.statusBens;
     },
   },
   created: function() {
@@ -330,13 +333,13 @@ Vue.component('bem-add', {
             plaqueta: this.plaqueta,
             dataFab: this.dataFab,
             dataCompra: this.dataCompra,
-            loja: this.loja,
-            local: this.local,
+            loja: this.loja.id,
+            local: this.local.id,
+            status: this.status,
             ativo: this.ativo
           };
-          console.log(postData);
-          /*this.$http.post('./config/api/apiBem.php?action=cadastrar', postData)
-            .then(function(response) {
+          //console.log(postData);
+          this.$http.post('./config/api/apiBem.php?action=insert', postData).then(function(response) {
             console.log(response);
             if(response.data.error){
               this.errorMessage.push(response.data.message);
@@ -354,7 +357,7 @@ Vue.component('bem-add', {
           })
           .catch(function(error) {
             console.log(error);
-          });*/
+          });
         }
       });
     },

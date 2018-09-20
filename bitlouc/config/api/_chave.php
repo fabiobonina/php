@@ -2,7 +2,7 @@
     date_default_timezone_set('America/Recife');
     ob_start();
     session_start();
-    require_once '../classes/Usuarios.php';
+    require_once '../model/Usuarios.php';
     
     $usuarios = new Usuarios();
     // login

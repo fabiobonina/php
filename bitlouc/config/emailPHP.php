@@ -2,7 +2,7 @@
 /* Recuperar os Dados do Formulário de Envio*/
 
 /* Extender a classe do phpmailer para envio do email*/
-require_once("PHPMailer_/class.phpmailer.php");
+require_once("PHPMailer/class.phpmailer.php");
 class Email {
 
 	public function smtpmailer($para, $de, $nomeDestinatario, $assunto, $corpo) {

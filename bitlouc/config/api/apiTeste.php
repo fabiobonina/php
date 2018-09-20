@@ -2,13 +2,11 @@
 header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
-
-
-  require_once '../function/osFunction.php';
-  $osFunction = new OsFunction();
+  require_once '../control/osControl.php';
+  $osFunction = new OsControl();
 
   function __autoload($class_name){
-		require_once '../classes/' . $class_name . '.php';
+		require_once '../model/' . $class_name . '.php';
 	}
 
   $usuarios     = new Usuarios();

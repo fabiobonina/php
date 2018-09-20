@@ -3,12 +3,12 @@ header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
 include("_chave.php");
-require_once '../function/EquipamentosFunction.php';
+require_once '../control/equipamentoControl.php';
 
 
 
 function __autoload($class_name){
-  require_once '../classes/' . $class_name . '.php';
+  require_once '../model/' . $class_name . '.php';
 }
 
 $usuarios         = new Usuarios();
@@ -21,7 +21,7 @@ $bemLocalizacao   = new BemLocalizacao();
 $categorias       = new Categorias();
 $descricao        = new Descricao();
 $ativos           = new Ativos();
-$equiFunction     = new EquipamentosFunction();
+$equiControl      = new EquipamentoControl();
 
 $res = array('error' => true);
 $arDados = array();
@@ -134,7 +134,7 @@ if($action == 'insert'):
   $dataCompra = date("Y-m-d");
   $ativo = '0';*/
 
-  $item = $equiFunction->insertSistema(
+  $item = $equiControl->insertSistema(
     $produto,
     $tag,
     $name,

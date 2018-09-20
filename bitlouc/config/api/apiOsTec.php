@@ -3,10 +3,10 @@ header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
 require_once '_chave.php';
-require_once '../function/osFunction.php';
+require_once '../control/osControl.php';
 
 function __autoload($class_name){
-  require_once '../classes/' . $class_name . '.php';
+  require_once '../model/' . $class_name . '.php';
 }
 
 $proprietario = new Proprietario();
@@ -18,7 +18,7 @@ $servicos     = new Servicos();
 $mods         = new Mod();
 $osTecnicos   = new OsTecnicos();
 $deslocStatus = new DeslocStatus();
-$osFunction   = new OsFunction();
+$osControl   = new OsControl();
 
 $res     = array('error' => true);
 $arDados = array();
@@ -59,7 +59,7 @@ if($action == 'read'):
   $local= '2';
   $categoria= '1';
   $tecI = $osTecnicos->findTecStatus(  $tecId, $status );
-  $tecII = $osFunction->listOsTec($osId);
+  $tecII = $osControl->listOsTec($osId);
   $res['outros'] = $tecII;
   #PROPRITARIO-----------------------------------------------------------------------------------------
   foreach($proprietario->findAll() as $key => $value):if($value->id == $acessoProprietario && $value->ativo == '0' ) {
@@ -88,7 +88,7 @@ if($action == 'osTecAdd'):
   $loja = $_POST['loja'];
   $tecnicos = $_POST['tecnicos'];
 
-  $item = $osFunction->insertOsTec( $tecnicos, $os , $loja);
+  $item = $osControl->insertOsTec( $tecnicos, $os , $loja);
 
   //$res['dados'] = $item;
   # Insert
@@ -103,7 +103,7 @@ if($action == 'osTecDel'):
   $id = $_POST['id'];
   $os = $_POST['os'];
 
-  $item = $osFunction->deleteOsTec( $id, $os);
+  $item = $osControl->deleteOsTec( $id, $os);
 
   $res['dados'] = $item;
   # Insert
@@ -178,7 +178,7 @@ if($action == 'teste'):
   //$tecI = $osTecnicos->findTecStatus(  $tecId, $status );
   //$tecII = $mods->ModValidoII($tecId, $modId, $dtInicio, $dtFinal);
   //$tecIII = $mods->ModValidoIII($tecId, $modId, $dtInicio, $dtFinal);
-  $tecII = $osFunction->osEmail( $tecId );
+  $tecII = $osControl->osEmail( $tecId );
   $res['II'] = $tecII;
   //$res['III'] = $tecIII;
   //$res['date'] = $date;
