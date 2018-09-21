@@ -332,7 +332,7 @@
 			
 			/* Recuperar os Dados do Formulário de Envio*/
 			$txtNome 		= 'BitLOUC';//$_POST["txtNome"];
-			$txtAssunto 	= 'OS: '.$os->lojaNick.' | '.$os->local->tipo.' - '.$os->local->name.', '.$os->categoria->name.' ('.$os->id.')';//$_POST["txtAssunto"];
+			$txtAssunto 	= 'OS - '.$os->lojaNick.': '.$os->local->municipio .' - '. $os->local->uf. ' (' .$os->local->tipo.' '.$os->local->name.') #'.$os->id;//$_POST["txtAssunto"];
 			$txtEmail 		= 'bitlouc@gmail.com';//$_POST["txtEmail"];
 			$txtMensagem 	= 'OK';//$_POST["txtMensagem"];
 			$txtTec 		= array();
@@ -359,7 +359,8 @@
 			/* Montar o corpo do email*/
 			$corpoMensagem = '<b>N. OS: </b>'.$os->filial.' - '.$os->os. ' (Data: '. $os->data .')' 
 							.'<br><a href="http://skyhub.esy.es/#/oss/'. $os->loja .'/os/'. $os->id .'" target="_blank">'.$txtAssunto.'</a> '
-							.'<br><b>Municipio:</b> '.$os->local->municipio .'/'. $os->local->uf 
+							.'<br><b>Municipio:</b> '.$os->local->municipio .' - '. $os->local->uf 
+							.'<br><b>Categoria:</b> '.$os->categoria->name
 							.'<br><b>Serviço:</b> '.$os->servico->name
 							.'<br><b>Bem:</b> '.$txtBem
 							.'<br><b>Tecnicos:</b> '.$comma_separated

@@ -98,9 +98,9 @@ try {
 				$stmt->bindParam(':local_id',$this->local);
 				$stmt->execute();
 				
-				$bemId = DB::getInstance()->lastInsertId();
+				$equipamentoId = DB::getInstance()->lastInsertId();
 
-				$res['id'] = $osId;
+				$res['id'] = $equipamentoId;
 				$res['error'] = false;
 				$res['message'] = "OK, inserido com sucesso";
 				return $res;

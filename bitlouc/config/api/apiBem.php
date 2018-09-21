@@ -78,25 +78,6 @@ if($action == 'read'):
 
 endif;
 
-
-#GEOLOCALIZAÇÃO
-if($action == 'coordenadas'):
-  $id = $_POST['id'];
-  $lat = $_POST['latitude'];
-  $long = $_POST['longitude'];
-
-  $locais->setLat($lat);
-  $locais->setLong($long);
-
-  if($locais->geolocalizacso($id)){
-    $res['error'] = false;
-    $res['message']= "OK, dados salvo com sucesso";
-  }else{
-    $res['error'] = true; 
-    $res['message'] = "Error, nao foi possivel salvar os dados";      
-  }
-endif;
-
 #CADASTRAR
 if($action == 'insert'):
   $produto            = $_POST['produto'];
@@ -155,52 +136,15 @@ if($action == 'insert'):
     $ativo
   );
   # Insert
-  $res = $this->statusReturn($item);
+  $res = $item;
 
 endif;
 
 #ATUALIZAR
 if(isset($_POST['atualizar'])):
 
-  $id = $_POST['id'];
-  $cliente = $_POST['cliente'];
-  $regional = $_POST['regional'];
-  $nome = $_POST['nome'];
-  $municipio = $_POST['municipio'];
-  $uf = $_POST['uf'];
-  $lat = $_POST['lat'];
-  $long =$_POST["long"];
-  $ativo =$_POST["ativo"];
-
-  $locais->setCliente($cliente);
-  $locais->setRegional($regional);
-  $locais->setNome($nome);
-  $locais->setMunicipio($municipio);
-  $locais->setUf($uf);
-  $locais->setLat($lat);
-  $locais->setLong($long);
-  $locais->setAtivo($ativo);
-
-  if($locais->update($id)){
-    echo '<div class="alert alert-success">
-      <button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>Atualizado com sucesso!</strong> Redirecionando ...
-      </div>';
-    header("Refresh: 1, ".$redirecionar_1);
-  }
 endif;
 
-#DELETAR
-if(isset($_GET['acao1']) && $_GET['acao1'] == 'deletar'):
-  $id = (int)$_GET['id'];
-  if($locais->delete($id)){
-    echo '<div class="alert alert-success">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>Deletado com sucesso!</strong> Redirecionando ...
-        </div>';
-    header("Refresh: 1, ".$redirecionar_1);
-  }
-endif;
 
 $res['dados'] = $arDados;
 header("Content-Type: application/json");

@@ -21,7 +21,7 @@
             <loader :dialog="isLoading"></loader>
             <v-stepper v-model="progresso" vertical light>
               <v-stepper-step editable :complete="Number(progresso) > 1" step="1">
-                {{ proprietario.nick }}: {{ proprietarioLocal.tipo }} - {{ proprietarioLocal.name }}
+                {{ data.proprietario.nick }}: {{ data.proprietarioLocal.tipo }} - {{ data.proprietarioLocal.name }}
                 <small>Proprietario do Equipamento</small>
               </v-stepper-step>
               <v-stepper-content step="1">
@@ -30,7 +30,7 @@
                     <v-flex xs12 sm7 md4 >
                       <v-autocomplete outline
                         :items="lojas"
-                        v-model="proprietario"
+                        v-model="data.proprietario"
                         item-text="name"
                         label="Proprietario"
                         :error-messages="errors.collect('proprietario')"
@@ -43,7 +43,7 @@
                     <v-flex xs12 sm7 md4 >
                       <v-autocomplete outline
                         :items="proprietarioLocais"
-                        v-model="proprietarioLocal"
+                        v-model="data.proprietarioLocal"
                         item-text="name"
                         label="Proprietario Local"
                         :error-messages="errors.collect('proprietarioLocal')"
@@ -57,7 +57,7 @@
                 </v-container>
               </v-stepper-content>
               <v-stepper-step editable :complete="Number(progresso) > 2" step="2">
-                {{ loja.nick }}: {{ local.tipo }} - {{ local.name }}
+                {{ data.loja.nick }}: {{ data.local.tipo }} - {{ data.local.name }}
                 <small>Local do Equipamento</small>
               </v-stepper-step>
               <v-stepper-content step="2">
@@ -66,7 +66,7 @@
                     <v-flex xs12 sm7 md4 >
                       <v-autocomplete outline
                         :items="lojas"
-                        v-model="loja"
+                        v-model="data.loja"
                         item-text="name"
                         label="Loja"
                         :error-messages="errors.collect('loja')"
@@ -79,7 +79,7 @@
                     <v-flex xs12 sm7 md4 >
                       <v-autocomplete outline
                         :items="locais"
-                        v-model="local"
+                        v-model="data.local"
                         item-text="name"
                         label="Local"
                         :error-messages="errors.collect('local')"
@@ -101,7 +101,7 @@
                     <v-flex xs12 sm6 md4>
                       <v-autocomplete outline
                         :items="categorias"
-                        v-model="categoria"
+                        v-model="data.categoria"
                         item-text="name"
                         label="Cagetoria"
                         :error-messages="errors.collect('categoria')"
@@ -114,7 +114,7 @@
                     <v-flex xs12 sm6 md4>
                       <v-autocomplete outline
                         :items="produtos"
-                        v-model="produto"
+                        v-model="data.produto"
                         item-text="name"
                         label="Produto"
                         :error-messages="errors.collect('produto')"
@@ -127,7 +127,7 @@
                   <v-flex xs12 sm6 md4>
                     <v-select outline
                       :items="fabricantes"
-                      v-model="fabricante"
+                      v-model="data.fabricante"
                       item-text="name"
                       label="Fabricante"
                       :error-messages="errors.collect('fabricante')"
@@ -139,7 +139,7 @@
                   </v-flex>
                   <v-flex xs12 sm6 md6>
                     <v-text-field outline 
-                      v-model="modelo"
+                      v-model="data.modelo"
                       label="Modelo"
                       :error-messages="errors.collect('modelo')"
                       v-validate="''"
@@ -148,7 +148,7 @@
                   </v-flex>
                   <v-flex xs12 sm6 md6>
                     <v-text-field outline
-                      v-model="name"
+                      v-model="data.name"
                       label="Nome"
                       :error-messages="errors.collect('name')"
                       v-validate="''"
@@ -157,7 +157,7 @@
                   </v-flex>
                   <v-flex xs12 sm6 md3>
                     <v-text-field outline
-                      v-model="numeracao"
+                      v-model="data.numeracao"
                       label="Numeracao"
                       :error-messages="errors.collect('numeracao')"
                       v-validate="''"
@@ -166,7 +166,7 @@
                   </v-flex>
                   <v-flex xs12 sm6 md3>
                     <v-text-field outline
-                      v-model="plaqueta"
+                      v-model="data.plaqueta"
                       label="Plaqueta"
                       :error-messages="errors.collect('plaqueta')"
                       v-validate="''"
@@ -176,7 +176,7 @@
                   <v-flex xs12 sm6 md3 >
                       <v-text-field outline
                         type="date"
-                        v-model="dataFab"
+                        v-model="data.dataFab"
                         label="Data Fabricação"
                         :error-messages="errors.collect('dataFab')"
                         v-validate="'required'"
@@ -188,7 +188,7 @@
                   <v-flex xs12 sm6 md3 >
                     <v-text-field outline
                       type="date"
-                      v-model="dataCompra"
+                      v-model="data.dataCompra"
                       label="Data Compra"
                       :error-messages="errors.collect('dataCompra')"
                       v-validate="'required'"
@@ -200,7 +200,7 @@
                   <v-flex xs12 sm6 md4>
                     <v-select outline
                       :items="statusBens"
-                      v-model="status"
+                      v-model="data.status"
                       item-value="id"
                       item-text="name"
                       label="status"
@@ -214,7 +214,7 @@
                     <small class="subheading">Ativo?</small>
                   </v-flex>
                   <v-flex xs8 sm4 md4>
-                    <v-radio-group v-model="ativo" row>
+                    <v-radio-group v-model="data.ativo" row>
                       <v-radio label="Sim" value="0" ></v-radio>
                       <v-radio label="Não" value="1"></v-radio>
                     </v-radio-group>
@@ -241,8 +241,8 @@ Vue.component('bem-add', {
   props: {
     data: {},
     filterKey: String,
-    dialogedt: Boolean,
-    dialogdel: Boolean,
+    dialogEdt: Boolean,
+    dialogDel: Boolean,
   },
   data() {
     return {
@@ -250,11 +250,8 @@ Vue.component('bem-add', {
       successMessage: [],
       isLoading: false,
       dialog: false,
-      name: null,
-      produto: null, modelo: '', numeracao:'', modelo:'', fabricante: null,
-      categoria: null, plaqueta: '', dataFab: '', dataCompra: '', ativo: '0',
-      proprietario: null, proprietarioLocal: null, proprietarioLocais: [],
-      loja: null, local: null, locais : [], status: '1',
+      proprietarioLocais: [],
+      locais : [],
       progresso: '3',
       item:{},
     };
@@ -266,6 +263,9 @@ Vue.component('bem-add', {
     'loja': function (newQuestion, oldQuestion) {
       this.updateLocal()
     },
+    dialog (val) {
+      val || this.close()
+    }
   },
   mounted () {
     this.$validator.localize('pt_BR', this.dictionary)
@@ -351,8 +351,8 @@ Vue.component('bem-add', {
               });
               this.isLoading = false;
               setTimeout(() => {
-                this.$emit('close');
-              }, 2000);  
+                this.close();
+              }, 2000);
             }
           })
           .catch(function(error) {
@@ -371,6 +371,10 @@ Vue.component('bem-add', {
       if(!this.dataCompra) this.errorMessage.push('data compra necessário!');
       if(!this.errorMessage.length) return true;
       e.preventDefault();
+    },
+    close () {
+      this.dialog = false;
+      this.$emit('close');
     },
   },
 });

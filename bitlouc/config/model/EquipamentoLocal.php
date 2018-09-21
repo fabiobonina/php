@@ -3,15 +3,16 @@ require_once '_crud.php';
 
 try {
 	class EquipamentoLocal extends Crud{
-		protected $table = 'tb_eq_local';
-		private $bem;
+		protected $table = 'tb_eq_localizacao';
+		private $equipamento;
 		private $loja;
 		private $local;
-		private $data;
+		private $dataInicial;
+		private $dataFinal;
 		private $status;
 
-		public function setBem($bem){
-			$this->bem = $bem;
+		public function setEquipamento($equipamento){
+			$this->equipamento = $equipamento;
 		}
 		public function setLoja($loja){
 			$this->loja = $loja;
@@ -19,8 +20,11 @@ try {
 		public function setLocal($local){
 			$this->local = $local;
 		}
-		public function setData($data){
-			$this->data = $data;
+		public function setDataInicial($dataInicial){
+			$this->dataInicial = $dataInicial;
+		}
+		public function setDataFinal($dataFinal){
+			$this->dataFinal = $dataFinal;
 		}
 		public function setStatus($status){
 			$this->status = $status;
@@ -28,14 +32,14 @@ try {
 
 		public function insert(){
 			try{
-				$sql  = "INSERT INTO $this->table (bem, loja, local, data, status)";
-				$sql .= "VALUES (:bem, :loja, :local, :data, :status)";
+				$sql  = "INSERT INTO $this->table (equipamento, loja, local, dataInicial, status)";
+				$sql .= "VALUES (:equipamento, :loja, :local, :dataInicial, :status)";
 				$stmt = DB::prepare($sql);
-				$stmt->bindParam(':bem',$this->bem);
-				$stmt->bindParam(':loja',$this->loja);
-				$stmt->bindParam(':local',$this->local);
-				$stmt->bindParam(':data',$this->data);
-				$stmt->bindParam(':status',$status);
+				$stmt->bindParam(':equipamento',	$this->equipamento);
+				$stmt->bindParam(':loja',			$this->loja);
+				$stmt->bindParam(':local',			$this->local);
+				$stmt->bindParam(':dataInicial',	$this->dataInicial);
+				$stmt->bindParam(':status',			$this->status);
 				$stmt->execute();
 				$res['error'] = false;
 				$res['message'] = "OK, salvo com sucesso";
@@ -49,13 +53,13 @@ try {
 
 		public function update($id){
 			try{
-			$sql  = "UPDATE $this->table SET bem = :bem, loja = :loja, local = :local, data = :data, status = :status WHERE id = :id ";
+			$sql  = "UPDATE $this->table SET equipamento = :equipamento, loja = :loja, local = :local, dataFinal = :dataFinal, status = :status WHERE id = :id ";
 			$stmt = DB::prepare($sql);
 			
-			$stmt->bindParam(':bem',$this->bem);
+			$stmt->bindParam(':equipamento',$this->equipamento);
 			$stmt->bindParam(':loja',$this->loja);
 			$stmt->bindParam(':local',$this->local);
-			$stmt->bindParam(':data',$this->data);
+			$stmt->bindParam(':dataFinal',$this->dataFinal);
 			$stmt->bindParam(':status',$status);
 			$stmt->bindParam(':id', $id);
 			$stmt->execute();

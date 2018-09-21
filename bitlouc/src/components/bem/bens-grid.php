@@ -9,7 +9,7 @@
         <v-icon>build</v-icon>
       </v-btn>
       <bem-add 
-        :dialogedt="editItem" :dialogdel="deleteItem" :data="item" v-on:close="close()" >
+        :dialog-edt="editItem" :dialog-del="deleteItem" :data="defaultItem" v-on:close="close()" >
       </bem-add>
     </v-toolbar>
     <v-data-table :headers="headers" :items="data" :search="search" class="elevation-1">
@@ -65,74 +65,66 @@
         { text: 'Ativo', value: 'plaqueta' },
         { text: 'Info', sortable: false, value: 'info' }
       ],
-      editedItem: {
-        proprietario: null, localizacao: null,
-        name: '', modelo: '', numeracao:'', plaqueta: '',
-        produto: null, fabricante: null,
-        categoria: null, dataFab: '', dataCompra: '', ativo: '',
-      },
+      editedItem: {},
       defaultItem: {
-        proprietario: null, local: null, local: null,
-        produto: null, fabricante: null, categoria: null,
-        name: '', modelo: '', numeracao:'', plaqueta: '',
-        dataFab: '', dataCompra: '', ativo: '',
+        produto: null, name: null, modelo: '',
+        fabricante: null, categoria: null, plaqueta: '', dataFab: '', dataCompra: '', ativo: '0',
+        proprietario: null, proprietarioLocal: null,
+        loja: null, local: null, status: '0',
       }
     }),
-
-  computed: {
-    user()  {
-      return store.state.user;
+    created () {
+      this.initialize()
     },
-    filteredData() {
-      var status = this.status;
-      var filter = this.configs.search && this.configs.search.toLowerCase();
-      var list = _.orderBy(this.data, this.configs.orderBy.state, this.configs.order);
-      var categoria = this.selectedCategoria;
-      //_.filter(list, repo => repo.status.indexOf(filter) >= 0);
-      if(categoria !== "0") {
-        list = list.filter(function(row) {
-          return Number(row.categoria.id) === Number(categoria);
-        });
-      }
-      if(status){
-        list = list.filter(function (row) {
-          return Number(row.status) === Number(status);
-        });
-      }else{
-        list = list.filter(function (row) {
-          return Number(row.status) <= 1;
-        });
-      }
-      
-      if (filter) {
-        list = list.filter(function (row) {
-          return Object.keys(row).some(function (key) {
-            return String(row[key]).toLowerCase().indexOf(filter) > -1
+    computed: {
+      user()  {
+        return store.state.user;
+      },
+      filteredData() {
+        var status = this.status;
+        var filter = this.configs.search && this.configs.search.toLowerCase();
+        var list = _.orderBy(this.data, this.configs.orderBy.state, this.configs.order);
+        var categoria = this.selectedCategoria;
+        //_.filter(list, repo => repo.status.indexOf(filter) >= 0);
+        if(categoria !== "0") {
+          list = list.filter(function(row) {
+            return Number(row.categoria.id) === Number(categoria);
+          });
+        }
+        if(status){
+          list = list.filter(function (row) {
+            return Number(row.status) === Number(status);
+          });
+        }else{
+          list = list.filter(function (row) {
+            return Number(row.status) <= 1;
+          });
+        }
+        
+        if (filter) {
+          list = list.filter(function (row) {
+            return Object.keys(row).some(function (key) {
+              return String(row[key]).toLowerCase().indexOf(filter) > -1
+            })
           })
-        })
-      }
-      return list;
+        }
+        return list;
+      },
     },
-  },
-  methods: {
-    /*editItem (item) {
-      this.editedIndex = this.desserts.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.dialog = true
-    },
-    deleteItem (item) {
-      const index = this.desserts.indexOf(item)
-      this.dialog = true
-    },*/
-    
-    close () {
-      this.deleteItem = false;
-      this.editItem = false;
-      this.item = null;
-    },
-
-  }
-})
+    methods: {
+      initialize() {
+        this.defaultItem.loja = store.getters.getLojaId(this.$route.params._id);
+        this.defaultItem.local = store.getters.getLocalId(this.$route.params._local);
+        this.defaultItem.proprietario = store.getters.getLojaId(this.user.loja);
+        this.defaultItem.proprietarioLocal = store.getters.getLocalLojaSingle(this.user.loja);
+      },
+      close () {
+        this.deleteItem = false;
+        this.editItem = false;
+        this.item = null;
+      },
+    }
+  })
 </script>
 
 
