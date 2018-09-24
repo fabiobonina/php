@@ -72,6 +72,19 @@ try {
 				return $res;
 			}
 		}
+
+		public function findOs($status){
+			try{
+				$sql  = "SELECT * FROM $this->table WHERE BINARY status=:status ";
+				$stmt = DB::prepare($sql);
+				$stmt->bindParam(':status', $status, PDO::PARAM_INT);
+				$stmt->execute();
+				return $stmt->fetchAll();
+			} catch(PDOException $e) {
+				echo 'ERROR: ' . $e->getMessage();
+			}
+		}
+		
 	}
 }catch( Exception $e ) {
     $res['error']	= true;

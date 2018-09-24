@@ -29,8 +29,8 @@ if(isset($_GET['action'])){
 }
   
 if($action == 'read'):
-  //$lojaId = $_POST['loja'];
-  $lojaId = '1';
+  $lojaId = $_POST['loja'];
+  //$lojaId = '1';
 
   $arLocais = array();
   $arBens = array();

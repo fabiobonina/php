@@ -25,12 +25,59 @@ $equiControl      = new EquipamentoControl();
 
 $res = array('error' => true);
 $arDados = array();
-$action = 'cadastrar';
+$action = 'reads';
 
 if(isset($_GET['action'])){
   $action = $_GET['action'];
 }
   
+if($action == 'reads'):
+  //$lojaId = $_POST['loja'];
+  $lojaId = '1';
+
+  $arLocais = array();
+  $arBens = array();
+  #LOCAIS-----------------------------------------------------------------------------------
+  foreach($locais->findAll() as $key => $value):if($value->loja == $lojaId) {
+    $arLocal = (array) $value;
+    $localId = $value->id;
+
+    #LOCAL_CATEGORIA-------------------------------------------------------------------------
+    $arCategorias = array();
+    foreach($localCategorias->findAll() as $key => $value):if($value->local == $localId) {
+      $categoriaId = $value->categoria;
+      foreach($categorias->findAll() as $key => $value):if($value->id == $categoriaId) {
+        $arCategoria = (array) $value;
+        array_push($arCategorias, $arCategoria );
+      }endforeach;
+    }endforeach;
+
+    $arLocal['categoria']= $arCategorias;
+    #LOCAL_CATEGORIA----------------------------------------------------------------------------
+
+    #LOCAIS_BENS-----------------------------------------------------------------------------------
+    $status = 3;
+    foreach($bemLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status <= $status ) {
+      $bemId = $value->bem;
+      foreach($bens->findAll() as $key => $value):if($value->id == $bemId) {
+        $arBem = (array) $value; //Bem
+        $arBem['loja']= $lojaId;
+        $arBem['local']= $localId;
+        array_push($arBens, $arBem );
+        
+      }endforeach;
+    }endforeach;
+    #LOCAIS_BENS-----------------------------------------------------------------------------------
+    array_push($arLocais, $arLocal );
+  }endforeach;
+  #LOCAIS-------------------------------------------------------------------------------------------
+  $res['locais']= $arLocais;
+  $res['bens']= $arBens;
+  //$arDados = $arLocal;
+  $res['error'] = false;
+
+endif;
+
 if($action == 'read'):
   $lojaId = $_POST['loja'];
   //$lojaId = '1';

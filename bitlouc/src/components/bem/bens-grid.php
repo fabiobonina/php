@@ -9,7 +9,7 @@
         <v-icon>build</v-icon>
       </v-btn>
       <bem-add 
-        :dialog-edt="editItem" :dialog-del="deleteItem" :data="defaultItem" v-on:close="close()" >
+        :dialog-edt="editItem" :dialog-del="deleteItem" :data="item" v-on:close="close()" >
       </bem-add>
     </v-toolbar>
     <v-data-table :headers="headers" :items="data" :search="search" class="elevation-1">
@@ -65,7 +65,6 @@
         { text: 'Ativo', value: 'plaqueta' },
         { text: 'Info', sortable: false, value: 'info' }
       ],
-      editedItem: {},
       defaultItem: {
         produto: null, name: null, modelo: '',
         fabricante: null, categoria: null, plaqueta: '', dataFab: '', dataCompra: '', ativo: '0',
@@ -117,11 +116,12 @@
         this.defaultItem.local = store.getters.getLocalId(this.$route.params._local);
         this.defaultItem.proprietario = store.getters.getLojaId(this.user.loja);
         this.defaultItem.proprietarioLocal = store.getters.getLocalLojaSingle(this.user.loja);
+        this.item = this.defaultItem;
       },
       close () {
         this.deleteItem = false;
-        this.editItem = false;
-        this.item = null;
+        this.editItem   = false;
+        this.item       = this.defaultItem;
       },
     }
   })

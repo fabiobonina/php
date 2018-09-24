@@ -5,6 +5,41 @@
 
 	class EquipamentoControl extends GlobalControl {
 
+		public function findAlllistSistemaLocal(
+			$equipamento,
+			$data,
+			$loja,
+			$local,
+			$status ){
+			#LOCAIS_BENS-----------------------------------------------------------------------------------
+			$status = 3;
+			foreach($bemLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status <= $status ) {
+			  $bemId = $value->bem;
+			  $bemStatus= $value->status;
+			  foreach($bens->findAll() as $key => $value):if($value->id == $bemId) {
+				$arBem = (array) $value; //Bem
+				$arBem['loja']= $lojaId;
+				$arBem['local']= $localId;
+				$arBem['status']=$bemStatus;
+				foreach($categorias->findAll() as $key => $value):if($value->id == $arBem['categoria_id']) {
+				  $arBem['categoria'] = $value;
+				}endforeach;
+				array_push($arBens, $arBem );
+				
+			  }endforeach;
+			}endforeach;
+			#LOCAIS_BENS-----------------------------------------------------------------------------------
+			$equipamentoLocal 	= new EquipamentoLocal();
+			$equipamentoLocal->setEquipamento($equipamento);
+			$equipamentoLocal->setDataInicial($data);
+			$equipamentoLocal->setLoja($loja);
+			$equipamentoLocal->setLocal($local);
+			$equipamentoLocal->setStatus($status);
+			$res = $equipamentoLocal->insert();
+
+			return $res;
+		}
+
 		public function insertSistema(
 			$produto,
 			$tag,
@@ -59,6 +94,7 @@
 			}
 			return $res;
 		}
+
 		public function insertSistemaLocal(
 			$equipamento,
 			$data,

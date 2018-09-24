@@ -263,6 +263,9 @@ Vue.component('bem-add', {
     'loja': function (newQuestion, oldQuestion) {
       this.updateLocal()
     },
+    'dialogEdt': function (newQuestion, oldQuestion) {
+      this.dialog = true
+    },
     dialog (val) {
       val || this.close()
     }
