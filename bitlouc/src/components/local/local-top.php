@@ -36,9 +36,7 @@
       //this.modalBemAdd = true;
     },
     created: function() {
-      this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
-        console.log("Buscando dados das locais!")
-      });
+      
     },
     computed: {
       local()  {

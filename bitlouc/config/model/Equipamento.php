@@ -38,26 +38,20 @@ try {
 		public function setNumeracao($numeracao){
 			$this->numeracao = $numeracao;
 		}
+		public function setPlaqueta($plaqueta){
+			$this->plaqueta = $plaqueta;
+		}
 		public function setFabricante($fabricante){
 			$this->fabricante = $fabricante;
 		}
-		public function setFabricanteNick($fabricanteNick){
-			$this->fabricanteNick = $fabricanteNick;
-		}
 		public function setProprietario($proprietario){
 			$this->proprietario = $proprietario;
-		}
-		public function setProprietarioNick($proprietarioNick){
-			$this->proprietarioNick = $proprietarioNick;
 		}
 		public function setProprietarioLocal($proprietarioLocal){
 			$this->proprietarioLocal = $proprietarioLocal;
 		}
 		public function setCategoria($categoria){
 			$this->categoria = $categoria;
-		}
-		public function setPlaqueta($plaqueta){
-			$this->plaqueta = $plaqueta;
 		}
 		public function setDataFabricacao($dataFrabricacao){
 			$this->dataFrabricacao = $dataFrabricacao;
@@ -80,20 +74,20 @@ try {
 				$sql  = "INSERT INTO $this->table (produto_id, tag, name, modelo, numeracao, plaqueta, fabricante_id, proprietario_id, proprietarioLocal_id, categoria_id, dataFrabricacao, dataCompra, loja_id, local_id) ";
 				$sql .= "VALUES (:produto_id, :tag, :name, :modelo, :numeracao, :plaqueta, :fabricante_id, :proprietario_id, :proprietarioLocal_id, :categoria_id, :dataFrabricacao, :dataCompra, :loja_id, :local_id)";
 				$stmt = DB::prepare($sql);
-				$stmt->bindParam(':produto_id',$this->produto);
-				$stmt->bindParam(':tag',$this->tag);
-				$stmt->bindParam(':name',$this->name);
-				$stmt->bindParam(':modelo',$this->modelo);
-				$stmt->bindParam(':numeracao',$this->numeracao);
-				$stmt->bindParam(':plaqueta',$this->plaqueta);
-				$stmt->bindParam(':fabricante_id',$this->fabricante);
-				$stmt->bindParam(':proprietario_id',$this->proprietario);
+				$stmt->bindParam(':produto_id'			,$this->produto);
+				$stmt->bindParam(':tag'					,$this->tag);
+				$stmt->bindParam(':name'				,$this->name);
+				$stmt->bindParam(':modelo'				,$this->modelo);
+				$stmt->bindParam(':numeracao'			,$this->numeracao);
+				$stmt->bindParam(':plaqueta'			,$this->plaqueta);
+				$stmt->bindParam(':fabricante_id'		,$this->fabricante);
+				$stmt->bindParam(':proprietario_id'		,$this->proprietario);
 				$stmt->bindParam(':proprietarioLocal_id',$this->proprietarioLocal);
-				$stmt->bindParam(':categoria_id',$this->categoria);
-				$stmt->bindParam(':dataFrabricacao',$this->dataFrabricacao);
-				$stmt->bindParam(':dataCompra',$this->dataCompra);
-				$stmt->bindParam(':loja_id',$this->loja);
-				$stmt->bindParam(':local_id',$this->local);
+				$stmt->bindParam(':categoria_id'		,$this->categoria);
+				$stmt->bindParam(':dataFrabricacao'		,$this->dataFrabricacao);
+				$stmt->bindParam(':dataCompra'			,$this->dataCompra);
+				$stmt->bindParam(':loja_id'				,$this->loja);
+				$stmt->bindParam(':local_id'			,$this->local);
 				$stmt->execute();
 				
 				$equipamentoId = DB::getInstance()->lastInsertId();

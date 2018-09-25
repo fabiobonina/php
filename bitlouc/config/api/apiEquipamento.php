@@ -5,52 +5,42 @@ header('Content-Type: text/html; charset=utf-8');
 include("_chave.php");
 require_once '../control/equipamentoControl.php';
 
-
-
-function __autoload($class_name){
-  require_once '../model/' . $class_name . '.php';
-}
-
-$usuarios         = new Usuarios();
-$loja             = new Loja();
-$lojaCategoria    = new LojaCategorias();
-$locais           = new Locais();
-$localCategorias  = new LocalCategorias();
-$bens             = new Bens();
-$bemLocalizacao   = new BemLocalizacao();
-$categorias       = new Categorias();
-$descricao        = new Descricao();
-$ativos           = new Ativos();
 $equiControl      = new EquipamentoControl();
 
 $res = array('error' => true);
-$arDados = array();
-$action = 'reads';
+$action = 'localUnder';
 
 if(isset($_GET['action'])){
   $action = $_GET['action'];
 }
-  
-if($action == 'reads'):
-  //$lojaId = $_POST['loja'];
-  $lojaId = '1';
 
-  $arLocais = array();
-  $arBens = array();
+if($action == 'read'):
 
-  $item = $equiControl->listSistemaLoja(
-    $loja
-  );
-  # Insert
-  $res = $item;
-  
-  $res['locais']= $arLocais;
-  $res['bens']= $arBens;
-  //$arDados = $arLocal;
+  $item = $equiControl->listSistema();
+  $res['equipamentos'] = $item;
   $res['error'] = false;
 
 endif;
 
+if($action == 'loja'):
+
+  $lojaId = $_POST['loja'];
+  //$lojaId = '1';
+  $item = $equiControl->listSistemaLoja( $lojaId );
+  $res['equipamentos'] = $item;
+  $res['error'] = false;
+
+endif;
+
+if($action == 'local'):
+
+  $localId = $_POST['local'];
+  //$localId = '1';
+  $item = $equiControl->listSistemaLocal( $localId );
+  $res['equipamentos'] = $item;
+  $res['error'] = false;
+
+endif;
 
 #CADASTRAR
 if($action == 'insert'):
@@ -119,7 +109,5 @@ if(isset($_POST['atualizar'])):
 
 endif;
 
-
-$res['dados'] = $arDados;
 header("Content-Type: application/json");
 echo json_encode($res);

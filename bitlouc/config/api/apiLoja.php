@@ -10,7 +10,7 @@
 
   $lojas            = new Loja();
   $lojaCategorias   = new LojaCategorias();
-  $locais           = new Locais();
+  $locais           = new Local();
   $localCategorias  = new LocalCategorias();
   $categorias       = new Categorias();
 

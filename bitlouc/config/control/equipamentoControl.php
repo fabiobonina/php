@@ -1,13 +1,32 @@
 <?php
 	require_once '_global.php';
-	require_once '../model/Equipamento.php';
-	require_once '../model/EquipamentoLocal.php';
-	require_once '../model/Categorias.php';
-	require_once '../model/Fabricantes.php';
-	require_once '../model/Produtos.php';
-	require_once '../model/Loja.php';
+
+	function __autoload($class_name){
+		require_once '../model/' . $class_name . '.php';
+	}
+
+	//require_once '../model/Equipamento.php';
+	//require_once '../model/EquipamentoLocal.php';
+	//require_once '../model/Categorias.php';
+	//require_once '../model/Fabricantes.php';
+	//require_once '../model/Produtos.php';
+	//require_once '../model/Loja.php';
 
 	class EquipamentoControl extends GlobalControl {
+
+		public function listSistema(){
+				
+			$equipamentos	= new Equipamento();
+			$itens = array();
+			foreach($equipamentos->findAll() as $key => $value):{
+				$item = (array) $value;
+				$item = $this->matrixSistema( $item );
+				array_push( $itens, $item );
+			}endforeach;
+			$res = $itens;
+			return $res;
+
+		}
 
 		public function listSistemaLoja( $loja ){
 				
@@ -22,10 +41,43 @@
 			return $res;
 
 		}
+
+		public function listSistemaLocal( $local ){
+				
+			$equipamentos	= new Equipamento();
+			$itens = array();
+			foreach($equipamentos->findAll() as $key => $value):if($value->local_id == $local) {
+				$item = (array) $value;
+				$item = $this->matrixSistema( $item );
+				array_push( $itens, $item );
+			}endforeach;
+			$res = $itens;
+			return $res;
+
+		}
+
 		public function matrixSistema( $item ){
-			$categorias       = new Categorias();
-			$categorias       = new Categorias();
-			$categorias       = new Categorias();
+			$categorias = new Categorias();
+			$produtos	= new Produtos();
+			$fabricantes = new Fabricantes();
+			$lojas      = new Loja();
+			$locais     = new Local();
+
+			$item['categoria']				= $categorias->find( $item['categoria_id']);
+			$item['categoriaTag'] 			= $item['categoria']->tag;
+			$item['produto'] 				= $produtos->find( $item['produto_id']);
+			$item['produtoName'] 			= $item['produto']->name;
+			$item['fabricante']				= $fabricantes->find( $item['fabricante_id']);
+			$item['fabricanteName'] 		= $item['fabricante']->name;
+			$item['proprietario']			= $lojas->find( $item['proprietario_id']);
+			$item['proprietarioName'] 		= $item['proprietario']->name;
+			$item['proprietarioLocal']		= $locais->find( $item['proprietarioLocal_id']);
+			$item['proprietarioLocalName']	= $item['proprietarioLocal']->name;
+			$item['loja']					= $lojas->find( $item['loja_id']);
+			$item['lojaName'] 				= $item['loja']->name;
+			$item['local']					= $locais->find( $item['local_id']);
+			$item['localName'] 				= $item['local']->name;
+			return $item;
 
 		}
 
@@ -50,23 +102,21 @@
 			$ativo ){
 
 			$equipamento	= new Equipamento();
-			$equipamento->setProduto($produto);
-			$equipamento->setTag($tag);
-			$equipamento->setName($name);
-			$equipamento->setModelo($modelo);
-			$equipamento->setNumeracao($numeracao);
-			$equipamento->setFabricante($fabricante);
-			$equipamento->setFabricanteNick($fabricanteNick);
-			$equipamento->setProprietario($proprietario);
-			$equipamento->setProprietarioNick($proprietarioNick);
-			$equipamento->setProprietarioLocal($proprietarioLocal);
-			$equipamento->setCategoria($categoria);
-			$equipamento->setPlaqueta($plaqueta);
-			$equipamento->setDataFabricacao($dataFab);
-			$equipamento->setDataCompra($dataCompra);
-			$equipamento->setLoja($loja);
-			$equipamento->setLocal($local);
-			$equipamento->setAtivo($ativo);
+			$equipamento->setProduto( $produto );
+			$equipamento->setTag( $tag );
+			$equipamento->setName( $name );
+			$equipamento->setModelo( $modelo );
+			$equipamento->setNumeracao( $numeracao );
+			$equipamento->setPlaqueta( $plaqueta );
+			$equipamento->setFabricante( $fabricante );
+			$equipamento->setProprietario( $proprietario );
+			$equipamento->setProprietarioLocal( $proprietarioLocal );
+			$equipamento->setCategoria( $categoria );
+			$equipamento->setDataFabricacao( $dataFab );
+			$equipamento->setDataCompra( $dataCompra );
+			$equipamento->setLoja( $loja );
+			$equipamento->setLocal( $local );
+			$equipamento->setAtivo( $ativo );
 
 			$item = $equipamento->insert();
 			if($item['error'] == true ){
@@ -81,24 +131,6 @@
 				);
 				$res = $this->statusReturn($item);
 			}
-			return $res;
-		}
-
-		public function insertSistemaLocal(
-			$equipamento,
-			$data,
-			$loja,
-			$local,
-			$status ){
-
-			$equipamentoLocal 	= new EquipamentoLocal();
-			$equipamentoLocal->setEquipamento($equipamento);
-			$equipamentoLocal->setDataInicial($data);
-			$equipamentoLocal->setLoja($loja);
-			$equipamentoLocal->setLocal($local);
-			$equipamentoLocal->setStatus($status);
-			$res = $equipamentoLocal->insert();
-
 			return $res;
 		}
 

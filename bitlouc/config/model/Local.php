@@ -1,7 +1,7 @@
 <?php
 require_once '_crud.php';
 
-class Locais extends Crud{
+class Local extends Crud{
 	
 	protected $table = 'tb_locais';
 	protected $table2 = 'tb_local_categoria';

@@ -11,7 +11,7 @@ function __autoload($class_name){
 
 $proprietario = new Proprietario();
 $lojas        = new Loja();
-$locais       = new Locais();
+$locais       = new Local();
 $oss          = new Os();
 $bens         = new Bens();
 $servicos     = new Servicos();

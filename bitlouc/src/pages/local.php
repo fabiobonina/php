@@ -10,6 +10,12 @@
     <rodape></rodape>
   </div>
 </template>
+<?php require_once 'src/components/includes/top.php';?>
+<?php require_once 'src/components/includes/rodape.php';?>
+
+<?php require_once 'src/components/local/local-top.php';?>
+<?php require_once 'src/components/bem/equipamentosLocal.php';?>
+
 <script>
 var Local = Vue.extend({
   template: '#local',
@@ -27,6 +33,9 @@ var Local = Vue.extend({
   created: function() {
     this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
       console.log("Buscando dados das locais!")
+    });
+    this.$store.dispatch('fetchLocalUder', this.$route.params._local).then(() => {
+      console.log("Buscando dados do local!")
     });
   },
   computed: {
@@ -49,13 +58,5 @@ var Local = Vue.extend({
     },
   },
 });
-
-
-
 </script>
 
-<?php require_once 'src/components/includes/top.php';?>
-<?php require_once 'src/components/includes/rodape.php';?>
-
-<?php require_once 'src/components/local/local-top.php';?>
-<?php require_once 'src/components/bem/bens.php';?>

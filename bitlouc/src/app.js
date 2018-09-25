@@ -8,8 +8,14 @@ Vue.http.options.emulateJSON = true;
 const INDEXLIST   ='./config/api/apiProprietario.php?action=read';
 const CONFIG      ='./config/api/apiConfig.php?action=config';
 const LOCALLIST   ='./config/api/apiLocal.php?action=read';
+const BENSLIST   ='./config/api/apiLocal.php?action=read';
 const OSLIST      ='./config/api/apiOs.php?action=read';
 const CONFIGPROD  ='./config/api/apiConfig.php?action=prod';
+
+const EQUIPAMENTOSLIST   ='./config/api/apiEquipamento.php?action=read';
+const EQUIPAMENTOSLOJA   ='./config/api/apiEquipamento.php?action=loja';
+const EQUIPAMENTOSLOCAL  ='./config/api/apiEquipamento.php?action=local';
+
 
 const LOGIN = "LOGIN";
 const LOGIN_SUCCESS = "LOGIN_SUCCESS";
@@ -31,6 +37,7 @@ const state = {
   locais: [],
   local: {},
   bens: [],
+  equipamentos: [],
   users:[],
   user:[],
   tipos:[],
@@ -95,6 +102,9 @@ const mutations = {
   },
   SET_BENS(state, bens) {
     state.bens = bens
+  },
+  SET_EQUIPAMENTOS(state, equipamentos) {
+    state.equipamentos = equipamentos
   },
   SET_TIPOS(state, tipos) {
     state.tipos = tipos
@@ -228,8 +238,7 @@ const actions = {
   },
   fetchConfig({ commit }) {
     return new Promise((resolve, reject) => {
-      Vue.http.get(CONFIG)
-      .then((response) => {
+      Vue.http.get(CONFIG).then((response) => {
         if(response.data.error){
           console.log(response.data.message);
         } else{
@@ -253,8 +262,7 @@ const actions = {
   },
   fetchOs({ commit }) {
     return new Promise((resolve, reject) => {
-        Vue.http.get(OSLIST)
-      .then((response) => {
+        Vue.http.get(OSLIST).then((response) => {
         if(response.data.error){
           console.log(response.data.message);
         } else{
@@ -274,8 +282,44 @@ const actions = {
   fetchLocais({ commit }, loja) {
     return new Promise((resolve, reject) => {
       var postData = {
-      loja: loja,
+        loja: loja,
       }
+      //console.log(postData);
+      Vue.http.post(LOCALLIST,postData)
+        .then((response) => {
+          if(response.data.error){
+            console.log(response.data.message);
+          } else{
+            //console.log(response.data);
+            commit("SET_LOCAIS", response.data.locais);
+            commit("SET_BENS", response.data.bens);
+            resolve();
+          }
+        })
+        .catch((error => {
+            console.log(error);
+        }));
+    });
+  },
+  fetchLocalUder({ commit }, local) {
+    return new Promise((resolve, reject) => {
+      var postData = { local: local }
+      //console.log(postData);
+      Vue.http.post(EQUIPAMENTOSLOCAL,postData).then((response) => {
+        if(response.data.error){
+          console.log(response.data.message);
+        } else{
+          commit("SET_EQUIPAMENTOS", response.data.equipamentos);
+          resolve();
+        }
+      }).catch((error => {
+          console.log(error);
+      }));
+    });
+  },
+  fetchLojaUnder({ commit }, loja) {
+    return new Promise((resolve, reject) => {
+      var postData = { loja: loja }
       //console.log(postData);
       Vue.http.post(LOCALLIST,postData)
         .then((response) => {
@@ -325,6 +369,7 @@ const getters = {
   getLocais: state => state.locais,
   getLocal: state => state.local,
   getBens: state => state.bens,
+  getEquipamentos: state => state.equipamentos,
   getTipos: state => state.tipos,
   getProdutos: state => state.produtos,
   getFabricantes: state => state.fabricantes,
@@ -356,8 +401,8 @@ const getters = {
     state.locais.filter(todo => todo.ativo === '0')
     return state.locais.find(todo => todo.loja === loja)
   },
-  getBensLocal: (state) => (local) => {
-    return state.bens.filter(todo => todo.local === local)
+  getEquipamentosLocal: (state) => (local) => {
+    return state.equipametos.filter(todo => todo.local_id === local)
   },
   getOssLoja: (state) => (loja) => {
     return state.oss.filter(todo => todo.loja === loja)
@@ -448,7 +493,7 @@ var router = new VueRouter({
     },
     { path: '/loja/:_id/local/:_local', component: Local,
       children: [
-        { path: '', component: Bens },
+        { path: '', component: EquipamentosLocal },
         { path: 'oss', component: LocalOss },
       ]
     },

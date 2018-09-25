@@ -14,7 +14,7 @@ $proprietario     = new Proprietario();
 $loja             = new Loja();
 $lojaCategorias   = new LojaCategorias();
 #LOCAL
-$locais           = new Locais();
+$locais           = new Local();
 $localCategorias  = new LocalCategorias();
 #EQUIPAMENTOS
 $bens             = new Bens();
