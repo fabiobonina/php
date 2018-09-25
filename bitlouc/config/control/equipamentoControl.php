@@ -2,42 +2,31 @@
 	require_once '_global.php';
 	require_once '../model/Equipamento.php';
 	require_once '../model/EquipamentoLocal.php';
+	require_once '../model/Categorias.php';
+	require_once '../model/Fabricantes.php';
+	require_once '../model/Produtos.php';
+	require_once '../model/Loja.php';
 
 	class EquipamentoControl extends GlobalControl {
 
-		public function findAlllistSistemaLocal(
-			$equipamento,
-			$data,
-			$loja,
-			$local,
-			$status ){
-			#LOCAIS_BENS-----------------------------------------------------------------------------------
-			$status = 3;
-			foreach($bemLocalizacao->findAll() as $key => $value):if($value->local == $localId && $value->status <= $status ) {
-			  $bemId = $value->bem;
-			  $bemStatus= $value->status;
-			  foreach($bens->findAll() as $key => $value):if($value->id == $bemId) {
-				$arBem = (array) $value; //Bem
-				$arBem['loja']= $lojaId;
-				$arBem['local']= $localId;
-				$arBem['status']=$bemStatus;
-				foreach($categorias->findAll() as $key => $value):if($value->id == $arBem['categoria_id']) {
-				  $arBem['categoria'] = $value;
-				}endforeach;
-				array_push($arBens, $arBem );
+		public function listSistemaLoja( $loja ){
 				
-			  }endforeach;
+			$equipamentos	= new Equipamento();
+			$itens = array();
+			foreach($equipamentos->findAll() as $key => $value):if($value->loja_id == $loja) {
+				$item = (array) $value;
+				$item = $this->matrixSistema( $item );
+				array_push( $itens, $item );
 			}endforeach;
-			#LOCAIS_BENS-----------------------------------------------------------------------------------
-			$equipamentoLocal 	= new EquipamentoLocal();
-			$equipamentoLocal->setEquipamento($equipamento);
-			$equipamentoLocal->setDataInicial($data);
-			$equipamentoLocal->setLoja($loja);
-			$equipamentoLocal->setLocal($local);
-			$equipamentoLocal->setStatus($status);
-			$res = $equipamentoLocal->insert();
-
+			$res = $itens;
 			return $res;
+
+		}
+		public function matrixSistema( $item ){
+			$categorias       = new Categorias();
+			$categorias       = new Categorias();
+			$categorias       = new Categorias();
+
 		}
 
 		public function insertSistema(
