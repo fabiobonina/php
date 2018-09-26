@@ -18,6 +18,7 @@
 </template>
 
 <?php require_once 'src/components/bem/bens-grid.php';?>
+
 <script>
   var EquipamentosLocal = Vue.extend({
     name: 'equipamentos-local',
@@ -44,8 +45,7 @@
       };
     },
     created: function() {
-
-    }
+    },
     computed: {
       user()  {
         return store.state.user;

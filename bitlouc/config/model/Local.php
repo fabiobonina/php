@@ -5,7 +5,7 @@ class Local extends Crud{
 	
 	protected $table = 'tb_locais';
 	protected $table2 = 'tb_local_categoria';
-	private $loja;
+	private $loja_id;
 	private $tipo;
 	private $regional;
 	private $name;
@@ -18,8 +18,8 @@ class Local extends Crud{
 	public function setName($name){
 		$this->name = strtoupper ($name);
 	}
-	public function setLoja($loja){
-		$this->loja = $loja;
+	public function setLoja($loja_id){
+		$this->loja_id = $loja_id;
 	}
 	public function setTipo($tipo){
 		$this->tipo = $tipo;
@@ -48,10 +48,10 @@ class Local extends Crud{
 
 	public function insert(){
 		try{
-			$sql  = "INSERT INTO $this->table (loja, tipo, regional, name, municipio, uf, latitude, longitude, ativo) ";
-			$sql .= "VALUES (:loja, :tipo, :regional, :name, :municipio, :uf, :latitude, :longitude, :ativo)";
+			$sql  = "INSERT INTO $this->table (loja_id, tipo, regional, name, municipio, uf, latitude, longitude, ativo) ";
+			$sql .= "VALUES (:loja_id, :tipo, :regional, :name, :municipio, :uf, :latitude, :longitude, :ativo)";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':loja',$this->loja);
+			$stmt->bindParam(':loja_id',$this->loja_id);
 			$stmt->bindParam(':tipo',$this->tipo);
 			$stmt->bindParam(':regional',$this->regional);
 			$stmt->bindParam(':name',$this->name);
@@ -108,11 +108,11 @@ class Local extends Crud{
 		
 	}
 
-	public function search($loja){
+	public function search($loja_id){
 		try{
-		$sql = "SELECT * from $this->table WHERE BINARY loja=:loja ";
+		$sql = "SELECT * from $this->table WHERE BINARY loja_id=:loja_id ";
 		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':loja',$this->loja);
+		$stmt->bindParam(':loja_id',$this->loja_id);
 
 		return $stmt->execute();
 		} catch(PDOException $e) {

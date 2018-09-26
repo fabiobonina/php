@@ -8,7 +8,7 @@ require_once '../control/equipamentoControl.php';
 $equiControl      = new EquipamentoControl();
 
 $res = array('error' => true);
-$action = 'localUnder';
+$action = 'local';
 
 if(isset($_GET['action'])){
   $action = $_GET['action'];

@@ -57,11 +57,11 @@
 		}
 
 		public function matrixSistema( $item ){
-			$categorias = new Categorias();
-			$produtos	= new Produtos();
-			$fabricantes = new Fabricantes();
-			$lojas      = new Loja();
-			$locais     = new Local();
+			$categorias 	= new Categorias();
+			$produtos		= new Produtos();
+			$fabricantes 	= new Fabricantes();
+			$lojas      	= new Loja();
+			$locais     	= new Local();
 
 			$item['categoria']				= $categorias->find( $item['categoria_id']);
 			$item['categoriaTag'] 			= $item['categoria']->tag;
