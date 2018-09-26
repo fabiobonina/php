@@ -68,5 +68,8 @@
 			return $res;
 			
 		}
+		function removerEspaco(&$value){ 
+			$value = trim($value); 
+		}
 		
 	}

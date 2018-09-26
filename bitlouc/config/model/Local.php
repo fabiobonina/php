@@ -48,8 +48,8 @@ class Local extends Crud{
 
 	public function insert(){
 		try{
-			$sql  = "INSERT INTO $this->table (loja_id, tipo, regional, name, municipio, uf, latitude, longitude, ativo) ";
-			$sql .= "VALUES (:loja_id, :tipo, :regional, :name, :municipio, :uf, :latitude, :longitude, :ativo)";
+			$sql  = "INSERT INTO $this->table (loja_id, tipo, regional, name, municipio, uf, ativo) ";
+			$sql .= "VALUES (:loja_id, :tipo, :regional, :name, :municipio, :uf, :ativo)";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':loja_id',$this->loja_id);
 			$stmt->bindParam(':tipo',$this->tipo);
@@ -57,10 +57,18 @@ class Local extends Crud{
 			$stmt->bindParam(':name',$this->name);
 			$stmt->bindParam(':municipio',$this->municipio);
 			$stmt->bindParam(':uf',$this->uf);
-			$stmt->bindParam(':latitude',$this->latitude);
-			$stmt->bindParam(':longitude',$this->longitude);
 			$stmt->bindParam(':ativo',$this->ativo);
 			
+			$Id = DB::getInstance()->lastInsertId();
+			$res['id'] = $Id;
+			$res['error'] = false;
+			$res['message'] = "OK, inserido com sucesso";
+			return $res;
+		} catch(PDOExecption $e){
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
+		}
 			$categorias = json_decode( $this->categoria);
 			if( isset($categorias) ){
 				$stmt->execute();
@@ -121,24 +129,29 @@ class Local extends Crud{
 		
 	}
 
-		public function buscar(){
+	public function buscar(){
 		$sql  = "SELECT * FROM $this->table";
 		$stmt = DB::prepare($sql);
 		$stmt->execute();
 		echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
 	}
 
-	public function geolocalizacso($id){
+	public function geolocalizacao($id){
 		try{
-		$sql  = "UPDATE $this->table SET latitude = :latitude, longitude = :longitude WHERE id = :id ";
-		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':latitude',$this->latitude);
-		$stmt->bindParam(':longitude',$this->longitude);
-		$stmt->bindParam(':id', $id);
-		return $stmt->execute();
+			$sql  = "UPDATE $this->table SET latitude = :latitude, longitude = :longitude WHERE id = :id ";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':latitude',$this->latitude);
+			$stmt->bindParam(':longitude',$this->longitude);
+			$stmt->bindParam(':id', $id);
+			$stmt->execute();
 		
-		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error'] = false;
+			$res['message'] = "OK, inserido com sucesso";
+			return $res;
+		} catch(PDOExecption $e){
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 		
 	}

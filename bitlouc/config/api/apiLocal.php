@@ -34,58 +34,37 @@ if($action == 'loja'):
   
 endif;
 
-#GEOLOCALIZAÇÃO
-if($action == 'coordenadas'):
-  $id = $_POST['id'];
-  $lat = $_POST['latitude'];
-  $long = $_POST['longitude'];
-
-  $locais->setLat($lat);
-  $locais->setLong($long);
-
-  if($locais->geolocalizacso($id)){
-    $res['error'] = false;
-    $res['message']= "OK, dados salvo com sucesso";
-  }else{
-    $res['error'] = true; 
-    $res['message'] = "Error, nao foi possivel salvar os dados";      
-  }
-endif;
-
 #CADASTRAR
 if($action == 'cadastrar'):
-  $loja = $_POST['loja'];
-  $tipo = $_POST['tipo'];
-  $regional = $_POST['regional'];
-  $name = $_POST['name'];
-  $municipio = $_POST['municipio'];
-  $uf = $_POST['uf'];
-  $lat = $_POST['latitude'];
-  $long = $_POST['longitude'];
-  $ativo = $_POST['ativo'];
-  $categoria = '';
+  $loja       = $_POST['loja'];
+  $tipo       = $_POST['tipo'];
+  $regional   = $_POST['regional'];
+  $name       = $_POST['name'];
+  $municipio  = $_POST['municipio'];
+  $uf         = $_POST['uf'];
+  $lat        = $_POST['latitude'];
+  $long       = $_POST['longitude'];
+  $ativo      = $_POST['ativo'];
+  $categorias = '';
   if( isset($_POST['categoria']) ):
-    $categoria = json_encode($_POST['categoria'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    $categorias = $_POST['categoria'];
   endif;
 
-  $locais->setLoja($loja);
-  $locais->setTipo($tipo);
-  $locais->setRegional($regional);
-  $locais->setName($name);
-  $locais->setMunicipio($municipio);
-  $locais->setUf($uf);
-  $locais->setLat($lat);
-  $locais->setLong($long);
-  $locais->setAtivo($ativo);
-  $locais->setCategoria($categoria);
-  # Insert
-  if($locais->insert()){
-    $res['error'] = false;
-    $res['message']= "OK, dados salvo com sucesso";
-  }else{
-    $res['error'] = true; 
-    $res['message'] = "Error, nao foi possivel salvar os dados";      
-  }
+  $item = $equiControl->insertLocal(
+    $loja,
+    $tipo,
+    $regional,
+    $name,
+    $municipio,
+    $uf,
+    $lat,
+    $long,
+    $categorias,
+    $ativo
+  );
+  
+  $res = $item;
+  
 endif;
 
 #EDITAR-----------------------------------------------------------------------------
@@ -125,7 +104,16 @@ if($action == 'editar'):
   }
 endif;
 #EDITAR-----------------------------------------------------------------------------
+#GEOLOCALIZAÇÃO
+if($action == 'coordenadas'):
+  $id = $_POST['id'];
+  $lat = $_POST['latitude'];
+  $long = $_POST['longitude'];
 
+  
+  $item = $localControl->insertLocalGeolocalização( $id, $lat, $long );
+  $res = $item;
+endif;
 #DELETAR-----------------------------------------------------------------------------
 if($action == 'deletar'):
   #delete
@@ -190,9 +178,9 @@ endif;
 #CATEGORIA-CADASTRAR----------------------------------------------------------------------
 if($action == 'catCadastrar'):
   #Novo
-  $local  = $_POST['local'];
-  $categoria = $_POST['categoria'];
-  foreach ( $categoria as $data){
+  $local      = $_POST['local'];
+  $categorias = $_POST['categoria'];
+  foreach ( $categorias as $data){
     $itemId = $data['id'];
     $duplicado = false;
     foreach($localCategorias->findAll() as $key => $value): {

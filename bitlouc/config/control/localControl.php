@@ -44,56 +44,39 @@
 		}
 
 		public function insertLocal(
-			$produto,
-			$tag,
-			$name,
-			$modelo,
-			$fabricante,
-			$fabricanteNick,
-			$proprietario,
-			$proprietarioNick,
-			$proprietarioLocal,
-			$categoria,
-			$numeracao,
-			$plaqueta,
-			$dataFab,
-			$dataCompra,
 			$loja,
-			$local,
-			$status,
+			$tipo,
+			$regional,
+			$name,
+			$municipio,
+			$uf,
+			$lat,
+			$long,
+			$categorias,
 			$ativo ){
 
-			$equipamento	= new Local();
-			$equipamento->setProduto( $produto );
-			$equipamento->setTag( $tag );
-			$equipamento->setName( $name );
-			$equipamento->setModelo( $modelo );
-			$equipamento->setNumeracao( $numeracao );
-			$equipamento->setPlaqueta( $plaqueta );
-			$equipamento->setFabricante( $fabricante );
-			$equipamento->setProprietario( $proprietario );
-			$equipamento->setProprietarioLocal( $proprietarioLocal );
-			$equipamento->setCategoria( $categoria );
-			$equipamento->setDataFabricacao( $dataFab );
-			$equipamento->setDataCompra( $dataCompra );
-			$equipamento->setLoja( $loja );
-			$equipamento->setLocal( $local );
-			$equipamento->setAtivo( $ativo );
+			$locais	= new Local();
 
-			$item = $equipamento->insert();
+			$locais->setLoja($loja);
+			$locais->setTipo($tipo);
+			$locais->setRegional($regional);
+			$locais->setName($name);
+			$locais->setMunicipio($municipio);
+			$locais->setUf($uf);
+			$locais->setAtivo($ativo);
+			# Insert
+			$item = $locais->insert();
 			if($item['error'] == true ){
 				$res = $this->statusReturn($item);
 			}else{
-				$item = $this->insertLocalLocal(
-					$item['id'],
-					$dataCompra,
-					$loja,
-					$local,
-					$status
-				);
+				$item = $this->insertGeolocalizacao( $item['id'], $lat, $long );
+				$item = $this->insertCategoria( $item['id'], $categorias );
 				$res = $this->statusReturn($item);
 			}
 			return $res;
+
+			
+			$locais->setCategoria($categorias);
 		}
 
 		public function listCategoriaLocal( $localId ){
@@ -117,6 +100,79 @@
 			$res = $arTens;
 			return $res;
 
+		}
+
+		public function insertGeolocalizacao( $id, $lat, $long ){
+
+			$locais	= new Local();
+
+			$locais->setLat($lat);
+			$locais->setLong($long);
+			$item = $locais->geolocalizacso($id);
+			if($item['error'] == true ){
+				$res = $this->statusReturn($item);
+			}else{
+				$res = $this->statusReturn($item);
+			}
+			return $res;
+		}
+
+		public function insertCategoria( $localId, $categorias ){
+
+			$localCategorias = new LocalCategorias();
+			$locais	= new Local();
+			foreach ( $categorias as $data){
+				$itemId = $data['id'];
+				$duplicado = false;
+				foreach($localCategorias->findAll() as $key => $value): {
+				  $catLacalCategoria = $value->categoria;
+				  $catLacalLocal = $value->local;
+				  
+				  if($local == $catLacalLocal){
+					if($itemId == $catLacalCategoria ):
+					  $duplicado = true;
+					endif;
+				  }          
+				}endforeach;
+				if( !$duplicado ){
+				  $localCategorias->setLocal($local);
+				  $localCategorias->setCategoria($itemId);
+				  # Insert
+				  if($localCategorias->insert()){
+					$res['error'] = false;
+					$arDados = "OK, dados salvo com sucesso";
+					$res['message']= $arDados;
+				  }else{
+					$res['error'] = true; 
+					$arError = "Error, nao foi possivel salvar os dados";
+					array_push($arErros, $arError);
+				  }
+				}else{
+				  $res['error'] = true; 
+				  $arError = "Error, item já cadastrado";
+				  array_push($arErros, $arError);
+				}
+			  }
+				
+			  if($res['error'] == true){
+				$res['message']= $arErros;
+			  }
+			$locais->setLat($lat);
+			$locais->setLong($long);
+			$item = $locais->geolocalizacao($id);
+			if($item['error'] == true ){
+				$res = $this->statusReturn($item);
+			}else{
+				$item = $this->insertLocalLocal(
+					$item['id'],
+					$dataCompra,
+					$loja,
+					$local,
+					$status
+				);
+				$res = $this->statusReturn($item);
+			}
+			return $res;
 		}
 
 	}
