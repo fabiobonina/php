@@ -45,10 +45,8 @@ if($action == 'cadastrar'):
   $lat        = $_POST['latitude'];
   $long       = $_POST['longitude'];
   $ativo      = $_POST['ativo'];
-  $categorias = '';
-  if( isset($_POST['categoria']) ):
-    $categorias = $_POST['categoria'];
-  endif;
+  $categorias = $_POST['categorias'];
+
 
   $item = $equiControl->insertLocal(
     $loja,
@@ -114,6 +112,7 @@ if($action == 'coordenadas'):
   $item = $localControl->insertLocalGeolocalização( $id, $lat, $long );
   $res = $item;
 endif;
+
 #DELETAR-----------------------------------------------------------------------------
 if($action == 'deletar'):
   #delete
@@ -142,36 +141,22 @@ endif;
 
 #CATEGORIA-ATIVO----------------------------------------------------------------------
 if($action == 'catStatus'):
-  $ativo = $_POST['ativo'];
-  $id = $_POST['id'];
+  $ativo      = $_POST['ativo'];
+  $locaCatId  = $_POST['id'];
 
-  $localCategorias->setAtivo($ativo);
+  $item = $localControl->statusCategoria( $locaCatId, $ativo );
+  $res = $item;
 
-  if($localCategorias->update($id)){
-    $res['error'] = false;
-    $arDados = "OK, dados atualisado com sucesso";
-    $res['message']= $arDados;
-  }else{
-    $res['error'] = true; 
-    $arError = "Error, nao foi possivel salvar os dados";
-    array_push($arErros, $arError);
-  }
 endif;
 #CATEGORIA-ATIVO----------------------------------------------------------------------
 
 #CATEGORIA-DELETAR----------------------------------------------------------------------
 if($action == 'catDelete'):
-  $id = $_POST['id'];
+  $locaCatId = $_POST['id'];
 
-  if($localCategorias->delete($id)){
-    $res['error'] = false;
-    $arDados = "OK, dados deleto com sucesso";
-    $res['message']= $arDados;
-  }else{
-    $res['error'] = true; 
-    $arError = "Error, nao foi possivel realisar operação";
-    array_push($arErros, $arError);
-  }
+  $item = $localControl->deleteCategoria( $locaCatId );
+  $res = $item;
+
 endif;
 #CATEGORIA-DELETAR----------------------------------------------------------------------
 
@@ -180,42 +165,9 @@ if($action == 'catCadastrar'):
   #Novo
   $local      = $_POST['local'];
   $categorias = $_POST['categoria'];
-  foreach ( $categorias as $data){
-    $itemId = $data['id'];
-    $duplicado = false;
-    foreach($localCategorias->findAll() as $key => $value): {
-      $catLacalCategoria = $value->categoria;
-      $catLacalLocal = $value->local;
-      
-      if($local == $catLacalLocal){
-        if($itemId == $catLacalCategoria ):
-          $duplicado = true;
-        endif;
-      }          
-    }endforeach;
-    if( !$duplicado ){
-      $localCategorias->setLocal($local);
-      $localCategorias->setCategoria($itemId);
-      # Insert
-      if($localCategorias->insert()){
-        $res['error'] = false;
-        $arDados = "OK, dados salvo com sucesso";
-        $res['message']= $arDados;
-      }else{
-        $res['error'] = true; 
-        $arError = "Error, nao foi possivel salvar os dados";
-        array_push($arErros, $arError);
-      }
-    }else{
-      $res['error'] = true; 
-      $arError = "Error, item já cadastrado";
-      array_push($arErros, $arError);
-    }
-  }
-    
-  if($res['error'] == true){
-    $res['message']= $arErros;
-  }
+
+  $item = $localControl->statusCategoria( $locaCatId, $ativo );
+  $res = $item;  
 
 endif;
 #CATEGORIA-CADASTRAR----------------------------------------------------------------------

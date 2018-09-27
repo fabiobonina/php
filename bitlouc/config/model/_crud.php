@@ -18,7 +18,9 @@ abstract class Crud extends DB{
 		$stmt->execute();
 		return $stmt->fetch();
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 	}
 
@@ -29,7 +31,9 @@ abstract class Crud extends DB{
 		$stmt->execute();
 		return $stmt->fetchAll();
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 	}
 
@@ -39,9 +43,14 @@ abstract class Crud extends DB{
 		$stmt = DB::prepare($sql);
 		$stmt->bindParam(':id', $id, PDO::PARAM_INT);
 		
-		return $stmt->execute(); 
-		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+		$stmt->execute(); 
+		$res['error'] = false;
+		$res['message'] = "OK, deletado com sucesso";
+		return $res;
+	} catch(PDOException $e) {
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 	}
 
@@ -54,7 +63,9 @@ abstract class Crud extends DB{
 			return $stmt->fetch();
 			
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 	}
 

@@ -70,7 +70,10 @@
 				$res = $this->statusReturn($item);
 			}else{
 				$item = $this->insertGeolocalizacao( $item['id'], $lat, $long );
-				$item = $this->insertCategoria( $item['id'], $categorias );
+				if( isset( $categorias )):
+					$item = $this->insertCategoria( $item['id'], $categorias );
+				endif;
+				
 				$res = $this->statusReturn($item);
 			}
 			return $res;
@@ -79,28 +82,7 @@
 			$locais->setCategoria($categorias);
 		}
 
-		public function listCategoriaLocal( $localId ){
-			
-			$localCategorias	= new LocalCategorias();
-			$categorias			= new Categorias();
-    		$arTens = array();
-			
-			foreach($localCategorias->findAll() as $key => $value):if($value->local == $localId) {
-				$categoriaId = $value->categoria;
-				$catLocalAtivo = $value->ativo;
-				$catLocalId = $value->id;
-				foreach($categorias->find( $categoriaId ) as $key => $value): {
-					$item = (array) $value;
-					$item['ativo'] = $catLocalAtivo;
-					$item['catLocal'] = $catLocalId;
-					array_push($arTens, $item );
-				}endforeach;
-			}endforeach;
-
-			$res = $arTens;
-			return $res;
-
-		}
+		
 
 		public function insertGeolocalizacao( $id, $lat, $long ){
 
@@ -116,63 +98,93 @@
 			}
 			return $res;
 		}
-
+		
+		#LOCAL_CATERORIAS----------------------------------------------------------------------------------
 		public function insertCategoria( $localId, $categorias ){
 
 			$localCategorias = new LocalCategorias();
-			$locais	= new Local();
+
 			foreach ( $categorias as $data){
-				$itemId = $data['id'];
+				$categoriaId = $data['id'];
 				$duplicado = false;
-				foreach($localCategorias->findAll() as $key => $value): {
-				  $catLacalCategoria = $value->categoria;
-				  $catLacalLocal = $value->local;
-				  
-				  if($local == $catLacalLocal){
-					if($itemId == $catLacalCategoria ):
-					  $duplicado = true;
-					endif;
-				  }          
+
+				foreach($localCategorias->findAll() as $key => $value):if( $value->categoria_id == $categoriaId )  {
+					$duplicado = true;       
 				}endforeach;
+
 				if( !$duplicado ){
 				  $localCategorias->setLocal($local);
 				  $localCategorias->setCategoria($itemId);
-				  # Insert
-				  if($localCategorias->insert()){
-					$res['error'] = false;
-					$arDados = "OK, dados salvo com sucesso";
-					$res['message']= $arDados;
-				  }else{
-					$res['error'] = true; 
-					$arError = "Error, nao foi possivel salvar os dados";
-					array_push($arErros, $arError);
-				  }
+					$item = $localCategorias->insert();
+
 				}else{
-				  $res['error'] = true; 
-				  $arError = "Error, item já cadastrado";
-				  array_push($arErros, $arError);
+				  $item['error'] = true; 
+				  $item['message'] = "Error, item já cadastrado";
 				}
-			  }
-				
-			  if($res['error'] == true){
-				$res['message']= $arErros;
-			  }
-			$locais->setLat($lat);
-			$locais->setLong($long);
-			$item = $locais->geolocalizacao($id);
+			}
+
 			if($item['error'] == true ){
 				$res = $this->statusReturn($item);
 			}else{
-				$item = $this->insertLocalLocal(
-					$item['id'],
-					$dataCompra,
-					$loja,
-					$local,
-					$status
-				);
+
 				$res = $this->statusReturn($item);
 			}
 			return $res;
+
+		}
+
+		public function statusCategoria( $locaCatId, $ativo ){
+
+			$localCategorias = new LocalCategorias();
+
+			$localCategorias->setAtivo($ativo);
+
+			$item = $localCategorias->update($id);
+			if($item['error'] == true ){
+				$res = $this->statusReturn($item);
+			}else{
+				$res = $this->statusReturn($item);
+			}
+			return $res;
+			
+		}
+
+		public function deleteCategoria( $locaCatId ){
+
+			$localCategorias = new LocalCategorias();
+
+			$item = $localCategorias->delete($id);
+			if($item['error'] == true ){
+				$res = $this->statusReturn($item);
+			}else{
+				$res = $this->statusReturn($item);
+			}
+			return $res;
+			
+		}
+
+		public function listCategoriaLocal( $localId ){
+			
+			$localCategorias	= new LocalCategorias();
+			$categorias				= new Categorias();
+    	$arTens 					= array();
+			
+			foreach($localCategorias->findAll() as $key => $value):if($value->local_id == $localId) {
+				$categoriaId 		= $value->categoria_id;
+				$localCatAtivo 	= $value->ativo;
+				$localCatId 		= $value->id;
+				foreach($categorias->find( $categoriaId ) as $key => $value): {
+					$item = (array) $value;
+					$item['categoria_id'] = $categoriaId;
+					$item['ativo'] 				= $localCatAtivo;
+					$item['id'] 					= $localCatId;
+					array_push( $arTens, $item );
+				}endforeach;
+			}endforeach;
+
+			$res = $arTens;
+			return $res;
+
 		}
 
 	}

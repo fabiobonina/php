@@ -4,7 +4,6 @@ require_once '_crud.php';
 class Local extends Crud{
 	
 	protected $table = 'tb_locais';
-	protected $table2 = 'tb_local_categoria';
 	private $loja_id;
 	private $tipo;
 	private $regional;
@@ -62,36 +61,12 @@ class Local extends Crud{
 			$Id = DB::getInstance()->lastInsertId();
 			$res['id'] = $Id;
 			$res['error'] = false;
-			$res['message'] = "OK, inserido com sucesso";
+			$res['message'] = "OK, salvo com sucesso";
 			return $res;
 		} catch(PDOExecption $e){
 			$res['error']	= true;
 			$res['message'] = $e->getMessage();
 			return $res;
-		}
-			$categorias = json_decode( $this->categoria);
-			if( isset($categorias) ){
-				$stmt->execute();
-				$localId = DB::getInstance()->lastInsertId();
-				foreach ($categorias as $value){
-					$itemId = $value->id;
-					$sql  = "INSERT INTO $this->table2 ( local, categoria ) ";
-					$sql .= "VALUES ( :local, :categoria )";
-					$stmt = DB::prepare($sql);
-					$stmt->bindParam(':local', $localId );
-					$stmt->bindParam(':categoria', $itemId );
-					$stmt->execute();
-				}
-				$res['error'] = false;
-				return $res['message']= "OK, dados salvo com sucesso";
-			}else{
-				return $stmt->execute();
-			}
-		} catch(PDOException $e) {
-			$res['error'] = true; 
-			$arError = $e->getMessage();
-			header("Content-Type: application/json");
-			echo json_encode($res, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 		}
 
 	}
@@ -146,7 +121,7 @@ class Local extends Crud{
 			$stmt->execute();
 		
 			$res['error'] = false;
-			$res['message'] = "OK, inserido com sucesso";
+			$res['message'] = "OK, salvo com sucesso";
 			return $res;
 		} catch(PDOExecption $e){
 			$res['error']	= true;

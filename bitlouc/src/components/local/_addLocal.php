@@ -191,7 +191,7 @@
             latitude: geoposicao[0],
             longitude: geoposicao[1],
             ativo: this.ativo,
-            categoria: this.categoria
+            categorias: this.categoria
           };
           //console.log(postData);
           this.$http.post('./config/api/apiLocal.php?action=cadastrar', postData)
