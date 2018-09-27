@@ -35,10 +35,12 @@
 
 		public function matrixLocal( $item ){
 			$lojas      = new Loja();
+			$equipamentos	= new Equipamento();
 
+			$item['equipLocal_tt'] 			= $equipamentos->contLocal( $item['id'] );
 			$item['loja']					= $lojas->find( $item['loja_id'] );
 			$item['lojaName'] 				= $item['loja']->name;
-			$item['categorias'] = $this->listCategoriaLocal( $item['id'] );
+			$item['categorias'] 			= $this->listCategoriaLocal( $item['id'] );
 			return $item;
 
 		}
@@ -66,23 +68,44 @@
 			$locais->setAtivo($ativo);
 			# Insert
 			$item = $locais->insert();
-			if($item['error'] == true ){
-				$res = $this->statusReturn($item);
-			}else{
+			if( !$item['error'] ){
 				$item = $this->insertGeolocalizacao( $item['id'], $lat, $long );
 				if( isset( $categorias )):
 					$item = $this->insertCategoria( $item['id'], $categorias );
-				endif;
-				
-				$res = $this->statusReturn($item);
+				endif;				
 			}
+			$res = $this->statusReturn($item);
 			return $res;
-
-			
-			$locais->setCategoria($categorias);
 		}
 
-		
+		public function updateLocal(
+			$loja,
+			$tipo,
+			$regional,
+			$name,
+			$municipio,
+			$uf,
+			$lat,
+			$long,
+			$ativo,
+			$id ){
+
+			$locais	= new Local();
+
+			$locais->setLoja($loja);
+			$locais->setTipo($tipo);
+			$locais->setRegional($regional);
+			$locais->setName($name);
+			$locais->setMunicipio($municipio);
+			$locais->setUf($uf);
+			$locais->setAtivo($ativo);
+			# Update
+			$item = $locais->updete($id);
+			$item = $this->insertGeolocalizacao( $id, $lat, $long );
+			
+			$res = $this->statusReturn($item);
+			return $res;
+		}
 
 		public function insertGeolocalizacao( $id, $lat, $long ){
 
@@ -91,14 +114,39 @@
 			$locais->setLat($lat);
 			$locais->setLong($long);
 			$item = $locais->geolocalizacso($id);
-			if($item['error'] == true ){
-				$res = $this->statusReturn($item);
-			}else{
-				$res = $this->statusReturn($item);
-			}
+
+			$res = $this->statusReturn($item);
 			return $res;
 		}
 		
+		public function deleteLocal( $localId ){
+
+			$locais 			= new Local();
+			$localCategorias	= new LocalCategorias();
+			$item 	= $this->anexoLocal( $localId );
+			if( !$item['error'] ){
+				$item	= $locais->delete($localId);
+				$item	= $localCategorias->deleteCategoriaPorLocal($localId);
+			}
+			$res	= $this->statusReturn($item);
+			return $res;
+		}
+
+		public function anexoLocal( $localId ){
+
+			$equipamentos	= new Equipamento();
+
+			$item['equipLocal_tt'] 			= $equipamentos->contLocal( $item['id'] );
+			if( $item['equipLocal_tt']  == 0 ){
+				$res['error'] = false;
+				$res['message'] = 'OK, Local pode ser deletado';
+			}else{
+				$res['error'] = true;
+				$res['message'] = 'Error, '.$item['equipLocal_tt'] .' - Equipamento(s) nesse Local! É necessario remover-los antes.';
+			}
+			return $res;
+		}
+
 		#LOCAL_CATERORIAS----------------------------------------------------------------------------------
 		public function insertCategoria( $localId, $categorias ){
 
@@ -133,32 +181,34 @@
 
 		}
 
-		public function statusCategoria( $locaCatId, $ativo ){
+		public function statusCategoria( $localCatId, $ativo ){
 
 			$localCategorias = new LocalCategorias();
 
 			$localCategorias->setAtivo($ativo);
+			$item = $localCategorias->update($localCatId);
 
-			$item = $localCategorias->update($id);
-			if($item['error'] == true ){
-				$res = $this->statusReturn($item);
-			}else{
-				$res = $this->statusReturn($item);
-			}
+			$res = $this->statusReturn($item);
 			return $res;
 			
 		}
 
-		public function deleteCategoria( $locaCatId ){
+		public function deleteCategoria( $localCatId ){
 
 			$localCategorias = new LocalCategorias();
 
-			$item = $localCategorias->delete($id);
-			if($item['error'] == true ){
-				$res = $this->statusReturn($item);
-			}else{
-				$res = $this->statusReturn($item);
-			}
+			$item = $localCategorias->delete($localCatId);
+			$res = $this->statusReturn($item);
+			return $res;
+			
+		}
+
+		public function deleteCategoriaPorLocal( $localId ){
+
+			$localCategorias = new LocalCategorias();
+
+			$res = $localCategorias->deleteLocal($localId);
+			//$res = $this->statusReturn($item);
 			return $res;
 			
 		}
@@ -166,18 +216,18 @@
 		public function listCategoriaLocal( $localId ){
 			
 			$localCategorias	= new LocalCategorias();
-			$categorias				= new Categorias();
-    	$arTens 					= array();
+			$categorias			= new Categorias();
+    		$arTens 			= array();
 			
 			foreach($localCategorias->findAll() as $key => $value):if($value->local_id == $localId) {
-				$categoriaId 		= $value->categoria_id;
+				$categoriaId 	= $value->categoria_id;
 				$localCatAtivo 	= $value->ativo;
-				$localCatId 		= $value->id;
+				$localCatId 	= $value->id;
 				foreach($categorias->find( $categoriaId ) as $key => $value): {
 					$item = (array) $value;
-					$item['categoria_id'] = $categoriaId;
-					$item['ativo'] 				= $localCatAtivo;
-					$item['id'] 					= $localCatId;
+					$item['categoria_id'] 	= $categoriaId;
+					$item['ativo']			= $localCatAtivo;
+					$item['id'] 			= $localCatId;
 					array_push( $arTens, $item );
 				}endforeach;
 			}endforeach;

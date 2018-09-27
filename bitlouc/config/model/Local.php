@@ -50,13 +50,13 @@ class Local extends Crud{
 			$sql  = "INSERT INTO $this->table (loja_id, tipo, regional, name, municipio, uf, ativo) ";
 			$sql .= "VALUES (:loja_id, :tipo, :regional, :name, :municipio, :uf, :ativo)";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':loja_id',$this->loja_id);
-			$stmt->bindParam(':tipo',$this->tipo);
-			$stmt->bindParam(':regional',$this->regional);
-			$stmt->bindParam(':name',$this->name);
-			$stmt->bindParam(':municipio',$this->municipio);
-			$stmt->bindParam(':uf',$this->uf);
-			$stmt->bindParam(':ativo',$this->ativo);
+			$stmt->bindParam(':loja_id',	$this->loja_id);
+			$stmt->bindParam(':tipo',		$this->tipo);
+			$stmt->bindParam(':regional',	$this->regional);
+			$stmt->bindParam(':name',		$this->name);
+			$stmt->bindParam(':municipio',	$this->municipio);
+			$stmt->bindParam(':uf',			$this->uf);
+			$stmt->bindParam(':ativo',		$this->ativo);
 			
 			$Id = DB::getInstance()->lastInsertId();
 			$res['id'] = $Id;
@@ -73,17 +73,16 @@ class Local extends Crud{
 
 	public function update($id){
 		try{
-			$sql  = "UPDATE $this->table SET tipo = :tipo, regional = :regional, name = :name, municipio = :municipio, uf = :uf, 	latitude = :latitude, longitude = :longitude, ativo = :ativo WHERE id = :id ";
+			$sql  = "UPDATE $this->table SET loja_id = :loja_id, tipo = :tipo, regional = :regional, name = :name, municipio = :municipio, uf = :uf, ativo = :ativo WHERE id = :id ";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':tipo',$this->tipo);
-			$stmt->bindParam(':regional',$this->regional);
-			$stmt->bindParam(':name',$this->name);
-			$stmt->bindParam(':municipio',$this->municipio);
-			$stmt->bindParam(':uf',$this->uf);
-			$stmt->bindParam(':latitude',$this->latitude);
-			$stmt->bindParam(':longitude',$this->longitude);
-			$stmt->bindParam(':ativo',$this->ativo);
-			$stmt->bindParam(':id', $id);
+			$stmt->bindParam(':loja_id',	$this->loja_id);
+			$stmt->bindParam(':tipo',		$this->tipo);
+			$stmt->bindParam(':regional',	$this->regional);
+			$stmt->bindParam(':name',		$this->name);
+			$stmt->bindParam(':municipio',	$this->municipio);
+			$stmt->bindParam(':uf',			$this->uf);
+			$stmt->bindParam(':ativo',		$this->ativo);
+			$stmt->bindParam(':id', 		$id);
 			return $stmt->execute();
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
@@ -115,9 +114,9 @@ class Local extends Crud{
 		try{
 			$sql  = "UPDATE $this->table SET latitude = :latitude, longitude = :longitude WHERE id = :id ";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':latitude',$this->latitude);
-			$stmt->bindParam(':longitude',$this->longitude);
-			$stmt->bindParam(':id', $id);
+			$stmt->bindParam(':latitude',	$this->latitude);
+			$stmt->bindParam(':longitude',	$this->longitude);
+			$stmt->bindParam(':id', 		$id);
 			$stmt->execute();
 		
 			$res['error'] = false;

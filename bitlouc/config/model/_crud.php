@@ -26,10 +26,10 @@ abstract class Crud extends DB{
 
 	public function findAll(){
 		try{
-		$sql  = "SELECT * FROM $this->table";
-		$stmt = DB::prepare($sql);
-		$stmt->execute();
-		return $stmt->fetchAll();
+			$sql  = "SELECT * FROM $this->table";
+			$stmt = DB::prepare($sql);
+			$stmt->execute();
+			return $stmt->fetchAll();
 		} catch(PDOException $e) {
 			$res['error']	= true;
 			$res['message'] = $e->getMessage();
@@ -39,15 +39,20 @@ abstract class Crud extends DB{
 
 	public function delete($id){
 		try{
-		$sql  = "DELETE FROM $this->table WHERE id = :id";
-		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':id', $id, PDO::PARAM_INT);
+			$sql  = "DELETE FROM $this->table WHERE id = :id";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':id', $id, PDO::PARAM_INT);
 		
-		$stmt->execute(); 
-		$res['error'] = false;
-		$res['message'] = "OK, deletado com sucesso";
-		return $res;
-	} catch(PDOException $e) {
+			if( $stmt->execute() ){
+				$res['error'] = false;
+				$res['message'] = "OK, deletado com sucesso";
+			}else{
+				$res['error'] = true;
+				$res['message'] = "Error, não foi possivel deletar";
+			}
+			return $res;
+
+		} catch(PDOException $e) {
 			$res['error']	= true;
 			$res['message'] = $e->getMessage();
 			return $res;
@@ -60,7 +65,7 @@ abstract class Crud extends DB{
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':ativo', $ativo, PDO::PARAM_INT);
 			$stmt->execute();
-			return $stmt->fetch();
+			return $stmt->fetchAll();
 			
 		} catch(PDOException $e) {
 			$res['error']	= true;
@@ -69,6 +74,35 @@ abstract class Crud extends DB{
 		}
 	}
 
+	public function contLocal( $local_id ){
+		try {
+			$sql  = "SELECT COUNT(*) FROM $this->table WHERE local_id  = :local_id ";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':local_id', $local_id);
+			$stmt->execute();
+			return $stmt->fetchColumn();
+			
+			
+		} catch(PDOException $e) {
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
+		}
+	}
 	
+	public function contLoja( $loja_id ){
+		try {
+			$sql  = "SELECT COUNT(*) FROM $this->table WHERE loja_id  = :loja_id ";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':loja_id ', $loja_id);
+			$stmt->execute();
+			return $stmt->fetch();
+			
+		} catch(PDOException $e) {
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
+		}
+	}
 
 }
