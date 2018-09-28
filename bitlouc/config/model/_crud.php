@@ -96,7 +96,22 @@ abstract class Crud extends DB{
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':loja_id ', $loja_id);
 			$stmt->execute();
-			return $stmt->fetch();
+			return $stmt->fetchColumn();
+			
+		} catch(PDOException $e) {
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
+		}
+	}
+
+	public function contProprietario( $proprietario_id ){
+		try {
+			$sql  = "SELECT COUNT(*) FROM $this->table WHERE proprietario_id  = :proprietario_id ";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':proprietario_id ', $proprietario_id);
+			$stmt->execute();
+			return $stmt->fetchColumn();
 			
 		} catch(PDOException $e) {
 			$res['error']	= true;

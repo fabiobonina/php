@@ -1,22 +1,30 @@
 <?php
 	require_once '_global.php';
 
-	function __autoload($class_name){
-		require_once '../model/' . $class_name . '.php';
-	}
 
 	class LojaControl extends GlobalControl {
 
-		public function listLoja(){
+		public function matrixLoja( $item ){
+			$lojas      = new Loja();
+			$equipamentos	= new Equipamento();
+
+			$item['equipLocal_tt'] 			= $equipamentos->contLoja( $item['id'] );
+			//$item['loja']					= $lojas->find( $item['loja_id'] );
+			//$item['lojaName'] 				= $item['loja']->name;
+			$item['categorias'] 			= $this->listCategoriaLoja( $item['id'] );
+			return $item;
+
+		}
+
+		public function listLoja( $lojaId ){
 				
 			$lojas	= new Loja();
 			$itens = array();
-			foreach($lojas->findAll() as $key => $value):{
-				$item = (array) $value;
-				$item = $this->matrixLoja( $item );
-				array_push( $itens, $item );
-			}endforeach;
-			$res = $itens;
+			$item['loja']	= $lojas->find( $lojaId );
+
+			$item = $this->matrixLoja( $item );
+			
+			$res = $item;
 			return $res;
 
 		}
@@ -33,17 +41,7 @@
 			return $res;
 		}
 
-		public function matrixLoja( $item ){
-			$lojas      = new Loja();
-			$equipamentos	= new Equipamento();
-
-			$item['equipLocal_tt'] 			= $equipamentos->contLoja( $item['id'] );
-			$item['loja']					= $lojas->find( $item['loja_id'] );
-			$item['lojaName'] 				= $item['loja']->name;
-			$item['categorias'] 			= $this->listCategoriaLoja( $item['id'] );
-			return $item;
-
-		}
+		
 
 		public function insertLoja(
 			$loja,
@@ -213,21 +211,21 @@
 			
 		}
 
-		public function listCategoriaLoja( $localId ){
+		public function listCategoriaLoja( $lojaId ){
 			
-			$localCategorias	= new LocalCategorias();
+			$lojaCategorias		= new LojaCategorias();
 			$categorias			= new Categorias();
     		$arTens 			= array();
 			
-			foreach($localCategorias->findAll() as $key => $value):if($value->local_id == $localId) {
+			foreach($lojaCategorias->findAll() as $key => $value):if($value->loja_id == $lojaId) {
 				$categoriaId 	= $value->categoria_id;
-				$localCatAtivo 	= $value->ativo;
-				$localCatId 	= $value->id;
+				$lojaCatAtivo 	= $value->ativo;
+				$lojaCatId 	= $value->id;
 				foreach($categorias->find( $categoriaId ) as $key => $value): {
 					$item = (array) $value;
 					$item['categoria_id'] 	= $categoriaId;
-					$item['ativo']			= $localCatAtivo;
-					$item['id'] 			= $localCatId;
+					$item['ativo']			= $lojaCatAtivo;
+					$item['id'] 			= $lojaCatId;
 					array_push( $arTens, $item );
 				}endforeach;
 			}endforeach;

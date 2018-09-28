@@ -4,7 +4,11 @@
 
   require_once '_chave.php';
 
-  function __autoload($class_name){
+  require_once '../control/lojaControl.php';
+
+  $lojaControl  = new LojaControl();
+
+  /*function __autoload($class_name){
     require_once '../model/' . $class_name . '.php';
   }
 
@@ -13,6 +17,7 @@
   $locais           = new Local();
   $localCategorias  = new LocalCategorias();
   $categorias       = new Categorias();
+  */
 
   $res = array('error' => false);
   $arDados = array();
@@ -26,7 +31,12 @@
 
   if($action == 'read'){
 
-    //Montar Array lojas------------------------------------------------------------
+    $lojaId = '1';
+    $item = $lojaControl->listLoja( $lojaId );
+    $res['locais'] = $item;
+    $res['error'] = false;
+
+    /*/Montar Array lojas------------------------------------------------------------
     foreach($lojas->findAll() as $key => $value): {
       
       $arLoja = (array) $value; //Loja
@@ -89,7 +99,7 @@
 
       array_push($arLojas, $arLoja);
           
-    }endforeach;
+    }endforeach;*/
     //Montar Array lojas------------------------------------------------------------
   }
   #CADASTRAR-----------------------------------------------------------------------------

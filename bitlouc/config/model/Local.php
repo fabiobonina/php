@@ -5,6 +5,7 @@ class Local extends Crud{
 	
 	protected $table = 'tb_locais';
 	private $loja_id;
+	private $proprietario_id;
 	private $tipo;
 	private $regional;
 	private $name;
@@ -19,6 +20,9 @@ class Local extends Crud{
 	}
 	public function setLoja($loja_id){
 		$this->loja_id = $loja_id;
+	}
+	public function setProprietario($proprietario_id){
+		$this->proprietario_id = $proprietario_id;
 	}
 	public function setTipo($tipo){
 		$this->tipo = $tipo;
@@ -47,16 +51,17 @@ class Local extends Crud{
 
 	public function insert(){
 		try{
-			$sql  = "INSERT INTO $this->table (loja_id, tipo, regional, name, municipio, uf, ativo) ";
-			$sql .= "VALUES (:loja_id, :tipo, :regional, :name, :municipio, :uf, :ativo)";
+			$sql  = "INSERT INTO $this->table (loja_id, proprietario_id, tipo, regional, name, municipio, uf, ativo) ";
+			$sql .= "VALUES (:loja_id, :proprietario_id, :tipo, :regional, :name, :municipio, :uf, :ativo)";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':loja_id',	$this->loja_id);
-			$stmt->bindParam(':tipo',		$this->tipo);
-			$stmt->bindParam(':regional',	$this->regional);
-			$stmt->bindParam(':name',		$this->name);
-			$stmt->bindParam(':municipio',	$this->municipio);
-			$stmt->bindParam(':uf',			$this->uf);
-			$stmt->bindParam(':ativo',		$this->ativo);
+			$stmt->bindParam(':loja_id',		$this->loja_id);
+			$stmt->bindParam(':proprietario_id',$this->proprietario_id);
+			$stmt->bindParam(':tipo',			$this->tipo);
+			$stmt->bindParam(':regional',		$this->regional);
+			$stmt->bindParam(':name',			$this->name);
+			$stmt->bindParam(':municipio',		$this->municipio);
+			$stmt->bindParam(':uf',				$this->uf);
+			$stmt->bindParam(':ativo',			$this->ativo);
 			
 			$Id = DB::getInstance()->lastInsertId();
 			$res['id'] = $Id;
@@ -75,14 +80,14 @@ class Local extends Crud{
 		try{
 			$sql  = "UPDATE $this->table SET loja_id = :loja_id, tipo = :tipo, regional = :regional, name = :name, municipio = :municipio, uf = :uf, ativo = :ativo WHERE id = :id ";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':loja_id',	$this->loja_id);
-			$stmt->bindParam(':tipo',		$this->tipo);
-			$stmt->bindParam(':regional',	$this->regional);
-			$stmt->bindParam(':name',		$this->name);
-			$stmt->bindParam(':municipio',	$this->municipio);
-			$stmt->bindParam(':uf',			$this->uf);
-			$stmt->bindParam(':ativo',		$this->ativo);
-			$stmt->bindParam(':id', 		$id);
+			$stmt->bindParam(':loja_id',		$this->loja_id);
+			$stmt->bindParam(':tipo',			$this->tipo);
+			$stmt->bindParam(':regional',		$this->regional);
+			$stmt->bindParam(':name',			$this->name);
+			$stmt->bindParam(':municipio',		$this->municipio);
+			$stmt->bindParam(':uf',				$this->uf);
+			$stmt->bindParam(':ativo',			$this->ativo);
+			$stmt->bindParam(':id', 			$id);
 			return $stmt->execute();
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
@@ -130,9 +135,23 @@ class Local extends Crud{
 		
 	}
 
-	public function contGeolocalizacao( $loja_id ){
+	public function contProprietarioGeolocalizacao( $proprietario_id ){
 		try {
-			$sql  = "SELECT COUNT(*) FROM $this->table WHERE loja_id  = :loja_id ";
+			$sql  = "SELECT COUNT(*) FROM $this->table WHERE proprietario_id  = :proprietario_id AND latitude != 0.000000";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':proprietario_id', $proprietario_id);
+			$stmt->execute();
+			return $stmt->fetchColumn();
+		} catch(PDOException $e) {
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
+		}
+	}
+
+	public function contLojaGeolocalizacao( $loja_id ){
+		try {
+			$sql  = "SELECT COUNT(*) FROM $this->table WHERE loja_id  = :loja_id AND latitude != 0.000000";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':loja_id', $loja_id);
 			$stmt->execute();
@@ -143,5 +162,6 @@ class Local extends Crud{
 			return $res;
 		}
 	}
+
 
 }
