@@ -130,4 +130,18 @@ class Local extends Crud{
 		
 	}
 
+	public function contGeolocalizacao( $loja_id ){
+		try {
+			$sql  = "SELECT COUNT(*) FROM $this->table WHERE loja_id  = :loja_id ";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':loja_id', $loja_id);
+			$stmt->execute();
+			return $stmt->fetchColumn();
+		} catch(PDOException $e) {
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
+		}
+	}
+
 }
