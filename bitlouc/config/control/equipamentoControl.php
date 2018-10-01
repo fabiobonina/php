@@ -1,8 +1,5 @@
 <?php
 	require_once '_global.php';
-	function __autoload($class_name){
-		require_once '../model/' . $class_name . '.php';
-	}
 
 	class EquipamentoControl extends GlobalControl {
 
@@ -52,7 +49,7 @@
 				
 			$equipamentos	= new Equipamento();
 			
-			$res['equipLocal_tt'] = $equipamentos->contLocal( $local_id );
+			$res['equipQt'] = $equipamentos->contLocal( $local_id );
 			return $res;
 
 		}
@@ -60,7 +57,6 @@
 		public function contEquipLoja( $loja_id ){
 				
 			$equipamentos	= new Equipamento();
-			//$itens = array();
 			
 			$res['equipLoja_tt'] = $equipamentos->contLoja( $loja_id );
 			return $res;

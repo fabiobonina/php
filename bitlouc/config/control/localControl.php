@@ -1,10 +1,6 @@
 <?php
 	require_once '_global.php';
 
-	function __autoload($class_name){
-		require_once '../model/' . $class_name . '.php';
-	}
-
 	class LocalControl extends GlobalControl {
 
 		public function listLocal(){

@@ -46,7 +46,7 @@ if($action == 'localCont'):
 
   //$localId = $_POST['local'];
   $localId = '1';
-  $item = $equiControl->contEquipLocal( $localId );
+  $item = $equiControl->contEquipLoja( $localId );
   $res['equipamentos'] = $item;
   $res['error'] = false;
 

@@ -135,7 +135,7 @@ class Local extends Crud{
 		
 	}
 
-	public function contProprietarioGeolocalizacao( $proprietario_id ){
+	public function contGeolocalizacaoProprietario( $proprietario_id ){
 		try {
 			$sql  = "SELECT COUNT(*) FROM $this->table WHERE proprietario_id  = :proprietario_id AND latitude != 0.000000";
 			$stmt = DB::prepare($sql);
@@ -149,7 +149,7 @@ class Local extends Crud{
 		}
 	}
 
-	public function contLojaGeolocalizacao( $loja_id ){
+	public function contGeolocalizacaoLoja( $loja_id ){
 		try {
 			$sql  = "SELECT COUNT(*) FROM $this->table WHERE loja_id  = :loja_id AND latitude != 0.000000";
 			$stmt = DB::prepare($sql);

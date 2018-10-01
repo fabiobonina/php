@@ -5,13 +5,21 @@
 	class LojaControl extends GlobalControl {
 
 		public function matrixLoja( $item ){
-			$lojas      = new Loja();
+			$locais      = new Local();
 			$equipamentos	= new Equipamento();
+			$oss			= new Os();
 
-			$item['equipLocal_tt'] 			= $equipamentos->contLoja( $item['id'] );
-			//$item['loja']					= $lojas->find( $item['loja_id'] );
-			//$item['lojaName'] 				= $item['loja']->name;
-			$item['categorias'] 			= $this->listCategoriaLoja( $item['id'] );
+			echo $item['id'];
+			$item['equipQt'] 			= $equipamentos->contLoja( $item['id'] );
+			$item['locaisQt'] 			= $locais->contLoja( $item['id'] );
+			$item['locaisGeoQt'] 		= $locais->contGeolocalizacaoLoja( $item['id'] );
+			$item['locaisGeoStatus'] 	= $this->porcentagem( $item['locaisQt'], $item['locaisGeoQt']  );
+			$item['ossPendenteQt'] 		= $oss->contOsStatusLoja( $item['id'], 0 );
+			$item['ossAndamentoQt']		= $oss->contOsStatusLoja( $item['id'], 1 );
+			$item['ossConcluidoQt']		= $oss->contOsStatusLoja( $item['id'], 2 );
+			$item['ossQt'] 				= $oss->contLoja( $item['id'] );
+			//$item['lojaName'] 		= $item['loja']->name;
+			$item['categorias'] 		= $this->listCategoriaLoja( $item['id'] );
 			return $item;
 
 		}
@@ -20,7 +28,7 @@
 				
 			$lojas	= new Loja();
 			$itens = array();
-			$item['loja']	= $lojas->find( $lojaId );
+			$item = (array)  $lojas->find( $lojaId );
 
 			$item = $this->matrixLoja( $item );
 			

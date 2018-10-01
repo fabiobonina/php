@@ -3,38 +3,47 @@
 	require_once 'lojaControl.php';
 
 	class ProprietarioControl extends GlobalControl {
-
-		public function listProprietario( $proprietario_id, $userNivel, $userGrupo, $userLoja  ){
-			$proprietarios	= new Proprietario();
-			$lojaControl    = new LojaControl();
-
-			foreach($proprietarios->find( $proprietario_id ) as $key => $value):if($value->id == $acessoProprietario && $value->ativo == '0' ) {
-				$item = (array) $value;
-				$item = $this->matrixProprietario( $item );
-				$item['categoria_id'] 	= $categoriaId;
-				$item['ativo']			= $localCatAtivo;
-				$item['id'] 			= $localCatId;
-				array_push( $arTens, $item );
-			}endforeach;
-			$itens = array();
-			foreach($proprietarios->findAll() as $key => $value):if($value->loja_id == $proprietario_id) {
-				$item = (array) $value;
-				$item = $this->matrixProprietario( $item );
-				array_push( $itens, $item );
-			}endforeach;
-			$res = $itens;
-			return $res;
-		}
-
 		public function matrixProprietario( $item ){
-			$lojas      = new Loja();
+			$lojas      	= new Loja();
+			$locais      	= new Local();
 			$equipamentos	= new Equipamento();
+			$oss			= new Os();
+
+			echo $item['id'];
+			$item['equipQt'] 			= $equipamentos->contProprietario( $item['id'] );
+			$item['lojasQt'] 			= $lojas->contProprietario( $item['id'] );
+			$item['locaisQt'] 			= $locais->contProprietario( $item['id'] );
+			$item['locaisGeoQt'] 		= $locais->contGeolocalizacaoProprietario( $item['id'] );
+			$item['locaisGeoStatus'] 	= $this->porcentagem( $item['locaisQt'], $item['locaisGeoQt']  );
+			$item['ossPendenteQt'] 		= $oss->contOsStatusProprietario( $item['id'], 0 );
+			$item['ossAndamentoQt']		= $oss->contOsStatusProprietario( $item['id'], 1 );
+			$item['ossConcluidoQt']		= $oss->contOsStatusProprietario( $item['id'], 2 );
+			$item['ossQt'] 				= $oss->contProprietario( $item['id'] );
+			//$item['lojaName'] 		= $item['loja']->name;
+			//$item['categorias'] 		= $this->listCategoriaProprietario( $item['id'] );
+			return $item;
 
 			$item['equipLocal_tt'] 			= $equipamentos->contProprietario( $item['id'] );
 			$item['loja']					= $lojas->find( $item['loja_id'] );
 			$item['lojaName'] 				= $item['loja']->name;
 			$item['categorias'] 			= $this->listCategoriaProprietario( $item['id'] );
 			return $item;
+
+		}
+
+		public function listProprietario( $proprietario_id, $userNivel, $userGrupo, $userLoja  ){
+			$proprietarios	= new Proprietario();
+			$lojaControl    = new LojaControl();
+			foreach($proprietarios->findAll() as $key => $value):if($value->id == $acessoProprietario && $value->ativo == '0' ){
+				$item = (array) $value;
+				$item = $this->matrixProprietario( $item );
+			}endforeach;
+			$res = $item;
+			return $res;
+		}
+
+		public function matrixProprietario( $item ){
+			
 
 		}
 

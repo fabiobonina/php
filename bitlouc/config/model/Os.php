@@ -280,6 +280,21 @@ class Os extends Crud{
 		}
 	}
 
+	public function contOsStatusLoja( $loja_id, $status ){
+		try {
+			$sql  = "SELECT COUNT(*) FROM $this->table WHERE loja_id  = :loja_id AND status = :status";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':loja_id', $loja_id);
+			$stmt->bindParam(':status', $status);
+			$stmt->execute();
+			return $stmt->fetchColumn();
+		} catch(PDOException $e) {
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
+		}
+	}
+
 
 	
 
