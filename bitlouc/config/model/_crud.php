@@ -108,10 +108,24 @@ abstract class Crud extends DB{
 		try {
 			$sql  = "SELECT COUNT(*) FROM $this->table WHERE proprietario_id  = :proprietario_id ";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':proprietario_id ', $proprietario_id);
+			$stmt->bindParam(':proprietario_id', $proprietario_id);
 			$stmt->execute();
 			return $stmt->fetchColumn();
 			
+		} catch(PDOException $e) {
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
+		}
+	}
+
+	public function findAllProprietario( $proprietario_id ){
+		try{
+			$sql  = "SELECT * FROM $this->table WHERE proprietario_id  = :proprietario_id ";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':proprietario_id', $proprietario_id);
+			$stmt->execute();
+			return $stmt->fetchAll();
 		} catch(PDOException $e) {
 			$res['error']	= true;
 			$res['message'] = $e->getMessage();

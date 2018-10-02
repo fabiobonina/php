@@ -14,7 +14,7 @@
 			$item['lojasQt'] 			= $lojas->contProprietario( $item['id'] );
 			$item['locaisQt'] 			= $locais->contProprietario( $item['id'] );
 			$item['locaisGeoQt'] 		= $locais->contGeolocalizacaoProprietario( $item['id'] );
-			//$item['locaisGeoStatus'] 	= $this->porcentagem( $item['locaisQt'], $item['locaisGeoQt']  );
+			$item['locaisGeoStatus'] 	= $this->porcentagem( $item['locaisQt'], $item['locaisGeoQt']  );
 			$item['ossPendenteQt'] 		= $oss->contOsStatusProprietario( $item['id'], 0 );
 			$item['ossAndamentoQt']		= $oss->contOsStatusProprietario( $item['id'], 1 );
 			$item['ossConcluidoQt']		= $oss->contOsStatusProprietario( $item['id'], 2 );
@@ -34,11 +34,18 @@
 		public function listProprietario( $proprietario_id, $userNivel, $userGrupo, $userLoja  ){
 			$proprietarios	= new Proprietario();
 			$lojaControl    = new LojaControl();
-			foreach($proprietarios->findAll() as $key => $value):if($value->id == $proprietario_id && $value->ativo == '0' ){
-				$item = (array) $value;
-				$item = $this->matrixProprietario( $item );
-			}endforeach;
-			$res = $item;
+
+			$item = (array)  $proprietarios->find( $proprietario_id );
+
+			if( $item['ativo']  == 0 ){
+				$res['error'] = false;
+				$res['dados'] = $this->matrixProprietario( $item );
+				$res['message'] = 'OK, Local pode ser deletado';
+			}else{
+				$res['error'] = true;
+				$res['message'] = 'Error, Entre em contado com o Admistrador do sitema';
+			}
+
 			return $res;
 		}
 
@@ -86,9 +93,10 @@
 				}endforeach;
 
 				if( !$duplicado ){
-				  $localCategorias->setProprietario($local);
-				  $localCategorias->setCategoria($itemId);
-					$item = $localCategorias->insert();
+				  	$localCategorias->setProprietario($local);
+				  	$localCategorias->setCategoria($itemId);
+					
+					  $item = $localCategorias->insert();
 
 				}else{
 				  $item['error'] = true; 

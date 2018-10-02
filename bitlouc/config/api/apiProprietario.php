@@ -4,10 +4,10 @@ header('Content-Type: text/html; charset=utf-8');
 
 require_once '_chave.php';
 require_once '../control/proprietarioControl.php';
-//require_once '../control/lojaControl.php';
+require_once '../control/lojaControl.php';
 
 $proprietarioControl  = new ProprietarioControl();
-//$lojaControl          = new LojaControl();
+$lojaControl          = new LojaControl();
 /*
   function __autoload($class_name){
     require_once '../model/' . $class_name . '.php';
@@ -39,10 +39,10 @@ if(isset($_GET['action'])){
 
 $res['user'] =  $user;
 
-$acessoNivel        = '';
-$acessoProprietario = '';
-$acessoGrupo        = '';
-$acessoloja         = '';
+//$acessoNivel        = '';
+//$acessoProprietario = '';
+//$acessoGrupo        = '';
+//$acessoloja         = '';
 
 if( !$user['error'] ):
   //$acessoNivel        = $user['nivel'];
@@ -62,7 +62,15 @@ if( !$user['error'] ):
     $arrayLocais = array();
     $arBens = array();
     
-    $proprietario   = $proprietarioControl->listProprietario( $acessoProprietario, $acessoNivel, $acessoGrupo, $acessoloja   );
+    $item   = $proprietarioControl->listProprietario( $acessoProprietario, $acessoNivel, $acessoGrupo, $acessoloja );
+
+    if($item['error'] == true ){
+      $res = $item;
+    }else{
+      $res['proprietarios'] = $item['dados'];
+      $res['lojas']         = $lojaControl->listProprietario( $acessoProprietario, $acessoNivel, $acessoGrupo, $acessoloja );
+      $res['error']         = false;
+    }
     //$lojas          = $lojaControl->listProprietario( $acessoProprietario, $acessoNivel, $acessoGrupo, $acessoloja );
     
     /*
@@ -167,8 +175,7 @@ if( !$user['error'] ):
     //$res['locais']= $arrayLocais;
     //$res['lojas']= $loja;
     //$arDados = $arLocal;
-    $res['proprietarios'] = $proprietario;
-    $res['error'] = false;
+    
   endif;
   if($action == 'read1'):
 

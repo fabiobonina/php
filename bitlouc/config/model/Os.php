@@ -310,7 +310,33 @@ class Os extends Crud{
 		}
 	}
 
+	public function findIIIProprietario( $proprietario_id  ){
+		try{
+			$sql  = "SELECT * FROM $this->table WHERE proprietario_id  = :proprietario_id AND status < 4 ";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':proprietario_id', $proprietario_id);
+			$stmt->execute();
+			return $stmt->fetchAll();
+		} catch(PDOException $e) {
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
+		}
+	}
 
+	public function findIIILoja( $proprietario_id ){
+		try{
+			$sql  = "SELECT * FROM $this->table WHERE proprietario_id  = :proprietario_id AND status < 4 ";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':proprietario_id', $proprietario_id);
+			$stmt->execute();
+			return $stmt->fetchAll();
+		} catch(PDOException $e) {
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
+		}
+	}
 	
 
 }

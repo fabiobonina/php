@@ -9,7 +9,6 @@
 			$equipamentos	= new Equipamento();
 			$oss			= new Os();
 
-			echo $item['id'];
 			$item['equipQt'] 			= $equipamentos->contLoja( $item['id'] );
 			$item['locaisQt'] 			= $locais->contLoja( $item['id'] );
 			$item['locaisGeoQt'] 		= $locais->contGeolocalizacaoLoja( $item['id'] );
@@ -18,7 +17,6 @@
 			$item['ossAndamentoQt']		= $oss->contOsStatusLoja( $item['id'], 1 );
 			$item['ossConcluidoQt']		= $oss->contOsStatusLoja( $item['id'], 2 );
 			$item['ossQt'] 				= $oss->contLoja( $item['id'] );
-			//$item['lojaName'] 		= $item['loja']->name;
 			$item['categorias'] 		= $this->listCategoriaLoja( $item['id'] );
 			return $item;
 
@@ -27,20 +25,17 @@
 		public function listLoja( $lojaId ){
 				
 			$lojas	= new Loja();
-			$itens = array();
-			$item = (array)  $lojas->find( $lojaId );
-
-			$item = $this->matrixLoja( $item );
-			
-			$res = $item;
-			return $res;
+			$item 	= (array) $lojas->find( $lojaId );
+			$res 	= $this->matrixLoja( $item );
+			return 	$res;
 
 		}
 
-		public function listLojaProprietario( $proprietario_id ){
+		public function listProprietario( $proprietario_id ){
 			$lojas	= new Loja();
 			$itens 	= array();
-			foreach($lojas->findAll() as $key => $value):if($value->proprietario_id == $proprietario_id ) {
+			
+			foreach($lojas->findAllProprietario( $proprietario_id ) as $key => $value): {
 				$item = (array) $value;
 				$item = $this->matrixLoja( $item );
 				array_push( $itens, $item );
