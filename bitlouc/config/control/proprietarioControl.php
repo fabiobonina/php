@@ -3,18 +3,18 @@
 	require_once 'lojaControl.php';
 
 	class ProprietarioControl extends GlobalControl {
+
 		public function matrixProprietario( $item ){
 			$lojas      	= new Loja();
 			$locais      	= new Local();
 			$equipamentos	= new Equipamento();
 			$oss			= new Os();
 
-			echo $item['id'];
 			$item['equipQt'] 			= $equipamentos->contProprietario( $item['id'] );
 			$item['lojasQt'] 			= $lojas->contProprietario( $item['id'] );
 			$item['locaisQt'] 			= $locais->contProprietario( $item['id'] );
 			$item['locaisGeoQt'] 		= $locais->contGeolocalizacaoProprietario( $item['id'] );
-			$item['locaisGeoStatus'] 	= $this->porcentagem( $item['locaisQt'], $item['locaisGeoQt']  );
+			//$item['locaisGeoStatus'] 	= $this->porcentagem( $item['locaisQt'], $item['locaisGeoQt']  );
 			$item['ossPendenteQt'] 		= $oss->contOsStatusProprietario( $item['id'], 0 );
 			$item['ossAndamentoQt']		= $oss->contOsStatusProprietario( $item['id'], 1 );
 			$item['ossConcluidoQt']		= $oss->contOsStatusProprietario( $item['id'], 2 );
@@ -34,19 +34,13 @@
 		public function listProprietario( $proprietario_id, $userNivel, $userGrupo, $userLoja  ){
 			$proprietarios	= new Proprietario();
 			$lojaControl    = new LojaControl();
-			foreach($proprietarios->findAll() as $key => $value):if($value->id == $acessoProprietario && $value->ativo == '0' ){
+			foreach($proprietarios->findAll() as $key => $value):if($value->id == $proprietario_id && $value->ativo == '0' ){
 				$item = (array) $value;
 				$item = $this->matrixProprietario( $item );
 			}endforeach;
 			$res = $item;
 			return $res;
 		}
-
-		public function matrixProprietario( $item ){
-			
-
-		}
-
 
 		public function anexoProprietario( $localId ){
 

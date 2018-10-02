@@ -165,7 +165,7 @@ if( !$user['error'] ):
     */
     //$res['bens']= $arBens;
     //$res['locais']= $arrayLocais;
-    $res['lojas']= $loja;
+    //$res['lojas']= $loja;
     //$arDados = $arLocal;
     $res['proprietarios'] = $proprietario;
     $res['error'] = false;
