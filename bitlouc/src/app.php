@@ -24,6 +24,12 @@
     <?php require_once 'src/components/includes/message.php';?>
 </div>
 
+<script src="src/store/actions.js"></script>
+<script src="src/store/getters.js"></script>
+<script src="src/store/mutations.js"></script>
+<script src="src/store/state.js"></script>
+<script src="src/router/router.js"></script>
+
 <script src="src/app.js"></script>
 
 

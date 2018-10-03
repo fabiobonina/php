@@ -4,30 +4,34 @@
 
 	class LojaControl extends GlobalControl {
 
-		public function matrixLoja( $item ){
-			$locais      = new Local();
+		public function matrix( $item ){
+			$locais      	= new Local();
 			$equipamentos	= new Equipamento();
 			$oss			= new Os();
 
-			$item['equipQt'] 			= $equipamentos->contLoja( $item['id'] );
-			$item['locaisQt'] 			= $locais->contLoja( $item['id'] );
-			$item['locaisGeoQt'] 		= $locais->contGeolocalizacaoLoja( $item['id'] );
-			$item['locaisGeoStatus'] 	= $this->porcentagem( $item['locaisQt'], $item['locaisGeoQt']  );
-			$item['ossPendenteQt'] 		= $oss->contOsStatusLoja( $item['id'], 0 );
-			$item['ossAndamentoQt']		= $oss->contOsStatusLoja( $item['id'], 1 );
-			$item['ossConcluidoQt']		= $oss->contOsStatusLoja( $item['id'], 2 );
-			$item['ossQt'] 				= $oss->contLoja( $item['id'] );
-			$item['categorias'] 		= $this->listCategoriaLoja( $item['id'] );
+			$item->equipQt 			= $equipamentos->contLoja( $item->id );
+			$item->locaisQt 		= $locais->contLoja( $item->id );
+			$item->locaisGeoQt 		= $locais->contGeolocalizacaoLoja( $item->id );
+			$item->locaisGeoStatus 	= $this->porcentagem( $item->locaisQt, $item->locaisGeoQt  );
+			$item->ossPendenteQt 	= $oss->contOsStatusLoja( $item->id, 0 );
+			$item->ossAndamentoQt	= $oss->contOsStatusLoja( $item->id, 1 );
+			$item->ossConcluidoQt	= $oss->contOsStatusLoja( $item->id, 2 );
+			$item->ossQt 			= $oss->contLoja( $item->id );
+			$item->categorias 		= $this->listCategoriaLoja( $item->id );
 			return $item;
 
 		}
 
-		public function listLoja( $lojaId ){
-				
+		public function list( $lojaId ){
 			$lojas	= new Loja();
-			$item 	= (array) $lojas->find( $lojaId );
-			$res 	= $this->matrixLoja( $item );
-			return 	$res;
+			$itens 	= array();
+			$item 	= $lojas->find( $lojaId );
+			$item = $this->matrix( $item );
+			$item = (array)  $item;
+			array_push( $itens, $item );
+
+			$res = $itens;
+			return $res;
 
 		}
 
@@ -35,9 +39,9 @@
 			$lojas	= new Loja();
 			$itens 	= array();
 			
-			foreach($lojas->findAllProprietario( $proprietario_id ) as $key => $value): {
-				$item = (array) $value;
-				$item = $this->matrixLoja( $item );
+			foreach($lojas->findProprietario( $proprietario_id ) as $key => $value): {
+				$item =  $value;
+				$item = (array) 	$this->matrix( $item );
 				array_push( $itens, $item );
 			}endforeach;
 			$res = $itens;

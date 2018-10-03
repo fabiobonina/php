@@ -33,7 +33,7 @@ $osControl            = new OsControl();
 
 $res = array('error' => true);
 $arDados = array();
-$action = 'read';
+$action = 'ajuste';
 
 if(isset($_GET['action'])){
   $action = $_GET['action'];

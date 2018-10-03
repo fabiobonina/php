@@ -1,16 +1,82 @@
 <?php
 	require_once '_global.php';
-	require_once '../model/Os.php';
-	require_once '../model/Servicos.php';
-	require_once '../model/OsTecnicos.php';
-	require_once '../model/Mod.php';
-	require_once '../model/Nota.php';
-	require_once '../model/DeslocStatus.php';
-	require_once '../model/DeslocTrajetos.php';
 	require_once '../emailPHP.php';
 
 	class OsControl extends GlobalControl {
 
+		public function matrix( $item ){
+			
+			$oss     		= new OS();
+			$lojas     		= new Loja();
+			$locais     	= new Local();
+			$equipamentos   = new Equipamento();
+			$servicos   	= new Servicos();
+			$categorias 	= new Categorias();
+			$notas      	= new Nota();
+			$equipamentos	= new Equipamento();
+
+			$local 					= $locais->find( $item->local_id );
+			$item->local_name		= $local->name;
+			$local 					= $locais->find( $item->local_id );
+			$item->local_name		= $local->name;
+			$item->local_municipio	= $local->municipio;
+			$item->local_uf			= $local->uf;
+			$item->local_lat		= $local->latitude;
+			$item->local_long		= $local->longitude;
+			$item->bem				= $equipamentos->find( $item->equipamento_id );
+			$item->servico			= $servicos->find( $item->servico_id );
+			$item->categoria		= $categorias->find( $item->categoria_id );
+			$item->tecnicos			= $this->listOsTec( $item->id );
+			$item->notas			= $notas->motaOs( $item->id );
+			$oss->ajuste($item->id, $item->local_uf	);
+
+			return $item;
+
+		}
+
+		public function listLoja( $loja_id ){
+			$oss	= new Os();
+			$itens 	= array();
+			
+			foreach($oss->findLoja( $loja_id ) as $key => $value): {
+				$item = $value;
+				$item = $this->matrix( $item );
+				$item = (array)  $item;
+				array_push( $itens, $item );
+			}endforeach;
+			$res = $itens;
+			return $res;
+
+		}
+
+		public function listIIILoja( $loja_id ){
+			$oss	= new Os();
+			$itens 	= array();
+			
+			foreach($oss->findIIILoja( $loja_id ) as $key => $value): {
+				$item = $value;
+				$item = (array) $this->matrix( $item );
+				array_push( $itens, $item );
+			}endforeach;
+			$res = $itens;
+			return $res;
+
+		}
+
+		public function listTec( $loja_id ){
+			$oss	= new Os();
+			$itens 	= array();
+			
+			foreach($oss->findIIILoja( $loja_id ) as $key => $value): {
+				$item = $value;
+				$item = (array) $this->matrix( $item );
+				array_push( $itens, $item );
+			}endforeach;
+			$res = $itens;
+			return $res;
+
+		}
+		
 		public function insertOsTec($tecnicos, $osId, $idLoja){
 			
 			$osTecnicos   = new OsTecnicos();

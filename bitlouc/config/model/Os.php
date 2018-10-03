@@ -324,11 +324,11 @@ class Os extends Crud{
 		}
 	}
 
-	public function findIIILoja( $proprietario_id ){
+	public function findIIILoja( $loja_id ){
 		try{
-			$sql  = "SELECT * FROM $this->table WHERE proprietario_id  = :proprietario_id AND status < 4 ";
+			$sql  = "SELECT * FROM $this->table WHERE loja_id  = :loja_id AND status < 4 ";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':proprietario_id', $proprietario_id);
+			$stmt->bindParam(':loja_id', $loja_id);
 			$stmt->execute();
 			return $stmt->fetchAll();
 		} catch(PDOException $e) {
@@ -338,5 +338,22 @@ class Os extends Crud{
 		}
 	}
 	
+	public function ajuste($id, $uf){
+		try{
+			$sql  = "UPDATE $this->table SET uf = :uf WHERE id = :id";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':uf',	$uf);
+			$stmt->bindParam(':id', $id);
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, OS atualizado com sucesso";
+			return $res;
+		} catch(PDOException $e) {
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
+		}
+	}
 
 }
