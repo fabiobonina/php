@@ -68,7 +68,17 @@ if( !$user['error'] ):
       $res = $item;
     }else{
       $res['proprietarios'] = $item['dados'];
-      $res['lojas']         = $lojaControl->listProprietario( $acessoProprietario, $acessoNivel, $acessoGrupo, $acessoloja );
+      if($acessoGrupo = 'P'){
+        if($acessoNivel >= 3){
+          $res['lojas'] = $lojaControl->listProprietario( $acessoProprietario, $acessoNivel, $acessoGrupo, $acessoloja );
+        }else{
+  
+        }
+        $res['lojas'] = $lojaControl->listProprietario( $acessoProprietario, $acessoNivel, $acessoGrupo, $acessoloja );
+      }else{
+
+      }
+      
       $res['error']         = false;
     }
     //$lojas          = $lojaControl->listProprietario( $acessoProprietario, $acessoNivel, $acessoGrupo, $acessoloja );
