@@ -6,21 +6,6 @@ require_once '_chave.php';
 require_once '../control/osControl.php';
 
 $osControl = new OsControl();
-function __autoload($class_name){
-  require_once '../model/' . $class_name . '.php';
-}
-
-$proprietario = new Proprietario();
-$lojas        = new Loja();
-$locais       = new Local();
-$oss          = new Os();
-$bens         = new Bens();
-$servicos     = new Servicos();
-$categorias   = new Categorias();
-$mods         = new Mod();
-$osTecnicos   = new OsTecnicos();
-$notas        = new Nota();
-
 
 
 //$res['outros'] = array();
@@ -46,8 +31,26 @@ $acessoloja         = $user['loja'];
 if(isset($_GET['action'])){
   $action = $_GET['action'];
 }
-  
+
 if($action == 'read'):
+  //$lojaId = $_POST['loja'];
+  //$lojaId = '1';
+
+  $osStatus = '1';
+  $arLojas = array();
+  $contPp_OsTt = 0;
+  $arProprietario = array();
+     
+  $arOs = $osControl->listProprietario( $acessoProprietario );
+
+  $res['oss']= $arOs;
+  $res['osProprietario']= $arProprietario;
+  $res['osLojas']= $arLojas;
+  $res['error'] = false;
+
+endif;
+
+if($action == 'read2'):
   //$lojaId = $_POST['loja'];
   //$lojaId = '1';
 
@@ -61,7 +64,6 @@ if($action == 'read'):
     $arProprietario['id'] = $value->id;
     #LOJAS---------------------------------------------------------------------------------------------
     $arLojas = array();
-    
     foreach($lojas->findAll() as $key => $value):if($value->proprietario == $acessoProprietario && (( $acessoNivel > 1 && $acessoGrupo == 'P' ) || $value->id == $acessoloja )){
       $arLoja = (array) $value;
       $lojaId = $value->id;
@@ -75,7 +77,7 @@ if($action == 'read'):
           $contPp_OsTt++;
           $contLj_OsTt++;
         }
-        $arOs = $osControl->osFull( $value->id );
+        $arOs = $osControl->matrix( $value );
         
         array_push($arOss, $arOs);
 

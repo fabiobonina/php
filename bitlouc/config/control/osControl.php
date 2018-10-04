@@ -28,7 +28,8 @@
 			$item->categoria		= $categorias->find( $item->categoria_id );
 			$item->tecnicos			= $this->listOsTec( $item->id );
 			$item->notas			= $notas->motaOs( $item->id );
-			$oss->ajuste($item->id, $item->local_uf	);
+
+			$oss->ajuste( $item->id, $local->uf );
 
 			return $item;
 
@@ -39,6 +40,21 @@
 			$itens 	= array();
 			
 			foreach($oss->findLoja( $loja_id ) as $key => $value): {
+				$item = $value;
+				$item = $this->matrix( $item );
+				$item = (array)  $item;
+				array_push( $itens, $item );
+			}endforeach;
+			$res = $itens;
+			return $res;
+
+		}
+
+		public function listProprietario( $proprietario_id ){
+			$oss	= new Os();
+			$itens 	= array();
+			
+			foreach($oss->findProprietario( $proprietario_id ) as $key => $value): {
 				$item = $value;
 				$item = $this->matrix( $item );
 				$item = (array)  $item;
