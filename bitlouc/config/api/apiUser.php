@@ -1,20 +1,21 @@
 <?php
 date_default_timezone_set('America/Recife');
 ob_start();
-session_start();
+//session_start();
 header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
 //include("_chave.php");
 
-require_once '../control/_global.php';
+//require_once '../control/_global.php';
 
-function __autoload($class_name){
-  require_once '../model/' . $class_name . '.php';
-}
+//function __autoload($class_name){
+//  require_once '../model/' . $class_name . '.php';
+//}
 
-$globalControl = new GlobalControl();
-$usuarios = new Usuarios();
+//$globalControl  = new GlobalControl();
+$userControl    = new UserControl();
+$usuarios       = new Usuarios();
 
 $res = array('error' => true);
 $arDados = array();

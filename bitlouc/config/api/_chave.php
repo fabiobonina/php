@@ -2,10 +2,13 @@
     date_default_timezone_set('America/Recife');
     ob_start();
     session_start();
-    require_once '../model/Usuarios.php';
+    //require_once '../model/Usuarios.php';
+
+    require_once '../control/userControl.php';
     
-    $usuarios = new Usuarios();
-    // login
+    //$usuarios       = new Usuarios();
+    $userControl    = new UserControl();
+    # login
     
     //$_POST = (array) json_decode(file_get_contents('php://input'), true);
     $token ='';
@@ -29,17 +32,13 @@
 		$user['isLoggedIn']     = true;
         $user['error']          = false;
 
-        
-
     }elseif( isset($token) ){
-        $user = $usuarios->isLoggedIn( $token );
+        $user = $userControl->isLoggedIn( $token );
         $user = $user;
     }else{
         //header("Location: ../../login.php");exit;
     }
 
-    //include("admin/conexao/conecta.php");
-    //include("../../src/includes/logout.php");
     
 
 
