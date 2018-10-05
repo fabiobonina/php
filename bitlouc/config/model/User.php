@@ -1,9 +1,11 @@
 <?php
 require_once '_crud.php';
 
-class Usuarios extends Crud{
+class User extends Crud{
 	
 	protected $table = 'users';
+	protected $matrixUser = 'id, name, email, user, avatar, chave, proprietario, grupo, loja, nivel, uf, ativo, data_cadastro, data_ultimo_login';
+
 	private $name;
 	private $email;
 	private $nickuser;
@@ -111,22 +113,20 @@ class Usuarios extends Crud{
 	public function isLoggedIn( $chave ){
 		// SELECIONAR BANCO DE DADOS
 		try{
-			$sql = "SELECT id, name, email, user, avatar, chave, proprietario, grupo, loja, nivel, uf, ativo, data_cadastro, data_ultimo_login from $this->table WHERE BINARY chave= :chave ";
+			$sql = "SELECT $this->matrixUser from $this->table WHERE BINARY chave= :chave ";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':chave', $chave);
 			$stmt->execute();
 			$contar = $stmt->rowCount();
 			if($contar>0){
-				$res['user'] = $stmt->fetch();
-				$res['error'] = false;
-				return $res;
-				
+				$item 	= $stmt->fetch();
+				$error	= false;				
+				$res 	= $this->matrix( $error, $item );
 			}else{
-				$res['error'] = true;
-				$res['isLoggedIn'] = false;
-				return $res;
+				$error	= true;		
+				$res 	= $this->matrix( $error, 'Error! é preciso logar!');
 			}
-			
+			return $res;
 		} catch(PDOException $e) {
 			$res['error']	= true;
 			$res['message'] = $e->getMessage();
@@ -134,50 +134,29 @@ class Usuarios extends Crud{
 		}
 	}
 
-	public function validationPassword($email, $password){
+	
+	public function findEmail( $email, $password ){
 		try{
-			$sql  = "SELECT chave FROM $this->table WHERE BINARY email = :email AND password = :password ";
+
+			$sql  = "SELECT $this->matrixUser FROM $this->table WHERE BINARY email = :email";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':email', $email );
-			$stmt->bindParam(':password', $password );
 			$stmt->execute();
 			$contar = $stmt->rowCount();
-			if($contar>0){
-				$loop = $stmt->fetchAll();
-				return $loop;
+			if( $contar == 1 ){
+				$res = $this->validationPassword( $email, $password );
 			}else{
-				$res['error']	= true;
-				$res['message'] = 'Erro, senha invalida!';
-				return $res;
+				$error = true;
+				$res = $this->matrix( $error, 'Error ao logar! Email invalido!');
 			}
+			return $res;
 		} catch(PDOException $e) {
 			$res['error']	= true;
 			$res['message'] = $e->getMessage();
 			return $res;
 		}
 	}
-	public function findEmail( $email ){
-		try{
-
-			$sql  = "SELECT COUNT(*) FROM $this->table WHERE BINARY email = :email ";
-			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':email', $email);
-			$stmt->execute();
-			return $stmt->fetchColumn();
-			$sql = "SELECT id, name, email, user, avatar, chave, proprietario, grupo, loja, nivel, uf, ativo, data_cadastro, data_ultimo_login";
-			$sql .=" from $this->table WHERE BINARY email = :email AND password = :password ";
-		} catch(PDOException $e) {
-			$res['error']	= true;
-			$res['message'] = $e->getMessage();
-			return $res;
-		}
-	}
-	public function matrixUser(){
-
-			$res = "SELECT id, name, email, user, avatar, chave, proprietario, grupo, loja, nivel, uf, ativo, data_cadastro, data_ultimo_login";
-
-			return $res;
-	}
+	
 	public function updateLogar($id, $datalogin ){
 		// SELECIONAR BANCO DE DADOS
 		try{
@@ -186,6 +165,7 @@ class Usuarios extends Crud{
 			$stmt->bindParam(':data_ultimo_login', $datalogin);
 			$stmt->bindParam(':id', $id);
 			return $stmt->execute();
+
 		} catch(PDOException $e) {
 			$res['error']	= true;
 			$res['message'] = $e->getMessage();
@@ -193,5 +173,45 @@ class Usuarios extends Crud{
 		}
 	}
 
+	private function validationPassword($email, $password){
+		try {
+			$sql = "SELECT $this->matrixUser FROM $this->table WHERE BINARY email = :email AND password = :password";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':email', $email );
+			$stmt->bindParam(':password', $password );
+			$stmt->execute();
+			$contar = $stmt->rowCount();
+			if($contar>0){
+				$item 	= $stmt->fetch();		
+				$error = false;		
+				$res = $this->matrix( $error, $item );
+			}else{
+				$error = true;
+				$res = $this->matrix( $error, 'Error ao logar, senha invalida!');
+			}
+			return $res;
+		} catch(PDOException $e) {
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
+		}
+	}
+	private function matrix($error, $dados){
+		if( $error == false ){
+			$res['user'] 		= $dados;
+			$res['token'] 		= $dados->chave;
+			$res['message'] 	= 'Logado com sucesso!';
+			$res['error'] 		= false;
+			$res['isLoggedIn'] 	= true;
+			
+		}else{
+			$res['error'] 		= true;
+			$res['isLoggedIn'] 	= false;
+			$res['message'] 	= $dados;
+			
+		}
+		return $res;
+
+	}
 
 }

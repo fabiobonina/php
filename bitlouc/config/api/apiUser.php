@@ -7,7 +7,7 @@ header('Content-Type: text/html; charset=utf-8');
 
 //include("_chave.php");
 
-//require_once '../control/_global.php';
+require_once '../control/userControl.php';
 
 //function __autoload($class_name){
 //  require_once '../model/' . $class_name . '.php';
@@ -15,7 +15,6 @@ header('Content-Type: text/html; charset=utf-8');
 
 //$globalControl  = new GlobalControl();
 $userControl    = new UserControl();
-$usuarios       = new Usuarios();
 
 $res = array('error' => true);
 $arDados = array();
@@ -27,11 +26,21 @@ if(isset($_GET['action'])){
 }
 
 if($action == 'logar'):
+  if(isset($_POST['email'], $_POST["password"] ) ){
+  
+    $email= $_POST["email"];
+    $senha= $_POST["password"];
+    $res = $userControl->logar( $email, $senha );
+  
+  }
+  $res = $userControl->logar( 'fabiobonina@gmail.com', '123abc' );
+endif;
+
+if($action == 'logarII'):
 
   $email= $_POST["email"];
   $senha= $_POST["password"];
 
-  $datalogin = date("Y-m-d H:i:s");
   $password = md5($senha);
 
   #CONFIRMAÇÃO-LOGIN-------------------------------------------------------------------------------------------
@@ -110,7 +119,6 @@ if($action == 'logar'):
   }
   
 endif;
-
 
 
 #REGISTRAR

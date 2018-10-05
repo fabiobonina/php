@@ -355,5 +355,18 @@ class Os extends Crud{
 			return $res;
 		}
 	}
+	public function findUF( $uf ){
+		try {
+			$sql  = "SELECT COUNT(*) FROM $this->table WHERE uf  = :uf AND AND status < 4";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':uf', $uf);
+			$stmt->execute();
+			return $stmt->fetchAll();
+		} catch(PDOException $e) {
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
+		}
+	}
 
 }

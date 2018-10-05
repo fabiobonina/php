@@ -7,6 +7,7 @@
 		public function matrix( $item ){
 			
 			$oss     		= new OS();
+			$osTecnicos     = new OsTecnicos();
 			$lojas     		= new Loja();
 			$locais     	= new Local();
 			$equipamentos   = new Equipamento();
@@ -30,6 +31,7 @@
 			$item->notas			= $notas->motaOs( $item->id );
 
 			$oss->ajuste( $item->id, $local->uf );
+			$osTecnicos->ajuste( $item->id, $item->status );
 
 			return $item;
 
@@ -153,7 +155,7 @@
 			$osTecnicos = new OsTecnicos();
 			$mods 		= new Mod();
 			$tecnicos	= new Tecnicos();
-			$user 		= new Usuarios();
+			$user 		= new User();
 
 			$arTecnicos = array();
 			foreach($osTecnicos->findOs( $osId ) as $key => $value): {
