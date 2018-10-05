@@ -83,7 +83,9 @@ class Usuarios extends Crud{
 
 		return $stmt->execute();
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 
 	}
@@ -99,7 +101,9 @@ class Usuarios extends Crud{
 			$stmt->bindParam(':id', $id);
 			return $stmt->execute();
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 		
 	}
@@ -107,42 +111,15 @@ class Usuarios extends Crud{
 	public function isLoggedIn( $chave ){
 		// SELECIONAR BANCO DE DADOS
 		try{
-			$sql = "SELECT id, name, email, user, avatar, chave, proprietario, grupo, loja, nivel, uf, data_cadastro, data_ultimo_login from $this->table WHERE BINARY chave= :chave ";
+			$sql = "SELECT id, name, email, user, avatar, chave, proprietario, grupo, loja, nivel, uf, ativo, data_cadastro, data_ultimo_login from $this->table WHERE BINARY chave= :chave ";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':chave', $chave);
 			$stmt->execute();
 			$contar = $stmt->rowCount();
 			if($contar>0){
-				$loop = $stmt->fetch();
-					
-				if($loop->ativo == 0){
-					$datalogin = date("Y-m-d H:i:s");
-					$this->updateLogar( $login['id'], $datalogin);
-					
-					$login['error'] = false;
-					$login['isLoggedIn'] = true;
-					
-					$_SESSION['loginId']            = $login['id'];
-					$_SESSION['loginName']          = $login['name'];
-					$_SESSION['loginEmail']         = $login['email'];
-					$_SESSION['loginUser']          = $login['user'];
-					$_SESSION['loginToken']         = $login['token'];
-					$_SESSION['loginAvatar']        = $login['avatar'];
-					$_SESSION['loginProprietario']  = $login['proprietario'];
-					$_SESSION['loginGrupo']         = $login['grupo'];
-					$_SESSION['loginLoja']          = $login['loja'];
-					$_SESSION['loginNivel']         = $login['nivel'];
-					$_SESSION['loginUf']         	= $login['uf'];
-					$_SESSION['loginDtCadastro']    = $login['dtCadastro'];
-					$_SESSION['loginDtUltimoLogin'] = $login['dtUltimoLogin'];
-
-					return $login;
-
-				}else{
-					$res['error'] = true;
-					$res['isLoggedIn'] = false;
-					return $res;
-				}
+				$res['user'] = $stmt->fetch();
+				$res['error'] = false;
+				return $res;
 				
 			}else{
 				$res['error'] = true;
@@ -151,146 +128,55 @@ class Usuarios extends Crud{
 			}
 			
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 	}
-	public function findKey($chave){
+
+	public function validationPassword($email, $password){
 		try{
-			$sql  = "SELECT * FROM $this->table WHERE BINARY chave = :chave ";
+			$sql  = "SELECT chave FROM $this->table WHERE BINARY email = :email AND password = :password ";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':chave', $this->chave);
+			$stmt->bindParam(':email', $email );
+			$stmt->bindParam(':password', $password );
 			$stmt->execute();
 			$contar = $stmt->rowCount();
 			if($contar>0){
 				$loop = $stmt->fetchAll();
-				foreach ($loop as $show){
-					$loginId = $show->id;
-					$loginName = $show->name;
-					$loginEmail = $show->email;
-					$loginUser = $show->user;
-					$loginAvatar = $show->avatar;
-					$loginProprietario = $show->proprietario;
-					$loginGrupo = $show->grupo;
-					$loginLoja = $show->loja;
-					$loginNivel = $show->nivel;
-					$loginAtivo = $show->ativo;
-					$loginDtCadastro = $show->data_cadastro;
-				}
-				if($loginAtivo == 0){
-					
-				}else{
-
-				}
-				
+				return $loop;
 			}else{
-
+				$res['error']	= true;
+				$res['message'] = 'Erro, senha invalida!';
+				return $res;
 			}
-			return $stmt->fetch();
-		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
-		}
-	}
-
-	public function validationPassword($email; $password){
-		try{
-			$sql  = "SELECT * FROM $this->table WHERE BINARY chave = :chave ";
-			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':chave', $this->chave);
-			$stmt->execute();
-			$contar = $stmt->rowCount();
-			if($contar>0){
-				$loop = $stmt->fetchAll();
-				foreach ($loop as $show){
-					$loginId = $show->id;
-					$loginName = $show->name;
-					$loginEmail = $show->email;
-					$loginUser = $show->user;
-					$loginAvatar = $show->avatar;
-					$loginProprietario = $show->proprietario;
-					$loginGrupo = $show->grupo;
-					$loginLoja = $show->loja;
-					$loginNivel = $show->nivel;
-					$loginAtivo = $show->ativo;
-					$loginDtCadastro = $show->data_cadastro;
-				}
-				if($loginAtivo == 0){
-					
-				}else{
-
-				}
-				
-			}else{
-
-			}
-			return $stmt->fetch();
-		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
-		}
-	}
-	public function findEmail( $email, $password ){
-		try{
-			$sql  = "SELECT * FROM $this->table WHERE BINARY email = :email ";
-			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':email', $email);
-			$stmt->execute();
-			$contar = $stmt->rowCount();
-			if($contar>0){
-				$value 	= $stmt->fetchAll();
-
-				if($password == $value->password){
-      
-					#CONFINAÇÃO ATIVO
-					$loginAtivo = $value->ativo;
-					if($loginAtivo == 0){
-					
-					$login['id']            = $value->id;
-					$login['name']          = $value->name;
-					$login['email']         = $value->email;
-					$login['user']          = $value->user;
-					$login['avatar']        = $value->avatar;
-					$login['token']         = $value->chave;
-					$login['proprietario']  = $value->proprietario;
-					$login['grupo']         = $value->grupo;
-					$login['loja']          = $value->loja;
-					$login['nivel']         = $value->nivel;
-					$login['dtCadastro']    = $value->data_cadastro;
-					$login['dtUltimoLogin'] = $value->data_ultimo_login;
-					
-					#ATUALIZAÇÃO ULTIMO LOGIN
-					if($usuarios->updateLogar($login['id'], $datalogin)){
-						$res['error'] = false;
-						$res['isLoggedIn']= true;
-						$res['dados']= $login;
-						$res['token']= $value->chave;
-						$res['message']= 'Logado com sucesso!';
-					}else{
-						$arError = "Atenção, data não atualizada";
-						array_push($arErros, $arError);
-					}
-			
-			
-					}else{
-					$res['error'] = true;
-					$arError = "Error ao logar! Contate o administrador do sistema.";
-					array_push($arErros, $arError);
-					}
-				}else{
-					$res['error'] = true;
-					$arError = "Error ao logar! Senha invalida!";
-					array_push($arErros, $arError);
-				}
-
-				}else{
-					$res['error'] = true;
-					$arError = "Error ao logar! Usuario não encontrado!";
-					array_push($arErros, $arError);
-				}
-				return $stmt->fetch();
 		} catch(PDOException $e) {
 			$res['error']	= true;
 			$res['message'] = $e->getMessage();
 			return $res;
 		}
+	}
+	public function findEmail( $email ){
+		try{
+
+			$sql  = "SELECT COUNT(*) FROM $this->table WHERE BINARY email = :email ";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':email', $email);
+			$stmt->execute();
+			return $stmt->fetchColumn();
+			$sql = "SELECT id, name, email, user, avatar, chave, proprietario, grupo, loja, nivel, uf, ativo, data_cadastro, data_ultimo_login";
+			$sql .=" from $this->table WHERE BINARY email = :email AND password = :password ";
+		} catch(PDOException $e) {
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
+		}
+	}
+	public function matrixUser(){
+
+			$res = "SELECT id, name, email, user, avatar, chave, proprietario, grupo, loja, nivel, uf, ativo, data_cadastro, data_ultimo_login";
+
+			return $res;
 	}
 	public function updateLogar($id, $datalogin ){
 		// SELECIONAR BANCO DE DADOS

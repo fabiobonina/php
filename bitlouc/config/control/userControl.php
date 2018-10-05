@@ -88,9 +88,21 @@
 					}
 		}
 		public function logar( $email, $senha ){
-			$usuarios       = new Usuarios();
-
+			$usuarios   = new Usuarios();
+			
+			$password 	= md5($senha);
 			$item 	= $usuarios->findEmail( $email );
+			if( $item > 0 ){
+				$item 	= $usuarios->validationPassword( $email, $password );
+				$res['user'] = $stmt->fetch();
+				$res['error'] = false;
+				return $res;
+				
+			}else{
+				$res['error'] = true;
+				$res['isLoggedIn'] = false;
+				return $res;
+			}
 			$item = $this->matrix( $item );
 			$item = (array)  $item;
 			array_push( $itens, $item );
@@ -139,20 +151,6 @@
 						$arError = "Atenção, data não atualizada";
 						array_push($arErros, $arError);
 					  }
-			  
-					  #CRIAR SESSÃO
-					  $_SESSION['loginId']            = $login['id'];
-					  $_SESSION['loginName']          = $login['name'];
-					  $_SESSION['loginEmail']         = $login['email'];
-					  $_SESSION['loginUser']          = $login['user'];
-					  $_SESSION['loginToken']         = $login['token'];
-					  $_SESSION['loginAvatar']        = $login['avatar'];
-					  $_SESSION['loginProprietario']  = $login['proprietario'];
-					  $_SESSION['loginGrupo']         = $login['grupo'];
-					  $_SESSION['loginLoja']          = $login['loja'];
-					  $_SESSION['loginNivel']         = $login['nivel'];
-					  $_SESSION['loginDtCadastro']    = $login['dtCadastro'];
-					  $_SESSION['loginDtUltimoLogin'] = $login['dtUltimoLogin'];
 			  
 					}else{
 					  $res['error'] = true;
