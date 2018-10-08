@@ -4,11 +4,11 @@ require_once '_crud.php';
 class Nota extends Crud{
 	
 	protected $table = 'tb_nota';
-	private $os;
+	private $os_id;
 	private $descricao;
 
-	public function setOs($os){
-		$this->os = $os;
+	public function setOs($os_id){
+		$this->os_id = $os_id;
 	}
 	public function setDescricao($descricao){
 		$this->descricao = $descricao;
@@ -16,10 +16,10 @@ class Nota extends Crud{
 
 	public function insert(){
 		try{
-			$sql  = "INSERT INTO $this->table (os, descricao) ";
-			$sql .= "VALUES (:os, :descricao)";
+			$sql  = "INSERT INTO $this->table (os_id, descricao) ";
+			$sql .= "VALUES (:os_id, :descricao)";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':os',$this->os);
+			$stmt->bindParam(':os_id',$this->os_id);
 			$stmt->bindParam(':descricao',$this->descricao);
 			return $stmt->execute();
 
@@ -42,11 +42,11 @@ class Nota extends Crud{
 		}
 		
 	}
-	public function motaOs($os){
+	public function motaOs($os_id){
 		try{
-			$sql  = "SELECT * FROM $this->table WHERE os = :os";
+			$sql  = "SELECT * FROM $this->table WHERE os_id = :os_id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':os', $os, PDO::PARAM_INT);
+			$stmt->bindParam(':os_id', $os_id, PDO::PARAM_INT);
 			$stmt->execute();
 			return $stmt->fetch();
 

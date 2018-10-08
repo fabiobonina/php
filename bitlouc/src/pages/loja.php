@@ -27,10 +27,12 @@
                 { title: 'Bens', router: '/loja-bens', icon: 'person' },
             ],
             model: 'tab-2',
-            text: 'Lorem ipsum dolor '
+            text: 'Lorem ipsum dolor ',
+            loja: {},
         };
     },
-    created() {
+    beforeMount() {
+      this.initialize();
     },
     computed: {
         osLojas() {
@@ -38,7 +40,13 @@
         },
     },
     methods: {
-        
+      initialize() {
+        this.loja = store.getters.getLojaId(this.$route.params._id);
+        console.log(this.loja);
+        this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {  
+          console.log("Buscando dados das locais!")
+        });
+      }
     }
   });
 </script>

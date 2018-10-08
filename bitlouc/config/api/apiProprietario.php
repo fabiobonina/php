@@ -42,10 +42,14 @@ if(isset($_GET['action'])){
 $res['user'] =  $user;
 
 if( !$user['error'] ):
+  //$acessoID           = $user['id'];
+  //$acessoUF           = $user['uf'];
   //$acessoNivel        = $user['nivel'];
   //$acessoProprietario = $user['proprietario'];
   //$acessoGrupo        = $user['grupo'];
   //$acessoloja         = $user['loja'];
+  $acessoID = '1';
+  $acessoUF = 'PE';
   $acessoNivel = 2;
   $acessoProprietario = 1;
   $acessoGrupo = 'P';
@@ -64,7 +68,7 @@ if( !$user['error'] ):
     if($item['error'] == true ){
       $res = $item;
     }else{
-      //$res['proprietarios'] = $item['dados'];
+      $res['proprietarios'] = $item['dados'];
       if($acessoGrupo == 'P'){
         
         if($acessoNivel >= 3){
@@ -72,7 +76,7 @@ if( !$user['error'] ):
           $res['oss']   = $osControl->listIIIProprietario( $acessoloja );
         }elseif ( $acessoNivel = 2 ) {
           $res['lojas'] = $lojaControl->listProprietario( $acessoProprietario );
-          $res['oss']   = $osControl->listTec( $acessoloja );
+          $res['oss']   = $osControl->listTec( $acessoID,  $acessoUF);
         }else{
           $res['lojas'] = $lojaControl->list( $acessoloja );
           $res['oss']   = $osControl->listIIILoja( $acessoloja );

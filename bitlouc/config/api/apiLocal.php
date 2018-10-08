@@ -17,7 +17,7 @@ if(isset($_GET['action'])){
   
 if($action == 'read'):
 
-  $item = $localControl->listLocal();
+  $item = $localControl->list();
   $res['locais'] = $item;
   $res['error'] = false;
 
@@ -26,9 +26,9 @@ endif;
 #LOJA
 if($action == 'loja'):
 
-  //$lojaId = $_POST['loja'];
-  $lojaId = '1';
-  $item = $localControl->listLocalLoja( $lojaId );
+  $lojaId = $_POST['loja'];
+  //$lojaId = '1';
+  $item = $localControl->listLoja( $lojaId );
   $res['locais'] = $item;
   $res['error'] = false;
   

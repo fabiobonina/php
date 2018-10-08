@@ -1,120 +1,67 @@
 <template id="os-grid">
   <div>
-  <v-layout row>
-    <v-flex xs12>
-      <v-card>
-        <v-toolbar  dense color="blue">
-          <v-toolbar-title class="white--text">oss</v-toolbar-title>
-          <v-spacer></v-spacer>
-        </v-toolbar>
-        <v-layout wrap>
-          <v-text-field v-model="configs.search" append-icon="search" label="Search" solo-inverted class="mx-3" flat></v-text-field>
-          <v-flex xs3 sm6 md1>
-            <v-subheader v-text="'Orden:'"></v-subheader>
-          </v-flex>
-          <v-flex xs5 sm6 md2>
-            <v-select
-              :items="itens"
-              v-model="configs.orderBy"
-              item-text="name"
-              item-value="state"
-              return-object
-              label="Select"
-              solo
-            ></v-select>
-          </v-flex>
-          <v-flex xs1 sm2 md1>
-            <v-btn flat icon color="blue"
-              @click.native="configs.order == 'asc'? configs.order = 'desc': configs.order = 'asc'">
-              <v-icon v-if="configs.order == 'asc'" dark>arrow_downward</v-icon>
-              <v-icon v-else dark>arrow_upward</v-icon>
-            </v-btn>
-          </v-flex>
-        </v-layout>
-        <v-list two-line>
-          <template v-for="(item, index) in filteredData">
-          <v-card>
-            <v-list-tile :key="item.name" avatar ripple @click="" >
-              <v-list-tile-content>
-                <router-link :to="'/oss/' + item.loja + '/os/' + item.id">
-                <v-list-tile-title>{{item.lojaNick}} | {{item.local.tipo}} - {{item.local.name}} ({{item.local.municipio}}/{{item.local.uf}})</v-list-tile-title>
-                <v-list-tile-sub-title class="text--primary">{{item.data}} | {{item.servico.name}} {{ item.categoria.name }}</v-list-tile-sub-title>
-                </router-link>
-                <v-list-tile-sub-title v-if="item.bem">{{item.bem.name}} {{item.bem.modelo}}  &nbsp; #{{item.bem.fabricanteNick}}
-                  <v-chip small color="green" text-color="white">
-                    <v-avatar class="green darken-4">
-                      <v-icon small>mdi-qrcode</v-icon>
-                    </v-avatar>
-                    {{item.bem.numeracao}}
-                  </v-chip>
-                  <v-chip small color="orange" text-color="white">
-                    <v-avatar class="orange darken-4">
-                      <v-icon small>mdi-barcode</v-icon>
-                    </v-avatar>
-                    {{item.bem.plaqueta}}
-                  </v-chip>
-                </v-list-tile-sub-title>
-              </v-list-tile-content>
-              <v-chip small color="indigo" text-color="white">
-                <v-avatar class="indigo darken-4">
-                  <v-icon small class="icon">mdi-wrench</v-icon>
-                </v-avatar>
-                OS: {{item.filial}} - {{item.os}}
-              </v-chip>
-              <local-rota :lat="item.local.latitude" :long="item.local.longitude"></local-rota>
-              <v-menu v-if="user.nivel > 2 && user.grupo == 'P'" bottom left  @click="">
-                <v-btn slot="activator" small color="blue darken-2" dark fab>
-                  <v-icon>mdi-information-variant</v-icon>
-                </v-btn>
-                <v-list>
-                  <v-list-tile @click="modalOs = true; selecItem(item)">
-                    <v-list-tile-title>
-                      <span class="mdi mdi-wrench"></span>Amarrar OS
-                    </v-list-tile-title>
-                  </v-list-tile>
-                  <v-list-tile @click="modalTec = true; selecItem(item)">
-                    <v-list-tile-title>
-                      <span class="mdi mdi-worker"></span>Tecnicos
-                    </v-list-tile-title>
-                  </v-list-tile>
-                  <v-list-tile @click="modalEdt = true; selecItem(item)">
-                    <v-list-tile-title>
-                      <span class="mdi mdi-pencil"></span>Editar
-                    </v-list-tile-title>
-                  </v-list-tile>
-                  <v-list-tile v-if="item.status == '0' && item.processo == '0' || user.nivel > 3" @click="modalDel = true; selecItem(item)">
-                    <v-list-tile-title>
-                      <span class="mdi mdi-delete"></span>Delete
-                    </v-list-tile-title>
-                  </v-list-tile>
-                </v-list>
-              </v-menu>
-            </v-list-tile>
+    <v-card>
+      <v-card-title>
+        <v-toolbar-title>OS</v-toolbar-title>
+        <v-divider class="mx-2" inset vertical></v-divider>
+        <v-spacer></v-spacer>
+        <v-text-field  v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+        <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="modalAdd=true" color="pink" fab small dark>
+          <v-icon>add</v-icon>
+        </v-btn>
+      </v-card-title>
+      <v-data-table :headers="headers" :items="data" :search="search" :pagination.sync="pagination">
+        <template slot="items" slot-scope="props">
+          
+          <td style="padding:0 10px">
+              <router-link :to="'/oss/' + props.item.loja_id + '/os/' + props.item.id" :key="props.item.id">
+                <v-list-tile-title> {{ props.item.lojaNick }}: {{props.item.local_tipo}} {{props.item.local_name}} ({{props.item.local_municipio}}-{{props.item.uf}})</v-list-tile-title>
+                <v-list-tile-sub-title class="text--primary"> {{props.item.servico.name}}, {{ props.item.categoria.name }}</v-list-tile-sub-title>
+                <v-list-tile-sub-title v-if="props.item.bem">{{props.item.bem.name}} {{props.item.bem.modelo}}  &nbsp; #{{props.item.bem.fabricante}}
+                <v-chip small color="green" text-color="white">
+                  <v-avatar class="green darken-4">
+                    <v-icon small>mdi-qrcode</v-icon>
+                  </v-avatar>
+                  {{props.item.bem.numeracao}}
+                </v-chip>
+                <v-chip small color="orange" text-color="white">
+                  <v-avatar class="orange darken-4">
+                    <v-icon small>mdi-barcode</v-icon>
+                  </v-avatar>
+                  {{props.item.bem.plaqueta}}
+                </v-chip>
+              </v-list-tile-sub-title>
+            </router-link>
             <div>
-              <v-chip small v-for="tecnico in item.tecnicos" :key="tecnico.id">
+              <v-chip small v-for="tecnico in props.item.tecnicos" :key="tecnico.id">
                 <v-avatar small>
                   <img :src="tecnico.avatar" alt="trevor">
                 </v-avatar>
                 {{tecnico.userNick}}
               </v-chip>
             </div>
-            
-              <v-card-text>
-              <progresso-os :data="item.processo"></progresso-os>
-              </v-card-text>
-            </v-card>
-            <v-divider v-if="index + 1 < filteredData.length" :key="index"></v-divider>
-          </template>
-        </v-list>
-      </v-card>
-    </v-flex>
-  </v-layout>
-    
+          </td>
+          <td style="padding:0 10px">
+          <v-list-tile-content class="text-xs-right">
+          {{ props.item.data }} 
+            <v-chip small color="indigo" text-color="white">
+                OS: {{ props.item.filial}}-{{ props.item.os}}
+              </v-chip> </v-list-tile-content>
+          </td>
+          <td class="text-xs-right">
+          <local-rota :lat="props.item.local_lat" :long="props.item.local_long"></local-rota>
+            <local-crud :data="props.item"></local-crud>
+          </td>
+          <td class="text-xs-right"> {{ props.item.id }} </td>
+          
+        </template>
+        <v-alert slot="no-results" :value="true" color="error" icon="warning">
+          Your search for "{{ search }}" found no results.
+        </v-alert>
+      </v-data-table>
+    </v-card>
     <div>
-      <os-tec v-if="modalTec" v-on:close="modalTec = false" :dialog="modalTec" data="modalItem" :data="modalItem"></os-tec>
-      <os-edt v-if="modalEdt" v-on:close="modalEdt = false" :dialog="modalEdt" :data="modalItem"></os-edt>
-      <os-del v-if="modalDel" v-on:close="modalDel = false" :dialog="modalDel" :data="modalItem"></os-del>
-      <os-amarrac v-if="modalOs" v-on:close="modalOs = false" :dialog="modalOs" :data="modalItem"></os-amarrac>
+      <local-add v-if="modalAdd" v-on:close="modalAdd = false" :dialog="modalAdd"></local-add>
     </div>
   </div>
 </template>
@@ -127,15 +74,27 @@
 <?php require_once 'src/components/local/_rotaLocal.php';?>
 
 <script>
-Vue.component('os-grid', {
-  template: '#os-grid',
-  props: {
-    data: Array,
+  Vue.component('os-grid', {
+    template: '#os-grid',
+    props: {
+      data: Array,
     status: String,
-  },
-  data: function () {
-    return {
-      sortKey: '',
+    },
+    data: function () {
+      return {
+        modalAdd: false,
+        search: '',
+        pagination: {
+          sortBy: 'data'
+        },
+        headers: [
+          
+          { text: 'Local', align: 'left', value: 'local_name' },
+          { text: 'Data', align: 'center', value: 'data' },
+          { text: 'Info', sortable: false, value: 'info' },
+          { text: 'ID', value: 'id' },          
+        ],
+        sortKey: '',
       showModal: false,
       modalItem: {},
       modalTec: false,
@@ -157,13 +116,13 @@ Vue.component('os-grid', {
       ],
       fab: false,
       hover: false,
-    }
-  },
-  computed: {
-    user()  {
-      return store.state.user;
+      }
     },
-    filteredData2: function () {
+    computed: {
+      user()  {
+        return store.state.user;
+      },
+      filteredData2: function () {
       var filterKey = 0
       var data = this.data
       return data = data.filter(function (row) {
@@ -208,7 +167,5 @@ Vue.component('os-grid', {
       });
     },
   }
-});
-
+  });
 </script>
-

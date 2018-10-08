@@ -22,6 +22,7 @@
         $user['name']           = $_SESSION['loginName'];
         $user['email']          = $_SESSION['loginEmail'];
         $user['user']           = $_SESSION['loginUser'];
+        $user['uf']             = $_SESSION['loginUf'];
         $user['token']          = $_SESSION['loginToken'];
         $user['avatar']         = $_SESSION['loginAvatar'];
         $user['proprietario']   = $_SESSION['loginProprietario'];

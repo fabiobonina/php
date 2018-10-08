@@ -5,9 +5,9 @@ header('Content-Type: text/html; charset=utf-8');
 require_once '_chave.php';
 require_once '../control/osControl.php';
 
-function __autoload($class_name){
-  require_once '../model/' . $class_name . '.php';
-}
+
+require_once '../model/OsTecnicos.php';
+
 
 $proprietario = new Proprietario();
 $lojas        = new Loja();
@@ -23,7 +23,7 @@ $osControl   = new OsControl();
 $res     = array('error' => true);
 $arDados = array();
 $arErros = array();
-$action  = 'teste';
+$action  = 'readII';
 $res['message'] = array();
 
 //$res['user'] = $user;
@@ -39,7 +39,7 @@ $acessoloja = $user['loja'];
 if(isset($_GET['action'])){
   $action = $_GET['action'];
 }
-  
+
 if($action == 'read'):
   //$lojaId = $_POST['loja'];
   //$lojaId = '1';
@@ -75,6 +75,39 @@ if($action == 'read'):
     #LOJAS---------------------------------------------------------------------------------------------
   }endforeach;
   #PROPRITARIO-----------------------------------------------------------------------------------------
+  $res['osProprietario']= $arProprietario;
+  $res['osLojas']= $arLojas;
+  $res['error'] = false;
+
+endif;
+
+if($action == 'readII'):
+  //$lojaId = $_POST['loja'];
+  //$lojaId = '1';
+
+  $osStatus = '1';
+  $arLojas = array();
+  $contPp_OsTt = 0;
+  $arProprietario = array();
+  $arOss = array();
+
+  
+  $status              = '0';
+  //$res['outros'] = $_POST;
+  #tecnicoI----------------------------------------------------------------------------------------------------------------------------
+  //$tecI = array();
+  $tecNivel = '0';
+  $local= '2';
+  $categoria= '1';
+  $os_id = '1';
+  $lojaId = '1';
+  $status = '3';
+  $user_id = '4';
+  $uf = 'PE';
+  //$tecI = $osTecnicos->findPlus( $os_id );
+  $tecI = $osTecnicos->findUserUF( $user_id, $uf );
+  //$tecII = $osControl->listOsTec($osId);
+  $res['outros'] = $tecI;
   $res['osProprietario']= $arProprietario;
   $res['osLojas']= $arLojas;
   $res['error'] = false;

@@ -4,7 +4,7 @@ require_once '_crud.php';
 
 class OsTecnicos extends Crud{
 	
-	protected $table = 'tb_os_tecnico_id';
+	protected $table = 'tb_os_tecnico';
 	protected $tableB = 'tb_os';
 	private $os_id;
 	private $loja_id;
@@ -25,9 +25,6 @@ class OsTecnicos extends Crud{
 	public function setUser($user_id){
 		$this->user = $user_id;
 	}
-	public function setUserNick($user_nick){
-		$this->user_nick = $user_nick;
-	}
 	public function setHh($hh){
 		$this->hh = $hh;
 	}
@@ -41,7 +38,7 @@ class OsTecnicos extends Crud{
 			$stmt->bindParam(':os_id',			$this->os_id);
 			$stmt->bindParam(':loja_id',		$this->loja_id);
 			$stmt->bindParam(':tecnico_id',		$this->tecnico_id);
-			$stmt->bindParam(':user_id',		$this->user);
+			$stmt->bindParam(':user_id',		$this->user_id);
 			$stmt->bindParam(':hh',				$this->hh);
 			$stmt->execute();
 			$res['error'] = false;
@@ -58,10 +55,11 @@ class OsTecnicos extends Crud{
 			$sql  = "UPDATE $this->table SET os_id = :os_id, loja_id = :loja_id, tecnico_id = :tecnico_id, user_id = :user_id, hh = :hh WHERE id = :id";
 			$stmt = DB::prepare($sql);
 
-			$stmt->bindParam(':os',$this->os_id);
-			$stmt->bindParam(':loja',$this->loja_id);
-			$stmt->bindParam(':tecnico_id',$this->tecnico_id);
-			$stmt->bindParam(':hh',$this->hh);
+			$stmt->bindParam(':os_id',			$this->os_id);
+			$stmt->bindParam(':loja_id',		$this->loja_id);
+			$stmt->bindParam(':tecnico_id',		$this->tecnico_id);
+			$stmt->bindParam(':user_id',		$this->user_id);
+			$stmt->bindParam(':hh',				$this->hh);
 			$stmt->bindParam(':id', $id);
 
 			$res['error'] = false;
@@ -73,11 +71,11 @@ class OsTecnicos extends Crud{
 			return $res;
 		}
 	}
-	public function findOs($os_id_id){
+	public function findOs($os_id){
 		try{
 			$sql  = "SELECT * FROM $this->table WHERE os_id = :os_id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':os_id', $os_id_id, PDO::PARAM_INT);
+			$stmt->bindParam(':os_id', $os_id, PDO::PARAM_INT);
 			$stmt->execute();
 			return $stmt->fetchAll();
 
@@ -86,11 +84,38 @@ class OsTecnicos extends Crud{
 		}
 	}
 	
-	public function findPlus($os_id_id){
+	public function findPlus($os_id){
 		try{
-			$sql  = "SELECT $this->table.*, $this->tableB.* FROM $this->table LEFT JOIN $this->tableB ON $this->table.os_id = $this->tableB.id";
+			$sql  = "SELECT $this->table.os_id, $this->tableB.id FROM $this->table LEFT JOIN $this->tableB ON $this->table.os_id = $this->tableB.id";
 			$stmt = DB::prepare($sql);
-			//$stmt->bindParam(':os_id', $os_id_id, PDO::PARAM_INT);
+			$stmt->bindParam(':os_id', $os_id, PDO::PARAM_INT);
+			$stmt->execute();
+			return $stmt->fetch();
+		} catch(PDOException $e) {
+			echo 'ERROR: ' . $e->getMessage();
+		}
+	}
+	public function findUserUF( $user_id, $uf){
+		try{
+			$sql  = "SELECT $this->tableB.* FROM $this->tableB INNER JOIN $this->table ";
+			$sql  .="ON $this->tableB.id = $this->table.os_id ";
+			$sql  .="WHERE ($this->tableB.uf = :uf AND $this->tableB.status < 3) OR ($this->tableB.uf != :uf AND $this->table.user_id = :user_id AND $this->tableB.status < 3)";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':uf', $uf, PDO::PARAM_INT);
+			$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+			$stmt->execute();
+			return $stmt->fetchAll();
+		} catch(PDOException $e) {
+			echo 'ERROR: ' . $e->getMessage();
+		}
+	}
+	public function findPlusII( $loja_id, $status){
+		try{
+			$sql  = "SELECT $this->table.loja_id, $this->tableB.id FROM $this->table INNER JOIN $this->tableB";
+			$sql  .=" ON $this->table.loja_id = $this->tableB.loja_id ";
+			$sql  .=" WHERE $this->tableB.loja_id = 1 AND $this->tableB.status < 3";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':loja_id', $loja_id, PDO::PARAM_INT);
 			$stmt->execute();
 			return $stmt->fetchAll();
 		} catch(PDOException $e) {
@@ -117,10 +142,10 @@ class OsTecnicos extends Crud{
 	}
 	public function findTecOs( $tecId, $os_id){
 		try{
-		$sql  = "SELECT * FROM $this->table WHERE tecnico_id=:tecnico_id AND os=:os";
+		$sql  = "SELECT * FROM $this->table WHERE tecnico_id=:tecnico_id AND os_id=:os_id";
 		$stmt = DB::prepare($sql);
 		$stmt->bindParam(':tecnico_id', $tecId );
-		$stmt->bindParam(':os', $os_id );
+		$stmt->bindParam(':os_id', $os_id );
 		$stmt->execute();
 		return $stmt->fetch();
 
@@ -135,9 +160,9 @@ class OsTecnicos extends Crud{
 	}
 	public function deleteOs($os_id){
 		try{
-		$sql  = "DELETE FROM $this->table WHERE os = :os";
+		$sql  = "DELETE FROM $this->table WHERE os_id = :os_id";
 		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':os', $os_id, PDO::PARAM_INT);
+		$stmt->bindParam(':os_id', $os_id, PDO::PARAM_INT);
 		
 		return $stmt->execute(); 
 		} catch(PDOException $e) {
@@ -145,12 +170,12 @@ class OsTecnicos extends Crud{
 		}
 	}
 
-	public function ajuste($os_id_id, $status){
+	public function ajuste($os_id, $status){
 		try{
 			$sql  = "UPDATE $this->table SET status = :status WHERE os_id = :os_id";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':status',	$status);
-			$stmt->bindParam(':os_id', $os_id_id);
+			$stmt->bindParam(':os_id', $os_id);
 			$stmt->execute();
 
 			$res['error'] = false;

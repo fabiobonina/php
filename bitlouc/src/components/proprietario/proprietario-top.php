@@ -20,7 +20,7 @@
           &nbsp;&nbsp;
           <v-badge color="blue">
             <v-icon slot="badge" dark small>place</v-icon>
-            <span>OS: {{ osProprietario.osQt }}</span>
+            <span>OS: {{ proprietario.osQt }}</span>
           </v-badge>
           &nbsp;
         </div>

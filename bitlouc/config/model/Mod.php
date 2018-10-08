@@ -5,15 +5,15 @@ try {
 	class Mod extends Crud{
 		
 		protected 	$table = 'tb_mod';
-		private 	$os;
-		private 	$tecnico;
+		private 	$os_id;
+		private 	$tecnico_id;
 		private 	$dtInicio;
 
-		public function setOs($os){
-			$this->os = $os;
+		public function setOs($os_id){
+			$this->os = $os_id;
 		}
-		public function setTecnico($tecnico){
-			$this->tecnico = $tecnico;
+		public function setTecnico($tecnico_id){
+			$this->tecnico = $tecnico_id;
 		}
 		public function setDtInicio($dtInicio){
 			$this->dtInicio = $dtInicio;
@@ -51,11 +51,11 @@ try {
 
 		public function insert(){
 			try{
-				$sql  = "INSERT INTO $this->table (os, tecnico, dtInicio, dtFinal, tempo, dtServInicio, dtServFinal, hhValor, valor, trajeto, status, ativo)";
-				$sql .= 				"VALUES (:os, :tecnico, :dtInicio, :dtFinal, :tempo, :dtServInicio, :dtServFinal, :hhValor, :valor, :trajeto, :status, :ativo)";
+				$sql  = "INSERT INTO $this->table (os_id, tecnico_id, dtInicio, dtFinal, tempo, dtServInicio, dtServFinal, hhValor, valor, trajeto, status, ativo)";
+				$sql .= 				"VALUES (:os_id, :tecnico_id, :dtInicio, :dtFinal, :tempo, :dtServInicio, :dtServFinal, :hhValor, :valor, :trajeto, :status, :ativo)";
 				$stmt = DB::prepare($sql);
-				$stmt->bindParam(':os',				$this->os);
-				$stmt->bindParam(':tecnico',		$this->tecnico);
+				$stmt->bindParam(':os_id',			$this->os_id);
+				$stmt->bindParam(':tecnico_id',		$this->tecnico_id);
 				$stmt->bindParam(':dtInicio',  		$this->dtInicio);
 				$stmt->bindParam(':dtFinal',  		$this->dtFinal);
 				$stmt->bindParam(':dtServInicio', 	$this->dtServInicio);
@@ -80,11 +80,11 @@ try {
 		}
 		public function insertInicio(){
 			try{
-				$sql  = "INSERT INTO $this->table ( os, tecnico, dtInicio, dtServInicio, status)";
-				$sql .= "VALUES ( :os, :tecnico, :dtInicio, :dtServInicio, :status)";
+				$sql  = "INSERT INTO $this->table ( os_id, tecnico_id, dtInicio, dtServInicio, status)";
+				$sql .= "VALUES ( :os_id, :tecnico_id, :dtInicio, :dtServInicio, :status)";
 				$stmt = DB::prepare($sql);
-				$stmt->bindParam(':os', 	 		$this->os);
-				$stmt->bindParam(':tecnico', 		$this->tecnico);
+				$stmt->bindParam(':os_id',			$this->os_id);
+				$stmt->bindParam(':tecnico_id',		$this->tecnico_id);
 				$stmt->bindParam(':dtInicio',  		$this->dtInicio);
 				$stmt->bindParam(':dtServInicio', 	$this->dtServInicio);
 				$stmt->bindParam(':status', 		$this->status);
@@ -151,24 +151,24 @@ try {
 			}
 			
 		}
-		public function findOsTec($osId, $tecId){
+		public function findOsTec($os_id, $tecnico_id){
 			try{
-			$sql  = "SELECT * FROM $this->table WHERE os = :os AND tecnico = :tecnico";
+			$sql  = "SELECT * FROM $this->table WHERE os_id = :os_id AND tecnico_id = :tecnico_id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':os', $osId, PDO::PARAM_INT);
-			$stmt->bindParam(':tecnico', $tecId, PDO::PARAM_INT);
+			$stmt->bindParam(':os_id', $os_id, PDO::PARAM_INT);
+			$stmt->bindParam(':tecnico_id', $tecnico_id, PDO::PARAM_INT);
 			$stmt->execute();
 			return $stmt->fetchAll();
 			} catch(PDOException $e) {
 				echo 'ERROR: ' . $e->getMessage();
 			}
 		}
-		public function findOsTecAtiv($osId, $tecId, $ativo){
+		public function findOsTecAtiv($os_id, $tecnico_id, $ativo){
 			try{
 			$sql  = "SELECT * FROM $this->table WHERE  os=:os AND tecnico=:tecnico AND ativo = :ativo";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':os', $osId );
-			$stmt->bindParam(':tecnico', $tecId );
+			$stmt->bindParam(':os', $os_id );
+			$stmt->bindParam(':tecnico', $tecnico_id );
 			$stmt->bindParam(':ativo', $ativo );
 			$stmt->execute();
 			return $stmt->fetchAll();
@@ -182,14 +182,14 @@ try {
 				return $res;
 			}
 		}
-		public function ModValido( $tecnico, $date ){
+		public function ModValido( $tecnico_id, $date ){
 			
 			$ativo 	= '1';
 			try{
 				//dtInicio >= :dtInicio AND dtFinal <=:dtFinal AND
-				$sql  = "SELECT * FROM $this->table  WHERE tecnico=:tecnico AND ativo=:ativo AND dtInicio < :dtInicio AND dtFinal > :dtFinal ORDER BY dtInicio ";
+				$sql  = "SELECT * FROM $this->table  WHERE tecnico_id=:tecnico_id AND ativo=:ativo AND dtInicio < :dtInicio AND dtFinal > :dtFinal ORDER BY dtInicio ";
 				$stmt = DB::prepare($sql);
-				$stmt->bindParam(':tecnico', 	$tecnico, PDO::PARAM_INT);
+				$stmt->bindParam(':tecnico_id', 	$tecnico_id, PDO::PARAM_INT);
 				$stmt->bindParam(':ativo',		$ativo, PDO::PARAM_INT);
 				$stmt->bindParam(':dtInicio', 	$date);
 				$stmt->bindParam(':dtFinal', 	$date);
@@ -199,15 +199,15 @@ try {
 				echo 'ERROR: ' . $e->getMessage();
 			}
 		}
-		public function ModValidoII( $tecnico, $modId, $dtInicio, $dtFinal ){
+		public function ModValidoII( $tecnico_id, $modId, $dtInicio, $dtFinal ){
 			
 			$ativo 	= '1';
 			try{
 				//dtInicio >= :dtInicio AND dtFinal <=:dtFinal AND
-				$sql  = "SELECT * FROM $this->table  WHERE tecnico=:tecnico AND ativo=:ativo AND dtInicio > :dtInicio AND dtFinal < :dtFinal  AND id != :id ORDER BY dtInicio ";
+				$sql  = "SELECT * FROM $this->table  WHERE tecnico_id=:tecnico_id AND ativo=:ativo AND dtInicio > :dtInicio AND dtFinal < :dtFinal  AND id != :id ORDER BY dtInicio ";
 				$stmt = DB::prepare($sql);
 				$stmt->bindParam(':id', 		$modId);
-				$stmt->bindParam(':tecnico', 	$tecnico, PDO::PARAM_INT);
+				$stmt->bindParam(':tecnico_id', 	$tecnico_id, PDO::PARAM_INT);
 				$stmt->bindParam(':ativo',		$ativo, PDO::PARAM_INT);
 				$stmt->bindParam(':dtInicio', 	$dtInicio);
 				$stmt->bindParam(':dtFinal', 	$dtFinal);
@@ -217,15 +217,15 @@ try {
 				echo 'ERROR: ' . $e->getMessage();
 			}
 		}
-		public function ModValidoIII( $tecnico, $modId, $dtInicio, $dtFinal ){
+		public function ModValidoIII( $tecnico_id, $modId, $dtInicio, $dtFinal ){
 			
 			$ativo 	= '1';
 			try{
 				//dtInicio >= :dtInicio AND dtFinal <=:dtFinal AND
-				$sql  = "SELECT * FROM $this->table  WHERE dtInicio = :dtInicio AND dtFinal = :dtFinal AND tecnico=:tecnico AND ativo=:ativo AND id != :id ORDER BY dtInicio ";
+				$sql  = "SELECT * FROM $this->table  WHERE dtInicio = :dtInicio AND dtFinal = :dtFinal AND tecnico_id=:tecnico_id AND ativo=:ativo AND id != :id ORDER BY dtInicio ";
 				$stmt = DB::prepare($sql);
 				$stmt->bindParam(':id', 		$modId);
-				$stmt->bindParam(':tecnico', 	$tecnico, PDO::PARAM_INT);
+				$stmt->bindParam(':tecnico_id', 	$tecnico_id, PDO::PARAM_INT);
 				$stmt->bindParam(':ativo',		$ativo, PDO::PARAM_INT);
 				$stmt->bindParam(':dtInicio', 	$dtInicio);
 				$stmt->bindParam(':dtFinal', 	$dtFinal);

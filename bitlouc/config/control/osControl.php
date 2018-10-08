@@ -10,7 +10,7 @@
 			$osTecnicos     = new OsTecnicos();
 			$lojas     		= new Loja();
 			$locais     	= new Local();
-			$equipamentos   = new Equipamento();
+			$bens   		= new Bens();
 			$servicos   	= new Servicos();
 			$categorias 	= new Categorias();
 			$notas      	= new Nota();
@@ -19,12 +19,14 @@
 			$local 					= $locais->find( $item->local_id );
 			$item->local_name		= $local->name;
 			$local 					= $locais->find( $item->local_id );
+			$item->local_tipo		= $local->tipo;
 			$item->local_name		= $local->name;
 			$item->local_municipio	= $local->municipio;
 			$item->local_uf			= $local->uf;
 			$item->local_lat		= $local->latitude;
 			$item->local_long		= $local->longitude;
-			$item->bem				= $equipamentos->find( $item->equipamento_id );
+			$item->bem				= $bens->find( $item->equipamento_id );
+			$item->equipamento		= $equipamentos->find( $item->equipamento_id );
 			$item->servico			= $servicos->find( $item->servico_id );
 			$item->categoria		= $categorias->find( $item->categoria_id );
 			$item->tecnicos			= $this->listOsTec( $item->id );
@@ -81,11 +83,11 @@
 
 		}
 
-		public function listTec( $loja_id ){
-			$oss	= new Os();
+		public function listTec( $user_id, $uf ){
+			$osTecnicos	= new OsTecnicos();
 			$itens 	= array();
 			
-			foreach($oss->findIIILoja( $loja_id ) as $key => $value): {
+			foreach($osTecnicos->findUserUF( $user_id, $uf) as $key => $value): {
 				$item = $value;
 				$item = (array) $this->matrix( $item );
 				array_push( $itens, $item );
@@ -103,7 +105,7 @@
 			foreach ($tecnicos as $value){
 				$cont1++;
 				$tecId = $value['id'];
-				$userTec = $value['user'];
+				$userTec = $value['user_id'];
 				$userNickTec = $value['userNick'];
 				$hhTec = $value['hh'];
 
@@ -160,9 +162,9 @@
 			$arTecnicos = array();
 			foreach($osTecnicos->findOs( $osId ) as $key => $value): {
 				$arTecnico = (array) $value;
-				$tecId = $value->tecnico;
+				$tecId = $value->tecnico_id;
 				$tecItem = $tecnicos->find( $tecId );
-				$userItem = $user->find( $tecItem->user );
+				$userItem = $user->find( $tecItem->user_id );
 				$arTecnico['avatar'] = $userItem->avatar;
           		#MODS-------------------------------------------------------
           		$arTecnico['mods'] = $this->listOsTecMod( $osId, $tecId );
@@ -399,10 +401,10 @@
 			$notas      = new Nota();
 
 			$os 			= $oss->find( $osId );
-			$os->local 		= $locais->find( $os->local );
-			$os->bem		= $bens->find( $os->bem );
-			$os->servico	= $servicos->find( $os->servico );
-			$os->categoria	= $categorias->find( $os->categoria );
+			$os->local 		= $locais->find( $os->local_id );
+			$os->bem		= $bens->find( $os->bem_id );
+			$os->servico	= $servicos->find( $os->servico_id );
+			$os->categoria	= $categorias->find( $os->categoria_id );
 			$os->tecnicos	= $this->listOsTec( $osId );
 			$os->notas		= $notas->motaOs( $osId );
 

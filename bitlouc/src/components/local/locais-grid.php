@@ -13,7 +13,7 @@
       <v-data-table :headers="headers" :items="data" :search="search">
         <template slot="items" slot-scope="props">
           <td>
-            <router-link :to="'/loja/' +  props.item.loja + '/local/' + props.item.id"> {{ props.item.tipo }} {{ props.item.name }} </router-link>
+            <router-link :to="'/loja/' +  props.item.loja_id + '/local/' + props.item.id"> {{ props.item.tipo }} {{ props.item.name }} </router-link>
           </td>
           <td> {{ props.item.regional }} </td>
           <td>{{ props.item.municipio }}/ {{ props.item.uf }}</td>

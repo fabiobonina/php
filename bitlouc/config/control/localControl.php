@@ -3,13 +3,25 @@
 
 	class LocalControl extends GlobalControl {
 
-		public function listLocal(){
+		public function matrix( $item ){
+			$lojas      = new Loja();
+			$equipamentos	= new Equipamento();
+
+			$item->equipLocal_tt 			= $equipamentos->contLocal( $item->id );
+			$item->loja					= $lojas->find( $item->loja_id );
+			$item->lojaName 				= $item->loja->name;
+			$item->categorias 			= $this->listCategoriaLocal( $item->id );
+			return $item;
+
+		}
+
+		public function list(){
 				
 			$locais	= new Local();
 			$itens = array();
 			foreach($locais->findAll() as $key => $value):{
-				$item = (array) $value;
-				$item = $this->matrixLocal( $item );
+				$item = $value;
+				$item = (array) $this->matrix( $item );
 				array_push( $itens, $item );
 			}endforeach;
 			$res = $itens;
@@ -17,29 +29,19 @@
 
 		}
 
-		public function listLocalLoja( $loja ){
+		public function listLoja( $loja ){
 			$locais	= new Local();
 			$itens = array();
 			foreach($locais->findAll() as $key => $value):if($value->loja_id == $loja) {
-				$item = (array) $value;
-				$item = $this->matrixLocal( $item );
+				$item = $value;
+				$item = (array) $this->matrix( $item );
 				array_push( $itens, $item );
 			}endforeach;
 			$res = $itens;
 			return $res;
 		}
 
-		public function matrixLocal( $item ){
-			$lojas      = new Loja();
-			$equipamentos	= new Equipamento();
-
-			$item['equipLocal_tt'] 			= $equipamentos->contLocal( $item['id'] );
-			$item['loja']					= $lojas->find( $item['loja_id'] );
-			$item['lojaName'] 				= $item['loja']->name;
-			$item['categorias'] 			= $this->listCategoriaLocal( $item['id'] );
-			return $item;
-
-		}
+		
 
 		public function insertLocal(
 			$loja,
