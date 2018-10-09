@@ -279,6 +279,20 @@ class Os extends Crud{
 			echo 'ERROR: ' . $e->getMessage();
 		}
 	}
+	public function contOsStatusUF( $uf, $status ){
+		try {
+			$sql  = "SELECT COUNT(*) FROM $this->table WHERE uf  = :uf AND status = :status";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':uf', $uf);
+			$stmt->bindParam(':status', $status);
+			$stmt->execute();
+			return $stmt->fetchColumn();
+		} catch(PDOException $e) {
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
+		}
+	}
 
 	public function contOsStatusProprietario( $proprietario_id, $status ){
 		try {
@@ -368,5 +382,21 @@ class Os extends Crud{
 			return $res;
 		}
 	}
+
+	public function contOsStatusUFProprietario( $proprietario_id, $uf, $status ){
+		try{
+			$sql  = "SELECT COUNT(*) FROM $this->table ";
+			$sql  .="WHERE uf = :uf AND status = :status AND proprietario_id = :proprietario_id ";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':uf', $uf);
+			$stmt->bindParam(':proprietario_id', $proprietario_id);
+			$stmt->bindParam(':status', $status, PDO::PARAM_INT);
+			$stmt->execute();
+			return $stmt->fetchColumn();
+		} catch(PDOException $e) {
+			echo 'ERROR: ' . $e->getMessage();
+		}
+	}
+	
 
 }

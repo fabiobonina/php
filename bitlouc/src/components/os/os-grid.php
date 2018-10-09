@@ -48,8 +48,8 @@
                 OS: {{ props.item.filial}}-{{ props.item.os}}
               </v-chip> </v-list-tile-content>
           </td>
-          <td class="text-xs-right">
-          <local-rota :lat="props.item.local_lat" :long="props.item.local_long"></local-rota>
+          <td>
+            <local-rota :lat="props.item.local_lat" :long="props.item.local_long"></local-rota>
             <local-crud :data="props.item"></local-crud>
           </td>
           <td class="text-xs-right"> {{ props.item.id }} </td>

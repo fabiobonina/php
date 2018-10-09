@@ -83,6 +83,20 @@
 
 		}
 
+		public function contStatusUFProprietario( $loja_id ){
+			$oss	= new Os();
+			$itens 	= array();
+			
+			foreach($oss->findIIILoja( $loja_id ) as $key => $value): {
+				$item = $value;
+				$item = (array) $this->matrix( $item );
+				array_push( $itens, $item );
+			}endforeach;
+			$res = $itens;
+			return $res;
+
+		}
+
 		public function listTec( $user_id, $uf ){
 			$osTecnicos	= new OsTecnicos();
 			$itens 	= array();

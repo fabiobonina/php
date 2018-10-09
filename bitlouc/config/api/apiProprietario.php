@@ -52,8 +52,8 @@ if( !$user['error'] ):
   $acessoUF = 'PE';
   $acessoNivel = 2;
   $acessoProprietario = 1;
-  $acessoGrupo = 'P';
-  $acessoloja = 1;
+  $acessoGrupo = 'C';
+  $acessoloja = 2;
 
   if($action == 'read'):
 
@@ -74,17 +74,20 @@ if( !$user['error'] ):
         if($acessoNivel >= 3){
           $res['lojas'] = $lojaControl->listProprietario( $acessoProprietario );
           $res['oss']   = $osControl->listIIIProprietario( $acessoloja );
-        }elseif ( $acessoNivel = 2 ) {
-          $res['lojas'] = $lojaControl->listProprietario( $acessoProprietario );
-          $res['oss']   = $osControl->listTec( $acessoID,  $acessoUF);
+        }elseif ( $acessoNivel == 2 ) {
+          $res['lojas']       = $lojaControl->listProprietario( $acessoProprietario );
+          $res['oss']         = $osControl->listTec( $acessoID,  $acessoUF);
+          $res['osStatusUF']  = $osControl->listStatusUFProprietario( $acessoProprietario );
         }else{
-          $res['lojas'] = $lojaControl->list( $acessoloja );
-          $res['oss']   = $osControl->listIIILoja( $acessoloja );
+          $res['lojas']       = $lojaControl->list( $acessoloja );
+          $res['oss']         = $osControl->listIIILoja( $acessoloja );
+          $res['osStatusUF']  = $osControl->listStatusUFLoja( $acessoloja );
         }
         
       }else{
-        $res['lojas'] = $lojaControl->list( $acessoloja );
-        $res['oss']   = $osControl->listIIILoja( $acessoloja );
+        //$res['lojas'] = $lojaControl->list( $acessoloja );
+        //$res['oss']   = $osControl->listIIILoja( $acessoloja );
+        $res['osStatusUF']  = $osControl->listStatusUFLoja( $acessoloja );
       }
       
       $res['error']         = false;
