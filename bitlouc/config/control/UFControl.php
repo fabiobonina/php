@@ -2,7 +2,7 @@
 	require_once '_global.php';
 	require_once 'lojaControl.php';
 
-	class ProprietarioControl extends GlobalControl {
+	class UFControl extends GlobalControl {
 
 		public function matrix( $item ){
 			$lojas      	= new Loja();
@@ -28,6 +28,29 @@
 			$item['lojaName'] 				= $item['loja']->name;
 			$item['categorias'] 			= $this->listCategoriaProprietario( $item['id'] );
 			return $item;
+
+		}
+
+		
+		public function listStatusUFProprietario( $proprieratio_id ){
+			$ufs	= new UF();
+			$oss	= new Os();
+			$itens 	= array();
+			foreach($ufs->findAll() as $key => $value): {
+				$item = $value;
+				$item->helpdeskPendenteQt 	= $oss->contOsStatusUFProprietario( $proprieratio_id, $item->id, 0 );
+				$item->helpdeskAndamentoQt	= $oss->contOsStatusUFProprietario( $proprieratio_id, $item->id, 1 );
+				$item->helpdeskConcluidoQt	= $oss->contOsStatusUFProprietario( $proprieratio_id, $item->id, 2 );
+				$item->helpdeskTTQt 		= $item->helpdeskPendenteQt + $item->helpdeskAndamentoQt + $item->helpdeskConcluidoQt;
+				$item->osGerarOSQt 			= $oss->contOsStatusUFProprietario( $proprieratio_id, $item->id, 4 );
+				$item->osFecharOSQt 		= $oss->contOsStatusUFProprietario( $proprieratio_id, $item->id, 5 );
+				
+				$item = (array) $item;
+				array_push( $itens, $item );
+			}endforeach;
+			
+			$res = $itens;
+			return $res;
 
 		}
 

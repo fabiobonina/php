@@ -96,7 +96,6 @@
 			return $res;
 
 		}
-
 		public function listTec( $user_id, $uf ){
 			$osTecnicos	= new OsTecnicos();
 			$itens 	= array();

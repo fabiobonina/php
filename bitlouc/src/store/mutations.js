@@ -87,6 +87,9 @@ const mutations = {
   SET_OSS(state, oss) {
     state.oss = oss
   },
+  SET_OSUF(state, osUf) {
+    state.osUf = osUf
+  },
   SET_MODS(state, mods) {
     state.mods = mods
   },

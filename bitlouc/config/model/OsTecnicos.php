@@ -97,8 +97,8 @@ class OsTecnicos extends Crud{
 	}
 	public function findUserUF( $user_id, $uf){
 		try{
-			$sql  = "SELECT $this->tableB.* FROM $this->tableB INNER JOIN $this->table ";
-			$sql  .="ON $this->tableB.id = $this->table.os_id ";
+			$sql  = "SELECT DISTINCT $this->tableB.* FROM $this->tableB LEFT JOIN $this->table ";
+			$sql  .="ON $this->table.os_id = $this->tableB.id ";
 			$sql  .="WHERE ($this->tableB.uf = :uf AND $this->tableB.status < 3) OR ($this->tableB.uf != :uf AND $this->table.user_id = :user_id AND $this->tableB.status < 3)";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':uf', $uf, PDO::PARAM_INT);
@@ -111,7 +111,7 @@ class OsTecnicos extends Crud{
 	}
 	public function findPlusII( $loja_id, $status){
 		try{
-			$sql  = "SELECT $this->table.loja_id, $this->tableB.id FROM $this->table INNER JOIN $this->tableB";
+			$sql  = "SELECT   $this->table.loja_id, $this->tableB.id FROM $this->table INNER JOIN $this->tableB";
 			$sql  .=" ON $this->table.loja_id = $this->tableB.loja_id ";
 			$sql  .=" WHERE $this->tableB.loja_id = 1 AND $this->tableB.status < 3";
 			$stmt = DB::prepare($sql);

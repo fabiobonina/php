@@ -4,9 +4,20 @@ header('Content-Type: text/html; charset=utf-8');
 
 require_once '_chave.php';
 
-function __autoload($class_name){
-  require_once '../model/' . $class_name . '.php';
-}
+require_once '../model/Tipos.php';
+require_once '../model/Produtos.php';
+require_once '../model/Categorias.php';
+require_once '../model/Fabricantes.php';
+require_once '../model/Loja.php';
+require_once '../model/Local.php';
+require_once '../model/Sistema.php';
+require_once '../model/Servicos.php';
+require_once '../model/Grupo.php';
+require_once '../model/Seguimento.php';
+require_once '../model/Tecnicos.php';
+require_once '../model/DeslocTrajetos.php';
+require_once '../model/DeslocStatus.php';
+
 
 $tipos          = new Tipos();
 $produtos       = new Produtos();

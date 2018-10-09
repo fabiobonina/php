@@ -47,6 +47,7 @@
 <?php require_once 'src/components/includes/top.php';?>
 <?php require_once 'src/components/includes/rodape.php';?>
 
+<?php require_once 'src/components/os/osUF.php';?>
 <?php require_once 'src/components/os/osLojas.php';?>
 <?php require_once 'src/components/os/osStus.php';?>
 <?php require_once 'src/components/os/tecOs.php';?>

@@ -371,7 +371,7 @@ class Os extends Crud{
 	}
 	public function findUF( $uf ){
 		try {
-			$sql  = "SELECT COUNT(*) FROM $this->table WHERE uf  = :uf AND AND status < 4";
+			$sql  = "SELECT COUNT(*) FROM $this->table WHERE uf  = :uf AND status < 4";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':uf', $uf);
 			$stmt->execute();
@@ -386,10 +386,25 @@ class Os extends Crud{
 	public function contOsStatusUFProprietario( $proprietario_id, $uf, $status ){
 		try{
 			$sql  = "SELECT COUNT(*) FROM $this->table ";
-			$sql  .="WHERE uf = :uf AND status = :status AND proprietario_id = :proprietario_id ";
+			$sql  .="WHERE proprietario_id = :proprietario_id AND uf = :uf AND status = :status ";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':uf', $uf);
 			$stmt->bindParam(':proprietario_id', $proprietario_id);
+			$stmt->bindParam(':status', $status, PDO::PARAM_INT);
+			$stmt->execute();
+			return $stmt->fetchColumn();
+		} catch(PDOException $e) {
+			echo 'ERROR: ' . $e->getMessage();
+		}
+	}
+
+	public function contOsStatusUFLoja( $loja_id, $uf, $status ){
+		try{
+			$sql  = "SELECT COUNT(*) FROM $this->table ";
+			$sql  .="WHERE uf = :uf  AND loja_id = :loja_id AND status = :status ";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':uf', $uf);
+			$stmt->bindParam(':loja_id', $loja_id);
 			$stmt->bindParam(':status', $status, PDO::PARAM_INT);
 			$stmt->execute();
 			return $stmt->fetchColumn();

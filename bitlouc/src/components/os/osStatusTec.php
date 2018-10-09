@@ -13,8 +13,8 @@
   </div>
 </template>
 <script>
-Vue.component('os-statusec', {
-  name: 'os-statusec',
+Vue.component('os-statustec', {
+  name: 'os-statustec',
   template: '#os-statustec',
   data: function () {
     return {
@@ -52,9 +52,9 @@ Vue.component('os-statusec', {
       for (var user of tecnicos) {
         var count = 0;
         var postData = [];
-        for (var entry of oss) {
-          for (var tec of entry.tecnicos) {  
-            if(user.id == tec.tecnico) {
+        for (var os of oss) {
+          for (var tec of os.tecnicos) {  
+            if(user.id == tec.tecnico_id) {
               count++;
             }
           }

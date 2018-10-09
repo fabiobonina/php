@@ -6,10 +6,12 @@ require_once '_chave.php';
 require_once '../control/proprietarioControl.php';
 require_once '../control/lojaControl.php';
 require_once '../control/osControl.php';
+require_once '../control/UFControl.php';
 
 $proprietarioControl  = new ProprietarioControl();
 $lojaControl          = new LojaControl();
 $osControl            = new OsControl();
+$ufControl            = new UFControl();
 /*
   function __autoload($class_name){
     require_once '../model/' . $class_name . '.php';
@@ -52,8 +54,8 @@ if( !$user['error'] ):
   $acessoUF = 'PE';
   $acessoNivel = 2;
   $acessoProprietario = 1;
-  $acessoGrupo = 'C';
-  $acessoloja = 2;
+  $acessoGrupo = 'P';
+  $acessoloja = 1;
 
   if($action == 'read'):
 
@@ -69,6 +71,7 @@ if( !$user['error'] ):
       $res = $item;
     }else{
       $res['proprietarios'] = $item['dados'];
+      $res['osUF']  = $ufControl->listStatusUFProprietario( $acessoProprietario);
       if($acessoGrupo == 'P'){
         
         if($acessoNivel >= 3){
@@ -77,17 +80,15 @@ if( !$user['error'] ):
         }elseif ( $acessoNivel == 2 ) {
           $res['lojas']       = $lojaControl->listProprietario( $acessoProprietario );
           $res['oss']         = $osControl->listTec( $acessoID,  $acessoUF);
-          $res['osStatusUF']  = $osControl->listStatusUFProprietario( $acessoProprietario );
         }else{
           $res['lojas']       = $lojaControl->list( $acessoloja );
           $res['oss']         = $osControl->listIIILoja( $acessoloja );
-          $res['osStatusUF']  = $osControl->listStatusUFLoja( $acessoloja );
         }
         
       }else{
-        //$res['lojas'] = $lojaControl->list( $acessoloja );
-        //$res['oss']   = $osControl->listIIILoja( $acessoloja );
-        $res['osStatusUF']  = $osControl->listStatusUFLoja( $acessoloja );
+        $res['lojas'] = $lojaControl->list( $acessoloja );
+        $res['oss']   = $osControl->listIIILoja( $acessoloja );
+        $res['osUF']  = $ufControl->listStatusUFProprietario( $acessoProprietario);
       }
       
       $res['error']         = false;

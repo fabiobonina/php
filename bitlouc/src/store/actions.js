@@ -96,6 +96,7 @@ const actions = {
           commit("SET_PROPRIETARIO", response.data.proprietarios);
           commit("SET_LOJAS", response.data.lojas);
           commit("SET_OSS", response.data.oss);
+          commit("SET_OSUF", response.data.osUF);
           resolve();
         }
       })
@@ -108,7 +109,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       Vue.http.get(CONFIG).then((response) => {
         if(response.data.error){
-          console.log(response.data.message);
+          //console.log(response.data.message);
         } else{
           //console.log(response.data);
           commit("SET_TIPOS", response.data.tipos);
