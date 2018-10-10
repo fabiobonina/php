@@ -7,10 +7,14 @@
 Vue.http.options.emulateJSON = true;
 const INDEXLIST   ='./config/api/apiProprietario.php?action=read';
 const CONFIG      ='./config/api/apiConfig.php?action=config';
-const LOCALLIST   ='./config/api/apiLocal.php?action=read';
+
 const BENSLIST   ='./config/api/apiLocal.php?action=read';
 const OSLIST      ='./config/api/apiOs.php?action=read';
 const CONFIGPROD  ='./config/api/apiConfig.php?action=prod';
+
+const LOCAISLIST          ='./config/api/apiLocal.php?action=read';
+const LOCAISPROPRIETARIO  ='./config/api/apiLocal.php?action=proprietario';
+const LOCAISLOJA          ='./config/api/apiLocal.php?action=loja';
 
 const EQUIPAMENTOSLIST   ='./config/api/apiEquipamento.php?action=read';
 const EQUIPAMENTOSLOJA   ='./config/api/apiEquipamento.php?action=loja';
@@ -109,7 +113,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       Vue.http.get(CONFIG).then((response) => {
         if(response.data.error){
-          //console.log(response.data.message);
+          console.log(response.data.message);
         } else{
           //console.log(response.data);
           commit("SET_TIPOS", response.data.tipos);
@@ -154,14 +158,15 @@ const actions = {
         loja: loja,
       }
       //console.log(postData);
-      Vue.http.post(LOCALLIST,postData)
+      Vue.http.post(LOCAISLOJA, postData)
         .then((response) => {
+          console.log(response.data);
           if(response.data.error){
             console.log(response.data.message);
           } else{
             //console.log(response.data);
             commit("SET_LOCAIS", response.data.locais);
-            commit("SET_BENS", response.data.bens);
+            //commit("SET_BENS", response.data.bens);
             resolve();
           }
         })

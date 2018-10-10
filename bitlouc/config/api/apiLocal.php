@@ -28,7 +28,13 @@ if($action == 'loja'):
 
   $lojaId = $_POST['loja'];
   //$lojaId = '1';
-  $item = $localControl->listLoja( $lojaId );
+  
+  
+  if($user['grupo'] == 'P'){
+    $item = $localControl->listLoja( $lojaId );
+  }else{
+    $item = $localControl->listLoja( $user['loja'] );
+  }
   $res['locais'] = $item;
   $res['error'] = false;
   

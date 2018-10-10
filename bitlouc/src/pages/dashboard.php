@@ -1,7 +1,7 @@
 <template id="dashboard">
   <div>
     <os-statustec></os-statustec>
-    <!--os-map></os-map--> 
+    <os-map></os-map> 
   </div>
 </template>
 

@@ -49,7 +49,7 @@ const getters = {
     return state.equipametos.filter(todo => todo.local_id === local)
   },
   getOssLoja: (state) => (loja) => {
-    return state.oss.filter(todo => todo.loja === loja)
+    return state.oss.filter(todo => todo.loja_id === loja)
   },
   getOssLocal: (state) => (local) => {
     return state.oss.filter(todo => todo.local.id === local)

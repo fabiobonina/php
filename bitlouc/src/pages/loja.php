@@ -35,9 +35,7 @@
       this.initialize();
     },
     computed: {
-        osLojas() {
-            return store.state.osLojas;
-        },
+
     },
     methods: {
       initialize() {
