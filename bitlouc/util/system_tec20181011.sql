@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 06-Out-2018 às 10:28
--- Versão do servidor: 10.1.26-MariaDB
--- PHP Version: 7.1.9
+-- Generation Time: 11-Out-2018 às 07:04
+-- Versão do servidor: 10.1.13-MariaDB
+-- PHP Version: 7.0.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -609,10 +607,10 @@ CREATE TABLE `tb_bem_componentes` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_eq_local`
+-- Estrutura da tabela `tb_bem_localizacao`
 --
 
-CREATE TABLE `tb_eq_local` (
+CREATE TABLE `tb_bem_localizacao` (
   `id` int(11) NOT NULL,
   `bem` int(11) NOT NULL,
   `loja` int(11) DEFAULT NULL,
@@ -623,10 +621,10 @@ CREATE TABLE `tb_eq_local` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Extraindo dados da tabela `tb_eq_local`
+-- Extraindo dados da tabela `tb_bem_localizacao`
 --
 
-INSERT INTO `tb_eq_local` (`id`, `bem`, `loja`, `local`, `dataInicial`, `dataFinal`, `status`) VALUES
+INSERT INTO `tb_bem_localizacao` (`id`, `bem`, `loja`, `local`, `dataInicial`, `dataFinal`, `status`) VALUES
 (1, 1, 32, 871, '2018-04-02', NULL, '1'),
 (2, 2, 14, 250, '2017-12-01', NULL, '1'),
 (3, 3, 14, 298, '2017-12-01', NULL, '1'),
@@ -883,7 +881,7 @@ INSERT INTO `tb_clientes` (`id`, `nome`, `nick`, `ativo`) VALUES
 (32, 'SANEAR RONDONOPOLIS', 'SANEAR RONDONOPOLIS', '0'),
 (33, 'SAAE DE SOBRAL', 'SAAE - SOBRAL', '0'),
 (34, 'SAAE - QUIXERAMOBIM', 'SAAE - QUIXERAMOBIM', '0'),
-(35, 'USINA CENTRAL OLHO D\'AGUA S/A', 'USINA OLHO D\'AGUA', '0'),
+(35, 'USINA CENTRAL OLHO D''AGUA S/A', 'USINA OLHO D''AGUA', '0'),
 (36, 'CAESA', 'CAESA', '0'),
 (21, 'SAAE - BACABAL', 'SAAE - BACABAL', '0'),
 (22, 'SAAE - CAXIAS', 'SAAE - CAXIAS', '0'),
@@ -957,10 +955,10 @@ INSERT INTO `tb_desloc_trajeto` (`id`, `name`, `categoria`, `valor`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_equipamentos`
+-- Estrutura da tabela `tb_equipamento`
 --
 
-CREATE TABLE `tb_equipamentos` (
+CREATE TABLE `tb_equipamento` (
   `id` int(11) NOT NULL,
   `produto_id` int(11) NOT NULL,
   `tag` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -980,10 +978,10 @@ CREATE TABLE `tb_equipamentos` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Extraindo dados da tabela `tb_equipamentos`
+-- Extraindo dados da tabela `tb_equipamento`
 --
 
-INSERT INTO `tb_equipamentos` (`id`, `produto_id`, `tag`, `name`, `modelo`, `numeracao`, `plaqueta`, `fabricante_id`, `dono_id`, `donoLocal_id`, `categoria_id`, `dataFrabricacao`, `dataCompra`, `loja_id`, `local_id`, `proprietario_id`) VALUES
+INSERT INTO `tb_equipamento` (`id`, `produto_id`, `tag`, `name`, `modelo`, `numeracao`, `plaqueta`, `fabricante_id`, `dono_id`, `donoLocal_id`, `categoria_id`, `dataFrabricacao`, `dataCompra`, `loja_id`, `local_id`, `proprietario_id`) VALUES
 (2, 2, 'SCL', 'GASDFASDF', '1300', '11ADFA', '120011', 2, 1, 1, 1, '2018-09-20', '2018-09-20', 1, 1, 1),
 (3, 3, 'CLORADOR', 'dasds', 'dasdasdsd', '2131', '11313', 2, 1, 1, 1, '2018-09-19', '2018-09-19', 1, 1, 1),
 (4, 6, 'CELULAS DE CARGA', 'sdfasfdasdfasfd', 'dfasfda', 'asfdasdf', 'asdfasfda', 2, 1, 1, 6, '2018-09-21', '2018-09-21', 1, 1, 1),
@@ -1021,24 +1019,24 @@ CREATE TABLE `tb_eq_componentes` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_eq_localizacao`
+-- Estrutura da tabela `tb_eq_local`
 --
 
-CREATE TABLE `tb_eq_localizacao` (
+CREATE TABLE `tb_eq_local` (
   `id` int(11) NOT NULL,
-  `equipamento` int(11) NOT NULL,
-  `loja` int(11) NOT NULL,
-  `local` int(11) DEFAULT NULL,
+  `equipamento_id` int(11) NOT NULL,
+  `loja_id` int(11) NOT NULL,
+  `local_id` int(11) DEFAULT NULL,
   `dataInicial` date DEFAULT NULL,
   `dataFinal` date DEFAULT NULL,
   `status` enum('0','1','2','3') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Extraindo dados da tabela `tb_eq_localizacao`
+-- Extraindo dados da tabela `tb_eq_local`
 --
 
-INSERT INTO `tb_eq_localizacao` (`id`, `equipamento`, `loja`, `local`, `dataInicial`, `dataFinal`, `status`) VALUES
+INSERT INTO `tb_eq_local` (`id`, `equipamento_id`, `loja_id`, `local_id`, `dataInicial`, `dataFinal`, `status`) VALUES
 (1, 8, 1, 1, '2018-09-21', NULL, '0'),
 (2, 9, 1, 1, '2018-09-21', NULL, '0'),
 (3, 10, 1, 1, '2018-09-21', NULL, '0');
@@ -1092,10 +1090,10 @@ INSERT INTO `tb_grupo` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_local`
+-- Estrutura da tabela `tb_locais`
 --
 
-CREATE TABLE `tb_local` (
+CREATE TABLE `tb_locais` (
   `id` int(11) NOT NULL,
   `loja_id` int(11) NOT NULL,
   `proprietario_id` int(11) NOT NULL,
@@ -1110,10 +1108,10 @@ CREATE TABLE `tb_local` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Extraindo dados da tabela `tb_local`
+-- Extraindo dados da tabela `tb_locais`
 --
 
-INSERT INTO `tb_local` (`id`, `loja_id`, `proprietario_id`, `tipo`, `regional`, `name`, `municipio`, `uf`, `latitude`, `longitude`, `ativo`) VALUES
+INSERT INTO `tb_locais` (`id`, `loja_id`, `proprietario_id`, `tipo`, `regional`, `name`, `municipio`, `uf`, `latitude`, `longitude`, `ativo`) VALUES
 (1, 1, 1, 'IND', '', 'ITAPISSUMA', 'ITAPISSUMA', 'PE', -7.799309, -34.925011, '0'),
 (2, 1, 1, 'IND', '', 'SANTA BARBARA DOESTE', 'SANTA BARBARA DOESTE', 'SP', -22.764881, -47.377178, '0'),
 (3, 1, 1, 'IND', '', 'PACATUBA', 'PACATUBA', 'CE', -3.902439, -38.559635, '0'),
@@ -1675,7 +1673,7 @@ INSERT INTO `tb_local` (`id`, `loja_id`, `proprietario_id`, `tipo`, `regional`, 
 (560, 18, 1, 'ETA', 'MATA SUL', 'TAMANDARE - NOVA - RIO FORMOSO', 'TAMANDARE', 'PE', 0.000000, 0.000000, '0'),
 (561, 18, 1, 'ETA', 'MATA SUL', 'RIO FORMOSO', 'RIO FORMOSO', 'PE', 0.000000, 0.000000, '0'),
 (562, 18, 1, 'ETA', 'MATA SUL', 'SIRINHAEM - Captacao', 'SIRINHAEM', 'PE', 0.000000, 0.000000, '0');
-INSERT INTO `tb_local` (`id`, `loja_id`, `proprietario_id`, `tipo`, `regional`, `name`, `municipio`, `uf`, `latitude`, `longitude`, `ativo`) VALUES
+INSERT INTO `tb_locais` (`id`, `loja_id`, `proprietario_id`, `tipo`, `regional`, `name`, `municipio`, `uf`, `latitude`, `longitude`, `ativo`) VALUES
 (563, 18, 1, 'ETA', 'MATA SUL', 'SIRINHAEM - ETA', 'SIRINHAEM', 'PE', 0.000000, 0.000000, '0'),
 (564, 18, 1, 'ETA', 'MATA SUL', 'VITORIA DE SANTO ANTAO', 'VITORIA DE SANTO ANTAO', 'PE', -8.116478, -35.301838, '0'),
 (565, 18, 1, 'ETA', 'MATA SUL', 'BARREIROS', 'BARREIROS', 'PE', 0.000000, 0.000000, '0'),
@@ -2192,7 +2190,7 @@ INSERT INTO `tb_loja` (`id`, `nick`, `name`, `proprietario_id`, `grupo`, `seguim
 (31, 'SERRA NEGRA DO NORTE', 'SERRA NEGRA DO NORTE	', 1, 'C', 'SAN', '2018-04-01', '0'),
 (32, 'SOLAR', 'SOLAR', 1, 'C', 'BEB', '2018-04-01', '0'),
 (33, 'UFRN', 'UFRN	', 1, 'C', 'OUT', '2018-04-01', '0'),
-(34, 'USINA OLHO D\'AGUA', 'USINA CENTRAL OLHO D\'AGUA S/A', 1, 'C', 'USI', '2018-04-01', '0');
+(34, 'USINA OLHO D''AGUA', 'USINA CENTRAL OLHO D''AGUA S/A', 1, 'C', 'USI', '2018-04-01', '0');
 
 -- --------------------------------------------------------
 
@@ -3194,9 +3192,9 @@ INSERT INTO `tb_nota` (`id`, `os_id`, `descricao`) VALUES
 (44, 153, 'OCORRENCIA: CAUSA: SOLUCAO: PECAS: ALIMENTACAO: HOSPEDAGEM: ETC:\n\nLIMPEZA DE 02 ROTAMETROS\nCALIBRADO O INDICADOR DE PPM\nSISTEMA DE CLORAÇÃO OK.'),
 (45, 157, 'OCORRENCIA:dimencionamento do manifolde da eta  CAUSA:nova instalação SOLUCAO: PECAS: ALIMENTACAO: HOSPEDAGEM: ETC:'),
 (46, 148, 'OCORRENCIA:preventiva \nCAUSA:\n SOLUCAO:manutenção dos cloradores e sua limpeza\nfeita a limpeza dos rotâmetros\npintura das tubulações e do manifolde,  troca do flexível de 3,5mt\nsubstituição do orings da haste do clorador \nmanutenção dos injetores\nmanutenção válvula moduladora de vácuo e sua limpeza\n\n PECAS: 01- flexíl de 3,5 ALIMENTACAO: HOSPEDAGEM: ETC:'),
-(47, 101, 'OCORRENCIA:preventiva \nCAUSA:\n SOLUÇAO:manutenção das válvulas reguladora de pressão,limpeza dos injetores de 1\'\' ,substituição do flexível de 3,5mt ,limpeza dos cloradores\npintura do manifolde e das tubulações.\nALIMENTACAO: HOSPEDAGEM:01- hospedagem\n ETC:'),
-(48, 101, 'OCORRÊNCIA:preventiva \nCAUSA:\n SOLUÇÃO: manutenção das válvula reguladora de pressão,limpeza dos injetores de 1\'\' ,substituição do flexível de 3,5mt ,limpeza dos cloradores\npintura do manifolde e das tubulações.\nALIMENTAÇÃO: HOSPEDAGEM :01-hospedagem  \nETC:'),
-(49, 111, 'OCORRENCIA: preventiva\nCAUSA: \nSOLUCAO: realizada a pintura do manifolde e tubulações ,limpeza do clorador e rotâmetro manutenção da válvula reguladora de pressão e  do injetor de 1\'\'\n PECAS:\n ALIMENTACAO:\n HOSPEDAGEM: ETC:'),
+(47, 101, 'OCORRENCIA:preventiva \nCAUSA:\n SOLUÇAO:manutenção das válvulas reguladora de pressão,limpeza dos injetores de 1'''' ,substituição do flexível de 3,5mt ,limpeza dos cloradores\npintura do manifolde e das tubulações.\nALIMENTACAO: HOSPEDAGEM:01- hospedagem\n ETC:'),
+(48, 101, 'OCORRÊNCIA:preventiva \nCAUSA:\n SOLUÇÃO: manutenção das válvula reguladora de pressão,limpeza dos injetores de 1'''' ,substituição do flexível de 3,5mt ,limpeza dos cloradores\npintura do manifolde e das tubulações.\nALIMENTAÇÃO: HOSPEDAGEM :01-hospedagem  \nETC:'),
+(49, 111, 'OCORRENCIA: preventiva\nCAUSA: \nSOLUCAO: realizada a pintura do manifolde e tubulações ,limpeza do clorador e rotâmetro manutenção da válvula reguladora de pressão e  do injetor de 1''''\n PECAS:\n ALIMENTACAO:\n HOSPEDAGEM: ETC:'),
 (50, 117, 'OCORRENCIA: preventiva\nCAUSA:\n SOLUCAO:   manutenção  do sistema de cloro,realizada a pintura do manifolde e tubulação ,limpeza dos cloradores de 240 kg/dia, e rotâmetro,manutenção da válvula reguladora de pressão\nPECAS: ALIMENTACAO: HOSPEDAGEM: ETC:'),
 (51, 124, 'OCORRENCIA: CAUSA: bomba sem força  faltando um  gabinete de 26kg dias injetor entupido SOLUCAO: substituição de uma bomba  foi colocado um gabinete desentupir o injetor PECAS: ALIMENTACAO: 17.50HOSPEDAGEM: ETC:'),
 (52, 124, 'OCORRENCIA: CAUSA: bomba sem força  faltando um  gabinete de 26kg dias injetor entupido SOLUCAO: substituição de uma bomba  foi colocado um gabinete desentupir o injetor PECAS: ALIMENTACAO: HOSPEDAGEM: ETC:'),
@@ -3214,7 +3212,7 @@ INSERT INTO `tb_nota` (`id`, `os_id`, `descricao`) VALUES
 (64, 115, 'OCORRENCIA: Cloradores não estavam almentando a dosagem CAUSA: Controlador travados SOLUCAO: Realizamos manutenção em redutoras,cloradores V2000, Pecloração, Clorador reserva, e também aplicamos pintura em manifold e tubulações PECAS: Orings, uma lata de tinta 1lt 04 trinchas  ALIMENTACAO: HOSPEDAGEM: ETC:'),
 (65, 49, 'OCORRENCIA: Sistema parado CAUSA: Defeito na tomado do sistema da CAERN SOLUCAO: A equipe da da CAERN ficou esponsavem  pela troca PECAS: ALIMENTACAO: HOSPEDAGEM: ETC:'),
 (66, 49, 'OCORRENCIA: Sistema parado CAUSA: Defeito na tomado do sistema da CAERN SOLUCAO: A equipe da da CAERN ficou esponsavem  pela troca PECAS: ALIMENTACAO: HOSPEDAGEM: ETC:'),
-(67, 50, 'OCORRENCIA: Sistema de cloração vazando água CAUSA:  Conexões trincadas SOLUCAO: substitui as peças trincadas PECAS: Um adaptador de 1\'\' duas luvas 1\'\' ALIMENTACAO: HOSPEDAGEM: ETC:'),
+(67, 50, 'OCORRENCIA: Sistema de cloração vazando água CAUSA:  Conexões trincadas SOLUCAO: substitui as peças trincadas PECAS: Um adaptador de 1'''' duas luvas 1'''' ALIMENTACAO: HOSPEDAGEM: ETC:'),
 (68, 60, 'OCORRENCIA:  Solicitação da CAERN CAUSA: Vistoria na maquina de dióxido SOLUCAO: Acompanhei o funcionamento da maquina PECAS: ALIMENTACAO: HOSPEDAGEM: ETC:'),
 (69, 60, 'OCORRENCIA:  Solicitação da CAERN CAUSA: Vistoria na maquina de dióxido SOLUCAO: Acompanhei o funcionamento da maquina PECAS: ALIMENTACAO: HOSPEDAGEM: ETC:'),
 (70, 163, 'OCORRENCIA: Descrições: feito levantamento das tubulação de pvc CAUSA: modificação do sistema de coloração lque vc fez?  SOLUCAO: Nova montagem   PECAS: ALIMENTACAO: 41,53 reais HOSPEDAGEM: Eouh'),
@@ -3254,9 +3252,9 @@ INSERT INTO `tb_nota` (`id`, `os_id`, `descricao`) VALUES
 (104, 83, 'OCORRENCIA: operação  acoplamento de cilindros. CAUSA:bateria de cilindros vazios. \n SOLUCAO: foi substituído, acoplado  e testado com solução de amônia 4 cilindros. \n PECAS: ALIMENTACAO: HOSPEDAGEM: ETC:'),
 (105, 171, 'OCORRENCIA: CAUSA: SOLUCAO: PECAS: ALIMENTACAO: HOSPEDAGEM: ETC:\nPRE AQUECEDOR VAZANDO. SUBSTITUIDO O PRE AQUECEDOR.\nSUBSTITUIDO O FILTRO DE AR, MANGUEIRAS DE AR E CONECTOR DE AR.\nLIMPEZA E LUBRIFICAÇÃO DOS ROLETES DAS 02 BOMBAS.\nGERADOR OK.'),
 (106, 17, 'OCORRENCIA: CAUSA: SOLUCAO: PECAS: ALIMENTACAO: HOSPEDAGEM: ETC:\nRECONFIGURADO O CLP.\nLIMPEZA E LUBRIFICAÇÃO DOS ROLETES DAS 02 BOMBAS.\nLIMPEZA DO MISTURADOR.\nCALIBRADO OS INVERSORES.'),
-(107, 71, 'OCORRENCIA: preventiva. \n CAUSA: obstruções no sistema de cloro. \n SOLUCAO: foi realizado limpeza interna no manifoldr, aplicado \nUm filtro de linha  1 \" 300 libras, limpeza  na vál.  Redutora  de pressão, injetor, vidro rotametro, substituído um manovacumetro  E pintura do equipamento. \n PECAS: 01 filtro de linha 1\" 300 libras.  01 manovacumetro   ALIMENTACAO: HOSPEDAGEM: ETC:'),
-(108, 71, 'OCORRENCIA: preventiva. \n CAUSA: obstruções no sistema de cloro. \n SOLUCAO: foi realizado limpeza interna no manifoldr, aplicado \nUm filtro de linha  1 \" 300 libras, limpeza  na vál.  Redutora  de pressão, injetor, vidro rotametro, substituído um manovacumetro  E pintura do equipamento. \n PECAS: 01 filtro de linha 1\" 300 libras.  01 manovacumetro   ALIMENTACAO: HOSPEDAGEM: ETC:'),
-(109, 71, 'OCORRENCIA: preventiva. \n CAUSA: obstruções no sistema de cloro. \n SOLUCAO: foi realizado limpeza interna no manifoldr, aplicado \nUm filtro de linha  1 \" 300 libras, limpeza  na vál.  Redutora  de pressão, injetor, vidro rotametro, substituído um manovacumetro  E pintura do equipamento. \n PECAS: 01 filtro de linha 1\" 300 libras.  01 manovacumetro   ALIMENTACAO: HOSPEDAGEM: ETC:'),
+(107, 71, 'OCORRENCIA: preventiva. \n CAUSA: obstruções no sistema de cloro. \n SOLUCAO: foi realizado limpeza interna no manifoldr, aplicado \nUm filtro de linha  1 " 300 libras, limpeza  na vál.  Redutora  de pressão, injetor, vidro rotametro, substituído um manovacumetro  E pintura do equipamento. \n PECAS: 01 filtro de linha 1" 300 libras.  01 manovacumetro   ALIMENTACAO: HOSPEDAGEM: ETC:'),
+(108, 71, 'OCORRENCIA: preventiva. \n CAUSA: obstruções no sistema de cloro. \n SOLUCAO: foi realizado limpeza interna no manifoldr, aplicado \nUm filtro de linha  1 " 300 libras, limpeza  na vál.  Redutora  de pressão, injetor, vidro rotametro, substituído um manovacumetro  E pintura do equipamento. \n PECAS: 01 filtro de linha 1" 300 libras.  01 manovacumetro   ALIMENTACAO: HOSPEDAGEM: ETC:'),
+(109, 71, 'OCORRENCIA: preventiva. \n CAUSA: obstruções no sistema de cloro. \n SOLUCAO: foi realizado limpeza interna no manifoldr, aplicado \nUm filtro de linha  1 " 300 libras, limpeza  na vál.  Redutora  de pressão, injetor, vidro rotametro, substituído um manovacumetro  E pintura do equipamento. \n PECAS: 01 filtro de linha 1" 300 libras.  01 manovacumetro   ALIMENTACAO: HOSPEDAGEM: ETC:'),
 (110, 72, 'OCORRENCIA: operação  CAUSA: acoplamento de cilindro. \nSOLUCAO: foi desacoplado 02 cilindros vazios  e acoplado 02 cilindros cheios. \n PECAS: ALIMENTACAO: HOSPEDAGEM: ETC:'),
 (111, 72, 'OCORRENCIA: operação  CAUSA: acoplamento de cilindro. \nSOLUCAO: foi desacoplado 02 cilindros vazios  e acoplado 02 cilindros cheios. \n PECAS: ALIMENTACAO: HOSPEDAGEM: ETC:'),
 (112, 72, 'OCORRENCIA: operação  CAUSA: acoplamento de cilindro. \nSOLUCAO: foi desacoplado 02 cilindros vazios  e acoplado 02 cilindros cheios. \n PECAS: ALIMENTACAO: HOSPEDAGEM: ETC:'),
@@ -3270,8 +3268,8 @@ INSERT INTO `tb_nota` (`id`, `os_id`, `descricao`) VALUES
 (120, 76, 'OCORRENCIA: corretiva  CAUSA: vazamento pela tampa do dosador. \n SOLUCAO: foi substituído o oringue de vedação e pintura do equipamento.\nPECAS:  01 oringue de vedação \nALIMENTACAO: HOSPEDAGEM: ETC:'),
 (121, 79, 'OCORRENCIA:  operação acoplamento de cilindros. CAUSA: cilindros  vazio. SOLUCAO: foi substituído, acoplado e testado com solução de amônia 04 cilindros cheios. \n  PECAS: ALIMENTACAO: HOSPEDAGEM: ETC:'),
 (122, 79, 'OCORRENCIA:  operação acoplamento de cilindros. CAUSA: cilindros  vazio. SOLUCAO: foi substituído, acoplado e testado com solução de amônia 04 cilindros cheios. \n  PECAS: ALIMENTACAO: HOSPEDAGEM: ETC:'),
-(123, 177, 'OCORRENCIA: corretiva.\nCAUSA: coloração  inoperante. \n SOLUCAO: foi substituído reparos da válvula redutora de pressão, um trecho do Tobo de polietileno e instalado um manovacumetro.\nPECAS: kit de reparos  da válvula redutora  fluidefeeder, 01 manovacumetro, 1 metro de tubo de polietileno  1/2\" ALIMENTACAO:38,00\nHOSPEDAGEM:\n ETC: combustível  107,00'),
-(124, 177, 'OCORRENCIA: corretiva.\nCAUSA: coloração  inoperante. \n SOLUCAO: foi substituído reparos da válvula redutora de pressão, um trecho do Tobo de polietileno e instalado um manovacumetro.\nPECAS: kit de reparos  da válvula redutora  fluidefeeder, 01 manovacumetro, 1 metro de tubo de polietileno  1/2\" ALIMENTACAO:38,00\nHOSPEDAGEM:\n ETC: combustível  107,00'),
+(123, 177, 'OCORRENCIA: corretiva.\nCAUSA: coloração  inoperante. \n SOLUCAO: foi substituído reparos da válvula redutora de pressão, um trecho do Tobo de polietileno e instalado um manovacumetro.\nPECAS: kit de reparos  da válvula redutora  fluidefeeder, 01 manovacumetro, 1 metro de tubo de polietileno  1/2" ALIMENTACAO:38,00\nHOSPEDAGEM:\n ETC: combustível  107,00'),
+(124, 177, 'OCORRENCIA: corretiva.\nCAUSA: coloração  inoperante. \n SOLUCAO: foi substituído reparos da válvula redutora de pressão, um trecho do Tobo de polietileno e instalado um manovacumetro.\nPECAS: kit de reparos  da válvula redutora  fluidefeeder, 01 manovacumetro, 1 metro de tubo de polietileno  1/2" ALIMENTACAO:38,00\nHOSPEDAGEM:\n ETC: combustível  107,00'),
 (125, 84, 'OCORRENCIA: corretiva. CAUSA: vazamento de cloro.\nSOLUCAO: foi realuzado limpeza na linha  de cliro, substituído  uma válvula  de alívio e limpeza  interna  no gabinete  do dosador snif 01 acoplado  01 cilindro  e teste de estanquedade. \n  PECAS: 01 válvula  de alívio  ( peça  foenecido  pelo cliente) \n ALIMENTACAO: 17,00 HOSPEDAGEM: ETC:'),
 (126, 84, 'OCORRENCIA: corretiva. CAUSA: vazamento de cloro.\nSOLUCAO: foi realuzado limpeza na linha  de cliro, substituído  uma válvula  de alívio e limpeza  interna  no gabinete  do dosador snif 01 acoplado  01 cilindro  e teste de estanquedade. \n  PECAS: 01 válvula  de alívio  ( peça  foenecido  pelo cliente) \n ALIMENTACAO: 17,00 HOSPEDAGEM: ETC:'),
 (127, 84, 'OCORRENCIA: corretiva. CAUSA: vazamento de cloro.\nSOLUCAO: foi realuzado limpeza na linha  de cliro, substituído  uma válvula  de alívio e limpeza  interna  no gabinete  do dosador snif 01 acoplado  01 cilindro  e teste de estanquedade. \n  PECAS: 01 válvula  de alívio  ( peça  foenecido  pelo cliente) \n ALIMENTACAO: 17,00 HOSPEDAGEM: ETC:'),
@@ -3394,8 +3392,8 @@ INSERT INTO `tb_nota` (`id`, `os_id`, `descricao`) VALUES
 (243, 249, 'OCORRENCIA:  Bomba Booster quebradaCAUSA: Selo mecânicoVisita SOLUCAO:  Substituimos a mesmaPECAS: Uma bomba Booster 220VALIMENTACAO: HOSPEDAGEM: ETC:'),
 (244, 253, 'OCORRENCIA: Sistema de cloração parado CAUSA: Entrada de cloro liquido SOLUCAO:  Realizei limpeza e manutenção em válvula reguladora de vácuo,Rotâmetro,válvula R/0 ao término da manutenção o sistema foi testado permanecendo em funcionamento PECAS: ALIMENTACAO: HOSPEDAGEM: ETC:'),
 (245, 251, 'OCORRENCIA: CAUSA: Redutora com defeito SOLUCAO:  Substiuimos a mesma ao término o sistema foi testado permanecendo em funcionamento PECAS:  Uma redutora ALIMENTACAO: HOSPEDAGEM: ETC:'),
-(246, 218, 'OCORRENCIA:  Vácuo insuficiente CAUSA: Injetor com O-Ring ressecado SOLUCAO: Substitui o mesmo ao término o sitema foi testgado na presença do operador de plantão permanecendo em funcionamento PECAS: O-Ring do Injetor 1\'\' ALIMENTACAO: HOSPEDAGEM: ETC:'),
-(247, 221, 'OCORRENCIA: Solicitação da CAERNCAUSA:  Manutenção preventiva SOLUCAO:  realizei manutenção e limpeza em válvulas regualdoas de vácuo,válvulas R/0,injetores com substituição dos O-Rings PECAS:  dois O-Rings Injetor 1\'\'ALIMENTACAO: HOSPEDAGEM: ETC:'),
+(246, 218, 'OCORRENCIA:  Vácuo insuficiente CAUSA: Injetor com O-Ring ressecado SOLUCAO: Substitui o mesmo ao término o sitema foi testgado na presença do operador de plantão permanecendo em funcionamento PECAS: O-Ring do Injetor 1'''' ALIMENTACAO: HOSPEDAGEM: ETC:'),
+(247, 221, 'OCORRENCIA: Solicitação da CAERNCAUSA:  Manutenção preventiva SOLUCAO:  realizei manutenção e limpeza em válvulas regualdoas de vácuo,válvulas R/0,injetores com substituição dos O-Rings PECAS:  dois O-Rings Injetor 1''''ALIMENTACAO: HOSPEDAGEM: ETC:'),
 (248, 215, 'OCORRENCIA: Solicitação da CAERN CAUSA: Válvula de segurança vazando SOLUCAO: Substitui o O-Ring da válvula PECAS: Um O-Ring ALIMENTACAO: HOSPEDAGEM: ETC:'),
 (249, 203, 'OCORRENCIA: CAUSA: Tubulação trincada SOLUCAO: Substiui um adaptador ao término o sistema foi testado na presença do operador de plantão permanecendo em funcionamento  PECAS: ALIMENTACAO: HOSPEDAGEM: ETC:'),
 (250, 266, 'OCORRENCIA:visita técnica\n CAUSA: recolhimento de dosadoras\n SOLUCAO: foram recolhidas 5 bombas dosadoras na ETA Extremoz, porém sem válvulas de pé e de injeção.\n\nPECAS: ALIMENTACAO: HOSPEDAGEM: ETC:'),
@@ -3493,7 +3491,7 @@ INSERT INTO `tb_nota` (`id`, `os_id`, `descricao`) VALUES
 (342, 324, 'OCORRENCIA: corretiva CAUSA:resíduos obstruindo e diafragma da bomba 01 meio desgastada.SOLUCAO:feita a limpeza do diafragma da bomba 2 e substituição do diafragma da bomba 01 ,também disobstruindo a tubulação.\nObs: equipamento ficou operando normalmente \nPECAS: 01-diafragma ALIMENTACAO: HOSPEDAGEM: ETC:'),
 (343, 318, 'OCORRENCIA: corretiva\nCAUSA: solicitação do cliente\nSOLUCAO:  foi realizada a calibração do injetor para atuar de 90 rpm a 2300. sistema funcionando normalmente.\n\nPECAS: ALIMENTACAO: HOSPEDAGEM: ETC:'),
 (344, 276, 'OCORRENCIA: abertura de OS equivocada.  \n\nCAUSA: abertura de OS equivocada.\n\nSOLUCAO: abertura de OS equivocada.\nPECAS: ALIMENTACAO: HOSPEDAGEM: ETC:'),
-(345, 320, 'OCORRENCIA: corretiva \nCAUSA: agua no sistema\n SOLUCAO: foi realizada substituição do diafragma do injetor, pois o mesmo estava retornando água para o sistema;\nfeita lavagem do dipleg, substituição do flexivel, substituição da R-0 do dipleg, e limpeza na reguladora de vácuo;\nrealizada adequação na linha da booster para alcançar dosagem maxima do clorador;\nsistema funcionando normalmente.\n\n\n PECAS: 01 valvula R-0, 01 flexível, 01 diafragma injetor siemens 1\'.\n\n\nALIMENTACAO: HOSPEDAGEM: ETC:'),
+(345, 320, 'OCORRENCIA: corretiva \nCAUSA: agua no sistema\n SOLUCAO: foi realizada substituição do diafragma do injetor, pois o mesmo estava retornando água para o sistema;\nfeita lavagem do dipleg, substituição do flexivel, substituição da R-0 do dipleg, e limpeza na reguladora de vácuo;\nrealizada adequação na linha da booster para alcançar dosagem maxima do clorador;\nsistema funcionando normalmente.\n\n\n PECAS: 01 valvula R-0, 01 flexível, 01 diafragma injetor siemens 1''.\n\n\nALIMENTACAO: HOSPEDAGEM: ETC:'),
 (346, 332, 'foi feita inspeção interna e externa do equipamento verificado funcionamento dos ventiladores como também do inversor de frequência e limpeza do equipamento'),
 (347, 332, 'foi feita inspeção interna e externa do equipamento verificado funcionamento dos ventiladores como também do inversor de frequência e limpeza do equipamento'),
 (348, 332, 'foi feita inspeção interna e externa do equipamento verificado funcionamento dos ventiladores como também do inversor de frequência e limpeza do equipamento'),
@@ -3574,9 +3572,9 @@ INSERT INTO `tb_nota` (`id`, `os_id`, `descricao`) VALUES
 (423, 13, 'OCORRENCIA: operacaoCAUSA: término do produto cloro gás SOLUCAO: acoplar dois cilindros cheios PASSAGEM:R$ 90,00ALIMENTACAO: R$ 27,00HOSPEDAGEM: TÁXI:R$ 170,00'),
 (424, 67, 'OCORRENCIA: preventiva CAUSA: vazamento pela tampa. \nSOLUCAO:foi substituído  01 manipulo e pinturas do equipamento  e linha de arraste.\n PECAS:01 manipulo 3/8 ALIMENTACAO: HOSPEDAGEM: ETC:'),
 (425, 67, 'OCORRENCIA: preventiva CAUSA: vazamento pela tampa. \nSOLUCAO:foi substituído  01 manipulo e pinturas do equipamento  e linha de arraste.\n PECAS:01 manipulo 3/8 ALIMENTACAO: HOSPEDAGEM: ETC:'),
-(426, 328, 'OCORRENCIA: corretiva.\nCAUSA: vazamento pelo bocal de saido do contentor.\nSOLUCAO: foi substituído os adaptadores do bocal  do contentores. \nPECAS: 02 adaptador  pvc 2\" x 2 1/2\"\n ALIMENTACAO: 27,50\nHOSPEDAGEM: ETC:combustível  144,05');
+(426, 328, 'OCORRENCIA: corretiva.\nCAUSA: vazamento pelo bocal de saido do contentor.\nSOLUCAO: foi substituído os adaptadores do bocal  do contentores. \nPECAS: 02 adaptador  pvc 2" x 2 1/2"\n ALIMENTACAO: 27,50\nHOSPEDAGEM: ETC:combustível  144,05');
 INSERT INTO `tb_nota` (`id`, `os_id`, `descricao`) VALUES
-(427, 328, 'OCORRENCIA: corretiva.\nCAUSA: vazamento pelo bocal de saido do contentor.\nSOLUCAO: foi substituído os adaptadores do bocal  do contentores. \nPECAS: 02 adaptador  pvc 2\" x 2 1/2\"\n ALIMENTACAO: 27,50\nHOSPEDAGEM: ETC:combustível  144,05'),
+(427, 328, 'OCORRENCIA: corretiva.\nCAUSA: vazamento pelo bocal de saido do contentor.\nSOLUCAO: foi substituído os adaptadores do bocal  do contentores. \nPECAS: 02 adaptador  pvc 2" x 2 1/2"\n ALIMENTACAO: 27,50\nHOSPEDAGEM: ETC:combustível  144,05'),
 (428, 369, 'OCORRENCIA: operação  CAUSA: cilindros vazios.  SOLUCAO: foi trocado,  acoplado e testado com solução de amônia 04 cilindros. \n PECAS: ALIMENTACAO: HOSPEDAGEM: ETC:'),
 (429, 352, 'OCORRENCIA: preventiva.\nCAUSA: manutenção preventiva. \n SOLUCAO: foi realuzado \nLimpezas interna na válvula reguladora de pressão, trocado e acoplado  02 cilindros cheios, testes de vazamento e pressurizado o sistema  com gás cloro. PECAS: ALIMENTACAO:18,51 HOSPEDAGEM: ETC:'),
 (430, 352, 'OCORRENCIA: preventiva.\nCAUSA: manutenção preventiva. \n SOLUCAO: foi realuzado \nLimpezas interna na válvula reguladora de pressão, trocado e acoplado  02 cilindros cheios, testes de vazamento e pressurizado o sistema  com gás cloro. PECAS: ALIMENTACAO:18?51 HOSPEDAGEM: ETC:'),
@@ -7310,7 +7308,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `user`, `password`, `chave`, `avatar`, `proprietario`, `grupo`, `loja`, `nivel`, `divisao_id`, `uf`, `ativo`, `data_cadastro`, `data_ultimo_login`) VALUES
-(1, 'FABIO VITORINO BONINA MORAIS', 'fabiobonina@gmail.com', 'Fabio Bonina', 'a906449d5769fa7361d7ecc6aa3f6d28', 'c13642e9-e699-4c9e-9ca9-b974f45f2a76', 'http://www.gravatar.com/avatar/5f3781a40c3fde1b4ac568a97692aa70?d=identicon', 1, 'P', 1, '5', 1, 'PE', '0', '2017-11-08', '2018-10-05 15:08:22'),
+(1, 'FABIO VITORINO BONINA MORAIS', 'fabiobonina@gmail.com', 'Fabio Bonina', 'a906449d5769fa7361d7ecc6aa3f6d28', 'c13642e9-e699-4c9e-9ca9-b974f45f2a76', 'http://www.gravatar.com/avatar/5f3781a40c3fde1b4ac568a97692aa70?d=identicon', 1, 'P', 1, '5', 1, 'PE', '0', '2017-11-08', '2018-10-11 05:39:28'),
 (2, 'TESTE', 'teste@teste.com', 'Teste', 'a906449d5769fa7361d7ecc6aa3f6d28', 'hhhh', 'http://www.gravatar.com/avatar/ce11fce876c93ed5d2a72da660496473?d=identicon', NULL, NULL, NULL, '0', NULL, NULL, '0', '2018-03-16', '2018-03-16 08:51:38'),
 (3, 'AILTON JOSE DA SILVA', 'ailton.silva@gruposabara.com', 'Ailton Silva', 'b6e77897e39eade447d43ba904b2cdd5', 'eab1f278-e1f5-4895-8731-02b9c0bfd6c8', 'http://www.gravatar.com/avatar/29ce2a32f56f3691cdbfb570f3de9b79?d=identicon', 1, 'P', 1, '3', 1, 'PE', '0', '2018-04-03', '2018-08-02 10:24:35'),
 (4, 'CLEBER GOMES DE SOUZA ', 'cleberpato@hotmail.com', 'Cleber Souza', 'b73fa6d35fb763bbc748a01060799e1a', '09dcdb5a-a713-42dc-b17a-faaf10e7a560', 'http://www.gravatar.com/avatar/8293de74d59c74dc481d214e581eb5aa?d=identicon', 1, 'P', 1, '2', 1, 'PB', '0', '2018-04-03', '2018-05-31 04:40:54'),
@@ -7364,16 +7362,16 @@ ALTER TABLE `tb_bem`
   ADD KEY `fk_tb_bem_tb_loja1_idx` (`proprietario_id`),
   ADD KEY `fk_tb_bem_tb_categoria1_idx` (`categoria_id`),
   ADD KEY `fk_tb_bem_tb_produtos1_idx` (`produto_id`),
-  ADD KEY `fk_tb_bem_tb_local1_idx` (`proprietarioLocal_id`);
+  ADD KEY `fk_tb_bem_tb_locais1_idx` (`proprietarioLocal_id`);
 
 --
--- Indexes for table `tb_eq_local`
+-- Indexes for table `tb_bem_localizacao`
 --
-ALTER TABLE `tb_eq_local`
+ALTER TABLE `tb_bem_localizacao`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tb_eq_local_tb_equipamento_idx` (`equipamento_id`),
-  ADD KEY `fk_tb_eq_local_tb_loja1_idx` (`loja_id`),
-  ADD KEY `fk_tb_eq_local_tb_local1_idx` (`local_id`);
+  ADD KEY `fk_tb_bem_localizacao_tb_bem1_idx` (`bem`),
+  ADD KEY `fk_tb_bem_localizacao_tb_loja1_idx` (`loja`),
+  ADD KEY `fk_tb_bem_localizacao_tb_locais1_idx` (`local`);
 
 --
 -- Indexes for table `tb_bens_familia`
@@ -7414,14 +7412,14 @@ ALTER TABLE `tb_desloc_trajeto`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tb_equipamentos`
+-- Indexes for table `tb_equipamento`
 --
-ALTER TABLE `tb_equipamentos`
+ALTER TABLE `tb_equipamento`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_tb_equipamentos_tb_produtos1_idx` (`produto_id`),
   ADD KEY `fk_tb_equipamentos_tb_fabricante1_idx` (`fabricante_id`),
   ADD KEY `fk_tb_equipamentos_tb_proprietario1_idx` (`dono_id`),
-  ADD KEY `fk_tb_equipamentos_tb_local1_idx` (`donoLocal_id`),
+  ADD KEY `fk_tb_equipamentos_tb_locais1_idx` (`donoLocal_id`),
   ADD KEY `fk_tb_equipamentos_tb_categoria1_idx` (`categoria_id`);
 
 --
@@ -7432,17 +7430,17 @@ ALTER TABLE `tb_eq_componentes`
   ADD KEY `fk_tb_eq_componentes_tb_produtos1_idx` (`produto`),
   ADD KEY `fk_tb_eq_componentes_tb_fabricante1_idx` (`frabicante`),
   ADD KEY `fk_tb_eq_componentes_tb_loja1_idx` (`proprietario`),
-  ADD KEY `fk_tb_eq_componentes_tb_local1_idx` (`local`),
+  ADD KEY `fk_tb_eq_componentes_tb_locais1_idx` (`local`),
   ADD KEY `fk_tb_eq_componentes_tb_categoria1_idx` (`categoria`);
 
 --
--- Indexes for table `tb_eq_localizacao`
+-- Indexes for table `tb_eq_local`
 --
-ALTER TABLE `tb_eq_localizacao`
+ALTER TABLE `tb_eq_local`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tb_eq_localizacao_tb_equipamentos1_idx` (`equipamento`),
-  ADD KEY `fk_tb_eq_localizacao_tb_loja1_idx` (`loja`),
-  ADD KEY `fk_tb_eq_localizacao_tb_local1_idx` (`local`);
+  ADD KEY `fk_tb_eq_localizacao_tb_equipamentos1_idx` (`equipamento_id`),
+  ADD KEY `fk_tb_eq_localizacao_tb_loja1_idx` (`loja_id`),
+  ADD KEY `fk_tb_eq_localizacao_tb_locais1_idx` (`local_id`);
 
 --
 -- Indexes for table `tb_fabricante`
@@ -7457,12 +7455,12 @@ ALTER TABLE `tb_grupo`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tb_local`
+-- Indexes for table `tb_locais`
 --
-ALTER TABLE `tb_local`
+ALTER TABLE `tb_locais`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tb_local_tb_loja1_idx` (`loja_id`),
-  ADD KEY `fk_tb_local_tb_tipo1_idx` (`tipo`);
+  ADD KEY `fk_tb_locais_tb_loja1_idx` (`loja_id`),
+  ADD KEY `fk_tb_locais_tb_tipo1_idx` (`tipo`);
 
 --
 -- Indexes for table `tb_localidades`
@@ -7476,7 +7474,7 @@ ALTER TABLE `tb_localidades`
 --
 ALTER TABLE `tb_local_categoria`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tb_local_categoria_tb_local1_idx` (`local_id`),
+  ADD KEY `fk_tb_local_categoria_tb_locais1_idx` (`local_id`),
   ADD KEY `fk_tb_local_categoria_tb_categoria1_idx` (`categoria_id`);
 
 --
@@ -7526,7 +7524,7 @@ ALTER TABLE `tb_oat`
 ALTER TABLE `tb_os`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_tb_os_tb_loja1_idx` (`loja_id`),
-  ADD KEY `fk_tb_os_tb_local1_idx` (`local_id`),
+  ADD KEY `fk_tb_os_tb_locais1_idx` (`local_id`),
   ADD KEY `fk_tb_os_tb_servicos1_idx` (`servico_id`),
   ADD KEY `fk_tb_os_tb_categoria1_idx` (`categoria_id`),
   ADD KEY `fk_tb_os_tb_bem1_idx` (`equipamento_id`);
@@ -7637,182 +7635,151 @@ ALTER TABLE `users`
 --
 ALTER TABLE `login`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
 --
 -- AUTO_INCREMENT for table `tb_ativo`
 --
 ALTER TABLE `tb_ativo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=500;
-
 --
 -- AUTO_INCREMENT for table `tb_bem`
 --
 ALTER TABLE `tb_bem`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
-
 --
--- AUTO_INCREMENT for table `tb_eq_local`
+-- AUTO_INCREMENT for table `tb_bem_localizacao`
 --
-ALTER TABLE `tb_eq_local`
+ALTER TABLE `tb_bem_localizacao`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
-
 --
 -- AUTO_INCREMENT for table `tb_bens_familia`
 --
 ALTER TABLE `tb_bens_familia`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
 --
 -- AUTO_INCREMENT for table `tb_categoria`
 --
 ALTER TABLE `tb_categoria`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
 --
 -- AUTO_INCREMENT for table `tb_clientes`
 --
 ALTER TABLE `tb_clientes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
-
 --
 -- AUTO_INCREMENT for table `tb_descricao`
 --
 ALTER TABLE `tb_descricao`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `tb_desloc_status`
 --
 ALTER TABLE `tb_desloc_status`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
 --
 -- AUTO_INCREMENT for table `tb_desloc_trajeto`
 --
 ALTER TABLE `tb_desloc_trajeto`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
--- AUTO_INCREMENT for table `tb_equipamentos`
+-- AUTO_INCREMENT for table `tb_equipamento`
 --
-ALTER TABLE `tb_equipamentos`
+ALTER TABLE `tb_equipamento`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
 --
 -- AUTO_INCREMENT for table `tb_eq_componentes`
 --
 ALTER TABLE `tb_eq_componentes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT for table `tb_eq_localizacao`
+-- AUTO_INCREMENT for table `tb_eq_local`
 --
-ALTER TABLE `tb_eq_localizacao`
+ALTER TABLE `tb_eq_local`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `tb_fabricante`
 --
 ALTER TABLE `tb_fabricante`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
 --
--- AUTO_INCREMENT for table `tb_local`
+-- AUTO_INCREMENT for table `tb_locais`
 --
-ALTER TABLE `tb_local`
+ALTER TABLE `tb_locais`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=884;
-
 --
 -- AUTO_INCREMENT for table `tb_localidades`
 --
 ALTER TABLE `tb_localidades`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `tb_local_categoria`
 --
 ALTER TABLE `tb_local_categoria`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
-
 --
 -- AUTO_INCREMENT for table `tb_loja`
 --
 ALTER TABLE `tb_loja`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
-
 --
 -- AUTO_INCREMENT for table `tb_loja_categoria`
 --
 ALTER TABLE `tb_loja_categoria`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
 --
 -- AUTO_INCREMENT for table `tb_mod`
 --
 ALTER TABLE `tb_mod`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1064;
-
 --
 -- AUTO_INCREMENT for table `tb_nota`
 --
 ALTER TABLE `tb_nota`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=468;
-
 --
 -- AUTO_INCREMENT for table `tb_oat`
 --
 ALTER TABLE `tb_oat`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2680;
-
 --
 -- AUTO_INCREMENT for table `tb_os`
 --
 ALTER TABLE `tb_os`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=385;
-
 --
 -- AUTO_INCREMENT for table `tb_os_tecnico`
 --
 ALTER TABLE `tb_os_tecnico`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=427;
-
 --
 -- AUTO_INCREMENT for table `tb_produtos`
 --
 ALTER TABLE `tb_produtos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
 --
 -- AUTO_INCREMENT for table `tb_produto_categoria`
 --
 ALTER TABLE `tb_produto_categoria`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `tb_proprietario`
 --
 ALTER TABLE `tb_proprietario`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `tb_tecnicos`
 --
 ALTER TABLE `tb_tecnicos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
-
 --
 -- AUTO_INCREMENT for table `td_divisa`
 --
 ALTER TABLE `td_divisa`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-COMMIT;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
