@@ -6,11 +6,16 @@
 		public function matrix( $item ){
 			$lojas      	= new Loja();
 			$equipamentos	= new Equipamento();
-
+			$oss			= new Os(); 
 			$item->equipamentos_qt	= $equipamentos->contLocal( $item->id );
 			$loja					= $lojas->find( $item->loja_id );
 			$item->loja_name 		= $loja->name;
 			$item->categorias 		= $this->listCategoriaLocal( $item->id );
+			$item->dtVisitado = '0000-00-00';
+			$os 		= $oss->visitadoLocal( $item->id );
+			if( isset($os->dtVisitado) ){
+				$item->dtVisitado = $os->dtVisitado;
+			}
 			return $item;
 
 		}

@@ -6,7 +6,7 @@ var NaoEncontrado = Vue.extend({
   },
   methods: {
     deleteProduct: function () {
-      //products.splice(findProductKey(this.$route.params._id), 1);
+      //products.splice(findProductKey(this.$route.params._loja), 1);
       //router.push('/');
     }
   }
@@ -36,9 +36,9 @@ var router = new VueRouter({
         { path: 'os-tec', component: TecOs },
       ] 
     },
-    { path: '/oss/:_id/os/:_os', component: Os, name: 'os'},
+    { path: '/oss/:_loja/os/:_os', component: Os, name: 'os'},
     { path: '/lojas', component: Lojas, name: 'lojas' },
-    { path: '/loja/:_id', component: Loja,
+    { path: '/loja/:_loja', component: Loja,
       children: [
         { path: '', component: LocaisIndex },
         { path: 'oss', component: LojaOss },
@@ -60,13 +60,13 @@ var router = new VueRouter({
         //{ path: 'bens', component: LojaBens },
       ]
     },
-    { path: '/loja/:_id/local/:_local', component: Local,
+    { path: '/loja/:_loja/local/:_local', component: Local,
       children: [
         { path: '', component: EquipamentosLocal },
         { path: 'oss', component: LocalOss },
       ]
     },
-    /*{path: '/oss/:_id/os/:_os', component: Os, name: 'os'},
+    /*{path: '/oss/:_loja/os/:_os', component: Os, name: 'os'},
     {path: '/projeto', component: Projeto,
       children: [
         { path: '', component: Dashboard },

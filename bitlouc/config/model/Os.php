@@ -242,11 +242,11 @@ class Os extends Crud{
 			echo 'ERROR: ' . $e->getMessage();
 		}
 	}
-	public function ultimaOs( $local, $categoria ){
+	public function ultimaOs( $local_id, $categoria ){
 		try{
-			$sql  = "SELECT id, local, categoria, MAX(data) AS dtUltimo FROM $this->table  WHERE BINARY local=:local AND categoria=:categoria GROUP BY local=:local, categoria=:categoria";
+			$sql  = "SELECT id, local_id, categoria, MAX(data) AS dtUltimo FROM $this->table  WHERE BINARY local_id=:local_id AND categoria=:categoria GROUP BY local_id=:local_id, categoria=:categoria";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':local', $local, PDO::PARAM_INT);
+			$stmt->bindParam(':local_id', $local_id, PDO::PARAM_INT);
 			$stmt->bindParam(':categoria', $categoria, PDO::PARAM_INT);
 			$stmt->execute();
 			return $stmt->fetch();
@@ -254,6 +254,19 @@ class Os extends Crud{
 			echo 'ERROR: ' . $e->getMessage();
 		}
 	}
+
+	public function visitadoLocal( $local_id ){
+		try{
+			$sql  = "SELECT MAX(data) AS dtVisitado FROM $this->table  WHERE BINARY local_id=:local_id GROUP BY local_id=:local_id";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':local_id', $local_id, PDO::PARAM_INT);
+			$stmt->execute();
+			return $stmt->fetch();
+		} catch(PDOException $e) {
+			echo 'ERROR: ' . $e->getMessage();
+		}
+	}
+
 	public function validarOs( $local, $categoria, $bem, $data ){
 		try{
 			$sql  = "SELECT * FROM $this->table  WHERE BINARY local = :local AND categoria = :categoria AND (bem = :bem OR bem IS NULL) AND data = :data";

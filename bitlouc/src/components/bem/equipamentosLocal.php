@@ -11,7 +11,7 @@
       </v-layout>
     </v-container>
     <section>
-      <bens-grid :data="equipamentos" :categorias="local.categoria" :status="active"></bens-grid>
+      <bens-grid :data="equipamentos" :categorias="local.categorias" :status="active"></bens-grid>
       <bem-add v-if="modalAdd" v-on:close="modalAdd = false" ></bem-add>
     </section>
   </div>
@@ -42,6 +42,7 @@
           { id:2, name: 'Instalação', ativo: '0', icon: 'done' },
           { id:3, name: 'Ocioso', ativo: '2', icon: 'done' },
         ],
+        
       };
     },
     created: function() {
@@ -51,7 +52,11 @@
         return store.state.user;
       },
       equipamentos()  {
-        return store.getters.getEquipamentosLocal(this.$route.params._local);
+        return store.getters.getEquipamentoLocal(this.$route.params._local);
+        //return store.state.equipamentos;
+      },
+      local()  {
+        return store.getters.getLocalId(this.$route.params._local);
       },
     },
     methods: {

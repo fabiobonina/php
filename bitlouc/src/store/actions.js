@@ -152,7 +152,7 @@ const actions = {
       }));
     });
   },
-  fetchLocais({ commit }, loja) {
+  fetchLocalLoja({ commit }, loja) {
     return new Promise((resolve, reject) => {
       var postData = {
         loja: loja,
@@ -160,7 +160,7 @@ const actions = {
       //console.log(postData);
       Vue.http.post(LOCAISLOJA, postData)
         .then((response) => {
-          console.log(response.data);
+          //console.log(response.data);
           if(response.data.error){
             console.log(response.data.message);
           } else{
@@ -175,11 +175,12 @@ const actions = {
         }));
     });
   },
-  fetchLocalUder({ commit }, local) {
+  fetchEquipamentoLocal({ commit }, local) {
     return new Promise((resolve, reject) => {
       var postData = { local: local }
-      //console.log(postData);
+      console.log(postData);
       Vue.http.post(EQUIPAMENTOSLOCAL,postData).then((response) => {
+        console.log(response.data);
         if(response.data.error){
           console.log(response.data.message);
         } else{

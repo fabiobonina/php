@@ -4,7 +4,7 @@ require_once '_crud.php';
 try {
 	class Equipamento extends Crud{
 		
-		protected $table = 'tb_equipamentos';
+		protected $table = 'tb_equipamento';
 		private $produto;
 		private $produtoTag;
 		private $name;

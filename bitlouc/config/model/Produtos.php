@@ -75,9 +75,6 @@ class Produtos extends Crud{
 	}
 
 
-	
-
-
 }
 }catch( Exception $e ) {
 

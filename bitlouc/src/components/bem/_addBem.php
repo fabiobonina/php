@@ -21,7 +21,7 @@
             <loader :dialog="isLoading"></loader>
             <v-stepper v-model="progresso" vertical light>
               <v-stepper-step editable :complete="Number(progresso) > 1" step="1">
-                {{ data.proprietario.nick }}: {{ data.proprietarioLocal.tipo }} - {{ data.proprietarioLocal.name }}
+                {{ data.dono.nick }}: {{ data.donoLocal.tipo }} - {{ data.donoLocal.name }}
                 <small>Proprietario do Equipamento</small>
               </v-stepper-step>
               <v-stepper-content step="1">
@@ -30,25 +30,25 @@
                     <v-flex xs12 sm7 md4 >
                       <v-autocomplete outline
                         :items="lojas"
-                        v-model="data.proprietario"
+                        v-model="data.dono"
                         item-text="name"
                         label="Proprietario"
-                        :error-messages="errors.collect('proprietario')"
+                        :error-messages="errors.collect('dono')"
                         v-validate="'required'"
-                        data-vv-name="proprietario"
+                        data-vv-name="dono"
                         return-object
                         required
                       ></v-autocomplete>
                     </v-flex>
                     <v-flex xs12 sm7 md4 >
                       <v-autocomplete outline
-                        :items="proprietarioLocais"
-                        v-model="data.proprietarioLocal"
+                        :items="donoLocais"
+                        v-model="data.donoLocal"
                         item-text="name"
                         label="Proprietario Local"
-                        :error-messages="errors.collect('proprietarioLocal')"
+                        :error-messages="errors.collect('donoLocal')"
                         v-validate="'required'"
-                        data-vv-name="proprietarioLocal"
+                        data-vv-name="donoLocal"
                         return-object
                         required
                       ></v-autocomplete>
@@ -250,14 +250,14 @@ Vue.component('bem-add', {
       successMessage: [],
       isLoading: false,
       dialog: false,
-      proprietarioLocais: [],
+      donoLocais: [],
       locais : [],
       progresso: '3',
       item:{},
     };
   },
   watch: {
-    'proprietario': function (newQuestion, oldQuestion) {
+    'dono': function (newQuestion, oldQuestion) {
       this.updateLocal()
     },
     'loja': function (newQuestion, oldQuestion) {
@@ -308,13 +308,13 @@ Vue.component('bem-add', {
     initialize() {
       this.loja = store.getters.getLojaId(this.$route.params._id);
       this.local = store.getters.getLocalId(this.$route.params._local);
-      this.proprietario = store.getters.getLojaId(this.user.loja);
-      this.proprietarioLocal = store.getters.getLocalLojaSingle(this.user.loja);
+      this.dono = store.getters.getLojaId(this.user.loja);
+      this.donoLocal = store.getters.getLocalLojaSingle(this.user.loja);
       this.updateLocal();
     },
     updateLocal() {
       this.locais = store.getters.getLocalLoja(this.loja.id);
-      this.proprietarioLocais = store.getters.getLocalLoja(this.proprietario.id);
+      this.donoLocais = store.getters.getLocalLoja(this.dono.id);
     },
     saveItem: function(){
       this.errorMessage = []
@@ -328,9 +328,9 @@ Vue.component('bem-add', {
             modelo: this.modelo,
             fabricante: this.fabricante.id,
             fabricanteNick: this.fabricante.nick,
-            proprietario: this.proprietario.id,
-            proprietarioNick: this.proprietario.nick,
-            proprietarioLocal: this.proprietarioLocal.id,
+            dono: this.dono.id,
+            donoNick: this.dono.nick,
+            donoLocal: this.donoLocal.id,
             categoria: this.categoria.id,
             numeracao: this.numeracao,
             plaqueta: this.plaqueta,

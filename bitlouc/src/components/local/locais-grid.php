@@ -26,6 +26,7 @@
               {{ categoria.tag }}
             </v-chip>
           </td>
+          <td>{{ props.item.dtVisitado }} </td>
           <td class="text-xs-right"> {{ props.item.id }} </td>
           <td class="text-xs-right"> 
             <local-crud :data="props.item"></local-crud>
@@ -63,6 +64,7 @@
           { text: 'Rota', sortable: false, value: 'latitude' },
           { text: 'Geolocalização', sortable: false, value: 'latitude' },
           { text: 'Categoria', sortable: false, value: 'categoria' },
+          { text: 'Visitado', sortable: false, value: 'dtVisitado' },
           { text: 'ID', value: 'id' },
           { text: 'Info', sortable: false, value: 'info' },
         ],

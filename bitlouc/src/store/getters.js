@@ -25,7 +25,7 @@ const getters = {
     return state.lojas.filter(loja => loja.id === id)
   },
   getLojaId: (state) => (id) => {
-    return state.lojas.find(todo => todo.id === id)
+    return state.lojas.find(todo => todo.id == id)
     //return state.lojas.filter(loja => loja.id === id)
   },
   getLojaAtivo: (state) => () => {
@@ -43,10 +43,10 @@ const getters = {
   },
   getLocalLojaSingle: (state) => (loja) => {
     state.locais.filter(todo => todo.ativo === '0')
-    return state.locais.find(todo => todo.loja === loja)
+    return state.locais.find(todo => todo.loja_id === loja)
   },
-  getEquipamentosLocal: (state) => (local) => {
-    return state.equipametos.filter(todo => todo.local_id === local)
+  getEquipamentoLocal: (state) => (local) => {
+    return state.equipamentos.filter(todo => todo.local_id === local)
   },
   getOssLoja: (state) => (loja) => {
     return state.oss.filter(todo => todo.loja_id === loja)

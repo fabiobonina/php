@@ -3,13 +3,38 @@
 
 	class EquipamentoControl extends GlobalControl {
 
-		public function listSistema(){
+		public function matrix( $item ){
+			$categorias 	= new Categorias();
+			$produtos		= new Produtos();
+			$fabricantes 	= new Fabricantes();
+			$lojas      	= new Loja();
+			$locais     	= new Local();
+
+			$categoria				= $categorias->find( $item->categoria_id );
+			$item->categoriaTag 	= $categoria->tag;
+			$produto 				= $produtos->find( $item->produto_id );
+			$item->produtoName 		= $produto->name;
+			$fabricante				= $fabricantes->find( $item->fabricante_id );
+			$item->fabricanteName 	= $fabricante->name;
+			$dono					= $lojas->find( $item->dono_id );
+			$item->donoName 		= $dono->name;
+			$donoLocal				= $locais->find( $item->donoLocal_id );
+			$item->donoLocalName	= $donoLocal->name;
+			$item->loja				= $lojas->find( $item->loja_id );
+			$item->lojaName 		= $item->loja->name;
+			$item->local			= $locais->find( $item->local_id );
+			$item->localName 		= $item->local->name;
+			return $item;
+
+		}
+
+		public function list(){
 				
 			$equipamentos	= new Equipamento();
 			$itens = array();
 			foreach($equipamentos->findAll() as $key => $value):{
-				$item = (array) $value;
-				$item = $this->matrixSistema( $item );
+				$item = $value;
+				$item = (array) $this->matrix( $item );
 				array_push( $itens, $item );
 			}endforeach;
 			$res = $itens;
@@ -17,13 +42,13 @@
 
 		}
 
-		public function listSistemaLoja( $loja ){
+		public function listLoja( $loja ){
 				
 			$equipamentos	= new Equipamento();
 			$itens = array();
 			foreach($equipamentos->findAll() as $key => $value):if($value->loja_id == $loja) {
-				$item = (array) $value;
-				$item = $this->matrixSistema( $item );
+				$item = $value;
+				$item = (array) $this->matrix( $item );
 				array_push( $itens, $item );
 			}endforeach;
 			$res = $itens;
@@ -31,13 +56,13 @@
 
 		}
 
-		public function listSistemaLocal( $local ){
+		public function listLocal( $local ){
 				
 			$equipamentos	= new Equipamento();
 			$itens = array();
 			foreach($equipamentos->findAll() as $key => $value):if($value->local_id == $local) {
-				$item = (array) $value;
-				$item = $this->matrixSistema( $item );
+				$item = $value;
+				$item = (array) $this->matrix( $item );
 				array_push( $itens, $item );
 			}endforeach;
 			$res = $itens;
@@ -63,30 +88,7 @@
 
 		}
 
-		public function matrixSistema( $item ){
-			$categorias 	= new Categorias();
-			$produtos		= new Produtos();
-			$fabricantes 	= new Fabricantes();
-			$lojas      	= new Loja();
-			$locais     	= new Local();
-
-			$item['categoria']				= $categorias->find( $item['categoria_id']);
-			$item['categoriaTag'] 			= $item['categoria']->tag;
-			$item['produto'] 				= $produtos->find( $item['produto_id']);
-			$item['produtoName'] 			= $item['produto']->name;
-			$item['fabricante']				= $fabricantes->find( $item['fabricante_id']);
-			$item['fabricanteName'] 		= $item['fabricante']->name;
-			$item['proprietario']			= $lojas->find( $item['proprietario_id']);
-			$item['proprietarioName'] 		= $item['proprietario']->name;
-			$item['proprietarioLocal']		= $locais->find( $item['proprietarioLocal_id']);
-			$item['proprietarioLocalName']	= $item['proprietarioLocal']->name;
-			$item['loja']					= $lojas->find( $item['loja_id']);
-			$item['lojaName'] 				= $item['loja']->name;
-			$item['local']					= $locais->find( $item['local_id']);
-			$item['localName'] 				= $item['local']->name;
-			return $item;
-
-		}
+		
 
 		public function insertSistema(
 			$produto,

@@ -31,11 +31,11 @@ var Local = Vue.extend({
     //this.modalBemAdd = true;
   },
   created: function() {
-    this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
-      console.log("Buscando dados das locais!")
+    this.$store.dispatch('fetchLocalLoja', this.$route.params._loja).then(() => {
+        console.log("Buscando dados do local!")
     });
-    this.$store.dispatch('fetchLocalUder', this.$route.params._local).then(() => {
-      console.log("Buscando dados do local!")
+    this.$store.dispatch('fetchEquipamentoLocal', this.$route.params._local).then(() => {
+      console.log("Buscando dados do equipamento!")
     });
   },
   computed: {
@@ -43,19 +43,12 @@ var Local = Vue.extend({
       return store.getters.getLocalId(this.$route.params._local);
     },
     loja()  {
-      return store.getters.getLojaId(this.$route.params._id);
-    },
-    bens()  {
-      return store.getters.getBensLocal(this.$route.params._local);
+      return store.getters.getLojaId(this.$route.params._loja);
     },
     //store.state.lojas // filteredItems
   }, // computed
   methods: {
-    onAtualizar: function(){
-      this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
-        this.modalBemAdd = false;
-      });
-    },
+
   },
 });
 </script>

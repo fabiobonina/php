@@ -1,5 +1,9 @@
 <template id="bens-grid">
 <div>
+<div>
+      <label><input type="radio" v-model="selectedCategoria" value="0">All </label>&nbsp;&nbsp;&nbsp;
+      <label v-for=" categoria in categorias" :key="categoria.id"><input type="radio" v-model="selectedCategoria" v-bind:value="categoria.id">{{ categoria.name }} &nbsp;&nbsp;&nbsp;</label>
+    </div>
     <v-toolbar flat color="white">
       <v-toolbar-title>Equipamentos</v-toolbar-title>
       <v-divider class="mx-2" inset vertical></v-divider>
@@ -12,14 +16,14 @@
         :dialog-edt="editItem" :dialog-del="deleteItem" :data="item" v-on:close="close()" >
       </bem-add>
     </v-toolbar>
-    <v-data-table :headers="headers" :items="data" :search="search" class="elevation-1">
+    <v-data-table :headers="headers" :items="filteredData" :search="search" class="elevation-1">
       <template slot="items" slot-scope="props">
         <td>{{ props.item.name }}</td>
         <td>{{ props.item.modelo }}</td>
-        <td>{{ props.item.fabricante }}</td>
+        <td>{{ props.item.fabricanteName }}</td>
         <td>
-          <v-chip v-if="props.item.categoria" small  color="green" text-color="white">
-            {{ props.item.categoria.tag }}
+          <v-chip v-if="props.item.categoriaTag" small  color="green" text-color="white">
+            {{ props.item.categoriaTag }}
           </v-chip>
         </td>
         <td class="text-xs-right"> {{ props.item.numeracao }} </td>
@@ -62,15 +66,24 @@
         { text: 'Fabricante', value: 'fabricanteNick' },
         { text: 'Categoria', value: 'categoria' },
         { text: 'TAG', value: 'numeracao' },
-        { text: 'Ativo', value: 'plaqueta' },
+        { text: 'Plaqueta Ativo', value: 'plaqueta' },
         { text: 'Info', sortable: false, value: 'info' }
       ],
       defaultItem: {
         produto: null, name: null, modelo: '',
         fabricante: null, categoria: null, plaqueta: '', dataFab: '', dataCompra: '', ativo: '0',
-        proprietario: null, proprietarioLocal: null,
+        dono: null, donoLocal: null,
         loja: null, local: null, status: '0',
-      }
+      },
+      configs: {
+        orderBy: { name: 'Nome', state: 'name' },
+        order: 'asc',
+        search: ''
+      },
+      itens: [
+        { name: 'Nome', state: 'name' },
+        { name: 'Regional', state: 'regional' },
+      ],
     }),
     created () {
       this.initialize()
@@ -81,16 +94,16 @@
       },
       filteredData() {
         var status = this.status;
-        var filter = this.configs.search && this.configs.search.toLowerCase();
-        var list = _.orderBy(this.data, this.configs.orderBy.state, this.configs.order);
+        var filter = this.search && this.search.toLowerCase();
+        var list   = this.data;
         var categoria = this.selectedCategoria;
         //_.filter(list, repo => repo.status.indexOf(filter) >= 0);
         if(categoria !== "0") {
           list = list.filter(function(row) {
-            return Number(row.categoria.id) === Number(categoria);
+            return Number(row.categoria_id) === Number(categoria);
           });
         }
-        if(status){
+        /*if(status){
           list = list.filter(function (row) {
             return Number(row.status) === Number(status);
           });
@@ -98,7 +111,7 @@
           list = list.filter(function (row) {
             return Number(row.status) <= 1;
           });
-        }
+        }*/
         
         if (filter) {
           list = list.filter(function (row) {
@@ -112,10 +125,10 @@
     },
     methods: {
       initialize() {
-        this.defaultItem.loja = store.getters.getLojaId(this.$route.params._id);
-        this.defaultItem.local = store.getters.getLocalId(this.$route.params._local);
-        this.defaultItem.proprietario = store.getters.getLojaId(this.user.loja);
-        this.defaultItem.proprietarioLocal = store.getters.getLocalLojaSingle(this.user.loja);
+        this.defaultItem.loja       = store.getters.getLojaId(this.$route.params._loja);
+        this.defaultItem.local      = store.getters.getLocalId(this.$route.params._local);
+        this.defaultItem.dono       = store.getters.getLojaId(this.user.loja);
+        this.defaultItem.donoLocal  = store.getters.getLocalLojaSingle(this.user.loja);
         this.item = this.defaultItem;
       },
       close () {

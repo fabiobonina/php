@@ -28,23 +28,24 @@
             ],
             model: 'tab-2',
             text: 'Lorem ipsum dolor ',
-            loja: {},
+
         };
     },
     beforeMount() {
-      this.initialize();
-    },
-    computed: {
 
     },
+    created: function() {
+      this.$store.dispatch('fetchLocalLoja', this.$route.params._loja).then(() => {
+        console.log("Buscando dados do local!")
+      });
+    },
+    computed: {
+      loja(){
+        return store.getters.getLojaId(this.$route.params._id);
+      },
+    },
     methods: {
-      initialize() {
-        this.loja = store.getters.getLojaId(this.$route.params._id);
-        console.log(this.loja);
-        this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {  
-          console.log("Buscando dados das locais!")
-        });
-      }
+
     }
   });
 </script>
