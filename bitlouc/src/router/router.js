@@ -29,6 +29,13 @@ var router = new VueRouter({
         { path: '', component: Dashboard },
       ]
     },
+    { path: '/atendimentos', component: Oss,
+      children: [
+        { path: '', component: OsUF },
+        { path: 'os-status', component: OsStus },
+        { path: 'os-tec', component: TecOs },
+      ] 
+    },
     { path: '/oss', component: Oss,
       children: [
         { path: '', component: OsUF },
