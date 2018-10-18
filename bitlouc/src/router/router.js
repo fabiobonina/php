@@ -29,11 +29,11 @@ var router = new VueRouter({
         { path: '', component: Dashboard },
       ]
     },
-    { path: '/atendimentos', component: Oss,
+    { path: '/help', component: Help,
       children: [
-        { path: '', component: OsUF },
-        { path: 'os-status', component: OsStus },
-        { path: 'os-tec', component: TecOs },
+      //  { path: '', component: OsUF },
+      { path: '', component: HelpStatus },
+      //  { path: 'os-tec', component: TecOs },
       ] 
     },
     { path: '/oss', component: Oss,

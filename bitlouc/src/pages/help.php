@@ -1,5 +1,5 @@
 
-<template id="oss">
+<template id="help">
   <div>
     <top></top>
 
@@ -7,7 +7,7 @@
       <v-tabs v-model="active" color="blue" dark slider-color="yellow">
         <v-tab v-for="n in router" :key="n.title" :to="{path: n.router}" ripple> {{ n.title }} </v-tab>     
       </v-tabs>
-      <v-container>
+      <v-container fluid>
         <router-view></router-view>
       </v-container>
     </v-content>
@@ -16,8 +16,8 @@
   </div>    
 </template>
 <script>
-  var Oss = Vue.extend({
-    template: '#oss',
+  var Help = Vue.extend({
+    template: '#help',
     data: function () {
         return {
             errorMessage: '',
@@ -49,7 +49,7 @@
 
 <?php require_once 'src/components/os/osUF.php';?>
 <?php require_once 'src/components/os/osLojas.php';?>
-<?php require_once 'src/components/os/osStus.php';?>
+<?php require_once 'src/components/help/helpStatus.php';?>
 <?php require_once 'src/components/os/tecOs.php';?>
 
 <!-- components os -->

@@ -1,5 +1,5 @@
 
-<template id="os-status">
+<template id="help-status">
   <div>
     <v-container fluid class="pa-0">
       <v-layout row wrap>
@@ -23,17 +23,17 @@
   </div>
 </template>
 <script>
-var OsStus = Vue.extend({
-  template: '#os-status',
-  name: 'os-status',
+var HelpStatus = Vue.extend({
+  template: '#help-status',
+  name: 'help-status',
   data: function () {
     return {
       errorMessage: '',
       successMessage: '',
       itens: [
-        { id:1, name: 'sem Amaração', ativo: '0', icon: 'done' },
-        { id:2, name: 'Abertas', ativo: '1', icon: 'done' },
-        { id:3, name: 'Retornos', ativo: '2', icon: 'done' },
+        { id:1, name: 'Pendent', ativo: '0', icon: 'done' },
+        { id:2, name: 'Andamento', ativo: '1', icon: 'done' },
+        { id:3, name: 'Concluida', ativo: '2', icon: 'done' },
       ],
     };
   },
