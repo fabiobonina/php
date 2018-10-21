@@ -1,9 +1,24 @@
 <template id="loja-add">
   <div>
+  <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="dialog = true" color="pink" fab small dark>
+      <v-icon>mdi-plus</v-icon>
+    </v-btn>
     <v-dialog v-model="dialog" persistent scrollable  max-width="500px">
       <v-card>
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click="dialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-toolbar-title>Loja</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn icon flat @click.native="saveItem()">
+              <v-icon>mdi-content-save</v-icon>
+            </v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
         <v-card-title>
-          <span class="headline">{{ proprietario.nick }} - Nova Loja</span>
+          <span class="headline">{{ proprietario.nick }}</span>
         </v-card-title>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage"></message>
@@ -83,7 +98,7 @@
 
         </v-card-text>
         <v-card-actions>
-            <v-btn flat @click.stop="$emit('close')">Fechar</v-btn>
+            <v-btn flat @click.stop="$close()">Fechar</v-btn>
             <v-spacer></v-spacer>
             <v-btn color="primary" flat @click.stop="saveItem()">Salvar</v-btn>
         </v-card-actions>
@@ -100,14 +115,12 @@
   $_veeValidate: {
     validator: 'new'
   },
-  props: {
-    dialog: Boolean
-  },
   data: function () {
     return {
       errorMessage: [],
       successMessage: [],
       isLoading: false,
+      dialog: true,
       item:{},
       nick:'', name:'', grupo:'C', seguimento:'', ativo:'0', categoria: [],
       dictionary: {
@@ -125,6 +138,9 @@
     this.$validator.localize('pt_BR', this.dictionary)
   },
   computed: {
+    user()  {
+      return store.state.user;
+    },
     temMessage () {
       if(this.errorMessage.length > 0) return true
       if(this.successMessage.length > 0) return true
@@ -194,7 +210,11 @@
     addNewTodo: function () {
       this.categoria.push(this.item)
       this.item = {}
-    }
+    },
+    close () {
+      this.dialog = false;
+      this.$emit('close');
+    },
   }
   });
 </script>

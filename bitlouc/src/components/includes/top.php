@@ -38,7 +38,7 @@
     <v-toolbar color="blue" dark fixed app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
+        <v-icon v-html="miniVariant ? 'mdi-chevron-right' : 'mdi-chevron-left'"></v-icon>
       </v-btn>
       <a href="#/" class="d-flex ml-3 router-link-active"><img src="dist/img/bit-louc.png" height="36px" width="36px"></a>
       <v-toolbar-title><b>Bit</b>LOUC </v-toolbar-title>

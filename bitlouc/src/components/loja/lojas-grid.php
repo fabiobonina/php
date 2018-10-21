@@ -6,9 +6,10 @@
         <v-divider class="mx-2" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <v-text-field  v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
-        <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="modalAdd=true" color="pink" fab small dark>
+        <!--v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="modalAdd=true" color="pink" fab small dark>
           <v-icon>add</v-icon>
-        </v-btn>
+        </v-btn-->
+        <loja-add></loja-add>
       </v-card-title>
       <v-data-table :headers="headers" :items="data" :search="search">
         <template slot="items" slot-scope="props">
