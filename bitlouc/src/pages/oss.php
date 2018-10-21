@@ -7,7 +7,7 @@
       <v-tabs v-model="active" color="blue" dark slider-color="yellow">
         <v-tab v-for="n in router" :key="n.title" :to="{path: n.router}" ripple> {{ n.title }} </v-tab>     
       </v-tabs>
-      <v-container>
+      <v-container fluid>
         <router-view></router-view>
       </v-container>
     </v-content>

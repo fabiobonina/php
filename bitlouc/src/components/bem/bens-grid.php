@@ -92,7 +92,7 @@
       user()  {
         return store.state.user;
       },
-      filteredData() {
+      filteredData2() {
         var status = this.status;
         var filter = this.search && this.search.toLowerCase();
         var list   = this.data;
@@ -122,6 +122,23 @@
         }
         return list;
       },
+      filteredData: function () {
+        var filterKey = this.search && this.search.toLowerCase()
+        var data = this.data
+        if (filterKey) {
+          data = data.filter(function (row) {
+            return Object.keys(row).some(function (key) {
+              return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+            })
+          })
+        }
+        return data
+      }
+    },
+    filters: {
+      capitalize: function (str) {
+        return str.charAt(0).toUpperCase() + str.slice(1)
+      }
     },
     methods: {
       initialize() {

@@ -20,6 +20,7 @@
     <?php require_once 'src/pages/loja.php';?>
     <?php require_once 'src/pages/local.php';?>
     <?php require_once 'src/pages/proprietario.php';?>
+    <?php require_once 'src/pages/help.php';?>
 
     <?php require_once 'src/components/includes/message.php';?>
 </div>

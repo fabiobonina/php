@@ -64,24 +64,15 @@
         errorMessage: '',
         successMessage: '',
         modalUser: false,
-        admins: [
-          {name:'OSs', icon:'people_outline'},
-          ['Settings', 'settings']
-        ],
-        cruds: [
-          ['Create', 'add'],
-          ['Read', 'insert_drive_file'],
-          ['Update', 'update'],
-          ['Delete', 'delete']
-        ],
         home: [
-          { title: 'Home',  router: '/', icon: 'home' },
-          { title: 'OSs',   router: '/oss', icon: 'build' },
-          { title: 'Lojas', router: '/lojas', icon: 'store' },
+          { title: 'Home',    router: '/',      icon: 'mdi-home' },
+          { title: 'Lojas',   router: '/lojas', icon: 'mdi-store' },          
+          { title: 'HelpDesk',router: '/help',  icon: 'mdi-worker' },
+          { title: 'OSs',     router: '/oss',   icon: 'mdi-wrench' },
         ],
         items: [
-          { title: 'Proprietario',  router: '', icon: 'dashboard' },
-          { title: 'Config',        router: '/config', icon: 'settings' }
+          { title: 'Proprietario',  router: '', icon: 'mdi-view-dashboard' },
+          { title: 'Config',        router: '/config', icon: 'mdi-settings' }
         ],
       };
     },

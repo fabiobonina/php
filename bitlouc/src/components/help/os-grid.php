@@ -10,11 +10,12 @@
           <v-icon>add</v-icon>
         </v-btn>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filteredData" :pagination.sync="pagination">
+      <v-data-table :headers="headers" :items="data" :search="search" :pagination.sync="pagination">
         <template slot="items" slot-scope="props">
+          
           <td style="padding:0 10px">
-            <router-link :to="'/oss/' + props.item.loja_id + '/os/' + props.item.id" :key="props.item.id">
-              <v-list-tile-title> {{ props.item.lojaNick }}: {{props.item.local_tipo}} {{props.item.local_name}} ({{props.item.local_municipio}}-{{props.item.uf}})</v-list-tile-title>
+              <router-link :to="'/oss/' + props.item.loja_id + '/os/' + props.item.id" :key="props.item.id">
+                <v-list-tile-title> {{ props.item.lojaNick }}: {{props.item.local_tipo}} {{props.item.local_name}} ({{props.item.local_municipio}}-{{props.item.uf}})</v-list-tile-title>
                 <v-list-tile-sub-title class="text--primary"> {{props.item.servico.name}}, {{ props.item.categoria.name }}</v-list-tile-sub-title>
                 <v-list-tile-sub-title v-if="props.item.bem">{{props.item.bem.name}} {{props.item.bem.modelo}}  &nbsp; #{{props.item.bem.fabricante}}
                 <v-chip small color="green" text-color="white">
@@ -128,22 +129,29 @@
         return row.processo === filterKey;
       });
     },
-    filteredData: function () {
-      var filterKey = this.search && this.search.toLowerCase()
-      var data = this.data
-      if (filterKey) {
-        data = data.filter(function (row) {
+    filteredData() {
+      var status = this.status;
+      var filter = this.configs.search && this.configs.search.toLowerCase();
+      var list = _.orderBy(this.data, this.configs.orderBy.state, this.configs.order);
+      //_.filter(list, repo => repo.status.indexOf(filter) >= 0);
+      if(status){
+      list = list.filter(function (row) {
+        return Number(row.status) === Number(status);
+      });
+      }else{
+        list = list.filter(function (row) {
+          return Number(row.status) <= 1;
+        });
+      }
+      
+      if (filter) {
+        list = list.filter(function (row) {
           return Object.keys(row).some(function (key) {
-            return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+            return String(row[key]).toLowerCase().indexOf(filter) > -1
           })
         })
       }
-      return data
-    }
-  },
-  filters: {
-    capitalize: function (str) {
-      return str.charAt(0).toUpperCase() + str.slice(1)
+      return list;
     }
   },
   methods: {
