@@ -95,13 +95,7 @@
               <v-radio label="Não" value="1"></v-radio>
             </v-radio-group>
           </v-form>
-
         </v-card-text>
-        <v-card-actions>
-            <v-btn flat @click.stop="$close()">Fechar</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click.stop="saveItem()">Salvar</v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
 
