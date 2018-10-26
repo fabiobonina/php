@@ -14,9 +14,25 @@
         <template slot="items" slot-scope="props">
           <td style="padding:0 10px">
             <router-link :to="'/oss/' + props.item.loja_id + '/os/' + props.item.id" :key="props.item.id">
-              <v-list-tile-title> {{ props.item.lojaNick }}: {{props.item.local_tipo}} {{props.item.local_name}} ({{props.item.local_municipio}}-{{props.item.uf}})</v-list-tile-title>
-                <v-list-tile-sub-title class="text--primary"> {{props.item.servico.name}}, {{ props.item.categoria.name }}</v-list-tile-sub-title>
-                <v-list-tile-sub-title v-if="props.item.bem">{{props.item.bem.name}} {{props.item.bem.modelo}}  &nbsp; #{{props.item.bem.fabricante}}
+              <v-list-tile-title> {{props.item.local_tipo}} {{props.item.local_name}}</v-list-tile-title>
+              <v-list-tile-sub-title>{{props.item.local_municipio}}-{{props.item.uf}}</v-list-tile-sub-title>
+              <v-list-tile-sub-title> {{ props.item.lojaNick }} </v-list-tile-sub-title>
+            </router-link>
+          </td>
+          <td style="padding:0 10px">
+            <v-list-tile-content>
+              <v-list-tile-title> {{ props.item.data }}</v-list-tile-title>
+              <v-list-tile-sub-title class="text--primary"> {{props.item.servico.name}}</v-list-tile-sub-title>
+              <v-chip small color="indigo" text-color="white">
+                OS: {{ props.item.filial}}-{{ props.item.os}}
+              </v-chip> 
+            </v-list-tile-content>
+          </td>
+          
+          <td style="padding:0 10px">
+            <router-link :to="'/oss/' + props.item.loja_id + '/os/' + props.item.id" :key="props.item.id">
+              <v-list-tile-title> {{ props.item.categoria.name }} </v-list-tile-title>
+              <v-list-tile-sub-title v-if="props.item.bem">{{props.item.bem.name}} {{props.item.bem.modelo}}  &nbsp; #{{props.item.bem.fabricante}}
                 <v-chip small color="green" text-color="white">
                   <v-avatar class="green darken-4">
                     <v-icon small>mdi-qrcode</v-icon>
@@ -40,13 +56,7 @@
               </v-chip>
             </div>
           </td>
-          <td style="padding:0 10px">
-          <v-list-tile-content class="text-xs-right">
-          {{ props.item.data }} 
-            <v-chip small color="indigo" text-color="white">
-                OS: {{ props.item.filial}}-{{ props.item.os}}
-              </v-chip> </v-list-tile-content>
-          </td>
+
           <td>
             <local-rota :lat="props.item.local_lat" :long="props.item.local_long"></local-rota>
             <local-crud :data="props.item"></local-crud>
