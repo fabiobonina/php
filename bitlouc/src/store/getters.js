@@ -21,6 +21,7 @@ const getters = {
   getServicos: state => state.servicos,
   getTecnicos: state => state.tecnicos,
   getOss: state => state.oss,
+  getOcorrencias: state => state.ocorrencias,
   getTodoById: state => (id) => {
     return state.lojas.filter(loja => loja.id === id)
   },
@@ -53,6 +54,9 @@ const getters = {
   },
   getOssLocal: (state) => (local) => {
     return state.oss.filter(todo => todo.local.id === local)
+  },
+  getOssUF: (state) => (uf) => {
+    return state.oss.filter(todo => todo.uf === uf)
   },
   getOssStatus: (state) => (status) => {
     return state.oss.filter(todo => todo.status === status)

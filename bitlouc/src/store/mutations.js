@@ -87,6 +87,9 @@ const mutations = {
   SET_OSS(state, oss) {
     state.oss = oss
   },
+  SET_OCORRENCIAS(state, ocorrencias) {
+    state.ocorrencias = ocorrencias
+  },
   SET_OSUF(state, osUf) {
     state.osUf = osUf
   },

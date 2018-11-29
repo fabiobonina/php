@@ -35,6 +35,7 @@ const state = {
   osProprietario:{},
   osLojas:[],
   oss:[],
+  ocorrencias:[],
   osUf:[],
   mods:[],
   grupos:[],

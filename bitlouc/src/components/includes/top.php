@@ -67,7 +67,7 @@
         home: [
           { title: 'Home',    router: '/',      icon: 'mdi-home' },
           { title: 'Lojas',   router: '/lojas', icon: 'mdi-store' },          
-          { title: 'HelpDesk',router: '/help',  icon: 'mdi-worker' },
+          { title: 'Ocorrência',router: '/help',  icon: 'mdi-worker' },
           { title: 'OSs',     router: '/oss',   icon: 'mdi-wrench' },
         ],
         items: [

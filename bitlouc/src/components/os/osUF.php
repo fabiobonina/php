@@ -45,8 +45,8 @@ var OsUF = Vue.extend({
     created() {
     },
     computed: {
-        osLojas() {
-            return store.state.osUf;
+        ossUF() {
+            return store.getters.getLojaId(this.$route.params._id);
         },
     },
     methods: {
