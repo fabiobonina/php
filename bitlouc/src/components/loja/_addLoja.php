@@ -160,17 +160,18 @@
           if(this.checkForm()){
             this.isLoading = true
             var postData = {
+              id: '',
               nick: this.nick,
               name: this.name,
               grupo: this.grupo,
               seguimento: this.seguimento,
               categoria: this.categoria,
-              proprietario: this.proprietario.id,
+              proprietario_id: this.proprietario.id,
               ativo: this.ativo
             };
             //console.log(postData);
-            this.$http.post('./config/api/apiLoja.php?action=cadastrar', postData).then(function(response) {
-              //console.log(response);
+            this.$http.post('./config/api/apiLoja.php?action=publish', postData).then(function(response) {
+              console.log(response);
               if(response.data.error){
                 this.errorMessage = response.data.message;
                 this.isLoading = false;

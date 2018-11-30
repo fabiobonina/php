@@ -50,64 +50,42 @@
 
 		
 
-		public function insertLoja(
-			$loja,
-			$tipo,
-			$regional,
+		public function publishLoja(
 			$name,
-			$municipio,
-			$uf,
-			$lat,
-			$long,
-			$categorias,
-			$ativo ){
-
-			$lojas	= new Loja();
-
-			$lojas->setLoja($loja);
-			$lojas->setTipo($tipo);
-			$lojas->setRegional($regional);
-			$lojas->setName($name);
-			$lojas->setMunicipio($municipio);
-			$lojas->setUf($uf);
-			$lojas->setAtivo($ativo);
-			# Insert
-			$item = $lojas->insert();
-			if( !$item['error'] ){
-				$item = $this->insertGeolocalizacao( $item['id'], $lat, $long );
-				if( isset( $categorias )):
-					$item = $this->insertCategoria( $item['id'], $categorias );
-				endif;				
-			}
-			$res = $this->statusReturn($item);
-			return $res;
-		}
-
-		public function updateLoja(
-			$loja,
-			$tipo,
-			$regional,
-			$name,
-			$municipio,
-			$uf,
-			$lat,
-			$long,
+			$nick,
+			$proprietario_id,
+			$grupo,
+			$seguimento,
 			$ativo,
-			$id ){
+			$id
+			){
+				$lojas	= new Loja();
+				foreach($lojas->findAll() as $key => $value): {
+					$item = $this->checkDuplicity($value->nick, $nick );
+					if( !$item ):
+					  $res['error'] = true;
+					  $res['message'] = 'Error, Nome Fantasia da loja já ultilizado!';
+					endif;
 
-			$lojas	= new Loja();
+				}endforeach;
 
-			$lojas->setLoja($loja);
-			$lojas->setTipo($tipo);
-			$lojas->setRegional($regional);
-			$lojas->setName($name);
-			$lojas->setMunicipio($municipio);
-			$lojas->setUf($uf);
-			$lojas->setAtivo($ativo);
-			# Update
-			$item = $lojas->updete($id);
-			$item = $this->insertGeolocalizacao( $id, $lat, $long );
-			
+				$data = date("Y-m-d");
+				$lojas->setName($name);
+				$lojas->setNick($nick);
+				$lojas->setProprietario($proprietario_id);
+				$lojas->setGrupo($grupo);
+				$lojas->setSeguimento($seguimento);
+				$lojas->setData($data);
+				$lojas->setAtivo($ativo);
+				if( !$res['error'] && !isset($id) ):
+					$item = $lojas->insert();
+				endif;
+				if( !$res['error'] && isset($id) ):
+					$item = $lojas->updade($id);
+				endif;
+
+			# Insert
+
 			$res = $this->statusReturn($item);
 			return $res;
 		}
