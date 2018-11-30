@@ -29,10 +29,10 @@ var router = new VueRouter({
         { path: '', component: Dashboard },
       ]
     },
-    { path: '/help', component: Help,
+    { path: '/ocorrencia', component: Ocorrencia,
       children: [
       //  { path: '', component: OsUF },
-      { path: '', component: HelpStatus },
+      { path: '', component: OcorrenciaStatus },
       //  { path: 'os-tec', component: TecOs },
       ] 
     },

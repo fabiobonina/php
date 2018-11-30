@@ -1,5 +1,5 @@
 
-<template id="help-status">
+<template id="ocorrencia-status">
   <div>
     <v-container fluid class="pa-0">
       <v-layout row wrap>
@@ -23,9 +23,9 @@
   </div>
 </template>
 <script>
-var HelpStatus = Vue.extend({
-  template: '#help-status',
-  name: 'help-status',
+var OcorrenciaStatus = Vue.extend({
+  template: '#ocorrencia-status',
+  name: 'ocorrencia-status',
   data: function () {
     return {
       errorMessage: '',

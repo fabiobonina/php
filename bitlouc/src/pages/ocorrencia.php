@@ -1,5 +1,5 @@
 
-<template id="help">
+<template id="ocorrencia">
   <div>
     <top></top>
 
@@ -16,8 +16,8 @@
   </div>    
 </template>
 <script>
-  var Help = Vue.extend({
-    template: '#help',
+  var Ocorrencia = Vue.extend({
+    template: '#ocorrencia',
     data: function () {
         return {
             errorMessage: '',
@@ -49,7 +49,7 @@
 
 <?php require_once 'src/components/os/osUF.php';?>
 <?php require_once 'src/components/os/osLojas.php';?>
-<?php require_once 'src/components/help/helpStatus.php';?>
+<?php require_once 'src/components/ocorrencia/status.php';?>
 <?php require_once 'src/components/os/tecOs.php';?>
 
 <!-- components os -->
