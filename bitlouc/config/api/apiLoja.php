@@ -8,16 +8,6 @@ header('Content-Type: text/html; charset=utf-8');
 
   $lojaControl  = new LojaControl();
 
-  /*function __autoload($class_name){
-    require_once '../model/' . $class_name . '.php';
-  }
-
-  $lojas            = new Loja();
-  $lojaCategorias   = new LojaCategorias();
-  $locais           = new Local();
-  $localCategorias  = new LocalCategorias();
-  $categorias       = new Categorias();
-  */
 
   $res = array('error' => false);
   $arDados = array();
@@ -36,28 +26,8 @@ header('Content-Type: text/html; charset=utf-8');
     $res['locais'] = $item;
 
   }
-  #CADASTRAR-----------------------------------------------------------------------------
-  if($action == 'cadastrar'):
-    #Novo Usuario
-    $name             = $_POST['name'];
-    $nick             = $_POST['nick'];
-    $proprietario_id  = $_POST['proprietario'];
-    $grupo            = $_POST['grupo'];
-    $seguimento       = $_POST['seguimento'];
-    $ativo            = $_POST['ativo'];
-    $categoria        = '';
-    if( isset($_POST['categoria']) ):
-      $categoria = json_encode($_POST['categoria'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    endif;
-    
-    $item = $lojaControl->insertLoja( $name, $nick,	$proprietario_id,	$grupo,	$seguimento, $categoria, $ativo );
 
-
-
-  endif;
-  #CADASTRAR-----------------------------------------------------------------------------
-
-  #EDITAR-------------------------------------------------------------------------------
+  #CRIAR_EDITAR-------------------------------------------------------------------------------
   if($action == 'publish'):
     #editar
     $name             = $_POST['name'];
@@ -67,36 +37,21 @@ header('Content-Type: text/html; charset=utf-8');
     $seguimento       = $_POST['seguimento'];
     $ativo            = $_POST['ativo'];
     $id               = $_POST['id'];
+    if( $id == "" ):
+      $id = NULL;
+    endif;
 
     $res =  $lojaControl->publishLoja( $name, $nick,	$proprietario_id,	$grupo,	$seguimento, $ativo, $id );
 
-
   endif;
-  #EDITAR-------------------------------------------------------------------------------
+  #CRIAR_EDITAR-------------------------------------------------------------------------------
 
   #DELETAR-----------------------------------------------------------------------------
   if($action == 'deletar'):
+    
     #delete
     $id = $_POST['id'];
-    if($lojas->delete($id)){
-      if($lojaCategorias->deleteLoja($id)){
-      $res['error'] = false;
-      $arDados = "OK, registro deletado";
-      $res['message']= $arDados;
-      }else{
-        $res['error'] = true; 
-        $arError = "Error, nao foi possivel deletar os dados";
-        array_push($arErros, $arError);
-      }
-    }else{
-      $res['error'] = true; 
-      $arError = "Error, nao foi possivel deletar os dados";
-      array_push($arErros, $arError);
-    }
-
-    if( ($res['error'] == true) && (isset($arErros)) ){
-      $res['message']= $arErros;
-    }
+    $res =  $lojaControl->deleteLoja( $id );
 
   endif;
   #DELETAR-----------------------------------------------------------------------------

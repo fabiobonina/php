@@ -139,7 +139,7 @@
 
 			$equipamentos	= new Equipamento();
 
-			$item['equipLocal_tt'] 			= $equipamentos->contLocal( $item['id'] );
+			$item['equipLocal_tt'] 			= $equipamentos->contLocal( $localId );
 			if( $item['equipLocal_tt']  == 0 ){
 				$res['error'] = false;
 				$res['message'] = 'OK, Local pode ser deletado';

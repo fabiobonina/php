@@ -90,7 +90,9 @@ class Local extends Crud{
 			$stmt->bindParam(':id', 			$id);
 			return $stmt->execute();
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error'] = true; 
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 		
 	}
@@ -103,7 +105,9 @@ class Local extends Crud{
 
 		return $stmt->execute();
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error'] = true; 
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 		
 	}

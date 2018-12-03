@@ -7,12 +7,12 @@ class LojaCategorias extends Crud{
 
 	
 	protected $table = 'tb_loja_categoria';
-	private $loja;
+	private $loja_id;
 	private $categoria;
 	private $ativo;
 
-	public function setLoja($loja){
-		$this->loja = $loja;
+	public function setLoja($loja_id){
+		$this->loja_id = $loja_id;
 	}
 	public function setCategoria($categoria){
 		$this->categoria = $categoria;
@@ -23,48 +23,62 @@ class LojaCategorias extends Crud{
 
 	public function insert(){
 		try{
-			$sql  = "INSERT INTO $this->table ( loja, categoria ) ";
-			$sql .= "VALUES ( :loja, :categoria )";
+			$sql  = "INSERT INTO $this->table ( loja_id, categoria ) ";
+			$sql .= "VALUES ( :loja_id, :categoria )";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':loja', $this->loja );
+			$stmt->bindParam(':loja_id', $this->loja_id );
 			$stmt->bindParam(':categoria', $this->categoria );
 			
-			return $stmt->execute();
-			
+			$stmt->execute();
+			$res['error'] = false;
+			$res['message'] = 'OK, salvo com sucesso';
+			return $res;
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error'] = true; 
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 
 	}
 
 	public function update($id){
 		try{
-		$sql  = "UPDATE $this->table SET ativo = :ativo WHERE id = :id ";
-		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':ativo',$this->ativo);
-		$stmt->bindParam(':id', $id);
-		return $stmt->execute();
+			$sql  = "UPDATE $this->table SET ativo = :ativo WHERE id = :id ";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':ativo',$this->ativo);
+			$stmt->bindParam(':id', $id);
+			$stmt->execute();
+			$res['error'] = false;
+			$res['message'] = 'OK, salvo com sucesso';
+			return $res;
+
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error'] = true; 
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
-		
 	}
-	public function deleteLoja($loja){
+	public function deleteLoja($loja_id){
 		try{
-		$sql  = "DELETE FROM $this->table WHERE loja = :loja";
-		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':loja', $loja, PDO::PARAM_INT);
-		
-		return $stmt->execute(); 
+			$sql  = "DELETE FROM $this->table WHERE loja_id = :loja_id";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':loja_id', $loja_id, PDO::PARAM_INT);
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = 'OK, deletado com sucesso';
+			return $res;
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error'] = true; 
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 	}
 
 }
 }catch( Exception $e ) {
-
-    echo $e->getMessage();
-    return false;
+	$res['error'] = true; 
+	$res['message'] = $e->getMessage();
+	return $res;
 
 }

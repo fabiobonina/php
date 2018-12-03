@@ -57,75 +57,73 @@
 			$grupo,
 			$seguimento,
 			$ativo,
-			$id
-			){
-				$lojas	= new Loja();
-				foreach($lojas->findAll() as $key => $value): {
-					$item = $this->checkDuplicity($value->nick, $nick );
-					if( !$item ):
-					  $res['error'] = true;
-					  $res['message'] = 'Error, Nome Fantasia da loja já ultilizado!';
-					endif;
-
-				}endforeach;
-
-				$data = date("Y-m-d");
-				$lojas->setName($name);
-				$lojas->setNick($nick);
-				$lojas->setProprietario($proprietario_id);
-				$lojas->setGrupo($grupo);
-				$lojas->setSeguimento($seguimento);
-				$lojas->setData($data);
-				$lojas->setAtivo($ativo);
-				if( !$res['error'] && !isset($id) ):
-					$item = $lojas->insert();
-				endif;
-				if( !$res['error'] && isset($id) ):
-					$item = $lojas->updade($id);
-				endif;
-
-			# Insert
-
-			$res = $this->statusReturn($item);
-			return $res;
-		}
-
-		public function insertGeolocalizacao( $id, $lat, $long ){
-
+			$id)
+		{
 			$lojas	= new Loja();
+			$item['error'] = false;
 
-			$lojas->setLat($lat);
-			$lojas->setLong($long);
-			$item = $lojas->geolocalizacso($id);
+			$data = date("Y-m-d");
+			$lojas->setName($name);
+			$lojas->setNick($nick);
+			$lojas->setProprietario($proprietario_id);
+			$lojas->setGrupo($grupo);
+			$lojas->setSeguimento($seguimento);
+			$lojas->setData($data);
+			$lojas->setAtivo($ativo);
+
+			foreach($lojas->findAll() as $key => $value): {
+				$validar = $this->checkDuplicity($value->nick, $nick );
+				if( $validar ):
+					$item['id'] = $value->id;
+					$item['error'] = true;
+					$item['message'] = 'Error, Nome Fantasia já existir!';
+				endif;
+			}endforeach;
+			
+			if( !isset($id) && !$item['error'] ):
+				
+				# Insert
+				$item = $lojas->insert();
+
+			endif;
+			if( isset($id) && ( !$item['error'] || $item['id'] == $id ) ):
+				# Update
+				$item = $lojas->update($id);
+				//echo "edt";
+			endif;
 
 			$res = $this->statusReturn($item);
 			return $res;
 		}
 		
-		public function deleteLoja( $localId ){
+		public function deleteLoja( $lojaId ){
 
-			$lojas 			= new Loja();
-			$localCategorias	= new LocalCategorias();
-			$item 	= $this->anexoLoja( $localId );
+			$lojas 				= new Loja();
+			$localCategorias	= new LojaCategorias();
+			$item 	= $this->anexoLoja( $lojaId );
 			if( !$item['error'] ){
-				$item	= $lojas->delete($localId);
-				$item	= $localCategorias->deleteCategoriaPorLoja($localId);
+				echo 'delete';
+				//$item	= $lojas->delete( $lojaId );
+				//$item	= $localCategorias->deleteLoja( $lojaId );
 			}
 			$res	= $this->statusReturn($item);
 			return $res;
 		}
 
-		public function anexoLoja( $localId ){
+		public function anexoLoja( $lojaId ){
 
 			$equipamentos	= new Equipamento();
+			$locais			= new Local();
 
-			$item['equipLocal_tt'] 			= $equipamentos->contLoja( $item['id'] );
-			if( $item['equipLocal_tt']  == 0 ){
-				$res['error'] = false;
-				$res['message'] = 'OK, Local pode ser deletado';
-			}else{
+			$item['equip_tt'] 	= $equipamentos->contLoja( $lojaId );
+			$item['local_tt']	= $locais->contLoja( $lojaId );
+
+			if( $item['equip_tt'] > 0 || $item['local_tt'] > 0 ){
 				$res['error'] = true;
-				$res['message'] = 'Error, '.$item['equipLocal_tt'] .' - Equipamento(s) nesse Local! É necessario remover-los antes.';
+				$res['message'] = 'Error, loja com '.$item['local_tt'] .' - Localidade(s), '.$item['equip_tt'] .' - Equipamento(s)! É necessario remover-los antes.';
+			}else{
+				$res['error'] = false;
+				$res['message'] = 'OK, Loja pode ser deletado';
 			}
 			return $res;
 		}

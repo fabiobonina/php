@@ -50,13 +50,12 @@ class Loja extends Crud{
 			$stmt->execute();
 			
 			$res['error'] = false;
-			return $res['message'] = 'OK, salvo com sucesso';
-			
+			$res['message'] = 'OK, salvo com sucesso';
+			return $res;
 		} catch(PDOException $e) {
 			$res['error'] = true; 
-			$arError = $e->getMessage();
-			header('Content-Type: application/json');
-			echo json_encode($res, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 
 	}
@@ -74,13 +73,12 @@ class Loja extends Crud{
 			$stmt->execute();
 
 			$res['error'] = false;
-			return $res['message'] = 'OK, salvo com sucesso';
-
+			$res['message'] = 'OK, salvo com sucesso';
+			return $res;
 		} catch(PDOException $e) {
 			$res['error'] = true; 
 			$res['message'] = $e->getMessage();
-			header("Content-Type: application/json");
-			echo json_encode($res, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+			return $res;
 		}
 		
 	}

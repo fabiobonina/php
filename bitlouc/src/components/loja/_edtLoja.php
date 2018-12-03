@@ -1,13 +1,26 @@
 <template id="loja-edt">
   <div>
+    <!--v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="dialog = true" color="pink" fab small dark>
+      <v-icon>mdi-plus</v-icon>
+    </v-btn-->
     <v-dialog v-model="dialog" persistent scrollable max-width="500px">
       <v-card>
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click="dialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-toolbar-title>Loja</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn icon flat @click.native="saveItem()">
+              <v-icon>mdi-content-save</v-icon>
+            </v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
         <v-card-title>
           <span class="headline">{{ proprietario.nick }} - Editar Loja</span>
         </v-card-title>
         <v-card-text>
-          <message :success="successMessage" :error="errorMessage"></message>
-          <loader :dialog="isLoading"></loader>
           <v-form>
             <v-text-field
               v-model="data.name"
@@ -54,13 +67,9 @@
               <v-radio label="Não" value="1"></v-radio>
             </v-radio-group>
           </v-form>
-
+          <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+          <loader :dialog="isLoading"></loader>
         </v-card-text>
-        <v-card-actions>
-            <v-btn flat @click.stop="$emit('close')">Fechar</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click.stop="saveItem()">Salvar</v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
   </div>
@@ -100,10 +109,8 @@ Vue.component('loja-edt', {
     this.$validator.localize('pt_BR', this.dictionary)
   },
   computed: {
-    temMessage () {
-      if(this.errorMessage.length > 0) return true
-      if(this.successMessage.length > 0) return true
-      return false
+    user()  {
+      return store.state.user;
     },
     proprietario() {
       return store.state.proprietario;
@@ -114,9 +121,6 @@ Vue.component('loja-edt', {
     grupos() {
       return store.state.grupos;
     },
-    categorias() {
-      return store.state.categorias;
-    },
   },
   methods: {
     saveItem: function() {
@@ -125,18 +129,19 @@ Vue.component('loja-edt', {
       if(this.checkForm()){
         this.isLoading = true
         var postData = {
+          proprietario_id: this.data.proprietario_id,
+          id: this.data.id,
           nick: this.data.nick,
           name: this.data.name,
           grupo: this.data.grupo,
           seguimento: this.data.seguimento,
-          ativo: this.data.ativo,
-          id: this.data.id
+          ativo: this.data.ativo
         };
         //console.log(postData);
-        this.$http.post('./config/api/apiLoja.php?action=editar', postData).then(function(response) {
-          //console.log(response);
+        this.$http.post('./config/api/apiLoja.php?action=publish', postData).then(function(response) {
+          console.log(response);
           if(response.data.error){
-            this.errorMessage = response.data.message;
+            this.errorMessage.push(response.data.message);
             this.isLoading = false;
           } else{
             this.successMessage.push(response.data.message);

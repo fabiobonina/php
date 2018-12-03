@@ -76,6 +76,7 @@ class LocalCategorias extends Crud{
 
 }
 }catch( Exception $e ) {
-    echo $e->getMessage();
-    return false;
+    $res['error'] = true; 
+	$res['message'] = $e->getMessage();
+	return $res;
 }

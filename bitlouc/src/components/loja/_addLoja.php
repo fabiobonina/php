@@ -1,6 +1,6 @@
 <template id="loja-add">
   <div>
-  <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="dialog = true" color="pink" fab small dark>
+    <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="dialog = true" color="pink" fab small dark>
       <v-icon>mdi-plus</v-icon>
     </v-btn>
     <v-dialog v-model="dialog" persistent scrollable  max-width="500px">
@@ -21,7 +21,7 @@
           <span class="headline">{{ proprietario.nick }}</span>
         </v-card-title>
         <v-card-text>
-          <message :success="successMessage" :error="errorMessage"></message>
+          <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
           <loader :dialog="isLoading"></loader>
           <v-form>
             <v-text-field
@@ -63,35 +63,9 @@
               data-vv-name="seguimento"
               required
             ></v-select>
-            <v-autocomplete
-              :items="categorias" v-model="categoria" label="Categorias"
-              :error-messages="errors.collect('categoria')" v-validate="'required'" data-vv-name="categoria"
-              required multiple chips max-height="auto"
-              >
-              <template slot="selection" slot-scope="data">
-                <v-chip
-                  :selected="data.selected"
-                  :key="JSON.stringify(data.item)"
-                  close class="chip--select-multi"
-                  @input="data.parent.selectItem(data.item)"
-                >
-                  {{ data.item.name }}
-                </v-chip>
-              </template>
-              <template slot="item" slot-scope="data">
-                <template v-if="typeof data.item !== 'object'">
-                  <v-list-tile-content v-text="data.item"></v-list-tile-content>
-                </template>
-                <template v-else>
-                  <v-list-tile-content>
-                    <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
-                  </v-list-tile-content>
-                </template>
-              </template>
-            </v-autocomplete>
             <p>Ativo?</p>
             <v-radio-group v-model="ativo" row>
-              <v-radio label="Sim" value="0" ></v-radio>
+              <v-radio label="Sim" value="0"></v-radio>
               <v-radio label="Não" value="1"></v-radio>
             </v-radio-group>
           </v-form>
@@ -114,9 +88,9 @@
       errorMessage: [],
       successMessage: [],
       isLoading: false,
-      dialog: true,
+      dialog: false,
       item:{},
-      nick:'', name:'', grupo:'C', seguimento:'', ativo:'0', categoria: [],
+      nick:'', name:'', grupo:'C', seguimento:'', ativo:'0',
       dictionary: {
         attributes: {
           name: 'Nome',
@@ -135,11 +109,6 @@
     user()  {
       return store.state.user;
     },
-    temMessage () {
-      if(this.errorMessage.length > 0) return true
-      if(this.successMessage.length > 0) return true
-      return false
-    },
     proprietario() {
       return store.state.proprietario;
     },
@@ -148,9 +117,6 @@
     },
     grupos() {
       return store.state.grupos;
-    },
-    categorias() {
-      return store.state.categorias;
     },
   },
   methods: {
@@ -165,7 +131,6 @@
               name: this.name,
               grupo: this.grupo,
               seguimento: this.seguimento,
-              categoria: this.categoria,
               proprietario_id: this.proprietario.id,
               ativo: this.ativo
             };
@@ -173,8 +138,11 @@
             this.$http.post('./config/api/apiLoja.php?action=publish', postData).then(function(response) {
               console.log(response);
               if(response.data.error){
-                this.errorMessage = response.data.message;
+                this.errorMessage.push(response.data.message);
                 this.isLoading = false;
+                setTimeout(() => {
+                  this.errorMessage = [];
+                }, 4000);
               } else{
                 this.successMessage.push(response.data.message);
                 this.isLoading = false;
@@ -182,6 +150,8 @@
                   console.log("Atualizado lojas!")
                 });
                 setTimeout(() => {
+                  this.successMessage = [];
+                  this.dialog = false;
                   this.$emit('close');
                 }, 2000);
               }

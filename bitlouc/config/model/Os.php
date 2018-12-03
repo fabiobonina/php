@@ -407,7 +407,9 @@ class Os extends Crud{
 			$stmt->execute();
 			return $stmt->fetchColumn();
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error'] = true; 
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 	}
 
@@ -422,7 +424,9 @@ class Os extends Crud{
 			$stmt->execute();
 			return $stmt->fetchColumn();
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error'] = true; 
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 	}
 	
