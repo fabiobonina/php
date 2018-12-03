@@ -2,12 +2,22 @@
   <div>
     <v-dialog v-model="dialog" persistent scrollable max-width="500px">
       <v-card>
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click="$emit('close')">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-toolbar-title>Loja</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn icon flat @click.native="saveItem()">
+              <v-icon>mdi-content-save</v-icon>
+            </v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
         <v-card-title>
           CATEGORIAS: {{ proprietario.nick }} - {{ loja.nick }} 
         </v-card-title>
         <v-card-text>
-          <message :success="successMessage" :error="errorMessage"></message>
-          <loader :dialog="isLoading"></loader>
           <v-form>
             <div>
               <v-chip small v-for="item in loja.categoria" close @input="catDelete(item)" :key="item.id"
@@ -57,6 +67,8 @@
               </template>
             </v-autocomplete>
           </v-form>
+          <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+          <loader :dialog="isLoading"></loader>
         </v-card-text>
         <v-card-actions>
             <v-btn flat @click.stop="$emit('close')">Fechar</v-btn>

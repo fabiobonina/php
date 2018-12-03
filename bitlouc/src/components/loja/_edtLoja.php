@@ -6,7 +6,7 @@
     <v-dialog v-model="dialog" persistent scrollable max-width="500px">
       <v-card>
         <v-toolbar dark color="primary">
-          <v-btn icon dark @click="dialog = false">
+          <v-btn icon dark @click="$emit('close')">
             <v-icon>mdi-close</v-icon>
           </v-btn>
           <v-toolbar-title>Loja</v-toolbar-title>

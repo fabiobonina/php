@@ -140,9 +140,6 @@
               if(response.data.error){
                 this.errorMessage.push(response.data.message);
                 this.isLoading = false;
-                setTimeout(() => {
-                  this.errorMessage = [];
-                }, 4000);
               } else{
                 this.successMessage.push(response.data.message);
                 this.isLoading = false;

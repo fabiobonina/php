@@ -102,9 +102,9 @@
 			$localCategorias	= new LojaCategorias();
 			$item 	= $this->anexoLoja( $lojaId );
 			if( !$item['error'] ){
-				echo 'delete';
-				//$item	= $lojas->delete( $lojaId );
-				//$item	= $localCategorias->deleteLoja( $lojaId );
+				//echo 'delete';
+				$item	= $lojas->delete( $lojaId );
+				$item	= $localCategorias->deleteLoja( $lojaId );
 			}
 			$res	= $this->statusReturn($item);
 			return $res;

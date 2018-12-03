@@ -23,17 +23,17 @@
             return {
                 snackbar: false,
                 snackbar1: false,
-                timeout: 7000,
+                timeout: 9000,
             };
         },
-        /*watch: {
+        watch: {
             'error': function (newQuestion, oldQuestion) {
-                !this.snackbar
+                this.time();
             },
             'success': function (newQuestion, oldQuestion) {
-                !this.snackbar1
+                this.time();
             },
-        },*/
+        },
         computed: {
             temErros () {
                 if(this.error.length > 0) return true
@@ -47,6 +47,11 @@
         methods: {
             close () {
                 this.$emit('close');
+            },
+            time () {
+                setTimeout(() => {
+                    this.$emit('close');
+                }, 8000);
             },
         },
     });
