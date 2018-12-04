@@ -136,7 +136,7 @@
             };
             //console.log(postData);
             this.$http.post('./config/api/apiLoja.php?action=publish', postData).then(function(response) {
-              console.log(response);
+              //console.log(response);
               if(response.data.error){
                 this.errorMessage.push(response.data.message);
                 this.isLoading = false;

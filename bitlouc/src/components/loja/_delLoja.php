@@ -65,7 +65,7 @@ Vue.component('loja-del', {
         };
         //console.log(postData);
         this.$http.post('./config/api/apiLoja.php?action=deletar', postData).then(function(response) {
-          console.log(response);
+          //console.log(response);
           if(response.data.error){
             this.errorMessage.push(response.data.message);
             this.isLoading = false;

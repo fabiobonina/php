@@ -99,12 +99,12 @@
 		public function deleteLoja( $lojaId ){
 
 			$lojas 				= new Loja();
-			$localCategorias	= new LojaCategorias();
+			$lojaCategorias	= new LojaCategorias();
 			$item 	= $this->anexoLoja( $lojaId );
 			if( !$item['error'] ){
 				//echo 'delete';
 				$item	= $lojas->delete( $lojaId );
-				$item	= $localCategorias->deleteLoja( $lojaId );
+				$item	= $lojaCategorias->deleteLoja( $lojaId );
 			}
 			$res	= $this->statusReturn($item);
 			return $res;
@@ -129,45 +129,48 @@
 		}
 
 		#LOCAL_CATERORIAS----------------------------------------------------------------------------------
-		public function insertCategoria( $localId, $categorias ){
+		public function insertCategoria( $lojaId, $categorias ){
 
-			$localCategorias = new LocalCategorias();
-
+			$lojaCategorias = new LojaCategorias();
+			$itemTt = 0;
+			$itemS = 0;
+			$itemR = 0;
 			foreach ( $categorias as $data){
-				$categoriaId = $data['id'];
+				echo $categoriaId = $data['id'];
 				$duplicado = false;
+				$itemTt++;
+				$error = '';
 
-				foreach($localCategorias->findAll() as $key => $value):if( $value->categoria_id == $categoriaId )  {
+				foreach($lojaCategorias->findAll() as $key => $value):if( $value->categoria_id == $categoriaId )  {
 					$duplicado = true;       
 				}endforeach;
 
 				if( !$duplicado ){
-				  $localCategorias->setLoja($local);
-				  $localCategorias->setCategoria($itemId);
-					$item = $localCategorias->insert();
-
+					$itemS++;
+				  	$lojaCategorias->setLoja($lojaId);
+				  	$lojaCategorias->setCategoria($itemId);
+					$item = $lojaCategorias->insert();
+					if($item['error'] == true ){
+						$error = $item['message'];
+					}
 				}else{
-				  $item['error'] = true; 
-				  $item['message'] = "Error, item já cadastrado";
+					$itemS++;
 				}
+				$item['error'] = false;
+				$item['message'] = 'Do(s) '.$itemTt .' enviado(s), valido(s): '.$itemS .', já cadastrado(s): '.$itemR .'.(Error: '.$error .' )';
 			}
 
-			if($item['error'] == true ){
-				$res = $this->statusReturn($item);
-			}else{
-
-				$res = $this->statusReturn($item);
-			}
+			$res = $this->statusReturn($item);
 			return $res;
 
 		}
 
 		public function statusCategoria( $localCatId, $ativo ){
 
-			$localCategorias = new LocalCategorias();
+			$lojaCategorias = new LojaCategorias();
 
-			$localCategorias->setAtivo($ativo);
-			$item = $localCategorias->update($localCatId);
+			$lojaCategorias->setAtivo($ativo);
+			$item = $lojaCategorias->update($localCatId);
 
 			$res = $this->statusReturn($item);
 			return $res;
@@ -176,9 +179,9 @@
 
 		public function deleteCategoria( $localCatId ){
 
-			$localCategorias = new LocalCategorias();
+			$lojaCategorias = new LojaCategorias();
 
-			$item = $localCategorias->delete($localCatId);
+			$item = $lojaCategorias->delete($localCatId);
 			$res = $this->statusReturn($item);
 			return $res;
 			
@@ -186,9 +189,9 @@
 
 		public function deleteCategoriaPorLoja( $localId ){
 
-			$localCategorias = new LocalCategorias();
+			$lojaCategorias = new LojaCategorias();
 
-			$res = $localCategorias->deleteLoja($localId);
+			$res = $lojaCategorias->deleteLoja($localId);
 			//$res = $this->statusReturn($item);
 			return $res;
 			

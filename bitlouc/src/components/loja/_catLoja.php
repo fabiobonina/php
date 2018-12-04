@@ -32,25 +32,27 @@
                 <strong>{{ item.name }}</strong>
               </v-chip>
             </div>
+            
             <v-autocomplete
-              :items="categorias"
               v-model="categoria"
+              :items="categorias"
+              box
+              chips
+              color="blue-grey lighten-2"
               label="Categorias"
+              item-text="name"
+              multiple
               :error-messages="errors.collect('categoria')"
               v-validate="'required'"
               data-vv-name="categoria"
-              required
-              multiple
-              chips
-              max-height="auto"
+              return-object
             >
               <template slot="selection" slot-scope="data">
                 <v-chip
                   :selected="data.selected"
-                  :key="JSON.stringify(data.item)"
                   close
                   class="chip--select-multi"
-                  @input="data.parent.selectItem(data.item)"
+                  @input="remove(data.item)"
                 >
                   {{ data.item.name }}
                 </v-chip>
@@ -62,6 +64,7 @@
                 <template v-else>
                   <v-list-tile-content>
                     <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
+                    <v-list-tile-sub-title v-html="data.item.tag"></v-list-tile-sub-title>
                   </v-list-tile-content>
                 </template>
               </template>
@@ -132,7 +135,7 @@ Vue.component('loja-cat', {
             };
             //console.log(postData);
             this.$http.post('./config/api/apiLoja.php?action=catCadastrar', postData ).then(function(response) {
-              //console.log(response.data.message);
+              console.log(response);
               if(response.data.error){
                 this.errorMessage = response.data.message;
                 this.isLoading = false;

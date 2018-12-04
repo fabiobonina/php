@@ -94,43 +94,10 @@ header('Content-Type: text/html; charset=utf-8');
   #CATEGORIA-CADASTRAR----------------------------------------------------------------------
   if($action == 'catCadastrar'):
     #Novo
-    $loja  = $_POST['loja'];
+    echo $loja  = $_POST['loja'];
     $categoria = $_POST['categoria'];
-    foreach ( $categoria as $data){
-      $itemId = $data['id'];
-      $duplicado = false;
-      foreach($lojaCategorias->findAll() as $key => $value): {
-        $catLjCategoria = $value->categoria;
-        $catLjLoja = $value->loja;
-        
-        if($loja == $catLjLoja){
-          if($itemId == $catLjCategoria ):
-            $duplicado = true;
-          endif;
-        }          
-      }endforeach;
-      if( !$duplicado ){
-        $lojaCategorias->setLoja($loja);
-        $lojaCategorias->setCategoria($itemId);
-        # Insert
-        if($lojaCategorias->insert()){
-          $res['error'] = false;
-          $res['message']= "OK, dados salvo com sucesso";
-        }else{
-          $res['error'] = true; 
-          $arError = "Error, nao foi possivel salvar os dados";
-          array_push($arErros, $arError);
-        }
-      }else{
-        $res['error'] = true; 
-        $arError = "Error, item já cadastrado";
-        array_push($arErros, $arError);
-      }
-    }
-      
-    if($res['error'] == true){
-      $res['message']= $arErros;
-    }
+    
+    $res =  $lojaControl->insertCategoria( $loja, $categoria );
 
   endif;
   #CATEGORIA-CADASTRAR----------------------------------------------------------------------
