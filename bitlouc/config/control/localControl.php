@@ -47,7 +47,8 @@
 		}
 
 		public function publish(
-			$loja,
+			$loja_id,
+			$proprietario_id,
 			$tipo,
 			$regional,
 			$name,
@@ -61,7 +62,8 @@
 			$item['error'] = false;
 			$locais	= new Local();
 
-			$locais->setLoja($loja);
+			$locais->setLoja($loja_id);
+			$locais->setProprietario($proprietario_id);
 			$locais->setTipo($tipo);
 			$locais->setRegional($regional);
 			$locais->setName($name);
@@ -69,8 +71,8 @@
 			$locais->setUf($uf);
 			$locais->setAtivo($ativo);
 
-			foreach($locais->findAll() as $key => $value):if($value->loja_id == $loja && $value->name == $name )  {
-				$validar = $this->checkDuplicity($value->nick, $nick );
+			foreach($locais->findAll() as $key => $value):if($value->loja_id == $loja_id )  {
+				$validar = $this->checkDuplicity($value->name, $name );
 				if( $validar ):
 					$validarId = $value->id;
 					$item['error'] = true;
@@ -92,68 +94,6 @@
 				echo 'updade';
 			endif;
 
-			$res = $this->statusReturn($item);
-			return $res;
-		}
-
-		public function insertLocal(
-			$loja,
-			$tipo,
-			$regional,
-			$name,
-			$municipio,
-			$uf,
-			$lat,
-			$long,
-			$categorias,
-			$ativo ){
-
-			$locais	= new Local();
-
-			$locais->setLoja($loja);
-			$locais->setTipo($tipo);
-			$locais->setRegional($regional);
-			$locais->setName($name);
-			$locais->setMunicipio($municipio);
-			$locais->setUf($uf);
-			$locais->setAtivo($ativo);
-			# Insert
-			$item = $locais->insert();
-			if( !$item['error'] ){
-				$item = $this->insertGeolocalizacao( $item['id'], $lat, $long );
-				if( isset( $categorias )):
-					$item = $this->insertCategoria( $item['id'], $categorias );
-				endif;				
-			}
-			$res = $this->statusReturn($item);
-			return $res;
-		}
-
-		public function updateLocal(
-			$loja,
-			$tipo,
-			$regional,
-			$name,
-			$municipio,
-			$uf,
-			$lat,
-			$long,
-			$ativo,
-			$id ){
-
-			$locais	= new Local();
-
-			$locais->setLoja($loja);
-			$locais->setTipo($tipo);
-			$locais->setRegional($regional);
-			$locais->setName($name);
-			$locais->setMunicipio($municipio);
-			$locais->setUf($uf);
-			$locais->setAtivo($ativo);
-			# Update
-			$item = $locais->updete($id);
-			$item = $this->insertGeolocalizacao( $id, $lat, $long );
-			
 			$res = $this->statusReturn($item);
 			return $res;
 		}
@@ -193,7 +133,7 @@
 				$res['message'] = 'OK, Local pode ser deletado';
 			}else{
 				$res['error'] = true;
-				$res['message'] = 'Error, '.$item['equipLocal_tt'] .' - Equipamento(s) nesse Local! É necessario remover-los antes.';
+				$res['message'] = 'Error, local com'.$item['equipLocal_tt'] .' - Equipamento(s)! É necessario remover-los antes.';
 			}
 			return $res;
 		}

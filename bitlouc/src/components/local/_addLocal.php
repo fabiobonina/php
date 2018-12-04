@@ -132,6 +132,7 @@
         return false
       },
       loja()  {
+        console.log(store.getters.getLojaId(this.$route.params._loja));
         return store.getters.getLojaId(this.$route.params._loja);
       },
       tipos() {
@@ -154,7 +155,8 @@
           var geoposicao = this.coordenadas .split(",");
           var postData = {
             id: '',
-            loja: this.$route.params._id,
+            loja_id: this.loja.id,
+            proprietario_id: this.loja.proprietario_id,
             tipo: this.tipo,
             regional: this.regional,
             name: this.name,

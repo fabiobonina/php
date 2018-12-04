@@ -42,7 +42,8 @@ endif;
 
 #CRIAR_EDITAR-------------------------------------------------------------------------------
 if($action == 'publish'):
-  $loja       = $_POST['loja'];
+  $loja_id          = $_POST['loja_id'];
+  $proprietario_id  = $_POST['proprietario_id'];
   $tipo       = $_POST['tipo'];
   $regional   = $_POST['regional'];
   $name       = $_POST['name'];
@@ -56,13 +57,13 @@ if($action == 'publish'):
     $id = NULL;
   endif;
 
-  $res =  $localControl->publish( $loja,  $tipo,  $regional, $name, $municipio,  $uf,  $lat,  $long, $ativo, $id );
+  $res =  $localControl->publish( $loja_id, $proprietario_id, $tipo,  $regional, $name, $municipio,  $uf,  $lat,  $long, $ativo, $id );
 
 endif;
 #CRIAR_EDITAR-------------------------------------------------------------------------------
 #CADASTRAR
 if($action == 'cadastrar'):
-  $loja       = $_POST['loja'];
+  $loja       = $_POST['loja_id'];
   $tipo       = $_POST['tipo'];
   $regional   = $_POST['regional'];
   $name       = $_POST['name'];

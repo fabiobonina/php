@@ -62,6 +62,7 @@ class Local extends Crud{
 			$stmt->bindParam(':municipio',		$this->municipio);
 			$stmt->bindParam(':uf',				$this->uf);
 			$stmt->bindParam(':ativo',			$this->ativo);
+			$stmt->execute();
 			
 			$Id = DB::getInstance()->lastInsertId();
 			$res['id'] = $Id;
