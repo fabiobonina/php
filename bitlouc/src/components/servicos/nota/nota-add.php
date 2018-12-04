@@ -6,7 +6,7 @@
           <span class="headline">{{ data.local.tipo }} - {{ data.local.name }} - Descrição serviço</span>
         </v-card-title>
         <v-card-text>
-          <message :success="successMessage" :error="errorMessage"></message>
+          <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
           <loader :dialog="isLoading"></loader>
           <v-container>
             <v-layout wrap>

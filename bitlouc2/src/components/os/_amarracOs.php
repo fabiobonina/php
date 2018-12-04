@@ -6,7 +6,7 @@
           <span class="headline">OS: {{ data.local.tipo }} - {{ data.local.name }} {{data.servico.name }}</span>
         </v-card-title>
         <v-card-text>
-          <message :success="successMessage" :error="errorMessage"></message>
+          <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
           <loader :dialog="isLoading"></loader>
           <v-container grid-list-md>
             <v-layout wrap>
@@ -58,7 +58,7 @@
     <div class="modal-background"></div>
     <div class="modal-card">
         <!--#CONTEUDO -->
-        <message :success="successMessage" :error="errorMessage"></message>
+        <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
         Numero atual: {{ data.filial }} | {{ data.os }}
         <div class="field is-horizontal">
           <div class="field-label is-normal">

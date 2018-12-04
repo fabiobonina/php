@@ -8,14 +8,14 @@ class LojaCategorias extends Crud{
 	
 	protected $table = 'tb_loja_categoria';
 	private $loja_id;
-	private $categoria;
+	private $categoria_id;
 	private $ativo;
 
 	public function setLoja($loja_id){
 		$this->loja_id = $loja_id;
 	}
-	public function setCategoria($categoria){
-		$this->categoria = $categoria;
+	public function setCategoria($categoria_id){
+		$this->categoria_id = $categoria_id;
 	}
 	public function setAtivo($ativo){
 		$this->ativo = $ativo;
@@ -23,11 +23,11 @@ class LojaCategorias extends Crud{
 
 	public function insert(){
 		try{
-			$sql  = "INSERT INTO $this->table ( loja_id, categoria ) ";
-			$sql .= "VALUES ( :loja_id, :categoria )";
+			$sql  = "INSERT INTO $this->table ( loja_id, categoria_id ) ";
+			$sql .= "VALUES ( :loja_id, :categoria_id )";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':loja_id', $this->loja_id );
-			$stmt->bindParam(':categoria', $this->categoria );
+			$stmt->bindParam(':categoria_id', $this->categoria_id );
 			
 			$stmt->execute();
 			$res['error'] = false;

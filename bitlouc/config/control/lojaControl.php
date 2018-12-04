@@ -17,7 +17,7 @@
 			$item->ossAndamentoQt	= $oss->contOsStatusLoja( $item->id, 1 );
 			$item->ossConcluidoQt	= $oss->contOsStatusLoja( $item->id, 2 );
 			$item->ossQt 			= $oss->contLoja( $item->id );
-			$item->categorias 		= $this->listCategoriaLoja( $item->id );
+			$item->categoria 		= $this->listCategoriaLoja( $item->id );
 			return $item;
 
 		}
@@ -148,16 +148,16 @@
 				if( !$duplicado ){
 					$itemS++;
 				  	$lojaCategorias->setLoja($lojaId);
-				  	$lojaCategorias->setCategoria($itemId);
+				  	$lojaCategorias->setCategoria($categoriaId);
 					$item = $lojaCategorias->insert();
 					if($item['error'] == true ){
 						$error = $item['message'];
 					}
 				}else{
-					$itemS++;
+					$itemR++;
 				}
 				$item['error'] = false;
-				$item['message'] = 'Do(s) '.$itemTt .' enviado(s), valido(s): '.$itemS .', já cadastrado(s): '.$itemR .'.(Error: '.$error .' )';
+				$item['message'] = 'Do(s) '.$itemTt .' enviado(s), '.$itemS .' - valido(s), '.$itemR .' - já cadastrado(s).(Error: '.$error .' )';
 			}
 
 			$res = $this->statusReturn($item);
@@ -165,29 +165,29 @@
 
 		}
 
-		public function statusCategoria( $localCatId, $ativo ){
+		public function statusCategoria( $lojaCatId, $ativo ){
 
 			$lojaCategorias = new LojaCategorias();
 
 			$lojaCategorias->setAtivo($ativo);
-			$item = $lojaCategorias->update($localCatId);
+			$item = $lojaCategorias->update($lojaCatId);
 
 			$res = $this->statusReturn($item);
 			return $res;
 			
 		}
 
-		public function deleteCategoria( $localCatId ){
+		public function deleteCategoria( $lojaCatId ){
 
 			$lojaCategorias = new LojaCategorias();
 
-			$item = $lojaCategorias->delete($localCatId);
-			$res = $this->statusReturn($item);
+			$item 	= $lojaCategorias->delete($lojaCatId);
+			$res 	= $this->statusReturn($item);
 			return $res;
 			
 		}
 
-		public function deleteCategoriaPorLoja( $localId ){
+		public function deleteCategoriaLoja( $localId ){
 
 			$lojaCategorias = new LojaCategorias();
 
@@ -206,14 +206,14 @@
 			foreach($lojaCategorias->findAll() as $key => $value):if($value->loja_id == $lojaId) {
 				$categoriaId 	= $value->categoria_id;
 				$lojaCatAtivo 	= $value->ativo;
-				$lojaCatId 	= $value->id;
-				foreach($categorias->find( $categoriaId ) as $key => $value): {
-					$item = (array) $value;
-					$item['categoria_id'] 	= $categoriaId;
-					$item['ativo']			= $lojaCatAtivo;
-					$item['id'] 			= $lojaCatId;
-					array_push( $arTens, $item );
-				}endforeach;
+				$lojaCatId 		= $value->id;
+
+				$item = $categorias->find( $categoriaId );
+				$item->categoria_id = $categoriaId;
+				$item->ativo		= $lojaCatAtivo;
+				$item->id 			= $lojaCatId;
+				$item = (array) $item;
+				array_push( $arTens, $item );
 			}endforeach;
 
 			$res = $arTens;

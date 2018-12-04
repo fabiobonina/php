@@ -6,7 +6,7 @@
       </v-card-title>
       <v-card-text>
         
-        <message :success="successMessage" :error="errorMessage"></message>
+        <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
         <v-form>
         <v-text-field
             v-model="email"

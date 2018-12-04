@@ -27,7 +27,7 @@ endif;
 if($action == 'loja'):
 
   $lojaId = $_POST['loja'];
-  //$lojaId = '1';
+  //$lojaId = '2';
   
   
   if($user['grupo'] == 'P'){
@@ -40,6 +40,26 @@ if($action == 'loja'):
   
 endif;
 
+#CRIAR_EDITAR-------------------------------------------------------------------------------
+if($action == 'publish'):
+  $loja       = $_POST['loja'];
+  $tipo       = $_POST['tipo'];
+  $regional   = $_POST['regional'];
+  $name       = $_POST['name'];
+  $municipio  = $_POST['municipio'];
+  $uf         = $_POST['uf'];
+  $lat        = $_POST['latitude'];
+  $long       = $_POST['longitude'];
+  $ativo      = $_POST['ativo'];
+  $id         = $_POST['id'];
+  if( $id == "" ):
+    $id = NULL;
+  endif;
+
+  $res =  $localControl->publish( $loja,  $tipo,  $regional, $name, $municipio,  $uf,  $lat,  $long, $ativo, $id );
+
+endif;
+#CRIAR_EDITAR-------------------------------------------------------------------------------
 #CADASTRAR
 if($action == 'cadastrar'):
   $loja       = $_POST['loja'];

@@ -8,7 +8,7 @@
       </header>
       <section class="modal-card-body">
         <!--#CONTEUDO -->
-        <message :success="successMessage" :error="errorMessage"></message>
+        <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
         <div class="field">
           <label class="label">Nota do Serviço</label>
           <div class="control">

@@ -22,8 +22,8 @@ header('Content-Type: text/html; charset=utf-8');
   if($action == 'read'){
 
     $lojaId = '1';
-    $item = $lojaControl->listLoja( $lojaId );
-    $res['locais'] = $item;
+    $item = $lojaControl->list( $lojaId );
+    $res['lojas'] = $item;
 
   }
 
@@ -58,36 +58,23 @@ header('Content-Type: text/html; charset=utf-8');
 
   #CATEGORIA-ATIVO----------------------------------------------------------------------
   if($action == 'catStatus'):
-    $ativo = $_POST['ativo'];
-    $id     = $_POST['id'];
 
-    $lojaCategorias->setAtivo($ativo);
+    $ativo          = $_POST['ativo'];
+    $lojaCatId      = $_POST['id'];
 
-    if($lojaCategorias->update($id)){
-      $res['error'] = false;
-      $arDados = "OK, dados atualisado com sucesso";
-      $res['message']= $arDados;
-    }else{
-      $res['error'] = true; 
-      $arError = "Error, nao foi possivel salvar os dados";
-      array_push($arErros, $arError);
-    }
+    $item = $lojaControl->statusCategoria( $lojaCatId, $ativo );
+    $res = $item;
+
   endif;
   #CATEGORIA-ATIVO----------------------------------------------------------------------
   
   #CATEGORIA-DELETAR----------------------------------------------------------------------
   if($action == 'catDelete'):
-    $id = $_POST['id'];
+    $lojaCatId = $_POST['id'];
 
-    if($lojaCategorias->delete($id)){
-      $res['error'] = false;
-      $arDados = "OK, dados deleto com sucesso";
-      $res['message']= $arDados;
-    }else{
-      $res['error'] = true; 
-      $arError = "Error, nao foi possivel realisar operação";
-      array_push($arErros, $arError);
-    }
+    $item = $lojaControl->deleteCategoria( $lojaCatId );
+    $res = $item;
+
   endif;
   #CATEGORIA-DELETAR----------------------------------------------------------------------
   

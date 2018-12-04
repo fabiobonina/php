@@ -7,7 +7,7 @@
         <button class="delete" aria-label="close" v-on:click="$emit('close')"></button>
       </header>
       <section class="modal-card-body">
-        <message :success="successMessage" :error="errorMessage"></message>
+        <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
         <!--#CONTEUDO -->
         <h2 class="subtitle">Categorias</h2>
         <div v-for="item in local.categoria">

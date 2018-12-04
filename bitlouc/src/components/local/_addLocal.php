@@ -6,8 +6,6 @@
           <span class="headline">{{ loja.nick }} - Nova Local</span>
         </v-card-title>
         <v-card-text>
-          <message :success="successMessage" :error="errorMessage"></message>
-          <loader :dialog="isLoading"></loader>
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12>
@@ -71,34 +69,6 @@
                   data-vv-name="coordenadas"
                 ></v-text-field>
               </v-flex>
-              <v-flex xs12>
-                <v-autocomplete
-                  :items="categorias" v-model="categoria" label="Categorias"
-                  :error-messages="errors.collect('categoria')" v-validate="'required'" data-vv-name="categoria"
-                  required multiple chips max-height="auto"
-                  >
-                  <template slot="selection" slot-scope="data">
-                    <v-chip
-                      :selected="data.selected"
-                      :key="JSON.stringify(data.item)"
-                      close class="chip--select-multi"
-                      @input="data.parent.selectItem(data.item)"
-                    >
-                      {{ data.item.name }}
-                    </v-chip>
-                  </template>
-                  <template slot="item" slot-scope="data">
-                    <template v-if="typeof data.item !== 'object'">
-                      <v-list-tile-content v-text="data.item"></v-list-tile-content>
-                    </template>
-                    <template v-else>
-                      <v-list-tile-content>
-                        <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
-                      </v-list-tile-content>
-                    </template>
-                  </template>
-                </v-autocomplete>
-              </v-flex>
               <v-flex xs12 sm6 md2>
                 <small class="subheading">Ativo?</small>
               </v-flex>
@@ -111,7 +81,8 @@
             </v-layout>
           </v-container>
           <small>*indica campo obrigatório</small>
-
+          <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+          <loader :dialog="isLoading"></loader>
         </v-card-text>
         <v-card-actions>
             <v-btn flat @click.stop="$emit('close')">Fechar</v-btn>
@@ -137,7 +108,7 @@
       return {
         errorMessage: [],
         successMessage: [],
-        tipo: '', regional: '', name: '', municipio: '', uf: '', coordenadas:'', ativo: '0', categoria: [],
+        tipo: '', regional: '', name: '', municipio: '', uf: '', coordenadas:'', ativo: '0',
         item:{},
         isLoading: false,
         dictionary: {
@@ -161,7 +132,7 @@
         return false
       },
       loja()  {
-        return store.getters.getLojaId(this.$route.params._id);
+        return store.getters.getLojaId(this.$route.params._loja);
       },
       tipos() {
         return store.state.tipos;
@@ -182,6 +153,7 @@
           };
           var geoposicao = this.coordenadas .split(",");
           var postData = {
+            id: '',
             loja: this.$route.params._id,
             tipo: this.tipo,
             regional: this.regional,
@@ -190,13 +162,12 @@
             uf: this.uf,
             latitude: geoposicao[0],
             longitude: geoposicao[1],
-            ativo: this.ativo,
-            categorias: this.categoria
+            ativo: this.ativo
           };
           //console.log(postData);
-          this.$http.post('./config/api/apiLocal.php?action=cadastrar', postData)
+          this.$http.post('./config/api/apiLocal.php?action=publish', postData)
             .then(function(response) {
-              //console.log(response);
+              console.log(response);
               if(response.data.error){
                 this.errorMessage.push(response.data.message);
                 this.isLoading = false;

@@ -1,5 +1,5 @@
 <template id="loja-top">
-  <div>
+  <div v-if="loja">
     <v-card>
       <v-toolbar color="cyan" dark>
         <v-btn @click="$router.go(-1)" icon>
@@ -49,7 +49,7 @@ Vue.component('loja-top',{
   },
   computed: {
     loja()  {
-      return store.getters.getLojaId(this.$route.params._id);
+      return store.getters.getLojaId(this.$route.params._loja);
     },
   }, // computed
   methods: {

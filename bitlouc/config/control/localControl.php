@@ -46,7 +46,55 @@
 			return $res;
 		}
 
-		
+		public function publish(
+			$loja,
+			$tipo,
+			$regional,
+			$name,
+			$municipio,
+			$uf,
+			$lat,
+			$long,
+			$ativo,
+			$id)
+		{
+			$item['error'] = false;
+			$locais	= new Local();
+
+			$locais->setLoja($loja);
+			$locais->setTipo($tipo);
+			$locais->setRegional($regional);
+			$locais->setName($name);
+			$locais->setMunicipio($municipio);
+			$locais->setUf($uf);
+			$locais->setAtivo($ativo);
+
+			foreach($locais->findAll() as $key => $value):if($value->loja_id == $loja && $value->name == $name )  {
+				$validar = $this->checkDuplicity($value->nick, $nick );
+				if( $validar ):
+					$validarId = $value->id;
+					$item['error'] = true;
+					$item['message'] = 'Error, Nome já existir!';
+				endif;
+			}endforeach;
+			
+			if( !isset($id) && !$item['error'] ):
+				# Insert
+				$item = $locais->insert();
+				if( !$item['error'] ){
+					$item = $this->insertGeolocalizacao( $item['id'], $lat, $long );				
+				}
+			endif;
+			if( isset($id) && ( !$item['error'] || $validarId == $id ) ):
+				# Update
+				//$item = $locais->updete($id);
+				//$item = $this->insertGeolocalizacao( $id, $lat, $long );
+				echo 'updade';
+			endif;
+
+			$res = $this->statusReturn($item);
+			return $res;
+		}
 
 		public function insertLocal(
 			$loja,

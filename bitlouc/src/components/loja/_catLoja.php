@@ -135,7 +135,7 @@ Vue.component('loja-cat', {
             };
             //console.log(postData);
             this.$http.post('./config/api/apiLoja.php?action=catCadastrar', postData ).then(function(response) {
-              console.log(response);
+              //console.log(response);
               if(response.data.error){
                 this.errorMessage = response.data.message;
                 this.isLoading = false;
@@ -149,7 +149,7 @@ Vue.component('loja-cat', {
                   this.errorMessage = [];
                   this.successMessage = [];
                   this.categoria = [];
-                }, 2000);
+                }, 8000);
               }
             })
             .catch(function(error) {
@@ -199,7 +199,7 @@ Vue.component('loja-cat', {
       };
       console.log(postData);
       this.$http.post('./config/api/apiLoja.php?action=catStatus', postData ).then(function(response) {
-        console.log(response);
+        //console.log(response);
         if(response.data.error){
           this.errorMessage = response.data.message;
           this.isLoading = false;

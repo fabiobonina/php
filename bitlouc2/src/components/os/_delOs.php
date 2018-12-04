@@ -6,7 +6,7 @@
           <span class="headline">OS Deletar</span>
         </v-card-title>
         <v-card-text>
-          <message :success="successMessage" :error="errorMessage"></message>
+          <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
           <loader :dialog="isLoading"></loader>
           <v-form>
             <div v-if='data.bem'>

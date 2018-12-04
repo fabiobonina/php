@@ -55,7 +55,7 @@ if(isset($_SESSION['loginEmail']) && (isset($_SESSION['loginNivel']))){
           <div class="column is-6 is-offset-3">
             <div class="box">
               <p class="has-text-centered">Faça login para iniciar sua sessão</p>
-              <message :success="successMessage" :error="errorMessage"></message>
+              <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
               <br>
               <!--#INICIO -->
               <div class="field">
@@ -97,7 +97,7 @@ if(isset($_SESSION['loginEmail']) && (isset($_SESSION['loginNivel']))){
             <!--#CONTEUDO -->
             <div class="box">
               <p class="has-text-centered">Registre-se</p>
-              <message :success="successMessage" :error="errorMessage"></message>
+              <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
               <br>
               <!--#INICIO -->
               <div class="field">

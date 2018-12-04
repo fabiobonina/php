@@ -8,7 +8,7 @@
       </header>
       <section class="modal-card-body">
         <!--#CONTEUDO -->
-        <message :success="successMessage" :error="errorMessage"></message>
+        <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
         <!--#INICIO -->
         <label class="label">Status</label>
         <div class="tabs is-toggle is-fullwidth is-small">

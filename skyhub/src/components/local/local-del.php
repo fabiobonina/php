@@ -8,7 +8,7 @@
       </header>
       <section class="modal-card-body">
         <!--#CONTEUDO -->
-        <message :success="successMessage" :error="errorMessage"></message>
+        <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
         <!--#CONTEUDO -->
         <h1 class="title">{{ data.tipo }}-{{ data.name }}</h1>
         <h2 class="subtitle">{{ data.municipio }}/ {{ data.uf }}</h2>       

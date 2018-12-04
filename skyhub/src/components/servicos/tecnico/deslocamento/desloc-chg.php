@@ -8,7 +8,7 @@
       </header>
       <section class="modal-card-body">
         <!--#CONTEUDO -->
-        <message :success="successMessage" :error="errorMessage"></message>
+        <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
         <!--#INICIO -->
         <div class="field is-horizontal">
           <div class="field-label">
