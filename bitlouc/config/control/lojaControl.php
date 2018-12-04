@@ -136,7 +136,7 @@
 			$itemS = 0;
 			$itemR = 0;
 			foreach ( $categorias as $data){
-				echo $categoriaId = $data['id'];
+				$categoriaId = $data['id'];
 				$duplicado = false;
 				$itemTt++;
 				$error = '';

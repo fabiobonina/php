@@ -94,7 +94,7 @@ header('Content-Type: text/html; charset=utf-8');
   #CATEGORIA-CADASTRAR----------------------------------------------------------------------
   if($action == 'catCadastrar'):
     #Novo
-    echo $loja  = $_POST['loja'];
+    $loja  = $_POST['loja'];
     $categoria = $_POST['categoria'];
     
     $res =  $lojaControl->insertCategoria( $loja, $categoria );
