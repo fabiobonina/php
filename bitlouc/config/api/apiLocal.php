@@ -44,15 +44,15 @@ endif;
 if($action == 'publish'):
   $loja_id          = $_POST['loja_id'];
   $proprietario_id  = $_POST['proprietario_id'];
-  $tipo       = $_POST['tipo'];
-  $regional   = $_POST['regional'];
-  $name       = $_POST['name'];
-  $municipio  = $_POST['municipio'];
-  $uf         = $_POST['uf'];
-  $lat        = $_POST['latitude'];
-  $long       = $_POST['longitude'];
-  $ativo      = $_POST['ativo'];
-  $id         = $_POST['id'];
+  $tipo             = $_POST['tipo'];
+  $regional         = $_POST['regional'];
+  $name             = $_POST['name'];
+  $municipio        = $_POST['municipio'];
+  $uf               = $_POST['uf'];
+  $lat              = $_POST['latitude'];
+  $long             = $_POST['longitude'];
+  $ativo            = $_POST['ativo'];
+  $id               = $_POST['id'];
   if( $id == "" ):
     $id = NULL;
   endif;
@@ -61,67 +61,9 @@ if($action == 'publish'):
 
 endif;
 #CRIAR_EDITAR-------------------------------------------------------------------------------
-#CADASTRAR
-if($action == 'cadastrar'):
-  $loja       = $_POST['loja_id'];
-  $tipo       = $_POST['tipo'];
-  $regional   = $_POST['regional'];
-  $name       = $_POST['name'];
-  $municipio  = $_POST['municipio'];
-  $uf         = $_POST['uf'];
-  $lat        = $_POST['latitude'];
-  $long       = $_POST['longitude'];
-  $ativo      = $_POST['ativo'];
-  $categorias = $_POST['categorias'];
 
-  $item = $equiControl->insertLocal(
-    $loja,
-    $tipo,
-    $regional,
-    $name,
-    $municipio,
-    $uf,
-    $lat,
-    $long,
-    $categorias,
-    $ativo
-  );
-  
-  $res = $item;
-  
-endif;
 
-#EDITAR-----------------------------------------------------------------------------
-if($action == 'editar'):
-  #editar
-  $loja       = $_POST['loja'];
-  $tipo       = $_POST['tipo'];
-  $regional   = $_POST['regional'];
-  $name       = $_POST['name'];
-  $municipio  = $_POST['municipio'];
-  $uf         = $_POST['uf'];
-  $lat        = $_POST['latitude'];
-  $long       = $_POST['longitude'];
-  $ativo      = $_POST['ativo'];
-  $id         = $_POST['id'];
 
-  $item = $equiControl->updateLocal(
-    $loja,
-    $tipo,
-    $regional,
-    $name,
-    $municipio,
-    $uf,
-    $lat,
-    $long,
-    $ativo,
-    $id
-  );
-  
-  $res = $item;
-  
-endif;
-#EDITAR-----------------------------------------------------------------------------
 #GEOLOCALIZAÇÃO
 if($action == 'coordenadas'):
   $id = $_POST['id'];

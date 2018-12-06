@@ -2,8 +2,20 @@
   <div>
     <v-dialog v-model="dialog" persistent scrollable  max-width="500px">
       <v-card>
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click="$emit('close')">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-toolbar-title>{{ title }}</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn icon flat @click.native="saveItem()">
+              <v-icon>mdi-content-save</v-icon>
+            </v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
         <v-card-title>
-          <span class="headline">{{ loja.nick }} - Nova Local</span>
+          <span class="headline">{{ loja.nick }}</span>
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
@@ -84,11 +96,6 @@
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
           <loader :dialog="isLoading"></loader>
         </v-card-text>
-        <v-card-actions>
-            <v-btn flat @click.stop="$emit('close')">Fechar</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click.stop="saveItem()">Salvar</v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
   </div>
@@ -106,6 +113,7 @@
     },
     data() {
       return {
+        title: 'Novo Local',
         errorMessage: [],
         successMessage: [],
         tipo: '', regional: '', name: '', municipio: '', uf: '', coordenadas:'', ativo: '0',
@@ -132,7 +140,6 @@
         return false
       },
       loja()  {
-        console.log(store.getters.getLojaId(this.$route.params._loja));
         return store.getters.getLojaId(this.$route.params._loja);
       },
       tipos() {
@@ -146,7 +153,7 @@
       saveItem: function(){
         this.$validator.validateAll().then((result) => {
           if (result) {
-        this.errorMessage = []
+            this.errorMessage = []
         if(this.checkForm()){
           this.isLoading = true
           if(!this.coordenadas){
@@ -169,13 +176,13 @@
           //console.log(postData);
           this.$http.post('./config/api/apiLocal.php?action=publish', postData)
             .then(function(response) {
-              console.log(response);
+              //console.log(response);
               if(response.data.error){
                 this.errorMessage.push(response.data.message);
                 this.isLoading = false;
               } else{
                 this.successMessage.push(response.data.message);
-                this.$store.dispatch('fetchLocais', this.data.loja).then(() => {
+                this.$store.dispatch('fetchLocalLoja', this.loja.id).then(() => {
                   console.log("Atulizando dados das localidades!")
                 });
                 this.isLoading = false;

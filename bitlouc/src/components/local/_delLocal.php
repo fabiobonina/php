@@ -47,7 +47,7 @@
         return false
       },
       loja()  {
-        return store.getters.getLojaId(this.data.loja);
+        return store.getters.getLojaId(this.data.loja_id);
       },
     },
     methods: {
@@ -61,14 +61,14 @@
           this.$http.post('./config/api/apiLocal.php?action=deletar', postData).then(function(response) {
             //console.log(response);
             if(response.data.error){
-              this.errorMessage = response.data.message;
+              this.errorMessage.push(response.data.message);
               this.isLoading = false;
             } else{
               this.successMessage.push(response.data.message);
               this.isLoading = false;
-              this.$store.dispatch("fetchIndex").then(() => {
-                console.log("Atualizado lojas!")
-              });
+              this.$store.dispatch('fetchLocalLoja', this.loja.id).then(() => {
+                  console.log("Atulizando dados das localidades!")
+                });
               setTimeout(() => {
                 this.$emit('close');
               }, 2000);

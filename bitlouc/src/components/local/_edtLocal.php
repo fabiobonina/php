@@ -120,7 +120,7 @@
         return false
       },
       loja()  {
-        return store.getters.getLojaId(this.data.loja);
+        return store.getters.getLojaId(this.data.loja_id);
       },
       tipos() {
         return store.state.tipos;
@@ -139,6 +139,8 @@
           var geoposicao = this.coordenadas .split(",");
           var postData = {
             id: this.data.id,
+            loja_id: this.loja.id,
+            proprietario_id: this.loja.proprietario_id,
             tipo: this.data.tipo,
             regional: this.data.regional,
             name: this.data.name,
@@ -149,7 +151,7 @@
             ativo: this.data.ativo
           };
           //console.log(postData);
-          this.$http.post('./config/api/apiLocal.php?action=editar', postData)
+          this.$http.post('./config/api/apiLocal.php?action=publish', postData)
             .then(function(response) {
               console.log(response);
               if(response.data.error){
@@ -157,7 +159,7 @@
                 this.isLoading = false;
               } else{
                 this.successMessage.push(response.data.message);
-                this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
+                this.$store.dispatch('fetchLocalLoja', this.loja.id).then(() => {
                   console.log("Atulizando dados das localidades!")
                 });
                 this.isLoading = false;

@@ -89,9 +89,9 @@
 			endif;
 			if( isset($id) && ( !$item['error'] || $validarId == $id ) ):
 				# Update
-				//$item = $locais->updete($id);
-				//$item = $this->insertGeolocalizacao( $id, $lat, $long );
-				echo 'updade';
+				$item = $locais->update($id);
+				$item = $this->insertGeolocalizacao( $id, $lat, $long );
+				//echo 'updade';
 			endif;
 
 			$res = $this->statusReturn($item);
@@ -104,7 +104,7 @@
 
 			$locais->setLat($lat);
 			$locais->setLong($long);
-			$item = $locais->geolocalizacso($id);
+			$item = $locais->geolocalizacao($id);
 
 			$res = $this->statusReturn($item);
 			return $res;
