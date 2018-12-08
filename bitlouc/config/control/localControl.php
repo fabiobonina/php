@@ -10,7 +10,7 @@
 			$item->equipamentos_qt	= $equipamentos->contLocal( $item->id );
 			$loja					= $lojas->find( $item->loja_id );
 			$item->loja_name 		= $loja->name;
-			$item->categorias 		= $this->listCategoriaLocal( $item->id );
+			$item->categoria 		= $this->listCategoriaLocal( $item->id );
 			$item->dtVisitado = '0000-00-00';
 			$os 		= $oss->visitadoLocal( $item->id );
 			if( isset($os->dtVisitado) ){
@@ -110,64 +110,68 @@
 			return $res;
 		}
 		
-		public function deleteLocal( $localId ){
+		public function delete( $local_id ){
 
 			$locais 			= new Local();
 			$localCategorias	= new LocalCategorias();
-			$item 	= $this->anexoLocal( $localId );
+			$item 				= $this->anexoLocal( $local_id );
 			if( !$item['error'] ){
-				$item	= $locais->delete($localId);
-				$item	= $localCategorias->deleteCategoriaPorLocal($localId);
+				$item	= $locais->delete($local_id);
+				$item	= $localCategorias->deletePorLocal($local_id);
 			}
 			$res	= $this->statusReturn($item);
 			return $res;
 		}
 
-		public function anexoLocal( $localId ){
+		public function anexoLocal( $local_id ){
 
 			$equipamentos	= new Equipamento();
 
-			$item['equipLocal_tt'] 			= $equipamentos->contLocal( $localId );
-			if( $item['equipLocal_tt']  == 0 ){
+			$item['equip_tt'] 			= $equipamentos->contLocal( $local_id );
+			if( $item['equip_tt']  == 0 ){
 				$res['error'] = false;
 				$res['message'] = 'OK, Local pode ser deletado';
 			}else{
 				$res['error'] = true;
-				$res['message'] = 'Error, local com'.$item['equipLocal_tt'] .' - Equipamento(s)! É necessario remover-los antes.';
+				$res['message'] = 'Error, local com'.$item['equip_tt'] .' - Equipamento(s)! É necessario remover-los antes.';
 			}
 			return $res;
 		}
 
 		#LOCAL_CATERORIAS----------------------------------------------------------------------------------
-		public function insertCategoria( $localId, $categorias ){
+		public function insertCategoria( $local_id, $categorias ){
 
 			$localCategorias = new LocalCategorias();
+			$itemTt = 0;
+			$itemS = 0;
+			$itemR = 0;
 
 			foreach ( $categorias as $data){
 				$categoriaId = $data['id'];
 				$duplicado = false;
+				$itemTt++;
+				$error = '';
 
-				foreach($localCategorias->findAll() as $key => $value):if( $value->categoria_id == $categoriaId )  {
+				foreach($localCategorias->findAll() as $key => $value):if( $value->local_id == $local_id && $value->categoria_id == $categoriaId )  {
 					$duplicado = true;       
 				}endforeach;
 
 				if( !$duplicado ){
-				  $localCategorias->setLocal($local);
-				  $localCategorias->setCategoria($itemId);
+					$itemS++;
+				  	$localCategorias->setLocal($local_id);
+				  	$localCategorias->setCategoria($categoriaId);
 					$item = $localCategorias->insert();
-
+					if($item['error'] == true ){
+						$error = $item['message'];
+					}
 				}else{
-				  $item['error'] = true; 
-				  $item['message'] = "Error, item já cadastrado";
+					$itemR++;
 				}
+				$item['error'] = false;
+				$item['message'] = 'Do(s) '.$itemTt .' enviado(s), '.$itemS .' - valido(s), '.$itemR .' - já cadastrado(s).(Error: '.$error .' )';
 			}
 
-			if($item['error'] == true ){
-				$res = $this->statusReturn($item);
-			}else{
-
-				$res = $this->statusReturn($item);
-			}
+			$res = $this->statusReturn($item);
 			return $res;
 
 		}
@@ -194,35 +198,33 @@
 			
 		}
 
-		public function deleteCategoriaPorLocal( $localId ){
+		public function deleteCategoriaPorLocal( $local_id ){
 
 			$localCategorias = new LocalCategorias();
 
-			$res = $localCategorias->deleteLocal($localId);
+			$res = $localCategorias->deleteLocal($local_id);
 			//$res = $this->statusReturn($item);
 			return $res;
 			
 		}
 
-		public function listCategoriaLocal( $localId ){
+		public function listCategoriaLocal( $local_id ){
 			
 			$localCategorias	= new LocalCategorias();
 			$categorias			= new Categorias();
     		$arTens 			= array();
 			
-			foreach($localCategorias->findAll() as $key => $value):if($value->local_id == $localId) {
+			foreach($localCategorias->findAll() as $key => $value):if($value->local_id == $local_id) {
 				$categoriaId 	= $value->categoria_id;
-				$localCatAtivo 	= $value->ativo;
-				$localCatId 	= $value->id;
-				 
+				$lojaCatAtivo 	= $value->ativo;
+				$lojaCatId 		= $value->id;
+
 				$item = $categorias->find( $categoriaId );
-				$item->localCat_id 		= $categoriaId;
-				$item->localCat_ativo	= $localCatAtivo;
-				$item->localCat_id		= $localCatId;
-					
+				$item->categoria_id = $categoriaId;
+				$item->ativo		= $lojaCatAtivo;
+				$item->id 			= $lojaCatId;
 				$item = (array) $item;
 				array_push( $arTens, $item );
-				
 			}endforeach;
 
 			$res = $arTens;

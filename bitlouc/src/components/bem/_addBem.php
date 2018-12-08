@@ -306,7 +306,7 @@ Vue.component('bem-add', {
   },
   methods: {
     initialize() {
-      this.loja = store.getters.getLojaId(this.$route.params._id);
+      this.loja = store.getters.getLojaId(this.$route.params._loja);
       this.local = store.getters.getLocalId(this.$route.params._local);
       this.dono = store.getters.getLojaId(this.user.loja);
       this.donoLocal = store.getters.getLocalLojaSingle(this.user.loja);

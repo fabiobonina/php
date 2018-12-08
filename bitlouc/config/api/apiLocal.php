@@ -27,7 +27,7 @@ endif;
 if($action == 'loja'):
 
   $lojaId = $_POST['loja'];
-  //$lojaId = '2';
+  //$lojaId = '1';
   
   
   if($user['grupo'] == 'P'){
@@ -70,7 +70,7 @@ if($action == 'coordenadas'):
   $lat = $_POST['latitude'];
   $long = $_POST['longitude'];
 
-  $item = $localControl->insertLocalGeolocalização( $id, $lat, $long );
+  $item = $localControl->insertGeolocalizacao( $id, $lat, $long );
   $res = $item;
 endif;
 
@@ -79,7 +79,7 @@ if($action == 'deletar'):
   #delete
   $id = $_POST['id'];
   
-  $item = $localControl->deleteLocal($id);
+  $item = $localControl->delete($id);
   $res = $item;
 
 endif;
@@ -109,10 +109,10 @@ endif;
 #CATEGORIA-CADASTRAR----------------------------------------------------------------------
 if($action == 'catCadastrar'):
 
-  $local      = $_POST['local'];
+  $local_id   = $_POST['local_id'];
   $categorias = $_POST['categoria'];
 
-  $item = $localControl->statusCategoria( $locaCatId, $ativo );
+  $item = $localControl->insertCategoria( $local_id, $categorias  );
   $res = $item;  
 
 endif;

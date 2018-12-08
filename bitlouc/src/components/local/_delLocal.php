@@ -2,6 +2,18 @@
   <div>
     <v-dialog v-model="dialog" persistent scrollable max-width="500px">
       <v-card>
+        <v-toolbar dark color="error">
+          <v-btn icon dark @click="$emit('close')">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-toolbar-title>Loja</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn icon flat @click.native="deletarItem()">
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
         <v-card-title color="primary">
           <span class="headline">{{ loja.nick }} - Deletar Local</span>
         </v-card-title>
@@ -14,13 +26,7 @@
             <h2 class="headline">Regional: {{ data.regional }}</h2>
 
           </v-form>
-
         </v-card-text>
-        <v-card-actions>
-            <v-btn flat @click.stop="$emit('close')">Fechar</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn color="error" flat @click.stop="deletarItem()">Deletar</v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
   </div>

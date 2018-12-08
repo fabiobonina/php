@@ -43,13 +43,13 @@
         return store.getters.getLocalId(this.$route.params._local);
       },
       loja()  {
-        return store.getters.getLojaId(this.$route.params._id);
+        return store.getters.getLojaId(this.$route.params._loja);
       },
       bens()  {
         return store.getters.getBensLocal(this.$route.params._local);
       },
-      //store.state.lojas // filteredItems
-    }, // computed
+
+    }, 
     methods: {
       onAtualizar: function(){
         this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {

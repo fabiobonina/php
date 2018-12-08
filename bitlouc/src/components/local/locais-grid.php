@@ -22,7 +22,7 @@
           </td>
           <td> {{ props.item.latitude }},{{ props.item.longitude }} </td>
           <td>
-            <v-chip v-for="categoria in props.item.categorias" :key="categoria.id" small  color="green" text-color="white">
+            <v-chip v-for="categoria in props.item.categoria" :key="categoria.id" small  color="green" text-color="white">
               {{ categoria.tag }}
             </v-chip>
           </td>

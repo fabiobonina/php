@@ -6,7 +6,7 @@
           <v-btn icon dark @click="$emit('close')">
             <v-icon>mdi-close</v-icon>
           </v-btn>
-          <v-toolbar-title>Loja</v-toolbar-title>
+          <v-toolbar-title> {{ title }} </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
             <v-btn icon flat @click.native="deletarItem()">
@@ -41,6 +41,7 @@ Vue.component('loja-del', {
   },
   data: function () {
     return {
+      title: 'Delete Local',
       errorMessage: [],
       successMessage: [],
       isLoading: false,

@@ -3,8 +3,20 @@
   <div>
   <v-dialog v-model="dialog" persistent scrollable max-width="500px">
       <v-card>
+      <v-toolbar dark color="primary">
+          <v-btn icon dark @click="$emit('close')">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-toolbar-title>{{ title }}</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn icon flat @click.native="saveItem()">
+              <v-icon>mdi-content-save</v-icon>
+            </v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
         <v-card-title>
-          CATEGORIAS: {{ loja.nick }} / {{ local.tipo }} {{ local.name }} 
+          {{ loja.nick }} / {{ local.tipo }} {{ local.name }} 
         </v-card-title>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
@@ -24,24 +36,25 @@
               </v-chip>
             </div>
             <v-autocomplete
-              :items="categorias"
               v-model="categoria"
+              :items="categorias"
+              box
+              chips
+              color="blue-grey lighten-2"
               label="Categorias"
+              item-text="name"
+              multiple
               :error-messages="errors.collect('categoria')"
               v-validate="'required'"
               data-vv-name="categoria"
-              required
-              multiple
-              chips
-              max-height="auto"
+              return-object
             >
               <template slot="selection" slot-scope="data">
                 <v-chip
                   :selected="data.selected"
-                  :key="JSON.stringify(data.item)"
                   close
                   class="chip--select-multi"
-                  @input="data.parent.selectItem(data.item)"
+                  @input="remove(data.item)"
                 >
                   {{ data.item.name }}
                 </v-chip>
@@ -53,17 +66,13 @@
                 <template v-else>
                   <v-list-tile-content>
                     <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
+                    <v-list-tile-sub-title v-html="data.item.tag"></v-list-tile-sub-title>
                   </v-list-tile-content>
                 </template>
               </template>
             </v-autocomplete>
           </v-form>
         </v-card-text>
-        <v-card-actions>
-            <v-btn flat @click.stop="$emit('close')">Fechar</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click.stop="saveItem()">Salvar</v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
     <div>
@@ -82,6 +91,7 @@
     },
     data: function () {
       return {
+        title: 'Categoria(s) Local',
         errorMessage: [],
         successMessage: [],
         isLoading: false,
@@ -97,7 +107,7 @@
         return false
       },
       loja()  {
-        return store.getters.getLojaId(this.data.loja);
+        return store.getters.getLojaId(this.data.loja_id);
       },
       local()  {
         return store.getters.getLocalId(this.data.id);
@@ -114,7 +124,7 @@
           this.isLoading = true
           var postData = {
             categoria: this.categoria,
-            local: this.data.id
+            local_id: this.data.id
           };
           //console.log(postData);
           this.$http.post('./config/api/apiLocal.php?action=catCadastrar', postData).then(function(response) {
@@ -125,14 +135,11 @@
             } else{
               this.successMessage.push(response.data.message);
               this.isLoading = false;
-              this.$store.dispatch("fetchIndex").then(() => {
-                console.log("Atualizado locais!")
+              this.$store.dispatch('fetchLocalLoja', this.loja.id).then(() => {
+                console.log("Atulizando dados das localidades!")
               });
               setTimeout(() => {
                 //this.$emit('close');
-                this.errorMessage = [];
-                this.successMessage = [];
-                this.categoria = [];
               }, 2000);
             }
           })
@@ -157,13 +164,11 @@
             } else{
               this.successMessage.push(response.data.message);
               this.isLoading = false;
-              this.$store.dispatch("fetchIndex").then(() => {
-                console.log("Atualizado lojas!")
+              this.$store.dispatch('fetchLocalLoja', this.loja.id).then(() => {
+                console.log("Atulizando dados das localidades!")
               });
               setTimeout(() => {
                 //this.$emit('close');
-                this.errorMessage = [];
-                this.successMessage = [];
               }, 2000);
             }
           })
@@ -194,8 +199,6 @@
             });
             setTimeout(() => {
               //this.$emit('close');
-              this.errorMessage = [];
-              this.successMessage = [];
             }, 2000);
           }
         })
@@ -205,7 +208,7 @@
       },
       checkForm:function(e) {
         this.errorMessage = [];
-        if(!this.data.categoria) this.errorMessage.push("Categoria necessário.");
+        if(!this.categoria) this.errorMessage.push("Categoria necessário.");
         if(!this.errorMessage.length) return true;
         e.preventDefault();
       },

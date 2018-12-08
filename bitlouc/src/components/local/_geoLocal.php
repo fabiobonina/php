@@ -58,6 +58,7 @@
     },
     data() {
       return {
+        title: 'Coordenadas Local',
         errorMessage: [],
         successMessage: [],
         coordenadas:'',
@@ -95,7 +96,7 @@
               } else{
                 this.successMessage.push(response.data.message);
                 this.isLoading = false;
-                this.$store.dispatch('fetchLocalLoja', this.loja.id).then(() => {
+                this.$store.dispatch('fetchLocalLoja', this.data.loja_id).then(() => {
                   console.log("Atualizado locais!")
                 });
                 setTimeout(() => {

@@ -57,7 +57,7 @@ class LocalCategorias extends Crud{
 		}
 		
 	}
-	public function deleteLocal($local_id){
+	public function deletePorLocal($local_id){
 		try{
 			$sql  = "DELETE FROM $this->table WHERE local_id = :local_id";
 			$stmt = DB::prepare($sql);
