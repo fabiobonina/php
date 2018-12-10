@@ -78,8 +78,8 @@ const mutations = {
   SET_TECNICOS(state, tecnicos) {
     state.tecnicos = tecnicos
   },
-  SET_OSPROPRIETARIO(state, osProprietario) {
-    state.osProprietario = osProprietario
+  SET_UF(state, ufs) {
+    state.ufs = ufs
   },
   SET_OSLOJAS(state, osLojas) {
     state.osLojas = osLojas

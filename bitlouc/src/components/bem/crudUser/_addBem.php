@@ -306,7 +306,7 @@ Vue.component('bem-add', {
   },
   methods: {
     initialize() {
-      this.loja = store.getters.getLojaId(this.$route.params._id);
+      this.loja = store.getters.getLojaId(this.$route.params._loja);
       this.local = store.getters.getLocalId(this.$route.params._local);
       this.dono = store.getters.getLojaId(this.user.loja);
       this.donoLocal = store.getters.getLocalLojaSingle(this.user.loja);
@@ -349,7 +349,7 @@ Vue.component('bem-add', {
               this.isLoading = false;
             } else{
               this.successMessage.push(response.data.message);
-              this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
+              this.$store.dispatch('fetchLocais', this.$route.params._loja).then(() => {
                 console.log("Atulizando dados das localidades!")
               });
               this.isLoading = false;

@@ -16,7 +16,7 @@
         </div>
         <loja-crud :data="loja"></loja-crud>
         <v-tabs slot="extension" dark centered color="cyan" slider-color="yellow">
-          <v-tab v-for="n in router" :key="n.title" :to="'/loja/'+ $route.params._id + n.router" ripple> {{ n.title }} </v-tab>
+          <v-tab v-for="n in router" :key="n.title" :to="'/loja/'+ $route.params._loja + n.router" ripple> {{ n.title }} </v-tab>
         </v-tabs>
       </v-toolbar>
       <v-chip v-for="categoria in loja.categoria" :key="categoria.id" small color="green" text-color="white">

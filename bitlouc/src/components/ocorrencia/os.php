@@ -224,7 +224,7 @@ var Os = Vue.extend({
     };
   },
   created: function() {
-    this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
+    this.$store.dispatch('fetchLocais', this.$route.params._loja).then(() => {
       console.log("Buscando dados das locais!")
     });
     
@@ -234,7 +234,7 @@ var Os = Vue.extend({
   },
   computed: {
     loja()  {
-      return store.getters.getOsId(this.$route.params._id);
+      return store.getters.getOsId(this.$route.params._loja);
     },
     _os()  {
       return store.getters.getOsId(this.$route.params._os);

@@ -21,7 +21,7 @@ var TecOs = Vue.extend({
     };
   },
   created: function() {
-    //this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
+    //this.$store.dispatch('fetchLocais', this.$route.params._loja).then(() => {
       //console.log("Buscando dados das locais!")
     //});
   },
@@ -30,7 +30,7 @@ var TecOs = Vue.extend({
   },
   computed: {
     loja()  {
-      return store.getters.getLojaId(this.$route.params._id);
+      return store.getters.getLojaId(this.$route.params._loja);
     },
     user()  {
       return store.state.user;
@@ -75,7 +75,7 @@ var TecOs = Vue.extend({
   }, // computed
   methods: {
     onAtualizar: function(){
-      this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
+      this.$store.dispatch('fetchLocais', this.$route.params._loja).then(() => {
         console.log("Buscando dados das locais!")
       });
     }

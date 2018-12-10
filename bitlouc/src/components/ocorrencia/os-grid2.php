@@ -203,7 +203,7 @@ Vue.component('os-grid', {
       this.modalItem = data;
     },
     onAtualizar: function(){
-      this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
+      this.$store.dispatch('fetchLocais', this.$route.params._loja).then(() => {
         this.showModal = false;
       });
     },

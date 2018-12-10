@@ -125,6 +125,7 @@ const actions = {
           commit("SET_GRUPOS", response.data.grupos);
           commit("SET_DESLOC_STATUS", response.data.deslocStatus);
           commit("SET_DESLOC_TRAJETOS", response.data.deslocTrajetos);
+          commit("SET_UF", response.data.ufs);
           resolve();
         }
       })

@@ -21,7 +21,7 @@ var LojaOss = Vue.extend({
     };
   },
   created: function() {
-    this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
+    this.$store.dispatch('fetchLocais', this.$route.params._loja).then(() => {
       console.log("Buscando dados das locais!")
     });
   },
@@ -30,15 +30,15 @@ var LojaOss = Vue.extend({
   },
   computed: {
     loja()  {
-      return store.getters.getLojaId(this.$route.params._id);
+      return store.getters.getLojaId(this.$route.params._loja);
     },
     oss()  {
-      return store.getters.getOssLoja(this.$route.params._id);
+      return store.getters.getOssLoja(this.$route.params._loja);
     },
   }, // computed
   methods: {
     onAtualizar: function(){
-      this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
+      this.$store.dispatch('fetchLocais', this.$route.params._loja).then(() => {
         console.log("Buscando dados das locais!")
       });
     }

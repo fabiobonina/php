@@ -47,7 +47,7 @@
               <template v-for="(item, index) in filteredData">
                 <v-list-tile  append v-on:click.native="" activator slot>
                   <v-list-tile-content v-on:click.native=""    dense>
-                    <router-link :to="'/loja/' + $route.params._id + '/local/' + $route.params._local ">
+                    <router-link :to="'/loja/' + $route.params._loja + '/local/' + $route.params._local ">
                       <v-list-tile-title    :key="item.id"> {{item.name}} - {{item.modelo}} </v-list-tile-title>
                       <v-list-tile-sub-title class="text--primary">  {{item.fabricanteNick}} #{{item.proprietarioNick}} </v-list-tile-sub-title>
                     </router-link>
@@ -189,7 +189,7 @@ Vue.component('bens-grid', {
       this.modalItem = data;
     },
     onAtualizar: function(){
-      this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
+      this.$store.dispatch('fetchLocais', this.$route.params._loja).then(() => {
         this.modalBemAdd = false;
         this.modalOsAdd = false;
       });

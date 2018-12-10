@@ -123,7 +123,7 @@ Vue.component('bem-edt', {
       return false
     },
     loja()  {
-      return store.getters.getLojaId(this.$route.params._id);
+      return store.getters.getLojaId(this.$route.params._loja);
     },
     local()  {
       return store.getters.getLocalId(this.$route.params._local);
@@ -174,7 +174,7 @@ Vue.component('bem-edt', {
             this.isLoading = false;
           } else{
             this.successMessage.push(response.data.message);
-            this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
+            this.$store.dispatch('fetchLocais', this.$route.params._loja).then(() => {
               console.log("Atulizando dados das localidades!")
             });
             this.isLoading = false;

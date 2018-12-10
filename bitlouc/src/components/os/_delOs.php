@@ -56,7 +56,7 @@ Vue.component('os-del', {
       return false
     },
     loja()  {
-      return store.getters.getLojaId(this.$route.params._id);
+      return store.getters.getLojaId(this.$route.params._loja);
     },
     servicos() {
       return store.state.servicos;

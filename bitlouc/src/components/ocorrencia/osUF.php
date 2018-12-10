@@ -45,9 +45,43 @@ var OsUF = Vue.extend({
     created() {
     },
     computed: {
-        osLojas() {
-            return store.state.osUf;
-        },
+      osLojas() {
+          return store.state.osUf;
+      },
+      osStatusTec() {
+        function Comparator(a, b) {
+          if (a[1] > b[1]) return -1;
+          if (a[1] < b[1]) return 1;
+          return 0;
+        }
+        
+        var oss = store.getters.getOsId(this.$route.params._os);
+        
+        oss = oss.filter(function (row) {
+          return Number(row.status) <= 1;
+        });
+        this.ossAbertas = oss.length;
+        var tecnicos  = store.state.tecnicos;
+        var value = [];
+        for (var user of tecnicos) {
+          var count = 0;
+          var postData = [];
+          for (var os of oss) {
+            for (var tec of os.tecnicos) {  
+              if(user.id == tec.tecnico_id) {
+                count++;
+              }
+            }
+          }
+          postData.push(user.userNick)
+          postData.push(count)
+          if(count > 0){
+            value.push( postData)
+          }
+        }
+        value = value.sort(Comparator);
+        return value;
+      },
     },
     methods: {
     }

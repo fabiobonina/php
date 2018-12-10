@@ -17,6 +17,7 @@ require_once '../model/Seguimento.php';
 require_once '../model/Tecnicos.php';
 require_once '../model/DeslocTrajetos.php';
 require_once '../model/DeslocStatus.php';
+require_once '../model/UF.php';
 
 
 $tipos          = new Tipos();
@@ -32,6 +33,7 @@ $seguimentos    = new Seguimento();
 $tecnicos       = new Tecnicos();
 $deslocTrajetos = new DeslocTrajetos();
 $deslocStatus   = new DeslocStatus();
+$ufs            = new UF();
 
 $res = array('error' => false);
 $action = 'config';
@@ -118,7 +120,14 @@ if($action == 'config'):
   }endforeach;
   $res['deslocStatus'] = $arItens;
   #DESLOC_STATUS-----------------------------------------------------------
-
+  #UF------------------------------------------------------------
+  $arItens = array();
+  foreach($ufs->findAll() as $key => $value): {
+    $arItem = $value; //Tipo
+    array_push($arItens, $arItem);
+  }endforeach;
+  $res['ufs'] = $arItens;
+  #UF------------------------------------------------------------
 
 endif;
 

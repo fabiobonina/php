@@ -32,7 +32,6 @@ const state = {
   categorias:[],
   servicos:[],
   tecnicos:[],
-  osProprietario:{},
   osLojas:[],
   oss:[],
   ocorrencias:[],
@@ -42,4 +41,5 @@ const state = {
   seguimentos:[],
   search:'',
   status:'0',
+  ufs:{},
 }

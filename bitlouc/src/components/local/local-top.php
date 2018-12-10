@@ -9,7 +9,7 @@
       <local-rota :lat="local.latitude" :long="local.longitude"></local-rota>
       <local-crud :data="local"></local-crud>
       <v-tabs slot="extension" centered color="cyan" slider-color="yellow">
-        <v-tab v-for="n in router" :key="n.title" :to="'/loja/'+ $route.params._id +'/local/'+ $route.params._local + n.router" ripple> {{ n.title }} </v-tab>
+        <v-tab v-for="n in router" :key="n.title" :to="'/loja/'+ $route.params._loja +'/local/'+ $route.params._local + n.router" ripple> {{ n.title }} </v-tab>
       </v-tabs>
     </v-toolbar>
     <v-chip v-for="categoria in local.categoria" :key="categoria.id" small color="green" text-color="white">
@@ -52,7 +52,7 @@
     }, 
     methods: {
       onAtualizar: function(){
-        this.$store.dispatch('fetchLocais', this.$route.params._id).then(() => {
+        this.$store.dispatch('fetchLocais', this.$route.params._loja).then(() => {
           this.modalBemAdd = false;
         });
       },
