@@ -405,4 +405,4 @@ var Os = Vue.extend({
 <?php require_once 'src/components/servicos/despesa/_km.php';?>
 <?php require_once 'src/components/servicos/despesa/despesa.php';?>
 
-<?php require_once 'src/components/os/_progresso.php';?>
+<?php require_once 'src/components/atendimento/os/_progresso.php';?>

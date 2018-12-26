@@ -120,4 +120,4 @@
     </v-dialog>
   </div>
 </template>
-<script src="src/components/os/_addOs.js"></script>
+<script src="src/components/atendimento/os/_addOs.js"></script>

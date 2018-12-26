@@ -38,12 +38,12 @@
 			$itens 	= array();
 			foreach($ufs->findAll() as $key => $value): {
 				$item = $value;
-				$item->helpdeskPendenteQt 	= $oss->contOsStatusUFProprietario( $proprieratio_id, $item->id, 0 );
-				$item->helpdeskAndamentoQt	= $oss->contOsStatusUFProprietario( $proprieratio_id, $item->id, 1 );
-				$item->helpdeskConcluidoQt	= $oss->contOsStatusUFProprietario( $proprieratio_id, $item->id, 2 );
-				$item->helpdeskTTQt 		= $item->helpdeskPendenteQt + $item->helpdeskAndamentoQt + $item->helpdeskConcluidoQt;
-				$item->osGerarOSQt 			= $oss->contOsStatusUFProprietario( $proprieratio_id, $item->id, 4 );
-				$item->osFecharOSQt 		= $oss->contOsStatusUFProprietario( $proprieratio_id, $item->id, 5 );
+				$item->ocorrenciaI 		= $oss->contOsStatusUFProprietario( $proprieratio_id, $item->id, 0 );
+				$item->ocorrenciaII		= $oss->contOsStatusUFProprietario( $proprieratio_id, $item->id, 1 );
+				$item->ocorrenciaIII	= $oss->contOsStatusUFProprietario( $proprieratio_id, $item->id, 2 );
+				$item->ocorrenciaTT		= $item->ocorrenciaI + $item->ocorrenciaII + $item->ocorrenciaIII;
+				$item->osGerarOSQt 		= $oss->contOsStatusUFProprietario( $proprieratio_id, $item->id, 4 );
+				$item->osFecharOSQt 	= $oss->contOsStatusUFProprietario( $proprieratio_id, $item->id, 5 );
 				
 				$item = (array) $item;
 				array_push( $itens, $item );

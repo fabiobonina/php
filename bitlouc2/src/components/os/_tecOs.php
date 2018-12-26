@@ -79,4 +79,4 @@
     </v-dialog>
   </div>
 </template>
-<script src="src/components/os/_tecOs.js"></script>
+<script src="src/components/atendimento/os/_tecOs.js"></script>

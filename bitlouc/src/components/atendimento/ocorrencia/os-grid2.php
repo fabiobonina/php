@@ -119,11 +119,11 @@
   </div>
 </template>
 
-<?php require_once 'src/components/os/_addOs.php';?>
-<?php require_once 'src/components/os/_edtOs.php';?>
-<?php require_once 'src/components/os/_delOs.php';?>
-<?php require_once 'src/components/os/_tecOs.php';?> 
-<?php require_once 'src/components/os/_amarracOs.php';?>
+<?php require_once 'src/components/atendimento/os/_addOs.php';?>
+<?php require_once 'src/components/atendimento/os/_edtOs.php';?>
+<?php require_once 'src/components/atendimento/os/_delOs.php';?>
+<?php require_once 'src/components/atendimento/os/_tecOs.php';?> 
+<?php require_once 'src/components/atendimento/os/_amarracOs.php';?>
 <?php require_once 'src/components/local/_rotaLocal.php';?>
 
 <script>

@@ -10,14 +10,29 @@
           <v-icon>add</v-icon>
         </v-btn>
       </v-card-title>
-      <v-data-table :headers="headers" :items="data" :search="search" :pagination.sync="pagination">
+      <v-data-table :headers="headers" :items="filteredData" :pagination.sync="pagination">
         <template slot="items" slot-scope="props">
+          <td style="padding:0 10px">
+            <router-link :to="'/oss/' + props.item.loja_id + '/os/' + props.item.id" :key="props.item.id">
+              <v-list-tile-title> {{props.item.local_tipo}} {{props.item.local_name}}</v-list-tile-title>
+              <v-list-tile-sub-title>{{props.item.local_municipio}}-{{props.item.uf}}</v-list-tile-sub-title>
+              <v-list-tile-sub-title> {{ props.item.lojaNick }} </v-list-tile-sub-title>
+            </router-link>
+          </td>
+          <td style="padding:0 10px">
+            <v-list-tile-content>
+              <v-list-tile-title> {{ props.item.data }}</v-list-tile-title>
+              <v-list-tile-sub-title class="text--primary"> {{props.item.servico.name}}</v-list-tile-sub-title>
+              <v-chip small color="indigo" text-color="white">
+                OS: {{ props.item.filial}}-{{ props.item.os}}
+              </v-chip> 
+            </v-list-tile-content>
+          </td>
           
           <td style="padding:0 10px">
-              <router-link :to="'/oss/' + props.item.loja_id + '/os/' + props.item.id" :key="props.item.id">
-                <v-list-tile-title> {{ props.item.lojaNick }}: {{props.item.local_tipo}} {{props.item.local_name}} ({{props.item.local_municipio}}-{{props.item.uf}})</v-list-tile-title>
-                <v-list-tile-sub-title class="text--primary"> {{props.item.servico.name}}, {{ props.item.categoria.name }}</v-list-tile-sub-title>
-                <v-list-tile-sub-title v-if="props.item.bem">{{props.item.bem.name}} {{props.item.bem.modelo}}  &nbsp; #{{props.item.bem.fabricante}}
+            <router-link :to="'/oss/' + props.item.loja_id + '/os/' + props.item.id" :key="props.item.id">
+              <v-list-tile-title> {{ props.item.categoria.name }} </v-list-tile-title>
+              <v-list-tile-sub-title v-if="props.item.bem">{{props.item.bem.name}} {{props.item.bem.modelo}}  &nbsp; #{{props.item.bem.fabricante}}
                 <v-chip small color="green" text-color="white">
                   <v-avatar class="green darken-4">
                     <v-icon small>mdi-qrcode</v-icon>
@@ -41,13 +56,7 @@
               </v-chip>
             </div>
           </td>
-          <td style="padding:0 10px">
-          <v-list-tile-content class="text-xs-right">
-          {{ props.item.data }} 
-            <v-chip small color="indigo" text-color="white">
-                OS: {{ props.item.filial}}-{{ props.item.os}}
-              </v-chip> </v-list-tile-content>
-          </td>
+
           <td>
             <local-rota :lat="props.item.local_lat" :long="props.item.local_long"></local-rota>
             <local-crud :data="props.item"></local-crud>
@@ -66,11 +75,11 @@
   </div>
 </template>
 
-<?php require_once 'src/components/os/_addOs.php';?>
-<?php require_once 'src/components/os/_edtOs.php';?>
-<?php require_once 'src/components/os/_delOs.php';?>
-<?php require_once 'src/components/os/_tecOs.php';?> 
-<?php require_once 'src/components/os/_amarracOs.php';?>
+<?php require_once 'src/components/atendimento/os/_addOs.php';?>
+<?php require_once 'src/components/atendimento/os/_edtOs.php';?>
+<?php require_once 'src/components/atendimento/os/_delOs.php';?>
+<?php require_once 'src/components/atendimento/os/_tecOs.php';?> 
+<?php require_once 'src/components/atendimento/os/_amarracOs.php';?>
 <?php require_once 'src/components/local/_rotaLocal.php';?>
 
 <script>
@@ -129,29 +138,22 @@
         return row.processo === filterKey;
       });
     },
-    filteredData() {
-      var status = this.status;
-      var filter = this.configs.search && this.configs.search.toLowerCase();
-      var list = _.orderBy(this.data, this.configs.orderBy.state, this.configs.order);
-      //_.filter(list, repo => repo.status.indexOf(filter) >= 0);
-      if(status){
-      list = list.filter(function (row) {
-        return Number(row.status) === Number(status);
-      });
-      }else{
-        list = list.filter(function (row) {
-          return Number(row.status) <= 1;
-        });
-      }
-      
-      if (filter) {
-        list = list.filter(function (row) {
+    filteredData: function () {
+      var filterKey = this.search && this.search.toLowerCase()
+      var data = this.data
+      if (filterKey) {
+        data = data.filter(function (row) {
           return Object.keys(row).some(function (key) {
-            return String(row[key]).toLowerCase().indexOf(filter) > -1
+            return String(row[key]).toLowerCase().indexOf(filterKey) > -1
           })
         })
       }
-      return list;
+      return data
+    }
+  },
+  filters: {
+    capitalize: function (str) {
+      return str.charAt(0).toUpperCase() + str.slice(1)
     }
   },
   methods: {

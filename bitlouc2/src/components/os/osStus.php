@@ -22,4 +22,4 @@
     </section>
   </div>
 </template>
-<script src="src/components/os/osStus.js"></script>
+<script src="src/components/atendimento/os/osStus.js"></script>

@@ -43,7 +43,7 @@
 
 <?php require_once 'src/components/bem/_addBem.php';?>
 <?php require_once 'src/components/bem/_crudBem.php';?>
-<?php require_once 'src/components/os/_addOs.php';?>
+<?php require_once 'src/components/atendimento/os/_addOs.php';?>
 
 <script>
   Vue.component('bens-grid', {

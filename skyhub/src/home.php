@@ -47,19 +47,19 @@
     <?php require_once 'src/components/bem/bens.php';?>
     <!-- /components bem -->
     <!-- components os -->
-    <?php require_once 'src/components/os/os.php';?>
-    <?php require_once 'src/components/os/os-grid.php';?>
-    <?php require_once 'src/components/os/os-add.php';?>
-    <?php require_once 'src/components/os/os-edt.php';?>
-    <?php require_once 'src/components/os/os-del.php';?>
-    <?php require_once 'src/components/os/os-tec.php';?> 
-    <?php require_once 'src/components/os/os-amarrac.php';?>    
-    <?php require_once 'src/components/os/ossLoja.php';?>
-    <?php require_once 'src/components/os/ossLocal.php';?>
-    <?php require_once 'src/components/os/ossStus.php';?>
-    <?php require_once 'src/components/os/ossTec.php';?>
-    <?php require_once 'src/components/os/oss.php';?>
-    <?php require_once 'src/components/os/ossHome.php';?>
+    <?php require_once 'src/components/atendimento/os/os.php';?>
+    <?php require_once 'src/components/atendimento/os/os-grid.php';?>
+    <?php require_once 'src/components/atendimento/os/os-add.php';?>
+    <?php require_once 'src/components/atendimento/os/os-edt.php';?>
+    <?php require_once 'src/components/atendimento/os/os-del.php';?>
+    <?php require_once 'src/components/atendimento/os/os-tec.php';?> 
+    <?php require_once 'src/components/atendimento/os/os-amarrac.php';?>    
+    <?php require_once 'src/components/atendimento/os/ossLoja.php';?>
+    <?php require_once 'src/components/atendimento/os/ossLocal.php';?>
+    <?php require_once 'src/components/atendimento/os/ossStus.php';?>
+    <?php require_once 'src/components/atendimento/os/ossTec.php';?>
+    <?php require_once 'src/components/atendimento/os/oss.php';?>
+    <?php require_once 'src/components/atendimento/os/ossHome.php';?>
     <!-- /components os -->
     <!-- components user -->
     <?php require_once 'src/components/user/user.php';?>
@@ -123,20 +123,20 @@
 <script src="src/components/bem/bens.js"></script>
 <!-- /components bem -->
 <!-- components os -->
-<script src="src/components/os/os-grid.js"></script>
+<script src="src/components/atendimento/os/os-grid.js"></script>
 
-<script src="src/components/os/os.js"></script>
-<script src="src/components/os/os-add.js"></script>
-<script src="src/components/os/os-edt.js"></script>
-<script src="src/components/os/os-del.js"></script>
-<script src="src/components/os/os-tec.js"></script>
-<script src="src/components/os/os-amarrac.js"></script>
-<script src="src/components/os/ossLoja.js"></script>
-<script src="src/components/os/ossLocal.js"></script>
-<script src="src/components/os/ossStus.js"></script>
-<script src="src/components/os/ossTec.js"></script>
-<script src="src/components/os/oss.js"></script>
-<script src="src/components/os/ossHome.js"></script>
+<script src="src/components/atendimento/os/os.js"></script>
+<script src="src/components/atendimento/os/os-add.js"></script>
+<script src="src/components/atendimento/os/os-edt.js"></script>
+<script src="src/components/atendimento/os/os-del.js"></script>
+<script src="src/components/atendimento/os/os-tec.js"></script>
+<script src="src/components/atendimento/os/os-amarrac.js"></script>
+<script src="src/components/atendimento/os/ossLoja.js"></script>
+<script src="src/components/atendimento/os/ossLocal.js"></script>
+<script src="src/components/atendimento/os/ossStus.js"></script>
+<script src="src/components/atendimento/os/ossTec.js"></script>
+<script src="src/components/atendimento/os/oss.js"></script>
+<script src="src/components/atendimento/os/ossHome.js"></script>
 <!-- /components os -->
 <!-- components user -->
 <script src="src/components/user/user.js"></script>

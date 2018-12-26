@@ -83,4 +83,4 @@
     </div>
   </div>
 </template>
-<script src="src/components/os/_amarracOs.js"></script>
+<script src="src/components/atendimento/os/_amarracOs.js"></script>

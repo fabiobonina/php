@@ -5,8 +5,8 @@
   </div>
 </template>
 
-<?php require_once 'src/components/os/maps.php';?>
-<?php require_once 'src/components/os/osStatusTec.php';?>
+<?php require_once 'src/components/atendimento/os/maps.php';?>
+<?php require_once 'src/components/atendimento/os/osStatusTec.php';?>
 
 <script>
 var Dashboard = Vue.extend({

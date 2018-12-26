@@ -31,4 +31,4 @@
       </v-container>
     </div>      
 </template>
-<script src="src/components/os/osLojas.js"></script>
+<script src="src/components/atendimento/os/osLojas.js"></script>

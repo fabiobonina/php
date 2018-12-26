@@ -8,4 +8,4 @@
     </section>
   </div>
 </template>
-<script src="src/components/os/tecOs.js"></script>
+<script src="src/components/atendimento/os/tecOs.js"></script>

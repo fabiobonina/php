@@ -20,12 +20,12 @@
 <?php require_once 'src/components/includes/top.php';?>
 <?php require_once 'src/components/includes/rodape.php';?>
 
-<?php require_once 'src/components/os/osLojas.php';?>
-<?php require_once 'src/components/os/osStus.php';?>
-<?php require_once 'src/components/os/tecOs.php';?>
+<?php require_once 'src/components/atendimento/os/osLojas.php';?>
+<?php require_once 'src/components/atendimento/os/osStus.php';?>
+<?php require_once 'src/components/atendimento/os/tecOs.php';?>
 
 <!-- components os -->
-<?php require_once 'src/components/os/os.php';?>
-<?php require_once 'src/components/os/os-grid.php';?>
-<?php require_once 'src/components/os/localOss.php';?>
+<?php require_once 'src/components/atendimento/os/os.php';?>
+<?php require_once 'src/components/atendimento/os/os-grid.php';?>
+<?php require_once 'src/components/atendimento/os/localOss.php';?>
 <!-- /components os -->

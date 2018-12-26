@@ -141,8 +141,8 @@ const actions = {
           console.log(response.data.message);
         } else{
           //console.log(response.data);
-          commit("SET_OSPROPRIETARIO", response.data.osProprietario);
-          commit("SET_OSLOJAS", response.data.osLojas);
+          //commit("SET_OSPROPRIETARIO", response.data.osProprietario);
+          //commit("SET_OSLOJAS", response.data.osLojas);
           //commit("SET_OSS", response.data.oss);
           commit("SET_MODS", response.data.mod);
           resolve();

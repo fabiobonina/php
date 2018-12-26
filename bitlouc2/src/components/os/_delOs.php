@@ -27,4 +27,4 @@
     </v-dialog>
   </div>
 </template>
-<script src="src/components/os/_delOs.js"></script>
+<script src="src/components/atendimento/os/_delOs.js"></script>

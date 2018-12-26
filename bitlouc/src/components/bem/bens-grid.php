@@ -1,6 +1,6 @@
 <template id="bens-grid">
-<div>
-<div>
+  <div>
+    <div>
       <label><input type="radio" v-model="selectedCategoria" value="0">All </label>&nbsp;&nbsp;&nbsp;
       <label v-for=" categoria in categorias" :key="categoria.id"><input type="radio" v-model="selectedCategoria" v-bind:value="categoria.id">{{ categoria.name }} &nbsp;&nbsp;&nbsp;</label>
     </div>
@@ -12,9 +12,7 @@
       <v-btn @click="modalOs = true" color="deep-orange" dark small fab>
         <v-icon>build</v-icon>
       </v-btn>
-      <bem-add 
-        :dialog-edt="editItem" :dialog-del="deleteItem" :data="item" v-on:close="close()" >
-      </bem-add>
+      <bem-add :dialog-edt="editItem" :dialog-del="deleteItem" :data="item" v-on:close="close()"></bem-add>
     </v-toolbar>
     <v-data-table :headers="headers" :items="filteredData" :search="search" class="elevation-1">
       <template slot="items" slot-scope="props">
@@ -42,7 +40,7 @@
 
 <?php require_once 'src/components/bem/_addBem.php';?>
 <?php require_once 'src/components/bem/_crudBem.php';?>
-<?php require_once 'src/components/os/_addOs.php';?>
+<?php require_once 'src/components/atendimento/os/_addOs.php';?>
 
 <script>
   Vue.component('bens-grid', {

@@ -13,4 +13,4 @@
     </section>
   </div>
 </template>
-<script src="src/components/os/localOss.js"></script>
+<script src="src/components/atendimento/os/localOss.js"></script>

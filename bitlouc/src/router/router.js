@@ -31,7 +31,8 @@ var router = new VueRouter({
     },
     { path: '/ocorrencia', component: Ocorrencia,
       children: [
-      { path: '', component: OsUF },
+      { path: '', component: OcorrenciaUF },
+      { path: 'uf/:_uf', component: ListaUF },
       { path: 'status', component: OcorrenciaStatus },
       //  { path: 'os-tec', component: TecOs },
       ] 

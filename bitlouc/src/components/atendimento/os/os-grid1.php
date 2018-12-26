@@ -102,7 +102,7 @@
   </div>
 </template>
 
-<?php require_once 'src/components/os/_crudOs.php';?>
+<?php require_once 'src/components/atendimento/os/_crudOs.php';?>
 
 <script>
 Vue.component('os-grid', {

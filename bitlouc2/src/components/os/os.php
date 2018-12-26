@@ -191,7 +191,7 @@
     </v-content>
   </div>
 </template>
-<script src="src/components/os/os.js"></script>
+<script src="src/components/atendimento/os/os.js"></script>
 
 <?php require_once 'src/components/includes/top.php';?>
 <?php require_once 'src/components/includes/rodape.php';?>
@@ -205,4 +205,4 @@
 <?php require_once 'src/components/servicos/despesa/_km.php';?>
 <?php require_once 'src/components/servicos/despesa/despesa.php';?>
 
-<?php require_once 'src/components/os/_progresso.php';?>
+<?php require_once 'src/components/atendimento/os/_progresso.php';?>

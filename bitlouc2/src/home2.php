@@ -39,15 +39,15 @@
     
     <!-- /components bem -->
     <!-- components os -->
-    <?php require_once 'src/components/os/os.php';?>
-    <?php require_once 'src/components/os/os-grid.php';?>
-    <?php require_once 'src/components/os/os-add.php';?>
-    <?php require_once 'src/components/os/os-edt.php';?>
-    <?php require_once 'src/components/os/os-del.php';?>
-    <?php require_once 'src/components/os/os-tec.php';?> 
-    <?php require_once 'src/components/os/os-amarrac.php';?>    
-    <?php require_once 'src/components/os/ossLoja.php';?>
-    <?php require_once 'src/components/os/ossLocal.php';?>
+    <?php require_once 'src/components/atendimento/os/os.php';?>
+    <?php require_once 'src/components/atendimento/os/os-grid.php';?>
+    <?php require_once 'src/components/atendimento/os/os-add.php';?>
+    <?php require_once 'src/components/atendimento/os/os-edt.php';?>
+    <?php require_once 'src/components/atendimento/os/os-del.php';?>
+    <?php require_once 'src/components/atendimento/os/os-tec.php';?> 
+    <?php require_once 'src/components/atendimento/os/os-amarrac.php';?>    
+    <?php require_once 'src/components/atendimento/os/ossLoja.php';?>
+    <?php require_once 'src/components/atendimento/os/ossLocal.php';?>
     <!-- /components os -->
     <!-- components _uso -->
     <?php require_once 'src/components/includes/message.php';?>

@@ -4,4 +4,4 @@
     <os-grid :data="oss" :status="status"></os-grid>
   </div>
 </template>
-<script src="src/components/os/ossPlus.js"></script>
+<script src="src/components/atendimento/os/ossPlus.js"></script>

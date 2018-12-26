@@ -24,7 +24,7 @@
             successMessage: '',
             active: '0',
             router: [
-                { title: 'OS Lojas', router: '/oss', icon: 'store' },
+                { title: 'UF', router: '/ocorrencia', icon: 'store' },
                 { title: 'OS Status', router: '/oss/os-status', icon: 'trending_up' },
                 { title: 'Minhas OS', router: '/oss/os-tec', icon: 'person' },
             ],
@@ -33,9 +33,6 @@
     created() {
     },
     computed: {
-        osLojas() {
-            return store.state.osLojas;
-        },
     },
     methods: {
         
@@ -47,13 +44,13 @@
 <?php require_once 'src/components/includes/top.php';?>
 <?php require_once 'src/components/includes/rodape.php';?>
 
-<?php require_once 'src/components/os/osUF.php';?>
-<?php require_once 'src/components/os/osLojas.php';?>
-<?php require_once 'src/components/ocorrencia/status.php';?>
-<?php require_once 'src/components/os/tecOs.php';?>
+<?php require_once 'src/components/atendimento/ocorrencia/uf.php';?>
+<!--?php require_once 'src/components/atendimento/ocorrencia/osLojas.php';?-->
+<?php require_once 'src/components/atendimento/ocorrencia/status.php';?>
+<?php require_once 'src/components/atendimento/ocorrencia/tecOs.php';?>
 
 <!-- components os -->
-<?php require_once 'src/components/os/os.php';?>
-<?php require_once 'src/components/os/os-grid.php';?>
-<?php require_once 'src/components/os/localOss.php';?>
+<?php require_once 'src/components/atendimento/ocorrencia/os.php';?>
+<?php require_once 'src/components/atendimento/os/os-grid.php';?>
+<?php require_once 'src/components/atendimento/os/localOss.php';?>
 <!-- /components os -->
