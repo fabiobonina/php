@@ -32,7 +32,7 @@ var router = new VueRouter({
     { path: '/ocorrencia', component: Ocorrencia,
       children: [
       { path: '', component: OcorrenciaUF },
-      { path: 'uf/:_uf', component: ListaUF },
+      { path: 'uf/:_uf', component: UFList },
       { path: 'status', component: OcorrenciaStatus },
       //  { path: 'os-tec', component: TecOs },
       ] 

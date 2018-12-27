@@ -56,7 +56,7 @@ const getters = {
     return state.oss.filter(todo => todo.local.id === local)
   },
   getOssUF: (state) => (uf) => {
-    return state.oss.filter(todo => todo.uf === uf)
+    return state.oss.filter(todo => todo.uf == uf)
   },
   getOssStatus: (state) => (status) => {
     return state.oss.filter(todo => todo.status === status)

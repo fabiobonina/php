@@ -45,6 +45,7 @@
 <?php require_once 'src/components/includes/rodape.php';?>
 
 <?php require_once 'src/components/atendimento/ocorrencia/uf.php';?>
+<?php require_once 'src/components/atendimento/ocorrencia/ufList.php';?>
 <!--?php require_once 'src/components/atendimento/ocorrencia/osLojas.php';?-->
 <?php require_once 'src/components/atendimento/ocorrencia/status.php';?>
 <?php require_once 'src/components/atendimento/ocorrencia/tecOs.php';?>
