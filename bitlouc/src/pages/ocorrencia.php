@@ -52,6 +52,6 @@
 
 <!-- components os -->
 <?php require_once 'src/components/atendimento/ocorrencia/os.php';?>
-<?php require_once 'src/components/atendimento/os/os-grid.php';?>
+<?php require_once 'src/components/atendimento/atend-grid.php';?>
 <?php require_once 'src/components/atendimento/os/localOss.php';?>
 <!-- /components os -->

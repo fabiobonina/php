@@ -1,11 +1,21 @@
 
 <template id="uf-list">
   <div>
-    <v-container>
-      <v-layout>
-      <os-grid :data="oss" :status="status"></os-grid>
+    <v-container fluid class="pa-0">
+      <v-layout row wrap>
+        <v-btn-toggle v-if="user.nivel > 1 && user.grupo == 'P'"  v-model="status">
+          <v-btn flat  v-for="n in itens" v-on:click="status = n.ativo " :value="n.ativo" :key="n.id">
+            <v-icon>{{ n.icon }}</v-icon>
+            <span>{{ n.name }}</span>
+          </v-btn>
+          <v-btn v-if="user.nivel > 2 && user.grupo == 'P'" flat v-on:click="status = '3'" value="3">
+            <v-icon>done</v-icon>
+            <span>Fechardas</span>
+          </v-btn>
+        </v-btn-toggle>
       </v-layout>
     </v-container>
+      <os-grid :data="oss" :status="status"></os-grid>
   </div>      
 </template>
 <script>
@@ -15,6 +25,11 @@ var UFList = Vue.extend({
         return {
             errorMessage: '',
             successMessage: '',
+            itens: [
+              { id:1, name: 'Pedente', ativo: '0', icon: 'done' },
+              { id:2, name: 'Andamento', ativo: '1', icon: 'done' },
+              { id:3, name: 'Realizada', ativo: '2', icon: 'done' },
+            ],
             status: null,
             active: '0',
             gridColumns: ['displayName', 'name']
@@ -23,45 +38,29 @@ var UFList = Vue.extend({
     created() {
     },
     computed: {
+      user()  {
+      return store.state.user;
+    },
       oss()  {
         return store.getters.getOssUF(this.$route.params._uf);
       },
-      osStatusTec() {
-        /*function Comparator(a, b) {
-          if (a[1] > b[1]) return -1;
-          if (a[1] < b[1]) return 1;
-          return 0;
-        }
-        
-        var oss = store.getters.getOsId(this.$route.params._os);
-        
-        oss = oss.filter(function (row) {
-          return Number(row.status) <= 1;
-        });
-        this.ossAbertas = oss.length;
-        var tecnicos  = store.state.tecnicos;
-        var value = [];
-        for (var user of tecnicos) {
-          var count = 0;
-          var postData = [];
-          for (var os of oss) {
-            for (var tec of os.tecnicos) {  
-              if(user.id == tec.tecnico_id) {
-                count++;
-              }
-            }
-          }
-          postData.push(user.userNick)
-          postData.push(count)
-          if(count > 0){
-            value.push( postData)
-          }
-        }
-        value = value.sort(Comparator);
-        return value;*/
+      status: {
+      // getter
+      get: function () {
+        return store.state.status;
       },
+      // setter
+      set: function (newValue) {
+        var name = newValue
+        this.$store.dispatch("setStatus", name );
+      }
+    }
     },
     methods: {
+      setStatus(item){
+        var name = item;
+        this.$store.dispatch("setStatus", name );
+      }
     }
 });
 </script>

@@ -91,6 +91,7 @@
           
           { text: 'Local', align: 'left', value: 'local_name' },
           { text: 'Data', align: 'center', value: 'data' },
+          { text: 'Categoria', align: 'center', value: 'categoria' },
           { text: 'Info', sortable: false, value: 'info' },
           { text: 'ID', value: 'id' },          
         ],
