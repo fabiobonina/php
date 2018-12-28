@@ -42,8 +42,9 @@
 				$item->ocorrenciaII		= $oss->contOsStatusUFProprietario( $proprieratio_id, $item->id, 1 );
 				$item->ocorrenciaIII	= $oss->contOsStatusUFProprietario( $proprieratio_id, $item->id, 2 );
 				$item->ocorrenciaTT		= $item->ocorrenciaI + $item->ocorrenciaII + $item->ocorrenciaIII;
-				$item->osGerarOSQt 		= $oss->contOsStatusUFProprietario( $proprieratio_id, $item->id, 4 );
-				$item->osFecharOSQt 	= $oss->contOsStatusUFProprietario( $proprieratio_id, $item->id, 5 );
+				$item->osI 				= $oss->contOsStatusUFProprietario( $proprieratio_id, $item->id, 3 );
+				$item->osII 			= $oss->contOsStatusUFProprietario( $proprieratio_id, $item->id, 4 );
+				$item->osIII 			= $oss->contOsStatusUFProprietario( $proprieratio_id, $item->id, 5 );
 				
 				$item = (array) $item;
 				array_push( $itens, $item );

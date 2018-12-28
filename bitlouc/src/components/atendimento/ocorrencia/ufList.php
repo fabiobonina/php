@@ -26,11 +26,10 @@ var UFList = Vue.extend({
             errorMessage: '',
             successMessage: '',
             itens: [
-              { id:1, name: 'Pedente', ativo: '0', icon: 'done' },
-              { id:2, name: 'Andamento', ativo: '1', icon: 'done' },
-              { id:3, name: 'Realizada', ativo: '2', icon: 'done' },
+              { id:1, name: 'Pedente', ativo: '0', icon: 'mdi-exclamation' },
+              { id:2, name: 'Andamento', ativo: '1', icon: 'mdi-loading mdi-spin' },
+              { id:3, name: 'Realizada', ativo: '2', icon: 'mdi-check-all' },
             ],
-            status: null,
             active: '0',
             gridColumns: ['displayName', 'name']
         };
@@ -39,22 +38,22 @@ var UFList = Vue.extend({
     },
     computed: {
       user()  {
-      return store.state.user;
-    },
+        return store.state.user;
+      },
       oss()  {
         return store.getters.getOssUF(this.$route.params._uf);
       },
       status: {
       // getter
-      get: function () {
-        return store.state.status;
-      },
-      // setter
-      set: function (newValue) {
-        var name = newValue
-        this.$store.dispatch("setStatus", name );
+        get: function () {
+          return store.state.status;
+        },
+        // setter
+        set: function (newValue) {
+          var name = newValue
+          this.$store.dispatch("setStatus", name );
+        }
       }
-    }
     },
     methods: {
       setStatus(item){

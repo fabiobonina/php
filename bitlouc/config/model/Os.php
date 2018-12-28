@@ -403,7 +403,7 @@ class Os extends Crud{
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':uf', $uf);
 			$stmt->bindParam(':proprietario_id', $proprietario_id);
-			$stmt->bindParam(':status', $status, PDO::PARAM_INT);
+			$stmt->bindParam(':status', $status);
 			$stmt->execute();
 			return $stmt->fetchColumn();
 		} catch(PDOException $e) {
