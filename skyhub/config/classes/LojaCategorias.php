@@ -29,7 +29,10 @@ class LojaCategorias extends Crud{
 			$stmt->bindParam(':loja', $this->loja );
 			$stmt->bindParam(':categoria', $this->categoria );
 			
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 			
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
@@ -43,7 +46,10 @@ class LojaCategorias extends Crud{
 		$stmt = DB::prepare($sql);
 		$stmt->bindParam(':ativo',$this->ativo);
 		$stmt->bindParam(':id', $id);
-		return $stmt->execute();
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
@@ -55,7 +61,10 @@ class LojaCategorias extends Crud{
 		$stmt = DB::prepare($sql);
 		$stmt->bindParam(':loja', $loja, PDO::PARAM_INT);
 		
-		return $stmt->execute(); 
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso"; 
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}

@@ -14,7 +14,7 @@
 <?php require_once 'src/components/includes/rodape.php';?>
 
 <?php require_once 'src/components/local/local-top.php';?>
-<?php require_once 'src/components/bem/equipamentosLocal.php';?>
+<?php require_once 'src/components/equipamento/equipamentosLocal.php';?>
 
 <script>
 var Local = Vue.extend({

@@ -32,7 +32,10 @@ class UF extends Crud{
 		$stmt->bindParam(':name',$this->name);
 		$stmt->bindParam(':pais',$this->pais);
 
-		return $stmt->execute();
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
@@ -46,7 +49,10 @@ class UF extends Crud{
 		$stmt->bindParam(':name', $this->name);
 		$stmt->bindParam(':pais',$this->pais);
 		$stmt->bindParam(':id', $id);
-		return $stmt->execute();
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}

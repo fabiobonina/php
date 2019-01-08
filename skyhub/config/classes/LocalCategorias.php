@@ -27,7 +27,10 @@ class LocalCategorias extends Crud{
 			$stmt->bindParam(':local', $this->local );
 			$stmt->bindParam(':categoria', $this->categoria );
 				
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
@@ -40,7 +43,10 @@ class LocalCategorias extends Crud{
 		$stmt = DB::prepare($sql);
 		$stmt->bindParam(':ativo',$this->ativo);
 		$stmt->bindParam(':id', $id);
-		return $stmt->execute();
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
@@ -52,7 +58,10 @@ class LocalCategorias extends Crud{
 		$stmt = DB::prepare($sql);
 		$stmt->bindParam(':local', $local, PDO::PARAM_INT);
 		
-		return $stmt->execute(); 
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso"; 
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}

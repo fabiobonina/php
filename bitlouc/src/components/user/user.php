@@ -2,7 +2,7 @@
 <template id="user">
   <div>
     <v-dialog v-model="dialog2" max-width="500px">
-      <v-card>
+      <v-card v-if="user">
         <v-card-title>
           <span>User: {{ user.user }} </span>
           <v-spacer></v-spacer>
@@ -23,7 +23,7 @@
           </v-list>
         </v-container>
         <v-card-actions>
-          <v-btn color="primary" flat @click.stop="$emit('close')">Close</v-btn>
+          <v-btn color="primary" flat @click="$emit('close')">Close</v-btn>
           <v-spacer></v-spacer>
           <v-btn color="primary" @click="logout()">Logout</v-btn>
         </v-card-actions>
@@ -62,6 +62,7 @@
     methods: {
       logout(){
         this.logout;
+        this.$emit('close');
       }
     },
   });

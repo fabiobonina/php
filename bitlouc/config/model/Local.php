@@ -89,7 +89,10 @@ class Local extends Crud{
 			$stmt->bindParam(':uf',				$this->uf);
 			$stmt->bindParam(':ativo',			$this->ativo);
 			$stmt->bindParam(':id', 			$id);
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			$res['error'] = true; 
 			$res['message'] = $e->getMessage();
@@ -104,7 +107,10 @@ class Local extends Crud{
 		$stmt = DB::prepare($sql);
 		$stmt->bindParam(':loja_id',$this->loja_id);
 
-		return $stmt->execute();
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			$res['error'] = true; 
 			$res['message'] = $e->getMessage();

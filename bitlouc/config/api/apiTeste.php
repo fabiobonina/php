@@ -2,23 +2,23 @@
 header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
-  require_once '../control/osControl.php';
-  $osFunction = new OsControl();
+  //require_once '../control/osControl.php';
+  //$osFunction = new OsControl();
 
   function __autoload($class_name){
 		require_once '../model/' . $class_name . '.php';
 	}
 
-  $usuarios     = new Usuarios();
-  $osTecnicos   = new OsTecnicos();
+  //$usuarios     = new Usuarios();
+  //$osTecnicos   = new OsTecnicos();
   //$lojaGrupos   = new LojaGrupos();
-  $sistemas     = new Sistema();
+  //$sistemas     = new Sistema();
   //$grupos       = new Grupos();
-  $descricao    = new Descricao();
-  $ativos       = new Ativos();
-  $locais       = new Locais();
+  //$descricao    = new Descricao();
+  //$ativos       = new Ativos();
+  //$locais       = new Locais();
   //$locaisGrupos = new LocaisGrupos();
-
+  $notas          = new Nota();
   $res = array('error' => false);
   $action = 'teste';
 
@@ -117,12 +117,12 @@ header('Content-Type: text/html; charset=utf-8');
   }
   if($action == 'teste'){
     
-    $os = '7';
+    $os = '130';
     $tec = '1';
-    $e1 = $osFunction->listOsTecMod($os, $tec);
+    $e1 = $notas->findOs($os);
     $res['teste'] = $e1;
 
-    $res['tecnico']	= $osTecnicos->findTecOs($tec, $os);
+    //$res['tecnico']	= $osTecnicos->findTecOs($tec, $os);
     
   }
 

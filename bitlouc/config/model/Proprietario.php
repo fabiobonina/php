@@ -4,8 +4,6 @@ require_once '_crud.php';
 try {
 class Proprietario extends Crud{
 	
-
-	
 	protected $table = 'tb_proprietario';
 	private $cliente;
 	private $localida;
@@ -39,7 +37,10 @@ class Proprietario extends Crud{
 		$stmt->bindParam(':plaqueta',$this->plaqueta);
 		$stmt->bindParam(':data',$this->data);
 
-		return $stmt->execute();
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
@@ -55,7 +56,10 @@ class Proprietario extends Crud{
 		$stmt->bindParam(':plaqueta',$this->plaqueta);
 		$stmt->bindParam(':data',$this->data);
 		$stmt->bindParam(':id', $id);
-		return $stmt->execute();
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
@@ -73,11 +77,6 @@ class Proprietario extends Crud{
 			echo 'ERROR: ' . $e->getMessage();
 		}
 	}
-
-
-	
-
-
 }
 }catch( Exception $e ) {
 

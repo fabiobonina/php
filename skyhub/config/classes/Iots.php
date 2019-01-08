@@ -17,7 +17,10 @@ class Iots extends Crud{
 		$stmt = DB::prepare($sql);
 		$stmt->bindParam(':bem',$this->bem);
 
-		return $stmt->execute(); 
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso"; 
 
 	}
 
@@ -27,7 +30,10 @@ class Iots extends Crud{
 		$stmt = DB::prepare($sql);
 		$stmt->bindParam(':bem', $this->bem);
 		$stmt->bindParam(':id', $id);
-		return $stmt->execute();
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		
 	}
 

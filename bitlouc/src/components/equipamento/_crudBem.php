@@ -1,0 +1,71 @@
+<template id="bem-crud">
+  <div>
+    <v-btn @click="modalOs = true" color="deep-orange" dark small fab>
+      <v-icon>build</v-icon>
+    </v-btn>
+    <v-menu v-if="user.nivel > 2 && user.grupo == 'P'" bottom @click="">
+      <v-btn slot="activator" small color="blue darken-2" dark fab>
+        <v-icon>mdi-information-variant</v-icon>
+      </v-btn>
+      <v-list>
+        <v-list-tile @click="modalOs = true">
+          <v-list-tile-title>
+            <v-icon>build</v-icon>OS
+          </v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile @click="modalCat = true">
+          <v-list-tile-title>
+            <v-icon>mdi-tag</v-icon></span>Categoria
+          </v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile @click="modalEdt = true">
+          <v-list-tile-title>
+            <v-icon>mdi-pencil</v-icon>Editar
+          </v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile v-if="user.nivel > 3" @click="modalDel = true">
+          <v-list-tile-title>
+            <v-icon>mdi-delete</v-icon>Delete
+          </v-list-tile-title>
+        </v-list-tile>
+      </v-list>
+    </v-menu>
+    <div>
+      <os-add v-if="modalOs" v-on:close="modalOs = false" :dialog="modalOs" :data="data"></os-add>
+      <bem-edt v-if="modalEdt" v-on:close="modalEdt = false" :dialog="modalEdt" :data="data"></bem-edt>
+      <bem-del v-if="modalDel" v-on:close="modalDel = false" :dialog="modalDel" :data="data"></bem-del>
+      <bem-cat v-if="modalCat" v-on:close="modalCat = false" :dialog="modalCat" :data="data"></bem-cat>
+    </div>
+  </div>
+</template>
+
+<?php require_once 'src/components/equipamento/_edtBem.php';?>
+<?php require_once 'src/components/equipamento/_delBem.php';?>
+<?php require_once 'src/components/os/_addOs.php';?>
+
+<script>
+Vue.component('bem-crud', {
+  template: '#bem-crud',
+  props: {
+    data: Object
+  },
+  data: function () {
+    return {
+      fab: false,
+      hover: false,
+      modalEdt: false,
+      modalDel: false,
+      modalCat: false,
+      modalOs: false,
+    }
+  },
+  computed: {
+    user()  {
+      return store.state.user;
+    },
+  },
+  methods: {  
+  }
+});
+</script>
+

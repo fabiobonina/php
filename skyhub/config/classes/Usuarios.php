@@ -76,7 +76,10 @@ class Usuarios extends Crud{
 		$stmt->bindParam(':data_cadastro',$this->datacadastro);
 		$stmt->bindParam(':data_ultimo_login',$this->datalogin);
 
-		return $stmt->execute();
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
@@ -92,7 +95,10 @@ class Usuarios extends Crud{
 			$stmt->bindParam(':nickuser',$this->nickuser);
 			$stmt->bindParam(':senha',$this->senha);
 			$stmt->bindParam(':id', $id);
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
@@ -176,7 +182,10 @@ class Usuarios extends Crud{
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':data_ultimo_login', $this->datalogin);
 			$stmt->bindParam(':id', $id);
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}

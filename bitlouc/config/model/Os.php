@@ -8,13 +8,14 @@ class Os extends Crud{
 	
 	protected $table = 'tb_os';
 	protected $table2 = 'tb_os_tecnico';
-	private $loja;
-	private $lojaNick;
-	private $local;
-	private $bem;
-	private $categoria;
-	private $servico;
-	private $tipoServ;
+	private $proprietario_id;
+	private $loja_id;
+	private $loja_nick;
+	private $local_id;
+	private $equipamento_id;
+	private $categoria_id;
+	private $servico_id;
+	private $servico_tipo;
 	private $tecnicos;
 	private $data;
 	private $dtCadastro;
@@ -29,26 +30,30 @@ class Os extends Crud{
 	private $status;
 	private $ativo;
 
-	public function setLoja($loja){
-		$this->loja = $loja;
+
+	public function setProprietario($proprietario_id){
+		$this->proprietario_id = $proprietario_id;
 	}
-	public function setLojaNick($lojaNick){
-		$this->lojaNick = $lojaNick;
+	public function setLoja($loja_id){
+		$this->loja_id = $loja_id;
 	}
-	public function setLocal($local){
-		$this->local = $local;
+	public function setLojaNick($loja_nick){
+		$this->loja_nick = $loja_nick;
 	}
-	public function setBem($bem){
-		$this->bem = $bem;
+	public function setLocal($local_id){
+		$this->local_id = $local_id;
 	}
-	public function setCategoria($categoria){
-		$this->categoria = $categoria;
+	public function setEquipamento($equipamento_id){
+		$this->equipamento_id = $equipamento_id;
 	}
-	public function setServico($servico){
-		$this->servico = $servico;
+	public function setCategoria($categoria_id){
+		$this->categoria_id = $categoria_id;
 	}
-	public function setTipoServ($tipoServ){
-		$this->tipoServ = $tipoServ;
+	public function setServico($servico_id){
+		$this->servico_id = $servico_id;
+	}
+	public function setServicoTipo($servico_tipo){
+		$this->servico_tipo = $servico_tipo;
 	}
 	public function setData($data){
 		$this->data = $data;
@@ -74,9 +79,6 @@ class Os extends Crud{
 	public function setDtConcluido($dtConcluido){
 		$this->dtConcluido = $dtConcluido;
 	}
-	public function setEstado($estado){
-		$this->estado = $estado;
-	}
 	public function setProcesso($processo){
 		$this->processo = $processo;
 	}
@@ -89,32 +91,26 @@ class Os extends Crud{
 
 	public function insert(){
 		try{
-			$sql  = "INSERT INTO $this->table ( loja, lojaNick, local, servico, tipoServ, categoria, data, dtUltimoMan, dtCadastro, estado, processo, status, ativo) ";
-			$sql .= "VALUES (:loja, :lojaNick, :local, :servico, :tipoServ, :categoria, :data, :dtUltimoMan, :dtCadastro, :estado, :processo, :status, :ativo)";
+			$sql  = "INSERT INTO $this->table ( proprietario_id, loja_id, loja_nick, local_id, uf, equipamento_id, servico_id, servico_tipo, categoria_id, data, dtUltimoMan, dtCadastro, ativo) ";
+			$sql .= "VALUES (:proprietario_id, :loja_id, :loja_nick, :local_id, :uf, :equipamento_id, :servico_id, :servico_tipo, :categoria_id, :data, :dtUltimoMan, :dtCadastro, :ativo)";
 			$stmt = DB::prepare($sql);
 			
-			$stmt->bindParam(':loja',		$this->loja , PDO::PARAM_INT);
-			$stmt->bindParam(':lojaNick',	$this->lojaNick);
-			$stmt->bindParam(':local',		$this->local, PDO::PARAM_INT);
-			$stmt->bindParam(':servico',	$this->servico);
-			$stmt->bindParam(':tipoServ',	$this->tipoServ, PDO::PARAM_INT);
-			$stmt->bindParam(':categoria',	$this->categoria, PDO::PARAM_INT);
-			$stmt->bindParam(':data',		$this->data);
-			$stmt->bindParam(':dtUltimoMan',$this->dtUltimoMan);
-			$stmt->bindParam(':dtCadastro',	$this->dtCadastro);
-			$stmt->bindParam(':estado',		$this->estado);
-			$stmt->bindParam(':processo',	$this->processo);
-			$stmt->bindParam(':status',		$this->status);
-			$stmt->bindParam(':ativo',		$this->ativo);
+			$stmt->bindParam(':proprietario_id',	$this->proprietario_id);
+			$stmt->bindParam(':loja_id',			$this->loja_id);
+			$stmt->bindParam(':loja_nick',			$this->loja_nick);
+			$stmt->bindParam(':local_id',			$this->local_id);
+			$stmt->bindParam(':uf',					$this->uf);
+			$stmt->bindParam(':equipamento_id',		$this->equipamento_id);
+			$stmt->bindParam(':servico_id',			$this->servico_id);
+			$stmt->bindParam(':servico_tipo',		$this->servico_tipo);
+			$stmt->bindParam(':categoria_id',		$this->categoria_id);
+			$stmt->bindParam(':data',				$this->data);
+			$stmt->bindParam(':dtUltimoMan',		$this->dtUltimoMan);
+			$stmt->bindParam(':dtCadastro',			$this->dtCadastro);
+			$stmt->bindParam(':ativo',				$this->ativo);
 			$stmt->execute();
 			$osId = DB::getInstance()->lastInsertId();
-			if($this->bem != null){
-				$sql  = "UPDATE $this->table SET bem = :bem WHERE id = :id";
-				$stmt = DB::prepare($sql);
-				$stmt->bindParam(':bem',$this->bem);
-				$stmt->bindParam(':id', $osId);
-				$stmt->execute();
-			}
+
 			$res['id'] = $osId;
 			$res['error'] = false;
 			$res['message'] = "OK, OS aberta com sucesso";
@@ -129,17 +125,17 @@ class Os extends Crud{
 
 	public function update($id){
 		try{
-			$sql  = "UPDATE $this->table SET local = :local, bem = :bem, servico = :servico, tipoServ = :tipoServ, categoria = :categoria, data = :data, dtUltimoMan = :dtUltimoMan, ativo = :ativo WHERE id = :id";
+			$sql  = "UPDATE $this->table SET proprietario_id = :proprietario_id, loja_id = :loja_id, loja_nick = :loja_nick, local_id = :local_id, uf = :uf, equipamento_id = :equipamento_id, servico_id = :servico_id, servico_tipo = :servico_tipo, categoria_id = :categoria_id, data = :data, dtUltimoMan = :dtUltimoMan, ativo = :ativo WHERE id = :id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':local',		$this->local);
-			$stmt->bindParam(':bem',		$this->bem);
-			$stmt->bindParam(':servico',	$this->servico);
-			$stmt->bindParam(':tipoServ',	$this->tipoServ);
-			$stmt->bindParam(':categoria',	$this->categoria);
-			$stmt->bindParam(':data',		$this->data);
-			$stmt->bindParam(':dtUltimoMan',$this->dtUltimoMan);
-			$stmt->bindParam(':ativo',		$this->ativo);
-			$stmt->bindParam(':id', 		$id);
+			$stmt->bindParam(':local_id',		$this->local_id);
+			$stmt->bindParam(':equipamento_id',	$this->equipamento_id);
+			$stmt->bindParam(':servico_id',		$this->servico_id);
+			$stmt->bindParam(':servico_tipo',	$this->servico_tipo);
+			$stmt->bindParam(':categoria_id',	$this->categoria_id);
+			$stmt->bindParam(':data',			$this->data);
+			$stmt->bindParam(':dtUltimoMan',	$this->dtUltimoMan);
+			$stmt->bindParam(':ativo',			$this->ativo);
+			$stmt->bindParam(':id', 			$id);
 			$stmt->execute();
 
 			$res['error'] = false;
@@ -161,8 +157,9 @@ class Os extends Crud{
 			$stmt->execute();
 
 			$res['error'] = false;
-			$res['message'] = "OK, processo da OS alterado com sucesso";
+			$res['message'] = "OK, salvo com sucesso";
 			return $res;
+
 		} catch(PDOException $e) {
 			$res['error']	= true;
 			$res['message'] = $e->getMessage();
@@ -178,9 +175,15 @@ class Os extends Crud{
 			$stmt->bindParam(':dtOs',$this->dtOs);
 			$stmt->bindParam(':status',$this->status);
 			$stmt->bindParam(':id', $id);
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, salvo com sucesso";
+			return $res;
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 	}
 	public function concluir($id){
@@ -191,9 +194,15 @@ class Os extends Crud{
 			$stmt->bindParam(':status',			$this->status);
 			$stmt->bindParam(':dtConcluido',	$this->dtConcluido);
 			$stmt->bindParam(':id',				$id);
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, salvo com sucesso";
+			return $res;
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 	}
 	public function reabrir($id){
@@ -202,9 +211,15 @@ class Os extends Crud{
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':status',			$this->status);
 			$stmt->bindParam(':id',				$id);
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, salvo com sucesso";
+			return $res;
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 	}
 	public function fechar($id){
@@ -215,9 +230,15 @@ class Os extends Crud{
 			$stmt->bindParam(':dtFech',	$this->dtFech);
 			$stmt->bindParam(':status',	$this->status);
 			$stmt->bindParam(':id', 	$id);
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, salvo com sucesso";
+			return $res;
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}	
 	}
 	public function avalidar($id){
@@ -226,9 +247,15 @@ class Os extends Crud{
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':status',	$this->status);
 			$stmt->bindParam(':id', 	$id);
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, salvo com sucesso";
+			return $res;
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}	
 	}
 	public function findOs($status){
@@ -239,19 +266,23 @@ class Os extends Crud{
 			$stmt->execute();
 			return $stmt->fetchAll();
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 	}
-	public function ultimaOs( $local_id, $categoria ){
+	public function ultimaOs( $local_id, $categoria_id ){
 		try{
-			$sql  = "SELECT id, local_id, categoria, MAX(data) AS dtUltimo FROM $this->table  WHERE BINARY local_id=:local_id AND categoria=:categoria GROUP BY local_id=:local_id, categoria=:categoria";
+			$sql  = "SELECT id, local_id, categoria_id, MAX(data) AS dtUltimo FROM $this->table  WHERE BINARY local_id=:local_id AND categoria_id=:categoria_id GROUP BY local_id=:local_id, categoria_id=:categoria_id";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':local_id', $local_id, PDO::PARAM_INT);
-			$stmt->bindParam(':categoria', $categoria, PDO::PARAM_INT);
+			$stmt->bindParam(':categoria_id', $categoria_id, PDO::PARAM_INT);
 			$stmt->execute();
 			return $stmt->fetch();
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 	}
 
@@ -263,33 +294,39 @@ class Os extends Crud{
 			$stmt->execute();
 			return $stmt->fetch();
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 	}
 
-	public function validarOs( $local, $categoria, $bem, $data ){
+	public function validarOs( $local_id, $categoria_id, $equipamento_id, $data ){
 		try{
-			$sql  = "SELECT * FROM $this->table  WHERE BINARY local = :local AND categoria = :categoria AND (bem = :bem OR bem IS NULL) AND data = :data";
+			$sql  = "SELECT * FROM $this->table  WHERE BINARY local_id = :local_id AND categoria_id = :categoria_id AND (equipamento_id = :equipamento_id OR equipamento_id IS NULL) AND data = :data";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':local', 		$local);			
-			$stmt->bindParam(':bem',		$bem, PDO::PARAM_INT);
-			$stmt->bindParam(':categoria',	$categoria);
-			$stmt->bindParam(':data',		$data);
+			$stmt->bindParam(':local_id', 		$local_id);			
+			$stmt->bindParam(':equipamento_id',	$equipamento_id, PDO::PARAM_INT);
+			$stmt->bindParam(':categoria_id',	$categoria_id);
+			$stmt->bindParam(':data',			$data);
 			$stmt->execute();
 			return $stmt->fetch();
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 	}
-	public function osLoja( $lojaId ){
+	public function osLoja( $loja_id ){
 		try{
-			$sql  = "SELECT * FROM $this->table  WHERE loja:loja ";
+			$sql  = "SELECT * FROM $this->table  WHERE loja_id = :loja_id ";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':loja', $lojaId, PDO::PARAM_INT);
+			$stmt->bindParam(':loja_id', $loja_id, PDO::PARAM_INT);
 			$stmt->execute();
 			return $stmt->fetch();
 		} catch(PDOException $e) {
-			echo 'ERROR: ' . $e->getMessage();
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
 		}
 	}
 	public function contOsStatusUF( $uf, $status ){
@@ -339,7 +376,7 @@ class Os extends Crud{
 
 	public function findIIIProprietario( $proprietario_id  ){
 		try{
-			$sql  = "SELECT * FROM $this->table WHERE proprietario_id  = :proprietario_id AND status < 6 ";
+			$sql  = "SELECT * FROM $this->table WHERE proprietario_id  = :proprietario_id AND status < 4 ";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':proprietario_id', $proprietario_id);
 			$stmt->execute();

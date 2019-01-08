@@ -4,8 +4,10 @@ header('Content-Type: text/html; charset=utf-8');
 
 require_once '_chave.php';
 require_once '../control/osControl.php';
+require_once '../control/notaControl.php';
 
-$osControl = new OsControl();
+$osControl    = new OsControl();
+$notaControl  = new NotaControl();
 
 
 //$res['outros'] = array();
@@ -15,7 +17,7 @@ $arDados        = array();
 $arErros        = array();
 $arMessage      = array();
 $arSucesso 		  = array();
-$action         = 'read';
+$action         = 'email';
  
 
 //$res['user'] = $user;
@@ -33,162 +35,60 @@ if(isset($_GET['action'])){
 }
 
 if($action == 'read'):
-  //$lojaId = $_POST['loja'];
-  //$lojaId = '1';
 
-  $osStatus = '1';
-  $arLojas = array();
-  $contPp_OsTt = 0;
-  $arProprietario = array();
-     
-  $arOs = $osControl->listProprietario( $acessoProprietario );
-
-  $res['oss']= $arOs;
-  $res['osProprietario']= $arProprietario;
-  $res['osLojas']= $arLojas;
-  $res['error'] = false;
-
-endif;
-
-if($action == 'read2'):
-  //$lojaId = $_POST['loja'];
-  //$lojaId = '1';
-
-  $osStatus = '1';
-  $arLojas = array();
-  $contPp_OsTt = 0;
-  $arProprietario = array();
-  $arOss = array();
-  #PROPRITARIO-----------------------------------------------------------------------------------------
-  foreach($proprietario->findAll() as $key => $value):if($value->id == $acessoProprietario && $value->ativo == '0' ) {
-    $arProprietario['id'] = $value->id;
-    #LOJAS---------------------------------------------------------------------------------------------
-    $arLojas = array();
-    foreach($lojas->findAll() as $key => $value):if($value->proprietario == $acessoProprietario && (( $acessoNivel > 1 && $acessoGrupo == 'P' ) || $value->id == $acessoloja )){
-      $arLoja = (array) $value;
-      $lojaId = $value->id;
-      
-      $contLj_OsTt = 0;
-      #OSS--------------------------------------------------------------------------------------------
-      $status = 5;
-      foreach($oss->findAll() as $key => $value):if($value->loja == $lojaId && $value->status < $status) {
-
-        if( $value->status < 2 ){
-          $contPp_OsTt++;
-          $contLj_OsTt++;
-        }
-        $arOs = $osControl->matrix( $value );
-        
-        array_push($arOss, $arOs);
-
-      }endforeach;
-      
-      #OSS--------------------------------------------------------------------------------------------
-      $arLoja['osQt']= $contLj_OsTt;
-      $arProprietario['osQt']= $contPp_OsTt;
-
-      if($contLj_OsTt > 0){
-        array_push($arLojas, $arLoja );   
-      }
-    }endforeach;
-    $res['oss']= $arOss;
-    #LOJAS---------------------------------------------------------------------------------------------
-  }endforeach;
-  #PROPRITARIO-----------------------------------------------------------------------------------------
-  $res['osProprietario']= $arProprietario;
-  $res['osLojas']= $arLojas;
-  $res['error'] = false;
-
-endif;
-
-#CADASTRAR
-if($action == 'osAdd'):
-  //
-  $loja       = $_POST['loja'];
-  $lojaNick   = $_POST['lojaNick'];
-  $local      = $_POST['local'];
-  $bem        = $_POST['bem'];
-  $categoria  = $_POST['categoria'];
-  $servico    = $_POST['servico'];
-  $tipoServ   = $_POST['tipoServ'];
-  $tecnicos   = $_POST['tecnicos'];
-  $data       = $_POST['data'];
-  $dtCadastro = $_POST['dtCadastro'];
-  $estado     = $_POST['estado'];
-  $processo   = $_POST['processo'];
-  $status     = $_POST['status'];
-  $ativo      = $_POST['ativo'];
-
-
-  $etapaI = $oss->validarOs( $local, $categoria, $bem, $data );
-
-  if( !$etapaI ){
-    $dtUltimo   = '';
-    $osUltimoMan = $oss->ultimaOs( $local, $categoria);
-    if(isset($osUltimoMan->dtUltimo) ){
-      $dtUltimo = $osUltimoMan->dtUltimo;
-    }
-    $oss->setLoja($loja);
-    $oss->setLojaNick($lojaNick);
-    $oss->setLocal($local);
-    $oss->setBem($bem);
-    $oss->setCategoria($categoria);
-    $oss->setServico($servico);
-    $oss->setTipoServ($tipoServ);
-    $oss->setData($data);
-    $oss->setDtUltimoMan($dtUltimo);
-    $oss->setDtCadastro($dtCadastro);
-    $oss->setEstado($estado);
-    $oss->setProcesso($processo);
-    $oss->setStatus($status);
-    $oss->setAtivo($ativo);
-    # Insert
-    $osId = $oss->insert();
-  
-    if($osId['error']){
-      $res['error'] = $osId['error'];
-      $res['message']= $osId['message'];
-    }else{
-      $item = $osControl->insertOsTec( $tecnicos, $osId['id'] , $loja);
-      $tecII = $osControl->osEmail( $osId['id'] );
-      $res['error'] = $item['error'];
-      array_push($arMessage, $osId['message']);
-      array_push($arMessage, $item['message']);
-      $res['message']= $arMessage;
-    }
+  $item = $osControl->listProprietario( $acessoProprietario );
+  if($item['error'] == true ){
+    $res = $item;
   }else{
-    $res['error']   = true;
-    $res['message'] = 'Já existe OS aberta com esse dados!';
-  }
-endif;
-#OS-EDITAR
-if($action == 'osEdt'):
-  //
-  $osId       = $_POST['osId'];
-  $local      = $_POST['local'];
-  $bem        = $_POST['bem'];
-  $categoria  = $_POST['categoria'];
-  $servico    = $_POST['servico'];
-  $tipoServ   = $_POST['tipoServ'];
-  $data       = $_POST['data'];
-  $dtUltimo   = $_POST['dtUltimoMan'];
-  $ativo      = $_POST['ativo'];
-  
-  $osUltimoMan = $oss->ultimaOs( $local, $categoria);
-  if(isset($osUltimoMan)  && $osUltimoMan->id != $osId ){
-    $dtUltimo = $osUltimoMan->dtUltimo;
+    $res['oss']   = $item['dados']; 
+    $res['error'] = false;
   }
 
-  $oss->setLocal($local);
-  $oss->setBem($bem);
-  $oss->setCategoria($categoria);
-  $oss->setServico($servico);
-  $oss->setTipoServ($tipoServ);
-  $oss->setData($data);
-  $oss->setDtUltimoMan($dtUltimo);
-  $oss->setAtivo($ativo);
-  # Insert
-  $res = $oss->update($osId);
+endif;
+if($action == 'os'):
+  $os_id = $_POST['os_id'];
+  //$os_id = '130';
+  $res = $osControl->findOs( $os_id );
+
+endif;
+
+if($action == 'publish'):
+  $proprietario_id  = $_POST['proprietario_id'];
+  $loja_id          = $_POST['loja_id'];
+  $loja_nick        = $_POST['loja_nick'];
+  $local_id         = $_POST['local_id'];
+  $uf               = $_POST['uf'];
+  $equipamento_id   = $_POST['equipamento_id'];
+  $categoria_id     = $_POST['categoria_id'];
+  $servico_id       = $_POST['servico_id'];
+  $servico_tipo     = $_POST['servico_tipo'];
+  $data             = $_POST['data'];
+  $dtCadastro       = $_POST['dtCadastro'];
+  $ativo            = $_POST['ativo'];
+  $id               = $_POST['id'];
+
+  if( $id == "" ):
+    $id = NULL;
+  endif;
+  if( $equipamento_id == "" ):
+    $equipamento_id = '0';
+  endif;
+
+  $res =  $osControl->publish( 
+    $proprietario_id,
+    $loja_id,
+    $loja_nick,
+    $local_id,
+    $uf,
+    $equipamento_id,
+    $categoria_id,
+    $servico_id,
+    $servico_tipo,
+    $data,
+    $dtCadastro,
+    $ativo,
+    $id
+  );
 
 endif;
 
@@ -233,39 +133,22 @@ if($action == 'osDel'):
   }
 endif;
 #NOTA-ADD
-if($action =='osNotaAdd'):
+if($action =='publishNota'):
 
-    $os       = $_POST['os'];
-    $descricao= $_POST['descricao'];
-
-    $notas->setOs($os);
-    $notas->setDescricao($descricao);
-    # Insert
-    if($notas->insert()){
-      $res['error'] = false;
-      $res['message']= "OK, dados salvo com sucesso";
-    }else{
-      $res['error'] = true; 
-      $res['message'] = "Error, nao foi possivel salvar os dados";      
-    }
-endif;
-
-#NOTA-EDTAR
-if($action =='osNotaEdt'):
-
-    $id         = $_POST['id'];
+    $os_id      = $_POST['os_id'];
     $descricao  = $_POST['descricao'];
+    $id         = $_POST['id'];
 
-    $notas->setDescricao($descricao);
+    if( $id == "" ):
+      $id = NULL;
+    endif;
 
-    if($notas->update($id)){
-      $res['error'] = false;
-      $res['message']= "OK, dados alterado com sucesso";
-    }else{
-      $res['error'] = true; 
-      $res['message'] = "Error, nao foi possivel salvar os dados"; 
-    }
-  
+    $res =  $notaControl->publishNota(
+      $os_id,
+			$descricao,
+      $id
+    );
+
 endif;
 
 #CONCLUIR
@@ -310,9 +193,9 @@ endif;
 #CONCLUIR
 if($action == 'osFechar'):
   
-  $osId     = $_POST['os'];
-  $status   = $_POST['status'];
-  $dtFech = date("Y-m-d H:i:s");
+  $osId       = $_POST['os'];
+  $status     = $_POST['status'];
+  $dtFech     = date("Y-m-d H:i:s");
   $processo   = $_POST['processo'];
 
   $oss->setProcesso($processo);
@@ -550,6 +433,15 @@ if($action == 'modFull'):
   $res['message'] = $arMessage;
 endif;
 
-$res['dados'] = $arDados;
+#CADASTRAR
+if($action == 'email'):
+  //
+  $osId = '130';
+  $res['dados'] = $osControl->osEmail( $osId );
+  //$res['dados'] = $osControl->osEmail( $osId );
+      
+endif;
+
+//$res['dados'] = $arDados;
 header("Content-Type: application/json");
 echo json_encode($res, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

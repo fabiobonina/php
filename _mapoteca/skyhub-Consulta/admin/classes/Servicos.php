@@ -37,7 +37,10 @@ class Servicos extends Crud{
 		$stmt->bindParam(':tipo',$this->tipo);
 		$stmt->bindParam(':ativo',$this->ativo);
 
-		return $stmt->execute();
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
@@ -52,7 +55,10 @@ class Servicos extends Crud{
 		$stmt->bindParam(':tipo',$this->tipo);
 		$stmt->bindParam(':ativo',$this->ativo);
 		$stmt->bindParam(':id', $id);
-		return $stmt->execute();
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}

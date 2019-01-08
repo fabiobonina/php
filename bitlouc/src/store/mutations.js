@@ -42,11 +42,11 @@ const mutations = {
     state.isLoggedIn = creds.isLoggedIn;
     state.token = creds.token ;
   },
-  SET_LOJAS(state, lojas) {
-    state.lojas = lojas
-  },
   SET_LOJA(state, loja) {
     state.loja = loja
+  },
+  SET_LOJAS(state, lojas) {
+    state.lojas = lojas
   },
   SET_LOCAL(state, local) {
     state.local = local
@@ -81,11 +81,14 @@ const mutations = {
   SET_UF(state, ufs) {
     state.ufs = ufs
   },
-  SET_OSLOJAS(state, osLojas) {
-    state.osLojas = osLojas
+  SET_OS(state, os) {
+    state.os = os
   },
   SET_OSS(state, oss) {
     state.oss = oss
+  },
+  SET_OSLOJAS(state, osLojas) {
+    state.osLojas = osLojas
   },
   SET_OCORRENCIAS(state, ocorrencias) {
     state.ocorrencias = ocorrencias

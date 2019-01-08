@@ -92,7 +92,10 @@ class Oats extends Crud{
 			$stmt->bindParam(':status',$this->status);
 			$stmt->bindParam(':ativo',$this->ativo);
 
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
@@ -118,7 +121,10 @@ class Oats extends Crud{
 		$stmt->bindParam(':status',$this->status);
 		$stmt->bindParam(':ativo',$this->ativo);
 		$stmt->bindParam(':id', $id);
-		return $stmt->execute();
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
@@ -133,7 +139,10 @@ class Oats extends Crud{
 		$stmt->bindParam(':data_os',$this->dataOs);
 		$stmt->bindParam(':status',$this->status);
 		$stmt->bindParam(':id', $id);
-		return $stmt->execute();
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
@@ -146,7 +155,10 @@ class Oats extends Crud{
 		$stmt->bindParam(':data_fech',$this->dataFech);
 		$stmt->bindParam(':status',$this->status);
 		$stmt->bindParam(':id', $id);
-		return $stmt->execute();
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}	
@@ -160,7 +172,10 @@ class Oats extends Crud{
 		$stmt->bindParam(':data_term',$this->dataTerm);
 		$stmt->bindParam(':status',$this->status);
 		$stmt->bindParam(':id', $id);
-		return $stmt->execute();
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}	
@@ -171,7 +186,10 @@ class Oats extends Crud{
 		$stmt = DB::prepare($sql);
 		$stmt->bindParam(':status',$this->status);
 		$stmt->bindParam(':id', $id);
-		return $stmt->execute();
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}	

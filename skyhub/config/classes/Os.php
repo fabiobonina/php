@@ -47,7 +47,7 @@ class Os extends Crud{
 	public function setServico($servico){
 		$this->servico = $servico;
 	}
-	public function setTipoServ($tipoServ){
+	public function setServicoTipo($tipoServ){
 		$this->tipoServ = $tipoServ;
 	}
 	public function setData($data){
@@ -162,7 +162,6 @@ class Os extends Crud{
 
 			$res['error'] = false;
 			$res['message'] = "OK, processo da OS alterado com sucesso";
-			return $res;
 		} catch(PDOException $e) {
 			$res['error']	= true;
 			$res['message'] = $e->getMessage();
@@ -178,7 +177,10 @@ class Os extends Crud{
 			$stmt->bindParam(':dtOs',$this->dtOs);
 			$stmt->bindParam(':status',$this->status);
 			$stmt->bindParam(':id', $id);
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
@@ -191,7 +193,10 @@ class Os extends Crud{
 			$stmt->bindParam(':status',			$this->status);
 			$stmt->bindParam(':dtConcluido',	$this->dtConcluido);
 			$stmt->bindParam(':id',				$id);
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
@@ -202,7 +207,10 @@ class Os extends Crud{
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':status',			$this->status);
 			$stmt->bindParam(':id',				$id);
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
@@ -215,7 +223,10 @@ class Os extends Crud{
 			$stmt->bindParam(':dtFech',	$this->dtFech);
 			$stmt->bindParam(':status',	$this->status);
 			$stmt->bindParam(':id', 	$id);
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}	
@@ -226,7 +237,10 @@ class Os extends Crud{
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':status',	$this->status);
 			$stmt->bindParam(':id', 	$id);
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}	

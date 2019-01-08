@@ -50,7 +50,7 @@
     </v-toolbar>
           
     <user v-if="modalUser" v-on:close="modalUser = false"></user>
-    <is-login v-if="isLoggedIn !== true" v-on:atualizar="dialog = false"></is-login> 
+    <is-login v-if="isLoggedIn !== true" v-on:atualizar="atualizar()"></is-login> 
   </div>
 </template>
 <script>
@@ -93,7 +93,8 @@
     },
     methods: {
       atualizar: function (){
-        this.isLoggedIn
+        this.modalUser = false;
+        //this.dialog = false;
       }
     }
   });

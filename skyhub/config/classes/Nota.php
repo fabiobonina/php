@@ -21,7 +21,10 @@ class Nota extends Crud{
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':os',$this->os);
 			$stmt->bindParam(':descricao',$this->descricao);
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
@@ -35,7 +38,10 @@ class Nota extends Crud{
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':descricao', $this->descricao);
 			$stmt->bindParam(':id', $id);
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();

@@ -77,7 +77,10 @@ class Locais extends Crud{
 				$res['error'] = false;
 				return $res['message']= "OK, dados salvo com sucesso";
 			}else{
-				return $stmt->execute();
+				$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 			}
 		} catch(PDOException $e) {
 			$res['error'] = true; 
@@ -101,7 +104,10 @@ class Locais extends Crud{
 			$stmt->bindParam(':longitude',$this->longitude);
 			$stmt->bindParam(':ativo',$this->ativo);
 			$stmt->bindParam(':id', $id);
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
@@ -114,7 +120,10 @@ class Locais extends Crud{
 		$stmt = DB::prepare($sql);
 		$stmt->bindParam(':loja',$this->loja);
 
-		return $stmt->execute();
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
@@ -135,7 +144,10 @@ class Locais extends Crud{
 		$stmt->bindParam(':latitude',$this->latitude);
 		$stmt->bindParam(':longitude',$this->longitude);
 		$stmt->bindParam(':id', $id);
-		return $stmt->execute();
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();

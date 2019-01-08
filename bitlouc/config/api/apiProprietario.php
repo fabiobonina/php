@@ -44,18 +44,18 @@ if(isset($_GET['action'])){
 $res['user'] =  $user;
 
 if( !$user['error'] ):
-  //$acessoID           = $user['id'];
-  //$acessoUF           = $user['uf'];
-  //$acessoNivel        = $user['nivel'];
-  //$acessoProprietario = $user['proprietario'];
-  //$acessoGrupo        = $user['grupo'];
-  //$acessoloja         = $user['loja'];
-  $acessoID = '1';
-  $acessoUF = 'PE';
-  $acessoNivel = 2;
-  $acessoProprietario = 1;
-  $acessoGrupo = 'P';
-  $acessoloja = 1;
+  $acessoID           = $user['id'];
+  $acessoUF           = $user['uf'];
+  $acessoNivel        = $user['nivel'];
+  $acessoProprietario = $user['proprietario'];
+  $acessoGrupo        = $user['grupo'];
+  $acessoloja         = $user['loja'];
+  //$acessoID = '1';
+  //$acessoUF = 'PE';
+  //$acessoNivel = 2;
+  //$acessoProprietario = 1;
+  //$acessoGrupo = 'P';
+  //$acessoloja = 1;
 
   if($action == 'read'):
 

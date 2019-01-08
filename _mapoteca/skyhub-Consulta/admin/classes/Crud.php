@@ -39,7 +39,10 @@ abstract class Crud extends DB{
 		$stmt = DB::prepare($sql);
 		$stmt->bindParam(':id', $id, PDO::PARAM_INT);
 		
-		return $stmt->execute(); 
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso"; 
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}

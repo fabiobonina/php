@@ -6,13 +6,14 @@
 		public function matrix( $item ){
 			$lojas      	= new Loja();
 			$equipamentos	= new Equipamento();
-			$oss			= new Os(); 
+			$oss			= new Os();
+
 			$item->equipamentos_qt	= $equipamentos->contLocal( $item->id );
 			$loja					= $lojas->find( $item->loja_id );
 			$item->loja_name 		= $loja->name;
 			$item->categoria 		= $this->listCategoriaLocal( $item->id );
-			$item->dtVisitado = '0000-00-00';
-			$os 		= $oss->visitadoLocal( $item->id );
+			$item->dtVisitado 		= '0000-00-00';
+			$os 					= $oss->visitadoLocal( $item->id );
 			if( isset($os->dtVisitado) ){
 				$item->dtVisitado = $os->dtVisitado;
 			}
@@ -34,10 +35,10 @@
 
 		}
 
-		public function listLoja( $loja ){
+		public function listLoja( $loja_id ){
 			$locais	= new Local();
 			$itens = array();
-			foreach($locais->findAll() as $key => $value):if($value->loja_id == $loja) {
+			foreach($locais->findAll() as $key => $value):if($value->loja_id == $loja_id) {
 				$item = $value;
 				$item = (array) $this->matrix( $item );
 				array_push( $itens, $item );

@@ -15,7 +15,7 @@
                 <v-spacer></v-spacer>
               </template>
               <template v-else>
-                <login  v-if="!novo" v-on:close="novo = true" v-on:atualizar="isLoading = true;dialog = false"></login>
+                <login  v-if="!novo" v-on:close="novo = true" v-on:atualizar="atualizar()"></login>
                 <register v-if="novo" v-on:close="novo = false"></register>
               </template>
             <v-flex>            
@@ -54,6 +54,7 @@ Vue.component('is-login', {
   },
   methods: {
     atualizar(){
+      this.$router.push(this.$route.path);
       this.isLoading = true;
       this.dialog = false;
     }

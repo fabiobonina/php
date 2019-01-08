@@ -39,7 +39,10 @@ class DeslocTrajetos extends Crud{
 		$stmt->bindParam(':plaqueta',$this->plaqueta);
 		$stmt->bindParam(':data',$this->data);
 
-		return $stmt->execute();
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
@@ -55,7 +58,10 @@ class DeslocTrajetos extends Crud{
 		$stmt->bindParam(':plaqueta',$this->plaqueta);
 		$stmt->bindParam(':data',$this->data);
 		$stmt->bindParam(':id', $id);
-		return $stmt->execute();
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}

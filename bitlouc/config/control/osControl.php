@@ -15,9 +15,9 @@
 			$categorias 	= new Categorias();
 			$notas      	= new Nota();
 			$equipamentos	= new Equipamento();
+			$fabricantes	= new Fabricantes();
 
-			$local 					= $locais->find( $item->local_id );
-			$item->local_name		= $local->name;
+			
 			$local 					= $locais->find( $item->local_id );
 			$item->local_tipo		= $local->tipo;
 			$item->local_name		= $local->name;
@@ -25,18 +25,107 @@
 			$item->local_uf			= $local->uf;
 			$item->local_lat		= $local->latitude;
 			$item->local_long		= $local->longitude;
-			$item->bem				= $bens->find( $item->equipamento_id );
 			$item->equipamento		= $equipamentos->find( $item->equipamento_id );
+			if($item->equipamento){
+				$fabricante				= $fabricantes->find( $item->equipamento->fabricante_id );
+				$item->equipamento->fabricante_nick		= $fabricante->nick;
+			}			
 			$item->servico			= $servicos->find( $item->servico_id );
 			$item->categoria		= $categorias->find( $item->categoria_id );
 			$item->tecnicos			= $this->listOsTec( $item->id );
-			$item->notas			= $notas->motaOs( $item->id );
+			$item->notas			= $notas->findOs( $item->id );
 
 			$oss->ajuste( $item->id, $local->uf );
 			$osTecnicos->ajuste( $item->id, $item->status );
 
 			return $item;
 
+		}
+
+		public function publish(
+			$proprietario_id,
+			$loja_id,
+			$loja_nick,
+			$local_id,
+			$uf,
+			$equipamento_id,
+			$categoria_id,
+			$servico_id,
+			$servico_tipo,
+			$data,
+			$dtCadastro,
+			$ativo,
+			$id)
+		{
+			$item['error'] = false;
+			$oss	= new OS();
+
+			$etapaI = $oss->validarOs( $local_id, $categoria_id, $equipamento_id, $data );
+
+			if( !$etapaI ){
+				$dtUltimo   = '';
+				$osUltimoMan = $oss->ultimaOs( $local_id, $categoria_id);
+				if(isset($osUltimoMan->dtUltimo) ){
+					$dtUltimo = $osUltimoMan->dtUltimo;
+				}
+				$oss->setProprietario($proprietario_id);
+				$oss->setLoja($loja_id);
+				$oss->setLojaNick($loja_nick);
+				$oss->setLocal($local_id);
+				$oss->setEquipamento($equipamento_id);
+				$oss->setCategoria($categoria_id);
+				$oss->setServico($servico_id);
+				$oss->setServicoTipo($servico_tipo);
+				$oss->setData($data);
+				$oss->setDtUltimoMan($dtUltimo);
+				$oss->setDtCadastro($dtCadastro);
+				$oss->setStatus($status);
+				$oss->setAtivo($ativo);
+				# Insert
+				$item = $oss->insert();
+			
+				if($item['error']){
+				$res['error'] = $item['error'];
+				$res['message']= $item['message'];
+				}else{
+					$tecII = $osControl->osEmail( $item['id'] );
+					$res['error'] = $item['error'];
+				array_push($arMessage, $item['message']);
+				array_push($arMessage, $item['message']);
+				$res['message']= $arMessage;
+				}
+			}else{
+				$res['error']   = true;
+				$res['message'] = 'Error, OS já existe!';
+			}
+
+
+
+			foreach($oss->findAll() as $key => $value):if($value->loja_id == $loja_id )  {
+				$validar = $this->checkDuplicity($value->name, $name );
+				if( $validar ):
+					$validarId = $value->id;
+					$item['error'] = true;
+					$item['message'] = 'Error, Nome já existe!';
+				endif;
+			}endforeach;
+			
+			if( !isset($id) && !$item['error'] ):
+				# Insert
+				$item = $oss->insert();
+				if( !$item['error'] ){
+					$item = $this->insertGeolocalizacao( $item['id'], $lat, $long );				
+				}
+			endif;
+			if( isset($id) && ( !$item['error'] || $validarId == $id ) ):
+				# Update
+				$item = $oss->update($id);
+				$item = $this->insertGeolocalizacao( $id, $lat, $long );
+				//echo 'updade';
+			endif;
+
+			$res = $this->statusReturn($item);
+			return $res;
 		}
 
 		public function listLoja( $loja_id ){
@@ -69,6 +158,20 @@
 
 		}
 
+		public function listIIIProprietario( $proprietario_id ){
+			$oss	= new Os();
+			$itens 	= array();
+			
+			foreach($oss->findIIIProprietario( $proprietario_id ) as $key => $value): {
+				$item = $value;
+				$item = (array) $this->matrix( $item );
+				array_push( $itens, $item );
+			}endforeach;
+			$res = $itens;
+			return $res;
+
+		}
+
 		public function listIIILoja( $loja_id ){
 			$oss	= new Os();
 			$itens 	= array();
@@ -79,6 +182,24 @@
 				array_push( $itens, $item );
 			}endforeach;
 			$res = $itens;
+			return $res;
+
+		}
+
+		public function findOs( $os_id ){
+			$oss	= new Os();
+			
+			$item = $oss->find( $os_id );
+
+			if( key($item) == "id" ){
+				$res['error'] = false;
+				$res['os'] = $this->matrix( $item );
+				$res['message'] = 'OK, Dados emcontrado';
+				
+			}else{
+				$res = $item;
+			}
+
 			return $res;
 
 		}
@@ -110,7 +231,7 @@
 
 		}
 		
-		public function insertOsTec($tecnicos, $osId, $idLoja){
+		public function insertOsTec($tecnicos, $os_id, $idLoja){
 			
 			$osTecnicos   = new OsTecnicos();
 			$cont1 = '0';
@@ -122,10 +243,10 @@
 				$userNickTec = $value['userNick'];
 				$hhTec = $value['hh'];
 
-				$validar = $osTecnicos->findTecOs( $tecId, $osId );
+				$validar = $osTecnicos->findTecOs( $tecId, $os_id );
 				if(	!$validar ){ 
 					
-					$osTecnicos->setOs($osId);
+					$osTecnicos->setOs($os_id);
 					$osTecnicos->setLoja($idLoja);
 					$osTecnicos->setTecnico($tecId);
 					$osTecnicos->setUser($userTec);
@@ -147,10 +268,10 @@
 
 			return $res;
 		}
-		public function deleteOsTec($tecId, $osId){
+		public function deleteOsTec($tecId, $os_id){
 			$osTecnicos   = new OsTecnicos();
 
-			$validar = $this->listOsTecMod($osId, $tecId);
+			$validar = $this->listOsTecMod($os_id, $tecId);
 			if(	count($validar) == '0' ){ 
 				if($osTecnicos->delete($tecId)){
 					$res['success'] = false;
@@ -166,37 +287,37 @@
 
 			return $res;
 		}
-		public function listOsTec( $osId ){
+		public function listOsTec( $os_id ){
 			$osTecnicos = new OsTecnicos();
 			$mods 		= new Mod();
 			$tecnicos	= new Tecnicos();
 			$user 		= new User();
 
 			$arTecnicos = array();
-			foreach($osTecnicos->findOs( $osId ) as $key => $value): {
+			foreach($osTecnicos->findOs( $os_id ) as $key => $value): {
 				$arTecnico = (array) $value;
 				$tecId = $value->tecnico_id;
 				$tecItem = $tecnicos->find( $tecId );
 				$userItem = $user->find( $tecItem->user_id );
 				$arTecnico['avatar'] = $userItem->avatar;
           		#MODS-------------------------------------------------------
-          		$arTecnico['mods'] = $this->listOsTecMod( $osId, $tecId );
+          		$arTecnico['mods'] = $this->listOsTecMod( $os_id, $tecId );
           		#MODS-------------------------------------------------------
 				array_push($arTecnicos, $arTecnico);
 			}endforeach;
 			
 			return $arTecnicos;
 		}
-		public function listOsTecMod( $osId, $tecId ){
+		public function listOsTecMod( $os_id, $tecId ){
 			$mods 			= new Mod();
 			$deslocStatus 	= new DeslocStatus();
 			$deslocTrajetos = new DeslocTrajetos();
 			$osTecnicos 	= new OsTecnicos();
 			#MODS--------------------------------------------------------------------------------------------
 			$arMods = array();
-			foreach($mods->findOsTec( $osId, $tecId ) as $key => $value):{
+			foreach($mods->findOsTec( $os_id, $tecId ) as $key => $value):{
 				$arItem =(array) $value;
-				$arItem['tecnico']	= $osTecnicos->findTecOs($tecId, $osId);
+				$arItem['tecnico']	= $osTecnicos->findTecOs($tecId, $os_id);
 				$arItem['status'] 	= $deslocStatus->find($value->status);
 				$arItem['trajeto'] 	= $deslocTrajetos->find($value->trajeto);
 				array_push($arMods, $arItem);
@@ -205,13 +326,13 @@
 			#MODS--------------------------------------------------------------------------------------------
 			
 		}
-		public function listOsTecModValidacao( $osId, $tecId, $tecHh, $statusId, $trajetoId, $tipoValor, $date, $kmFinal, $valor ){
+		public function listOsTecModValidacao( $os_id, $tecId, $tecHh, $statusId, $trajetoId, $tipoValor, $date, $kmFinal, $valor ){
 			$mods = new Mod();
 			$res['success'] = false;
 			$arMessage = array();
 			$ativo = '0';
 				#MODS.................................
-				$data = $mods->findOsTecAtiv( $osId, $tecId, $ativo );
+				$data = $mods->findOsTecAtiv( $os_id, $tecId, $ativo );
 				if( count($data) > '1' ){
 					$res['success'] 	= true;
 					$res['message'] ='Error, Mais de 1 trajeto aberto!';
@@ -270,7 +391,7 @@
 				return $res;
 				
 		}
-		public function modAdd( $osId, $tecId, $statusId, $dtInicio, $dtServInicio ){
+		public function modAdd( $os_id, $tecId, $statusId, $dtInicio, $dtServInicio ){
 			$mods 			= new Mod();
 			$oss 			= new Os();
 
@@ -278,8 +399,8 @@
 			$arMessage 		= array();
 			$ativo 			= '0';
 			
-			if( count( $mods->findOsTecAtiv( $osId, $tecId, $ativo )) == '0'){
-				$mods->setOs($osId);
+			if( count( $mods->findOsTecAtiv( $os_id, $tecId, $ativo )) == '0'){
+				$mods->setOs($os_id);
 				$mods->setTecnico($tecId);
 				$mods->setDtInicio($date);
 				$mods->setDtServInicio($km);
@@ -289,7 +410,7 @@
 				$res['success']		= $item['success'];
 				array_push($arMessage, $item['message']);
 				if( !$res['success'] ){
-					$itemII = $oss->upProcesso($osId, $statusProcesso );
+					$itemII = $oss->upProcesso($os_id, $statusProcesso );
 					$res['success']		= $itemII['success'];
 					array_push($arMessage, $itemII['message']);
 				}
@@ -301,7 +422,7 @@
 			$res['message'] = $arMessage;
 			return $res;
 		}
-		public function modUp( $osId, $trajetoId, $statusProcesso, $date, $km, $tempo, $hhValor, $valor, $modId ){
+		public function modUp( $os_id, $trajetoId, $statusProcesso, $date, $km, $tempo, $hhValor, $valor, $modId ){
 			$mods 			= new Mod();
 			$oss 			= new Os();
 
@@ -320,7 +441,7 @@
 			$res['success']	= $item['success'];
 			array_push($arMessage, $item['message'] );
 			if( !$res['success'] ){
-				$itemII = $oss->upProcesso($osId, $statusProcesso );
+				$itemII = $oss->upProcesso($os_id, $statusProcesso );
 				$res['success'] = $itemII['success'];
 				array_push($arMessage, $itemII['message']);
 				
@@ -331,7 +452,7 @@
 
 
 		}
-		public function insertTecMod( $osId, $tecId, $tecName, $tecHh, $statusId, $statusProcesso, $trajetoId, $tipoValor, $date, $km, $valor, $tecNivel ){
+		public function insertTecMod( $os_id, $tecId, $tecName, $tecHh, $statusId, $statusProcesso, $trajetoId, $tipoValor, $date, $km, $valor, $tecNivel ){
 			
 			$mods = new Mod();
 			$arMessage 		= array();
@@ -348,7 +469,7 @@
 				}
 			
 				#validar informações
-				$tec = $this->listOsTecModValidacao( $osId, $tecId, $tecHh, $statusId, $trajetoId, $tipoValor, $date, $km, $valor );
+				$tec = $this->listOsTecModValidacao( $os_id, $tecId, $tecHh, $statusId, $trajetoId, $tipoValor, $date, $km, $valor );
 				$res['success'] = $tec['success'];
 				if( $res['success'] ){
 					$res['message'] = $tec['message'];
@@ -356,14 +477,14 @@
 					#desloc aberto
 					if ( $tec['data'] == '1' ) {
 						# InsertFinal
-						$itemI = $this->modUp( $osId, $trajetoId, $statusProcesso, $date, $km, $tec['tempo'], $tec['hhValor'], $tec['valor'], $tec['modId']);
+						$itemI = $this->modUp( $os_id, $trajetoId, $statusProcesso, $date, $km, $tec['tempo'], $tec['hhValor'], $tec['valor'], $tec['modId']);
 						$res['success'] = $itemI['success'];
 						array_push($arMessage, $itemI['message']);
 						
 					}
 					if ( ($tec['data'] == '0' || $tec['statusNivel']  == '2') && !$res['success'] ) {
 						#desloc inicial
-						$itemII =  $this->modAdd( $osId, $tecId, $trajetoId, $statusId, $statusProcesso, $date, $km, $valor );
+						$itemII =  $this->modAdd( $os_id, $tecId, $trajetoId, $statusId, $statusProcesso, $date, $km, $valor );
 						$res['success'] = $itemII['success'];
 						array_push($arMessage, $itemII['message']);
 
@@ -405,68 +526,207 @@
 			$res['message'] = $arMessage;
 			return $res;
 		}
-		public function osFull( $osId ){
-			$oss		= new Os();
-			$locais     = new Locais();
-			$bens       = new Bens();
-			$servicos   = new Servicos();
-			$categorias = new Categorias();
-			$notas      = new Nota();
-
-			$os 			= $oss->find( $osId );
-			$os->local 		= $locais->find( $os->local_id );
-			$os->bem		= $bens->find( $os->bem_id );
-			$os->servico	= $servicos->find( $os->servico_id );
-			$os->categoria	= $categorias->find( $os->categoria_id );
-			$os->tecnicos	= $this->listOsTec( $osId );
-			$os->notas		= $notas->motaOs( $osId );
-
-			return $os;
-		}
-		public function osEmail( $osId ){
+		public function osEmail( $os_id ){
 			
 			$tecnicos   = new Tecnicos();
 			$emailPhp   = new Email();
-			$os			= $this->osFull( $osId );
+			$oss     	= new OS();
+
+			$item 		= $oss->find( $os_id );
+			$os			= $this->matrix( $item );
 			
 			/* Recuperar os Dados do Formulário de Envio*/
 			$txtNome 		= 'BitLOUC';//$_POST["txtNome"];
-			$txtAssunto 	= 'OS - '.$os->lojaNick.': '.$os->local->municipio .' - '. $os->local->uf. ' (' .$os->local->tipo.' '.$os->local->name.') #'.$os->id;//$_POST["txtAssunto"];
+			$txtAssunto 	= 'OCORRENCIA ('.$os->id.') '.$os->loja_nick.': '.$os->local_tipo.' - '.$os->local_name.', '.$os->local_municipio .'-'.$os->local_uf;//$_POST["txtAssunto"];
 			$txtEmail 		= 'bitlouc@gmail.com';//$_POST["txtEmail"];
 			$txtMensagem 	= 'OK';//$_POST["txtMensagem"];
 			$txtTec 		= array();
 			$txtEmails	 	= array();
+			$txtNotas	 	= array();
 			
-			if($os->bem){
-				$txtBem = $os->bem->name .' '.$os->bem->modelo. ' &nbsp; #'.$os->bem->fabricanteNick. '  (Code: '.$os->bem->numeracao.' | Ativo: '. $os->bem->plaqueta .' )' ;
+			if($os->equipamento){
+				$txtEquipamento = $os->equipamento->name .' '.$os->equipamento->modelo. ' &nbsp; #'.$os->equipamento->fabricante_nick. '  (Code: '.$os->equipamento->numeracao.' | Ativo: '. $os->equipamento->plaqueta .' )' ;
 			}else{
-				$txtBem = $os->bem;
+				$txtEquipamento = 'não definido';
 			}
-			foreach ($os->tecnicos as $value){
-				$tec	= $tecnicos->find( $value['tecnico'] );
-				
-				$user['email'] 		= $tec->email;
-				$user['userNick'] 	= $value['userNick'];
 
-				array_push($txtTec, $user['userNick'] );
-				array_push($txtEmails, $user );
-				
+			if($os->tecnicos){
+				foreach ($os->tecnicos as $value){	
+					$tec	= $tecnicos->find( $value['tecnico_id'] );
+					
+					$user['email'] 		= $tec->email;
+					$user['userNick'] 	= $value['userNick'];
+	
+					array_push($txtTec, $user['userNick'] );
+					array_push($txtEmails, $user );
+					
+				}
+			}else{
+
 			}
+			//var_dump( $os->notas);
+			foreach ($os->notas as $key => $value): {
+				$item = $value->id;
+				$item = '
+				<td colspan="4">
+					<table width="100%">
+						<thead>
+							<tr bgcolor="#DADADA">
+								<td width="7%"><b>Data</b></td>
+								<td width="20%">'. $DateOfRequest = date("d/m/Y H:i:s", strtotime( $value->data )) . '</td>
+								<td width="9%"><b>Usuario</b></td>
+								<td width="40">'.$value->user .'</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="4"><b>Descrição</b>'. $value->descricao . '</td>									
+							</tr>
+						</tbody>
+					</table>
+					<tr><td colspan="4"><hr></td></tr>
+				</td>';
+				array_push($txtNotas, $item );
+			}endforeach;
+			
 			//$array = array('lastname', 'email', 'phone');
+			$txtNotas = implode("", $txtNotas);
 			$comma_separated = implode(", ", $txtTec);
 
 			/* Montar o corpo do email*/
-			$corpoMensagem = '<b>N. OS: </b>'.$os->filial.' - '.$os->os. ' (Data: '. $os->data .')' 
-							.'<br><a href="http://skyhub.esy.es/#/oss/'. $os->loja .'/os/'. $os->id .'" target="_blank">'.$txtAssunto.'</a> '
-							.'<br><b>Municipio:</b> '.$os->local->municipio .' - '. $os->local->uf 
-							.'<br><b>Categoria:</b> '.$os->categoria->name
-							.'<br><b>Serviço:</b> '.$os->servico->name
-							.'<br><b>Bem:</b> '.$txtBem
-							.'<br><b>Tecnicos:</b> '.$comma_separated
-							.'<br><br>(Criado por: '. $_SESSION['loginUser'].')';
+			$corpoMensagem = '<div>
+				<table border="0" cellspacing="0" cellpadding="0" width="100%" height="6%">
+					<tbody>
+						<tr>
+							<td valign="top" align="middle">
+								<table border="1" cellspacing="0" cellpadding="0" width="100%" height="10%">
+									<tbody>
+										<tr>
+											<td height="5%" align="middle">
+												<table width="100%" border="0">
+													<tbody>
+														<tr>
+															<td align="center" bgcolor="005483" colspan="1" >
+																<a href="http://localhost/codephp/php/bitlouc/" target="_blank">
+																	<img alt="Logo BitLOUC" title="Logo BitLOUC" style="margin-left:5%; float:left; width:128px;height:51px"  height="36" width="89" src="http://localhost/codephp/php/bitlouc/interface/imagem/bitlouc_logo.png"></img>
+																</a>
+																<b><font color="white" face="Arial" size="3" valign="middle">Informação da Ocorrencia </font></b>
+																
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<table border="0" cellspacing="0" cellpadding="0" width="100%">
+					<tbody>
+						<tr><td height="10"></td></tr>
+						<tr>
+							<td valign="top">
+								<table border="1" cellspacing="0" cellpadding="0" width="100%" height="100%">
+									<tbody>
+										<tr>
+											<td valign="top" colspan="4">
+												<table border="0" cellspacing="1" cellpadding="1" width="100%">
+													<tbody>
+														<tr height="20">
+															<td bgcolor="#006699" width="10%" colspan="4" align="middle"><b>Ocorrencia</b></td>
+														</tr>
+														<tr height="5%">
+															<td width="10%" align="left"><b>Ocorrencia </b></td>
+															<td width="40%" align="left">
+																<a href="http://localhost/codephp/php/bitlouc/'. $os->id .'" target="_blank">
+																	<b>'. $os->id .'</b> cliqui aqui
+																</a>
+															</td>
+															<td width="10%" align="left"><b>N° OS</b></td>
+															<td width="40%" align="left">'.$os->filial.'-'.$os->os. ' </td>
+														</tr>
+														<tr height="5%">
+															<td width="10%" align="left"><b>Data</b></td>
+															<td width="40%" align="left">'.date('d/m/Y', strtotime(str_replace('-','/', $os->	data))) .'</td>
+															<td width="10%" align="left"><b>Categoria</b></td>
+															<td width="40%" align="left">'.$os->categoria->name.'</td>
+														</tr>
+														<tr height="5%">
+															<td width="10%" align="left"><b>Loja</b></td>
+															<td width="40%" align="left">'.$os->loja_nick.'</td>
+															<td width="10%" align="left"> <b>Serviço</b> </td>
+															<td width="40%" align="left">'.$os->servico->name.'</td>
+														</tr>
+														<tr height="5%">
+															<td width="10%" align="left"> <b>Local</b> </td>
+															<td width="40%" align="left">'.$os->local_tipo .' - '. $os->local_name. ' <a href="https://maps.google.com/maps?q='.$os->local_lat.'%2C'.$os->local_long .'&z=17&hl=pt-BR" target="_blank"> Como chegar</a></td>
+															<td width="10%" align="left"><b>Equipamento</b></td>
+															<td width="40%" align="left"> '.$txtEquipamento.'</td>
+														</tr>
+														<tr height="5%">
+															<td width="10%" align="left"> <b>Municipio</b> </td>
+															<td width="40%" align="left">'.$os->local_municipio .' - '. $os->local_uf. '</td>
+															<td width="10%" align="left"><b>Solicitante</b></td>
+															<td width="40%" align="left">'. $_SESSION['loginUser'].'</td>
+														</tr>
+														<tr height="5%">
+															<td width="10%" align="left"><b>Desiginado(s)</b></td>
+															<td width="40%" align="left" colspan="3">'. $comma_separated.'</td>
+														</tr>
+			
+														<tr height="10%"><td colspan="4"> &nbsp;</td></tr>
+														<tr height="20">
+															<td bgcolor="#006699" width="10%" colspan="4" align="middle">
+																<b>Historico de Atividades</b>
+															</td>
+														</tr>
+														<tr valign="top">
+															'. $txtNotas . '
+														</tr>
+														<tr height="10%"> <td colspan="4"> &nbsp; </td> </tr>
+														<!-- >tr height="20">
+															<td bgcolor="#006699" width="10%" colspan="4" align="middle">
+																<b>Itens do Rateio</b>
+															</td>
+														</tr>
+														<tr valign="top">
+															<td colspan="4">
+																<table width="100%">
+																	<thead>
+																		<tr bgcolor="#DADADA">
+																			<td width="4%"> <b>Item</b> </td>
+																			<td width="20%"> <b>Codigo</b> </td>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<tr>
+																			<td>teste</td>
+																			<td>Não existe rateio.</td>
+																		</tr>
+																	</tbody>
+																</table>
+															</td>
+														</tr-->
+													</tbody>
+												</table><br>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<span class="im">
+					<i>Email enviado automaticamente. Não responder. - BitLOUC</i>      
+				</span>
+			</div>';
 			
 			/*<div class="column is-two-thirds has-text-left">
-              <h1 class="title is-5"> .'$os.lojaNick'. | .'$os.local.tipo'. - .'$os.local.name'. (.'$os.local.municipio'./.'$os.local.uf'.) </h1>
+              <h1 class="title is-5"> .'$os.loja_nick'. | .'$os.local.tipo'. - .'$os.local.name'. (.'$os.local.municipio'./.'$os.local.uf'.) </h1>
               <p class="subtitle" style="margin-bottom: 0;"> .'$os.data'. | .'$os.servico.name'.
                 <span class="pull-right"> <span class="tag">.' $os.categoria.name '.</span> &nbsp;  </span>
               </p>
@@ -476,4 +736,6 @@
 			return $emailPhp->smtpmailer($txtEmails, $txtEmail, $txtNome, $txtAssunto, $corpoMensagem);
 			//return $corpoMensagem;
 		}
+
+		
 	}

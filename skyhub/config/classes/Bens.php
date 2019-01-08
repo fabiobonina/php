@@ -101,7 +101,10 @@ class Bens extends Crud{
 					$stmt->bindParam(':local',$this->proprietarioLocal);
 					$stmt->bindParam(':dataInicial',$this->dataCompra);
 					$stmt->bindParam(':status',$status);
-					return $stmt->execute();
+					$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 				} catch(PDOExecption $e){
 					echo "Error!: " . $e->getMessage() . "</br>";
 				}
@@ -122,7 +125,10 @@ class Bens extends Crud{
 			$stmt->bindParam(':plaqueta',$this->plaqueta);
 			$stmt->bindParam(':data',$this->data);
 			$stmt->bindParam(':id', $id);
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}

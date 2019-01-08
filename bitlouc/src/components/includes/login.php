@@ -101,10 +101,10 @@ Vue.component('login', {
                 this.$store.dispatch("login", {
                     isLoggedIn: response.data.isLoggedIn,
                     token: response.data.token,
-                    user: response.data.dados
+                    user: response.data.user
                 }).then(res => {
                   this.$emit('atualizar');
-                  this.$router.push( this.$route.fullPath );
+                  
                 })
                }
               

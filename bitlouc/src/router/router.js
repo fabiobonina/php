@@ -29,22 +29,15 @@ var router = new VueRouter({
         { path: '', component: Dashboard },
       ]
     },
-    { path: '/ocorrencia', component: Ocorrencia,
-      children: [
-      { path: '', component: OcorrenciaUF },
-      { path: 'uf/:_uf', component: UFList },
-      { path: 'status', component: OcorrenciaStatus },
-      //  { path: 'os-tec', component: TecOs },
-      ] 
-    },
     { path: '/oss', component: Oss,
       children: [
         { path: '', component: OsUF },
+        { path: 'uf/:_uf', component: UFList },
         { path: 'os-status', component: OsStus },
         { path: 'os-tec', component: TecOs },
       ] 
     },
-    { path: '/oss/:_loja/os/:_os', component: Os, name: 'os'},
+    { path: '/os/:_os', component: Os, name: 'os'},
     { path: '/lojas', component: Lojas, name: 'lojas' },
     { path: '/loja/:_loja', component: Loja,
       children: [

@@ -132,7 +132,7 @@ if($action == 'osAdd'):
     $oss->setBem($bem);
     $oss->setCategoria($categoria);
     $oss->setServico($servico);
-    $oss->setTipoServ($tipoServ);
+    $oss->setServicoTipo($tipoServ);
     $oss->setData($data);
     $oss->setDtUltimoMan($dtUltimo);
     $oss->setDtCadastro($dtCadastro);
@@ -181,7 +181,7 @@ if($action == 'osEdt'):
   $oss->setBem($bem);
   $oss->setCategoria($categoria);
   $oss->setServico($servico);
-  $oss->setTipoServ($tipoServ);
+  $oss->setServicoTipo($tipoServ);
   $oss->setData($data);
   $oss->setDtUltimoMan($dtUltimo);
   $oss->setAtivo($ativo);

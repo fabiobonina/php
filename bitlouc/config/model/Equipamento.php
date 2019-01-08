@@ -112,7 +112,10 @@ try {
 				$stmt->bindParam(':plaqueta',$this->plaqueta);
 				$stmt->bindParam(':data',$this->data);
 				$stmt->bindParam(':id', $id);
-				return $stmt->execute();
+				$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 			} catch(PDOExecption $e){
 				$res['error']	= true;
 				$res['message'] = $e->getMessage();

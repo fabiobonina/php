@@ -32,7 +32,10 @@ class Sistema extends Crud{
 		$stmt->bindParam(':descricao',$this->descricao);
 		$stmt->bindParam(':ativo',$this->ativo);
 
-		return $stmt->execute();
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}
@@ -46,7 +49,10 @@ class Sistema extends Crud{
 		$stmt->bindParam(':descricao', $this->descricao);
 		$stmt->bindParam(':ativo',$this->ativo);
 		$stmt->bindParam(':id', $id);
-		return $stmt->execute();
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}

@@ -67,7 +67,10 @@ class Loja extends Crud{
 				$res['error'] = false;
 			 	return $res['message']= "OK, dados salvo com sucesso";
 			}else{
-				return $stmt->execute();
+				$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 			}
 			
 		} catch(PDOException $e) {
@@ -89,7 +92,10 @@ class Loja extends Crud{
 			$stmt->bindParam(':seguimento',$this->seguimento);
 			$stmt->bindParam(':ativo',$this->ativo);
 			$stmt->bindParam(':id', $id);
-			return $stmt->execute();
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso";
 		} catch(PDOException $e) {
 			$res['error'] = true; 
 			$res['message'] = $e->getMessage();

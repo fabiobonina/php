@@ -10,6 +10,7 @@ const CONFIG      ='./config/api/apiConfig.php?action=config';
 
 const BENSLIST   ='./config/api/apiLocal.php?action=read';
 const OSLIST      ='./config/api/apiOs.php?action=read';
+const OSFIND      ='./config/api/apiOs.php?action=os';
 const CONFIGPROD  ='./config/api/apiConfig.php?action=prod';
 
 const LOCAISLIST          ='./config/api/apiLocal.php?action=read';
@@ -134,17 +135,16 @@ const actions = {
       }));
     });
   },
-  fetchOs({ commit }) {
+  fetchOs({ commit }, os_id ) {
     return new Promise((resolve, reject) => {
-        Vue.http.get(OSLIST).then((response) => {
+      var postData = {
+        os_id: os_id,
+      }
+      Vue.http.post(OSFIND, postData).then((response) => {
         if(response.data.error){
           console.log(response.data.message);
         } else{
-          //console.log(response.data);
-          //commit("SET_OSPROPRIETARIO", response.data.osProprietario);
-          //commit("SET_OSLOJAS", response.data.osLojas);
-          //commit("SET_OSS", response.data.oss);
-          commit("SET_MODS", response.data.mod);
+          commit("SET_OS", response.data.os);
           resolve();
         }
       })

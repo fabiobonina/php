@@ -164,7 +164,10 @@ class OsTecnicos extends Crud{
 		$stmt = DB::prepare($sql);
 		$stmt->bindParam(':os_id', $os_id, PDO::PARAM_INT);
 		
-		return $stmt->execute(); 
+		$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, processo da OS alterado com sucesso"; 
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}

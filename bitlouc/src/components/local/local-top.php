@@ -13,8 +13,8 @@
       </v-tabs>
     </v-toolbar>
     <v-chip v-for="categoria in local.categoria" :key="categoria.id" small color="green" text-color="white">
-          {{ categoria.tag }}
-      </v-chip>
+      {{ categoria.tag }}
+    </v-chip>
   </div>
 </template>
 
