@@ -199,7 +199,7 @@ const actions = {
       }));
     });
   },
-  fetchOs({ commit }) {
+  findOs({ commit }) {
     return new Promise((resolve, reject) => {
         Vue.http.get("./config/api/apiOs.php?action=read")
       .then((response) => {

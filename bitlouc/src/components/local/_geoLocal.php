@@ -15,7 +15,7 @@
           </v-toolbar-items>
         </v-toolbar>
         <v-card-title>
-          <span class="headline">{{data.tipo}} - {{data.name}}, {{data.municipio}}/{{data.uf}}</span>
+          <span class="headline">{{local.tipo}} - {{local.name}} ({{local.municipio}}-{{local.uf}})</span>
         </v-card-title>
         <v-card-text>
           
@@ -23,7 +23,7 @@
             <v-layout wrap>
             
               <v-flex xs12>
-                Coordenadas atual: {{ data.latitude }}, {{ data.longitude }}
+                Coordenadas atual: {{ local.latitude }}, {{ local.longitude }}
               </v-flex>
               <v-flex xs12>
                 <v-text-field
@@ -54,7 +54,7 @@
     },
     props: {
       dialog: Boolean,
-      data: {}
+      data: ''
     },
     data() {
       return {
@@ -65,12 +65,20 @@
         isLoading: false
       };
     },
+    created: function() {
+      this.$store.dispatch('findLocal', this.data ).then(() => {
+        console.log("Buscando dados da local")
+      });
+    },
     computed: {
       temMessage () {
         if(this.errorMessage.length > 0) return true
         if(this.successMessage.length > 0) return true
         return false
-      }
+      },
+      local()  {
+        return store.state.local;
+      },
     },
     methods: {
       saveItem: function(){
@@ -83,17 +91,13 @@
           //'cadastro': new Date().toJSON() }
           var geoposicao = this.coordenadas .split(",");
           var postData = {
-            id: this.data.id,
+            id: this.local.id,
             latitude: geoposicao[0],
             longitude: geoposicao[1]
           };        
           this.$http.post('./config/api/apiLocal.php?action=coordenadas', postData)
             .then(function(response) {
-              //console.log(response);
-              if(response.data.error){
-                this.errorMessage.push(response.data.message);
-                this.isLoading = false;
-              } else{
+              if(!response.data.error){
                 this.successMessage.push(response.data.message);
                 this.isLoading = false;
                 this.$store.dispatch('fetchLocalLoja', this.data.loja_id).then(() => {
@@ -102,6 +106,9 @@
                 setTimeout(() => {
                   this.$emit('close');
                 }, 2000);  
+              } else{                
+                this.errorMessage.push(response.data.message);
+                this.isLoading = false;
               }
             })
             .catch(function(error) {

@@ -7,15 +7,16 @@
 Vue.http.options.emulateJSON = true;
 const INDEXLIST   ='./config/api/apiProprietario.php?action=read';
 const CONFIG      ='./config/api/apiConfig.php?action=config';
+const CONFIGPROD  ='./config/api/apiConfig.php?action=prod';
 
 const BENSLIST   ='./config/api/apiLocal.php?action=read';
 const OSLIST      ='./config/api/apiOs.php?action=read';
 const OSFIND      ='./config/api/apiOs.php?action=os';
-const CONFIGPROD  ='./config/api/apiConfig.php?action=prod';
 
 const LOCAISLIST          ='./config/api/apiLocal.php?action=read';
 const LOCAISPROPRIETARIO  ='./config/api/apiLocal.php?action=proprietario';
 const LOCAISLOJA          ='./config/api/apiLocal.php?action=loja';
+const LOCALFIND           ='./config/api/apiLocal.php?action=local';
 
 const EQUIPAMENTOSLIST   ='./config/api/apiEquipamento.php?action=read';
 const EQUIPAMENTOSLOJA   ='./config/api/apiEquipamento.php?action=loja';
@@ -67,9 +68,6 @@ const actions = {
   },
   setLocal({ commit }, local) {
     commit("SET_LOCAL", local)
-  },
-  setBens({ commit }, bens) {
-    commit("SET_BENS", bens)
   },
   setTipos({ commit }, tipos) {
     commit("SET_TIPOS", tipos)
@@ -135,7 +133,7 @@ const actions = {
       }));
     });
   },
-  fetchOs({ commit }, os_id ) {
+  findOs({ commit }, os_id ) {
     return new Promise((resolve, reject) => {
       var postData = {
         os_id: os_id,
@@ -153,10 +151,28 @@ const actions = {
       }));
     });
   },
-  fetchLocalLoja({ commit }, loja) {
+  findLocal({ commit }, local_id ) {
     return new Promise((resolve, reject) => {
       var postData = {
-        loja: loja,
+        local_id: local_id,
+      }
+      Vue.http.post(LOCALFIND, postData).then((response) => {
+        if(response.data.error){
+          console.log(response.data.message);
+        } else{
+          commit("SET_LOCAL", response.data.local);
+          resolve();
+        }
+      })
+      .catch((error => {
+          console.log(error.statusText);
+      }));
+    });
+  },
+  fetchLocalLoja({ commit }, loja_id) {
+    return new Promise((resolve, reject) => {
+      var postData = {
+        loja: loja_id,
       }
       //console.log(postData);
       Vue.http.post(LOCAISLOJA, postData)

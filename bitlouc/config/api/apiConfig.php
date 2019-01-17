@@ -14,11 +14,11 @@ require_once '../model/Sistema.php';
 require_once '../model/Servicos.php';
 require_once '../model/Grupo.php';
 require_once '../model/Seguimento.php';
-require_once '../model/Tecnicos.php';
 require_once '../model/DeslocTrajetos.php';
 require_once '../model/DeslocStatus.php';
 require_once '../model/UF.php';
 
+require_once '../control/tecControl.php';
 
 $tipos          = new Tipos();
 $produtos       = new Produtos();
@@ -34,6 +34,8 @@ $tecnicos       = new Tecnicos();
 $deslocTrajetos = new DeslocTrajetos();
 $deslocStatus   = new DeslocStatus();
 $ufs            = new UF();
+
+$tecControl     = new TecControl();
 
 $res = array('error' => false);
 $action = 'config';
@@ -97,12 +99,9 @@ if($action == 'config'):
   $res['grupos'] = $arItens;
   #TECNICOS-----------------------------------------------------------
   #TECNICOS-----------------------------------------------------------
-  $arItens = array();
-  foreach($tecnicos->findAll() as $key => $value): {
-    $arItem = $value;
-    array_push($arItens, $arItem);
-  }endforeach;
-  $res['tecnicos'] = $arItens;
+  
+  $res['tecnicos'] = $tecControl->listProprietario();
+
   #TECNICOS-----------------------------------------------------------
   #DESLOC_TIPO-----------------------------------------------------------
   $arItens = array();

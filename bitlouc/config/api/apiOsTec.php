@@ -3,9 +3,9 @@ header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
 require_once '_chave.php';
+
 require_once '../control/osControl.php';
-
-
+require_once '../control/osTecControl.php';
 require_once '../model/OsTecnicos.php';
 
 
@@ -18,19 +18,21 @@ $servicos     = new Servicos();
 $mods         = new Mod();
 $osTecnicos   = new OsTecnicos();
 $deslocStatus = new DeslocStatus();
-$osControl   = new OsControl();
+
+$osTecControl   = new OsTecControl();
+$osControl      = new OsControl();
 
 $res     = array('error' => true);
 $arDados = array();
 $arErros = array();
-$action  = 'readII';
+$action  = 'readI';
 $res['message'] = array();
 
 //$res['user'] = $user;
-$acessoNivel = $user['nivel'];// $user >  include("_chave.php");
+$acessoNivel        = $user['nivel'];// $user >  include("_chave.php");
 $acessoProprietario = $user['proprietario'];
-$acessoGrupo = $user['grupo'];
-$acessoloja = $user['loja'];
+$acessoGrupo        = $user['grupo'];
+$acessoloja         = $user['loja'];
 //$acessoNivel = 2;
 //$acessoProprietario = 1;
 //$acessoGrupo = 'P';
@@ -51,7 +53,7 @@ if($action == 'read'):
   $arOss = array();
 
   
-  $status              = '0';
+  $status          = '0';
   //$res['outros'] = $_POST;
   #tecnicoI----------------------------------------------------------------------------------------------------------------------------
   $tecI = array();
@@ -105,7 +107,7 @@ if($action == 'readII'):
   $user_id = '4';
   $uf = 'PE';
   //$tecI = $osTecnicos->findPlus( $os_id );
-  $tecI = $osTecnicos->findUserUF( $user_id, $uf );
+  //$tecI = $osTecnicos->findUserUF( $user_id, $uf );
   //$tecII = $osControl->listOsTec($osId);
   $res['outros'] = $tecI;
   $res['osProprietario']= $arProprietario;
@@ -117,17 +119,12 @@ endif;
 #OS_TEC_ADD
 if($action == 'osTecAdd'):
 
-  $os = $_POST['os'];
-  $loja = $_POST['loja'];
+  $os_id = $_POST['os_id'];
+  $loja_id = $_POST['loja_id'];
   $tecnicos = $_POST['tecnicos'];
 
-  $item = $osControl->insertOsTec( $tecnicos, $os , $loja);
+  $res = $osTecControl->insertOsTec( $tecnicos, $os_id , $loja_id );
 
-  //$res['dados'] = $item;
-  # Insert
-
-  $res['error'] = $item['error']; 
-  $res['message'] = $item['message'];
 endif;
 
 #OS_TEC_DEL

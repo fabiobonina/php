@@ -8,7 +8,7 @@
 	include('../model/DeslocStatus.php');
 
 
-	class TecControl extends GlobalControl {
+	class OsTecControl extends GlobalControl {
 
 		public function listOsTec2( $osId, $tecId ){
 			$osTecnicos   = new OsTecnicos();

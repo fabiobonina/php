@@ -18,7 +18,7 @@ header('Content-Type: text/html; charset=utf-8');
   //$ativos       = new Ativos();
   //$locais       = new Locais();
   //$locaisGrupos = new LocaisGrupos();
-  $notas          = new Nota();
+  $oss          = new Os();
   $res = array('error' => false);
   $action = 'teste';
 
@@ -117,9 +117,13 @@ header('Content-Type: text/html; charset=utf-8');
   }
   if($action == 'teste'){
     
-    $os = '130';
-    $tec = '1';
-    $e1 = $notas->findOs($os);
+    
+    $local_id = '12';
+    $categoria_id = '9';
+    $equipamento_id = '';
+    $data = '2019-01-09';
+    $id = '389';
+    $e1 = $oss->validarOs($local_id, $categoria_id, $equipamento_id, $data, $id);
     $res['teste'] = $e1;
 
     //$res['tecnico']	= $osTecnicos->findTecOs($tec, $os);

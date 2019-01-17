@@ -2,8 +2,20 @@
   <div>
     <v-dialog v-model="dialog" persistent scrollable  max-width="500px">
       <v-card>
+      <v-toolbar dark color="primary">
+          <v-btn icon dark @click="$emit('close')">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-toolbar-title>{{ title }}</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn icon flat @click.native="saveItem()">
+              <v-icon>mdi-content-save</v-icon>
+            </v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
         <v-card-title>
-          <span class="headline">{{ data.local.tipo }} - {{ data.local.name }}: OS Tecnicos</span>
+          <span class="headline">{{ data.local_tipo }} - {{ data.local_name }}</span>
         </v-card-title>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
@@ -11,113 +23,82 @@
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12>
-              <div v-if="data.bem">
-                <p>{{ data.bem.name }} - {{ data.bem.modelo }} <i class="fa fa-qrcode"></i> {{ data.bem.numeracao }} <i class="fa fa-fw fa-barcode"></i>{{ data.bem.plaqueta }}</p>
-              </div>
+                <div v-if="data.equipamento">
+                  <p>{{ data.equipamento.name }} - {{ data.equipamento.modelo }} <i class="fa fa-qrcode"></i> {{ data.equipamento.numeracao }} <i class="fa fa-fw fa-barcode"></i>{{ data.equipamento.plaqueta }}</p>
+                </div>
               <h2 class="subtitle">Tecnicos</h2>
               <div v-for="item in _os.tecnicos" :key="item.id">
                   <v-chip small close @input="tecDelete(item)">
                     <v-avatar small >
                       <img :src="item.avatar" alt="trevor">
                     </v-avatar>
-                    {{item.userNick}}
+                    {{item.user_nick}}
                   </v-chip>
               </div>
               <v-flex xs12>
-                <v-autocomplete
-                  :items="_tecnicos"
-                  v-model="tecnicos"
-                  label="Tecnicos"
-                  item-text="userNick"
-                  multiple
-                  chips
-                  return-object
-                  max-height="auto"
-                  :error-messages="errors.collect('')" v-validate="''" data-vv-name="tecnicos"
-                >
-                  <template slot="selection" slot-scope="data">
-                    <v-chip
-                      :selected="data.selected"
-                      :key="JSON.stringify(data.item)"
-                      close
-                      class="chip--select-multi"
-                      @input="data.parent.selectItem(data.item)"
-                    >
-                      <v-avatar>
-                        <img :src="data.item.avatar">
-                      </v-avatar>
-                      {{ data.item.userNick }}
-                    </v-chip>
-                  </template>
-                  <template slot="item" slot-scope="data">
-                    <template v-if="typeof data.item !== 'object'">
-                      <v-list-tile-content v-text="data.item"></v-list-tile-content>
-                    </template>
-                    <template v-else>
-                      <v-list-tile-avatar>
-                        <img :src="data.item.avatar">
-                      </v-list-tile-avatar>
-                      <v-list-tile-content>
-                        <v-list-tile-title v-html="data.item.userNick"></v-list-tile-title>
-                        <v-list-tile-sub-title v-html="data.item.email"></v-list-tile-sub-title>
-                      </v-list-tile-content>
-                    </template>
-                  </template>
-                </v-autocomplete>
-              </v-flex>
-              <v-flex xs12>
-                <v-autocomplete
-                  :items="tecnicos"
-                  v-model="tecnico"
-                  label="Tecnico"
-                  item-text="userNick"
-                  multiple
-                  chips
-                  return-object
-                  max-height="auto"
-                  :error-messages="errors.collect('tecnico')" v-validate="'required'" data-vv-name="tecnico"
-                  required
-                >
-                  <template slot="selection" slot-scope="data">
-                    <v-chip
-                      :selected="data.selected"
-                      :key="JSON.stringify(data.item)"
-                      close
-                      class="chip--select-multi"
-                      @input="data.parent.selectItem(data.item)"
-                    >
-                      <v-avatar>
-                        <img :src="data.item.avatar">
-                      </v-avatar>
-                      {{ data.item.userNick }}
-                    </v-chip>
-                  </template>
-                  <template slot="item" slot-scope="data">
-                    <template v-if="typeof data.item !== 'object'">
-                      <v-list-tile-content v-text="data.item"></v-list-tile-content>
-                    </template>
-                    <template v-else>
-                      <v-list-tile-avatar>
-                        <img :src="data.item.avatar">
-                      </v-list-tile-avatar>
-                      <v-list-tile-content>
-                        <v-list-tile-title v-html="data.item.userNick"></v-list-tile-title>
-                        <v-list-tile-sub-title v-html="data.item.email"></v-list-tile-sub-title>
-                      </v-list-tile-content>
-                    </template>
-                  </template>
-                </v-autocomplete>
+                <template>
+                  <v-card color="blue-grey darken-1" dark >
+                    <v-form>
+                      <v-container>
+                        <v-layout wrap>
+
+                          <v-flex xs12>
+                            <v-autocomplete
+                              v-model="tecnicos"
+                              :disabled="isUpdating"
+                              :items="_tecnicos"
+                              box
+                              chips
+                              color="blue-grey lighten-2"
+                              label="Tecnico(s)"
+                              return-object
+                              multiple
+                            >
+                              <template slot="selection" slot-scope="data">
+                                <v-chip
+                                  :selected="data.selected"
+                                  close
+                                  class="chip--select-multi"
+                                  @input="remove(data.item)"
+                                >
+                                  <v-avatar>
+                                    <img :src="data.item.avatar">
+                                  </v-avatar>
+                                  {{ data.item.user_nick }}
+                                </v-chip>
+                              </template>
+                              <template
+                                slot="item"
+                                slot-scope="data"
+                              >
+                                <template v-if="typeof data.item !== 'object'">
+                                  <v-list-tile-content v-text="data.item"></v-list-tile-content>
+                                </template>
+                                <template v-else>
+                                  <v-list-tile-avatar>
+                                    <img :src="data.item.avatar">
+                                  </v-list-tile-avatar>
+                                  <v-list-tile-content>
+                                    <v-list-tile-title v-html="data.item.user_nick"></v-list-tile-title>
+                                    <v-list-tile-sub-title v-html="data.item.email"></v-list-tile-sub-title>
+                                  </v-list-tile-content>
+                                </template>
+                              </template>
+                            </v-autocomplete>
+                          </v-flex>
+                        </v-layout>
+                      </v-container>
+                    </v-form>
+                    <v-divider></v-divider>
+                    
+                  </v-card>
+                </template>
               </v-flex>
             </v-layout>
           </v-container>
           <small>*indica campo obrigatório</small>
 
         </v-card-text>
-        <v-card-actions>
-            <v-btn flat @click.stop="$emit('close')">Fechar</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click.stop="saveItem()">Salvar</v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
   </div>
@@ -140,7 +121,12 @@ Vue.component('os-tec', {
       item:{},
       tecnicos: null,
       isLoading: false,
-    };
+      autoUpdate: true,
+        friends: ['Sandra Adams', 'Britta Holt'],
+        isUpdating: false,
+        name: 'Midnight Crew',
+        title: 'The summer breeze',
+      }
   },
   mounted () {
     this.$validator.localize('pt_BR', this.dictionary)
@@ -173,19 +159,15 @@ Vue.component('os-tec', {
       if(this.checkForm()){
         this.isLoading = true
         var postData = {
-          os: this.data.id,
-          loja: this.data.loja,
+          os_id: this.data.id,
+          loja_id: this.data.loja_id,
           tecnicos: this.tecnicos,
         };
-        //var formData = this.toFormData(postData);
-        //console.log(postData);
+        console.log(postData);
         this.$http.post('./config/api/apiOsTec.php?action=osTecAdd', postData)
           .then(function(response) {
-            //console.log(response);
-            if(response.data.error){
-              this.errorMessage.push(response.data.message);
-              this.isLoading = false;
-            } else{
+            console.log(response);
+            if(!response.data.error){
               this.successMessage.push(response.data.message);
               this.atualizacao();
               this.isLoading = false;
@@ -194,6 +176,9 @@ Vue.component('os-tec', {
                 this.successMessage = null;
                 this.tecnicos       = null;
               }, 2000);
+            } else{
+              this.errorMessage.push(response.data.message);
+              this.isLoading = false;
             }
           })
           .catch(function(error) {
@@ -203,7 +188,7 @@ Vue.component('os-tec', {
       }
     },
     tecDelete: function(item) {
-      if(confirm('Deseja realmente remover ' + item.userNick + '?')){
+      if(confirm('Deseja realmente remover ' + item.user_nick + '?')){
         this.isLoading = true
         var postData = {
           id: item.id,
@@ -238,7 +223,7 @@ Vue.component('os-tec', {
       e.preventDefault();
     },
     atualizacao: function(){
-      this.$store.dispatch("fetchOs").then(() => {
+      this.$store.dispatch("findOs").then(() => {
         console.log("Atualizando dados OS!")
       });
     },

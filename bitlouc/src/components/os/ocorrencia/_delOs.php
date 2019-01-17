@@ -120,7 +120,7 @@ Vue.component('os-del', {
       this.dataOs = dtTime;
     },
     atualizacao: function () {
-      this.$store.dispatch("fetchOs").then(() => {
+      this.$store.dispatch("findOs").then(() => {
         console.log("Atualizando dados OS!")
       });
     }

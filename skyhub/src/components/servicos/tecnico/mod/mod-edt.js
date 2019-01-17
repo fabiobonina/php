@@ -96,7 +96,7 @@ Vue.component('mod-edt', {
           } else{
             this.successMessage.push(response.data.message);
             this.isLoading = false;
-            this.$store.dispatch("fetchOs").then(() => {
+            this.$store.dispatch("findOs").then(() => {
               console.log("Buscando dados OS!")
             });
             setTimeout(() => {

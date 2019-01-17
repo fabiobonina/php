@@ -78,7 +78,7 @@ Vue.component('os-edt', {
               this.isLoading = false;
             } else{
               this.successMessage.push(response.data.message);
-              this.$store.dispatch("fetchOs").then(() => {
+              this.$store.dispatch("findOs").then(() => {
                 console.log("Atualizando dados OS!")
               });
               this.isLoading = false;

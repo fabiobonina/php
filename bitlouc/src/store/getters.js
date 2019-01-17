@@ -12,7 +12,6 @@ const getters = {
   getLojas: state => state.lojas,
   getLocais: state => state.locais,
   getLocal: state => state.local,
-  getBens: state => state.bens,
   getEquipamentos: state => state.equipamentos,
   getTipos: state => state.tipos,
   getProdutos: state => state.produtos,

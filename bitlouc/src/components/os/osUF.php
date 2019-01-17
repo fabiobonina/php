@@ -50,6 +50,7 @@ var OsUF = Vue.extend({
         },
     },
     methods: {
+      
     }
 });
 </script>

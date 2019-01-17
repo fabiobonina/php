@@ -59,7 +59,7 @@
 
           <td>
             <local-rota :lat="props.item.local_lat" :long="props.item.local_long"></local-rota>
-            <local-crud :data="props.item"></local-crud>
+            <os-crud :data="props.item"></os-crud>
           </td>
           <td class="text-xs-right"> {{ props.item.id }} </td>
           
@@ -75,11 +75,7 @@
   </div>
 </template>
 
-<?php require_once 'src/components/os/_addOs.php';?>
-<?php require_once 'src/components/os/_edtOs.php';?>
-<?php require_once 'src/components/os/_delOs.php';?>
-<?php require_once 'src/components/os/_tecOs.php';?> 
-<?php require_once 'src/components/os/_amarracOs.php';?>
+<?php require_once 'src/components/os/_crudOs.php';?>
 <?php require_once 'src/components/local/_rotaLocal.php';?>
 
 <script>

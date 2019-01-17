@@ -59,7 +59,7 @@ Vue.component('os-statustec', {
             }
           }
         }
-        postData.push(user.userNick)
+        postData.push(user.user_nick)
         postData.push(count)
         if(count > 0){
           value.push( postData)
@@ -70,7 +70,6 @@ Vue.component('os-statustec', {
     },
   },
   methods: {
-
 
   },
 });

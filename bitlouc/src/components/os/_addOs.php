@@ -88,7 +88,7 @@ Vue.component('os-add', {
     return {
       errorMessage: [],
       successMessage: [],
-      title: 'Novo Antendimento',
+      title: 'Nova Ocorrecia',
       isLoading: false,
       item:{},
       servico: null,
@@ -168,18 +168,18 @@ Vue.component('os-add', {
             console.log(postData);
             this.$http.post('./config/api/apiOs.php?action=publish', postData)
             .then(function(response) {
-              console.log(response);
-              if(response.data.error){
-                this.errorMessage.push(response.data.message);
-                this.isLoading = false;
-              } else{
+              //console.log(response);
+              if(!response.data.error){
                 this.successMessage.push(response.data.message);
                 this.atualizacao();
                 this.isLoading = false;
                 setTimeout(() => {
-                  this.$router.push('/')
+                  this.$router.push('/os/'+response.data.id)
                   this.$emit('close');
-                }, 2000);  
+                }, 2000);
+              } else{
+                this.errorMessage.push(response.data.message);
+                this.isLoading = false;
               }
             })
             .catch(function(error) {
@@ -191,7 +191,7 @@ Vue.component('os-add', {
       });
     },
     atualizacao: function(){
-      this.$store.dispatch("fetchOs").then(() => {
+      this.$store.dispatch("findOs").then(() => {
         console.log("Atualizando dados OS!")
       });
     },

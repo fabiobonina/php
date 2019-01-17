@@ -54,9 +54,6 @@ const mutations = {
   SET_LOCAIS(state, locais) {
     state.locais = locais
   },
-  SET_BENS(state, bens) {
-    state.bens = bens
-  },
   SET_EQUIPAMENTOS(state, equipamentos) {
     state.equipamentos = equipamentos
   },
@@ -80,6 +77,9 @@ const mutations = {
   },
   SET_UF(state, ufs) {
     state.ufs = ufs
+  },
+  SET_NIVEL(state, nivel){
+    state.nivel = nivel
   },
   SET_OS(state, os) {
     state.os = os

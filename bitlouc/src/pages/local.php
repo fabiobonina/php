@@ -31,17 +31,14 @@ var Local = Vue.extend({
     //this.modalBemAdd = true;
   },
   created: function() {
-    this.$store.dispatch('fetchLocalLoja', this.$route.params._loja).then(() => {
-        console.log("Buscando dados do local!")
+    this.$store.dispatch('findLocal', this.data ).then(() => {
+      console.log("Buscando dados da local")
     });
     this.$store.dispatch('fetchEquipamentoLocal', this.$route.params._local).then(() => {
       console.log("Buscando dados do equipamento!")
     });
   },
   computed: {
-    local()  {
-      return store.getters.getLocalId(this.$route.params._local);
-    },
     loja()  {
       return store.getters.getLojaId(this.$route.params._loja);
     },

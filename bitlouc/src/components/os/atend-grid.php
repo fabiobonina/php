@@ -58,8 +58,7 @@
           </td>
 
           <td>
-            <local-rota :lat="props.item.local_lat" :long="props.item.local_long"></local-rota>
-            <local-crud :data="props.item"></local-crud>
+            <os-crud :data="props.item" v-on:atualizar="atualizar()"></os-crud>
           </td>
           <td class="text-xs-right"> {{ props.item.id }} </td>
           
@@ -70,17 +69,11 @@
       </v-data-table>
     </v-card>
     <div>
-      <local-add v-if="modalAdd" v-on:close="modalAdd = false" :dialog="modalAdd"></local-add>
     </div>
   </div>
 </template>
 
-<?php require_once 'src/components/os/_addOs.php';?>
-<?php require_once 'src/components/os/_edtOs.php';?>
-<?php require_once 'src/components/os/_delOs.php';?>
-<?php require_once 'src/components/os/_tecOs.php';?> 
-<?php require_once 'src/components/os/_amarracOs.php';?>
-<?php require_once 'src/components/local/_rotaLocal.php';?>
+<?php require_once 'src/components/os/_crudOs.php';?>
 
 <script>
   Vue.component('atend-grid', {
@@ -106,9 +99,6 @@
         sortKey: '',
         showModal: false,
         modalItem: {},
-        modalTec: false,
-        modalEdt: false,
-        modalDel: false,
         modalOs: false,
         selected: [2],
         configs: {
@@ -173,10 +163,8 @@
       selecItem: function(data){
         this.modalItem = data;
       },
-      onAtualizar: function(){
-        this.$store.dispatch('fetchLocais', this.$route.params._loja).then(() => {
-          this.showModal = false;
-        });
+      atualizar: function(){
+        this.$emit('atualizar');
       },
     }
   });

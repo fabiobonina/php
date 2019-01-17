@@ -2,8 +2,20 @@
   <div>
     <v-dialog v-model="dialog" persistent scrollable  max-width="500px">
       <v-card>
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click="$emit('close')">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-toolbar-title>{{ title }}</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn icon flat @click.native="saveItem()">
+              <v-icon>mdi-content-save</v-icon>
+            </v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
         <v-card-title>
-          <span class="headline">{{ data.local.tipo }} - {{ data.local.name }} - Editar OS</span>
+          <span class="headline">{{ data.local_tipo }} - {{ data.local_name }}</span>
         </v-card-title>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
@@ -11,8 +23,8 @@
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12>
-                <div v-if="data.bem">
-                <p>{{ data.bem.name }} - {{ data.bem.modelo }} <i class="fa fa-qrcode"></i> {{ data.bem.numeracao }} <i class="fa fa-fw fa-barcode"></i>{{ data.bem.plaqueta }}</p>
+                <div v-if="data.equipamento">
+                <p>{{ data.equipamento.name }} - {{ data.equipamento.modelo }} <i class="fa fa-qrcode"></i> {{ data.equipamento.numeracao }} <i class="fa fa-fw fa-barcode"></i>{{ data.equipamento.plaqueta }}</p>
                 </div>
                 <div v-else>
                   <v-autocomplete
@@ -31,9 +43,9 @@
               <v-flex xs12 sm6 md5>
                 <v-text-field
                   type="date"
-                  v-model="data.data"
+                  v-model="date"
                   label="Data"
-                  :error-messages="errors.collect('data')"
+                  :error-messages="errors.collect('date')"
                   v-validate="'required'"
                   data-vv-name="data"
                   item-text="name"
@@ -53,50 +65,7 @@
                   required
                 ></v-autocomplete>
               </v-flex>
-              
-              <v-flex xs12>
-                <v-autocomplete
-                  :items="tecnicos"
-                  v-model="data.tecnicos"
-                  label="Tecnico"
-                  item-text="userNick"
-                  multiple
-                  chips
-                  return-object
-                  max-height="auto"
-                  :error-messages="errors.collect('tecnico')" v-validate="'required'" data-vv-name="tecnico"
-                  required
-                >
-                  <template slot="selection" slot-scope="data">
-                    <v-chip
-                      :selected="data.selected"
-                      :key="JSON.stringify(data.item)"
-                      close
-                      class="chip--select-multi"
-                      @input="data.parent.selectItem(data.item)"
-                    >
-                      <v-avatar>
-                        <img :src="data.item.avatar">
-                      </v-avatar>
-                      {{ data.item.userNick }}
-                    </v-chip>
-                  </template>
-                  <template slot="item" slot-scope="data">
-                    <template v-if="typeof data.item !== 'object'">
-                      <v-list-tile-content v-text="data.item"></v-list-tile-content>
-                    </template>
-                    <template v-else>
-                      <v-list-tile-avatar>
-                        <img :src="data.item.avatar">
-                      </v-list-tile-avatar>
-                      <v-list-tile-content>
-                        <v-list-tile-title v-html="data.item.userNick"></v-list-tile-title>
-                        <v-list-tile-sub-title v-html="data.item.email"></v-list-tile-sub-title>
-                      </v-list-tile-content>
-                    </template>
-                  </template>
-                </v-autocomplete>
-              </v-flex>
+
               <v-flex xs12 sm3>
                 <v-subheader v-text="'Ativo?'"></v-subheader>
               </v-flex>
@@ -109,13 +78,7 @@
             </v-layout>
           </v-container>
           <small>*indica campo obrigatório</small>
-
         </v-card-text>
-        <v-card-actions>
-            <v-btn flat @click.stop="$emit('close')">Fechar</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click.stop="saveItem()">Salvar</v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
   </div>
@@ -135,8 +98,10 @@ Vue.component('os-edt', {
     return {
       errorMessage: [],
       successMessage: [],
+      title: 'Editar Ocorrecia',
       item:{},
       isLoading: false,
+      date: "",
     };
   },
   mounted () {
@@ -188,33 +153,39 @@ Vue.component('os-edt', {
       if(this.checkForm()){
         this.isLoading = true
         var postData = {
-          osId: this.data.id,
-          local: this.data.local.id,
-          bem: this.data.bem,
-          categoria: this.data.categoria.id,
-          servico: this.data.servico.id,
-          tipoServ: this.data.servico.tipo,
-          data: this.data.data,
-          dtUltimoMan: this.data.dtUltimoMan,
-          ativo: this.data.ativo
+          proprietario_id: this.data.proprietario_id,
+          loja_id:        this.data.loja_id,
+          loja_nick:      this.data.loja_nick,
+          local_id:       this.data.local_id,
+          uf:             this.data.uf,
+          equipamento_id: this.data.equipamento_id,
+          categoria_id:   this.data.categoria.id,
+          servico_id:     this.data.servico.id,
+          servico_tipo:   this.data.servico.tipo,
+          data:           this.date,
+          dtCadastro:     this.data.dtCadastro,
+          ativo:          this.data.ativo,
+          id:             this.data.id
         };
         //var formData = this.toFormData(postData);
-        //console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=osEdt', postData)
+        console.log(postData);
+        this.$http.post('./config/api/apiOs.php?action=publish', postData)
           .then(function(response) {
-            //console.log(response);
-            if(response.data.error){
-              this.errorMessage.push(response.data.message);
-              this.isLoading = false;
-            } else{
+            console.log(response);
+            if(!response.data.error){
               this.successMessage.push(response.data.message);
-              this.$store.dispatch("fetchOs").then(() => {
+              this.$store.dispatch("findOs", this.data).then(() => {
                 console.log("Atualizando dados OS!")
               });
               this.isLoading = false;
               setTimeout(() => {
                 this.$emit('close');
               }, 2000);  
+
+              
+            } else{
+              this.errorMessage.push(response.data.message);
+              this.isLoading = false;
             }
           })
           .catch(function(error) {
@@ -231,10 +202,20 @@ Vue.component('os-edt', {
       if(!this.errorMessage.length) return true;
       e.preventDefault();
     },
+    dataT: function () {
+      function formatDate(data, formato) {
+        if (formato == 'pt-br') {
+          return (data.substr(0, 10).split('-').reverse().join('/'));
+        } else {
+          return (data.substr(0, 10).split('/').reverse().join('-'));
+        }
+      }
+      this.date = formatDate(this.data.data);
+    },
     addCategoria: function () {
       if( this.data ) {
-        this.categoria = this.data.bem.categoria;
-        this.bem = this.data.id;
+        this.categoria = this.data.equipamento.categoria;
+        this.equipamento = this.data.id;
       }
     }
   },

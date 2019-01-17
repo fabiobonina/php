@@ -40,7 +40,7 @@
     },
     computed: {
       local()  {
-        return store.getters.getLocalId(this.$route.params._local);
+        return store.state.local;
       },
       loja()  {
         return store.getters.getLojaId(this.$route.params._loja);

@@ -28,7 +28,7 @@
       </v-list>
     </v-menu>
     <div>
-      <local-geo v-if="modalGeo" v-on:close="modalGeo = false" :dialog="modalGeo" :data="data"></local-geo>
+      <local-geo v-if="modalGeo" v-on:close="modalGeo = false" :dialog="modalGeo" :data="data.id"></local-geo>
       <local-edt v-if="modalEdt" v-on:close="modalEdt = false" :dialog="modalEdt" :data="data"></local-edt>
       <local-del v-if="modalDel" v-on:close="modalDel = false" :dialog="modalDel" :data="data"></local-del>
       <local-cat v-if="modalCat" v-on:close="modalCat = false" :dialog="modalCat" :data="data"></local-cat>

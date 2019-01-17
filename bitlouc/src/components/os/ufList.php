@@ -1,6 +1,6 @@
 
 <template id="uf-list">
-  <div>
+  <div v-if="_uf">
     <v-card flat tile color="grey lighten-2">
       <v-toolbar color="cyan" prominent class="white--text" height="80px">
         <v-btn @click="$router.go(-1)" icon >
@@ -22,7 +22,7 @@
       </v-toolbar>
     </v-card>
         
-      <atend-grid :data="oss" :status="status"></atend-grid>
+      <atend-grid :data="oss" :status="status" v-on:atualizar="atualizar()"></atend-grid>
   </div>      
 </template>
 <script>
@@ -69,7 +69,12 @@ var UFList = Vue.extend({
       setStatus(item){
         var name = item;
         this.$store.dispatch("setStatus", name );
-      }
+      },
+      atualizar: function(){
+        this.$store.dispatch("fetchIndex").then(() => {
+          console.log("Buscando dados para inicial!")
+        });
+      },
     }
 });
 </script>

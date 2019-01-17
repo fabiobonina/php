@@ -224,7 +224,7 @@ var Os = Vue.extend({
     };
   },
   created: function() {
-    this.$store.dispatch('fetchOs', this.$route.params._os).then(() => {
+    this.$store.dispatch('findOs', this.$route.params._os).then(() => {
       console.log("Buscando dados da os")
     });
     
@@ -381,7 +381,7 @@ var Os = Vue.extend({
       }
     },
     onAtualizar: function(){
-      this.$store.dispatch("fetchOs").then(() => {
+      this.$store.dispatch("findOs").then(() => {
         console.log("Atualizando dados OS!")
       });
     },

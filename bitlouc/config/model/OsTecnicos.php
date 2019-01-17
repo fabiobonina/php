@@ -31,18 +31,19 @@ class OsTecnicos extends Crud{
 	
 	public function insert(){
 		try{
-			$sql  = "INSERT INTO $this->table ( os_id, loja_id, tecnico_id, user_id, hh ) ";
-			$sql .= "VALUES ( :os_id, :loja_id, :tecnico_id, :user_id, :hh )";
+			$sql  = "INSERT INTO $this->table ( os_id, loja_id, tecnico_id, user_id, user_nick, hh ) ";
+			$sql .= "VALUES ( :os_id, :loja_id, :tecnico_id, :user_id, :user_nick, :hh )";
 			$stmt = DB::prepare($sql);
 
 			$stmt->bindParam(':os_id',			$this->os_id);
 			$stmt->bindParam(':loja_id',		$this->loja_id);
 			$stmt->bindParam(':tecnico_id',		$this->tecnico_id);
 			$stmt->bindParam(':user_id',		$this->user_id);
+			$stmt->bindParam(':user_nick',		$this->user_nick);
 			$stmt->bindParam(':hh',				$this->hh);
 			$stmt->execute();
 			$res['error'] = false;
-			$res['message'] = "OK, dados inserio com sucesso";
+			$res['message'] = "OK, dados salvo com sucesso";
 			return $res;
 		} catch(PDOException $e) {
 			$res['error']	= true;

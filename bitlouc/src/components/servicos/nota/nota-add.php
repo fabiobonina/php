@@ -116,7 +116,7 @@ Vue.component('nota-add', {
       e.preventDefault();
     },
     atualizacao: function(){
-      this.$store.dispatch('fetchOs', this.$route.params._os).then(() => {
+      this.$store.dispatch('findOs', this.$route.params._os).then(() => {
         console.log("Buscando dados da os")
       });
     },

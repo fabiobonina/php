@@ -40,6 +40,13 @@ if($action == 'loja'):
   
 endif;
 
+if($action == 'local'):
+  $local_id = $_POST['local_id'];
+  //$local_id = '130';
+  $res = $localControl->find( $local_id );
+
+endif;
+
 #CRIAR_EDITAR-------------------------------------------------------------------------------
 if($action == 'publish'):
   $loja_id          = $_POST['loja_id'];

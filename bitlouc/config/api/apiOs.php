@@ -90,6 +90,9 @@ if($action == 'publish'):
     $id
   );
 
+
+
+
 endif;
 
 #OS-AMARAR
@@ -97,22 +100,10 @@ if($action == 'osAmarar'):
 
   $os     = $_POST['os'];
   $filial = $_POST['filial'];
-  $status = $_POST['status'];
   $id     = $_POST['id'];
-  $dtOs   = date("Y-m-d H:i:s");
+  
+  $res =  $osControl->amarar( $filial, $os, $id );
 
-  $oss->setOs($os);
-  $oss->setFilial($filial);
-  $oss->setDtOs($dtOs);
-  $oss->setStatus($status);
-  # Amarar
-  if($oss->amarar($id)){
-    $res['error'] = false;
-    $res['message']= "OK, dados salvo com sucesso";
-  }else{
-    $res['error'] = true; 
-    $res['message'] = "Error, nao foi possivel salvar os dados";      
-  }
 endif;
 #OS-DELETAR
 if($action == 'osDel'):
@@ -437,7 +428,8 @@ endif;
 if($action == 'email'):
   //
   $osId = '130';
-  $res['dados'] = $osControl->osEmail( $osId );
+  $os_status = 'está em teste no sistema';
+  $res['dados'] = $osControl->osEmail( $osId, $os_statuss);
   //$res['dados'] = $osControl->osEmail( $osId );
       
 endif;

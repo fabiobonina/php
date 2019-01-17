@@ -23,9 +23,6 @@
       this.$store.dispatch("fetchIndex").then(() => {
         console.log("Buscando dados para inicial!")
       });
-      this.$store.dispatch("fetchOs").then(() => {
-        console.log("Buscando dados OS!")
-      });
     },
     computed: {
       user() {

@@ -159,7 +159,7 @@ Vue.component('os-amarrac', {
       e.preventDefault();
     },
     atualizacao: function(){
-      this.$store.dispatch("fetchOs").then(() => {
+      this.$store.dispatch("findOs").then(() => {
         console.log("Atualizando dados OS!")
       });
     },

@@ -2,8 +2,20 @@
 <div>
     <v-dialog v-model="dialog" persistent scrollable  max-width="500px">
       <v-card>
+      <v-toolbar dark color="primary">
+          <v-btn icon dark @click="$emit('close')">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-toolbar-title>{{ title }}</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn icon flat @click.native="saveItem()">
+              <v-icon>mdi-content-save</v-icon>
+            </v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
         <v-card-title>
-          <span class="headline">OS: {{ data.local.tipo }} - {{ data.local.name }} {{data.servico.name }}</span>
+          <span class="headline">{{ data.local_tipo }} - {{ data.local_name }}</span>
         </v-card-title>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
@@ -46,11 +58,6 @@
           <small>*indica campo obrigatório</small>
 
         </v-card-text>
-        <v-card-actions>
-            <v-btn flat @click.stop="$emit('close')">Fechar</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click.stop="saveItem()">Salvar</v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
   </div>
@@ -98,6 +105,7 @@ Vue.component('os-amarrac', {
     return {
       errorMessage: [],
       successMessage: [],
+      title: 'Amarar OS',
       filial: null,
       os: null,
       isLoading: false,
@@ -128,22 +136,21 @@ Vue.component('os-amarrac', {
         var postData = {
           id: this.data.id,
           os: this.os,
-          filial: this.filial.id,
-          status: '1'
+          filial: this.filial.id
         };        
         this.$http.post('./config/api/apiOs.php?action=osAmarar', postData)
           .then(function(response) {
             //console.log(response);
-            if(response.data.error){
-              this.errorMessage.push(response.data.message);
-              this.isLoading = false;
-            } else{
+            if(!response.data.error){
               this.successMessage.push(response.data.message);
               this.isLoading = false;
               this.atualizacao();
               setTimeout(() => {
                 this.$emit('close');
-              }, 2000);  
+              }, 2000);
+            } else{
+              this.errorMessage.push(response.data.message);
+              this.isLoading = false;
             }
           })
           .catch(function(error) {
@@ -159,7 +166,7 @@ Vue.component('os-amarrac', {
       e.preventDefault();
     },
     atualizacao: function(){
-      this.$store.dispatch("fetchOs").then(() => {
+      this.$store.dispatch("findOs").then(() => {
         console.log("Atualizando dados OS!")
       });
     },

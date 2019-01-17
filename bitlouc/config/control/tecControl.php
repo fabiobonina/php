@@ -1,45 +1,16 @@
 <?php
-	require_once '_global.php';
-	require_once '../emailPHP.php';
+	
+	require_once '../model/Tecnicos.php';
 
-	class OsControl extends GlobalControl {
+	class TecControl extends GlobalControl {
 
 		public function matrix( $item ){
 			
-			$oss     		= new OS();
-			$osTecnicos     = new OsTecnicos();
-			$lojas     		= new Loja();
-			$locais     	= new Local();
-			$bens   		= new Bens();
-			$servicos   	= new Servicos();
-			$categorias 	= new Categorias();
-			$notas      	= new Nota();
-			$equipamentos	= new Equipamento();
-			$fabricantes	= new Fabricantes();
 			$users			= new User();
 
-			
-			$local 					= $locais->find( $item->local_id );
-			$item->local_tipo		= $local->tipo;
-			$item->local_name		= $local->name;
-			$item->local_municipio	= $local->municipio;
-			$item->local_uf			= $local->uf;
-			$item->local_lat		= $local->latitude;
-			$item->local_long		= $local->longitude;
-			$item->equipamento		= $equipamentos->find( $item->equipamento_id );
-			if($item->equipamento){
-				$fabricante			= $fabricantes->find( $item->equipamento->fabricante_id );
-				$item->equipamento->fabricante_nick		= $fabricante->nick;
-			}
 			$user					= $users->find( $item->user_id );
 			$item->user_user		= $user->user;
-			$item->servico			= $servicos->find( $item->servico_id );
-			$item->categoria		= $categorias->find( $item->categoria_id );
-			$item->tecnicos			= $this->listOsTec( $item->id );
-			$item->notas			= $notas->findOs( $item->id );
-
-			$oss->ajuste( $item->id, $local->uf );
-			$osTecnicos->ajuste( $item->id, $item->status );
+			$item->avatar			= $user->avatar;
 
 			return $item;
 
@@ -113,53 +84,17 @@
 			return $res;
 		}
 
-		public function amarar( $filial, $os, $id ) {
-			$item['error'] = false;
-			$oss	= new OS();
+		public function listProprietario(){
+			$tecnicos	= new Tecnicos();
+			$itens 		= array();
 			
-			$dtOs   = date("Y-m-d H:i:s");
-			
-			$oss->setFilial($filial);
-			$oss->setOs($os);
-			$oss->setDtOs($dtOs);
-			# Amarar
-
-			$item = $oss->amarar($id);
-			
-			if(!$item['error']){
-				$email_status = 'recebeu o numero da OS';
-				$this->osEmail( $id, $email_status );
-			}
-
-			$res = $item;
-			return $res;
-		}
-
-		public function listLoja( $loja_id ){
-			$oss	= new Os();
-			$itens 	= array();
-			
-			foreach($oss->findLoja( $loja_id ) as $key => $value): {
+			foreach($tecnicos->findProprietario( $_SESSION['loginProprietario'] ) as $key => $value) : if( $value->ativo == '0' ) {
 				$item = $value;
 				$item = $this->matrix( $item );
-				$item = (array)  $item;
+				$item = (array) $item;
 				array_push( $itens, $item );
 			}endforeach;
-			$res = $itens;
-			return $res;
 
-		}
-
-		public function listProprietario( $proprietario_id ){
-			$oss	= new Os();
-			$itens 	= array();
-			
-			foreach($oss->findProprietario( $proprietario_id ) as $key => $value): {
-				$item = $value;
-				$item = $this->matrix( $item );
-				$item = (array)  $item;
-				array_push( $itens, $item );
-			}endforeach;
 			$res = $itens;
 			return $res;
 
@@ -192,38 +127,7 @@
 			return $res;
 
 		}
-
-		public function findOs( $os_id ){
-			$oss	= new Os();
-			
-			$item = $oss->find( $os_id );
-
-			if( key($item) == "id" ){
-				$res['error'] = false;
-				$res['os'] = $this->matrix( $item );
-				$res['message'] = 'OK, Dados emcontrado';
-				
-			}else{
-				$res = $item;
-			}
-
-			return $res;
-
-		}
-
-		public function contStatusUFProprietario( $loja_id ){
-			$oss	= new Os();
-			$itens 	= array();
-			
-			foreach($oss->findIIILoja( $loja_id ) as $key => $value): {
-				$item = $value;
-				$item = (array) $this->matrix( $item );
-				array_push( $itens, $item );
-			}endforeach;
-			$res = $itens;
-			return $res;
-
-		}
+		
 		public function listTec( $user_id, $uf ){
 			$osTecnicos	= new OsTecnicos();
 			$itens 	= array();
@@ -238,49 +142,40 @@
 
 		}
 		
-		public function insertOsTec($tecnicos, $os_id, $idLoja){
+		public function insertOsTec($tecnicos, $os_id, $loja_id ){
 			
 			$osTecnicos   = new OsTecnicos();
-			$cont1 = '0';
-			$cont2 = '0';
-			foreach ($tecnicos as $value){
-				$cont1++;
-				$tecId = $value['id'];
-				$userTec = $value['user_id'];
-				$userNickTec = $value['userNick'];
-				$hhTec = $value['hh'];
 
-				$validar = $osTecnicos->findTecOs( $tecId, $os_id );
+			foreach ($tecnicos as $value){
+				$tec_id 	= $value['id'];
+				$user_id 	= $value['user_id'];
+				$user_nick 	= $value['user_nick'];
+				$hh 		= $value['hh'];
+
+				$validar = $osTecnicos->findTecOs( $tec_id, $os_id );
 				if(	!$validar ){ 
 					
 					$osTecnicos->setOs($os_id);
-					$osTecnicos->setLoja($idLoja);
-					$osTecnicos->setTecnico($tecId);
-					$osTecnicos->setUser($userTec);
-					$osTecnicos->setUserNick($userNickTec);
-					$osTecnicos->setHh($hhTec);
-					if($osTecnicos->insert()){
-						$cont2++;
-					}
+					$osTecnicos->setLoja($loja_id );
+					$osTecnicos->setTecnico($tec_id);
+					$osTecnicos->setUser($user_id);
+					$osTecnicos->setUserNick($user_nick);
+					$osTecnicos->setHh($hh);
+					
+					$item = $osTecnicos->insert();
 
 				}
 			}
-			if($cont2 == '0'){
-				$res['success'] = true;
-				$res['message'] = "Error, nao foi possivel salvar os dados";    
-			}else{
-				$res['success'] = false;
-				$res['message']= 'OK, salvo '.$cont2.'/ '.$cont1.' enviados';
-			}
-
+			
+			$res = $item;
 			return $res;
 		}
-		public function deleteOsTec($tecId, $os_id){
+		public function deleteOsTec($tec_id, $os_id){
 			$osTecnicos   = new OsTecnicos();
 
-			$validar = $this->listOsTecMod($os_id, $tecId);
+			$validar = $this->listOsTecMod($os_id, $tec_id);
 			if(	count($validar) == '0' ){ 
-				if($osTecnicos->delete($tecId)){
+				if($osTecnicos->delete($tec_id)){
 					$res['success'] = false;
 					$res['message']= 'OK, Tecnico deletado!';
 				}else{
@@ -303,28 +198,28 @@
 			$arTecnicos = array();
 			foreach($osTecnicos->findOs( $os_id ) as $key => $value): {
 				$arTecnico = (array) $value;
-				$tecId = $value->tecnico_id;
-				$tecItem = $tecnicos->find( $tecId );
+				$tec_id = $value->tecnico_id;
+				$tecItem = $tecnicos->find( $tec_id );
 				$userItem = $user->find( $tecItem->user_id );
 				$arTecnico['avatar'] = $userItem->avatar;
           		#MODS-------------------------------------------------------
-          		$arTecnico['mods'] = $this->listOsTecMod( $os_id, $tecId );
+          		$arTecnico['mods'] = $this->listOsTecMod( $os_id, $tec_id );
           		#MODS-------------------------------------------------------
 				array_push($arTecnicos, $arTecnico);
 			}endforeach;
 			
 			return $arTecnicos;
 		}
-		public function listOsTecMod( $os_id, $tecId ){
+		public function listOsTecMod( $os_id, $tec_id ){
 			$mods 			= new Mod();
 			$deslocStatus 	= new DeslocStatus();
 			$deslocTrajetos = new DeslocTrajetos();
 			$osTecnicos 	= new OsTecnicos();
 			#MODS--------------------------------------------------------------------------------------------
 			$arMods = array();
-			foreach($mods->findOsTec( $os_id, $tecId ) as $key => $value):{
+			foreach($mods->findOsTec( $os_id, $tec_id ) as $key => $value):{
 				$arItem =(array) $value;
-				$arItem['tecnico']	= $osTecnicos->findTecOs($tecId, $os_id);
+				$arItem['tecnico']	= $osTecnicos->findTecOs($tec_id, $os_id);
 				$arItem['status'] 	= $deslocStatus->find($value->status);
 				$arItem['trajeto'] 	= $deslocTrajetos->find($value->trajeto);
 				array_push($arMods, $arItem);
@@ -333,13 +228,13 @@
 			#MODS--------------------------------------------------------------------------------------------
 			
 		}
-		public function listOsTecModValidacao( $os_id, $tecId, $tecHh, $statusId, $trajetoId, $tipoValor, $date, $kmFinal, $valor ){
+		public function listOsTecModValidacao( $os_id, $tec_id, $tecHh, $statusId, $trajetoId, $tipoValor, $date, $kmFinal, $valor ){
 			$mods = new Mod();
 			$res['success'] = false;
 			$arMessage = array();
 			$ativo = '0';
 				#MODS.................................
-				$data = $mods->findOsTecAtiv( $os_id, $tecId, $ativo );
+				$data = $mods->findOsTecAtiv( $os_id, $tec_id, $ativo );
 				if( count($data) > '1' ){
 					$res['success'] 	= true;
 					$res['message'] ='Error, Mais de 1 trajeto aberto!';
@@ -398,7 +293,7 @@
 				return $res;
 				
 		}
-		public function modAdd( $os_id, $tecId, $statusId, $dtInicio, $dtServInicio ){
+		public function modAdd( $os_id, $tec_id, $statusId, $dtInicio, $dtServInicio ){
 			$mods 			= new Mod();
 			$oss 			= new Os();
 
@@ -406,9 +301,9 @@
 			$arMessage 		= array();
 			$ativo 			= '0';
 			
-			if( count( $mods->findOsTecAtiv( $os_id, $tecId, $ativo )) == '0'){
+			if( count( $mods->findOsTecAtiv( $os_id, $tec_id, $ativo )) == '0'){
 				$mods->setOs($os_id);
-				$mods->setTecnico($tecId);
+				$mods->setTecnico($tec_id);
 				$mods->setDtInicio($date);
 				$mods->setDtServInicio($km);
 				$mods->setStatus($statusId);
@@ -459,13 +354,13 @@
 
 
 		}
-		public function insertTecMod( $os_id, $tecId, $tecName, $tecHh, $statusId, $statusProcesso, $trajetoId, $tipoValor, $date, $km, $valor, $tecNivel ){
+		public function insertTecMod( $os_id, $tec_id, $tecName, $tecHh, $statusId, $statusProcesso, $trajetoId, $tipoValor, $date, $km, $valor, $tecNivel ){
 			
 			$mods = new Mod();
 			$arMessage 		= array();
 			$res['success'] 	= false;
 
-			$etapaI = $mods->ModValido($tecId, $date);
+			$etapaI = $mods->ModValido($tec_id, $date);
 			
 			if( !$etapaI ){
 
@@ -476,7 +371,7 @@
 				}
 			
 				#validar informações
-				$tec = $this->listOsTecModValidacao( $os_id, $tecId, $tecHh, $statusId, $trajetoId, $tipoValor, $date, $km, $valor );
+				$tec = $this->listOsTecModValidacao( $os_id, $tec_id, $tecHh, $statusId, $trajetoId, $tipoValor, $date, $km, $valor );
 				$res['success'] = $tec['success'];
 				if( $res['success'] ){
 					$res['message'] = $tec['message'];
@@ -491,7 +386,7 @@
 					}
 					if ( ($tec['data'] == '0' || $tec['statusNivel']  == '2') && !$res['success'] ) {
 						#desloc inicial
-						$itemII =  $this->modAdd( $os_id, $tecId, $trajetoId, $statusId, $statusProcesso, $date, $km, $valor );
+						$itemII =  $this->modAdd( $os_id, $tec_id, $trajetoId, $statusId, $statusProcesso, $date, $km, $valor );
 						$res['success'] = $itemII['success'];
 						array_push($arMessage, $itemII['message']);
 
@@ -506,14 +401,14 @@
 			
 			
 		}
-		public function validarTrajetoMod( $tecId, $dtInicio, $dtFinal, $modId ){
+		public function validarTrajetoMod( $tec_id, $dtInicio, $dtFinal, $modId ){
 			
 			$mods = new Mod();
 			$arMessage 		= array();
 			$res['success'] 	= false;
 
-			$etapaI = $mods->ModValido($tecId, $dtInicio);
-			$etapaII = $mods->ModValido($tecId, $dtFinal);
+			$etapaI = $mods->ModValido($tec_id, $dtInicio);
+			$etapaII = $mods->ModValido($tec_id, $dtFinal);
 			
 			if( !$etapaI || $modId == $etapaI->id ){
 
@@ -562,9 +457,9 @@
 					$tec	= $tecnicos->find( $value['tecnico_id'] );
 					
 					$user['email'] 		= $tec->email;
-					$user['userNick'] 	= $value['userNick'];
+					$user['user_nick'] 	= $value['user_nick'];
 	
-					array_push($txtTec, $user['userNick'] );
+					array_push($txtTec, $user['user_nick'] );
 					array_push($txtEmails, $user );
 					
 				}
@@ -747,7 +642,7 @@
                 <span class="pull-right"> <span class="tag">.' $os.categoria.name '.</span> &nbsp;  </span>
               </p>
                
-              <p><span class="icon mdi mdi-worker"></span>  <a v-for="tecnico in $os.tecnicos">.'tecnico.userNick'. |</a> </p>
+              <p><span class="icon mdi mdi-worker"></span>  <a v-for="tecnico in $os.tecnicos">.'tecnico.user_nick'. |</a> </p>
 			</div>*/
 			return $emailPhp->smtpmailer($txtEmails, $txtEmail, $txtNome, $txtAssunto, $corpoMensagem);
 			//return $corpoMensagem;

@@ -99,6 +99,24 @@
 			return $res;
 		}
 
+		public function find( $local_id ){
+			$locais	= new Local();
+			
+			$item = $locais->find( $local_id );
+
+			if( key($item) == "id" ){
+				$res['error'] = false;
+				$res['local'] = $this->matrix( $item );
+				$res['message'] = 'OK, Dados emcontrado';
+				
+			}else{
+				$res = $item;
+			}
+
+			return $res;
+
+		}
+
 		public function insertGeolocalizacao( $id, $lat, $long ){
 
 			$locais	= new Local();

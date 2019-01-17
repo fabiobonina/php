@@ -43,6 +43,9 @@ class Os extends Crud{
 	public function setLocal($local_id){
 		$this->local_id = $local_id;
 	}
+	public function setUf($uf){
+		$this->uf = $uf;
+	}
 	public function setEquipamento($equipamento_id){
 		$this->equipamento_id = $equipamento_id;
 	}
@@ -85,14 +88,17 @@ class Os extends Crud{
 	public function setStatus($status){
 		$this->status = $status;
 	}
+	public function setUser($user_id){
+		$this->user_id = $user_id;
+	}
 	public function setAtivo($ativo){
 		$this->ativo = $ativo;
 	}
 
 	public function insert(){
 		try{
-			$sql  = "INSERT INTO $this->table ( proprietario_id, loja_id, loja_nick, local_id, uf, equipamento_id, servico_id, servico_tipo, categoria_id, data, dtUltimoMan, dtCadastro, ativo) ";
-			$sql .= "VALUES (:proprietario_id, :loja_id, :loja_nick, :local_id, :uf, :equipamento_id, :servico_id, :servico_tipo, :categoria_id, :data, :dtUltimoMan, :dtCadastro, :ativo)";
+			$sql  = "INSERT INTO $this->table ( proprietario_id, loja_id, loja_nick, local_id, uf, equipamento_id, servico_id, servico_tipo, categoria_id, data, dtUltimoMan, dtCadastro, user_id, ativo) ";
+			$sql .= "VALUES (:proprietario_id, :loja_id, :loja_nick, :local_id, :uf, :equipamento_id, :servico_id, :servico_tipo, :categoria_id, :data, :dtUltimoMan, :dtCadastro, :user_id, :ativo)";
 			$stmt = DB::prepare($sql);
 			
 			$stmt->bindParam(':proprietario_id',	$this->proprietario_id);
@@ -107,6 +113,7 @@ class Os extends Crud{
 			$stmt->bindParam(':data',				$this->data);
 			$stmt->bindParam(':dtUltimoMan',		$this->dtUltimoMan);
 			$stmt->bindParam(':dtCadastro',			$this->dtCadastro);
+			$stmt->bindParam(':user_id',			$this->user_id);
 			$stmt->bindParam(':ativo',				$this->ativo);
 			$stmt->execute();
 			$osId = DB::getInstance()->lastInsertId();
@@ -125,20 +132,22 @@ class Os extends Crud{
 
 	public function update($id){
 		try{
-			$sql  = "UPDATE $this->table SET proprietario_id = :proprietario_id, loja_id = :loja_id, loja_nick = :loja_nick, local_id = :local_id, uf = :uf, equipamento_id = :equipamento_id, servico_id = :servico_id, servico_tipo = :servico_tipo, categoria_id = :categoria_id, data = :data, dtUltimoMan = :dtUltimoMan, ativo = :ativo WHERE id = :id";
+			$sql  = "UPDATE $this->table SET loja_id = :loja_id, loja_nick = :loja_nick, local_id = :local_id, uf = :uf, equipamento_id = :equipamento_id, servico_id = :servico_id, servico_tipo = :servico_tipo, categoria_id = :categoria_id, data = :data, ativo = :ativo WHERE id = :id";
 			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':loja_id',		$this->loja_id);
+			$stmt->bindParam(':loja_nick',		$this->loja_nick);
 			$stmt->bindParam(':local_id',		$this->local_id);
+			$stmt->bindParam(':uf',				$this->uf);
 			$stmt->bindParam(':equipamento_id',	$this->equipamento_id);
 			$stmt->bindParam(':servico_id',		$this->servico_id);
 			$stmt->bindParam(':servico_tipo',	$this->servico_tipo);
 			$stmt->bindParam(':categoria_id',	$this->categoria_id);
 			$stmt->bindParam(':data',			$this->data);
-			$stmt->bindParam(':dtUltimoMan',	$this->dtUltimoMan);
 			$stmt->bindParam(':ativo',			$this->ativo);
 			$stmt->bindParam(':id', 			$id);
 			$stmt->execute();
 
-			$res['error'] = false;
+			$res['error'] 	= false;
 			$res['message'] = "OK, OS atualizado com sucesso";
 			return $res;
 		} catch(PDOException $e) {
@@ -168,12 +177,11 @@ class Os extends Crud{
 	}
 	public function amarar($id){
 		try{
-			$sql  = "UPDATE $this->table SET filial = :filial, os = :os, dtOs = :dtOs, status = :status WHERE id = :id";
+			$sql  = "UPDATE $this->table SET filial = :filial, os = :os, dtOs = :dtOs WHERE id = :id";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':filial',$this->filial);
 			$stmt->bindParam(':os',$this->os);
 			$stmt->bindParam(':dtOs',$this->dtOs);
-			$stmt->bindParam(':status',$this->status);
 			$stmt->bindParam(':id', $id);
 			$stmt->execute();
 
@@ -300,14 +308,15 @@ class Os extends Crud{
 		}
 	}
 
-	public function validarOs( $local_id, $categoria_id, $equipamento_id, $data ){
+	public function validarOs( $local_id, $categoria_id, $equipamento_id, $data, $id ){
 		try{
-			$sql  = "SELECT * FROM $this->table  WHERE BINARY local_id = :local_id AND categoria_id = :categoria_id AND (equipamento_id = :equipamento_id OR equipamento_id IS NULL) AND data = :data";
+			$sql  = "SELECT * FROM $this->table  WHERE BINARY local_id = :local_id AND categoria_id = :categoria_id AND (equipamento_id = :equipamento_id OR equipamento_id IS NULL) AND data = :data AND id  <> :id";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':local_id', 		$local_id);			
-			$stmt->bindParam(':equipamento_id',	$equipamento_id, PDO::PARAM_INT);
+			$stmt->bindParam(':equipamento_id',	$equipamento_id);
 			$stmt->bindParam(':categoria_id',	$categoria_id);
 			$stmt->bindParam(':data',			$data);
+			$stmt->bindParam(':id',				$id);
 			$stmt->execute();
 			return $stmt->fetch();
 		} catch(PDOException $e) {
