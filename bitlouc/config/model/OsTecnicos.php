@@ -23,7 +23,10 @@ class OsTecnicos extends Crud{
 		$this->tecnico_id = $tecnico_id;
 	}
 	public function setUser($user_id){
-		$this->user = $user_id;
+		$this->user_id = $user_id;
+	}
+	public function setUserNick($user_nick){
+		$this->user_nick = $user_nick;
 	}
 	public function setHh($hh){
 		$this->hh = $hh;

@@ -5,27 +5,27 @@ header('Content-Type: text/html; charset=utf-8');
 require_once '_chave.php';
 
 require_once '../control/osControl.php';
-require_once '../control/osTecControl.php';
-require_once '../model/OsTecnicos.php';
+require_once '../control/tecControl.php';
+//require_once '../model/OsTecnicos.php';
 
 
-$proprietario = new Proprietario();
-$lojas        = new Loja();
-$locais       = new Local();
-$oss          = new Os();
-$bens         = new Bens();
-$servicos     = new Servicos();
-$mods         = new Mod();
-$osTecnicos   = new OsTecnicos();
-$deslocStatus = new DeslocStatus();
+//$proprietario = new Proprietario();
+//$lojas        = new Loja();
+//$locais       = new Local();
+//$oss          = new Os();
+//$bens         = new Bens();
+//$servicos     = new Servicos();
+//$mods         = new Mod();
+//$osTecnicos   = new OsTecnicos();
+//$deslocStatus = new DeslocStatus();
 
-$osTecControl   = new OsTecControl();
+$tecControl   = new TecControl();
 $osControl      = new OsControl();
 
 $res     = array('error' => true);
 $arDados = array();
 $arErros = array();
-$action  = 'readI';
+$action  = 'readII';
 $res['message'] = array();
 
 //$res['user'] = $user;
@@ -123,7 +123,7 @@ if($action == 'osTecAdd'):
   $loja_id = $_POST['loja_id'];
   $tecnicos = $_POST['tecnicos'];
 
-  $res = $osTecControl->insertOsTec( $tecnicos, $os_id , $loja_id );
+  $res = $tecControl->insertOsTec( $tecnicos, $os_id , $loja_id );
 
 endif;
 
@@ -131,19 +131,10 @@ endif;
 if($action == 'osTecDel'):
 
   $id = $_POST['id'];
-  $os = $_POST['os'];
+  $os_id = $_POST['os_id'];
 
-  $item = $osControl->deleteOsTec( $id, $os);
+  $res = $tecControl->deleteOsTec( $id, $os_id);
 
-  $res['dados'] = $item;
-  # Insert
-  if( !$item['error'] ){
-    $res['error'] = $item['error'];
-    $res['message']= $item['message'];
-  }else{
-    $res['error'] = $item['error']; 
-    $res['message'] = $item['message'];
-  }
 endif;
 
 #DESLOCAMENTO----------------------------------------------------------------------

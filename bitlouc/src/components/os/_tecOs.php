@@ -45,7 +45,6 @@
                           <v-flex xs12>
                             <v-autocomplete
                               v-model="tecnicos"
-                              :disabled="isUpdating"
                               :items="_tecnicos"
                               box
                               chips
@@ -169,7 +168,7 @@ Vue.component('os-tec', {
             console.log(response);
             if(!response.data.error){
               this.successMessage.push(response.data.message);
-              this.atualizacao();
+              this.atualizar();
               this.isLoading = false;
               setTimeout(() => {
                 this.errorMessage   = null;
@@ -192,7 +191,7 @@ Vue.component('os-tec', {
         this.isLoading = true
         var postData = {
           id: item.id,
-          os: this.data.id,
+          os_id: this.data.id,
         };
         //console.log(postData);
         this.$http.post('./config/api/apiOsTec.php?action=osTecDel', postData).then(function(response) {
@@ -203,7 +202,7 @@ Vue.component('os-tec', {
           } else{
             this.successMessage = response.data.message;
             this.isLoading = false;
-            this.atualizacao();
+            this.atualizar();
             setTimeout(() => {
               //this.$emit('close');
               this.errorMessage = [];
@@ -222,11 +221,13 @@ Vue.component('os-tec', {
       if(!this.errorMessage.length) return true;
       e.preventDefault();
     },
-    atualizacao: function(){
-      this.$store.dispatch("findOs").then(() => {
-        console.log("Atualizando dados OS!")
-      });
+    atualizar: function(){
+      this.$emit('atualizar');
     },
+    remove (item) {
+        const index = this.tecnicos.indexOf(item)
+        if (index >= 0) this.tecnicos.splice(index, 1)
+      }
   },
 });
 

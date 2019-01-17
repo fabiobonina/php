@@ -16,7 +16,7 @@
             <router-link :to="'/os/'+ props.item.id" :key="props.item.id">
               <v-list-tile-title> {{props.item.local_tipo}} {{props.item.local_name}}</v-list-tile-title>
               <v-list-tile-sub-title>{{props.item.local_municipio}}-{{props.item.uf}}</v-list-tile-sub-title>
-              <v-list-tile-sub-title> {{ props.item.lojaNick }} </v-list-tile-sub-title>
+              <v-list-tile-sub-title> {{ props.item.loja_nick }} </v-list-tile-sub-title>
             </router-link>
           </td>
           <td style="padding:0 10px">
@@ -52,7 +52,7 @@
                 <v-avatar small>
                   <img :src="tecnico.avatar" alt="trevor">
                 </v-avatar>
-                {{tecnico.userNick}}
+                {{tecnico.user_nick}}
               </v-chip>
             </div>
           </td>

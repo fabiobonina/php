@@ -1,7 +1,7 @@
 <?php
 	
-	require_once '../model/Tecnicos.php';
-
+	//require_once '../model/Tecnicos.php';
+	require_once '_global.php';
 	class TecControl extends GlobalControl {
 
 		public function matrix( $item ){

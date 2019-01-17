@@ -1,26 +1,26 @@
 <?php
 
-	include( '_global.php');
-	include('../model/Os.php');
-	include('../model/OsTecnicos.php');
-	include('../model/Mod.php');
-	include('../model/Nota.php');
-	include('../model/DeslocStatus.php');
+require_once '_global.php';
+	//include('../model/Os.php');
+	//include('../model/OsTecnicos.php');
+	//include('../model/Mod.php');
+	//include('../model/Nota.php');
+	//include('../model/DeslocStatus.php');
 
 
 	class OsTecControl extends GlobalControl {
 
-		public function listOsTec2( $osId, $tecId ){
+		public function listOsTec2( $os_id, $tec_id ){
 			$osTecnicos   = new OsTecnicos();
 			$arTecnicos = array();
-			foreach($osTecnicos->findAll() as $key => $value):if($value->os == $osId && $value->tecnico == $tecId)  {
+			foreach($osTecnicos->findAll() as $key => $value):if($value->os == $os_id && $value->tecnico == $tec_id)  {
 			$arTecnico = (array) $value;
 			array_push($arTecnicos, $arTecnico);
 			}endforeach;
 			
 			return $arTecnicos;
 		}
-		public function insertOsTec($tecnicos, $osId, $idLoja){
+		public function insertOsTec($tecnicos, $os_id, $loja_id ){
 		
 			$cont1 = '0';
 			$cont2 = '0';
@@ -28,16 +28,16 @@
 				$osTecnicos   = new OsTecnicos();
 				$cont1++;
 
-				$tecId = $value['id'];
+				$tec_id = $value['id'];
 				$userTec = $value['userNick'];
 				$hhTec = $value['hh'];
 
-				$validar = $this->listOsTec($osId, $tecId);
+				$validar = $this->listOsTec($os_id, $tec_id);
 				if(	count($validar) == '0' ){ 
 					
-					$osTecnicos->setOs($osId);
-					$osTecnicos->setLoja($idLoja);
-					$osTecnicos->setTecnico($tecId);
+					$osTecnicos->setOs($os_id);
+					$osTecnicos->setLoja($loja_id );
+					$osTecnicos->setTecnico($tec_id);
 					$osTecnicos->setUser($userTec);
 					$osTecnicos->setHh($hhTec);
 					if($osTecnicos->insert()){
@@ -56,12 +56,12 @@
 
 			return $res;
 		}
-		public function deleteOsTec($tecId, $osId){
+		public function deleteOsTec($tec_id, $os_id){
 			$osTecnicos   = new OsTecnicos();
 
-			$validar = $this->listOsTecMod($osId, $tecId);
+			$validar = $this->listOsTecMod($os_id, $tec_id);
 			if(	count($validar) == '0' ){ 
-				if($osTecnicos->delete($tecId)){
+				if($osTecnicos->delete($tec_id)){
 					$res['error'] = false;
 					$res['message']= 'OK, Tecnico deletado!';
 				}else{
@@ -75,10 +75,10 @@
 
 			return $res;
 		}
-		public function listOsTec( $osId, $tecId ){
+		public function listOsTec( $os_id, $tec_id ){
 			$osTecnicos   = new OsTecnicos();
 			$arTecnicos = array();
-			foreach($osTecnicos->findAll() as $key => $value):if($value->os == $osId && $value->tecnico == $tecId)  {
+			foreach($osTecnicos->findAll() as $key => $value):if($value->os == $os_id && $value->tecnico == $tec_id)  {
 			$arTecnico = (array) $value;
 			array_push($arTecnicos, $arTecnico);
 			}endforeach;
@@ -92,7 +92,7 @@
 			$osTecnicos 	= new OsTecnicos();
 			#MODS--------------------------------------------------------------------------------------------
 			$arMods = array();
-			foreach($mods->findOsTec( $osId, $tecId ) as $key => $value):{
+			foreach($mods->findOsTec( $os_id, $tec_id ) as $key => $value):{
 				$arItem =(array) $value;
 				$arItem['tecnico'] = $osTecnicos->find($value->tecnico);
 				$arItem['status'] = $osTecnicos->find($value->status);
@@ -103,14 +103,14 @@
 			#MODS--------------------------------------------------------------------------------------------
 			
 		}
-		public function listOsTecModValidacao( $osId, $tecId, $statusId, $tipoId, $tipoValor, $dtFinal, $kmFinal, $valor ){
+		public function listOsTecModValidacao( $os_id, $tec_id, $statusId, $tipoId, $tipoValor, $dtFinal, $kmFinal, $valor ){
 			$mods = new Mod();
 			
 			$ativo = '0';
 			$res['error'] = false;
 			$arErros = array();
 			#MODS.................................
-			$data = $mods->findOsTecAtiv( $osId, $tecId, $ativo );
+			$data = $mods->findOsTecAtiv( $os_id, $tec_id, $ativo );
 
 			if( count($data) > '1' ){
 				$res['error'] 	= true;
@@ -169,17 +169,17 @@
 			}
 	
 		}
-		public function modAdd( $osId, $tecId, $tipoId, $statusId, $statusProcesso, $date, $km, $valor ){
+		public function modAdd( $os_id, $tec_id, $tipoId, $statusId, $statusProcesso, $date, $km, $valor ){
 			$mods 			= new Mod();
 			$oss 			= new Os();
 			$ativo 			= '0';
 			$res['error'] = false;
 			$arSucesso 		= array();
 			$arErros 		= array();
-			if( count( $mods->findOsTecAtiv( $osId, $tecId, $ativo )) == '0'){
+			if( count( $mods->findOsTecAtiv( $os_id, $tec_id, $ativo )) == '0'){
 				$res['message'] = array();
-				$mods->setOs($osId);
-				$mods->setTecnico($tecId);
+				$mods->setOs($os_id);
+				$mods->setTecnico($tec_id);
 				$mods->setTipoTrajeto($tipoId);
 				$mods->setStatus($statusId);
 				$mods->setDtInicio($date);
@@ -189,7 +189,7 @@
 				# InsertFinal
 				if( $mods->insertInicio() ){
 					array_push($arSucesso, "OK, deslocamento salvo com sucesso");
-					if( $oss->upProcesso($osId, $statusProcesso )){
+					if( $oss->upProcesso($os_id, $statusProcesso )){
 						array_push($arSucesso, "OK, processo da OS alterado com sucesso");
 					}else{
 						$res['error'] = true;
@@ -212,7 +212,7 @@
 			}
 			
 		}
-		public function modUp( $osId, $tecId, $tipoId, $statusProcesso, $date, $km, $tempo, $valor, $modId ){
+		public function modUp( $os_id, $tec_id, $tipoId, $statusProcesso, $date, $km, $tempo, $valor, $modId ){
 			$mods 			= new Mod();
 			$oss 			= new Os();
 
@@ -220,8 +220,8 @@
 			$arSucesso 		= array();
 			$arErros 		= array();
 
-			$mods->setOs($osId);
-			$mods->setTecnico($tecId);
+			$mods->setOs($os_id);
+			$mods->setTecnico($tec_id);
 			$mods->setTipoTrajeto($tipoId);
 			$mods->setDtFinal($date);
 			$mods->setKmFinal($km);
@@ -232,7 +232,7 @@
 			# InsertFinal
 			if( $mods->insertFinal($modId) ){
 				array_push($arSucesso, "OK, deslocamento salvo com sucesso");
-				if( $oss->upProcesso($osId, $statusProcesso )){
+				if( $oss->upProcesso($os_id, $statusProcesso )){
 					array_push($arSucesso, "OK, processo da OS alterado com sucesso");
 				}else{
 					$res['error'] = true;
@@ -250,18 +250,18 @@
 				return $res;
 			}
 		}
-		public function listOsNota( $osId ){
+		public function listOsNota( $os_id ){
 			$notas = new Nota();
 			#MODS--------------------------------------------------------------------------------------------
 			$arDatas = array();
-			foreach($notas->findAll() as $key => $value):if($value->os == $osId )  {
+			foreach($notas->findAll() as $key => $value):if($value->os == $os_id )  {
 				$arItem = $value;
 				array_push($arDatas, $arItem);
 			}endforeach;
 			return  $arDatas;
 			#MODS--------------------------------------------------------------------------------------------
 		}
-		public function insertTecMod( $osId, $tecId, $statusId, $statusProcesso, $statusCategoria, $tipoId, $tipoValor, $date, $km, $valor, $tecNivel ){
+		public function insertTecMod( $os_id, $tec_id, $statusId, $statusProcesso, $statusCategoria, $tipoId, $tipoValor, $date, $km, $valor, $tecNivel ){
 			$res['error']   = false;
 			if( $tipoId == '1' && $tecNivel == '1'){
 				$tipoId 	= '3';
@@ -269,7 +269,7 @@
 				$km     	= '0';
 			}
 			#validar informações
-			$tec = $this->listOsTecModValidacao( $osId, $tecId, $statusId, $tipoId, $tipoValor, $date, $km, $valor );
+			$tec = $this->listOsTecModValidacao( $os_id, $tec_id, $statusId, $tipoId, $tipoValor, $date, $km, $valor );
 			if( $tec['error'] ){
 				$res['error'] = $tec['error'];
 				$res['message'] = $tec['message'];
@@ -277,7 +277,7 @@
 				#desloc aberto
 				if ( $tec['data'] == '1' ) {
 					# InsertFinal
-					$item = $this->modUp( $osId, $tecId, $tipoId, $statusProcesso, $date, $km, $tec['tempo'], $tec['valor'], $tec['modId']);
+					$item = $this->modUp( $os_id, $tec_id, $tipoId, $statusProcesso, $date, $km, $tec['tempo'], $tec['valor'], $tec['modId']);
 					if( $item['error'] ){
 						$res['error'] = $item['error'];
 						$res['message']= $item['message'];
@@ -288,7 +288,7 @@
 				}
 				if ( $tec['data'] == '0' || $statusCategoria == '2') {
 					#desloc inicial
-					$item =  $this->modAdd( $osId, $tecId, $tipoId, $statusId, $statusProcesso, $date, $km, $valor );
+					$item =  $this->modAdd( $os_id, $tec_id, $tipoId, $statusId, $statusProcesso, $date, $km, $valor );
 					if( $item['error'] ){
 						$res['error'] = $item['error'];
 						$res['message'] = $item['message'];

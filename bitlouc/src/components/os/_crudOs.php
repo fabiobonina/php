@@ -35,11 +35,11 @@
       </v-list>
     </v-menu>
     <div>
-      <os-tec     v-if="modalTec" v-on:close="atualizar()" :dialog="modalTec" :data="data"></os-tec>
-      <os-edt     v-if="modalEdt" v-on:close="atualizar()" :dialog="modalEdt" :data="data"></os-edt>
-      <os-del     v-if="modalDel" v-on:close="atualizar()" :dialog="modalDel" :data="data"></os-del>
-      <os-amarrac v-if="modalOs"  v-on:close="atualizar()" :dialog="modalOs"  :data="data"></os-amarrac>
-      <local-geo  v-if="modalGeo" v-on:close="atualizar()" :dialog="modalGeo" :data="data.local_id"></local-geo>
+      <os-tec     v-if="modalTec" v-on:close="close()" v-on:atualizar="atualizar()" :dialog="modalTec" :data="data"></os-tec>
+      <os-edt     v-if="modalEdt" v-on:close="close()" v-on:atualizar="atualizar()" :dialog="modalEdt" :data="data"></os-edt>
+      <os-del     v-if="modalDel" v-on:close="close()" v-on:atualizar="atualizar()" :dialog="modalDel" :data="data"></os-del>
+      <os-amarrac v-if="modalOs"  v-on:close="close()" v-on:atualizar="atualizar()" :dialog="modalOs"  :data="data"></os-amarrac>
+      <local-geo  v-if="modalGeo" v-on:close="close()" v-on:atualizar="atualizar()" :dialog="modalGeo" :data="data.local_id"></local-geo>
     </div>
   </div>
 </template>
@@ -73,6 +73,13 @@ Vue.component('os-crud', {
     },
   },
   methods: {
+    close(){
+      this.modalGeo = false;
+      this.modalTec = false,
+      this.modalEdt = false,
+      this.modalDel = false,
+      this.modalOs  = false,
+    },
     atualizar(){
       this.modalGeo = false;
       this.modalTec = false,

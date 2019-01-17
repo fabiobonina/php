@@ -146,7 +146,7 @@ Vue.component('os-amarrac', {
               this.isLoading = false;
               this.atualizacao();
               setTimeout(() => {
-                this.$emit('close');
+                this.$emit('atualizar');
               }, 2000);
             } else{
               this.errorMessage.push(response.data.message);
