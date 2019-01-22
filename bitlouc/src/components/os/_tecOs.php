@@ -49,7 +49,10 @@
                               box
                               chips
                               color="blue-grey lighten-2"
-                              label="Tecnico(s)"
+                              label="Tecnico(s)"                              
+                              item-text="name"              
+                              data-vv-name="tecnicos"
+                              :filter="customFilter"
                               return-object
                               multiple
                             >
@@ -66,10 +69,7 @@
                                   {{ data.item.user_nick }}
                                 </v-chip>
                               </template>
-                              <template
-                                slot="item"
-                                slot-scope="data"
-                              >
+                              <template slot="item" slot-scope="data" >
                                 <template v-if="typeof data.item !== 'object'">
                                   <v-list-tile-content v-text="data.item"></v-list-tile-content>
                                 </template>
@@ -162,10 +162,10 @@ Vue.component('os-tec', {
           loja_id: this.data.loja_id,
           tecnicos: this.tecnicos,
         };
-        console.log(postData);
+        //console.log(postData);
         this.$http.post('./config/api/apiOsTec.php?action=osTecAdd', postData)
           .then(function(response) {
-            console.log(response);
+            //console.log(response);
             if(!response.data.error){
               this.successMessage.push(response.data.message);
               this.atualizar();
@@ -174,8 +174,8 @@ Vue.component('os-tec', {
                 this.errorMessage   = null;
                 this.successMessage = null;
                 this.tecnicos       = null;
-              }, 2000);
-            } else{
+              }, 2000);              
+            } else{              
               this.errorMessage.push(response.data.message);
               this.isLoading = false;
             }
@@ -196,10 +196,7 @@ Vue.component('os-tec', {
         //console.log(postData);
         this.$http.post('./config/api/apiOsTec.php?action=osTecDel', postData).then(function(response) {
           //console.log(response);
-          if(response.data.error){
-            this.errorMessage.push( response.data.message);
-            this.isLoading = false;
-          } else{
+          if(!response.data.error){
             this.successMessage = response.data.message;
             this.isLoading = false;
             this.atualizar();
@@ -208,6 +205,9 @@ Vue.component('os-tec', {
               this.errorMessage = [];
               this.successMessage = [];
             }, 2000);
+          } else{
+            this.errorMessage.push( response.data.message);
+            this.isLoading = false;
           }
         })
         .catch(function(error) {
@@ -227,7 +227,15 @@ Vue.component('os-tec', {
     remove (item) {
         const index = this.tecnicos.indexOf(item)
         if (index >= 0) this.tecnicos.splice(index, 1)
-      }
+    },
+    customFilter (item, queryText, itemText) {
+        const textOne = item.user_nick.toLowerCase()
+        const textTwo = item.email.toLowerCase()
+        const searchText = queryText.toLowerCase()
+
+        return textOne.indexOf(searchText) > -1 ||
+          textTwo.indexOf(searchText) > -1
+      },
   },
 });
 

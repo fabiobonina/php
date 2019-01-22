@@ -35,7 +35,7 @@ var UFList = Vue.extend({
             itens: [
               { id:1, name: 'Pedente', ativo: '0', icon: 'mdi-exclamation' },
               { id:2, name: 'Andamento', ativo: '1', icon: 'mdi-loading mdi-spin' },
-              { id:3, name: 'Realizada', ativo: '2', icon: 'mdi-check-all' },
+              { id:3, name: 'Emcerada', ativo: '2', icon: 'mdi-check' },
             ],
             active: '0',
             gridColumns: ['displayName', 'name']

@@ -121,13 +121,6 @@
       user()  {
         return store.state.user;
       },
-      filteredData2: function () {
-        var filterKey = 0
-        var data = this.data
-        return data = data.filter(function (row) {
-          return row.processo === filterKey;
-        });
-      },
       filteredData: function () {
         var status = store.state.status;
         var filterKey = this.search && this.search.toLowerCase()
@@ -135,10 +128,6 @@
         if(status){
           data = data.filter(function (row) {
             return Number(row.status) === Number(status);
-          });
-        }else{
-          data = data.filter(function (row) {
-            return Number(row.status) < 1;
           });
         }
         if (filterKey) {

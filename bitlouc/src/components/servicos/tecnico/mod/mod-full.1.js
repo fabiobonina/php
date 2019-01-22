@@ -82,9 +82,9 @@ Vue.component('mod-full', {
           if(response.data.success){
             this.successMessage.push(response.data.message);
             this.isLoading = false;
-            this.$store.dispatch("findOs").then(() => {
-              console.log("Buscando dados OS!")
-            });
+            this.$store.dispatch('findOs', this.$route.params._os).then(() => {
+      console.log("Buscando dados da os")
+    });
             setTimeout(() => {
               this.$emit('close');
             }, 2000);

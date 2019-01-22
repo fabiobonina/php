@@ -9,6 +9,7 @@ Vue.component('mod-edt', {
     return {
       errorMessage: [],
       successMessage: [],
+      title: 'Editar deslocameto',
       tecnico: null,
       tecnicos: null,
       status: null,
@@ -75,34 +76,34 @@ Vue.component('mod-edt', {
           this.data.valor     = '0';
         }
         var postData = {
-          osId:     this.data.os,
-          modId:    this.data.id,
-          tecId:    this.data.tecnico.id,
-          trajeto:  this.data.trajeto,
-          status:   this.data.status,
-          dtInicio: this.data.dtInicio,
-          dtFinal:  this.data.dtFinal,
-          kmInicio: this.data.kmInicio,
-          kmFinal:  this.data.kmFinal,
-          tempo:    this.data.tempo,
-          hhValor:  this.data.hhValor,
-          valor:    this.data.valor
+          os_id:      this.data.os_id,
+          mod_id:     this.data.id,
+          tecnico_id: this.data.tecnico_id,
+          trajeto:    this.data.trajeto,
+          status:     this.data.status,
+          dtInicio:   this.data.dtInicio,
+          dtFinal:    this.data.dtFinal,
+          kmInicio:   this.data.kmInicio,
+          kmFinal:    this.data.kmFinal,
+          tempo:      this.data.tempo,
+          hhValor:    this.data.hhValor,
+          valor:      this.data.valor
         };
         console.log(postData);
         this.$http.post('./config/api/apiOs.php?action=modEdt', postData).then(function(response) {
-          //console.log(response);
-          if(response.data.error){
-            this.errorMessage.push(response.data.message);
-            this.isLoading = false;
-          } else{
+          console.log(response);
+          if(!response.data.error){
             this.successMessage.push(response.data.message);
             this.isLoading = false;
-            this.$store.dispatch("findOs").then(() => {
-              console.log("Buscando dados OS!")
+            this.$store.dispatch('findOs', this.$route.params._os).then(() => {
+              console.log("Buscando dados da os")
             });
             setTimeout(() => {
               this.$emit('close');
             }, 2000);  
+          } else{
+            this.errorMessage.push(response.data.message);
+            this.isLoading = false;
           }
         })
         .catch(function(error) {

@@ -28,7 +28,7 @@
         <template>
           <!-- tecnicos -->
           <v-autocomplete multiple chips return-object max-height="auto"
-            :items="data.tecnicos" v-model="tecnicos" label="Tecnicos" item-text="userNick"
+            :items="data.tecnicos" v-model="tecnicos" label="Tecnicos" item-text="user_nick"
             :error-messages="errors.collect('tecnico')" v-validate="'required'" data-vv-name="tecnico" required>
             <template slot="selection" slot-scope="data">
               <v-chip :selected="data.selected" :key="JSON.stringify(data.item)" close
@@ -36,7 +36,7 @@
                 <v-avatar>
                   <img :src="data.item.avatar">
                 </v-avatar>
-                {{ data.item.userNick }}
+                {{ data.item.user_nick }}
               </v-chip>
             </template>
             <template slot="item" slot-scope="data">
@@ -48,7 +48,7 @@
                   <img :src="data.item.avatar">
                 </v-list-tile-avatar>
                 <v-list-tile-content>
-                  <v-list-tile-title v-html="data.item.userNick"></v-list-tile-title>
+                  <v-list-tile-title v-html="data.item.user_nick"></v-list-tile-title>
                   <v-list-tile-sub-title v-html="data.item.email"></v-list-tile-sub-title>
                 </v-list-tile-content>
               </template>
@@ -350,7 +350,7 @@
       </v-stepper>
 
         <!--v-card-title>
-          <span class="headline">{{data.tecnico.userNick}} - Deslocamento</span>
+          <span class="headline">{{data.tecnico.user_nick}} - Deslocamento</span>
         </v-card-title>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>

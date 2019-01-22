@@ -1,145 +1,130 @@
 <template id="mod-add">
   <div>
-    <v-dialog v-model="dialog" fullscreen hide-overlay persistent>
-      <v-card color="grey darken-4">
-      <v-toolbar dark color="primary">
-          <v-btn icon dark @click.stop="$emit('close')">
-            <v-icon>close</v-icon>
+    <v-dialog v-model="dialog" persistent scrollable  max-width="500px">
+      <v-card>
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click="$emit('close')">
+            <v-icon>mdi-close</v-icon>
           </v-btn>
-          <v-toolbar-title>Atendimento</v-toolbar-title>
+          <v-toolbar-title>{{ title }}</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <v-btn dark flat @click="saveItem()">Salvar</v-btn>
+            <v-btn icon flat @click.native="saveItem()">
+              <v-icon>mdi-content-save</v-icon>
+            </v-btn>
           </v-toolbar-items>
         </v-toolbar>
         <v-card-text>
-          <message :alerta="temMessage" :success="successMessage" :error="errorMessage"></message>
+        <span class="headline">{{data.user_nick}}</span>
+          <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
           <loader :dialog="isLoading"></loader>
-            <template>
-              <!-- tecnicos -->
-              <v-autocomplete solo multiple chips return-object max-height="auto"
-                :items="data.tecnicos" v-model="tecnicos" label="Tecnicos" item-text="userNick"
-                :error-messages="errors.collect('tecnico')" v-validate="'required'" data-vv-name="tecnico" required>
-                <template slot="selection" slot-scope="data">
-                  <v-chip :selected="data.selected" :key="JSON.stringify(data.item)" close
-                    class="chip--select-multi" @input="data.parent.selectItem(data.item)" >
-                    <v-avatar>
-                      <img :src="data.item.avatar">
-                    </v-avatar>
-                    {{ data.item.userNick }}
-                  </v-chip>
-                </template>
-                <template slot="item" slot-scope="data">
-                  <template v-if="typeof data.item !== 'object'">
-                    <v-list-tile-content v-text="data.item"></v-list-tile-content>
-                  </template>
-                  <template v-else>
-                    <v-list-tile-avatar>
-                      <img :src="data.item.avatar">
-                    </v-list-tile-avatar>
-                    <v-list-tile-content>
-                      <v-list-tile-title v-html="data.item.userNick"></v-list-tile-title>
-                      <v-list-tile-sub-title v-html="data.item.email"></v-list-tile-sub-title>
-                    </v-list-tile-content>
-                  </template>
-                </template>
-              </v-autocomplete>
-            </template>
+          <v-container grid-list-md>
+            <label class="label">Status</label>
+            <v-layout row wrap align-center>
+              <v-flex xs12 sm4 v-for="item in deslocStatus" :key="item.id">
+                <v-btn block small @click="status = item" :class="status && status.id == item.id ? 'blue white--text' : 'light'">
+                  <span>{{item.name }}</span>
+                </v-btn>
+              </v-flex>
+            </v-layout>
+            <label class="label">Tipo Trajeto</label>
+            <v-layout row wrap align-center >
+              <v-flex xs12 sm4 v-for="item in deslocTrajetos" :key="item.id">
+                <v-btn block small @click="trajeto = item" :class="trajeto && trajeto.id == item.id ? 'blue white--text' : 'light'">
+                  <span>{{item.name }}</span>
+                </v-btn>
+              </v-flex>
+            </v-layout>
+            <v-layout wrap>
+              <v-flex xs12 sm6 md7>
+                <v-text-field
+                  type="datetime-local"
+                  v-model="dtInicio"
+                  label="Data Inicio"
+                  :error-messages="errors.collect('dtInicio')"
+                  v-validate="'required'"
+                  data-vv-name="dtInicio"
+                  item-text="name"
+                  required
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md5>
+                <v-text-field 
+                  type="number"
+                  v-model="kmInicio"
+                  label="Km Inicio"
+                  :error-messages="errors.collect('kmInicio')"
+                  v-validate="''"
+                  data-vv-name="kmInicio"
+                  item-text="name"
+                  :disabled="trajeto && trajeto.categoria > 0"
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md7>
+                <v-text-field
+                  type="datetime-local"
+                  v-model="dtFinal"
+                  label="Data Final"
+                  :error-messages="errors.collect('dtFinal')"
+                  v-validate="'required'"
+                  data-vv-name="dtFinal"
+                  item-text="name"
+                  required
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md5>
+                <v-text-field 
+                  type="number"
+                  v-model="kmFinal"
+                  label="Km Final"
+                  :error-messages="errors.collect('kmFinal')"
+                  v-validate="''"
+                  data-vv-name="kmFinal"
+                  item-text="name"
+                  :disabled="trajeto && trajeto.categoria > 0"
+                ></v-text-field>
+              </v-flex>
+
+              <v-flex xs12 sm6 md4>
+                <v-text-field 
+                  type="number"
+                  v-model="tempo"
+                  label="Tempo"
+                  :error-messages="errors.collect('tempo')"
+                  v-validate="''"
+                  data-vv-name="tempo"
+                  item-text="name"
+                  disabled
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md4>
+                <v-text-field 
+                  type="number"
+                  v-model="hhValor"
+                  label="ValorHh"
+                  :error-messages="errors.collect('hhValor')"
+                  v-validate="''"
+                  data-vv-name="hhValor"
+                  item-text="name"
+                  disabled
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md4>
+                <v-text-field 
+                  type="number"
+                  v-model="valor"
+                  label="Valor Trajeto"
+                  :error-messages="errors.collect('valor')"
+                  v-validate="''"
+                  data-vv-name="valor"
+                  item-text="name"
+                  :disabled="trajeto && trajeto.categoria != 1"
+                ></v-text-field>
+              </v-flex>
+            </v-layout>
           </v-container>
+          <small>*indica campo obrigatório</small>
         </v-card-text>
-
-        <template>
-          <v-stepper v-model="progresso" vertical light dark>
-            <v-stepper-step editable :complete="Number(progresso) > 1" step="1">
-              {{ dateInicio }} {{ horaInicio }}
-              <small>Atendimento Inicial</small>
-            </v-stepper-step>
-            <v-stepper-content step="1">
-              <v-layout wrap align-center>
-                <v-flex xs12 sm12 md3>
-                  <span class="headline white--text">Atendimento Inicial</span>
-                </v-flex>
-                <v-flex xs7 sm7 md3 >
-                  <v-text-field outline
-                    type="date"
-                    v-model="dateInicio"
-                    label="Data Inicio"
-                    :error-messages="errors.collect('dateInicio')"
-                    v-validate="'required'"
-                    data-vv-name="dateInicio"
-                    item-text="name"
-                    required
-                  ></v-text-field>
-                </v-flex>
-                <v-flex xs5 sm5 md2>
-                  <v-text-field outline 
-                    type="time"
-                    v-model="horaInicio"
-                    label="Hora Inicio"
-                    :error-messages="errors.collect('horaInicio')"
-                    v-validate="'required'"
-                    data-vv-name="horaInicio"
-                    item-text="name"
-                    required
-                  ></v-text-field>
-                </v-flex>
-              </v-layout>
-            </v-stepper-content>
-
-            <v-stepper-step editable step="2">
-              {{ dateFinal }} {{ horaFinal }}
-              <small>Atendimento Final</small>
-            </v-stepper-step>
-            <v-stepper-content step="2">
-              <v-layout wrap align-center>
-                <v-flex xs12 sm12 md3>
-                  <span class="headline white--text">Atendimento Final</span>
-                </v-flex>
-                <v-flex xs7 sm7 md2>
-                  <v-text-field outline 
-                    type="date"
-                    v-model="dateFinal"
-                    label="Data"
-                    :error-messages="errors.collect('dateFinal')"
-                    v-validate="'required'"
-                    data-vv-name="dateFinal"
-                    item-text="name"
-                    required
-                  ></v-text-field>
-                </v-flex>
-                <v-flex xs5 sm5 md2>
-                  <v-text-field outline 
-                    type="time"
-                    v-model="horaFinal"
-                    label="Hora"
-                    :error-messages="errors.collect('horaFinal')"
-                    v-validate="'required'"
-                    data-vv-name="horaFinal"
-                    item-text="name"
-                    required
-                  ></v-text-field>
-                </v-flex>
-              </v-layout>
-
-            </v-stepper-content>
-          </v-stepper>
-        </template>
-        <v-container fluid grid-list-xl>
-        <v-layout wrap align-center>
-        <v-flex>
-          <v-text-field solo 
-            type="number"
-            v-model="tempo"
-            label="Tempo"
-            :error-messages="errors.collect('tempo')"
-            v-validate="''"
-            data-vv-name="tempo"
-            item-text="name"
-            disabled
-          ></v-text-field>
-        </v-flex>
-        </v-layout>
-        </v-container>
       </v-card>
     </v-dialog>
   </div>

@@ -9,6 +9,7 @@ Vue.component('desloc-add', {
     return {
       errorMessage: [],
       successMessage: [],
+      title: 'Deslocameto',
       tecnico: null,
       tecnicos: null,
       status: null,
@@ -50,7 +51,7 @@ Vue.component('desloc-add', {
           this.valor  = '0';
         }
         var postData = {
-          os: this.data.id,
+          os_id: this.data.id,
           tecnico: this.tecnico,
           tecnicos: this.tecnicos,
           trajeto: this.trajeto,
@@ -63,18 +64,16 @@ Vue.component('desloc-add', {
         this.$http.post('./config/api/apiOs.php?action=desloc', postData)
           .then(function(response) {
             console.log(response);
-            if(response.data.error){
-              this.errorMessage.push(response.data.message);
-              this.isLoading = false;
-            } else{
+            if(!response.data.error){
               this.successMessage.push(response.data.message);
               this.isLoading = false;
-              this.$store.dispatch("findOs").then(() => {
-                console.log("Buscando dados OS!")
-              });
               setTimeout(() => {
                 this.$emit('close');
-              }, 2000);  
+              }, 2000); 
+              
+            } else{
+              this.errorMessage.push(response.data.message);
+              this.isLoading = false;
             }
           })
           .catch(function(error) {

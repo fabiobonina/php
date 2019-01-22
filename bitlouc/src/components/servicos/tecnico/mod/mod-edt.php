@@ -2,10 +2,20 @@
   <div>
     <v-dialog v-model="dialog" persistent scrollable  max-width="500px">
       <v-card>
-        <v-card-title>
-          <span class="headline">{{data.tecnico.userNick}} - Deslocamento</span>
-        </v-card-title>
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click="$emit('close')">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-toolbar-title>{{ title }}</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn icon flat @click.native="saveItem()">
+              <v-icon>mdi-content-save</v-icon>
+            </v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
         <v-card-text>
+          <span class="headline">{{data.tecnico.user_nick}}</span>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
           <loader :dialog="isLoading"></loader>
           <v-container grid-list-md>
@@ -115,11 +125,6 @@
           </v-container>
           <small>*indica campo obrigatório</small>
         </v-card-text>
-        <v-card-actions>
-            <v-btn flat @click.stop="$emit('close')">Fechar</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click.stop="saveItem()">Salvar</v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
   </div>

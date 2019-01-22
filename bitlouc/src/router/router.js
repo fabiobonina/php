@@ -53,11 +53,19 @@ var router = new VueRouter({
         //{ path: 'bens', component: LojaBens },
       ]
     },*/
-    { path: '/proprietario', component: Proprietario,
+    { path: '/Gerencial', component: Gerencial,
       children: [
         { path: '', component: LojasPlus },
         { path: 'locais', component: LocaisPlus },
         { path: 'oss', component: OssPlus },
+        //{ path: 'bens', component: LojaBens },
+      ]
+    },
+    { path: '/Os-gerencial', component: OsGerencial,
+      children: [
+        { path: '', component: OsAmarar },
+        { path: 'fechar', component: OsFechar },
+        { path: 'validar', component: OsValidar },
         //{ path: 'bens', component: LojaBens },
       ]
     },

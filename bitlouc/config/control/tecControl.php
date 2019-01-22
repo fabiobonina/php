@@ -172,21 +172,16 @@
 		}
 		public function deleteOsTec($tec_id, $os_id){
 			$osTecnicos   = new OsTecnicos();
-
+			$item = array();
 			$validar = $this->listOsTecMod($os_id, $tec_id);
 			if(	count($validar) == '0' ){ 
-				if($osTecnicos->delete($tec_id)){
-					$res['success'] = false;
-					$res['message']= 'OK, Tecnico deletado!';
-				}else{
-					$res['success'] = true;
-					$res['message'] = "Error, nao foi possivel deletar os dados"; 
-				}
+				$item = $osTecnicos->delete($tec_id);
 			}else{
-				$res['success'] = true;
-				$res['message'] = "Error, tecnico com deslocamento amarado a OS"; 
+				$item['error'] = true;
+				$item['message'] = "Error, tecnico com deslocamento amarado a OS"; 
 			}
 
+			$res = $item;
 			return $res;
 		}
 		public function listOsTec( $os_id ){

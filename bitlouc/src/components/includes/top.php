@@ -24,9 +24,9 @@
         </v-list-tile>        
         <v-list-group v-if="user.nivel > 2 && user.grupo == 'P'" prepend-icon="settings_applications" value="true" >
           <v-list-tile slot="activator">
-            <v-list-tile-title>CONFIGURAÇÃO</v-list-tile-title>
+            <v-list-tile-title>GERENCIAL</v-list-tile-title>
           </v-list-tile>
-          <v-list-tile v-for="item in items" :key="item.title" :to="'/proprietario'+ item.router" @click="">
+          <v-list-tile v-for="item in items" :key="item.title" :to="item.router" @click="">
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
@@ -35,7 +35,7 @@
         </v-list-group>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar color="blue" dark fixed app>
+    <v-toolbar color="blue darken-3" dark fixed app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon v-html="miniVariant ? 'mdi-chevron-right' : 'mdi-chevron-left'"></v-icon>
@@ -66,12 +66,12 @@
         modalUser: false,
         home: [
           { title: 'Home',    router: '/',      icon: 'mdi-home' },
-          { title: 'Lojas',   router: '/lojas', icon: 'mdi-store' },          
-          { title: 'Ocorrência',router: '/ocorrencia',  icon: 'mdi-worker' },
+          { title: 'Lojas',   router: '/lojas', icon: 'mdi-store' },
           { title: 'OSs',     router: '/oss',   icon: 'mdi-wrench' },
         ],
         items: [
-          { title: 'Proprietario',  router: '', icon: 'mdi-view-dashboard' },
+          { title: 'Gerencial',  router: '/gerencial', icon: 'mdi-view-dashboard' },
+          { title: 'OS',          router: '/os-gerencial', icon: 'mdi-view-dashboard' },
           { title: 'Config',        router: '/config', icon: 'mdi-settings' }
         ],
       };

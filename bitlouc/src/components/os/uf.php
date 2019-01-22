@@ -34,10 +34,10 @@
               </v-list-tile>
               <v-list-tile class="cyan lighten-5" :to="'/oss/uf/' + ocorrencia.id" avatar @click="status = '2'">
                 <v-list-tile-avatar>
-                  <v-icon color="cyan">mdi-check-all</v-icon>
+                  <v-icon color="cyan">mdi-check</v-icon>
                 </v-list-tile-avatar>
                 <v-list-tile-content class="cyan--text">
-                  <v-list-tile-title>Realizada</v-list-tile-title>
+                  <v-list-tile-title>Emcerada</v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-action class="cyan--text display-2">
                   {{ ocorrencia.ocorrenciaIII }}
@@ -61,7 +61,7 @@ var OsUF = Vue.extend({
             itens: [
               { id:1, name: 'Pedente', ativo: '0', icon: 'mdi-exclamation', color:'orange lighten-5' },
               { id:2, name: 'Andamento', ativo: '1', icon: 'mdi-loading mdi-spin', color:'' },
-              { id:3, name: 'Realizada', ativo: '2', icon: 'mdi-check-all', color:'' },
+              { id:3, name: 'Emcerada', ativo: '2', icon: 'mdi-check', color:'' },
             ],
             active: '0',
             gridColumns: ['displayName', 'name']

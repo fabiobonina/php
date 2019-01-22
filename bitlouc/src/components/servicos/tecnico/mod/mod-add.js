@@ -9,50 +9,45 @@ Vue.component('mod-add', {
     return {
       errorMessage: [],
       successMessage: [],
-      tecnicos:     this.data.tecnicos,
+      title: 'Novo deslocameto',
+      tecnico: null,
+      tecnicos: null,
       status: null,
-      trajetoInicial: true,
-      trajetoFinal: true,
+      trajeto: null,
       dtInicio: '',
       dtFinal:  '',
       kmInicio: '',
       kmFinal:  '',
       tempo:    '',
-      isLoading:  false,
-      dateInicio: this.data.data,
-      horaInicio: '',
-      dateFinal:  this.data.data,
-      horaFinal:  '',
-      progresso: '1',
+      hhValor:  '',
+      valor:    '',
+      isLoading: false,
     };
   },
   watch: {
-    'progresso': function (newQuestion, oldQuestion) {
-        this.checkDate()
-    },
-    'dateInicio': function (newQuestion, oldQuestion) {
+    'kmFinal': function (newQuestion, oldQuestion) {
       setTimeout(() => {
-        this.checkDate()
+        this.validarKm()
       }, 700);
     },
-    'dateFinal': function (newQuestion, oldQuestion) {
+    'kmInicio': function (newQuestion, oldQuestion) {
       setTimeout(() => {
-        this.checkDate()
+        this.validarKm()
       }, 700);
     },
-    'horaInicio': function (newQuestion, oldQuestion) {
+    'dtFinal': function (newQuestion, oldQuestion) {
       setTimeout(() => {
-        this.checkDate()
+        this.validarDate()
       }, 700);
     },
-    'horaFinal': function (newQuestion, oldQuestion) {
+    'dtInicio': function (newQuestion, oldQuestion) {
       setTimeout(() => {
-        this.checkDate()
+        this.validarDate()
       }, 700);
     },
   },
   created: function() {
-    //this.dataT();
+    this.dataT();
   },
   mounted: function() {
     //this.dataAjuste();
@@ -77,71 +72,51 @@ Vue.component('mod-add', {
   methods: {
     saveItem: function(){
       //this.errorMessage = []
-      if(this.checkDate() && this.validarDate() ){
+      if(this.checkForm() && this.validarKm() && this.validarDate() ){
         this.isLoading = true
-        //var obj   = this.tecnicos;
-        //var user  = store.state.user;
-        //var usert = "7";
-        //var value = [];
-        var data1 = new Date( this.dateInicio + "T" + this.horaInicio );
-        var data2 = new Date( this.dateFinal + "T" + this.horaFinal  );
-        var timeDiff = Math.abs(data1.getTime() - data2.getTime());
-        var diffDays = (timeDiff / 1000 / 60 / 60 ).toFixed(2);
-        for (var tec of this.tecnicos) {
-          var valorHh = ( diffDays * tec.hh ).toFixed(2);
-          //tec.push( valorHh);
-          console.log(valorHh);
+        if( this.trajeto.categoria == '1'){
+          this.kmInicio  = '0';
+          this.kmFinal   = '0';
+        }else if( this.trajeto.categoria == '2' ){
+          this.kmInicio  = '0';
+          this.kmFinal   = '0';
+          this.valor     = '0';
         }
-          
         var postData = {
-          osId:         this.$route.params._os,
-          tecnicos:     this.tecnicos,
-          trajeto:      this.trajeto,
-          status:       this.status,
-          dtInicio:     '',
-          dtFinal:      '',
-          dtServInicio: '',
-          dtServFinal:  '',
-          tempo:        this.tempo,
+          os_id:      this.$route.params._os,
+          tecnico_id: this.data.tecnico_id,
+          trajeto:    this.trajeto,
+          status:     this.status,
+          dtInicio:   this.dtInicio,
+          dtFinal:    this.dtFinal,
+          kmInicio:   this.kmInicio,
+          kmFinal:    this.kmFinal,
+          tempo:      this.tempo,
+          hhValor:    this.hhValor,
+          valor:      this.valor
         };
-        console.log(postData); /*
+        //console.log(postData);
         this.$http.post('./config/api/apiOs.php?action=modAdd', postData).then(function(response) {
-          //console.log(response);
-          if(response.data.error){
-            this.errorMessage.push(response.data.message);
-            this.isLoading = false;
-          } else{
+          console.log(response);
+          if(!response.data.error){
             this.successMessage.push(response.data.message);
             this.isLoading = false;
-            this.$store.dispatch("findOs").then(() => {
-              console.log("Buscando dados OS!")
+            this.$store.dispatch('findOs', this.$route.params._os).then(() => {
+              console.log("Buscando dados da os")
             });
             setTimeout(() => {
               this.$emit('close');
-            }, 2000);  
+            }, 2000);
+          } else{
+            console.log(response);
+            this.errorMessage.push(response.data.message);
+            this.isLoading = false;
           }
         })
         .catch(function(error) {
           console.log(error);
-        });    */
+        });
       }
-    },
-    checkDate:function() {
-      this.errorMessage = [];
-      if(Number(this.progresso) > 1){
-        if( !this.dateInicio | !this.horaInicio ) {
-          this.errorMessage.push("Atendimento inicial: data e hora necessário.");
-        }
-        else if ( Number(this.progresso) == 2 ) {
-          if( !this.dateFinal | !this.horaFinal ){
-            this.errorMessage.push("Atendimento final: data e hora necessário.");
-          }
-        }else{
-          this.validarDate();
-        }
-      }
-      if(!this.errorMessage.length) return true;
-      //e.preventDefault();
     },
     checkForm:function(e) {
       this.errorMessage = [];
@@ -149,45 +124,44 @@ Vue.component('mod-add', {
       if(!this.dtInicio) this.errorMessage.push("Data Inicial necessário.");
       if(!this.dtFinal) this.errorMessage.push("Data Final necessário.");
       if(!this.trajeto) this.errorMessage.push("Trajeto necessário.");
+      if(this.trajeto.categoria == '0'){
+        if( !this.kmInicio )this.errorMessage.push("Para o Trajeto escolhido o Km Inicial é necessário.");
+        if( !this.kmFinal )this.errorMessage.push("Para o Trajeto escolhido o Km Final é necessário.");
+      }else if ( this.trajeto.categoria == '1' ) {
+        if( !this.valor )this.errorMessage.push("Para o Trajeto escolhido o Valor é necessário.");
+      }
+      this.validarKm();
       this.validarDate();
       if(!this.errorMessage.length) return true;
       e.preventDefault();
     },
+    validarKm() {
+      this.errorMessage = [];
+      if( Number(this.kmFinal) < Number(this.kmInicio) ){
+        this.errorMessage.push("Km Inicio não pode ser maior que Km Final!");
+        return false;
+      }else if( this.trajeto.categoria == '0' ){
+        this.valor = (( Number(this.kmFinal) - Number(this.kmInicio) )* this.trajeto.valor).toFixed(2);
+        return true;
+      }else{
+        return true;
+      }
+    },
     validarDate() {
       this.errorMessage = [];
-      var data1 = new Date( this.dateInicio + "T" + this.horaInicio );
-      var data2 = new Date( this.dateFinal + "T" + this.horaFinal  );
+      var data1 = new Date( this.dtInicio );
+      var data2 = new Date( this.dtFinal );
       if( data1 >= data2 ){
         this.errorMessage.push("Data Inicial não pode ser maior ou igual que Data Final!");
         return false;
       }else{
         var timeDiff = Math.abs(data1.getTime() - data2.getTime());
-        var diffDays = (timeDiff / 1000 / 60 / 60 ).toFixed(2);
-        //var valorHh = ( diffDays * this.data.hh ).toFixed(2);
+        var diffDays = (timeDiff / 1000 / 60 / 60 ).toFixed(2);   
+        var valorHh = ( diffDays * this.data.hh ).toFixed(2);
         this.tempo = diffDays;
-        //this.hhValor = valorHh;
+        this.hhValor = valorHh;
 
-        console.log(this.tempo);
-        return true;
-      }
-    },
-    valideDtMenor(dateI, dateII) {
-      this.errorMessage = [];
-      var data1 = new Date( dateI );
-      var data2 = new Date( dateII );
-      if( data2 < data1 ){
-        return false;
-      }else{
-        return true;
-      }
-    },
-    valideDtMaior(dateI, dateII) {
-      this.errorMessage = [];
-      var data1 = new Date( dateI );
-      var data2 = new Date( dateII );
-      if( data2 > data1 ){
-        return false;
-      }else{
+        //console.log(valorHh);
         return true;
       }
     },

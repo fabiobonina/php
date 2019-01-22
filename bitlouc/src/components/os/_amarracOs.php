@@ -144,7 +144,6 @@ Vue.component('os-amarrac', {
             if(!response.data.error){
               this.successMessage.push(response.data.message);
               this.isLoading = false;
-              this.atualizacao();
               setTimeout(() => {
                 this.$emit('atualizar');
               }, 2000);
@@ -164,11 +163,6 @@ Vue.component('os-amarrac', {
       if(!this.os) this.errorMessage.push("OS necessário.");
       if(!this.errorMessage.length) return true;
       e.preventDefault();
-    },
-    atualizacao: function(){
-      this.$store.dispatch("findOs").then(() => {
-        console.log("Atualizando dados OS!")
-      });
     },
   },
 });

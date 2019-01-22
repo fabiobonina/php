@@ -75,17 +75,17 @@ Vue.component('os-crud', {
   methods: {
     close(){
       this.modalGeo = false;
-      this.modalTec = false,
-      this.modalEdt = false,
-      this.modalDel = false,
-      this.modalOs  = false,
+      this.modalTec = false;
+      this.modalEdt = false;
+      this.modalDel = false;
+      this.modalOs  = false;
     },
     atualizar(){
       this.modalGeo = false;
-      this.modalTec = false,
-      this.modalEdt = false,
-      this.modalDel = false,
-      this.modalOs  = false,
+      this.modalTec = false;
+      this.modalEdt = false;
+      this.modalDel = false;
+      this.modalOs  = false;
       this.$emit('atualizar');
     }
   }

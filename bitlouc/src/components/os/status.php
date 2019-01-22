@@ -17,7 +17,7 @@
     </v-container>
     <section>
       <div>
-        <os-grid :data="oss" :status="status"></os-grid>
+        <atend-grid :data="oss" :status="status"></atend-grid>
       </div>
     </section>
   </div>
@@ -31,9 +31,9 @@ var OsStus = Vue.extend({
       errorMessage: '',
       successMessage: '',
       itens: [
-        { id:1, name: 'sem Amaração', ativo: '0', icon: 'done' },
-        { id:2, name: 'Abertas', ativo: '1', icon: 'done' },
-        { id:3, name: 'Retornos', ativo: '2', icon: 'done' },
+        { id:1, name: 'Pedente', ativo: '0', icon: 'mdi-exclamation' },
+        { id:2, name: 'Andamento', ativo: '1', icon: 'mdi-loading mdi-spin' },
+        { id:3, name: 'Emcerada', ativo: '2', icon: 'mdi-check' },
       ],
     };
   },

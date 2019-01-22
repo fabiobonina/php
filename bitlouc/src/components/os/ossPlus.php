@@ -1,9 +1,11 @@
 
 <template id="oss-plus">
   <div>
-    <os-grid :data="oss" :status="status"></os-grid>
+    <oss-top></oss-top>
+    <atend-grid :data="oss" :status="status"></atend-grid>
   </div>
 </template>
+
 <script>
 var OssPlus = Vue.extend({
   template: '#oss-plus',
@@ -31,3 +33,4 @@ var OssPlus = Vue.extend({
 });
 
 </script>
+<?php require_once 'src/components/gerencial/oss-top.php';?>

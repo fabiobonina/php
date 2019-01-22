@@ -8,16 +8,16 @@ require_once '../control/notaControl.php';
 
 $osControl    = new OsControl();
 $notaControl  = new NotaControl();
+$mods 			= new Mod();
 
 
 //$res['outros'] = array();
-$res            = array('error' => true);
 $res['message'] = array();
 $arDados        = array();
 $arErros        = array();
 $arMessage      = array();
 $arSucesso 		  = array();
-$action         = 'email';
+$action         = 'status';
  
 
 //$res['user'] = $user;
@@ -37,12 +37,8 @@ if(isset($_GET['action'])){
 if($action == 'read'):
 
   $item = $osControl->listProprietario( $acessoProprietario );
-  if($item['error'] == true ){
-    $res = $item;
-  }else{
-    $res['oss']   = $item['dados']; 
-    $res['error'] = false;
-  }
+  $res['oss']   = $item;
+  $res['error'] = false;
 
 endif;
 if($action == 'os'):
@@ -52,6 +48,22 @@ if($action == 'os'):
 
 endif;
 
+if($action == 'semAmaracao'):
+
+  $item = $osControl->findAmarar();
+  $res['oss']   = $item;
+  $res['error'] = false;
+
+  
+endif;
+if($action == 'status'):
+  $status = $_POST['status'];
+  //$status = '6';
+  $item = $osControl->findStatus( $status );
+  $res['oss']   = $item;
+  $res['error'] = false;
+
+endif;
 if($action == 'publish'):
   $proprietario_id  = $_POST['proprietario_id'];
   $loja_id          = $_POST['loja_id'];
@@ -108,20 +120,10 @@ endif;
 #OS-DELETAR
 if($action == 'osDel'):
   
-  $osId   = $_POST['osId'];
+  $os_id   = $_POST['os_id'];
   
-  if($oss->delete($osId)){
-    if($osTecnicos->deleteOs($osId)){
-      $res['error']   = false;
-      $res['message'] = 'OK, OS deletada com sucesso';
-    }else{
-        $res['error']   = true;
-        $res['message'] = 'Error, tecnico(s) da OS não foi deletado';
-    }
-  }else{
-      $res['error']   = true;
-      $res['message'] = 'Error, não foi deletar OS';
-  }
+  $res = $osControl->delete($os_id);
+
 endif;
 #NOTA-ADD
 if($action =='publishNota'):
@@ -141,87 +143,20 @@ if($action =='publishNota'):
     );
 
 endif;
-
 #CONCLUIR
-if($action == 'osConcluir'):
+if($action == 'osStatus'):
   
-  $osId       = $_POST['os'];
-  $processo   = $_POST['processo'];
-  $status     = $_POST['status'];
-  $dtConcluido= date("Y-m-d H:i:s");
+  $os_id        = $_POST['os_id'];
+  $status       = $_POST['status'];
 
-  $oss->setProcesso($processo);
-  $oss->setStatus($status);
-  $oss->setDtConcluido($dtConcluido);
-  
-  if($oss->concluir($osId)){
-      $res['error']   = false;
-      $res['message'] = 'OK, OS concluida com sucesso';
-  }else{
-      $res['error']   = true;
-      $res['message'] = 'Error, não foi possivel concluir a OS';
-  }
+  $res =  $osControl->status( $status, $os_id );
   
 endif;
 
-#REABRIR
-if($action == 'osReabrir'):
-  
-  $osId     = $_POST['os'];
-  $status   = $_POST['status'];
-
-  $oss->setStatus($status);
-  
-  if($oss->reabrir($osId)){
-    $res['error']   = false;
-    $res['message'] = 'OK, OS foi reaberta';
-  }else{
-    $res['error']   = true;
-    $res['message'] = 'Error, não foi possivel rabrir a OS';
-  }
-  
-endif;
-#CONCLUIR
-if($action == 'osFechar'):
-  
-  $osId       = $_POST['os'];
-  $status     = $_POST['status'];
-  $dtFech     = date("Y-m-d H:i:s");
-  $processo   = $_POST['processo'];
-
-  $oss->setProcesso($processo);
-  $oss->setStatus($status);
-  $oss->setDtFech($dtFech);
-  
-  if($oss->fechar($osId)){
-    $res['error']   = false;
-    $res['message'] = 'OK, OS fechada com sucesso';
-  }else{
-    $res['error']   = true;
-    $res['message'] = 'Error, não foi possivel fechar a OS';
-  }
-  
-endif;
-if($action == 'osValidar'):
-  
-  $osId     = $_POST['os'];
-  $status   = $_POST['status'];
-
-  $oss->setStatus($status);
-  
-  if($oss->avalidar($osId)){
-    $res['error']   = false;
-    $res['message'] = 'OK, OS aprovada com sucesso';
-  }else{
-    $res['error']   = true;
-    $res['message'] = 'Error, não foi possivel validar a OS';
-  }
-  
-endif;
 #DESLOCAMENTO----------------------------------------------------------------------
 if($action == 'desloc'):
   #Novo
-  $osId     = $_POST['os'];
+  $os_id     = $_POST['os_id'];
   $tecnico  = $_POST['tecnico'];
   $tecnicos = $_POST['tecnicos'];
   $trajeto  = $_POST['trajeto'];
@@ -232,7 +167,7 @@ if($action == 'desloc'):
   
   #tecnicoI----------------------------------------------------------------------------------------------------------------------------
   $tecNivel = '0';
-  $tecI = $osControl->insertTecMod( $osId, $tecnico['tecnico'], $tecnico['userNick'], $tecnico['hh'], $status['id'], $status['processo'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
+  $tecI = $osControl->insertTecMod( $os_id, $tecnico['tecnico_id'], $tecnico['user_nick'], $tecnico['hh'], $status['id'], $status['processo'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
   
   $res['error']     = $tecI['error'];
   array_push($arMessage, $tecI['message']);
@@ -245,7 +180,7 @@ if($action == 'desloc'):
         $arMods   = array();
         if( $tec['tecnico'] != $tecnico['tecnico'] ){
           $tecNivel = '1';
-          $tecII = $osControl->insertTecMod( $osId, $tec['tecnico'], $tec['userNick'], $tec['hh'], $status['id'], $status['processo'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
+          $tecII = $osControl->insertTecMod( $os_id, $tec['tecnico_id'], $tec['user_nick'], $tec['hh'], $status['id'], $status['processo'], $trajeto['id'], $trajeto['valor'], $date, $km, $valor, $tecNivel );
           #desloc aberto
           $res['error']   = $tecII['error'];
           array_push($arMessage, $tecII['message'] );
@@ -260,8 +195,8 @@ endif;
 #MOD-ADD----------------------------------------------------------------------
 if($action == 'modAdd'):
   #Novo
-  $osId     = $_POST['osId'];
-  $tecId    = $_POST['tecId'];
+  $os_id      = $_POST['os_id'];
+  $tecnico_id = $_POST['tecnico_id'];
   //$tecnicos = $_POST['tecnicos'];
   $trajeto  = $_POST['trajeto'];
   $status   = $_POST['status'];
@@ -272,16 +207,16 @@ if($action == 'modAdd'):
   $valor    = $_POST['valor'];
   $tempo    = $_POST['tempo'];
   $hhValor  = $_POST['hhValor'];
-  $modId = '';
+  $mod_id = '';
   
   #Valida se periodo da data, foi usado pelo tecnico 
-  $validacaoI = $osControl->validarTrajetoMod( $tecId, $dtInicio, $dtFinal, $modId );
+  $validacaoI = $osControl->validarTrajetoMod( $tecnico_id, $dtInicio, $dtFinal, $mod_id );
   $res['error'] = $validacaoI['error'];
   $res['outros'] = $validacaoI;
   if( !$res['error'] ){
     #tecnicoI----------------------------------------------------------------------------------------------------------------------------
-    $mods->setOs($osId);
-    $mods->setTecnico($tecId);
+    $mods->setOs($os_id);
+    $mods->setTecnico($tecnico_id);
     $mods->setTrajeto($trajeto['id']);
     $mods->setStatus($status['id']);
     $mods->setDtInicio($dtInicio);
@@ -294,39 +229,29 @@ if($action == 'modAdd'):
     $mods->setAtivo('1');
     $item = $mods->insert();
     
-    $res['error']     = $item['error'];
-    array_push($arMessage, $item['message']);
-
-    if( !$res['error'] ){
-      $itemII = $oss->upProcesso($osId, $status['processo'] );
-      $res['error']     = $itemII['error'];
-      array_push($arMessage, $itemII['message']); 
-    }
-  }else{
-    $arMessage   = $validacaoI['message'];
+    $res    = $item;
   }
-  $res['message'] = $arMessage;
+    
 endif;
 #MOD-EDT----------------------------------------------------------------------
 if($action == 'modEdt'):
   #Novo
   
-  $osId     = $_POST['osId'];
-  $modId    = $_POST['modId'];
-  $tecId  = $_POST['tecId'];
-  //$tecnicos = $_POST['tecnicos'];
-  $trajeto  = $_POST['trajeto'];
-  $status   = $_POST['status'];
-  $dtInicio = $_POST['dtInicio'];
-  $dtFinal  = $_POST['dtFinal'];
-  $kmInicio = $_POST['kmInicio'];
-  $kmFinal  = $_POST['kmFinal'];
-  $valor    = $_POST['valor'];
-  $tempo    = $_POST['tempo'];
-  $hhValor  = $_POST['hhValor'];
+  $os_id      = $_POST['os_id'];
+  $mod_id     = $_POST['mod_id'];
+  $tecnico_id = $_POST['tecnico_id'];
+  $trajeto    = $_POST['trajeto'];
+  $status     = $_POST['status'];
+  $dtInicio   = $_POST['dtInicio'];
+  $dtFinal    = $_POST['dtFinal'];
+  $kmInicio   = $_POST['kmInicio'];
+  $kmFinal    = $_POST['kmFinal'];
+  $valor      = $_POST['valor'];
+  $tempo      = $_POST['tempo'];
+  $hhValor    = $_POST['hhValor'];
   
   #Valida se periodo da data, foi usado pelo tecnico 
-  $validacaoI = $osControl->validarTrajetoMod( $tecId, $dtInicio, $dtFinal, $modId );
+  $validacaoI = $osControl->validarTrajetoMod( $tecnico_id, $dtInicio, $dtFinal, $mod_id );
   $res['error'] = $validacaoI['error'];
   $res['outros'] = $validacaoI;
   if( !$res['error'] ){
@@ -341,29 +266,18 @@ if($action == 'modEdt'):
     $mods->setHhValor($hhValor);
     $mods->setValor($valor);
     $mods->setAtivo('1');
-    $item = $mods->update( $modId );
+    $item = $mods->update( $mod_id );
 
-    $res['error']   = $item['error'];
-    $res['message'] = $item['message'];
-
-    if( !$res['error'] ){
-      $itemII = $oss->upProcesso($osId, $status['processo'] );
-      $res['error']     = $itemII['error'];
-      array_push($arMessage, $itemII['message']); 
-    }
-  }else{
-    $arMessage   = $validacaoI['message'];
+    $res = $item;
   }
-  $res['message'] = $arMessage;
-  $res;
 
 endif;
 #MOD-EDT----------------------------------------------------------------------
 if($action == 'modDel'):
   #Novo
-  $modId    = $_POST['id'];
+  $mod_id    = $_POST['id'];
   
-  if($mods->delete($modId)){
+  if($mods->delete($mod_id)){
     $res['error'] = false;
     $res['message']= 'OK, Trajeto deletado!';
   }else{
@@ -376,8 +290,8 @@ endif;
 #DELETAR
 if($action == 'modFull'):
   #Novo
-  $osId     = $_POST['osId'];
-  $tecId    = $_POST['tecId'];
+  $os_id     = $_POST['os_id'];
+  $tecnico_id    = $_POST['tecnico_id'];
   $tecnicos = $_POST['tecnicos'];
   $trajeto  = $_POST['trajeto'];
   $status   = $_POST['status'];
@@ -388,16 +302,16 @@ if($action == 'modFull'):
   $valor    = $_POST['valor'];
   $tempo    = $_POST['tempo'];
   $hhValor  = $_POST['hhValor'];
-  $modId = '';
+  $mod_id = '';
   
   #Valida se periodo da data, foi usado pelo tecnico 
-  $validacaoI = $osControl->validarTrajetoMod( $tecId, $dtInicio, $dtFinal, $modId );
+  $validacaoI = $osControl->validarTrajetoMod( $tecnico_id, $dtInicio, $dtFinal, $mod_id );
   $res['error'] = $validacaoI['error'];
   $res['outros'] = $validacaoI;
   if( !$res['error'] ){
     #tecnicoI----------------------------------------------------------------------------------------------------------------------------
-    $mods->setOs($osId);
-    $mods->setTecnico($tecId);
+    $mods->setOs($os_id);
+    $mods->setTecnico($tecnico_id);
     $mods->setTrajeto($trajeto['id']);
     $mods->setStatus($status['id']);
     $mods->setDtInicio($dtInicio);
@@ -414,7 +328,7 @@ if($action == 'modFull'):
     array_push($arMessage, $item['message']);
 
     if( !$res['error'] ){
-      $itemII = $oss->upProcesso($osId, $status['processo'] );
+      $itemII = $oss->upProcesso($os_id, $status['processo'] );
       $res['error']     = $itemII['error'];
       array_push($arMessage, $itemII['message']); 
     }
@@ -427,10 +341,10 @@ endif;
 #CADASTRAR
 if($action == 'email'):
   //
-  $osId = '130';
+  $os_id = '130';
   $os_status = 'está em teste no sistema';
-  $res['dados'] = $osControl->osEmail( $osId, $os_statuss);
-  //$res['dados'] = $osControl->osEmail( $osId );
+  $res['dados'] = $osControl->osEmail( $os_id, $os_statuss);
+  //$res['dados'] = $osControl->osEmail( $os_id );
       
 endif;
 

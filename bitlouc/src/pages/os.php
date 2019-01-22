@@ -12,20 +12,20 @@
           <div>
             <div class="title">{{_os.loja_nick}} | {{_os.local_tipo}} - {{_os.local_name}} ({{_os.local_municipio}}/{{_os.local_uf}})</div>
             <div>{{_os.data}} | {{_os.servico.name}} - {{ _os.categoria.name }}</div>
-            <div v-if="_os.bem">{{_os.bem.name}} {{_os.bem.modelo}} 
+            <div v-if="_os.equipamento">{{_os.equipamento.name}} - {{_os.equipamento.modelo}} 
               <v-chip small color="green" text-color="white">
                 <v-avatar class="green darken-4">
                   <v-icon small>mdi-qrcode</v-icon>
                 </v-avatar>
-                {{_os.bem.numeracao}}
+                {{_os.equipamento.numeracao}}
               </v-chip>
               <v-chip small color="orange" text-color="white">
                 <v-avatar class="orange darken-4">
                   <v-icon small>mdi-barcode</v-icon>
                 </v-avatar>
-                {{_os.bem.plaqueta}}
+                {{_os.equipamento.plaqueta}}
               </v-chip>
-              <a>#{{_os.bem.fabricanteNick}} </a>
+              <a>#{{_os.equipamento.fabricante_nick}} </a>
             </div>
           </div>
           <div slot="extension" class="white--text">
@@ -33,7 +33,7 @@
               <v-avatar small>
                 <img :src="tecnico.avatar" alt="trevor">
               </v-avatar>
-              {{tecnico.userNick}}
+              {{tecnico.user_nick}}
             </v-chip>
           </div>
           <v-spacer></v-spacer>
@@ -46,31 +46,37 @@
           <local-rota :lat="_os.local_lat" :long="_os.local_long"></local-rota>
         </v-toolbar>
         <div>
-        <progresso-os :data="_os.processo"></progresso-os>
+        <progresso-os :data="_os.status"></progresso-os>
         </div>
       </v-card>
     </template>
     <v-container fluid>
         <div v-if="user.nivel > 1 && user.grupo == 'P'">
-          <v-btn v-if="_os.status <= 1 " v-on:click="modFull = true; selecItem(_os)" dark small color="primary">
-            <v-icon dark>mdi-walk</v-icon> Full
-          </v-btn>
-          <v-btn v-if="_os.status <= 1 " v-on:click="deslocAdd = true" dark small color="primary">
+          <v-btn v-if="_os.status < 4 " v-on:click="deslocAdd = true" dark small color="primary">
             <v-icon dark>mdi-walk</v-icon> Desloc.
           </v-btn>
-          <v-btn v-if="user.nivel > 2" v-on:click="notaAdd = true" dark small color="primary">
+          <v-btn v-if="_os.status < 4" v-on:click="notaAdd = true" dark small color="primary">
             <v-icon dark>mdi-note-text</v-icon> Nota
           </v-btn>
-          <v-btn v-if="_os.notas && _os.processo >= 2 && _os.status == 1" v-on:click="osConcluir()" dark small color="primary">
+          <v-btn v-if="_os.status > 1 && _os.status < 3 && _os.tecnicos.length > 0" v-on:click="antendimentoReabrir()" dark small color="amber">
+            <v-icon dark>mdi-undo-variant</v-icon> Reabrir Atendimento
+          </v-btn>
+          <v-btn v-if="_os.status == 0 && _os.tecnicos.length > 0" v-on:click="antendimentoInicio()" dark small color="green">
+            <v-icon dark>mdi-loading mdi-spin</v-icon> Iniciar Atendimento
+          </v-btn>
+          <v-btn v-if="_os.status == 1 " v-on:click="antendimentoFinal()" dark small color="green">
+            <v-icon dark>mdi-check</v-icon> Encerrar Atendimento
+          </v-btn>
+          <v-btn v-if="_os.notas && _os.status > 1 && _os.status < 4 && _os.os == ''" v-on:click="osConcluir()" dark small color="primary">
             <v-icon dark>mdi-check</v-icon> Concluir OS
           </v-btn>
-          <v-btn v-if="user.nivel > 2 && _os.status == 2" v-on:click="osReabrir()" dark small color="primary">
+          <v-btn v-if="user.nivel > 2 && _os.status == 4" v-on:click="osReabrir()" dark small color="amber">
             <v-icon dark>mdi-reply</v-icon> Reabrir OS
           </v-btn>
-          <v-btn v-if="user.nivel > 2 && _os.status == 2"  v-on:click="osFechar()" dark small color="primary">
+          <v-btn v-if="user.nivel > 2 && _os.status == 4"  v-on:click="osFechar()" dark small color="primary">
             <v-icon dark>mdi-check</v-icon> Fechar OS
           </v-btn>
-          <v-btn v-if="user.nivel > 3 && _os.status == 3"  v-on:click="osValidar()" dark small color="primary">
+          <v-btn v-if="user.nivel > 3 && _os.status == 5"  v-on:click="osValidar()" dark small color="primary">
             <v-icon dark>mdi-check</v-icon> Validar OS
           </v-btn>
         </div>
@@ -79,20 +85,12 @@
           <v-container grid-list-xl>
             <v-layout row wrap>
               <v-flex xs12 md7>
-                <div v-for="tecnico in _os.tecnicos">
+                <div v-for="tecnico in _os.tecnicos" :key="tecnico.id">
                   <v-card>
                     <v-toolbar dense color="blue">
-                      <v-toolbar-title class="white--text">@{{tecnico.userNick}}</v-toolbar-title>
-
-                      <v-flex xs12 sm1>
-                        <v-btn flat icon class="white--text"
-                        @click.native="configs.order == 'asc'? configs.order = 'desc': configs.order = 'asc'">
-                        <v-icon v-if="configs.order == 'asc'" dark>arrow_downward</v-icon>
-                        <v-icon v-else dark>arrow_upward</v-icon>
-                        </v-btn>
-                      </v-flex>
+                      <v-toolbar-title class="white--text">@{{tecnico.user_nick}}</v-toolbar-title>
                       <v-spacer></v-spacer>
-                      <v-btn  @click="modAdd=true; selecItem(_os)" color="pink" dark small fab right>
+                      <v-btn v-if="_os.status < 4" @click="modAdd=true; selecItem(tecnico)" color="pink" dark small fab right>
                         <v-icon>add</v-icon>
                       </v-btn>
                       <!--v-btn  @click="modAdd=true; selecItem(tecnico)" color="pink" dark small absolute fab right>
@@ -123,12 +121,12 @@
                           </v-list-tile-content>
                           <v-list-tile-action>
                             <v-speed-dial
-                              v-model="fab"
+                              v-if="_os.status < 4"
                               direction="left"
                               :open-on-hover="hover"
                               transition="slide-x-reverse-transition"
                               >
-                              <v-btn slot="activator" v-model="fab" small color="blue darken-2" dark fab>
+                              <v-btn slot="activator" small color="blue darken-2" dark fab>
                                 <v-icon>mdi-information-variant</v-icon>
                                 <v-icon>close</v-icon>
                               </v-btn>
@@ -164,7 +162,7 @@
                         </div>
                         <nav class="level is-mobile">
                           <div class="level-left">
-                            <a v-on:click="notaEdt = true; selecItem(nota)" class="level-item">
+                            <a v-if="_os.status < 4" v-on:click="notaEdt = true; selecItem(nota)" class="level-item">
                               <span class="mdi mdi-note-text"></span> Editar
                             </a>
                           </div>
@@ -179,12 +177,11 @@
         </v-flex>
       </div>
       <div>
-        <mod-add v-if="modAdd" v-on:close="modAdd = false" :dialog="modAdd" :data="_item"></mod-add>
-        <mod-edt v-if="modEdt" v-on:close="modEdt = false" :dialog="modEdt" :data="_item"></mod-edt>
-        <mod-full v-if="modFull" v-on:close="modFull = false" :dialog="modFull" :data="_item"></mod-full>
-        <nota-add v-if="notaAdd" v-on:close="notaAdd = false" :dialog="notaAdd" :data="_os"></nota-add>
-        <nota-edt v-if="notaEdt" v-on:close="notaEdt = false" :dialog="notaEdt" :data="_item"></nota-edt>
-        <desloc-add v-if="deslocAdd" v-on:close="deslocAdd = false" :dialog="deslocAdd" :data="_os"></desloc-add>
+        <mod-add v-if="modAdd && _os.status < 4" v-on:close="modAdd = false; onAtualizar()" :dialog="modAdd" :data="_item"></mod-add>
+        <mod-edt v-if="modEdt && _os.status < 4" v-on:close="modEdt = false; onAtualizar()" :dialog="modEdt" :data="_item"></mod-edt>
+        <nota-add v-if="notaAdd && _os.status < 4" v-on:close="notaAdd = false; onAtualizar()" :dialog="notaAdd" :data="_os"></nota-add>
+        <nota-edt v-if="notaEdt && _os.status < 4" v-on:close="notaEdt = false; onAtualizar()" :dialog="notaEdt" :data="_item"></nota-edt>
+        <desloc-add v-if="deslocAdd && _os.status < 4" v-on:close="deslocAdd = false; onAtualizar()" :dialog="deslocAdd" :data="_os"></desloc-add>
       </div>
 
       </v-container>
@@ -212,8 +209,8 @@ var Os = Vue.extend({
       hover: false,
       selectedCategoria: 'All',
       active: '1',
+      name: '',
       configs: {
-        orderBy: { name: 'Nome', state: 'name' },
         order: 'asc',
         search: ''
       },
@@ -244,114 +241,61 @@ var Os = Vue.extend({
     },
   }, // computed
   methods: {
-    osConcluir: function() {
-      if(confirm('Deseja realmente Concluir a OS?')){
+    osStatus: function( status) {
         this.isLoading = true
         var postData = {
-          os: this._os.id,
-          processo: '4',
-          status: Number(this._os.status) + 1
+          os_id:  this._os.id,
+          status: status
         };
         //console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=osConcluir', postData).then(function(response) {
-          //console.log(response);
-          if(response.data.error){
-            this.errorMessage = response.data.message;
-            this.isLoading = false;
-          } else{
+        this.$http.post('./config/api/apiOs.php?action=osStatus', postData).then(function(response) {
+          console.log(response);
+          if(!response.data.error){
             this.successMessage.push(response.data.message);
             this.isLoading = false;
             this.onAtualizar();
-            setTimeout(() => {
-              this.$emit('close');
-            }, 2000);
+          } else{            
+            this.errorMessage = response.data.message;
+            this.isLoading = false;
           }
         })
         .catch(function(error) {
           console.log(error);
         });
+    },
+    antendimentoReabrir: function() {
+      if(confirm('Deseja Reabrir Atendimento?')){
+        this.osStatus( '0')
+      }
+    },
+    antendimentoInicio: function() {
+      if(confirm('Deseja iniciar Atendimento?')){
+        this.osStatus( '1')
+      }
+    },
+    antendimentoFinal: function() {
+      if(confirm('Deseja encerrar Atendimento?')){
+        this.osStatus( '2')
       }
     },
     osReabrir: function() {
       if(confirm('Deseja realmente Reabrir a OS?')){
-        this.isLoading = true
-        var postData = {
-          os: this._os.id,
-          status: '1'
-        };
-        //console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=osReabrir', postData).then(function(response) {
-          //console.log(response);
-          if(response.data.error){
-            this.errorMessage = response.data.message;
-            this.isLoading = false;
-          } else{
-            this.successMessage.push(response.data.message);
-            this.isLoading = false;
-            this.onAtualizar();
-            setTimeout(() => {
-              this.$emit('close');
-            }, 2000);
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+        this.osStatus( '3')
+      }
+    },
+    osConcluir: function() {
+      if(confirm('Deseja Concluir a OS?')){
+        this.osStatus( '4')
       }
     },
     osFechar: function() {
-      if(confirm('Deseja realmente Fechar a OS?')){
-        this.isLoading = true
-        var postData = {
-          os: this._os.id,
-          processo: '4',
-          status: '3'
-        };
-        //console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=osFechar', postData).then(function(response) {
-          //console.log(response);
-          if(response.data.error){
-            this.errorMessage = response.data.message;
-            this.isLoading = false;
-          } else{
-            this.successMessage.push(response.data.message);
-            this.isLoading = false;
-            this.onAtualizar();
-            setTimeout(() => {
-              this.$emit('close');
-            }, 2000);
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      if(confirm('A OS foi fechada no Sistema?')){
+        this.osStatus('5');
       }
     },
     osValidar: function() {
-      if(confirm('Deseja realmente Encerrar a OS?')){
-        this.isLoading = true
-        var postData = {
-          os: this._os.id,
-          status: '4'
-        };
-        //console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=osValidar', postData).then(function(response) {
-          console.log(response);
-          if(response.data.error){
-            this.errorMessage = response.data.message;
-            this.isLoading = false;
-          } else{
-            this.successMessage.push(response.data.message);
-            this.isLoading = false;
-            this.onAtualizar();
-            setTimeout(() => {
-              this.$emit('close');
-            }, 2000);
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      if(confirm('Foi recebido o Relatorio devidaente assinado desse Atendimento?')){
+        this.osStatus('6');
       }
     },
     modDel: function(data) {
@@ -381,8 +325,8 @@ var Os = Vue.extend({
       }
     },
     onAtualizar: function(){
-      this.$store.dispatch("findOs").then(() => {
-        console.log("Atualizando dados OS!")
+      this.$store.dispatch('findOs', this.$route.params._os).then(() => {
+        console.log("Buscando dados da os")
       });
     },
     selecItem: function(data){

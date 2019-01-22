@@ -1,9 +1,8 @@
-<template id="proprietario">
+<template id="gerencial">
   <div>
 
     <top></top>
     <v-content>
-      <proprietario-top></proprietario-top>
       <v-container fluid>
         <router-view></router-view>
       </v-container>
@@ -14,8 +13,8 @@
 </template>
 
 <script>
-  var Proprietario = Vue.extend({
-    template: '#proprietario',
+  var Gerencial = Vue.extend({
+    template: '#gerencial',
     data: function () {
         return {
             errorMessage: '',
@@ -39,7 +38,7 @@
 <?php require_once 'src/components/includes/top.php';?>
 <?php require_once 'src/components/includes/rodape.php';?>
 
-<?php require_once 'src/components/proprietario/proprietario-top.php';?>
+<?php require_once 'src/components/gerencial/proprietario-top.php';?>
 <?php require_once 'src/components/loja/lojas-plus.php';?>
 <?php require_once 'src/components/local/locais-plus.php';?>
 <?php require_once 'src/components/os/ossPlus.php';?>

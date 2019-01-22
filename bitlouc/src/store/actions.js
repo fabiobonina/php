@@ -5,13 +5,15 @@
 //Todos os postdados são enviados como json
 //True para enviar como dados do formulário
 Vue.http.options.emulateJSON = true;
-const INDEXLIST   ='./config/api/apiProprietario.php?action=read';
-const CONFIG      ='./config/api/apiConfig.php?action=config';
-const CONFIGPROD  ='./config/api/apiConfig.php?action=prod';
+const INDEXLIST     ='./config/api/apiProprietario.php?action=read';
+const CONFIG        ='./config/api/apiConfig.php?action=config';
+const CONFIGPROD    ='./config/api/apiConfig.php?action=prod';
 
-const BENSLIST   ='./config/api/apiLocal.php?action=read';
-const OSLIST      ='./config/api/apiOs.php?action=read';
-const OSFIND      ='./config/api/apiOs.php?action=os';
+const BENSLIST      ='./config/api/apiLocal.php?action=read';
+const OSLIST        ='./config/api/apiOs.php?action=read';
+const OSFIND        ='./config/api/apiOs.php?action=os';
+const OSSTATUSFIND  ='./config/api/apiOs.php?action=status';
+const OSAMARARFIND  ='./config/api/apiOs.php?action=semAmaracao';
 
 const LOCAISLIST          ='./config/api/apiLocal.php?action=read';
 const LOCAISPROPRIETARIO  ='./config/api/apiLocal.php?action=proprietario';
@@ -84,11 +86,11 @@ const actions = {
   fetchIndex({ commit }) {
     return new Promise((resolve, reject) => {
       var postData = { token: state.token };
-      Vue.http.post(INDEXLIST, postData )
+      Vue.http.post('./config/api/apiProprietario.php?action=read', postData )
       .then(function(response) {
         //console.log( response); 
         if(response.data.error){
-          //console.log(response.data.message);
+          console.log(response.data.message);
           if(!response.data.isLoggedIn){
             localStorage.removeItem("token");
             localStorage.removeItem("isLoggedIn");
@@ -111,9 +113,7 @@ const actions = {
   fetchConfig({ commit }) {
     return new Promise((resolve, reject) => {
       Vue.http.get(CONFIG).then((response) => {
-        if(response.data.error){
-          console.log(response.data.message);
-        } else{
+        if(!response.data.error){
           //console.log(response.data);
           commit("SET_TIPOS", response.data.tipos);
           commit("SET_CATEGORIAS", response.data.categorias);
@@ -126,6 +126,8 @@ const actions = {
           commit("SET_DESLOC_TRAJETOS", response.data.deslocTrajetos);
           commit("SET_UF", response.data.ufs);
           resolve();
+        } else{
+          console.log(response.data.message);
         }
       })
       .catch((error => {
@@ -145,6 +147,40 @@ const actions = {
           commit("SET_OS", response.data.os);
           resolve();
         }
+      })
+      .catch((error => {
+          console.log(error.statusText);
+      }));
+    });
+  },
+  findOsStatus({ commit }, status ) {
+    return new Promise((resolve, reject) => {
+      var postData = {
+        status: status,
+      }
+      Vue.http.post(OSSTATUSFIND, postData).then((response) => {
+        if(response.data.error){
+          console.log(response.data.message);
+        } else{          
+          commit("SET_OSS", response.data.oss);
+          resolve();
+        }  
+      })
+      .catch((error => {
+          console.log(error.statusText);
+      }));
+    });
+  },
+  findOsSemAmaracao({ commit } ) {
+    return new Promise((resolve, reject) => {
+      Vue.http.get(OSAMARARFIND).then((response) => {
+        //console.log(response.data);
+        if(response.data.error){
+          console.log(response.data.message);
+        } else{          
+          commit("SET_OSS", response.data.oss);
+          resolve();
+        } 
       })
       .catch((error => {
           console.log(error.statusText);

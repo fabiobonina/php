@@ -20,61 +20,7 @@ require_once '_global.php';
 			
 			return $arTecnicos;
 		}
-		public function insertOsTec($tecnicos, $os_id, $loja_id ){
 		
-			$cont1 = '0';
-			$cont2 = '0';
-			foreach ($tecnicos as $value){
-				$osTecnicos   = new OsTecnicos();
-				$cont1++;
-
-				$tec_id = $value['id'];
-				$userTec = $value['userNick'];
-				$hhTec = $value['hh'];
-
-				$validar = $this->listOsTec($os_id, $tec_id);
-				if(	count($validar) == '0' ){ 
-					
-					$osTecnicos->setOs($os_id);
-					$osTecnicos->setLoja($loja_id );
-					$osTecnicos->setTecnico($tec_id);
-					$osTecnicos->setUser($userTec);
-					$osTecnicos->setHh($hhTec);
-					if($osTecnicos->insert()){
-						$cont2++;
-					}
-
-				}
-			}
-			if($cont2 == '0'){
-				$res['error'] = true;
-				$res['message'] = "Error, nao foi possivel salvar os dados";    
-			}else{
-				$res['error'] = false;
-				$res['message']= 'OK, salvo '.$cont2.'/ '.$cont1.' enviados';
-			}
-
-			return $res;
-		}
-		public function deleteOsTec($tec_id, $os_id){
-			$osTecnicos   = new OsTecnicos();
-
-			$validar = $this->listOsTecMod($os_id, $tec_id);
-			if(	count($validar) == '0' ){ 
-				if($osTecnicos->delete($tec_id)){
-					$res['error'] = false;
-					$res['message']= 'OK, Tecnico deletado!';
-				}else{
-					$res['error'] = true;
-					$res['message'] = "Error, nao foi possivel deletar os dados"; 
-				}
-			}else{
-				$res['error'] = true;
-				$res['message'] = "Error, tecnico com deslocamento amarado a OS"; 
-			}
-
-			return $res;
-		}
 		public function listOsTec( $os_id, $tec_id ){
 			$osTecnicos   = new OsTecnicos();
 			$arTecnicos = array();

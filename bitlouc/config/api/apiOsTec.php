@@ -124,6 +124,10 @@ if($action == 'osTecAdd'):
   $tecnicos = $_POST['tecnicos'];
 
   $res = $tecControl->insertOsTec( $tecnicos, $os_id , $loja_id );
+  if( !$res['error'] ){
+    $os_status = 'foi designados o(s) tecnico(s)';
+    $osControl->osEmail( $os_id, $os_status);
+  }
 
 endif;
 
@@ -134,6 +138,10 @@ if($action == 'osTecDel'):
   $os_id = $_POST['os_id'];
 
   $res = $tecControl->deleteOsTec( $id, $os_id);
+  if( !$res['error'] ){
+    $os_status = 'teve alteração na designação';
+    $osControl->osEmail( $os_id, $os_status);
+  }
 
 endif;
 
@@ -213,6 +221,5 @@ if(isset($_GET['acao1']) && $_GET['acao1'] == 'deletar'):
   
 endif;
 
-$res['dados'] = $arDados;
 header("Content-Type: application/json");
 echo json_encode($res, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

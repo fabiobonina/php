@@ -168,10 +168,10 @@ Vue.component('os-edt', {
           id:             this.data.id
         };
         //var formData = this.toFormData(postData);
-        console.log(postData);
+        //console.log(postData);
         this.$http.post('./config/api/apiOs.php?action=publish', postData)
           .then(function(response) {
-            console.log(response);
+            //console.log(response);
             if(!response.data.error){
               this.successMessage.push(response.data.message);
               this.$store.dispatch("findOs", this.data).then(() => {
@@ -179,7 +179,7 @@ Vue.component('os-edt', {
               });
               this.isLoading = false;
               setTimeout(() => {
-                this.$emit('close');
+                this.$emit('atualizar');
               }, 2000);  
 
               

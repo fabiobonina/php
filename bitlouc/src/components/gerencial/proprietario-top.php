@@ -29,7 +29,7 @@
           <v-icon>more_vert</v-icon>
         </v-btn>
         <v-tabs slot="extension" centered color="cyan" slider-color="yellow">
-          <v-tab v-for="n in router" :key="n.title" :to="'/proprietario/' + n.router" ripple> {{ n.title }} </v-tab>
+          <v-tab v-for="n in router" :key="n.title" :to="'/gerencial/' + n.router" ripple> {{ n.title }} </v-tab>
         </v-tabs>
       </v-toolbar>
     </div>

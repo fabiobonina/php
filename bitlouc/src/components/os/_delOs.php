@@ -2,27 +2,31 @@
   <div>
     <v-dialog v-model="dialog" persistent scrollable max-width="500px">
       <v-card>
-        <v-card-title color="primary">
-          <span class="headline">OS Deletar</span>
-        </v-card-title>
+      <v-toolbar dark color="error">
+          <v-btn icon dark @click="$emit('close')">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-toolbar-title> {{ title }} </v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn icon flat @click.native="deletarItem()">
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
           <loader :dialog="isLoading"></loader>
           <v-form>
-            <div v-if='data.bem'>
-              <p>{{ data.bem.name }} - {{ data.bem.modelo }} <i class="fa fa-qrcode"></i> {{ data.bem.numeracao }} <i class="fa fa-fw fa-barcode"></i>{{ data.bem.plaqueta }}</p>
+            <div v-if='data.equipamento'>
+              <p>{{ data.equipamento.name }} - {{ data.equipamento.modelo }} <i class="fa fa-qrcode"></i> {{ data.equipamento.numeracao }} <i class="fa fa-fw fa-barcode"></i>{{ data.equipamento.plaqueta }}</p>
             </div>
-            <h1 class="headline">{{ data.lojaNick }} | {{ data.local.tipo }} - {{ data.local.name }}</h1>
+            <h1 class="headline">{{ data.loja_nick }} | {{ data.local_tipo }} - {{ data.local_name }}</h1>
             <h2 class="headline">{{ data.categoria.name }}-{{ data.servico.name }}</h2>
             <h2 class="headline">{{ data.data }}</h2>
           </v-form>
 
         </v-card-text>
-        <v-card-actions>
-            <v-btn flat @click.stop="$emit('close')">Fechar</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn color="error" flat @click.stop="deletarItem()">Deletar</v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
   </div>
@@ -40,12 +44,13 @@ Vue.component('os-del', {
   },
   data() {
     return {
+      title: 'Delete OS',
       errorMessage: [],
       successMessage: [],
       item:{},
       servico: null, tecnico: null, dataOs: '', ativo: '0',
       isLoading: false,
-      bem: null,
+      equipamento: null,
       categoria: null
     };
   },
@@ -84,10 +89,10 @@ Vue.component('os-del', {
 
   methods: {
     deletarItem: function(data) {
-      if(confirm('Deseja realmente deletar ' + this.data.local.name +' - '+ this.data.data +'?')){
+      if(confirm('Deseja realmente deletar ' + this.data.local_name +' - '+ this.data.data +'?')){
         this.isLoading = true
         var postData = {
-          osId: this.data.id
+          os_id: this.data.id
         };
         console.log(postData);
         this.$http.post('./config/api/apiOs.php?action=osDel', postData).then(function(response) {
@@ -100,7 +105,7 @@ Vue.component('os-del', {
             this.isLoading = false;
             this.atualizacao();
             setTimeout(() => {
-              this.$emit('close');
+              this.$emit('atualizar');
               this.errorMessage = [];
               this.successMessage = [];
             }, 2000);

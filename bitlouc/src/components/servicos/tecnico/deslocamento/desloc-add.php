@@ -2,10 +2,20 @@
 <div>
     <v-dialog v-model="dialog" persistent scrollable  max-width="500px">
       <v-card>
-        <v-card-title>
-          <span class="headline">{{ data.local.tipo }} - {{ data.local.name }} - Deslocamento</span>
-        </v-card-title>
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click="$emit('close')">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-toolbar-title>{{ title }}</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn icon flat @click.native="saveItem()">
+              <v-icon>mdi-content-save</v-icon>
+            </v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
         <v-card-text>
+          <span class="headline">{{ data.local_tipo }} - {{ data.local_name }}</span>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
           <loader :dialog="isLoading"></loader>
           <v-container grid-list-md>
@@ -24,7 +34,7 @@
             </v-flex>
             <label class="label">Status</label>
             <v-layout row wrap align-center >
-              <v-flex xs12 sm4 v-for="item in deslocStatus">
+              <v-flex xs12 sm4 v-for="item in deslocStatus" :key="item.id">
                 <v-btn block small @click="status = item" :class="status && status.id == item.id ? 'blue white--text' : 'light'">
                   <span>{{item.name }}</span>
                 </v-btn>
@@ -32,7 +42,7 @@
             </v-layout>
             <label class="label">Tipo Trajeto</label>
             <v-layout row wrap align-center >
-              <v-flex xs12 sm4 v-for="item in deslocTrajetos">
+              <v-flex xs12 sm4 v-for="item in deslocTrajetos" :key="item.id">
                 <v-btn block small @click="trajeto = item" :class="trajeto && trajeto.id == item.id ? 'blue white--text' : 'light'">
                   <span>{{item.name }}</span>
                 </v-btn>
@@ -44,7 +54,7 @@
                 :items="data.tecnicos"
                 v-model="tecnico"
                 label="Tecnico"
-                item-text="userNick"
+                item-text="user_nick"
                 chips
                 return-object
                 max-height="auto"
@@ -62,7 +72,7 @@
                     <v-avatar>
                       <img :src="data.item.avatar">
                     </v-avatar>
-                    {{ data.item.userNick }}
+                    {{ data.item.user_nick }}
                   </v-chip>
                 </template>
                 <template slot="item" slot-scope="data">
@@ -74,7 +84,7 @@
                       <img :src="data.item.avatar">
                     </v-list-tile-avatar>
                     <v-list-tile-content>
-                      <v-list-tile-title v-html="data.item.userNick"></v-list-tile-title>
+                      <v-list-tile-title v-html="data.item.user_nick"></v-list-tile-title>
                       <v-list-tile-sub-title v-html="data.item.email"></v-list-tile-sub-title>
                     </v-list-tile-content>
                   </template>
@@ -86,7 +96,7 @@
                 :items="data.tecnicos"
                 v-model="tecnicos"
                 label="Outros Tecnicos"
-                item-text="userNick"
+                item-text="user_nick"
                 multiple
                 chips
                 return-object
@@ -104,7 +114,7 @@
                     <v-avatar>
                       <img :src="data.item.avatar">
                     </v-avatar>
-                    {{ data.item.userNick }}
+                    {{ data.item.user_nick }}
                   </v-chip>
                 </template>
                 <template slot="item" slot-scope="data">
@@ -116,7 +126,7 @@
                       <img :src="data.item.avatar">
                     </v-list-tile-avatar>
                     <v-list-tile-content>
-                      <v-list-tile-title v-html="data.item.userNick"></v-list-tile-title>
+                      <v-list-tile-title v-html="data.item.user_nick"></v-list-tile-title>
                       <v-list-tile-sub-title v-html="data.item.email"></v-list-tile-sub-title>
                     </v-list-tile-content>
                   </template>
@@ -150,11 +160,6 @@
           </v-container>
           <small>*indica campo obrigatório</small>
         </v-card-text>
-        <v-card-actions>
-            <v-btn flat @click.stop="$emit('close')">Fechar</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click.stop="saveItem()">Salvar</v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
   </div>
