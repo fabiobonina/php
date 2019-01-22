@@ -31,9 +31,7 @@ if($action == 'logar'):
     $email= $_POST["email"];
     $senha= $_POST["password"];
     $res = $userControl->logar( $email, $senha );
-  
   }
-  $res = $userControl->logar( 'fabiobonina@gmail.com', '123abc' );
 endif;
 
 if($action == 'logarII'):
@@ -192,20 +190,6 @@ if($action == 'registrar'):
 
 endif;
 
-#ATUALIZAR
-if(isset($_POST['atualizar'])):
-
-endif;
-
-#DESLOCAMENTO
-if(isset($_POST['deslocamento'])):
-
-endif;
-
-#DELETAR
-if(isset($_GET['acao1']) && $_GET['acao1'] == 'deletar'):
-  
-endif;
 
 //$res['dados'] = $arDados;
 header("Content-Type: application/json");

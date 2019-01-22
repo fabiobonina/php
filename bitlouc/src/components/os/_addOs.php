@@ -33,7 +33,7 @@
                     :error-messages="errors.collect('categoria')"
                     v-validate="'required'"
                     data-vv-name="categoria"
-                    return-object
+                    item-value="id"
                     required
                   ></v-autocomplete>
                 </div>
@@ -82,6 +82,7 @@ Vue.component('os-add', {
   },
   props: {
     data: Object,
+    local: Object,
     dialog: Boolean
   },
   data() {
@@ -108,9 +109,6 @@ Vue.component('os-add', {
     },
     loja()  {
       return store.getters.getLojaId(this.$route.params._loja);
-    },
-    local()  {
-      return store.getters.getLocalId(this.$route.params._local);
     },
     servicos() {
       return store.state.servicos;

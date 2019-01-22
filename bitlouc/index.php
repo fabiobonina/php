@@ -23,10 +23,10 @@
     
     <link href="dist/vuetify/vuetify.min.css" rel="stylesheet">
     <!-- Vuejs -->
-    <script src="dist/vue/vue.min.js"></script>
-    <script src="dist/vue/vuex.min.js"></script>
-    <script src="dist/vue/vue-router.min.js"></script>
-    <script src="dist/vue/vue-resource.min.js"></script>
+    <script src="dist/vue/vue.js"></script>
+    <script src="dist/vue/vuex.js"></script>
+    <script src="dist/vue/vue-router.js"></script>
+    <script src="dist/vue/vue-resource.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.2/lodash.min.js"></script>
     <!-- Vuetify -->

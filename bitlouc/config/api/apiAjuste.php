@@ -24,8 +24,6 @@ $osControl            = new OsControl();
   $locais           = new Local();
   $localCategorias  = new LocalCategorias();
   #EQUIPAMENTOS
-  $bens             = new Bens();
-  $bemLocalizacao   = new BemLocalizacao();
   $categorias       = new Categorias();
   $usuarios         = new Usuarios();
   $ativos           = new Ativos();

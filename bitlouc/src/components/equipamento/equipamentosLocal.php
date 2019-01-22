@@ -11,7 +11,7 @@
       </v-layout>
     </v-container>
     <section>
-      <bens-grid :data="equipamentos" :categorias="local.categorias" :status="active"></bens-grid>
+      <bens-grid :data="equipamentos" :local="local" :status="active"></bens-grid>
       <bem-add v-if="modalAdd" v-on:close="modalAdd = false" ></bem-add>
     </section>
   </div>
@@ -56,7 +56,7 @@
         //return store.state.equipamentos;
       },
       local()  {
-        return store.getters.getLocalId(this.$route.params._local);
+        return store.state.local;
       },
     },
     methods: {

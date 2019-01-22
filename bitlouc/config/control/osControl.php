@@ -10,7 +10,6 @@
 			$osTecnicos     = new OsTecnicos();
 			$lojas     		= new Loja();
 			$locais     	= new Local();
-			$bens   		= new Bens();
 			$servicos   	= new Servicos();
 			$categorias 	= new Categorias();
 			$notas      	= new Nota();
@@ -146,6 +145,7 @@
 			$res = $item;
 			return $res;
 		}
+		
 		public function status( $status, $os_id ) {
 			$oss	= new OS();
 			

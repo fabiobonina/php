@@ -31,7 +31,7 @@ var Local = Vue.extend({
     //this.modalBemAdd = true;
   },
   created: function() {
-    this.$store.dispatch('findLocal', this.data ).then(() => {
+    this.$store.dispatch('findLocal', this.$route.params._local ).then(() => {
       console.log("Buscando dados da local")
     });
     this.$store.dispatch('fetchEquipamentoLocal', this.$route.params._local).then(() => {

@@ -27,7 +27,7 @@
     data: function () {
       return {
         router: [
-          { title: 'Bens', router: '', icon: 'store' },
+          { title: 'Equipamentos', router: '', icon: 'store' },
           { title: 'OSs', router: '/oss', icon: 'trending_up' }
         ],
       };

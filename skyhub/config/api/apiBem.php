@@ -13,7 +13,6 @@ $loja             = new Loja();
 $lojaCategoria    = new LojaCategorias();
 $locais           = new Locais();
 $localCategorias  = new LocalCategorias();
-$bens             = new Bens();
 $bemLocalizacao   = new BemLocalizacao();
 $categorias       = new Categorias();
 $descricao        = new Descricao();

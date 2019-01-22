@@ -2,6 +2,7 @@
   <div>
 
     <top></top>
+    <proprietario-top></proprietario-top>
     <v-content>
       <v-container fluid>
         <router-view></router-view>

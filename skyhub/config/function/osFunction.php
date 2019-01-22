@@ -307,7 +307,6 @@
 		public function osFull( $osId ){
 			$oss		= new Os();
 			$locais     = new Locais();
-			$bens       = new Bens();
 			$servicos   = new Servicos();
 			$categorias = new Categorias();
 			$notas      = new Nota();

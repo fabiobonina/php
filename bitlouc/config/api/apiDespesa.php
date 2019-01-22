@@ -14,7 +14,6 @@ $proprietario = new Proprietario();
 $lojas        = new Loja();
 $locais       = new Local();
 $oss          = new Os();
-$bens         = new Bens();
 $servicos     = new Servicos();
 $categorias   = new Categorias();
 $mods         = new Mod();

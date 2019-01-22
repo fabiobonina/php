@@ -8,7 +8,7 @@ require_once '../control/equipamentoControl.php';
 $equiControl      = new EquipamentoControl();
 
 $res = array('error' => true);
-$action = 'local';
+$action = 'read';
 
 if(isset($_GET['action'])){
   $action = $_GET['action'];
@@ -16,7 +16,7 @@ if(isset($_GET['action'])){
 
 if($action == 'read'):
 
-  $item = $equiControl->listSistema();
+  $item = $equiControl->list();
   $res['equipamentos'] = $item;
   $res['error'] = false;
 
@@ -24,9 +24,9 @@ endif;
 
 if($action == 'loja'):
 
-  //$lojaId = $_POST['loja'];
-  $lojaId = '1';
-  $item = $equiControl->listLoja( $lojaId );
+  $loja_id = $_POST['loja'];
+  //$loja_id = '1';
+  $item = $equiControl->listLoja( $loja_id );
   $res['equipamentos'] = $item;
   $res['error'] = false;
 
@@ -34,9 +34,9 @@ endif;
 
 if($action == 'local'):
 
-  //$localId = $_POST['local'];
-  $localId = '1';
-  $item = $equiControl->listLocal( $localId );
+  $local_id = $_POST['local'];
+  //$local_id = '1';
+  $item = $equiControl->listLocal( $local_id );
   $res['equipamentos'] = $item;
   $res['error'] = false;
 
@@ -44,9 +44,9 @@ endif;
 
 if($action == 'localCont'):
 
-  //$localId = $_POST['local'];
-  $localId = '1';
-  $item = $equiControl->contEquipLoja( $localId );
+  $local_id = $_POST['local'];
+  //$local_id = '1';
+  $item = $equiControl->contEquipLoja( $local_id );
   $res['equipamentos'] = $item;
   $res['error'] = false;
 

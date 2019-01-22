@@ -17,8 +17,6 @@ $lojaCategorias   = new LojaCategorias();
 $locais           = new Locais();
 $localCategorias  = new LocalCategorias();
 #EQUIPAMENTOS
-$bens             = new Bens();
-$bemLocalizacao   = new BemLocalizacao();
 $categorias       = new Categorias();
 $usuarios         = new Usuarios();
 $ativos           = new Ativos();

@@ -50,39 +50,7 @@ const actions = {
   setStatus({ commit }, status) {
     commit("SET_STATUS", status)
   },
-  setProprietario({ commit }, proprietario) {
-    commit("SET_PROPRIETARIO", proprietario)
-  },
-  setUser({ commit }, user) {
-    commit("SET_USER", user)
-  },
-  setUsers({ commit }, users) {
-    commit("SET_USERS", users)
-  },
-  setLojas({ commit }, lojas) {
-    commit("SET_LOJAS", lojas)
-  },
-  setLoja({ commit }, loja) {
-    commit("SET_LOJA", loja)
-  },
-  setLocais({ commit }, locais) {
-    commit("SET_LOCAIS", locais)
-  },
-  setLocal({ commit }, local) {
-    commit("SET_LOCAL", local)
-  },
-  setTipos({ commit }, tipos) {
-    commit("SET_TIPOS", tipos)
-  },
-  setProdutos({ commit }, produtos) {
-    commit("SET_PRODUTOS", produtos)
-  },
-  setFabricantes({ commit }, fabricantes) {
-    commit("SET_FABRICANTES", fabricantes)
-  },
-  setCategorias({ commit }, categorias) {
-    commit("SET_CATEGORIAS", categorias)
-  },
+  
   fetchIndex({ commit }) {
     return new Promise((resolve, reject) => {
       var postData = { token: state.token };

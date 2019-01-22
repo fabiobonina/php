@@ -13,7 +13,6 @@ require_once '../control/tecControl.php';
 //$lojas        = new Loja();
 //$locais       = new Local();
 //$oss          = new Os();
-//$bens         = new Bens();
 //$servicos     = new Servicos();
 //$mods         = new Mod();
 //$osTecnicos   = new OsTecnicos();

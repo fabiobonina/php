@@ -2,7 +2,7 @@
   <div>
     <div>
       <label><input type="radio" v-model="selectedCategoria" value="0">All </label>&nbsp;&nbsp;&nbsp;
-      <label v-for=" categoria in categorias" :key="categoria.id"><input type="radio" v-model="selectedCategoria" v-bind:value="categoria.id">{{ categoria.name }} &nbsp;&nbsp;&nbsp;</label>
+      <label v-for=" categoria in local.categoria" :key="categoria.id"><input type="radio" v-model="selectedCategoria" v-bind:value="categoria.id">{{ categoria.name }} &nbsp;&nbsp;&nbsp;</label>
     </div>
     <v-toolbar flat color="white">
       <v-toolbar-title>Equipamentos</v-toolbar-title>
@@ -12,7 +12,7 @@
       <v-btn @click="modalOs = true" color="deep-orange" dark small fab>
         <v-icon>build</v-icon>
       </v-btn>
-      <bem-add :dialog-edt="editItem" :dialog-del="deleteItem" :data="item" v-on:close="close()"></bem-add>
+      <!--equipamento-add :dialog-edt="editItem" :dialog-del="deleteItem" :data="item" v-on:close="close()"></equipamento-add-->
     </v-toolbar>
     <v-data-table :headers="headers" :items="filteredData" :search="search" class="elevation-1">
       <template slot="items" slot-scope="props">
@@ -27,6 +27,9 @@
         <td class="text-xs-right"> {{ props.item.numeracao }} </td>
         <td class="text-xs-right"> {{ props.item.plaqueta }} </td>
         <td class="justify-center layout px-0">
+          <v-btn @click="modalOs = true; item = props.item" color="deep-orange" dark small fab>
+            <v-icon>build</v-icon>
+          </v-btn>
           <v-icon small class="mr-2" @click="editItem = true; item = props.item"> edit </v-icon>
           <v-icon small  @click="deleteItem = true; item = props.item"> delete </v-icon>
         </td>
@@ -35,7 +38,7 @@
         Sua busca por "{{ search }}" não encontrou resultados.
       </v-alert>
     </v-data-table>
-    <os-add v-if="modalOs" v-on:close="modalOs = false; modalItem = null" :dialog="modalOs" :data="modalItem"></os-add>
+    <os-add v-if="modalOs" v-on:close="modalOs = false" :dialog="modalOs" :data="item" :local="local"></os-add>
   </div>
 </template>
 
@@ -48,7 +51,7 @@
     template: '#bens-grid',
     props: {
       data: Array,
-      categorias: Array,
+      local: Object,
       status: String,
       filterKey: String,
     },
@@ -141,16 +144,16 @@
     },
     methods: {
       initialize() {
-        this.defaultItem.loja       = store.getters.getLojaId(this.$route.params._loja);
-        this.defaultItem.local      = store.getters.getLocalId(this.$route.params._local);
-        this.defaultItem.dono       = store.getters.getLojaId(this.user.loja);
-        this.defaultItem.donoLocal  = store.getters.getLocalLojaSingle(this.user.loja);
-        this.item = this.defaultItem;
+        //this.defaultItem.loja       = store.getters.getLojaId(this.$route.params._loja);
+        //this.defaultItem.local      = store.getters.getLocalId(this.$route.params._local);
+        //this.defaultItem.dono       = store.getters.getLojaId(this.user.loja);
+        //this.defaultItem.donoLocal  = store.getters.getLocalLojaSingle(this.user.loja);
+        //this.item = this.defaultItem;
       },
       close () {
         this.deleteItem = false;
         this.editItem   = false;
-        this.item       = this.defaultItem;
+        //this.item       = this.defaultItem;
       },
     }
   })

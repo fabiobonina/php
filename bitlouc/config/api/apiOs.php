@@ -1,6 +1,10 @@
 <?php
-header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: ["POST, GET, OPTIONS, PUT, DELETE"]');
+header('Access-Control-Allow-Headers: *');
+
 header('Content-Type: text/html; charset=utf-8');
+
 
 require_once '_chave.php';
 require_once '../control/osControl.php';
@@ -144,7 +148,7 @@ if($action =='publishNota'):
 
 endif;
 #CONCLUIR
-if($action == 'osStatus'):
+if($action == 'os-status'):
   
   $os_id        = $_POST['os_id'];
   $status       = $_POST['status'];

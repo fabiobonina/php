@@ -1,4 +1,4 @@
-<template id="bem-add">
+<template id="equipamento-add">
   <div>
     <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="dialog = true" color="pink" fab small dark>
       <v-icon>add</v-icon>
@@ -232,9 +232,9 @@
   
 </template>
 <script>
-Vue.component('bem-add', {
-  name: 'bem-add',
-  template: '#bem-add',
+Vue.component('equipamento-add', {
+  name: 'equipamento-add',
+  template: '#equipamento-add',
   $_veeValidate: {
     validator: 'new'
   },

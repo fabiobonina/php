@@ -4,6 +4,8 @@
   <top></top>
   <v-content v-if="_os">
     <template>
+      <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+      <loader :dialog="isLoading"></loader>
       <v-card flat height="210px" tile color="grey lighten-2">
         <v-toolbar color="cyan" prominent class="white--text" height="80px">
           <v-btn @click="$router.go(-1)" icon >
@@ -195,9 +197,9 @@ var Os = Vue.extend({
     return {
       errorMessage: [],
       successMessage: [],
+      isLoading: false,
       search: '',
       _item: null,
-      isLoading: false,
       deslocAdd: false,
       deslocChg: false,
       modFull:    false,
@@ -241,14 +243,17 @@ var Os = Vue.extend({
     },
   }, // computed
   methods: {
-    osStatus: function( status) {
-        this.isLoading = true
+    osStatus: function( data ) {
+        this.isLoading = true;
+        var item = data;
         var postData = {
           os_id:  this._os.id,
-          status: status
+          status: item
         };
         //console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=osStatus', postData).then(function(response) {
+        var formData = this.toFormData(postData);
+        this.$http.post('config/api/apiOs.php?action=os-status', formData)
+        .then(function(response) {
           console.log(response);
           if(!response.data.error){
             this.successMessage.push(response.data.message);
@@ -262,6 +267,42 @@ var Os = Vue.extend({
         .catch(function(error) {
           console.log(error);
         });
+    },
+    
+    modDel: function(data) {
+      if(confirm('Deseja realmente deletar ' + data.status.tipo + '?')){
+        this.isLoading = true
+        var postData = {
+          id: data.id
+        };
+        //console.log(postData);
+        this.$http.post('./config/api/apiOs.php?action=modDel', postData)
+        .then(function(response) {
+          //console.log(response);
+          if(response.data.error){
+            this.errorMessage = response.data.message;
+            this.isLoading = false;
+          } else{
+            this.successMessage.push(response.data.message);
+            this.isLoading = false;
+            this.onAtualizar();
+            setTimeout(() => {
+              this.$emit('close');
+            }, 2000);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      }
+    },
+    onAtualizar: function(){
+      this.$store.dispatch('findOs', this.$route.params._os).then(() => {
+        console.log("Buscando dados da os")
+      });
+    },
+    selecItem: function(data){
+      this._item = data;
     },
     antendimentoReabrir: function() {
       if(confirm('Deseja Reabrir Atendimento?')){
@@ -290,47 +331,13 @@ var Os = Vue.extend({
     },
     osFechar: function() {
       if(confirm('A OS foi fechada no Sistema?')){
-        this.osStatus('5');
+        this.osStatus('5')
       }
     },
     osValidar: function() {
       if(confirm('Foi recebido o Relatorio devidaente assinado desse Atendimento?')){
-        this.osStatus('6');
+        this.osStatus('6')
       }
-    },
-    modDel: function(data) {
-      if(confirm('Deseja realmente deletar ' + data.status.tipo + '?')){
-        this.isLoading = true
-        var postData = {
-          id: data.id
-        };
-        //console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=modDel', postData).then(function(response) {
-          //console.log(response);
-          if(response.data.error){
-            this.errorMessage = response.data.message;
-            this.isLoading = false;
-          } else{
-            this.successMessage.push(response.data.message);
-            this.isLoading = false;
-            this.onAtualizar();
-            setTimeout(() => {
-              this.$emit('close');
-            }, 2000);
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      }
-    },
-    onAtualizar: function(){
-      this.$store.dispatch('findOs', this.$route.params._os).then(() => {
-        console.log("Buscando dados da os")
-      });
-    },
-    selecItem: function(data){
-      this._item = data;
     },
   },
 });
