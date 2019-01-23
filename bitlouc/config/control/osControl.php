@@ -53,7 +53,6 @@
 			$equipamento_id,
 			$categoria_id,
 			$servico_id,
-			$servico_tipo,
 			$data,
 			$dtCadastro,
 			$ativo,
@@ -78,7 +77,6 @@
 			$oss->setEquipamento($equipamento_id);
 			$oss->setCategoria($categoria_id);
 			$oss->setServico($servico_id);
-			$oss->setServicoTipo($servico_tipo);
 			$oss->setData($data);
 			$oss->setDtUltimoMan($dtUltimo);
 			$oss->setDtCadastro($dtCadastro);

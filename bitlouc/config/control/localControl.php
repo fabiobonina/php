@@ -34,6 +34,20 @@
 			return $res;
 
 		}
+		public function listProprietario(){
+			$locais	= new Local();
+			$itens 	= array();
+			
+			foreach($locais->findProprietario( $_SESSION['loginProprietario'] ) as $key => $value): {
+				$item = $value;
+				$item = $this->matrix( $item );
+				$item = (array)  $item;
+				array_push( $itens, $item );
+			}endforeach;
+			$res = $itens;
+			return $res;
+
+		}
 
 		public function listLoja( $loja_id ){
 			$locais	= new Local();

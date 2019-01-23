@@ -13,7 +13,7 @@
           </v-btn>
           <div>
             <div class="title">{{_os.loja_nick}} | {{_os.local_tipo}} - {{_os.local_name}} ({{_os.local_municipio}}/{{_os.local_uf}})</div>
-            <div>{{_os.data}} | {{_os.servico.name}} - {{ _os.categoria.name }}</div>
+            <div v-if="_os.servico  ">{{_os.data}} | {{_os.servico.name }} - {{ _os.categoria.name }}</div>
             <div v-if="_os.equipamento">{{_os.equipamento.name}} - {{_os.equipamento.modelo}} 
               <v-chip small color="green" text-color="white">
                 <v-avatar class="green darken-4">
@@ -191,6 +191,7 @@
   </div>
 </template>
 <script>
+Vue.http.options.emulateJSON = true;
 var Os = Vue.extend({
   template: '#os',
   data: function () {
@@ -246,13 +247,14 @@ var Os = Vue.extend({
     osStatus: function( data ) {
         this.isLoading = true;
         var item = data;
-        var postData = {
-          os_id:  this._os.id,
-          status: item
-        };
+        //var postData = { os_id:  this._os.id, status: item };
+        var formData = new FormData();
+
+        formData.append('os_id', this._os.id);
+        formData.append('status', item);
         //console.log(postData);
-        var formData = this.toFormData(postData);
-        this.$http.post('config/api/apiOs.php?action=os-status', formData)
+        //var formData = this.toFormData(postData);
+        this.$http.post('./config/api/apiOs.php?action=os-status', formData)
         .then(function(response) {
           console.log(response);
           if(!response.data.error){

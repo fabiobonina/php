@@ -27,12 +27,12 @@
                 <div v-else>
                   <v-autocomplete
                     :items="categorias"
-                    v-model="categoria"
+                    v-model="categoria_id"
                     item-text="name"
                     label="Cagetoria"
-                    :error-messages="errors.collect('categoria')"
+                    :error-messages="errors.collect('categoria_id')"
                     v-validate="'required'"
-                    data-vv-name="categoria"
+                    data-vv-name="categoria_id"
                     item-value="id"
                     required
                   ></v-autocomplete>
@@ -53,13 +53,13 @@
               <v-flex xs12 sm6 md7>
                 <v-autocomplete
                   :items="servicos"
-                  v-model="servico"
+                  v-model="servico_id"
                   item-text="name"
                   label="Serviços"
-                  :error-messages="errors.collect('servico')"
+                  :error-messages="errors.collect('servico_id')"
                   v-validate="'required'"
-                  data-vv-name="servico"
-                  return-object
+                  data-vv-name="servico_id"
+                  item-value="id"
                   required
                 ></v-autocomplete>
               </v-flex>
@@ -92,10 +92,10 @@ Vue.component('os-add', {
       title: 'Nova Ocorrecia',
       isLoading: false,
       item:{},
-      servico: null,
+      equipamento_id: null,
+      categoria_id: null,
+      servico_id: null,
       dataOs: '',
-      equipamento: null,
-      categoria: null
     };
   },
   mounted () {
@@ -148,15 +148,14 @@ Vue.component('os-add', {
           if(this.checkForm()){
             this.isLoading = true
             var postData = {
-              proprietario_id: this.loja.proprietario_id,
+              proprietario_id:  this.loja.proprietario_id,
               loja_id:          this.loja.id,
               loja_nick:        this.loja.nick,
               local_id:         this.local.id,
               uf:               this.local.uf,
-              equipamento_id:   this.equipamento,
-              categoria_id:     this.categoria.id,
-              servico_id:       this.servico.id,
-              servico_tipo:     this.servico.tipo,
+              equipamento_id:   this.equipamento_id,
+              categoria_id:     this.categoria_id,
+              servico_id:       this.servico_id,
               data:             this.dataOs,
               dtCadastro:       new Date().toJSON(),
               ativo:            '0',
@@ -195,7 +194,7 @@ Vue.component('os-add', {
     },
     checkForm:function(e) {
       this.errorMessage = [];
-      if(!this.servico) this.errorMessage.push("Serviço necessário.");
+      if(!this.servico_id) this.errorMessage.push("Serviço necessário.");
       if(!this.dataOs) this.errorMessage.push("Data necessário.");
       if(!this.errorMessage.length) return true;
       e.preventDefault();
@@ -210,8 +209,8 @@ Vue.component('os-add', {
     },
     addCategoria: function () {
       if( this.data ) {
-        this.categoria = this.data.categoria;
-        this.equipamento = this.data.id;
+        this.categoria_id   = this.data.categoria_id;
+        this.equipamento_id = this.data.id;
       }
     }
   },

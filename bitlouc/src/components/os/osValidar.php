@@ -12,11 +12,11 @@ var OsValidar = Vue.extend({
   data: function () {
     return {
       modalLocalAdd: false,
-      status: '6'
+      status: ''
     };
   },
   created: function() {
-    this.$store.dispatch('findOsStatus', this.$status ).then(() => {
+    this.$store.dispatch('findOsStatus', '5' ).then(() => {
         console.log("Buscando dados da os")
     });
     this.$store.dispatch("setStatus", '' );
@@ -31,7 +31,7 @@ var OsValidar = Vue.extend({
   }, // computed
   methods: {
     onAtualizar: function(){
-      this.$store.dispatch('findOsStatus', this.$status ).then(() => {
+      this.$store.dispatch('findOsStatus', '5' ).then(() => {
         console.log("Buscando dados da os")
       });
     },

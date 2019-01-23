@@ -16,7 +16,9 @@
       };
     },
     created: function() {
-      
+      this.$store.dispatch('fetchLocal' ).then(() => {
+        console.log("Buscando locais")
+      });
     },
     computed: {
       locais()  {

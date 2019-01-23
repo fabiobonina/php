@@ -21,7 +21,7 @@ $arDados        = array();
 $arErros        = array();
 $arMessage      = array();
 $arSucesso 		  = array();
-$action         = 'status';
+$action         = 'read';
  
 
 //$res['user'] = $user;
@@ -77,7 +77,6 @@ if($action == 'publish'):
   $equipamento_id   = $_POST['equipamento_id'];
   $categoria_id     = $_POST['categoria_id'];
   $servico_id       = $_POST['servico_id'];
-  $servico_tipo     = $_POST['servico_tipo'];
   $data             = $_POST['data'];
   $dtCadastro       = $_POST['dtCadastro'];
   $ativo            = $_POST['ativo'];
@@ -99,7 +98,6 @@ if($action == 'publish'):
     $equipamento_id,
     $categoria_id,
     $servico_id,
-    $servico_tipo,
     $data,
     $dtCadastro,
     $ativo,

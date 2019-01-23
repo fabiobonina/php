@@ -12,7 +12,7 @@ var OsFechar = Vue.extend({
   data: function () {
     return {
       modalLocalAdd: false,
-      status: '4'
+      status: ''
     };
   },
   created: function() {
@@ -31,7 +31,7 @@ var OsFechar = Vue.extend({
   }, // computed
   methods: {
     onAtualizar: function(){
-      this.$store.dispatch('findOsStatus', this.$status ).then(() => {
+      this.$store.dispatch('findOsStatus', '4' ).then(() => {
         console.log("Buscando dados da os")
       });
     },

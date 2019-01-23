@@ -9,7 +9,7 @@ $localControl     = new LocalControl();
 
 $res = array('error' => true);
 $arErros = array();
-$action = 'loja';
+$action = 'read';
 
 if(isset($_GET['action'])){
   $action = $_GET['action'];
@@ -17,7 +17,7 @@ if(isset($_GET['action'])){
   
 if($action == 'read'):
 
-  $item = $localControl->list();
+  $item = $localControl->listProprietario();
   $res['locais'] = $item;
   $res['error'] = false;
 

@@ -29,13 +29,13 @@
                 <div v-else>
                   <v-autocomplete
                     :items="categorias"
-                    v-model="data.categoria"
+                    v-model="data.categoria_id"
                     item-text="name"
                     label="Cagetoria"
-                    :error-messages="errors.collect('categoria')"
+                    :error-messages="errors.collect('categoria_id')"
                     v-validate="'required'"
-                    data-vv-name="categoria"
-                    return-object
+                    data-vv-name="categoria_id"
+                    item-value="id"
                     required
                   ></v-autocomplete>
                 </div>
@@ -55,13 +55,13 @@
               <v-flex xs12 sm6 md7>
                 <v-autocomplete
                   :items="servicos"
-                  v-model="data.servico"
+                  v-model="data.servico_id"
                   item-text="name"
                   label="Serviços"
-                  :error-messages="errors.collect('servico')"
+                  :error-messages="errors.collect('servico_id')"
                   v-validate="'required'"
-                  data-vv-name="servico"
-                  return-object
+                  data-vv-name="servico_id"
+                  item-value="id"
                   required
                 ></v-autocomplete>
               </v-flex>
@@ -159,9 +159,8 @@ Vue.component('os-edt', {
           local_id:       this.data.local_id,
           uf:             this.data.uf,
           equipamento_id: this.data.equipamento_id,
-          categoria_id:   this.data.categoria.id,
-          servico_id:     this.data.servico.id,
-          servico_tipo:   this.data.servico.tipo,
+          categoria_id:   this.data.categoria_id,
+          servico_id:     this.data.servico_id,
           data:           this.date,
           dtCadastro:     this.data.dtCadastro,
           ativo:          this.data.ativo,
@@ -174,7 +173,7 @@ Vue.component('os-edt', {
             //console.log(response);
             if(!response.data.error){
               this.successMessage.push(response.data.message);
-              this.$store.dispatch("findOs", this.data).then(() => {
+              this.$store.dispatch("findOs", this.data.id).then(() => {
                 console.log("Atualizando dados OS!")
               });
               this.isLoading = false;

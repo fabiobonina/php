@@ -173,6 +173,26 @@ const actions = {
       }));
     });
   },
+  fetchLocal({ commit }, loja_id) {
+    return new Promise((resolve, reject) => {
+      //console.log(postData);
+      Vue.http.get(LOCAISLIST)
+        .then((response) => {
+          //console.log(response.data);
+          if(response.data.error){
+            console.log(response.data.message);
+          } else{
+            //console.log(response.data);
+            commit("SET_LOCAIS", response.data.locais);
+            //commit("SET_BENS", response.data.bens);
+            resolve();
+          }
+        })
+        .catch((error => {
+            console.log(error);
+        }));
+    });
+  },
   fetchLocalLoja({ commit }, loja_id) {
     return new Promise((resolve, reject) => {
       var postData = {
