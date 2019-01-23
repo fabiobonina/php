@@ -45,7 +45,7 @@
             </v-avatar>
             OS: {{_os.filial}} - {{_os.os}}
           </v-chip>
-          <local-rota :lat="_os.local_lat" :long="_os.local_long"></local-rota>
+          <os-crud :data="_os" v-on:atualizar="onAtualizar()"></os-crud>
         </v-toolbar>
         <div>
         <progresso-os :data="_os.status"></progresso-os>
@@ -247,16 +247,14 @@ var Os = Vue.extend({
     osStatus: function( data ) {
         this.isLoading = true;
         var item = data;
-        //var postData = { os_id:  this._os.id, status: item };
-        var formData = new FormData();
-
-        formData.append('os_id', this._os.id);
-        formData.append('status', item);
+        var postData = { 
+          os_id:  this._os.id,
+          status: item
+        };
         //console.log(postData);
-        //var formData = this.toFormData(postData);
-        this.$http.post('./config/api/apiOs.php?action=os-status', formData)
+        this.$http.post('./config/api/apiOsi.php?action=osStatus', postData)
         .then(function(response) {
-          console.log(response);
+          //console.log(response);
           if(!response.data.error){
             this.successMessage.push(response.data.message);
             this.isLoading = false;
@@ -313,32 +311,32 @@ var Os = Vue.extend({
     },
     antendimentoInicio: function() {
       if(confirm('Deseja iniciar Atendimento?')){
-        this.osStatus( '1')
+        this.osStatus( '1');
       }
     },
     antendimentoFinal: function() {
       if(confirm('Deseja encerrar Atendimento?')){
-        this.osStatus( '2')
+        this.osStatus( '2');
       }
     },
     osReabrir: function() {
       if(confirm('Deseja realmente Reabrir a OS?')){
-        this.osStatus( '3')
+        this.osStatus( '3');
       }
     },
     osConcluir: function() {
       if(confirm('Deseja Concluir a OS?')){
-        this.osStatus( '4')
+        this.osStatus( '4');
       }
     },
     osFechar: function() {
       if(confirm('A OS foi fechada no Sistema?')){
-        this.osStatus('5')
+        this.osStatus('5');
       }
     },
     osValidar: function() {
       if(confirm('Foi recebido o Relatorio devidaente assinado desse Atendimento?')){
-        this.osStatus('6')
+        this.osStatus('6');
       }
     },
   },
@@ -358,6 +356,6 @@ var Os = Vue.extend({
 <?php require_once 'src/components/servicos/despesa/_km.php';?>
 <?php require_once 'src/components/servicos/despesa/despesa.php';?>
 
-<?php require_once 'src/components/local/_rotaLocal.php';?>
+<?php require_once 'src/components/os/_crudOs.php';?>
 
 <?php require_once 'src/components/os/_progresso.php';?>

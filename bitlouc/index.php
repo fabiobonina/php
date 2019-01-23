@@ -28,6 +28,9 @@
     <script src="dist/vue/vue-router.js"></script>
     <script src="dist/vue/vue-resource.js"></script>
 
+    <!-- Axios -->
+    <script src="dist/axios/axios.js"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.2/lodash.min.js"></script>
     <!-- Vuetify -->
     <script src="dist/vuetify/vuetify.min.js"></script>

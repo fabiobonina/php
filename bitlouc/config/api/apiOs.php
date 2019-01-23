@@ -1,6 +1,6 @@
 <?php
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: ["POST, GET, OPTIONS, PUT, DELETE"]');
+header('Access-Control-Allow-Methods: *');
 header('Access-Control-Allow-Headers: *');
 
 header('Content-Type: text/html; charset=utf-8');
@@ -12,16 +12,10 @@ require_once '../control/notaControl.php';
 
 $osControl    = new OsControl();
 $notaControl  = new NotaControl();
-$mods 			= new Mod();
+$mods 			  = new Mod();
 
-
-//$res['outros'] = array();
-$res['message'] = array();
-$arDados        = array();
-$arErros        = array();
-$arMessage      = array();
-$arSucesso 		  = array();
-$action         = 'read';
+$res = array('error' => true);
+$action = 'read';
  
 
 //$res['user'] = $user;
@@ -60,6 +54,7 @@ if($action == 'semAmaracao'):
 
   
 endif;
+
 if($action == 'status'):
   $status = $_POST['status'];
   //$status = '6';
@@ -68,7 +63,7 @@ if($action == 'status'):
   $res['error'] = false;
 
 endif;
-if($action == 'publish'):
+if($action == 'publish'){
   $proprietario_id  = $_POST['proprietario_id'];
   $loja_id          = $_POST['loja_id'];
   $loja_nick        = $_POST['loja_nick'];
@@ -103,11 +98,7 @@ if($action == 'publish'):
     $ativo,
     $id
   );
-
-
-
-
-endif;
+}
 
 #OS-AMARAR
 if($action == 'osAmarar'):
@@ -146,12 +137,22 @@ if($action =='publishNota'):
 
 endif;
 #CONCLUIR
-if($action == 'os-status'):
+if($action == 'osStatus'):
   
   $os_id        = $_POST['os_id'];
   $status       = $_POST['status'];
 
   $res =  $osControl->status( $status, $os_id );
+  
+endif;
+if($action == 'osstatus'):
+  $_POST = json_decode(file_get_contents('php://input'), true);
+  $os_id        = $_POST['os_id'];
+  $status       = $_POST['status'];
+  //$string = $_POST['os_id'];
+  //$var = json_decode($string);
+  //echo $var;
+  $res =   $osControl->status( $status, $os_id );
   
 endif;
 
@@ -350,6 +351,6 @@ if($action == 'email'):
       
 endif;
 
-//$res['dados'] = $arDados;
+
 header("Content-Type: application/json");
 echo json_encode($res, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

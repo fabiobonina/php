@@ -6,7 +6,7 @@
 
 		public function matrix( $item ){
 			
-			$oss     		= new OS();
+			$oss     		= new Os();
 			$osTecnicos     = new OsTecnicos();
 			$lojas     		= new Loja();
 			$locais     	= new Local();
@@ -59,7 +59,7 @@
 			$id)
 		{
 			$item['error'] = false;
-			$oss	= new OS();
+			$oss	= new Os();
 
 			$etapaI = $oss->validarOs( $local_id, $categoria_id, $equipamento_id, $data, $id );
 
@@ -124,7 +124,7 @@
 		}
 		public function amarar( $filial, $os, $id ) {
 			$item['error'] = false;
-			$oss	= new OS();
+			$oss	= new Os();
 			
 			$dtOs   = date("Y-m-d H:i:s");
 			
@@ -145,46 +145,46 @@
 		}
 		
 		public function status( $status, $os_id ) {
-			$oss	= new OS();
+			$oss	= new Os();
 			
 			$data   = date("Y-m-d H:i:s");
 			$oss->setStatus($status);
 			#reabrir
-			if($status == '0'):
-				$item = $oss->statusI($os_id);
+			if($status == 0){
+				$item = $oss->status($os_id);
 				$email_status = ' teve atendimento reaberto';
-			endif;
+			}
 			#atendimento inicio
-			if($status == '1'):
-				$item = $oss->statusI($os_id);
+			if($status == 1){
+				$item = $oss->status($os_id);
 				$email_status = 'teve inicio no atendimento';
-			endif;
+			}
 			#atendimento final
-			if($status == '2'):
-				$item = $oss->statusI($os_id);
+			if($status == 2){
+				$item = $oss->status($os_id);
 				$email_status = ', teve atendimento encerrado';
-			endif;
-			if($status == '3'):
-				$item = $oss->statusI($os_id);
+			}
+			if($status == 3){
+				$item = $oss->status($os_id);
 				$email_status = 'a OS reaberta por divergência nas informações';
-			endif;
+			}
 			#concluda
-			if($status == '4'):
+			if($status == 4){
 				$oss->setDtConcluido($data);
 				$item = $oss->concluir($os_id);
 				$email_status = ', a OS foi concluida';				
-			endif;
+			}
 			#finalizada
-			if($status == '5'):
+			if($status == 5){
 				$oss->setDtFech($data);
-
 				$item = $oss->fechar($os_id);
 				$email_status = ', a OS finalizada no sistema';				
-			endif;
-			if($status == '6'):
-				$item = $oss->statusI($os_id);
+			}
+			#validar
+			if($status == 6){
+				$item = $oss->status($os_id);
 				$email_status = 'Atendimento validado';
-			endif;
+			}
 			if(!$item['error']){
 				$this->osEmail( $os_id, $email_status );
 			}
@@ -563,7 +563,7 @@
 			
 			$tecnicos   = new Tecnicos();
 			$emailPhp   = new Email();
-			$oss     	= new OS();
+			$oss     	= new Os();
 
 			$item 		= $oss->find( $os_id );
 			$os			= $this->matrix( $item );

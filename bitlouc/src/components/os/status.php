@@ -10,7 +10,7 @@
           </v-btn>
           <v-btn v-if="user.nivel > 2 && user.grupo == 'P'" flat v-on:click="status = '3'" value="3">
             <v-icon>done</v-icon>
-            <span>Fechardas</span>
+            <span>Ajustar</span>
           </v-btn>
         </v-btn-toggle>
       </v-layout>
@@ -33,7 +33,7 @@ var OsStus = Vue.extend({
       itens: [
         { id:1, name: 'Pedente', ativo: '0', icon: 'mdi-exclamation' },
         { id:2, name: 'Andamento', ativo: '1', icon: 'mdi-loading mdi-spin' },
-        { id:3, name: 'Emcerada', ativo: '2', icon: 'mdi-check' },
+        { id:3, name: 'Encerradas', ativo: '2', icon: 'mdi-check' },
       ],
     };
   },

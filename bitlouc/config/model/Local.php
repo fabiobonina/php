@@ -93,6 +93,7 @@ class Local extends Crud{
 
 			$res['error'] = false;
 			$res['message'] = "OK, processo da OS alterado com sucesso";
+			return $res;
 		} catch(PDOException $e) {
 			$res['error'] = true; 
 			$res['message'] = $e->getMessage();

@@ -15,7 +15,6 @@ class Os extends Crud{
 	private $equipamento_id;
 	private $categoria_id;
 	private $servico_id;
-	private $servico_tipo;
 	private $tecnicos;
 	private $data;
 	private $dtCadastro;
@@ -54,9 +53,6 @@ class Os extends Crud{
 	}
 	public function setServico($servico_id){
 		$this->servico_id = $servico_id;
-	}
-	public function setServicoTipo($servico_tipo){
-		$this->servico_tipo = $servico_tipo;
 	}
 	public function setData($data){
 		$this->data = $data;
@@ -160,7 +156,7 @@ class Os extends Crud{
 			$sql  = "UPDATE $this->table SET processo = :processo WHERE id = :id";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':processo',$processo);
-			$stmt->bindParam(':id'		,$id);
+			$stmt->bindParam(':id',$id);
 			$stmt->execute();
 
 			$res['error'] = false;
@@ -192,12 +188,12 @@ class Os extends Crud{
 			return $res;
 		}
 	}
-	public function statusI($id){
+	public function status($id){
 		try{
 			$sql  = "UPDATE $this->table SET status = :status WHERE id = :id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':status',	$this->status);
-			$stmt->bindParam(':id',		$id);
+			$stmt->bindParam(':status',$this->status);
+			$stmt->bindParam(':id',$id);
 			$stmt->execute();
 
 			$res['error'] = false;
@@ -213,9 +209,9 @@ class Os extends Crud{
 		try{
 			$sql  = "UPDATE $this->table SET dtConcluido = :dtConcluido, status = :status WHERE id = :id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':dtConcluido',	$this->dtConcluido);
-			$stmt->bindParam(':status',	$this->status);
-			$stmt->bindParam(':id', 	$id);
+			$stmt->bindParam(':dtConcluido', $this->dtConcluido);
+			$stmt->bindParam(':status', $this->status);
+			$stmt->bindParam(':id', $id);
 			$stmt->execute();
 
 			$res['error'] = false;
@@ -233,7 +229,7 @@ class Os extends Crud{
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':dtFech',	$this->dtFech);
 			$stmt->bindParam(':status',	$this->status);
-			$stmt->bindParam(':id', 	$id);
+			$stmt->bindParam(':id', $id);
 			$stmt->execute();
 
 			$res['error'] = false;
