@@ -3,7 +3,7 @@
   <div>
     <section class="container">
       <div>
-        <os-grid :data="oss" :status="status"></os-grid>
+        <atend-grid :data="oss" :status="status"></atend-grid>
       </div>
     </section>
   </div>
@@ -37,8 +37,8 @@ var TecOs = Vue.extend({
     },
     oss()  {
       var obj   = store.state.oss;
-      var user  = store.state.user;
-      //var usert = "7";
+      //var user  = store.state.user;
+      var usert = "7";
       var value = [];
       for (var entry of obj) {
         for (var tec of entry.tecnicos) {

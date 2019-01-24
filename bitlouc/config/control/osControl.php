@@ -88,7 +88,7 @@
 				$item = $oss->insert();
 			
 				if(!$item['error']){
-					$email_status = 'foi abertar no sistema';
+					$email_status = 'nova no sistema';
 					$this->osEmail( $item['id'], $email_status );
 				}
 			}
@@ -152,17 +152,17 @@
 			#reabrir
 			if($status == 0){
 				$item = $oss->status($os_id);
-				$email_status = ' teve atendimento reaberto';
+				$email_status = ' atendimento reaberto';
 			}
 			#atendimento inicio
 			if($status == 1){
 				$item = $oss->status($os_id);
-				$email_status = 'teve inicio no atendimento';
+				$email_status = ' atendimento iniciado';
 			}
 			#atendimento final
 			if($status == 2){
 				$item = $oss->status($os_id);
-				$email_status = ', teve atendimento encerrado';
+				$email_status = ', atendimento encerrado';
 			}
 			if($status == 3){
 				$item = $oss->status($os_id);
@@ -183,7 +183,7 @@
 			#validar
 			if($status == 6){
 				$item = $oss->status($os_id);
-				$email_status = 'Atendimento validado';
+				$email_status = ' OS validada';
 			}
 			if(!$item['error']){
 				$this->osEmail( $os_id, $email_status );
@@ -563,6 +563,7 @@
 			
 			$tecnicos   = new Tecnicos();
 			$emailPhp   = new Email();
+			$users		= new User();
 			$oss     	= new Os();
 
 			$item 		= $oss->find( $os_id );
@@ -576,7 +577,10 @@
 			$txtTec 		= array();
 			$txtEmails	 	= array();
 			$txtNotas	 	= array();
-			
+			$solicitante	= $users->findSimples( $os->user_id );
+			$user['email'] 		= $solicitante->email;
+			$user['user_nick'] 	= $solicitante->user_nick;
+			array_push($txtEmails, $user );
 			if($os->equipamento){
 				$txtEquipamento = $os->equipamento->name .' '.$os->equipamento->modelo. ' &nbsp; #'.$os->equipamento->fabricante_nick. '  (Code: '.$os->equipamento->numeracao.' | Ativo: '. $os->equipamento->plaqueta .' )' ;
 			}else{

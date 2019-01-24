@@ -115,6 +115,19 @@ class User extends Crud{
 		}
 		
 	}
+	public function findSimples($id){
+		try{
+		$sql  = "SELECT user, email FROM $this->table WHERE id = :id";
+		$stmt = DB::prepare($sql);
+		$stmt->bindParam(':id', $id);
+		$stmt->execute();
+		return $stmt->fetch();
+		} catch(PDOException $e) {
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
+		}
+	}
 
 	public function isLoggedIn( $chave ){
 		// SELECIONAR BANCO DE DADOS
