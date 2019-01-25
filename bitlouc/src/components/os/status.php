@@ -8,7 +8,7 @@
             <v-icon>{{ n.icon }}</v-icon>
             <span>{{ n.name }}</span>
           </v-btn>
-          <v-btn v-if="user.nivel > 2 && user.grupo == 'P'" flat v-on:click="status = '3'" value="3">
+          <v-btn v-if="user.nivel > 1 && user.grupo == 'P'" flat v-on:click="status = '3'" value="3">
             <v-icon>done</v-icon>
             <span>Ajustar</span>
           </v-btn>

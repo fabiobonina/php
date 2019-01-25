@@ -5,6 +5,7 @@
 //Todos os postdados são enviados como json
 //True para enviar como dados do formulário
 Vue.http.options.emulateJSON = true;
+const USERLOGOUT     ='./config/api/apiUser.php?action=logout';
 const INDEXLIST     ='./config/api/apiProprietario.php?action=read';
 const CONFIG        ='./config/api/apiConfig.php?action=config';
 const CONFIGPROD    ='./config/api/apiConfig.php?action=prod';
@@ -40,9 +41,24 @@ const actions = {
     });
   },
   logout({ commit }) {
-    localStorage.removeItem("token");
-    localStorage.removeItem("isLoggedIn");
-    commit(LOGOUT);
+      return new Promise((resolve, reject) => {
+        Vue.http.post('./config/api/apiUser.php?action=logout')
+        .then(function(response) {
+          console.log( response); 
+          localStorage.removeItem("token");
+          localStorage.removeItem("isLoggedIn");
+          commit("SET_USER", {} );
+          commit("SET_PROPRIETARIO", {});
+          commit("SET_LOJAS", []);
+          commit("SET_OSS", []);
+          commit("SET_OSUF", []);
+          commit(LOGOUT);
+        })
+        .catch((error => {
+            console.log(error.statusText);
+        }));
+      });
+    
   },
   setSearch({ commit }, search) {
     commit("SET_SEARCH", search)

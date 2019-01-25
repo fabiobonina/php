@@ -25,7 +25,7 @@
         <v-card-actions>
           <v-btn color="primary" flat @click="$emit('close')">Close</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="primary" @click="logout()">Logout</v-btn>
+          <logout></logout>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -57,13 +57,8 @@
       user()  {
         return store.state.user;
       },
-      ...Vuex.mapActions(["logout"])
     }, // computed
     methods: {
-      logout(){
-        this.logout;
-        this.$emit('close');
-      }
     },
   });
 </script>

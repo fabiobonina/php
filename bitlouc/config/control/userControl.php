@@ -59,39 +59,11 @@
 				return $item;
 			}
 
-		}	
+		}
 
-		public function insertLoja(
-			$loja,
-			$tipo,
-			$regional,
-			$name,
-			$municipio,
-			$uf,
-			$lat,
-			$long,
-			$categorias,
-			$ativo ){
-
-			$lojas	= new Loja();
-
-			$lojas->setLoja($loja);
-			$lojas->setTipo($tipo);
-			$lojas->setRegional($regional);
-			$lojas->setName($name);
-			$lojas->setMunicipio($municipio);
-			$lojas->setUf($uf);
-			$lojas->setAtivo($ativo);
-			# Insert
-			$item = $lojas->insert();
-			if( !$item['error'] ){
-				$item = $this->insertGeolocalizacao( $item['id'], $lat, $long );
-				if( isset( $categorias )):
-					$item = $this->insertCategoria( $item['id'], $categorias );
-				endif;				
-			}
-			$res = $this->statusReturn($item);
-			return $res;
+		public function logout(){
+			session_start();
+			session_destroy();
 		}
 
 		public function updateLoja(

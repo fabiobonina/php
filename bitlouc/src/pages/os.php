@@ -69,7 +69,7 @@
           <v-btn v-if="_os.status == 1 " v-on:click="antendimentoFinal()" dark small color="green">
             <v-icon dark>mdi-check</v-icon> Encerrar Atendimento
           </v-btn>
-          <v-btn v-if="_os.notas && _os.status > 1 && _os.status < 4 && _os.os == ''" v-on:click="osConcluir()" dark small color="primary">
+          <v-btn v-if="_os.notas && _os.status > 1 && _os.status < 3 && _os.os" v-on:click="osConcluir()" dark small color="primary">
             <v-icon dark>mdi-check</v-icon> Concluir OS
           </v-btn>
           <v-btn v-if="user.nivel > 2 && _os.status == 4" v-on:click="osReabrir()" dark small color="amber">

@@ -36,6 +36,9 @@ if( !$user['error'] ):
   //$acessoProprietario = 1;
   //$acessoGrupo = 'P';
   //$acessoloja = 1;
+  if($action == 'logout'):
+
+  endif;
 
   if($action == 'read'):
 

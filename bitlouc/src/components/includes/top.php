@@ -2,7 +2,7 @@
   <div>
     <v-navigation-drawer :mini-variant="miniVariant" fixed   v-model="drawer"  app>
       <v-toolbar flat class="transparent">
-        <v-list class="pa-0">
+        <v-list v-if="user" class="pa-0">
           <v-list-tile avatar>
             <v-list-tile-avatar>
               <img :src="user.avatar" >
@@ -46,6 +46,7 @@
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn href="#/" flat>Home </v-btn>
         <v-btn v-if="user.nivel > 2" href="#/projetos"  flat>Projetos</v-btn>
+        <logout></logout>
       </v-toolbar-items>
     </v-toolbar>
           
@@ -85,8 +86,7 @@
       },
       isLoggedIn() {
         return store.state.isLoggedIn;
-      },    
-      //...Vuex.mapGetters(["isLoggedIn"])
+      },
     },
     watch: {
       // sempre que a pergunta mudar, essa função será executada
@@ -95,7 +95,13 @@
       atualizar: function (){
         this.modalUser = false;
         //this.dialog = false;
-      }
+      },
+      logout(){
+        this.logout;
+        //this.$emit('close');
+      },
+      
+      ...Vuex.mapActions({logout: "logout"}),
     }
   });
 
@@ -106,3 +112,4 @@
 
 <?php require_once 'src/components/user/user.php';?>
 <?php require_once 'src/components/includes/isLogin.php';?>
+<?php require_once 'src/components/includes/logout.php';?>

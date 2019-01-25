@@ -20,7 +20,8 @@ const mutations = {
   },
   [LOGOUT](state) {
     state.isLoggedIn = false;
-    state.token = '';
+    state.token = NULL;
+    state.user = "";
   },
   SET_SEARCH(state, search) {
     state.search = search

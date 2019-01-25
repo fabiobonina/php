@@ -44,7 +44,7 @@ Vue.component('os-statustec', {
       }
       var oss   = store.state.oss;
       oss = oss.filter(function (row) {
-        return Number(row.status) <= 1;
+        return Number(row.status) <= 3;
       });
       this.ossAbertas = oss.length;
       var tecnicos  = store.state.tecnicos;

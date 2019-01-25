@@ -19,10 +19,14 @@ $userControl    = new UserControl();
 $res = array('error' => true);
 $arDados = array();
 $arErros = array();
-$action = 'logar';
+$action = 'logout';
 
 if(isset($_GET['action'])){
   $action = $_GET['action'];
+}
+
+if($action == 'logout'){
+  $userControl->logout();
 }
 
 if($action == 'logar'):

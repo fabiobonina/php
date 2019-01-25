@@ -23,7 +23,7 @@ const state = {
   local: {},
   equipamentos: [],
   users:[],
-  user:[],
+  user:{},
   tipos:[],
   produtos:[],
   fabricantes:[],

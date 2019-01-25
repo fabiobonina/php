@@ -21,9 +21,7 @@ var TecOs = Vue.extend({
     };
   },
   created: function() {
-    //this.$store.dispatch('fetchLocais', this.$route.params._loja).then(() => {
-      //console.log("Buscando dados das locais!")
-    //});
+    this.$store.dispatch("setStatus", '' );
   },
   mounted: function() {
     //this.modalLocalAdd = true;
@@ -37,14 +35,16 @@ var TecOs = Vue.extend({
     },
     oss()  {
       var obj   = store.state.oss;
-      //var user  = store.state.user;
-      var usert = "7";
+      var user  = store.state.user;
+      
+      var usert = "4";
       var value = [];
       for (var entry of obj) {
+        //console.log(entry);
         for (var tec of entry.tecnicos) {
           //value.push( entry);
-          if(user.id == tec.user) {
-            //console.log(data);
+          if(user.id == tec.user_id) {
+            //console.log(entry);
             value.push( entry);
           }
         }
