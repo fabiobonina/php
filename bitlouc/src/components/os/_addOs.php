@@ -188,9 +188,6 @@ Vue.component('os-add', {
       });
     },
     atualizacao: function(){
-      this.$store.dispatch("findOs").then(() => {
-        console.log("Atualizando dados OS!")
-      });
     },
     checkForm:function(e) {
       this.errorMessage = [];

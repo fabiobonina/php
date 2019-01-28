@@ -44,8 +44,8 @@ if($action == 'loja'):
 
 endif;
 if($action == 'os'):
-  //$os_id = $_POST['os_id'];
-  $os_id = '130';
+  $os_id = $_POST['os_id'];
+ //$os_id = '130';
   $res = $osControl->findOs( $os_id );
 
 endif;
@@ -60,13 +60,14 @@ if($action == 'semAmaracao'):
 endif;
 
 if($action == 'status'):
-  //$status = $_POST['status'];
-  $status = '6';
+  $status = $_POST['status'];
+  //$status = '6';
   $item = $osControl->findStatus( $status );
   $res['oss']   = $item;
   $res['error'] = false;
 
 endif;
+
 if($action == 'publish'){
   $proprietario_id  = $_POST['proprietario_id'];
   $loja_id          = $_POST['loja_id'];
@@ -144,19 +145,18 @@ endif;
 if($action == 'osStatus'):
   
   $os_id        = $_POST['os_id'];
-  echo $status       = $_POST['status'];
+  $status       = $_POST['status'];
   
   $res =  $osControl->status( $status, $os_id );
   
 endif;
-if($action == 'osstatus'):
-  //$_POST = json_decode(file_get_contents('php://input'), true);
+#atendimento encerado
+if($action == 'statusII'):
+
   $os_id        = $_POST['os_id'];
   $status       = $_POST['status'];
-  //$string = $_POST['os_id'];
-  //$var = json_decode($string);
-  //echo $var;
-  $res =   $osControl->status( $status, $os_id );
+  
+  $res =  $osControl->statusII( $status, $os_id );
   
 endif;
 
@@ -218,9 +218,8 @@ if($action == 'modAdd'):
   
   #Valida se periodo da data, foi usado pelo tecnico 
   $validacaoI = $osControl->validarTrajetoMod( $tecnico_id, $dtInicio, $dtFinal, $mod_id );
-  $res['error'] = $validacaoI['error'];
-  $res['outros'] = $validacaoI;
-  if( !$res['error'] ){
+
+  if( !$validacaoI['error']){
     #tecnicoI----------------------------------------------------------------------------------------------------------------------------
     $mods->setOs($os_id);
     $mods->setTecnico($tecnico_id);
@@ -237,6 +236,8 @@ if($action == 'modAdd'):
     $item = $mods->insert();
     
     $res    = $item;
+  }else{
+    $res    = $validacaoI;
   }
     
 endif;
@@ -259,9 +260,8 @@ if($action == 'modEdt'):
   
   #Valida se periodo da data, foi usado pelo tecnico 
   $validacaoI = $osControl->validarTrajetoMod( $tecnico_id, $dtInicio, $dtFinal, $mod_id );
-  $res['error'] = $validacaoI['error'];
-  $res['outros'] = $validacaoI;
-  if( !$res['error'] ){
+
+  if( !$validacaoI['error'] ){
     #tecnicoI----------------------------------------------------------------------------------------------------------------------------
     $mods->setTrajeto($trajeto['id']);
     $mods->setStatus($status['id']);
@@ -276,6 +276,8 @@ if($action == 'modEdt'):
     $item = $mods->update( $mod_id );
 
     $res = $item;
+  }else{
+    $res    = $validacaoI;
   }
 
 endif;
@@ -314,7 +316,7 @@ if($action == 'modFull'):
   #Valida se periodo da data, foi usado pelo tecnico 
   $validacaoI = $osControl->validarTrajetoMod( $tecnico_id, $dtInicio, $dtFinal, $mod_id );
   $res['error'] = $validacaoI['error'];
-  $res['outros'] = $validacaoI;
+  $res['message'] = $validacaoI;
   if( !$res['error'] ){
     #tecnicoI----------------------------------------------------------------------------------------------------------------------------
     $mods->setOs($os_id);

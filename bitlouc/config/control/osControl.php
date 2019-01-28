@@ -146,47 +146,90 @@
 		
 		public function status( $status, $os_id ) {
 			$oss	= new Os();
-			
-			$data   = date("Y-m-d H:i:s");
+			//$item['error'] = false;
+
+			$data = date("Y-m-d H:i:s");
 			$oss->setStatus($status);
+			$oss->setDtConcluido($data);
+			$oss->setDtFech($data);
+
 			#reabrir
-			if($status == 0){
+			$reabrir = '0';
+			if($status == $reabrir){
 				$item = $oss->statusI($os_id);
 				$email_status = ' atendimento reaberto';
 			}
 			#atendimento inicio
-			if($status == 1){
+			$at_inicio = '1';
+			if($status == $at_inicio){
+
 				$item = $oss->statusI($os_id);
 				$email_status = ' atendimento iniciado';
+				//$item['message1'] = $email_status;
+
 			}
-			#atendimento final
-			if($status == 2){
+			#atendimento 
+			$at_final = '2'; 
+			if($status == $at_final ){
+
 				$item = $oss->statusI($os_id);
 				$email_status = ' atendimento encerrado';
+
 			}
-			if($status == 3){
+			#ajuste OS 
+			$os_ajuste = '3';
+			if($status == $os_ajuste ){
+
 				$item = $oss->statusI($os_id);
 				$email_status = ' a OS reaberta por divergência nas informações';
+
 			}
-			#concluda
-			if($status == 4){
-				$oss->setDtConcluido($data);
+			#concluir OS 
+			$os_concluir = '4';
+			if( $status == $os_concluir ){
+
 				$item = $oss->concluir($os_id);
-				$email_status = ' a OS foi concluida';				
+				$email_status = ' a OS foi concluida';
+
 			}
 			#finalizada
-			if($status == 5){
-				$oss->setDtFech($data);
+			$os_final = '5';
+			if( $status == $os_final ){
+
 				$item = $oss->fechar($os_id);
-				$email_status = ', a OS finalizada no sistema';				
+				$email_status = ', a OS finalizada no sistema';
+
 			}
 			#validar
-			if($status == 6){
+			$os_validar = '6';
+			if( $status == $os_validar ){
+
 				$item = $oss->statusI($os_id);
 				$email_status = ' OS validada';
 			}
-			if(!$item['error'] && $status < 6){
+			if(!$item['error'] && $status != $os_validar ){
 				$this->osEmail( $os_id, $email_status );
+			}
+
+			$res = $item;
+			return $res;
+		}
+
+		public function statusII( $status, $os_id ) {
+			$oss	= new Os();
+			//$item['error'] = false;
+
+			$data = date("Y-m-d H:i:s");
+			$oss->setStatus($status);
+			$oss->setDtConcluido($data);
+			$oss->setDtFech($data);
+
+			$item = $oss->statusII($os_id);
+			$email_status = ' atendimento encerrado';
+
+			
+			if(!$item['error']){
+				//$this->osEmail( $os_id, $email_status );
 			}
 
 			$res = $item;
@@ -766,7 +809,7 @@
 														</tr-->
 														<tr valign="top">
 															<td colspan="4">
-																Autor: '.$_SESSION['loginUser'].'
+																Alterado por: '.$_SESSION['loginUser'].'
 															</td>
 														</tr>
 													</tbody>

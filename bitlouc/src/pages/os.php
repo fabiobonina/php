@@ -54,7 +54,7 @@
     </template>
     <v-container fluid>
         <div v-if="user.nivel > 1 && user.grupo == 'P'">
-          <v-btn v-if="_os.status < 4 " v-on:click="deslocAdd = true" dark small color="primary">
+          <v-btn v-if="_os.status < 4 && _os.tecnicos.length > 0" v-on:click="deslocAdd = true" dark small color="primary">
             <v-icon dark>mdi-walk</v-icon> Desloc.
           </v-btn>
           <v-btn v-if="_os.status < 4" v-on:click="notaAdd = true" dark small color="primary">
@@ -69,7 +69,7 @@
           <v-btn v-if="_os.status == 1 " v-on:click="antendimentoFinal()" dark small color="green">
             <v-icon dark>mdi-check</v-icon> Encerrar Atendimento
           </v-btn>
-          <v-btn v-if="_os.notas && _os.status > 1 && _os.status < 3 && _os.os" v-on:click="osConcluir()" dark small color="primary">
+          <v-btn v-if="_os.notas.length > 0 && _os.status > 1 && _os.status < 4 && _os.os" v-on:click="osConcluir()" dark small color="primary">
             <v-icon dark>mdi-check</v-icon> Concluir OS
           </v-btn>
           <v-btn v-if="user.nivel > 2 && _os.status == 4" v-on:click="osReabrir()" dark small color="amber">
@@ -227,6 +227,9 @@ var Os = Vue.extend({
     this.$store.dispatch('findOs', this.$route.params._os).then(() => {
       console.log("Buscando dados da os")
     });
+    this.$store.dispatch("fetchConfig").then(() => {
+      console.log("Buscando dados das Configurações!")
+    });
     
   },
   mounted: function() {
@@ -251,7 +254,7 @@ var Os = Vue.extend({
           os_id:  this._os.id,
           status: item
         };
-        //console.log(postData);
+        console.log(postData);
         this.$http.post('./config/api/apiOs.php?action=osStatus', postData)
         .then(function(response) {
           console.log(response);
@@ -306,37 +309,44 @@ var Os = Vue.extend({
     },
     antendimentoReabrir: function() {
       if(confirm('Deseja Reabrir Atendimento?')){
-        this.osStatus( '0')
+        var data = '0';
+        this.osStatus( data );
       }
     },
     antendimentoInicio: function() {
       if(confirm('Deseja iniciar Atendimento?')){
-        this.osStatus( '1');
+        var data = '1';
+        this.osStatus( data );
       }
     },
     antendimentoFinal: function() {
       if(confirm('Deseja encerrar Atendimento?')){
-        this.osStatus( '2');
+        var data = '2';
+        this.osStatus( data );
       }
     },
     osReabrir: function() {
       if(confirm('Deseja realmente Reabrir a OS?')){
-        this.osStatus( '3');
+        var data = '3';
+        this.osStatus( data );
       }
     },
     osConcluir: function() {
       if(confirm('Deseja Concluir a OS?')){
-        this.osStatus( '4');
+        var data = '4';
+        this.osStatus( data );
       }
     },
     osFechar: function() {
       if(confirm('A OS foi fechada no Sistema?')){
-        this.osStatus('5');
+        var data = '5';
+        this.osStatus( data );
       }
     },
     osValidar: function() {
       if(confirm('Foi recebido o Relatorio devidaente assinado desse Atendimento?')){
-        this.osStatus('6');
+        var data = '6';
+        this.osStatus( data );
       }
     },
   },

@@ -192,8 +192,25 @@ class Os extends Crud{
 		try{
 			$sql  = "UPDATE $this->table SET status = :status WHERE id = :id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':status',$this->status);
-			$stmt->bindParam(':id',$id);
+			$stmt->bindParam(':status', $this->status);
+			$stmt->bindParam(':id', $id);
+			$stmt->execute();
+
+			$res['error'] = false;
+			$res['message'] = "OK, salvo com sucesso";
+			return $res;
+		} catch(PDOException $e) {
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
+		}
+	}
+	public function statusII($id){
+		try{
+			$sql  = "UPDATE $this->table SET status = :status WHERE id = :id";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':status', $this->status);
+			$stmt->bindParam(':id', $id);
 			$stmt->execute();
 
 			$res['error'] = false;
@@ -225,7 +242,7 @@ class Os extends Crud{
 	}
 	public function fechar($id){
 		try{
-			$sql  = "UPDATE $this->table SET dtFech = :dtFech, status = :status WHERE id = :id";
+			$sql  = "UPDATE $this->table SET dtFech = :dtFech, status = :status WHERE id = :id ";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':dtFech',	$this->dtFech);
 			$stmt->bindParam(':status',	$this->status);
