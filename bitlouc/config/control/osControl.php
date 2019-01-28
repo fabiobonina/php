@@ -37,8 +37,8 @@
 			$item->tecnicos			= $this->listOsTec( $item->id );
 			$item->notas			= $notas->findOs( $item->id );
 
-			$oss->ajuste( $item->id, $local->uf );
-			$osTecnicos->ajuste( $item->id, $item->status );
+			//$oss->ajuste( $item->id, $local->uf );
+			//$osTecnicos->ajuste( $item->id, $item->status );
 
 			return $item;
 
@@ -151,28 +151,28 @@
 			$oss->setStatus($status);
 			#reabrir
 			if($status == 0){
-				$item = $oss->status($os_id);
+				$item = $oss->statusI($os_id);
 				$email_status = ' atendimento reaberto';
 			}
 			#atendimento inicio
 			if($status == 1){
-				$item = $oss->status($os_id);
+				$item = $oss->statusI($os_id);
 				$email_status = ' atendimento iniciado';
 			}
 			#atendimento final
 			if($status == 2){
-				$item = $oss->status($os_id);
-				$email_status = ', atendimento encerrado';
+				$item = $oss->statusI($os_id);
+				$email_status = ' atendimento encerrado';
 			}
 			if($status == 3){
-				$item = $oss->status($os_id);
-				$email_status = 'a OS reaberta por divergência nas informações';
+				$item = $oss->statusI($os_id);
+				$email_status = ' a OS reaberta por divergência nas informações';
 			}
 			#concluda
 			if($status == 4){
 				$oss->setDtConcluido($data);
 				$item = $oss->concluir($os_id);
-				$email_status = ', a OS foi concluida';				
+				$email_status = ' a OS foi concluida';				
 			}
 			#finalizada
 			if($status == 5){
@@ -182,10 +182,10 @@
 			}
 			#validar
 			if($status == 6){
-				$item = $oss->status($os_id);
+				$item = $oss->statusI($os_id);
 				$email_status = ' OS validada';
 			}
-			if(!$item['error']){
+			if(!$item['error'] && $status < 6){
 				$this->osEmail( $os_id, $email_status );
 			}
 
@@ -577,16 +577,18 @@
 			$txtTec 		= array();
 			$txtEmails	 	= array();
 			$txtNotas	 	= array();
+			
+			#autor
+			$autor['email'] 		= $_SESSION['loginEmail'] ;
+			$autor['user_nick'] 	= $_SESSION['loginUser'] ;
+			array_push($txtEmails, $autor );
+			#solicitante
 			$solicitante	= $users->findSimples( $os->user_id );
 			$user['email'] 		= $solicitante->email;
-			$user['user_nick'] 	= $solicitante->user_nick;
+			$user['user_nick'] 	= $solicitante->user;
 			array_push($txtEmails, $user );
-			if($os->equipamento){
-				$txtEquipamento = $os->equipamento->name .' '.$os->equipamento->modelo. ' &nbsp; #'.$os->equipamento->fabricante_nick. '  (Code: '.$os->equipamento->numeracao.' | Ativo: '. $os->equipamento->plaqueta .' )' ;
-			}else{
-				$txtEquipamento = 'não definido';
-			}
-
+			
+			#designados
 			if($os->tecnicos){
 				foreach ($os->tecnicos as $value){	
 					$tec	= $tecnicos->find( $value['tecnico_id'] );
@@ -600,6 +602,12 @@
 				}
 			}else{
 
+			}
+			#equipamentos definição
+			if($os->equipamento){
+				$txtEquipamento = $os->equipamento->name .' '.$os->equipamento->modelo. ' &nbsp; #'.$os->equipamento->fabricante_nick. '  (Code: '.$os->equipamento->numeracao.' | Ativo: '. $os->equipamento->plaqueta .' )' ;
+			}else{
+				$txtEquipamento = 'não definido';
 			}
 			//var_dump( $os->notas);
 			foreach ($os->notas as $key => $value): {
@@ -756,8 +764,13 @@
 																</table>
 															</td>
 														</tr-->
+														<tr valign="top">
+															<td colspan="4">
+																Autor: '.$_SESSION['loginUser'].'
+															</td>
+														</tr>
 													</tbody>
-												</table><br>
+												</table>
 											</td>
 										</tr>
 									</tbody>

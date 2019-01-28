@@ -252,9 +252,9 @@ var Os = Vue.extend({
           status: item
         };
         //console.log(postData);
-        this.$http.post('./config/api/apiOsi.php?action=osStatus', postData)
+        this.$http.post('./config/api/apiOs.php?action=osStatus', postData)
         .then(function(response) {
-          //console.log(response);
+          console.log(response);
           if(!response.data.error){
             this.successMessage.push(response.data.message);
             this.isLoading = false;

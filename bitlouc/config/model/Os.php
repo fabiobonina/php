@@ -188,7 +188,7 @@ class Os extends Crud{
 			return $res;
 		}
 	}
-	public function status($id){
+	public function statusI($id){
 		try{
 			$sql  = "UPDATE $this->table SET status = :status WHERE id = :id";
 			$stmt = DB::prepare($sql);

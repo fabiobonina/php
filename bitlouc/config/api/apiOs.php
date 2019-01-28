@@ -1,10 +1,6 @@
 <?php
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: *');
-header('Access-Control-Allow-Headers: *');
-
+header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
-
 
 require_once '_chave.php';
 require_once '../control/osControl.php';
@@ -15,7 +11,7 @@ $notaControl  = new NotaControl();
 $mods 			  = new Mod();
 
 $res = array('error' => true);
-$action = 'read';
+$action = 'status';
  
 
 //$res['user'] = $user;
@@ -39,9 +35,17 @@ if($action == 'read'):
   $res['error'] = false;
 
 endif;
+
+if($action == 'loja'):
+  $loja = '1';
+  $item = $osControl->listLoja( $loja );
+  $res['oss']   = $item;
+  $res['error'] = false;
+
+endif;
 if($action == 'os'):
-  $os_id = $_POST['os_id'];
-  //$os_id = '130';
+  //$os_id = $_POST['os_id'];
+  $os_id = '130';
   $res = $osControl->findOs( $os_id );
 
 endif;
@@ -56,8 +60,8 @@ if($action == 'semAmaracao'):
 endif;
 
 if($action == 'status'):
-  $status = $_POST['status'];
-  //$status = '6';
+  //$status = $_POST['status'];
+  $status = '6';
   $item = $osControl->findStatus( $status );
   $res['oss']   = $item;
   $res['error'] = false;
@@ -140,13 +144,13 @@ endif;
 if($action == 'osStatus'):
   
   $os_id        = $_POST['os_id'];
-  $status       = $_POST['status'];
-
+  echo $status       = $_POST['status'];
+  
   $res =  $osControl->status( $status, $os_id );
   
 endif;
 if($action == 'osstatus'):
-  $_POST = json_decode(file_get_contents('php://input'), true);
+  //$_POST = json_decode(file_get_contents('php://input'), true);
   $os_id        = $_POST['os_id'];
   $status       = $_POST['status'];
   //$string = $_POST['os_id'];
