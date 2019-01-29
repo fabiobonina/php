@@ -118,11 +118,11 @@ header('Content-Type: text/html; charset=utf-8');
   if($action == 'teste'){
     
     
-    $local_id = '12';
-    $categoria_id = '9';
-    $equipamento_id = '';
-    $data = '2019-01-09';
-    $id = '389';
+    $local_id = '69';
+    $categoria_id = '1';
+    $equipamento_id = NULL;
+    $data = '2018-04-05';
+    $id = '';
     $e1 = $oss->validarOs($local_id, $categoria_id, $equipamento_id, $data, $id);
     $res['teste'] = $e1;
 

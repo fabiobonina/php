@@ -105,7 +105,7 @@ class OsTecnicos extends Crud{
 			$sql  .="ON $this->table.os_id = $this->tableB.id ";
 			$sql  .="WHERE ($this->tableB.uf = :uf AND $this->tableB.status < 4) OR ($this->tableB.uf != :uf AND $this->table.user_id = :user_id AND $this->tableB.status < 4)";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':uf', $uf, PDO::PARAM_INT);
+			$stmt->bindParam(':uf', $uf);
 			$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 			$stmt->execute();
 			return $stmt->fetchAll();
@@ -164,11 +164,11 @@ class OsTecnicos extends Crud{
 	}
 	public function deleteOs($os_id){
 		try{
-		$sql  = "DELETE FROM $this->table WHERE os_id = :os_id";
-		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':os_id', $os_id, PDO::PARAM_INT);
-		
-		$stmt->execute();
+			$sql  = "DELETE FROM $this->table WHERE os_id = :os_id";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':os_id', $os_id, PDO::PARAM_INT);
+			
+			$stmt->execute();
 
 			$res['error'] = false;
 			$res['message'] = "OK, processo da OS alterado com sucesso"; 

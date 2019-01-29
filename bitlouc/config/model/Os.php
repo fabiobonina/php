@@ -290,7 +290,7 @@ class Os extends Crud{
 
 	public function validarOs( $local_id, $categoria_id, $equipamento_id, $data, $id ){
 		try{
-			$sql  = "SELECT * FROM $this->table  WHERE BINARY local_id = :local_id AND categoria_id = :categoria_id AND (equipamento_id = :equipamento_id OR equipamento_id IS NULL) AND data = :data AND id  <> :id";
+			$sql  = "SELECT * FROM $this->table  WHERE BINARY local_id = :local_id AND categoria_id = :categoria_id AND  ((equipamento_id = :equipamento_id OR equipamento_id IS NULL) = ( equipamento_id IS NOT NULL)) AND data = :data AND id  <> :id";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':local_id', 		$local_id);			
 			$stmt->bindParam(':equipamento_id',	$equipamento_id);

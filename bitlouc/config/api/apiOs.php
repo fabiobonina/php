@@ -86,7 +86,7 @@ if($action == 'publish'){
     $id = NULL;
   endif;
   if( $equipamento_id == "" ):
-    $equipamento_id = '0';
+    $equipamento_id = NULL;
   endif;
 
   $res =  $osControl->publish( 
