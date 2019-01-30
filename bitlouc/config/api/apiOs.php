@@ -82,12 +82,7 @@ if($action == 'publish'){
   $ativo            = $_POST['ativo'];
   $id               = $_POST['id'];
 
-  if( $id == "" ):
-    $id = NULL;
-  endif;
-  if( $equipamento_id == "" ):
-    $equipamento_id = NULL;
-  endif;
+  
 
   $res =  $osControl->publish( 
     $proprietario_id,

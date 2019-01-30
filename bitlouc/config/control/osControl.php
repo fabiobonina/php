@@ -83,28 +83,34 @@
 			$oss->setAtivo($ativo);
 			$oss->setUser( $_SESSION['loginId']);
 
-			if(	!isset($id) && !$etapaI ){
-				# Insert
-				$item = $oss->insert();
-			
-				if(!$item['error']){
-					$email_status = 'nova no sistema';
-					$this->osEmail( $item['id'], $email_status );
-				}
-			}
 			if(	$etapaI ){
 				$item['error']   = true;
 				$item['message'] = 'Error, OS já existe!';
+				
+			}else{
+
+				if( $id == '' ):
+					# Insert
+					$item = $oss->insert();
+
+					if(!$item['error']){
+						$email_status = 'nova no sistema';
+						$this->osEmail( $item['id'], $email_status );
+					}
+				endif;
+				if( $id > '0' ):
+					# Update
+					$item = $oss->update($id);
+
+					if(!$item['error']){
+						$email_status = 'teve uma alteração';
+						$this->osEmail( $id, $email_status );
+					}
+				endif;
+				
 			}
 
-			if( isset($id) && ( !$item['error'] || $etapaI ) ):
-				# Update
-				$item = $oss->update($id);
-				if(!$item['error']){
-					$email_status = 'teve uma alteração';
-					$this->osEmail( $id, $email_status );
-				}
-			endif;
+			
 
 			$res = $item;
 			return $res;

@@ -162,7 +162,7 @@ Vue.component('os-add', {
               id:               ''
             };
             //var formData = this.toFormData(postData);
-            console.log(postData);
+            //console.log(postData);
             this.$http.post('./config/api/apiOs.php?action=publish', postData)
             .then(function(response) {
               //console.log(response);

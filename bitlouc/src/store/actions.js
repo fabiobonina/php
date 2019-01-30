@@ -235,9 +235,9 @@ const actions = {
   fetchEquipamentoLocal({ commit }, local) {
     return new Promise((resolve, reject) => {
       var postData = { local: local }
-      console.log(postData);
+      //console.log(postData);
       Vue.http.post(EQUIPAMENTOSLOCAL,postData).then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         if(response.data.error){
           console.log(response.data.message);
         } else{
