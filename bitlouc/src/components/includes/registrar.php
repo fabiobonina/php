@@ -5,8 +5,8 @@
         Registre-se
       </v-card-title>
       <v-card-text>
-        
-        <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+          <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+          <loader :dialog="isLoading"></loader>
         <v-form>
           <v-text-field
             v-model="name"
@@ -134,7 +134,7 @@
             //console.log(postData);
             this.$http.post('./config/api/apiUser.php?action=registrar', postData)
               .then(function(response) {
-              //console.log(response);
+              console.log(response);
               if(response.data.error){
                 this.errorMessage.push(response.data.message);
                 this.isLoading = response.data.dados.isLoggedIn;

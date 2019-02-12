@@ -2,7 +2,7 @@
     <v-layout row justify-center>
       <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
         <v-card tile color="blue">
-          <v-toolbar card dark color="blue">
+          <v-toolbar card dark color="blue darken-3">
             <img src="dist/img/bit-louc.png" height="36px" width="36px">
             <v-toolbar-title><b>Bit</b>LOUC </v-toolbar-title>
             <v-spacer></v-spacer>
@@ -16,7 +16,7 @@
               </template>
               <template v-else>
                 <login  v-if="!novo" v-on:close="novo = true" v-on:atualizar="atualizar()"></login>
-                <register v-if="novo" v-on:close="novo = false"></register>
+                <register v-else v-on:close="novo = false"></register>
               </template>
             <v-flex>            
           </v-card-text>

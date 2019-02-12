@@ -33,9 +33,10 @@ var UFList = Vue.extend({
             errorMessage: '',
             successMessage: '',
             itens: [
-              { id:1, name: 'Pedentes', ativo: '0', icon: 'mdi-exclamation' },
+              { id:1, name: 'Pendente', ativo: '0', icon: 'mdi-exclamation' },
               { id:2, name: 'Andamento', ativo: '1', icon: 'mdi-loading mdi-spin' },
               { id:3, name: 'Encerradas', ativo: '2', icon: 'mdi-check' },
+              { id:4, name: 'Ajustar', ativo: '3', icon: 'mdi-alert-outline' },
             ],
             active: '0',
             gridColumns: ['displayName', 'name']

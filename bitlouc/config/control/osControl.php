@@ -187,7 +187,7 @@
 			if($status == $os_ajuste ){
 
 				$item = $oss->statusI($os_id);
-				$email_status = ' a OS reaberta por divergência nas informações';
+				$email_status = ' OS reaberta por divergência nas informações';
 
 			}
 			#concluir OS 

@@ -2,7 +2,7 @@
     <div>
         <v-layout row wrap>
             <v-flex xs8>
-                <div>
+                <div v-if="filteredData">
                     <input id="autocompleteInput" type="text"placeholder="Informar localidade">
                     <span class="icon is-small is-right">
                         <i class="material-icons">my_location</i>
@@ -11,7 +11,6 @@
                     <button @click='addUluru'>Adicionar Uluru</button>
                 </div>
             </v-flex>
-
             <v-flex xs4>
             <div>
                 <input v-model="search" type="text" placeholder="Filtar localidade">

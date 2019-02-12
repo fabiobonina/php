@@ -3,7 +3,11 @@
         <v-layout row wrap>
             <v-flex xs8>
                 <div>
-                    <input id="autocompleteInput" type="text"placeholder="Informar localidade">
+                    <!--input id="autocompleteInput" type="text"placeholder="Informar localidade"-->
+                    <v-text-field
+                        v-model="buscar"
+                        label="Informar localidade"
+                    ></v-text-field>
                     <span class="icon is-small is-right">
                         <i class="material-icons">my_location</i>
                     </span>
@@ -78,23 +82,24 @@
         data: function () {
             var sortOrders = {}
             return {
-            options: {
-                zoom: 3,
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                center: new google.maps.LatLng( -14.239104, -51.925403 )
-            },
-            map: "",
-            zoomTreshold: 4,
-            radiusTreshold: 400000, // in meters
-            visibleMarkers: [],
-            noVisibleMarkers: false,
-            markers: [],
-            uluru: [{ lat: -25.363, lng: 131.044 }],
-            infoWindow: "",
-            currentZoom: 0,
-            currentLocation: "",
-            search: '',
-            sortKey:''
+                buscar:'',
+                options: {
+                    zoom: 3,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    center: new google.maps.LatLng( -14.239104, -51.925403 )
+                },
+                map: "",
+                zoomTreshold: 4,
+                radiusTreshold: 400000, // in meters
+                visibleMarkers: [],
+                noVisibleMarkers: false,
+                markers: [],
+                uluru: [{ lat: -25.363, lng: 131.044 }],
+                infoWindow: "",
+                currentZoom: 0,
+                currentLocation: "",
+                search: '',
+                sortKey:''
             };
         },
         watch: {
@@ -244,7 +249,7 @@
             },
             initAutocomplete: function() {
             var self = this;
-            var autocompleteInput = document.getElementById("autocompleteInput");
+            var autocompleteInput = this.buscar;//document.getElementById("autocompleteInput");
             var autocomplete = new google.maps.places.Autocomplete(autocompleteInput);
             autocomplete.addListener("place_changed", function() {
                 var place = autocomplete.getPlace();

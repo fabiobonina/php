@@ -44,7 +44,7 @@
         errorMessage: '',
         successMessage: '',
         router: [
-          { title: 'Amarar', router: '/os-gerencial', icon: 'trending_up' },
+          { title: 'Amarrar', router: '/os-gerencial', icon: 'trending_up' },
           { title: 'Fechar', router: '/os-gerencial/fechar', icon: 'store' },
           { title: 'Validar', router: '/os-gerencial/validar', icon: 'person' },
         ],

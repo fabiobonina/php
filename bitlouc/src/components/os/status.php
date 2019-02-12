@@ -8,10 +8,6 @@
             <v-icon>{{ n.icon }}</v-icon>
             <span>{{ n.name }}</span>
           </v-btn>
-          <v-btn v-if="user.nivel > 1 && user.grupo == 'P'" flat v-on:click="status = '3'" value="3">
-            <v-icon>done</v-icon>
-            <span>Ajustar</span>
-          </v-btn>
         </v-btn-toggle>
       </v-layout>
     </v-container>
@@ -31,9 +27,10 @@ var OsStus = Vue.extend({
       errorMessage: '',
       successMessage: '',
       itens: [
-        { id:1, name: 'Pedente', ativo: '0', icon: 'mdi-exclamation' },
+        { id:1, name: 'Pendente', ativo: '0', icon: 'mdi-exclamation' },
         { id:2, name: 'Andamento', ativo: '1', icon: 'mdi-loading mdi-spin' },
         { id:3, name: 'Encerradas', ativo: '2', icon: 'mdi-check' },
+        { id:4, name: 'Ajustar', ativo: '3', icon: 'mdi-alert-outline' },
       ],
     };
   },

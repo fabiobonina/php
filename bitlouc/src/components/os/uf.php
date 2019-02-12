@@ -15,7 +15,7 @@
                   <v-icon color="orange">mdi-exclamation</v-icon>
                 </v-list-tile-avatar>
                 <v-list-tile-content class="orange--text">
-                  <v-list-tile-title >Pedente</v-list-tile-title>
+                  <v-list-tile-title >Pendente</v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-action class="orange--text display-2">
                   {{ ocorrencia.ocorrenciaI }}
@@ -37,7 +37,7 @@
                   <v-icon color="cyan">mdi-check</v-icon>
                 </v-list-tile-avatar>
                 <v-list-tile-content class="cyan--text">
-                  <v-list-tile-title>Emcerada</v-list-tile-title>
+                  <v-list-tile-title>Encerrada</v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-action class="cyan--text display-2">
                   {{ ocorrencia.ocorrenciaIII }}
@@ -59,9 +59,9 @@ var OsUF = Vue.extend({
             errorMessage: '',
             successMessage: '',
             itens: [
-              { id:1, name: 'Pedente', ativo: '0', icon: 'mdi-exclamation', color:'orange lighten-5' },
+              { id:1, name: 'Pendente', ativo: '0', icon: 'mdi-exclamation', color:'orange lighten-5' },
               { id:2, name: 'Andamento', ativo: '1', icon: 'mdi-loading mdi-spin', color:'' },
-              { id:3, name: 'Emcerada', ativo: '2', icon: 'mdi-check', color:'' },
+              { id:3, name: 'Encerrada', ativo: '2', icon: 'mdi-check', color:'' },
             ],
             active: '0',
             gridColumns: ['displayName', 'name']

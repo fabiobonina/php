@@ -365,7 +365,7 @@ class Os extends Crud{
 
 	public function findIIIProprietario( $proprietario_id  ){
 		try{
-			$sql  = "SELECT * FROM $this->table WHERE proprietario_id  = :proprietario_id AND status < 4 ";
+			$sql  = "SELECT * FROM $this->table WHERE proprietario_id  = :proprietario_id AND status < '4' ";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':proprietario_id', $proprietario_id);
 			$stmt->execute();
@@ -379,7 +379,7 @@ class Os extends Crud{
 
 	public function findIIILoja( $loja_id ){
 		try{
-			$sql  = "SELECT * FROM $this->table WHERE loja_id  = :loja_id AND status < 4 ";
+			$sql  = "SELECT * FROM $this->table WHERE loja_id  = :loja_id AND status < '4' ";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':loja_id', $loja_id);
 			$stmt->execute();
