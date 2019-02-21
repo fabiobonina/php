@@ -37,8 +37,9 @@ if($action == 'read'):
 endif;
 
 if($action == 'loja'):
-  $loja = '1';
-  $item = $osControl->listLoja( $loja );
+  $loja_id = $_POST['loja_id'];
+  //$loja_id = '1';
+  $item = $osControl->listLoja( $loja_id );
   $res['oss']   = $item;
   $res['error'] = false;
 

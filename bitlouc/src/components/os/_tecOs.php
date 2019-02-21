@@ -41,7 +41,6 @@
                     <v-form>
                       <v-container>
                         <v-layout wrap>
-
                           <v-flex xs12>
                             <v-autocomplete
                               v-model="tecnicos"
@@ -124,7 +123,7 @@ Vue.component('os-tec', {
         friends: ['Sandra Adams', 'Britta Holt'],
         isUpdating: false,
         name: 'Midnight Crew',
-        title: 'The summer breeze',
+        title: 'Novo Tecnicos',
       }
   },
   mounted () {
@@ -235,7 +234,7 @@ Vue.component('os-tec', {
 
         return textOne.indexOf(searchText) > -1 ||
           textTwo.indexOf(searchText) > -1
-      },
+    },
   },
 });
 

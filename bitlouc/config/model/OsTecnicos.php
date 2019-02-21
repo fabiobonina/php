@@ -103,7 +103,7 @@ class OsTecnicos extends Crud{
 		try{
 			$sql  = "SELECT DISTINCT $this->tableB.* FROM $this->tableB LEFT JOIN $this->table ";
 			$sql  .="ON $this->table.os_id = $this->tableB.id ";
-			$sql  .="WHERE ($this->tableB.uf = :uf AND $this->tableB.status < 4) OR ($this->tableB.uf != :uf AND $this->table.user_id = :user_id AND $this->tableB.status < 4)";
+			$sql  .="WHERE ($this->tableB.uf = :uf AND $this->tableB.status < '4') OR ($this->tableB.uf != :uf AND $this->table.user_id = :user_id AND $this->tableB.status < '4')";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':uf', $uf);
 			$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
@@ -117,7 +117,7 @@ class OsTecnicos extends Crud{
 		try{
 			$sql  = "SELECT   $this->table.loja_id, $this->tableB.id FROM $this->table INNER JOIN $this->tableB";
 			$sql  .=" ON $this->table.loja_id = $this->tableB.loja_id ";
-			$sql  .=" WHERE $this->tableB.loja_id = 1 AND $this->tableB.status < 4";
+			$sql  .=" WHERE $this->tableB.loja_id = 1 AND $this->tableB.status < '4'";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':loja_id', $loja_id, PDO::PARAM_INT);
 			$stmt->execute();

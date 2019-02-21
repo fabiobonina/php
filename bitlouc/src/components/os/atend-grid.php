@@ -14,12 +14,16 @@
         <template slot="items" slot-scope="props">
           <td style="padding:0 10px">
             <router-link :to="'/os/'+ props.item.id" :key="props.item.id">
-              <v-list-tile-title> {{props.item.local_tipo}} {{props.item.local_name}}</v-list-tile-title>
-              <v-list-tile-sub-title>{{props.item.local_municipio}}-{{props.item.uf}}</v-list-tile-sub-title>
               <v-list-tile-sub-title> {{ props.item.loja_nick }} </v-list-tile-sub-title>
             </router-link>
           </td>
           <td style="padding:0 10px">
+            <router-link :to="'/os/'+ props.item.id" :key="props.item.id">
+              <v-list-tile-title> {{props.item.local_tipo}} {{props.item.local_name}}</v-list-tile-title>
+              <v-list-tile-sub-title>{{props.item.local_municipio}}-{{props.item.uf}}</v-list-tile-sub-title>
+            </router-link>
+          </td>
+          <td style="padding:0 10px" class="blue" >
             <v-list-tile-content>
               <v-list-tile-title> {{ props.item.data }}</v-list-tile-title>
               <v-list-tile-sub-title class="text--primary"> {{props.item.servico.name}}</v-list-tile-sub-title>
@@ -28,8 +32,12 @@
               </v-chip> 
             </v-list-tile-content>
           </td>
-          
-          <td style="padding:0 10px">
+          <td style="padding:0 10px" class="blue" >
+            <v-list-tile-content>
+                {{ props.item.filial}}-{{ props.item.os}}
+            </v-list-tile-content>
+          </td>
+          <td style="padding:0 10px" class="blue" >
             <router-link :to="$route.path + props.item.id" :key="props.item.id">
               <v-list-tile-title> {{ props.item.categoria.name }} </v-list-tile-title>
               <v-list-tile-sub-title v-if="props.item.bem">{{props.item.bem.name}} {{props.item.bem.modelo}}  &nbsp; #{{props.item.bem.fabricante}}
@@ -90,8 +98,10 @@
           sortBy: 'data'
         },
         headers: [
+          { text: 'Loja', align: 'left', value: 'loja_name' },
           { text: 'Local', align: 'left', value: 'local_name' },
           { text: 'Data', align: 'center', value: 'data' },
+          { text: 'OS', align: 'center', value: 'os' },
           { text: 'Categoria', align: 'center', value: 'categoria' },
           { text: 'Info', sortable: false, value: 'info' },
           { text: 'ID', value: 'id' },          
