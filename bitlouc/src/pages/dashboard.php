@@ -1,10 +1,12 @@
 <template id="dashboard">
   <div>
+    <painel-home></painel-home>
     <os-statustec></os-statustec>
     <os-map></os-map> 
   </div>
 </template>
 
+<?php require_once 'src/components/layouts/home.php';?>
 <?php require_once 'src/components/os/maps.php';?>
 <?php require_once 'src/components/os/osStatusTec.php';?>
 
