@@ -688,7 +688,8 @@
 			$comma_separated = implode(", ", $txtTec);
 
 			/* Montar o corpo do email*/
-			$corpoMensagem = '<div>
+			$corpoMensagem = 
+			'<div>
 				<table border="0" cellspacing="0" cellpadding="0" width="100%" height="6%">
 					<tbody>
 						<tr>
