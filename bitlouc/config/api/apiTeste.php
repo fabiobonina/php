@@ -131,7 +131,26 @@ header('Content-Type: text/html; charset=utf-8');
       $res['teste'] = 'teste';
     }
     
+    //$res['tecnico']	= $osTecnicos->findTecOs($tec, $os);
+    
+  }
 
+  if($action == 'email'){
+    
+    
+    $local_id = '762';
+    $categoria_id = '3';
+    $equipamento_id = '3';
+    $data = '2019-01-03';
+    $id = '';
+    $e1 = $oss->validarOs($local_id, $categoria_id, $equipamento_id, $data, $id);
+
+    if( $e1 ){
+      $res['teste'] = $e1;
+    }else{
+      $res['teste'] = 'teste';
+    }
+    
     //$res['tecnico']	= $osTecnicos->findTecOs($tec, $os);
     
   }

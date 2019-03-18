@@ -1,11 +1,12 @@
 <?php
-$senha ='987794585';
+$senha ='982231629';
 echo $password = md5($senha);
 
 $data ='2018-01-22 21:01:00';
+/*SistTipo	SistQtd	SistVl	CLORO	ClTipo	ClQtd	ClVl	RvTipo	RvQtd	RvVl	IjTipo	IjQtd	IjVl	EvapTipo	EvapQtd	EvapVl	CONEXÕES	MfTipo	MfQtd	MfVl	FlTipo	FlQtd	FlVl	AbraYoke	AbVl	ChvYork	ChVl	Trunnion	TrunVl	CL DIVERSOS	ComplTipo	ComplQtd	ComplVl	CompElet	CompEletVl	Simlização	SimlizaçãoVl	Colunas86	Colunas87	Colunas82	Colunas83	Colunas84	Colunas9	Colunas10	Colunas11	CL DIVERSOS4	KitTipo	KitQtd	KitVl	MasTipo	MasQtd	MasVl	DetTipo	DetQtd	DetVl	VesTipo	VesQtd	VesVl	ExaustTipo	ExaustQtd	ExausVl	AUTOMAÇÃO	StAnalTipo	StAnalQtd	StAnalVl	SistFechTipo	SistFechQtd	SistFechVl	SonQtd	SonVl	ValvSQtd	ValvSVl	OUTROS	BomTipo	BomQtd	BomVl	TanqTipo	TanqQtd	TanqVl	DosPTipo	DosPQtd	DosPVl	TalhaTipo	TalhaQtd	TalhaVl	Custo Outros Materiais	Custo Montagem
 
 
-INSERT INTO `tb_cilindro` (`id`, `Grupo`, `Loja_Cod`, `Loja_Id`, `Local_Id`, `Loja_Nick`, `Capacidade`, `Dt_Fabric`, `Dt_Validade`, `Cod_Barras`, `Condenado`, `Tara`, `Revisado`, `Fabricante`, `Numero`, `Produto_Cod`, `Status`, `Tp Embalagem` ) VALUES
+INSERT INTO `tb_cilindro` (`id`, `Grupo`, `Loja_Cod`, `Loja_Id`, `Local_Id`, `Loja_Nick`, `Capacidade`, `Dt_Fabric`, `Dt_Validade`, `Cod_Barras`, `Condenado`, `Tara`, `Revisado`, `Fabricante`, `Numero`, `Produto_Cod`, `Status`, `Tipo Embalagem` ) VALUES
 (1, 'C', 1808, 57, NULL, 'SAAE - PEDRA BRANCA', 50, '2018-11-01', '2023-11-01', '617340C005001112018', '0', 48.7, '0', 'CILBRAS', '617340', 'MT0000024', '0', 'Cilindro'), 
 (2, 'C', 1827, 12, NULL, 'CAERN', 50, '2018-05-01', '2023-05-01', '03029C005001052018', '0', 54.2, '0', 'MAT SA', 'H03029', 'MT0000024', '0', 'Cilindro'), 
 (3, 'C', 1840, 15, NULL, 'CAGEPA', 68, '2017-03-01', '2022-03-01', '1016C006801032017', '0', 64.1, '0', 'MAT SA', 'BCH1016', 'MT0000025', '0', 'Cilindro'), 
@@ -3996,3 +3997,4 @@ INSERT INTO `tb_cilindro` (`id`, `Grupo`, `Loja_Cod`, `Loja_Id`, `Local_Id`, `Lo
 (3990, 'P', 1940, 1, NULL, 'SABARA', 1000, '2019-02-19', '2020-02-19', 'E00026B1000190219', '0', 55.0, '0', '', '', 'MC0011864', '0', 'IBC'), 
 (3991, 'P', 1940, 1, NULL, 'SABARA', 1000, '2019-02-19', '2020-02-19', 'E00027B1000190219', '0', 55.0, '0', '', '', 'MC0011864', '0', 'IBC'), 
 (3992, 'P', 1940, 1, NULL, 'SABARA', 1000, '2019-02-19', '2020-02-19', 'E00028B1000190219', '0', 55.0, '0', '', '', 'MC0011864', '0', 'IBC')	;
+*/

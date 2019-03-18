@@ -11,7 +11,7 @@ $notaControl  = new NotaControl();
 $mods 			  = new Mod();
 
 $res = array('error' => true);
-$action = 'status';
+$action = 'email';
  
 
 //$res['user'] = $user;
@@ -348,11 +348,12 @@ if($action == 'email'):
   //
   $os_id = '130';
   $os_status = 'está em teste no sistema';
-  $res['dados'] = $osControl->osEmail( $os_id, $os_statuss);
+  $res['dados'] = $osControl->osEmailII( $os_id, $os_status);
   //$res['dados'] = $osControl->osEmail( $os_id );
       
 endif;
 
 
-header("Content-Type: application/json");
-echo json_encode($res, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+//header("Content-Type: application/json");
+//echo json_encode($res, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+echo $res['dados'];
