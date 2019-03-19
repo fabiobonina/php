@@ -25,6 +25,8 @@ const EQUIPAMENTOSLIST   ='./config/api/apiEquipamento.php?action=read';
 const EQUIPAMENTOSLOJA   ='./config/api/apiEquipamento.php?action=loja';
 const EQUIPAMENTOSLOCAL  ='./config/api/apiEquipamento.php?action=local';
 
+const CILINDROLIST   ='./config/api/apiCilindros.php?action=read';
+
 
 
 const actions = {
@@ -283,6 +285,22 @@ const actions = {
         .catch((error => {
             console.log(error);
         }));
+    });
+  },
+  fetchCilindros({ commit }) {
+    return new Promise((resolve, reject) => {
+      Vue.http.get(CILINDROLIST).then((response) => {
+        if(!response.data.error){
+          //console.log(response.data);
+          commit("SET_CILINDROS", response.data.cilindros);
+          resolve();
+        } else{
+          console.log(response.data.message);
+        }
+      })
+      .catch((error => {
+          console.log(error.statusText);
+      }));
     });
   },
 }

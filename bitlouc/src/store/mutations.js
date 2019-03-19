@@ -112,4 +112,7 @@ const mutations = {
   SET_DESLOC_STATUS(state, deslocStatus) {
     state.deslocStatus = deslocStatus
   },
+  SET_CILINDROS(state, cilindros) {
+    state.cilindros = cilindros
+  }
 }

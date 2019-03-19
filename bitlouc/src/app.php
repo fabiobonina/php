@@ -1,4 +1,3 @@
-<!-- Full Width Column -->
 <div>
     <div>
       <main id="app">
@@ -22,6 +21,7 @@
     <?php require_once 'src/pages/local.php';?>
     <?php require_once 'src/pages/gerencial.php';?>
     <?php require_once 'src/pages/os-gerencial.php';?>
+    <?php require_once 'src/pages/controle-cilindros.php';?>
 
     <?php require_once 'src/components/includes/message.php';?>
 </div>

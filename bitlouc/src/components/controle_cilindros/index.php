@@ -1,4 +1,4 @@
-<template id="painel-home">
+<template id="painel-cilindros">
   <div>
     <template>
         <div class="v-content__wrap">
@@ -91,17 +91,45 @@
                             <div class="v-list__tile__sub-title">
                             <span>components</span>
                             </div>
-                        </div><!----><div class="v-list__tile__action"><i aria-hidden="true" class="v-icon mdi mdi-arrow-right theme--light"></i></div></a></div></div></div><div class="flex"><div role="list" class="v-list grey lighten-3 pa-0 v-list--two-line theme--light"><div role="listitem" class="v-list__tile--doc"><a href="/pt-BR/framework/typography" class="v-list__tile v-list__tile--link theme--light"><div class="v-list__tile__avatar"><div class="v-avatar brown" style="height: 40px; width: 40px;"><i aria-hidden="true" class="v-icon mdi mdi-buffer theme--dark"></i></div></div><div class="v-list__tile__content"><div class="v-list__tile__title"><span>typography</span></div><div class="v-list__tile__sub-title"><span>framework</span></div></div><!----><div class="v-list__tile__action"><i aria-hidden="true" class="v-icon mdi mdi-arrow-right theme--light"></i></div></a></div></div></div></div>
-  </div>
-  </div>
+                        </div><!---->
+                        <div class="v-list__tile__action">
+                            <i aria-hidden="true" class="v-icon mdi mdi-arrow-right theme--light"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="flex">
+            <div role="list" class="v-list grey lighten-3 pa-0 v-list--two-line theme--light">
+                <div role="listitem" class="v-list__tile--doc">
+                        <a href="/pt-BR/framework/typography" class="v-list__tile v-list__tile--link theme--light">
+                        <div class="v-list__tile__avatar">
+                        <div class="v-avatar brown" style="height: 40px; width: 40px;">
+                        <i aria-hidden="true" class="v-icon mdi mdi-buffer theme--dark"></i>
+                        </div></div><div class="v-list__tile__content">
+                        <div class="v-list__tile__title">
+                        <span>typography</span>
+                        </div>
+                        <div class="v-list__tile__sub-title">
+                        <span>framework</span>
+                        </div>
+                        </div><!---->
+                        <div class="v-list__tile__action">
+                        <i aria-hidden="true" class="v-icon mdi mdi-arrow-right theme--light"></i>
+                        </div>
+                        </a>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+        </div>
+    </div>
   
 </template>
 
-<?php require_once 'src/components/local/locais-grid.php';?>
-
 <script>
-  Vue.component('painel-home', {
-    template: '#painel-home',
+    var PainelCilindros = Vue.extend({
+    template: '#painel-cilindros',
     props: {
       data: Array
     },
@@ -109,6 +137,10 @@
       return {
         errorMessage: '',
         successMessage: '',
+        painel: [
+          { title: 'Programação', router: '/controle-cilindros',            icon: 'mdi-home' },
+          { title: 'Cilindros',   router: '/controle-cilindros/cilindros',  icon: 'mdi-store' },
+        ],
       };
     },
     created: function() {

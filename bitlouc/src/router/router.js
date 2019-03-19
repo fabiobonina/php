@@ -46,14 +46,8 @@ var router = new VueRouter({
         //{ path: 'bens', component: LojaBens },
       ]
     },
-    /*{ path: '/local/:_local', component: Local,
-      children: [
-        { path: '', component: Bens },
-        //{ path: 'oss', component: LojaOss },
-        //{ path: 'bens', component: LojaBens },
-      ]
-    },*/
-    { path: '/Gerencial', component: Gerencial,
+    
+    { path: '/gerencial', component: Gerencial,
       children: [
         { path: '', component: LojasPlus },
         { path: 'locais', component: LocaisPlus },
@@ -61,7 +55,7 @@ var router = new VueRouter({
         //{ path: 'bens', component: LojaBens },
       ]
     },
-    { path: '/Os-gerencial', component: OsGerencial,
+    { path: '/os-gerencial', component: OsGerencial,
       children: [
         { path: '', component: OsAmarar },
         { path: 'fechar', component: OsFechar },
@@ -75,31 +69,19 @@ var router = new VueRouter({
         { path: 'oss', component: LocalOss },
       ]
     },
-    /*{path: '/oss/:_loja/os/:_os', component: Os, name: 'os'},
-    {path: '/projeto', component: Projeto,
+    { path: '/controle-cilindros', component: ControleCilindros,
       children: [
-        { path: '', component: Dashboard },
-        { path: 'oss', component: OssHome,
+        
+        { path: '', component: PainelCilindros },
+        { path: 'cilindros', component: CilindrosIndex },
+        /*{ path: '/cilindros', component: CilindroHome,
           children: [
-          { path: '', component: Oss },
-          { path: 'oss-tec', component: OssTec },
-          { path: 'oss-status', component: OssStus },
-        ] },
-        { path: 'lojas', component: Lojas },
-        { path: 'oss-tec', component: OssTec },
-      ]
-    },*/
+            { path: '', component: CilindroIndex },
+          ]
+        },*/
+      ] 
+    },
     {path: '*', component: NaoEncontrado},
-    /*{path: '/config', component: Loja,
-    children: [
-        {path: '', components: { 
-            default: SegList,
-            ordem: OrdemList,
-            grupo: GrupoList,
-            fab: FabList
-            }, name:'Configuração'},
-      ]
-    },*/
   ]
 });
 
