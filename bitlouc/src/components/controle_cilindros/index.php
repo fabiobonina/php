@@ -5,7 +5,7 @@
             <div class="container page" id="components-categories">
                 <section class="mb-5">
                     <div class="container pa-0 grid-list-xl fluid">
-                        <div class="layout wrap">
+                        <div class="layout wrap" v-for="item in painel">
                             <v-flex flex xs12 sm6 md4 d-flex>
                                 <v-card v-content__wrap to="/controle-cilindros" class="v-card--hover v-sheet theme--light">
                                     <v-card-title>
@@ -126,7 +126,7 @@
     </div>
   
 </template>
-
+<?php require_once 'src/components/controle_cilindros/cilindro/index.php';?>
 <script>
     var PainelCilindros = Vue.extend({
     template: '#painel-cilindros',

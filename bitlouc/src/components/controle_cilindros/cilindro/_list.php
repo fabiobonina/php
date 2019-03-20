@@ -42,8 +42,8 @@
   </div>
 </template>
 
-<?php require_once 'src/components/condrole_cilindros/cilindros/_add.php';?>
-<?php require_once 'src/components/condrole_cilindros/cilindros/_crudBem.php';?>
+<?php require_once 'src/components/controle_cilindros/cilindro/_add.php';?>
+<?php require_once 'src/components/controle_cilindros/cilindro/_crudBem.php';?>
 
 <script>
   Vue.component('cilindros', {
