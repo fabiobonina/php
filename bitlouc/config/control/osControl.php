@@ -928,43 +928,56 @@
 			/* Montar o corpo do email*/
 			$corpoMensagem = 
 			'
-			<table align="center" cellpadding="0" cellspacing="0" height="100%" width="100%" style="background-color: #f2f2f2">
-        <tbody><tr>
-            <td align="center" valign="middle">
-                <table align="center" cellpadding="0" cellspacing="0" width="550" style="background-color: #FFFFFF">
-                    <tbody><tr>
-                        <td align="center" valign="middle" style="padding:20px 0px 30px;background-color: #f2f2f2;">
-                            <table cellspacing="0" cellpadding="0" align="center" width="550">
-                                <tbody><tr>
-                                    <td align="center" valign="middle">
-                                        <table cellspacing="0" cellpadding="0" align="center" width="550" style="padding: 0 10px">
-                                            <tbody><tr>
-                                                <td align="left" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:12px; color:#333333;">
-                                                    <span style="display: none;">Confira todos os detalhes.</span>
-                                                </td>
-                                                <td align="right" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:12px; color:#333333;"><a href="http://e.shell.com.br/pub/cc?_ri_=X0Gzc2X%3DYQpglLjHJlYQGgzdhwEaAE8nXPKpWzc8DJzcycFXp3sL362U0JUFyzgfKLzfzc99zfwVXtpKX%3DBBTY&amp;_ei_=EqEln9GaDVEOiqhiV8_lrfOXQ5tBuWYzMVJiHNEGd6_E1qoH0SLfUsgABr_O8unO9QD4r1svw9PXzaPkFg27FL-f0XdjK6-klIayk61V8vO8nQL-5BZn35t3t0m_pkLnTpG5XtFrYWreJmfCWQiWB08mzeduGFdb6YaO2O8-hx9UIaMrAaM787YwuCbsySIT7WDhsbrJVg-wkGz_s96xLmRZ4qr1HVmEmT0ABx3brE-kVtjJm6_qDpgK9B9vo_vwRXPLSGRbgXQTGT45LJRe2JcLF0Ys9jKi4VODdOjer4OJTuX-5iuhHgjqFUplHPeAcN-gOiIX0_Y8xrtDk5Npddb1dHxDtK-7VOlvwfbJlhYKif79Fw72VGYnWPuaGhD_mH08RmA_ZUFuog2UNBoMzfug80l-7iRdmy-DQw5AW6zwwiqcyBTkvLEUUL3SCW2-unZCnm3WmlNXjcpBAUOBaroZ4Vnb8qcIMZWbH1WpkqJhdQexjYGT9Q4jf3kHyFUT4ScOGuy9o459KE2MEiG_bEShPVVqbspbx8xgF9BkHLPWd-ODcn8XrxMuyKg5hQ_DifnGyfEl5w." target="_blank" style="color:#333333">Ver Online</a>&nbsp;<!--|&nbsp;<a href="http://e.shell.com.br/pub/sf/FormLink?_ri_=X0Gzc2X%3DYQpglLjHJlYQGgzdhwEaAE8nXPKpWzc8DJzcycFXp3sL362U0JUFyzgfKLzfzc99zfwVXMtX%3DYQpglLjHJlYQGjgof8mPkHv59czg6vjrgzfFhBfhNWuzg7UzfFLKol7lufWzbLR&amp;_ei_=EtNITkLyJILG35QjSmvzVXGHhYyHqTWeKMq6TMucuToxV3ocSfRKaJNjTw." target="_blank" style="color:#333333">Descadastre-se</a>--></td>
-                                            </tr>
-                                        </tbody></table>
-                                    </td>
-                                </tr>
-                            </tbody></table>
-                        </td>
-                    </tr>
-
-                    
-                    <tr>
-                        <td align="center">
+	<table align="center" cellpadding="0" cellspacing="0" height="100%" width="100%" style="background-color: #f2f2f2">
+		<tbody>
+			<tr>
+            	<td align="center" valign="middle">
+                	<table align="center" cellpadding="0" cellspacing="0" width="550" style="background-color: #FFFFFF">
+						<tbody>
+							<tr>
+								<td align="center" valign="middle" style="padding:20px 0px 30px;background-color: #f2f2f2;">
+									<table cellspacing="0" cellpadding="0" align="center" width="550">
+										<tbody>
+											<tr>
+												<td align="center" valign="middle">
+													<table cellspacing="0" cellpadding="0" align="center" width="550" style="padding: 0 10px">
+														<tbody>
+															<tr>
+																<td align="left" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:12px; color:#333333;">
+																	<span style="display: none;">Confira todos os detalhes.</span>
+																</td>
+																<td align="right" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:12px; color:#333333;">
+																	<a href="http://bitlouc.com/#/os/'. $os->id .'" target="_blank" style="color:#333333">Ver Online</a>&nbsp;
+																	<!--|&nbsp;<a href="http://e.shell.com.br/pub/sf/FormLink?_ri_." target="_blank" style="color:#333333">Descadastre-se</a>-->
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+                    		</tr>
+                    		<tr>
+                        	<td align="center">
                             <table width="440" cellspacing="0" cellpadding="0" border="0">
-                                <tbody><tr>
-                                    <td align="left" valign="top" style="padding-top: 30px;">
-                                        <img alt="Promoção 1 ano grátis de Shell V-Power" border="0" src="https://static.cdn.responsys.net/i5/responsysimages/raizencom/contentlibrary/campaigns/cmp_numero_sem_premio/sem-premio-01/img/img-box.jpg" style="display:block;border:0;" width="41" height="41">
-                                    </td> 
+								<tbody>
+								<tr>
+									<td align="left" valign="top" style="padding-top: 30px;">
+										<a href="http://bitlouc.com" target="_blank">
+											<img alt="BitLOUC" border="0" src="http://localhost/codephp/php/bitlouc/interface/imagem/bitlouc_logoii.png" style="display:block;border:0;" height="36" width="89">
+										</a>
+									</td> 
                                 </tr>
                                 <tr>
-                                    <td align="left" valign="middle" style="padding-top: 30px;font-family:Verdana, Helvetica, sans-serif; font-size:21px; color:#3f3f3f; font-weight: bold;line-height: 25px;">SEU PAGAMENTO FOI APROVADO!</td>
+									<td align="left" valign="middle" style="padding-top: 30px;font-family:Verdana, Helvetica, sans-serif; font-size:20px; color:#3f3f3f; font-weight: bold;line-height: 25px;">
+										INSTANCIA '. $email_status .'.
+									</td>
                                 </tr>
                                 <tr>
-                                    <td align="left" valign="middle" style="padding-top: 30px;font-family:Verdana, Helvetica, sans-serif; font-size:14px;line-height: 25px; color: #595a5a;"><span style="color: #dd1d21;">Oi, Fabio!</span> Tudo bem? <br><br>
+									<td align="left" valign="middle" style="padding-top: 30px;font-family:Verdana, Helvetica, sans-serif; font-size:14px;line-height: 25px; color: #595a5a;">
+										<span style="color: #dd1d21;">Oi, Fabio!</span> Tudo bem? <br><br>
                                     Deu tudo certo com a sua compra de <strong>R$ 79,03</strong>! <br>
                                     Aqui embaixo você pode conferir todos os detalhes:
                                     </td>                                    

@@ -347,7 +347,7 @@ endif;
 if($action == 'email'):
   //
   $os_id = '130';
-  $os_status = 'está em teste no sistema';
+  $os_status = 'ESTÁ EM TESTE NO SISTEMA';
   $res['dados'] = $osControl->osEmailII( $os_id, $os_status);
   //$res['dados'] = $osControl->osEmail( $os_id );
       
