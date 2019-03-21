@@ -25,11 +25,11 @@
         </div>
     </template>
     <v-container fluid class="grid-list-xl pa-0">
-        <v-layout row>
-            <template v-for="(item, index) in painel">
-                <v-flex>
-                    <v-list >
-                        <v-list-tile  :key="item.title" avatar  @click=""  :to="item.route">
+        <v-layout wrap>
+            <template>
+                <v-flex v-for="(item, index) in painel">
+                    <v-list class="v-list grey lighten-3 pa-0" two-line theme-light>
+                        <v-list-tile  :key="item.title" avatar  @click=""  :to="item.router">
                             <v-list-tile-avatar>
                             <v-icon :class="[item.iconClass]">{{ item.icon }}</v-icon>
                             </v-list-tile-avatar>
@@ -50,109 +50,11 @@
             </template>
         </v-layout>
     </v-container>
-    <div class="container fluid grid-list-xl pa-0">
     
-    <div class="layout wrap">
-        <div class="flex">
-            <div role="list" class="v-list grey lighten-3 pa-0 v-list--two-line theme--light">
-                <div role="listitem" class="v-list__tile--doc">
-                    <a href="/pt-BR/components/buttons" class="v-list__tile v-list__tile--link theme--light">
-                        <div class="v-list__tile__avatar">
-                            <div class="v-avatar primary" style="height: 40px; width: 40px;">
-                                <i aria-hidden="true" class="v-icon mdi mdi-view-dashboard theme--dark"></i>
-                            </div>
-                        </div>
-                        <div class="v-list__tile__content">
-                            <div class="v-list__tile__title">
-                                <span>buttons</span>
-                            </div>
-                            <div class="v-list__tile__sub-title">
-                                <span>components</span>
-                            </div>
-                        </div>
-                        <div class="v-list__tile__action">
-                            <i aria-hidden="true" class="v-icon mdi mdi-arrow-right theme--light"></i>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="flex">
-            <div role="list" class="v-list grey lighten-3 pa-0 v-list--two-line theme--light">
-                <div role="listitem" class="v-list__tile--doc">
-                    <a href="/pt-BR/components/buttons" class="v-list__tile v-list__tile--link theme--light">
-                        <div class="v-list__tile__avatar">
-                            <div class="v-avatar primary" style="height: 40px; width: 40px;">
-                                <i aria-hidden="true" class="v-icon mdi mdi-view-dashboard theme--dark"></i>
-                            </div>
-                        </div>
-                        <div class="v-list__tile__content">
-                            <div class="v-list__tile__title">
-                                <span>buttons</span>
-                            </div>
-                            <div class="v-list__tile__sub-title">
-                                <span>components</span>
-                            </div>
-                        </div>
-                        <div class="v-list__tile__action">
-                            <i aria-hidden="true" class="v-icon mdi mdi-arrow-right theme--light"></i>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="flex">
-            <div role="list" class="v-list grey lighten-3 pa-0 v-list--two-line theme--light">
-                <div role="listitem" class="v-list__tile--doc">
-                    <a href="/pt-BR/components/images" class="v-list__tile v-list__tile--link theme--light">
-                        <div class="v-list__tile__avatar">
-                            <div class="v-avatar primary" style="height: 40px; width: 40px;">
-                                <i aria-hidden="true" class="v-icon mdi mdi-view-dashboard theme--dark"></i>
-                            </div>
-                        </div>
-                        <div class="v-list__tile__content">
-                            <div class="v-list__tile__title">
-                                <span>images</span>
-                            </div>
-                            <div class="v-list__tile__sub-title">
-                            <span>components</span>
-                            </div>
-                        </div><!---->
-                        <div class="v-list__tile__action">
-                            <i aria-hidden="true" class="v-icon mdi mdi-arrow-right theme--light"></i>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="flex">
-            <div role="list" class="v-list grey lighten-3 pa-0 v-list--two-line theme--light">
-                <div role="listitem" class="v-list__tile--doc">
-                        <a href="/pt-BR/framework/typography" class="v-list__tile v-list__tile--link theme--light">
-                        <div class="v-list__tile__avatar">
-                        <div class="v-avatar brown" style="height: 40px; width: 40px;">
-                        <i aria-hidden="true" class="v-icon mdi mdi-buffer theme--dark"></i>
-                        </div></div><div class="v-list__tile__content">
-                        <div class="v-list__tile__title">
-                        <span>typography</span>
-                        </div>
-                        <div class="v-list__tile__sub-title">
-                        <span>framework</span>
-                        </div>
-                        </div><!---->
-                        <div class="v-list__tile__action">
-                        <i aria-hidden="true" class="v-icon mdi mdi-arrow-right theme--light"></i>
-                        </div>
-                        </a>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-        </div>
-    </div>
   
 </template>
 <?php require_once 'src/components/controle_cilindros/cilindro/index.php';?>
+<?php require_once 'src/components/controle_cilindros/programacao/index.php';?>
 <script>
     var PainelCilindros = Vue.extend({
     template: '#painel-cilindros',
@@ -168,7 +70,7 @@
                 subtitle: 'outra coisa',
                 router: '/controle-cilindros/programacao',
                 icon: 'mdi-home',
-                iconClass: 'grey lighten-1 white--text'
+                iconClass: 'primary white--text'
             },
             { title: 'Cilindros',
                 subtitle: 'outra coisa',
@@ -181,6 +83,18 @@
                 router: '/controle-cilindros/cilindros',
                 icon: 'mdi-buffer',
                 iconClass: 'grey lighten-1 white--text',
+            },
+            { title: 'Programação',
+                subtitle: 'outra coisa',
+                router: '/controle-cilindros/programacao',
+                icon: 'mdi-home',
+                iconClass: 'primary white--text'
+            },
+            { title: 'Programação',
+                subtitle: 'outra coisa',
+                router: '/controle-cilindros/programacao',
+                icon: 'mdi-home',
+                iconClass: 'primary white--text'
             },
             { title: 'Cilindros',
                 subtitle: 'outra coisa',
