@@ -9,6 +9,7 @@ const USERLOGOUT     ='./config/api/apiUser.php?action=logout';
 const INDEXLIST     ='./config/api/apiProprietario.php?action=read';
 const CONFIG        ='./config/api/apiConfig.php?action=config';
 const CONFIGPROD    ='./config/api/apiConfig.php?action=prod';
+const CONFIGCILIND  ='./config/api/apiConfig.php?action=cilindro';
 
 const BENSLIST      ='./config/api/apiLocal.php?action=read';
 const OSLIST        ='./config/api/apiOs.php?action=read';
@@ -279,6 +280,22 @@ const actions = {
             console.log(response.data.message);
           } else{
             commit("SET_PRODUTOS", response.data.produtos);
+            resolve();
+          }
+        })
+        .catch((error => {
+            console.log(error);
+        }));
+    });
+  },
+  fetchCilTipos({ commit }) {
+    return new Promise((resolve, reject) => {
+        Vue.http.get(CONFIGCILIND)
+        .then((response) => {
+          if(response.data.error){
+            console.log(response.data.message);
+          } else{
+            commit("SET_CIL_TIPOS", response.data.cil_tipos);
             resolve();
           }
         })

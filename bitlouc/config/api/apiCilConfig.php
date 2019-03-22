@@ -7,7 +7,6 @@ require_once '_chave.php';
 require_once '../model/Tipos.php';
 require_once '../model/Produtos.php';
 require_once '../model/Categorias.php';
-require_once '../model/CilTipos.php';
 require_once '../model/Fabricantes.php';
 require_once '../model/Loja.php';
 require_once '../model/Local.php';
@@ -24,7 +23,6 @@ require_once '../control/tecControl.php';
 $tipos          = new Tipos();
 $produtos       = new Produtos();
 $categorias     = new Categorias();
-$cilTipos       = new CilTipos();
 $fabricantes    = new Fabricantes();
 $loja           = new Loja();
 $locais         = new Local();
@@ -141,19 +139,6 @@ if($action == 'prod'):
     array_push($arItens, $arItem);
   }endforeach;
   $res['produtos'] = $arItens;
-  #PRODUTOS--------------------------------------------------------------
-  
-endif;
-
-if($action == 'cilindro'):
-
-  #PRODUTOS--------------------------------------------------------------
-  $arItens = array();
-  foreach($cilTipos->findAll() as $key => $value): {
-    $arItem = $value; //Tipo
-    array_push($arItens, $arItem);
-  }endforeach;
-  $res['cil_tipos'] = $arItens;
   #PRODUTOS--------------------------------------------------------------
   
 endif;

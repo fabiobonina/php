@@ -29,6 +29,7 @@ const state = {
   fabricantes:[],
   categorias:[],
   cilindros:[],
+  cil_tipos:[],
   servicos:[],
   tecnicos:[],
   nivel: '1',
