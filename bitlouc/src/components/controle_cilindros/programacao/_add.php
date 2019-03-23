@@ -17,8 +17,8 @@
             </v-toolbar-items>
           </v-toolbar>
           <v-card-text>
-            <message :alerta="temMessage" :success="successMessage" :error="errorMessage"></message>
-            <loader :dialog="isLoading"></loader>
+          <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+          <loader :dialog="isLoading"></loader>
             <v-stepper v-model="progresso" vertical light>
               <v-stepper-step editable :complete="Number(progresso) > 1" step="1">
                 <div>{{ loja.nick }}</div>
@@ -114,39 +114,28 @@
               <v-stepper-content step="3">
                 <v-container grid-list-md>
                   <v-layout wrap>
-
-                            <v-flex xs12 md4 >
-                              <v-text-field
-                                v-model="cil_p"
-                                :error-messages="cil_p"
-                                label="Cilindros P"
-                                data-vv-name="cil_p"
-                                v-validate="'required'"
-                                required
-                              ></v-text-field>
-                            </v-flex>
-
-                            <v-flex xs12 md4 >
-                              <v-text-field
-                                v-model="cil_g"
-                                :error-messages="cil_g"
-                                label="Cilindros G"
-                                data-vv-name="cil_g"
-                                v-validate="'required'"
-                                required
-                              ></v-text-field>
-                            </v-flex>
-                            <v-flex xs12 sm6 md5>
-                              <v-text-field 
-                                type="number"
-                                v-model="cil_g"
-                                label="Km Final"
-                                :error-messages="errors.collect('cil_g')"
-                                v-validate="''"
-                                data-vv-name="cil_g"
-                                item-text="name"
-                              ></v-text-field>
-                            </v-flex>
+                    <v-flex xs12 sm6 d-flex>
+                      <v-select
+                        v-model="cil_tipo"
+                        :items="cilTipos"
+                        box
+                        label="Tipo Cilindros"
+                      ></v-select>
+                    </v-flex>
+                    <v-flex xs12 sm6 d-flex>
+                      <v-text-field 
+                        type="number"
+                        v-model="cil_qtd"
+                        label="Qtd .Cilindros"
+                        :error-messages="errors.collect('cil_p')"
+                        v-validate="''"
+                        data-vv-name="cil_p"
+                        item-text="cil_p"
+                      ></v-text-field>
+                    </v-flex>
+                    <template>
+                        <v-treeview :items="demanda"></v-treeview>
+                      </template>
 
                   </v-layout>
                 </v-container>
@@ -180,8 +169,10 @@ Vue.component('creator', {
       dialog: false,
       loja:{},
       local : {},
-      cil_p: '',
-      cil_g: '',
+      cil_tipo: '',
+      cil_qtd: '',
+      demanda: [],
+      cil_1000: '',
       locais : [],
       progresso: '1',
     };
@@ -248,16 +239,16 @@ Vue.component('creator', {
     saveItem: function(){
       this.errorMessage = []
       this.$validator.validateAll().then((result) => {
-        if (result) {
+        if (result && this.checkForm()) {
           this.isLoading = true
           var postData = {
-            produto: this.produto.id,
-            tag: this.produto.tag,
-            name: this.name,
-            modelo: this.modelo,
+            produto: this.loja.id,
+            tag: this.local.tag,
+            name: this.cil_p,
+            modelo: this.cil_g,
           };
           //console.log(postData);
-          this.$http.post('./config/api/apiBem.php?action=insert', postData).then(function(response) {
+          this.$http.post('./config/api/apiCilindro.php?action=insert', postData).then(function(response) {
             console.log(response);
             if(response.data.error){
               this.errorMessage.push(response.data.message);
@@ -307,22 +298,13 @@ Vue.component('creator', {
         return textOne.indexOf(searchText) > -1 ||
           textTwo.indexOf(searchText) > -1
     },
-    checkForm:function(e) {
+    checkForm:function() {
       this.errorMessage = [];
-      if(!this.data.status) this.errorMessage.push("Status necessário.");
-      if(!this.data.dtInicio) this.errorMessage.push("Data Inicial necessário.");
-      if(!this.data.dtFinal) this.errorMessage.push("Data Final necessário.");
-      if(!this.data.trajeto) this.errorMessage.push("Trajeto necessário.");
-      if(this.data.trajeto.categoria == '0'){
-        if( !this.data.kmInicio )this.errorMessage.push("Para o Trajeto escolhido o Km Inicial é necessário.");
-        if( !this.data.kmFinal )this.errorMessage.push("Para o Trajeto escolhido o Km Final é necessário.");
-      }else if ( this.data.trajeto.categoria == '1' ) {
-        if( !this.data.valor )this.errorMessage.push("Para o Trajeto escolhido o Valor é necessário.");
-      }
-      this.validarKm();
-      this.validarDate();
+      if( !this.loja ) this.errorMessage.push("Loja necessário.");
+      if( !this.local ) this.errorMessage.push("Local necessário.");
+      if( !this.cil_p && !this.cil_g ) this.errorMessage.push("Demanda necessário.");
       if(!this.errorMessage.length) return true;
-      e.preventDefault();
+      //e.preventDefault();
     },
   },
 });
