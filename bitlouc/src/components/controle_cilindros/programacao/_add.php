@@ -118,6 +118,9 @@
                       <v-select
                         v-model="cil_tipo"
                         :items="cilTipos"
+                        item-text="capacidade"
+                        item-value="id"
+                        return-object
                         box
                         label="Tipo Cilindros"
                       ></v-select>
@@ -132,7 +135,20 @@
                         data-vv-name="cil_p"
                         item-text="cil_p"
                       ></v-text-field>
+                      <template v-slot:append-outer>
+                      <v-slide-x-reverse-transition
+                        mode="out-in"
+                      >
+                        <v-icon
+                          :key="`icon-${isEditing}`"
+                          :color="isEditing ? 'success' : 'info'"
+                          @click="isEditing = !isEditing"
+                          v-text="isEditing ? 'mdi-check-outline' : 'mdi-circle-edit-outline'"
+                        ></v-icon>
+                      </v-slide-x-reverse-transition>
+                    </template>
                     </v-flex>
+                    
                     <template>
                         <v-treeview :items="demanda"></v-treeview>
                       </template>
@@ -171,10 +187,11 @@ Vue.component('creator', {
       local : {},
       cil_tipo: '',
       cil_qtd: '',
-      demanda: [],
+      demanda: [cil50:],
       cil_1000: '',
       locais : [],
       progresso: '1',
+      isEditing: false,
     };
   },
   watch: {
@@ -213,6 +230,9 @@ Vue.component('creator', {
     },
     lojas() {
       return store.state.lojas;
+    },
+    cilTipos() {
+      return store.state.cil_tipos;
     },
   },
   created: function() {

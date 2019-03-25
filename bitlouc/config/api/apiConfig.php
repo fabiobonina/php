@@ -7,7 +7,7 @@ require_once '_chave.php';
 require_once '../model/Tipos.php';
 require_once '../model/Produtos.php';
 require_once '../model/Categorias.php';
-require_once '../model/CilTipos.php';
+require_once '../model/CilTipo.php';
 require_once '../model/Fabricantes.php';
 require_once '../model/Loja.php';
 require_once '../model/Local.php';
@@ -24,7 +24,7 @@ require_once '../control/tecControl.php';
 $tipos          = new Tipos();
 $produtos       = new Produtos();
 $categorias     = new Categorias();
-$cilTipos       = new CilTipos();
+$cilTipos       = new CilTipo();
 $fabricantes    = new Fabricantes();
 $loja           = new Loja();
 $locais         = new Local();
@@ -40,7 +40,7 @@ $ufs            = new UF();
 $tecControl     = new TecControl();
 
 $res = array('error' => false);
-$action = 'config';
+$action = 'cilindro';
 
 if(isset($_GET['action'])){
   $action = $_GET['action'];

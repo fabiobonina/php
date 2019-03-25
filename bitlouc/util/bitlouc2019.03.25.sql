@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 18-Mar-2019 às 01:16
--- Versão do servidor: 10.1.37-MariaDB
--- versão do PHP: 7.3.1
+-- Generation Time: 25-Mar-2019 às 21:15
+-- Versão do servidor: 10.1.26-MariaDB
+-- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -4131,6 +4131,28 @@ CREATE TABLE `tb_cil_promacao` (
   `local_id` int(11) NOT NULL,
   `data` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_cil_tipo`
+--
+
+CREATE TABLE `tb_cil_tipo` (
+  `id` int(11) NOT NULL,
+  `capacidade` int(11) NOT NULL,
+  `tag` varchar(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_cil_tipo`
+--
+
+INSERT INTO `tb_cil_tipo` (`id`, `capacidade`, `tag`) VALUES
+(1, 50, 'P'),
+(2, 68, 'P'),
+(3, 900, 'G'),
+(4, 1000, 'G');
 
 -- --------------------------------------------------------
 
@@ -15843,6 +15865,12 @@ ALTER TABLE `tb_cilindro`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tb_cil_tipo`
+--
+ALTER TABLE `tb_cil_tipo`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tb_desloc_status`
 --
 ALTER TABLE `tb_desloc_status`
@@ -16061,6 +16089,12 @@ ALTER TABLE `tb_categoria`
 --
 ALTER TABLE `tb_cilindro`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3993;
+
+--
+-- AUTO_INCREMENT for table `tb_cil_tipo`
+--
+ALTER TABLE `tb_cil_tipo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tb_desloc_status`
