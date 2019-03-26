@@ -115,7 +115,7 @@
                 <v-container grid-list-md>
                   <v-layout wrap>
                     <v-flex xs12 sm6 d-flex>
-                    <demanda-add v-on:close="close()"></demanda-add>
+                    <demanda-add :data="demanda" v-on:close="close()"></demanda-add>
                     </v-flex>
                   </v-layout>
                 </v-container>
