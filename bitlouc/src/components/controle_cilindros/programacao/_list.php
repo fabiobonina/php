@@ -12,7 +12,7 @@
       <v-btn @click="modalOs = true" color="deep-orange" dark small fab>
         <v-icon>build</v-icon>
       </v-btn>
-      <creator :dialog-add="creator" v-on:close="close()"></creator>
+      <prog-add :dialog-add="creator" v-on:close="close()"></prog-add>
     </v-toolbar>
     <v-data-table :headers="headers" :items="filteredData" :search="search" class="elevation-1">
       <template slot="items" slot-scope="props">

@@ -1,4 +1,4 @@
-<template id="creator">
+<template id="prog-add">
   <div>
     <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="dialog = true" color="pink" fab small dark>
       <v-icon>add</v-icon>
@@ -115,44 +115,8 @@
                 <v-container grid-list-md>
                   <v-layout wrap>
                     <v-flex xs12 sm6 d-flex>
-                      <v-select
-                        v-model="cil_tipo"
-                        :items="cilTipos"
-                        item-text="capacidade"
-                        item-value="id"
-                        return-object
-                        box
-                        label="Tipo Cilindros"
-                      ></v-select>
+                    <demanda-add v-on:close="close()"></demanda-add>
                     </v-flex>
-                    <v-flex xs12 sm6 d-flex>
-                      <v-text-field 
-                        type="number"
-                        v-model="cil_qtd"
-                        label="Qtd .Cilindros"
-                        :error-messages="errors.collect('cil_p')"
-                        v-validate="''"
-                        data-vv-name="cil_p"
-                        item-text="cil_p"
-                      ></v-text-field>
-                      <template v-slot:append-outer>
-                      <v-slide-x-reverse-transition
-                        mode="out-in"
-                      >
-                        <v-icon
-                          :key="`icon-${isEditing}`"
-                          :color="isEditing ? 'success' : 'info'"
-                          @click="isEditing = !isEditing"
-                          v-text="isEditing ? 'mdi-check-outline' : 'mdi-circle-edit-outline'"
-                        ></v-icon>
-                      </v-slide-x-reverse-transition>
-                    </template>
-                    </v-flex>
-                    
-                    <template>
-                        <v-treeview :items="demanda"></v-treeview>
-                      </template>
-
                   </v-layout>
                 </v-container>
               </v-stepper-content>
@@ -163,12 +127,13 @@
     </v-layout>
   </div>
 </template>
-  
-</template>
+
+<?php require_once 'src/components/controle_cilindros/programacao/_demanda.php';?>
+
 <script>
-Vue.component('creator', {
-  name: 'creator',
-  template: '#creator',
+Vue.component('prog-add', {
+  name: 'prog-add',
+  template: '#prog-add',
   $_veeValidate: {
     validator: 'new'
   },
@@ -187,7 +152,7 @@ Vue.component('creator', {
       local : {},
       cil_tipo: '',
       cil_qtd: '',
-      demanda: [cil50:],
+      demanda: [],
       cil_1000: '',
       locais : [],
       progresso: '1',
