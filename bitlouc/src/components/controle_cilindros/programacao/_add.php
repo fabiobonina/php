@@ -76,7 +76,7 @@
                     :items="locais"
                     color="blue-grey lighten-2"
                     label="Local"                              
-                    item-text="name"              
+                    item-text="name"
                     data-vv-name="local"
                     :filter="localFilter"
                     return-object

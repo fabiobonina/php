@@ -28,30 +28,29 @@
                   <v-layout wrap>
                     <v-flex xs12 sm6 d-flex>
                       <v-select
-                        v-model="cil_tipo"
-                        :items="cilTipos"
-                        item-text="capacidade"
-                        item-value="id"
+                        v-model="item.cil_tipo" :items="cilTipos"
+                        item-text="name" item-value="id"
                         return-object
-                        box
-                        label="Tipo Cilindros"
-                        v-on:keyup.enter="addTodo"
+                        box label="Tipo Cilindro"
+                        v-on:keyup.enter="addDemanda()"
+                        v-validate="'required'" required
                       ></v-select>
                     </v-flex>
                     <v-flex xs12 sm6 d-flex>
                       <v-text-field 
                         type="number"
-                        v-model="cil_qtd"
-                        label="Qtd .Cilindros"
-                        :error-messages="errors.collect('cil_p')"
-                        v-validate="''"
-                        data-vv-name="cil_p"
-                        item-text="cil_p"
-                        v-on:keyup.enter="addTodo"
+                        v-model="item.cil_qtd"
+                        label="Qtd. Cilindros"
+                        :error-messages="errors.collect('cil_qtd')"
+                        item-text="item.cil_qtd"
+                        
+                        data-vv-name="item.cil_qtd"
+                        v-on:keyup.enter="addDemanda()"
+                        
                       ></v-text-field>
                       <template>
 
-                      <v-btn @click="addDemanda" color="blue" fab small dark>
+                      <v-btn @click="addDemanda()" color="blue" fab small dark>
                         <v-icon>add</v-icon>
                       </v-btn>
                     </template>
@@ -60,6 +59,16 @@
                     <template>
                         <v-treeview :items="todoStorage" :item-text="todoStorage.title"></v-treeview>
                       </template>
+                    <ul>
+                      {{testTodo}}
+                      <li v-for="(todo, index) in data">
+                        
+                        <input v-if="todo.edit" type="text" v-model="todo.cil_tipo">
+                        <span v-else> {{todo.id}}  {{todo.cil_tipo}} </span>
+                        <button @click="removeTodo(index)">&#10006;</button>
+                        <button @click="todo.edit = !todo.edit">&#9998;</button>
+                      </li>
+                    </ul>
 
                   </v-layout>
                 </v-container>
@@ -93,7 +102,7 @@ Vue.component('demanda-add', {
     validator: 'new'
   },
   props: {
-    data: [],
+    data: Array,
     //filterKey: String,
     //dialogAdd: Boolean,
   },
@@ -111,6 +120,11 @@ Vue.component('demanda-add', {
       cil_1000: '',
       locais : [],
       progresso: '1',
+      item: {
+        cil_tipo: null,
+        cil_qtd: null,
+        edit: false
+      },
       isEditing: false,
       todo: {
         title: null,
@@ -225,43 +239,36 @@ Vue.component('demanda-add', {
       this.$emit('atualizar');
     },
     remove (item) {
-        //const index = this.loja.indexOf(item)
-        //if (index >= 0) this.loja.splice(index, 1)
-        this.loja = null
-    },
-    lojaFilter (item, queryText, itemText) {
-        const textOne = item.nick.toLowerCase()
-        const textTwo = item.name.toLowerCase()
-        const searchText = queryText.toLowerCase()
-
-        return textOne.indexOf(searchText) > -1 ||
-          textTwo.indexOf(searchText) > -1
-    },
-    localFilter (item, queryText, itemText) {
-        const textOne = item.nick.toLowerCase()
-        const textTwo = item.name.toLowerCase()
-        const searchText = queryText.toLowerCase()
-
-        return textOne.indexOf(searchText) > -1 ||
-          textTwo.indexOf(searchText) > -1
+        const index = this.data.indexOf(item)
+        if (index >= 0) this.data.splice(index, 1)
     },
     checkForm:function() {
       this.errorMessage = [];
-      if( !this.loja ) this.errorMessage.push("Loja necessário.");
-      if( !this.local ) this.errorMessage.push("Local necessário.");
-      if( !this.cil_p && !this.cil_g ) this.errorMessage.push("Demanda necessário.");
+      if( !this.item.cil_tipo ) this.errorMessage.push("Tipo de cilindro necessário.");
+      if( !this.item.cil_qtd ) this.errorMessage.push("Qtd. de cilindro necessário.");
       if(!this.errorMessage.length) return true;
       //e.preventDefault();
     },
     addDemanda(){
-      var vm = this 
-      vm.data.push({ cil_tipo: vm.cil_tipo, title: vm.cil_qtd, edit: false })
-      vm.cil_tipo = ''
-      vm.cil_qtd = ''
+      var vm = this;
+      if ( this.checkForm() ) {
+          this.isLoading = true          
+          var postData = {
+            cil_tipo: vm.item.cil_tipo,
+            cil_qtd: vm.item.cil_qtd,
+            edit: false
+          };
+          console.log(postData);
+          vm.data.push( vm.postData );
+          vm.item = [];
+          this.isLoading = false
+          console.log(vm.data);
+        }
+      
     },
     addTodo(){
       var vm = this 
-      vm.todos.push({id: todoStorage.uid++, title:vm.todo.title,edit: false })
+      vm.todos.push({id: todoStorage.uid++, title:vm.todo.title, edit: false })
       vm.todo = []
     },
     removeTodo(index){
