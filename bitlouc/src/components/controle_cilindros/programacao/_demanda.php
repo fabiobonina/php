@@ -30,9 +30,9 @@
                       <v-select
                         v-model="item.cil_tipo" :items="cilTipos"
                         item-text="name" item-value="id"
-                        return-object
                         box label="Tipo Cilindro"
                         v-on:keyup.enter="addDemanda()"
+                        data-vv-name="name"
                         v-validate="'required'" required
                       ></v-select>
                     </v-flex>
@@ -43,28 +43,26 @@
                         label="Qtd. Cilindros"
                         :error-messages="errors.collect('cil_qtd')"
                         item-text="item.cil_qtd"
-                        
-                        data-vv-name="item.cil_qtd"
+                        data-vv-name="name"
                         v-on:keyup.enter="addDemanda()"
                         
                       ></v-text-field>
                       <template>
-
-                      <v-btn @click="addDemanda()" color="blue" fab small dark>
-                        <v-icon>add</v-icon>
-                      </v-btn>
-                    </template>
+                        <v-btn @click="addDemanda()" color="blue" fab small dark>
+                          <v-icon>add</v-icon>
+                        </v-btn>
+                      </template>
                     </v-flex>
                     
                     <template>
-                        <v-treeview :items="todoStorage" :item-text="todoStorage.title"></v-treeview>
+                        <!--v-treeview :items="demanda" :item-text="cil_qtd"></v-treeview-->
                       </template>
                     <ul>
-                      {{testTodo}}
+                      {{item}}
                       <li v-for="(todo, index) in data">
                         
                         <input v-if="todo.edit" type="text" v-model="todo.cil_tipo">
-                        <span v-else> {{todo.id}}  {{todo.cil_tipo}} </span>
+                        <span v-else> {{todo}}  {{todo.cil_tipo}} </span>
                         <button @click="removeTodo(index)">&#10006;</button>
                         <button @click="todo.edit = !todo.edit">&#9998;</button>
                       </li>
@@ -112,13 +110,7 @@ Vue.component('demanda-add', {
       successMessage: [],
       isLoading: false,
       dialog: false,
-      loja:{},
-      local : {},
-      cil_tipo: '',
-      cil_qtd: '',
       demanda: [],
-      cil_1000: '',
-      locais : [],
       progresso: '1',
       item: {
         cil_tipo: null,
@@ -130,7 +122,7 @@ Vue.component('demanda-add', {
         title: null,
         edit: false
       },
-      todos:todoStorage.fetch(),
+      todos: '',
       testTodo: null
     }
   },
@@ -142,7 +134,7 @@ Vue.component('demanda-add', {
 
       // Items have already been requested
       if (this.isLoading) return
-      this.updateLocal()
+      //this.updateLocal()
       this.isLoading = true
 
     },
@@ -168,9 +160,6 @@ Vue.component('demanda-add', {
       if(this.successMessage.length > 0) return true
       return false
     },
-    lojas() {
-      return store.state.lojas;
-    },
     cilTipos() {
       return store.state.cil_tipos;
     },
@@ -188,7 +177,7 @@ Vue.component('demanda-add', {
   },
   methods: {
     initialize() {
-      this.updateLocal();
+      //this.updateLocal();
     },
     updateLocal() {
       this.$store.dispatch('fetchLocalLoja', this.loja.id ).then(() => {
@@ -254,15 +243,16 @@ Vue.component('demanda-add', {
       if ( this.checkForm() ) {
           this.isLoading = true          
           var postData = {
-            cil_tipo: vm.item.cil_tipo,
-            cil_qtd: vm.item.cil_qtd,
+            cil_tipo: this.item.cil_tipo.id,
+            //cil_qtd: this.tem.cil_qtd,
             edit: false
           };
-          console.log(postData);
-          vm.data.push( vm.postData );
-          vm.item = [];
+          //console.log(postData);
+          //this.item.push( this.item );
+          this.data.push( this.item );
+          this.item = {};
           this.isLoading = false
-          console.log(vm.data);
+          console.log(this.data);
         }
       
     },
