@@ -1,32 +1,13 @@
 <template id="demanda-add">
-  <div>
     <v-layout row justify-center>
         <v-card>
           <v-card-text>
                 <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
                 <loader :dialog="isLoading"></loader>
                 
-                <v-container grid-list-md>
-                <h2>Test Application</h2>
-
-
-                <div>
-                  <input type="text" v-model="todo.title" placeholder="input todo" v-on:keyup.enter="addTodo">
-
-                  <ul>
-                    {{testTodo}}
-                    <li v-for="(todo, index) in todoStorage">
-                      
-                      <input v-if="todo.edit" type="text" v-model="todo.title">
-                      <span v-else> {{todo.id}}  {{todo.title}} </span>
-                      <button @click="removeTodo(index)">&#10006;</button>
-                      <button @click="todo.edit = !todo.edit">&#9998;</button>
-                    </li>
-                  </ul>
-                </div>
                 <small>Demanda</small>
                   <v-layout wrap>
-                    <v-flex xs12 sm6 d-flex>
+                    <v-flex>
                       <v-select
                         v-model="item.cil_tipo" :items="cilTipos"
                         item-text="name" item-value="id"
@@ -36,7 +17,7 @@
                         v-validate="'required'" required
                       ></v-select>
                     </v-flex>
-                    <v-flex xs12 sm6 d-flex>
+                    <v-flex>
                       <v-text-field 
                         type="number"
                         v-model="item.cil_qtd"
@@ -47,33 +28,115 @@
                         v-on:keyup.enter="addDemanda()"
                         
                       ></v-text-field>
-                      <template>
+                      
+                    </v-flex>
+                    <v-flex>
                         <v-btn @click="addDemanda()" color="blue" fab small dark>
                           <v-icon>add</v-icon>
                         </v-btn>
-                      </template>
-                    </v-flex>
+                      </v-flex>
+                    </v-layout>
                     
                     <template>
                         <!--v-treeview :items="demanda" :item-text="cil_qtd"></v-treeview-->
                       </template>
-                    <ul>
-                      {{item}}
-                      <li v-for="(todo, index) in data">
+                      <template v-for="(todo, index) in data">
+                        <v-layout v-if="todo.edit" >
+                          <v-flex xs12 sm6 d-flex>
+                            <v-select
+                              v-model="todo.cil_tipo" :items="cilTipos"
+                              item-text="name" item-value="id"
+                              box label="Tipo Cilindro"
+                              v-on:keyup.enter="addDemanda()"
+                              data-vv-name="name"
+                              v-validate="'required'" required
+                            ></v-select>
+                          </v-flex>
+                          <v-flex xs12 sm6 d-flex>
+                            <v-text-field 
+                              type="number"
+                              v-model="todo.cil_qtd"
+                              label="Qtd. Cilindros"
+                              :error-messages="errors.collect('cil_qtd')"
+                              item-text="todo.cil_qtd"
+                              data-vv-name="name"
+                              v-on:keyup.enter="addDemanda()"
+                            ></v-text-field>
+                        </v-layout>
                         
-                        <input v-if="todo.edit" type="text" v-model="todo.cil_tipo">
-                        <span v-else> {{todo}}  {{todo.cil_tipo}} </span>
+
+                        <div v-else>  {{todo.cil_tipo}} </div>
                         <button @click="removeTodo(index)">&#10006;</button>
                         <button @click="todo.edit = !todo.edit">&#9998;</button>
-                      </li>
-                    </ul>
+                        <v-btn @click="todo.edit = !todo.edit" color="blue" fab small dark>
+                                <v-icon>&#9998;<</v-icon>
+                              </v-btn>
+                      </div>
+                    </template>
+                    <!--template>
+                          <div v-if="data.length">
+                            <v-data-table :headers="headers" :items="data">
+                              <template v-slot:items="props">
+                                <td>
+                                  <v-edit-dialog
+                                    :return-value.sync="props.item.cil_tipo"
+                                    lazy
+                                    @save="save"
+                                    @cancel="cancel"
+                                    @open="open"
+                                    @close="close"
+                                  > {{ props.item.cil_tipo }}
+                                    <template v-slot:input>
+                                      <v-text-field
+                                        v-model="props.item.cil_tipo"
+                                        label="Edit"
+                                        single-line
+                                        counter
+                                      ></v-text-field>
+                                    </template>
+                                  </v-edit-dialog>
+                                </td>
+                                <td class="text-xs-right">
+                                  <v-edit-dialog
+                                    :return-value.sync="props.item.cil_qtd"
+                                    large
+                                    lazy
+                                    persistent
+                                    @save="save"
+                                    @cancel="cancel"
+                                    @open="open"
+                                    @close="close"
+                                  >
+                                    <div>{{ props.item.cil_qtd }}</div>
+                                    <template v-slot:input>
+                                      <div class="mt-3 title">Update cil_qtd</div>
+                                    </template>
+                                    <template v-slot:input>
+                                      <v-text-field
+                                        v-model="props.item.cil_qtd"
+                                        label="Edit"
+                                        single-line
+                                        counter
+                                        autofocus
+                                      ></v-text-field>
+                                    </template>
+                                  </v-edit-dialog>
+                                </td>
+                              </template>
+                            </v-data-table>
 
-                  </v-layout>
+                            <v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
+                              {{ snackText }}
+                              <v-btn flat @click="snack = false">Close</v-btn>
+                            </v-snackbar>
+                          </div>
+                        </template-->
+
+                  
                 </v-container>
           </v-card-text>
         </v-card>
     </v-layout>
-  </div>
 </template>
 
 <script>
@@ -118,12 +181,21 @@ Vue.component('demanda-add', {
         edit: false
       },
       isEditing: false,
+      headers: [
+          { text: 'Tipo Cinlindro', value: 'cil_tipo', align: 'left', sortable: false },
+          { text: 'Qtd. Cilindro', value: 'cil_qtd', sortable: false }
+      ],
       todo: {
         title: null,
         edit: false
       },
       todos: '',
-      testTodo: null
+      testTodo: null,
+      snack: false,
+        snackColor: '',
+        snackText: '',
+        max25chars: v => v.length <= 25 || 'Input too long!',
+        pagination: {},
     }
   },
   watch: {
@@ -263,7 +335,25 @@ Vue.component('demanda-add', {
     },
     removeTodo(index){
       this.todos.splice(index, 1)
-    }
+    },
+    save () {
+        this.snack = true
+        this.snackColor = 'success'
+        this.snackText = 'Data saved'
+      },
+      cancel () {
+        this.snack = true
+        this.snackColor = 'error'
+        this.snackText = 'Canceled'
+      },
+      open () {
+        this.snack = true
+        this.snackColor = 'info'
+        this.snackText = 'Dialog opened'
+      },
+      close () {
+        console.log('Dialog closed')
+      }
   },
 });
 
