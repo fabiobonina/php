@@ -26,52 +26,66 @@
                         item-text="item.cil_qtd"
                         data-vv-name="name"
                         v-on:keyup.enter="addDemanda()"
-                        
                       ></v-text-field>
-                      
                     </v-flex>
                     <v-flex>
-                        <v-btn @click="addDemanda()" color="blue" fab small dark>
-                          <v-icon>add</v-icon>
-                        </v-btn>
-                      </v-flex>
-                    </v-layout>
+                      <v-btn @click="addDemanda()" color="blue" fab small dark>
+                        <v-icon>add</v-icon>
+                      </v-btn>
+                    </v-flex>
+                  </v-layout>
                     
-                    <template>
-                        <!--v-treeview :items="demanda" :item-text="cil_qtd"></v-treeview-->
-                      </template>
-                      <template v-for="(todo, index) in data">
-                        <v-layout v-if="todo.edit" >
-                          <v-flex xs12 sm6 d-flex>
-                            <v-select
-                              v-model="todo.cil_tipo" :items="cilTipos"
-                              item-text="name" item-value="id"
-                              box label="Tipo Cilindro"
-                              v-on:keyup.enter="addDemanda()"
-                              data-vv-name="name"
-                              v-validate="'required'" required
-                            ></v-select>
-                          </v-flex>
-                          <v-flex xs12 sm6 d-flex>
-                            <v-text-field 
-                              type="number"
-                              v-model="todo.cil_qtd"
-                              label="Qtd. Cilindros"
-                              :error-messages="errors.collect('cil_qtd')"
-                              item-text="todo.cil_qtd"
-                              data-vv-name="name"
-                              v-on:keyup.enter="addDemanda()"
-                            ></v-text-field>
-                        </v-layout>
+                  <template>
+                    <!--v-treeview :items="demanda" :item-text="cil_qtd"></v-treeview-->
+                  </template>
+                  <template>
+                    <v-list>
+                      <v-list-tile  v-for="(todo, index) in data" :key="item.cil_tipo" @click="">
                         
+                        <template >
+                            <v-list-tile-content>
+                              <v-flex v-if="todo.edit">
+                                <v-select
+                                  v-model="todo.cil_tipo" :items="cilTipos"
+                                  item-text="name" item-value="id"
+                                  label="Tipo Cilindro"
+                                  v-on:keyup.enter="addDemanda()"
+                                  data-vv-name="name"
+                                  v-validate="'required'" required
+                                ></v-select>
+                              </v-flex>
+                              <v-list-tile-title v-else v-text="todo.cil_tipo"></v-list-tile-title>
+                            </v-list-tile-content>
+                            <v-list-tile-content>
+                              <v-flex v-if="todo.edit">
+                                <v-text-field 
+                                  type="number"
+                                  v-model="todo.cil_qtd"
+                                  label="Qtd. Cilindros" box
+                                  :error-messages="errors.collect('cil_qtd')"
+                                  item-text="todo.cil_qtd"
+                                  data-vv-name="name"
+                                  v-on:keyup.enter="addDemanda()"
+                                ></v-text-field>
+                              </v-flex>
+                              <v-list-tile-title v-else v-text="todo.cil_qtd"></v-list-tile-title>
+                            </v-list-tile-content>
 
-                        <div v-else>  {{todo.cil_tipo}} </div>
-                        <button @click="removeTodo(index)">&#10006;</button>
-                        <button @click="todo.edit = !todo.edit">&#9998;</button>
-                        <v-btn @click="todo.edit = !todo.edit" color="blue" fab small dark>
-                                <v-icon>&#9998;<</v-icon>
+                            <v-list-tile-action>
+                              <v-btn @click="removeTodo(index)" color="red" fab small dark>
+                                <v-icon>&#10006;</v-icon>
                               </v-btn>
-                      </div>
+                            </v-list-tile-action>
+                            <v-list-tile-action>
+                              <v-btn @click="todo.edit = !todo.edit" color="blue" fab small dark>
+                                <v-icon>&#9998;</v-icon>
+                              </v-btn>
+                            </v-list-tile-action>
+                          
+                            
+                          </v-list-tile>
+                        </v-list>
+                      </template>
                     </template>
                     <!--template>
                           <div v-if="data.length">
