@@ -98,8 +98,8 @@
                       </template>
                       <template v-else>
                         <v-list-tile-content>
-                          <v-list-tile-title v-html="data.item.nick"></v-list-tile-title>
-                          <v-list-tile-sub-title v-html="data.item.name"></v-list-tile-sub-title>
+                          <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
+                          <v-list-tile-sub-title v-html=" `${data.item.municipio } ${data.item.uf}`"></v-list-tile-sub-title>
                         </v-list-tile-content>
                       </template>
                     </template>
@@ -113,7 +113,7 @@
               </v-stepper-step>
               <v-stepper-content step="3">
                 <v-container grid-list-md>
-                  <v-layout wrap>
+                  <v-layout row justify-center>
                     <demanda-add :data="demanda" v-on:close="close()"></demanda-add>
                   </v-layout>
                 </v-container>
@@ -148,10 +148,7 @@ Vue.component('prog-add', {
       dialog: false,
       loja:{},
       local : {},
-      cil_tipo: '',
-      cil_qtd: '',
       demanda: [],
-      cil_1000: '',
       locais : [],
       progresso: '1',
       isEditing: false,
@@ -159,7 +156,6 @@ Vue.component('prog-add', {
   },
   watch: {
     'progresso': function (newQuestion, oldQuestion) {
-      
       // Items have already been loaded
       if (this.loja.length > 0 && this.progresso == '2') return
 
@@ -194,24 +190,13 @@ Vue.component('prog-add', {
     lojas() {
       return store.state.lojas;
     },
-    cilTipos() {
-      return store.state.cil_tipos;
-    },
   },
   created: function() {
     this.$store.dispatch('fetchCilTipos').then(() => {
       console.log("carregando tipos de cilindros")
     });
-    this.initialize();
   },
   methods: {
-    initialize() {
-      //this.loja = store.getters.getLojaId(this.$route.params._loja);
-      //this.local = store.getters.getLocalId(this.$route.params._local);
-      //this.dono = store.getters.getLojaId(this.user.loja);
-      //this.donoLocal = store.getters.getLocalLojaSingle(this.user.loja);
-      this.updateLocal();
-    },
     updateLocal() {
       this.$store.dispatch('fetchLocalLoja', this.loja.id ).then(() => {
         //console.log("Buscando dados do local!");
@@ -225,12 +210,11 @@ Vue.component('prog-add', {
         if (result && this.checkForm()) {
           this.isLoading = true
           var postData = {
-            produto: this.loja.id,
-            tag: this.local.tag,
-            name: this.cil_p,
-            modelo: this.cil_g,
+            loja_id: this.loja.id,
+            local_id: this.local.id,
+            demanda: this.demanda
           };
-          //console.log(postData);
+          console.log(postData);
           this.$http.post('./config/api/apiCilindro.php?action=insert', postData).then(function(response) {
             console.log(response);
             if(response.data.error){
@@ -274,7 +258,7 @@ Vue.component('prog-add', {
           textTwo.indexOf(searchText) > -1
     },
     localFilter (item, queryText, itemText) {
-        const textOne = item.nick.toLowerCase()
+        const textOne = item.municipio.toLowerCase()
         const textTwo = item.name.toLowerCase()
         const searchText = queryText.toLowerCase()
 
@@ -285,7 +269,7 @@ Vue.component('prog-add', {
       this.errorMessage = [];
       if( !this.loja ) this.errorMessage.push("Loja necessário.");
       if( !this.local ) this.errorMessage.push("Local necessário.");
-      if( !this.cil_p && !this.cil_g ) this.errorMessage.push("Demanda necessário.");
+      if( !this.demanda ) this.errorMessage.push("Demanda necessário.");
       if(!this.errorMessage.length) return true;
       //e.preventDefault();
     },

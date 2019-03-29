@@ -54,24 +54,11 @@ endif;
 
 #CADASTRAR
 if($action == 'insert'):
-  $produto            = $_POST['produto'];
-  $tag                = $_POST['tag'];
-  $name               = $_POST['name'];
-  $modelo             = $_POST['modelo'];
-  $fabricante         = $_POST['fabricante'];
-  $fabricanteNick     = $_POST['fabricanteNick'];
-  $proprietario       = $_POST['proprietario'];
-  $proprietarioNick   = $_POST['proprietarioNick'];
-  $proprietarioLocal  = $_POST['proprietarioLocal'];
-  $categoria          = $_POST['categoria'];
-  $numeracao          = $_POST['numeracao'];
-  $plaqueta           = $_POST['plaqueta'];
-  $dataFab            = $_POST['dataFab'];
-  $dataCompra         = $_POST['dataCompra'];
-  $loja               = $_POST['loja'];
-  $local              = $_POST['local'];
-  $status             = $_POST['status'];
-  $ativo              = $_POST['ativo'];
+  $loja_id    = $_POST['loja_id'];
+  $local_id   = $_POST['local_id'];
+  $demanda    = $_POST['demanda'];
+  $data       = $_POST['data'];
+  $ativo      = $_POST['ativo'];
 
   /*$produto = '1';
   $tag = 'tag';
