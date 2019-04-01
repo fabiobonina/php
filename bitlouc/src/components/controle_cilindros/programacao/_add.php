@@ -113,8 +113,23 @@
               </v-stepper-step>
               <v-stepper-content step="3">
                 <v-container grid-list-md>
+                    <v-flex>
+                      <v-text-field
+                        type="date"
+                        v-model="dataOs"
+                        label="Data"
+                        :error-messages="errors.collect('dataOs')"
+                        v-validate="'required'"
+                        data-vv-name="dataOs"
+                        item-text="name"
+                        required
+                      ></v-text-field>
+                    </v-flex>
                   <v-layout row justify-center>
+                    <v-flex>
                     <demanda-add :data="demanda" v-on:close="close()"></demanda-add>
+                    </v-flex>           
+                    
                   </v-layout>
                 </v-container>
               </v-stepper-content>
@@ -148,6 +163,7 @@ Vue.component('prog-add', {
       dialog: false,
       loja:{},
       local : {},
+      data: null,
       demanda: [],
       locais : [],
       progresso: '1',
@@ -192,9 +208,7 @@ Vue.component('prog-add', {
     },
   },
   created: function() {
-    this.$store.dispatch('fetchCilTipos').then(() => {
-      console.log("carregando tipos de cilindros")
-    });
+    this.dataT();
   },
   methods: {
     updateLocal() {
@@ -212,10 +226,13 @@ Vue.component('prog-add', {
           var postData = {
             loja_id: this.loja.id,
             local_id: this.local.id,
-            demanda: this.demanda
+            data: this.data,
+            status: '0',
+            demanda: this.demanda,
+            id: ''
           };
           console.log(postData);
-          this.$http.post('./config/api/apiCilindro.php?action=insert', postData).then(function(response) {
+          this.$http.post('./config/api/api.cilindroProg.php?action=publish', postData).then(function(response) {
             console.log(response);
             if(response.data.error){
               this.errorMessage.push(response.data.message);
@@ -272,6 +289,14 @@ Vue.component('prog-add', {
       if( !this.demanda ) this.errorMessage.push("Demanda necessário.");
       if(!this.errorMessage.length) return true;
       //e.preventDefault();
+    },
+    dataT() {
+      var datetime = new Date().toLocaleString();
+      var res = datetime.split(" ");
+      var date = res[0].split("/");
+      var time = res[1].slice(0, -3);
+      var dtTime = date[2] + "-" + date[1] + "-" + date[0];
+      this.dataOs = dtTime;
     },
   },
 });

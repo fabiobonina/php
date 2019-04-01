@@ -2,7 +2,7 @@
 	require_once '_global.php';
 	require_once '../emailPHP.php';
 
-	class CilindroControl extends GlobalControl {
+	class CilindroProgControl extends GlobalControl {
 
 		public function matrix( $item ){
 			

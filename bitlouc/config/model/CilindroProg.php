@@ -4,88 +4,26 @@ require_once '_crud.php';
 
 
 
-class Os extends Crud{
+class CilProgramacao extends Crud{
 	
-	protected $table = 'tb_os';
-	protected $table2 = 'tb_os_tecnico';
-	private $proprietario_id;
+	protected $table = 'tb_cil_programacao';
 	private $loja_id;
-	private $loja_nick;
 	private $local_id;
-	private $equipamento_id;
-	private $categoria_id;
-	private $servico_id;
-	private $tecnicos;
 	private $data;
-	private $dtCadastro;
-	private $filial;
-	private $os;
-	private $dtUltimoMan;
-	private $dtOS;
-	private $dtFech;
-	private $dtConcluido;
-	private $estado;
-	private $processo;
 	private $status;
-	private $ativo;
 
 
-	public function setProprietario($proprietario_id){
-		$this->proprietario_id = $proprietario_id;
-	}
 	public function setLoja($loja_id){
 		$this->loja_id = $loja_id;
-	}
-	public function setLojaNick($loja_nick){
-		$this->loja_nick = $loja_nick;
 	}
 	public function setLocal($local_id){
 		$this->local_id = $local_id;
 	}
-	public function setUf($uf){
-		$this->uf = $uf;
-	}
-	public function setEquipamento($equipamento_id){
-		$this->equipamento_id = $equipamento_id;
-	}
-	public function setCategoria($categoria_id){
-		$this->categoria_id = $categoria_id;
-	}
-	public function setServico($servico_id){
-		$this->servico_id = $servico_id;
-	}
 	public function setData($data){
 		$this->data = $data;
 	}
-	public function setDtUltimoMan($dtUltimoMan){
-		$this->dtUltimoMan = $dtUltimoMan;
-	}
-	public function setDtCadastro($dtCadastro){
-		$this->dtCadastro = $dtCadastro;
-	}
-	public function setFilial($filial){
-		$this->filial = $filial;
-	}
-	public function setOs($os){
-		$this->os = $os;
-	}
-	public function setDtOs($dtOs){
-		$this->dtOs = $dtOs;
-	}
-	public function setDtFech($dtFech){
-		$this->dtFech = $dtFech;
-	}
-	public function setDtConcluido($dtConcluido){
-		$this->dtConcluido = $dtConcluido;
-	}
-	public function setProcesso($processo){
-		$this->processo = $processo;
-	}
 	public function setStatus($status){
 		$this->status = $status;
-	}
-	public function setUser($user_id){
-		$this->user_id = $user_id;
 	}
 	public function setAtivo($ativo){
 		$this->ativo = $ativo;
@@ -93,27 +31,17 @@ class Os extends Crud{
 
 	public function insert(){
 		try{
-			$sql  = "INSERT INTO $this->table ( proprietario_id, loja_id, loja_nick, local_id, uf, equipamento_id, servico_id, categoria_id, data, dtUltimoMan, dtCadastro, user_id, ativo) ";
-			$sql .= "VALUES (:proprietario_id, :loja_id, :loja_nick, :local_id, :uf, :equipamento_id, :servico_id, :categoria_id, :data, :dtUltimoMan, :dtCadastro, :user_id, :ativo)";
+			$sql  = "INSERT INTO $this->table ( loja_id, local_id, data) ";
+			$sql .= "VALUES (:loja_id, :local_id, :data)";
 			$stmt = DB::prepare($sql);
 			
-			$stmt->bindParam(':proprietario_id',	$this->proprietario_id);
 			$stmt->bindParam(':loja_id',			$this->loja_id);
-			$stmt->bindParam(':loja_nick',			$this->loja_nick);
 			$stmt->bindParam(':local_id',			$this->local_id);
-			$stmt->bindParam(':uf',					$this->uf);
-			$stmt->bindParam(':equipamento_id',		$this->equipamento_id);
-			$stmt->bindParam(':servico_id',			$this->servico_id);
-			$stmt->bindParam(':categoria_id',		$this->categoria_id);
 			$stmt->bindParam(':data',				$this->data);
-			$stmt->bindParam(':dtUltimoMan',		$this->dtUltimoMan);
-			$stmt->bindParam(':dtCadastro',			$this->dtCadastro);
-			$stmt->bindParam(':user_id',			$this->user_id);
-			$stmt->bindParam(':ativo',				$this->ativo);
 			$stmt->execute();
-			$osId = DB::getInstance()->lastInsertId();
+			$item_id = DB::getInstance()->lastInsertId();
 
-			$res['id'] = $osId;
+			$res['id'] = $item_id;
 			$res['error'] = false;
 			$res['message'] = "OK, OS aberta com sucesso";
 			return $res;
@@ -127,15 +55,10 @@ class Os extends Crud{
 
 	public function update($id){
 		try{
-			$sql  = "UPDATE $this->table SET loja_id = :loja_id, loja_nick = :loja_nick, local_id = :local_id, uf = :uf, equipamento_id = :equipamento_id, servico_id = :servico_id, categoria_id = :categoria_id, data = :data, ativo = :ativo WHERE id = :id";
+			$sql  = "UPDATE $this->table SET loja_id = :loja_id, local_id = :local_id, data = :data, ativo = :ativo WHERE id = :id";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':loja_id',		$this->loja_id);
-			$stmt->bindParam(':loja_nick',		$this->loja_nick);
 			$stmt->bindParam(':local_id',		$this->local_id);
-			$stmt->bindParam(':uf',				$this->uf);
-			$stmt->bindParam(':equipamento_id',	$this->equipamento_id);
-			$stmt->bindParam(':servico_id',		$this->servico_id);
-			$stmt->bindParam(':categoria_id',	$this->categoria_id);
 			$stmt->bindParam(':data',			$this->data);
 			$stmt->bindParam(':ativo',			$this->ativo);
 			$stmt->bindParam(':id', 			$id);
