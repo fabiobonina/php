@@ -44,12 +44,12 @@
 
 		}
 
-		public function prog_publish(
+		public function publish(
 			$loja_id,
 			$local_id,
 			$data,
 			$status,
-			$demanda,
+			$demandas,
 			$id )
 		{
 			$item['error'] = false;
@@ -72,8 +72,28 @@
 				$item = $cilindroProg->insert();
 
 				if(!$item['error']){
-					$email_status = 'nova no sistema';
-					$this->osEmail( $item['id'], $email_status );
+					//$email_status = 'nova no sistema';
+					//$this->osEmail( $item['id'], $email_status );
+					foreach ($demandas as $value){
+						$tec_id 	= $value['id'];
+						$user_id 	= $value['user_id'];
+						$user_nick 	= $value['user_nick'];
+						$hh 		= $value['hh'];
+		
+						$validar = $osTecnicos->findTecOs( $tec_id, $os_id );
+						if(	!$validar ){ 
+							
+							$osTecnicos->setCilPrag( $item['id'] );
+							$osTecnicos->setLoja($loja_id );
+							$osTecnicos->setTecnico($tec_id);
+							$osTecnicos->setUser($user_id);
+							$osTecnicos->setUserNick($user_nick);
+							$osTecnicos->setHh($hh);
+							
+							$item = $osTecnicos->insert();
+		
+						}
+					}
 				}
 			endif;
 			if( $id > '0' ):
