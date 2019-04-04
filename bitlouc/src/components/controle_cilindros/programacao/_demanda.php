@@ -107,6 +107,7 @@ Vue.component('demanda-add', {
         cil_qtd: null,
         edit: false
       },
+      dtProg: null,
     }
   },
   mounted () {

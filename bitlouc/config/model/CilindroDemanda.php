@@ -4,46 +4,39 @@ require_once '_crud.php';
 
 
 
-class CilProgramacao extends Crud{
+class CilindroDemanda extends Crud{
 	
-	protected $table = 'tb_cil_programacao';
-	private $loja_id;
-	private $local_id;
-	private $data;
-	private $status;
+	protected $table = 'tb_cil_prog_qtd';
+	private $cil_prog_id;
+	private $cil_tipo_id;
+	private $qtd;
 
 
-	public function setLoja($loja_id){
-		$this->loja_id = $loja_id;
+	public function setCilProg($cil_prog_id){
+		$this->cil_prog_id = $cil_prog_id;
 	}
-	public function setLocal($local_id){
-		$this->local_id = $local_id;
+	public function setCilTipo($cil_tipo_id){
+		$this->cil_tipo_id = $cil_tipo_id;
 	}
-	public function setData($data){
-		$this->data = $data;
-	}
-	public function setStatus($status){
-		$this->status = $status;
-	}
-	public function setAtivo($ativo){
-		$this->ativo = $ativo;
+	public function setQtd($qtd){
+		$this->qtd = $qtd;
 	}
 
 	public function insert(){
 		try{
-			$sql  = "INSERT INTO $this->table ( loja_id, local_id, data) ";
-			$sql .= "VALUES (:loja_id, :local_id, :data)";
+			$sql  = "INSERT INTO $this->table ( cil_prog_id, cil_tipo_id, qtd) ";
+			$sql .= "VALUES (:cil_prog_id, :cil_tipo_id, :qtd)";
 			$stmt = DB::prepare($sql);
 			
-			$stmt->bindParam(':loja_id',			$this->loja_id);
-			$stmt->bindParam(':local_id',			$this->local_id);
-			$stmt->bindParam(':data',				$this->data);
+			$stmt->bindParam(':cil_prog_id',	$this->cil_prog_id);
+			$stmt->bindParam(':cil_tipo_id',	$this->cil_tipo_id);
+			$stmt->bindParam(':qtd',			$this->qtd);
 			$stmt->execute();
 			$item_id = DB::getInstance()->lastInsertId();
 
 			$res['id'] = $item_id;
 			$res['error'] = false;
-			$res['message'] = "OK, OS aberta com sucesso";
+			$res['message'] = "OK, Ação realizada com sucesso";
 			return $res;
 		} catch(PDOException $e) {
 			$res['error']	= true;
@@ -55,12 +48,11 @@ class CilProgramacao extends Crud{
 
 	public function update($id){
 		try{
-			$sql  = "UPDATE $this->table SET loja_id = :loja_id, local_id = :local_id, data = :data, ativo = :ativo WHERE id = :id";
+			$sql  = "UPDATE $this->table SET cil_prog_id = :cil_prog_id, cil_tipo_id = :cil_tipo_id, qtd = :qtd WHERE id = :id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':loja_id',		$this->loja_id);
-			$stmt->bindParam(':local_id',		$this->local_id);
-			$stmt->bindParam(':data',			$this->data);
-			$stmt->bindParam(':ativo',			$this->ativo);
+			$stmt->bindParam(':cil_prog_id',	$this->cil_prog_id);
+			$stmt->bindParam(':cil_tipo_id',	$this->cil_tipo_id);
+			$stmt->bindParam(':qtd',			$this->qtd);
 			$stmt->bindParam(':id', 			$id);
 			$stmt->execute();
 
@@ -181,12 +173,13 @@ class CilProgramacao extends Crud{
 			return $res;
 		}	
 	}
-
-	public function visitadoLocal( $local_id ){
+	
+	public function ultimaOs( $cil_tipo_id, $categoria_id ){
 		try{
-			$sql  = "SELECT MAX(data) AS dtVisitado FROM $this->table  WHERE BINARY local_id=:local_id GROUP BY local_id=:local_id";
+			$sql  = "SELECT id, cil_tipo_id, categoria_id, MAX(qtd) AS dtUltimo FROM $this->table  WHERE BINARY cil_tipo_id=:cil_tipo_id AND categoria_id=:categoria_id GROUP BY cil_tipo_id=:cil_tipo_id, categoria_id=:categoria_id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':local_id', $local_id, PDO::PARAM_INT);
+			$stmt->bindParam(':cil_tipo_id', $cil_tipo_id, PDO::PARAM_INT);
+			$stmt->bindParam(':categoria_id', $categoria_id, PDO::PARAM_INT);
 			$stmt->execute();
 			return $stmt->fetch();
 		} catch(PDOException $e) {
@@ -196,14 +189,28 @@ class CilProgramacao extends Crud{
 		}
 	}
 
-	public function validarOs( $local_id, $categoria_id, $equipamento_id, $data, $id ){
+	public function visitadoLocal( $cil_tipo_id ){
 		try{
-			$sql  = "SELECT * FROM $this->table  WHERE BINARY local_id = :local_id AND categoria_id = :categoria_id AND  ( equipamento_id = :equipamento_id OR equipamento_id IS NULL ) AND data = :data AND id  <> :id";
+			$sql  = "SELECT MAX(qtd) AS dtVisitado FROM $this->table  WHERE BINARY cil_tipo_id=:cil_tipo_id GROUP BY cil_tipo_id=:cil_tipo_id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':local_id', 		$local_id);			
+			$stmt->bindParam(':cil_tipo_id', $cil_tipo_id, PDO::PARAM_INT);
+			$stmt->execute();
+			return $stmt->fetch();
+		} catch(PDOException $e) {
+			$res['error']	= true;
+			$res['message'] = $e->getMessage();
+			return $res;
+		}
+	}
+
+	public function validarOs( $cil_tipo_id, $categoria_id, $equipamento_id, $qtd, $id ){
+		try{
+			$sql  = "SELECT * FROM $this->table  WHERE BINARY cil_tipo_id = :cil_tipo_id AND categoria_id = :categoria_id AND  ( equipamento_id = :equipamento_id OR equipamento_id IS NULL ) AND qtd = :qtd AND id  <> :id";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam(':cil_tipo_id', 		$cil_tipo_id);			
 			$stmt->bindParam(':equipamento_id',	$equipamento_id);
 			$stmt->bindParam(':categoria_id',	$categoria_id);
-			$stmt->bindParam(':data',			$data);
+			$stmt->bindParam(':qtd',			$qtd);
 			$stmt->bindParam(':id',				$id);
 			$stmt->execute();
 			return $stmt->fetch();
@@ -213,11 +220,11 @@ class CilProgramacao extends Crud{
 			return $res;
 		}
 	}
-	public function osLoja( $loja_id ){
+	public function osLoja( $cil_prog_id ){
 		try{
-			$sql  = "SELECT * FROM $this->table  WHERE loja_id = :loja_id ";
+			$sql  = "SELECT * FROM $this->table  WHERE cil_prog_id = :cil_prog_id ";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':loja_id', $loja_id, PDO::PARAM_INT);
+			$stmt->bindParam(':cil_prog_id', $cil_prog_id, PDO::PARAM_INT);
 			$stmt->execute();
 			return $stmt->fetch();
 		} catch(PDOException $e) {
@@ -256,11 +263,11 @@ class CilProgramacao extends Crud{
 		}
 	}
 
-	public function contOsStatusLoja( $loja_id, $status ){
+	public function contOsStatusLoja( $cil_prog_id, $status ){
 		try {
-			$sql  = "SELECT COUNT(*) FROM $this->table WHERE loja_id  = :loja_id AND status = :status";
+			$sql  = "SELECT COUNT(*) FROM $this->table WHERE cil_prog_id  = :cil_prog_id AND status = :status";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':loja_id', $loja_id);
+			$stmt->bindParam(':cil_prog_id', $cil_prog_id);
 			$stmt->bindParam(':status', $status);
 			$stmt->execute();
 			return $stmt->fetchColumn();
@@ -285,11 +292,11 @@ class CilProgramacao extends Crud{
 		}
 	}
 
-	public function findIIILoja( $loja_id ){
+	public function findIIILoja( $cil_prog_id ){
 		try{
-			$sql  = "SELECT * FROM $this->table WHERE loja_id  = :loja_id AND status < '4' ";
+			$sql  = "SELECT * FROM $this->table WHERE cil_prog_id  = :cil_prog_id AND status < '4' ";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':loja_id', $loja_id);
+			$stmt->bindParam(':cil_prog_id', $cil_prog_id);
 			$stmt->execute();
 			return $stmt->fetchAll();
 		} catch(PDOException $e) {
@@ -372,13 +379,13 @@ class CilProgramacao extends Crud{
 		}
 	}
 
-	public function contOsStatusUFLoja( $loja_id, $uf, $status ){
+	public function contOsStatusUFLoja( $cil_prog_id, $uf, $status ){
 		try{
 			$sql  = "SELECT COUNT(*) FROM $this->table ";
-			$sql  .="WHERE uf = :uf  AND loja_id = :loja_id AND status = :status ";
+			$sql  .="WHERE uf = :uf  AND cil_prog_id = :cil_prog_id AND status = :status ";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':uf', $uf);
-			$stmt->bindParam(':loja_id', $loja_id);
+			$stmt->bindParam(':cil_prog_id', $cil_prog_id);
 			$stmt->bindParam(':status', $status, PDO::PARAM_INT);
 			$stmt->execute();
 			return $stmt->fetchColumn();

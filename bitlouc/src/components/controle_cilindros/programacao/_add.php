@@ -1,14 +1,14 @@
 <template id="prog-add">
   <div>
     <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="dialog = true" color="pink" fab small dark>
-      <v-icon>add</v-icon>
+      <v-icon>mdi-plus</v-icon>
     </v-btn>
     <v-layout row justify-center>
       <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
         <v-card>
           <v-toolbar dark color="primary">
             <v-btn icon dark @click="dialog = false">
-              <v-icon>close</v-icon>
+              <v-icon>mdi-close</v-icon>
             </v-btn>
             <v-toolbar-title>Criar Programação</v-toolbar-title>
             <v-spacer></v-spacer>
@@ -116,11 +116,11 @@
                     <v-flex>
                       <v-text-field
                         type="date"
-                        v-model="dataOs"
+                        v-model="dataProg"
                         label="Data"
-                        :error-messages="errors.collect('dataOs')"
+                        :error-messages="errors.collect('dataProg')"
                         v-validate="'required'"
-                        data-vv-name="dataOs"
+                        data-vv-name="dataProg"
                         item-text="name"
                         required
                       ></v-text-field>
@@ -296,7 +296,7 @@ Vue.component('prog-add', {
       var date = res[0].split("/");
       var time = res[1].slice(0, -3);
       var dtTime = date[2] + "-" + date[1] + "-" + date[0];
-      this.dataOs = dtTime;
+      this.dataProg = dtTime;
     },
   },
 });

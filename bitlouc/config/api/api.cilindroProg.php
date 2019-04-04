@@ -4,8 +4,10 @@ header('Content-Type: text/html; charset=utf-8');
 
 include("_chave.php");
 require_once '../control/cilindro-prog.control.php';
+require_once '../control/cilindro-demanda.control.php';
 
-$cilindroProgControl      = new CilindroProgControl();
+$cilindroProgControl    = new CilindroProgControl();
+$cilindroDemandaControl = new CilindroDemandaControl();
 
 $res = array('error' => true);
 $action = 'read';
@@ -52,7 +54,7 @@ if($action == 'localCont'):
 
 endif;
 
-#CADASTRAR
+#PUBLISH
 if($action == 'publish'):
   $loja_id    = $_POST['loja_id'];
   $local_id   = $_POST['local_id'];
@@ -66,9 +68,12 @@ if($action == 'publish'):
     $local_id,
     $data,
     $status,
-    $demanda,
     $id
   );
+
+  if(!$item['error']){
+    $item = $cilindroDemandaControl->add(  $item['id'],  $demanda );
+  }
   # Insert
   $res = $item;
 
