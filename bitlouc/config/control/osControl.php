@@ -61,8 +61,12 @@
 			$item['error'] = false;
 			$oss	= new Os();
 
-			$etapaI = $oss->validarOs( $local_id, $categoria_id, $equipamento_id, $data, $id );
-
+			if( $loja_id == '38' ){
+				$etapaI = false;
+			}else{
+				$etapaI = $oss->validarOs( $local_id, $categoria_id, $equipamento_id, $data, $id );
+			}
+			
 			$dtUltimo   = '';
 			$osUltimoMan = $oss->ultimaOs( $local_id, $categoria_id );
 			if(isset($osUltimoMan->dtUltimo) ){

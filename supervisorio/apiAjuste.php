@@ -24,29 +24,43 @@ if(isset($_GET['action'])){
       return  $launch;
     }
     
-    $rele = file_get_contents('http://192.168.10.247/out');
+    $rele = file_get_contents('http://192.168.10.247');
     $exploded = multiexplode(array(",","<html><body>","</body></html>","!#!"),$rele);
     
-    $analogica = file_get_contents('http://192.168.10.247/out');
+    echo $analogica = file_get_contents('http://192.168.10.247');
     //var_dump ($analogica);
-    $item = multiexplode(array(",","<html><body>","</body></html>","!#!"),$analogica);
-
+    $items = multiexplode(array(",","<html><body>","</body></html>","!#!"),$analogica);
+    var_dump ($items);
     #LOCAL_CATEGORIA-------------------------------------------------------------------------
     $arTeste = array();
-      foreach($item as $key => $value): {
+      foreach($items as $key => $value): {
+        $item = (object) $key;
         //$arTeste = (array) $value;
         //$arCategoria['ativo'] = $catLacalAtivo;
-        echo "Key: $key; Value: $value\n";
-			if($key == 1){
-				//$asTeste['rele'] = '1'; //$fabricante			= $fabricantes->find( $item->equipamento->fabricante_id );
-        echo $asTeste['nome'] = 'Encimento';
-        $asTeste['valor'] = $value;//$item->equipamento->fabricante_nick		= $fabricante->nick;
-			}
-			//$user					= $users->find( $item->user_id );
-			//$item->user_user		= $user->user;
-      //var_dump ($analogica);
-      array_push($res, $arTeste );
+        //echo "Key: $key; Value: $value\n";
+        if($key == 0){
+          $item->name = 'Encimento';
+          $item->valor = $value;
+        }
+        if($key == 1){
+          $item->name = 'Degasagem';
+          $item->valor = $value;
+        }
+        if($key == 6){
+          $item->name = 'Analogica';
+          $item->valor = number_format($value, 2, '.', ',');
+        }
+        if($key == 7){
+          $item->name = 'AnalogicaII';
+          $item->valor = number_format($value, 2, '.', ',');
+        }
+        
+        //$user					    = $users->find( $item->user_id );
+        //$item->user_user  = $user->user;
+        //var_dump ($analogica);
+        array_push($arTeste, $item );
       }endforeach;
+      $res['outros'] = $arTeste;
 
     
     

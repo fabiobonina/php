@@ -124,11 +124,11 @@ header('Content-Type: text/html; charset=utf-8');
     $data = '2019-01-03';
     $id = '';
     $e1 = $oss->validarOs($local_id, $categoria_id, $equipamento_id, $data, $id);
-
+    
     if( $e1 ){
       $res['teste'] = $e1;
     }else{
-      $res['teste'] = 'teste';
+      $res['teste'] = $e1;
     }
     
     //$res['tecnico']	= $osTecnicos->findTecOs($tec, $os);
@@ -145,10 +145,11 @@ header('Content-Type: text/html; charset=utf-8');
     $id = '';
     $e1 = $oss->validarOs($local_id, $categoria_id, $equipamento_id, $data, $id);
 
+
     if( $e1 ){
       $res['teste'] = $e1;
     }else{
-      $res['teste'] = 'teste';
+      $res['outro'] = $e1;
     }
     
     //$res['tecnico']	= $osTecnicos->findTecOs($tec, $os);
