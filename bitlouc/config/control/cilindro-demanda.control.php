@@ -2,7 +2,7 @@
 	require_once '_global.php';
 	require_once '../emailPHP.php';
 
-	class CilindroControl extends GlobalControl {
+	class CilindroDemandaControl extends GlobalControl {
 
 		public function matrix( $item ){
 			
@@ -44,54 +44,44 @@
 
 		}
 
-		public function prog_publish(
-			$loja_id,
-			$local_id,
-			$data,
-			$status,
-			$demanda,
-			$id )
-		{
-			$item['error'] = false;
-			$cilindroProg	= new CilindroProg();
+		public function publish( $cil_prog_id, $demanda, $id ) {
+			$item['error'] 		= false;
+			$cilindroDemandas	= new CilindroDemanda();
 
-			/*$etapaI = $cilindroProg->validarOs( $local_id, $categoria_id, $equipamento_id, $data, $id );
-			$dtUltimo   = '';
-			$osUltimoMan = $cilindroProg->ultimaOs( $local_id, $categoria_id );
-			if(isset($osUltimoMan->dtUltimo) ){
-				$dtUltimo = $osUltimoMan->dtUltimo;
-			}*/
-
-			$cilindroProg->setLoja($loja_id);
-			$cilindroProg->setLocal($local_id);
-			$cilindroProg->setData($data);
-			$cilindroProg->setStatus($status);
+			$cilindroProg->setCilProg($cil_prog_id);
+			$cilindroProg->setCliTipo($demanda->cil_tipo->id);
+			$cilindroProg->setQtd($$demanda->cil_qtd);
 
 			if( $id == '' ):
 				# Insert
 				$item = $cilindroProg->insert();
-
-				if(!$item['error']){
-					$email_status = 'nova no sistema';
-					$this->osEmail( $item['id'], $email_status );
-				}
 			endif;
 			if( $id > '0' ):
 				# Update
 				$item = $cilindroProg->update($id);
 
-				if(!$item['error']){
+				/*if(!$item['error']){
 					$email_status = 'teve uma alteração';
 					$this->osEmail( $id, $email_status );
-				}
+				}*/
 			endif;
-			/*if(	$etapaI ){
-				$item['error']   = true;
-				$item['message'] = 'Error, OS já existe!';
-				
-			}else{
+
+			$res = $item;
+			return $res;
+
+		}
+
+		public function add( $cil_prog_id, $demanda ) {
+			$item['error'] = false;
+
 			
-			}*/
+			foreach ($demanda as $value){
+				$cil_tipo_id	= $value['cil_tipo']->id;
+				$qtd 			= $value['cil_qtd'];
+		  
+				$item = $this->publish($cil_tipo_id, $qtd );
+		  
+			  }
 
 			$res = $item;
 			return $res;
