@@ -76,7 +76,6 @@
 		function removerEspaco(&$value){ 
 			$value = trim($value); 
 		}
-
 		function porcentagem( $itemI, $itemII){ 
 			if($itemI > 0){
 				$porcentagem = round(($itemII/$itemI)*100, 1);

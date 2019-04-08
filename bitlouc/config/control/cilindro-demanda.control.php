@@ -48,33 +48,27 @@
 			$item['error'] 		= false;
 			$cilindroDemandas	= new CilindroDemanda();
 
-			$cilindroProg->setCilProg($cil_prog_id);
-			$cilindroProg->setCliTipo($demanda->cil_tipo->id);
-			$cilindroProg->setQtd($$demanda->cil_qtd);
+			$cilindroDemandas->setCilProg($cil_prog_id);
+			$cilindroDemandas->setCliTipo($demanda->cil_tipo->id);
+			$cilindroDemandas->setQtd($$demanda->cil_qtd);
 
 			if( $id == '' ):
 				# Insert
-				$item = $cilindroProg->insert();
+				$item = $cilindroDemandas->insert();
 			endif;
 			if( $id > '0' ):
 				# Update
-				$item = $cilindroProg->update($id);
+				$item = $cilindroDemandas->update($id);
 
-				/*if(!$item['error']){
-					$email_status = 'teve uma alteração';
-					$this->osEmail( $id, $email_status );
-				}*/
 			endif;
 
-			$res = $item;
-			return $res;
+			return $item;
 
 		}
 
 		public function add( $cil_prog_id, $demanda ) {
 			$item['error'] = false;
 
-			
 			foreach ($demanda as $value){
 				$cil_tipo_id	= $value['cil_tipo']->id;
 				$qtd 			= $value['cil_qtd'];

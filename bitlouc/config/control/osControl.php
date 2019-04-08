@@ -1,5 +1,6 @@
 <?php
 	require_once '_global.php';
+	require_once 'email.control.php';
 	require_once '../emailPHP.php';
 
 	class OsControl extends GlobalControl {
@@ -854,6 +855,7 @@
 			
 			$tecnicos   = new Tecnicos();
 			$emailPhp   = new Email();
+			$email   	= new EmailControl();
 			$users		= new User();
 			$oss     	= new Os();
 
@@ -896,9 +898,13 @@
 			}
 			#equipamentos definição
 			if($os->equipamento){
-				$txtEquipamento = $os->equipamento->name .' '.$os->equipamento->modelo. ' &nbsp; #'.$os->equipamento->fabricante_nick. '  (Code: '.$os->equipamento->numeracao.' | Ativo: '. $os->equipamento->plaqueta .' )' ;
+				$txtEquipamento		= $os->equipamento->name;
+				$txtEquip_modelo	= $os->equipamento->modelo. ' &nbsp; #'.$os->equipamento->fabricante_nick;
+				$txtEquip_code	 	= '(Code: '.$os->equipamento->numeracao.' | Ativo: '. $os->equipamento->plaqueta .' )';
 			}else{
 				$txtEquipamento = 'não definido';
+				$txtEquip_modelo	='';
+				$txtEquip_code		='';
 			}
 			//var_dump( $os->notas);
 			foreach ($os->notas as $key => $value): {
@@ -932,6 +938,331 @@
 			/* Montar o corpo do email*/
 			$corpoMensagem = 
 			'
+			<div id=":1ee" class="a3s aXjCH msg-3796989667682919919">
+    <u></u>
+    <div style="background:#f7f7f7;margin:0;padding:0">
+      <div style="display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden">
+        Transferência realizada com sucesso
+      </div>
+	  <div class="m_-3796989667682919919mj-container" style="background-color:#f7f7f7">
+		
+        <div style="margin:0px auto;max-width:600px">
+            <table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;border-collapse:collapse" align="center" border="0">
+                <tbody>
+                    <tr>
+                        <td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:10px;border-collapse:collapse"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="border:1px solid #d9d9d9;margin:0px auto;max-width:600px;background:white" class="m_-3796989667682919919dropShadow-1 m_-3796989667682919919mainContainer">
+            <table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;background:white;border-collapse:collapse" align="center" border="0">
+                <tbody>
+                    <tr>
+                        <td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:20px 0px;padding-bottom:30px;border-collapse:collapse">
+                            
+							'.
+							#Logo do Email
+							$email->top('1', $os->id, $email_status)
+							.'
+
+                            <div style="margin:0px auto;max-width:600px">
+                                <table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;border-collapse:collapse" align="center" border="0">
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:60px 40px 60px 40px;border-collapse:collapse">
+                                                <div style="margin:0px auto;max-width:600px">
+                                                    <table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;border-collapse:collapse" align="center" border="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:20px 0px;border-collapse:collapse">
+                                                                    <div class="m_-3796989667682919919mj-column-per-100 m_-3796989667682919919outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%">
+                                                                        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0" style="border-collapse:collapse">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td style="word-wrap:break-word;font-size:0px;padding:0px;padding-bottom:40px;border-collapse:collapse" align="center">
+                                                                                        <div style="color:#555;font-family:sans-serif;font-size:24px;font-weight:book;line-height:1.5;text-align:center">
+                                                                                            Instancia, <strong>Fabio</strong>!
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td style="word-wrap:break-word;font-size:0px;padding:0px;border-collapse:collapse" align="center">
+                                                                                        <div style="color:#555;font-family:sans-serif;font-size:16px;line-height:1.5;text-align:center">
+                                                                                            A transferência para <strong>sua conta no Banco Inter S.A.</strong> foi realizada com sucesso.
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div style="margin:0px auto;max-width:600px">
+                                                    <table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;border-collapse:collapse" align="center" border="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:20px 0px 40px 0px;border-collapse:collapse">
+                                                                    <div class="m_-3796989667682919919mj-column-per-33 m_-3796989667682919919outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%">
+                                                                        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0" style="border-collapse:collapse">
+                                                                            <tbody></tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                    <div class="m_-3796989667682919919mj-column-per-33 m_-3796989667682919919outlook-group-fix m_-3796989667682919919dropShadow-1" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%">
+                                                                        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0" style="border-collapse:collapse">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td style="word-wrap:break-word;font-size:0px;padding:0px;padding-top:30px;border-collapse:collapse" align="center">
+                                                                                        <div style="color:#555;font-family:sans-serif;font-size:16px;line-height:3;text-align:center">Valor Enviado</div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td style="word-wrap:break-word;font-size:0px;padding:0px;border-collapse:collapse" align="center">
+                                                                                        <div style="color:#555;font-family:sans-serif;font-size:16px;line-height:3;text-align:center">
+                                                                                            <strong>R$ 100,00</strong>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td style="word-wrap:break-word;font-size:0px;padding:0px;padding-bottom:30px;border-collapse:collapse" align="center">
+                                                                                        <div style="color:#999;font-family:sans-serif;font-size:16px;line-height:3;text-align:center">19 FEV às 07:09</div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                    <div class="m_-3796989667682919919mj-column-per-33 m_-3796989667682919919outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%">
+                                                                        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0" style="border-collapse:collapse">
+                                                                            <tbody></tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div style="margin:0px auto;max-width:600px">
+                                                    <table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;border-collapse:collapse" align="center" border="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:20px 0px;padding-bottom:0px;border-collapse:collapse">
+                                                                    <div class="m_-3796989667682919919mj-column-per-100 m_-3796989667682919919outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%">
+                                                                        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0" style="border-collapse:collapse">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td style="word-wrap:break-word;font-size:0px;padding:0px;border-collapse:collapse" align="center">
+                                                                                        <div style="color:#555;font-family:sans-serif;font-size:16px;line-height:1.5;text-align:center">
+                                                                                            Abraços,<br> Equipe <span class="il">Nubank</span>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="margin:0px auto;max-width:600px">
+            <table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;border-collapse:collapse" align="center" border="0">
+                <tbody>
+                    <tr>
+                        <td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:20px 0px;padding-top:30px;border-collapse:collapse">
+                            <div class="m_-3796989667682919919mj-column-per-100 m_-3796989667682919919outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%">
+                                <table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0" style="border-collapse:collapse">
+                                    <tbody>
+                                        <tr>
+                                            <td style="word-wrap:break-word;font-size:0px;padding:10px 25px;border-collapse:collapse" align="center">
+                                                <div>
+                                                    <table role="presentation" cellpadding="0" cellspacing="0" style="float:none;display:inline-table;border-collapse:collapse" align="center" border="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="padding:4px;vertical-align:middle;border-collapse:collapse">
+                                                                    <table role="presentation" cellpadding="0" cellspacing="0" style="background:transparent;border-radius:3px;width:40px;border-collapse:collapse" border="0">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td style="font-size:0px;vertical-align:middle;width:40px;height:40px;border-collapse:collapse">
+                                                                                    <a href="https://mandrillapp.com/track/click/30052082/www.youtube.com?p=eyJzIjoiQmNtaklremc1UWRxdDdEV3ZxUE1GSnRPRXdvIiwidiI6MSwicCI6IntcInVcIjozMDA1MjA4MixcInZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3d3dy55b3V0dWJlLmNvbVxcXC9jaGFubmVsXFxcL1VDZ3NEWDNoVHdpUGR0R0hKak1GZkR4Z1wiLFwiaWRcIjpcImNhOGM2ZGViYzZmMjRlZThiMmQ0NmQ2YTZmMzM0Y2IyXCIsXCJ1cmxfaWRzXCI6W1wiZmM0YzcyMzZiNTY1NjkxMzg5N2QzODc4ZWFhMTQ1ZDYyYTU5ZmRjYlwiXX0ifQ" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://mandrillapp.com/track/click/30052082/www.youtube.com?p%3DeyJzIjoiQmNtaklremc1UWRxdDdEV3ZxUE1GSnRPRXdvIiwidiI6MSwicCI6IntcInVcIjozMDA1MjA4MixcInZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3d3dy55b3V0dWJlLmNvbVxcXC9jaGFubmVsXFxcL1VDZ3NEWDNoVHdpUGR0R0hKak1GZkR4Z1wiLFwiaWRcIjpcImNhOGM2ZGViYzZmMjRlZThiMmQ0NmQ2YTZmMzM0Y2IyXCIsXCJ1cmxfaWRzXCI6W1wiZmM0YzcyMzZiNTY1NjkxMzg5N2QzODc4ZWFhMTQ1ZDYyYTU5ZmRjYlwiXX0ifQ&amp;source=gmail&amp;ust=1551438303305000&amp;usg=AFQjCNH5PD-jwP5z03VwvuM502GxgnHkbQ">
+                                                                                        <img alt="nuyoutube" height="40" src="https://ci5.googleusercontent.com/proxy/dZ3zszQE2P8fw3Gs8M0wfXbC-4y-zHgG2YIuOLA9qT4S8pefTagBjrjPBWdntItRRvQcZhmHvrVrlacJmFui-dAA-65ze_DJI7c=s0-d-e1-ft#https://nu-emails.s3.amazonaws.com/ico-youtube-grey.png" style="display:block;border-radius:3px;border:0;height:auto;line-height:100%;outline:none;text-decoration:none" width="40" class="CToWUd">
+                                                                                    </a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                                <td style="padding:4px 4px 4px 0;vertical-align:middle;border-collapse:collapse">
+                                                                    <a href="https://mandrillapp.com/track/click/30052082/www.youtube.com?p=eyJzIjoiQmNtaklremc1UWRxdDdEV3ZxUE1GSnRPRXdvIiwidiI6MSwicCI6IntcInVcIjozMDA1MjA4MixcInZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3d3dy55b3V0dWJlLmNvbVxcXC9jaGFubmVsXFxcL1VDZ3NEWDNoVHdpUGR0R0hKak1GZkR4Z1wiLFwiaWRcIjpcImNhOGM2ZGViYzZmMjRlZThiMmQ0NmQ2YTZmMzM0Y2IyXCIsXCJ1cmxfaWRzXCI6W1wiZmM0YzcyMzZiNTY1NjkxMzg5N2QzODc4ZWFhMTQ1ZDYyYTU5ZmRjYlwiXX0ifQ" style="text-decoration:none;text-align:left;display:block;color:#333333;font-family:Ubuntu,Helvetica,Arial,sans-serif;font-size:13px;line-height:22px;border-radius:3px" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://mandrillapp.com/track/click/30052082/www.youtube.com?p%3DeyJzIjoiQmNtaklremc1UWRxdDdEV3ZxUE1GSnRPRXdvIiwidiI6MSwicCI6IntcInVcIjozMDA1MjA4MixcInZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3d3dy55b3V0dWJlLmNvbVxcXC9jaGFubmVsXFxcL1VDZ3NEWDNoVHdpUGR0R0hKak1GZkR4Z1wiLFwiaWRcIjpcImNhOGM2ZGViYzZmMjRlZThiMmQ0NmQ2YTZmMzM0Y2IyXCIsXCJ1cmxfaWRzXCI6W1wiZmM0YzcyMzZiNTY1NjkxMzg5N2QzODc4ZWFhMTQ1ZDYyYTU5ZmRjYlwiXX0ifQ&amp;source=gmail&amp;ust=1551438303305000&amp;usg=AFQjCNH5PD-jwP5z03VwvuM502GxgnHkbQ">
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table role="presentation" cellpadding="0" cellspacing="0" style="float:none;display:inline-table;border-collapse:collapse" align="center" border="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="padding:4px;vertical-align:middle;border-collapse:collapse">
+                                                                    <table role="presentation" cellpadding="0" cellspacing="0" style="background:transparent;border-radius:3px;width:40px;border-collapse:collapse" border="0">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td style="font-size:0px;vertical-align:middle;width:40px;height:40px;border-collapse:collapse">
+                                                                                    <a href="https://mandrillapp.com/track/click/30052082/www.facebook.com?p=eyJzIjoibkdLcVE3QVc5T1RKSEJQUVZwMlNPdzlQYXU4IiwidiI6MSwicCI6IntcInVcIjozMDA1MjA4MixcInZcIjoxLFwidXJsXCI6XCJodHRwOlxcXC9cXFwvd3d3LmZhY2Vib29rLmNvbVxcXC9udWJhbmticmFzaWxcIixcImlkXCI6XCJjYThjNmRlYmM2ZjI0ZWU4YjJkNDZkNmE2ZjMzNGNiMlwiLFwidXJsX2lkc1wiOltcIjY0MjNlNTBlOWU5ZDY5OTE1M2FiODdmMDA0NjVmYmNkYWNlZTZhMzNcIl19In0" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://mandrillapp.com/track/click/30052082/www.facebook.com?p%3DeyJzIjoibkdLcVE3QVc5T1RKSEJQUVZwMlNPdzlQYXU4IiwidiI6MSwicCI6IntcInVcIjozMDA1MjA4MixcInZcIjoxLFwidXJsXCI6XCJodHRwOlxcXC9cXFwvd3d3LmZhY2Vib29rLmNvbVxcXC9udWJhbmticmFzaWxcIixcImlkXCI6XCJjYThjNmRlYmM2ZjI0ZWU4YjJkNDZkNmE2ZjMzNGNiMlwiLFwidXJsX2lkc1wiOltcIjY0MjNlNTBlOWU5ZDY5OTE1M2FiODdmMDA0NjVmYmNkYWNlZTZhMzNcIl19In0&amp;source=gmail&amp;ust=1551438303305000&amp;usg=AFQjCNHegKvqn4ePnx_H_DWRrX8SORY6Dw">
+                                                                                        <img alt="nufacebook" height="40" src="https://ci3.googleusercontent.com/proxy/svl2CAy--y9K0gRfH6gKHfZdhJ4CwmCwzTpRcWma1IJN9AtgKMDNO3wbhCbXc-61HWuL3FJBxdCjRfRMxqRKXo3b_pVmD4mPJFV-=s0-d-e1-ft#https://nu-emails.s3.amazonaws.com/ico-facebook-grey.png" style="display:block;border-radius:3px;border:0;height:auto;line-height:100%;outline:none;text-decoration:none" width="40" class="CToWUd">
+                                                                                    </a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                                <td style="padding:4px 4px 4px 0;vertical-align:middle;border-collapse:collapse">
+                                                                    <a href="https://mandrillapp.com/track/click/30052082/www.facebook.com?p=eyJzIjoibkdLcVE3QVc5T1RKSEJQUVZwMlNPdzlQYXU4IiwidiI6MSwicCI6IntcInVcIjozMDA1MjA4MixcInZcIjoxLFwidXJsXCI6XCJodHRwOlxcXC9cXFwvd3d3LmZhY2Vib29rLmNvbVxcXC9udWJhbmticmFzaWxcIixcImlkXCI6XCJjYThjNmRlYmM2ZjI0ZWU4YjJkNDZkNmE2ZjMzNGNiMlwiLFwidXJsX2lkc1wiOltcIjY0MjNlNTBlOWU5ZDY5OTE1M2FiODdmMDA0NjVmYmNkYWNlZTZhMzNcIl19In0" style="text-decoration:none;text-align:left;display:block;color:#333333;font-family:Ubuntu,Helvetica,Arial,sans-serif;font-size:13px;line-height:22px;border-radius:3px" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://mandrillapp.com/track/click/30052082/www.facebook.com?p%3DeyJzIjoibkdLcVE3QVc5T1RKSEJQUVZwMlNPdzlQYXU4IiwidiI6MSwicCI6IntcInVcIjozMDA1MjA4MixcInZcIjoxLFwidXJsXCI6XCJodHRwOlxcXC9cXFwvd3d3LmZhY2Vib29rLmNvbVxcXC9udWJhbmticmFzaWxcIixcImlkXCI6XCJjYThjNmRlYmM2ZjI0ZWU4YjJkNDZkNmE2ZjMzNGNiMlwiLFwidXJsX2lkc1wiOltcIjY0MjNlNTBlOWU5ZDY5OTE1M2FiODdmMDA0NjVmYmNkYWNlZTZhMzNcIl19In0&amp;source=gmail&amp;ust=1551438303305000&amp;usg=AFQjCNHegKvqn4ePnx_H_DWRrX8SORY6Dw">
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table role="presentation" cellpadding="0" cellspacing="0" style="float:none;display:inline-table;border-collapse:collapse" align="center" border="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="padding:4px;vertical-align:middle;border-collapse:collapse">
+                                                                    <table role="presentation" cellpadding="0" cellspacing="0" style="background:transparent;border-radius:3px;width:40px;border-collapse:collapse" border="0">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td style="font-size:0px;vertical-align:middle;width:40px;height:40px;border-collapse:collapse">
+                                                                                    <a href="https://mandrillapp.com/track/click/30052082/twitter.com?p=eyJzIjoibnZvU01OWkFmS2lKUHdqWGZNNVEzVmkzS2tJIiwidiI6MSwicCI6IntcInVcIjozMDA1MjA4MixcInZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3R3aXR0ZXIuY29tXFxcL251YmFua1wiLFwiaWRcIjpcImNhOGM2ZGViYzZmMjRlZThiMmQ0NmQ2YTZmMzM0Y2IyXCIsXCJ1cmxfaWRzXCI6W1wiOTBmMTYwODYyMWQ3MzA1MWUxNzJhYzZmNzU3YjI3ZmUyYTRmNDgwOFwiXX0ifQ" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://mandrillapp.com/track/click/30052082/twitter.com?p%3DeyJzIjoibnZvU01OWkFmS2lKUHdqWGZNNVEzVmkzS2tJIiwidiI6MSwicCI6IntcInVcIjozMDA1MjA4MixcInZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3R3aXR0ZXIuY29tXFxcL251YmFua1wiLFwiaWRcIjpcImNhOGM2ZGViYzZmMjRlZThiMmQ0NmQ2YTZmMzM0Y2IyXCIsXCJ1cmxfaWRzXCI6W1wiOTBmMTYwODYyMWQ3MzA1MWUxNzJhYzZmNzU3YjI3ZmUyYTRmNDgwOFwiXX0ifQ&amp;source=gmail&amp;ust=1551438303305000&amp;usg=AFQjCNEOJ22TW1NR4cCfxFaNdBti3uprxw">
+                                                                                        <img alt="nutwitter" height="40" src="https://ci5.googleusercontent.com/proxy/Op2xN70Tzo1F_nYX1hBomaX31kLgoKROY6uJdNmlLpCNAT9PQxFdgJW9dhMyIRBiM5E_whZLG5HGKl1f_eCR1kxf2d9v5sLe7u4=s0-d-e1-ft#https://nu-emails.s3.amazonaws.com/ico-twitter-grey.png" style="display:block;border-radius:3px;border:0;height:auto;line-height:100%;outline:none;text-decoration:none" width="40" class="CToWUd">
+                                                                                    </a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                                <td style="padding:4px 4px 4px 0;vertical-align:middle;border-collapse:collapse">
+                                                                    <a href="https://mandrillapp.com/track/click/30052082/twitter.com?p=eyJzIjoibnZvU01OWkFmS2lKUHdqWGZNNVEzVmkzS2tJIiwidiI6MSwicCI6IntcInVcIjozMDA1MjA4MixcInZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3R3aXR0ZXIuY29tXFxcL251YmFua1wiLFwiaWRcIjpcImNhOGM2ZGViYzZmMjRlZThiMmQ0NmQ2YTZmMzM0Y2IyXCIsXCJ1cmxfaWRzXCI6W1wiOTBmMTYwODYyMWQ3MzA1MWUxNzJhYzZmNzU3YjI3ZmUyYTRmNDgwOFwiXX0ifQ" style="text-decoration:none;text-align:left;display:block;color:#333333;font-family:Ubuntu,Helvetica,Arial,sans-serif;font-size:13px;line-height:22px;border-radius:3px" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://mandrillapp.com/track/click/30052082/twitter.com?p%3DeyJzIjoibnZvU01OWkFmS2lKUHdqWGZNNVEzVmkzS2tJIiwidiI6MSwicCI6IntcInVcIjozMDA1MjA4MixcInZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3R3aXR0ZXIuY29tXFxcL251YmFua1wiLFwiaWRcIjpcImNhOGM2ZGViYzZmMjRlZThiMmQ0NmQ2YTZmMzM0Y2IyXCIsXCJ1cmxfaWRzXCI6W1wiOTBmMTYwODYyMWQ3MzA1MWUxNzJhYzZmNzU3YjI3ZmUyYTRmNDgwOFwiXX0ifQ&amp;source=gmail&amp;ust=1551438303305000&amp;usg=AFQjCNEOJ22TW1NR4cCfxFaNdBti3uprxw">
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table role="presentation" cellpadding="0" cellspacing="0" style="float:none;display:inline-table;border-collapse:collapse" align="center" border="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="padding:4px;vertical-align:middle;border-collapse:collapse">
+                                                                    <table role="presentation" cellpadding="0" cellspacing="0" style="background:transparent;border-radius:3px;width:40px;border-collapse:collapse" border="0">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td style="font-size:0px;vertical-align:middle;width:40px;height:40px;border-collapse:collapse">
+                                                                                    <a href="https://mandrillapp.com/track/click/30052082/www.instagram.com?p=eyJzIjoiU3JIal9UM2RoVGk0SXAyNWZWeVBHS3hjb01BIiwidiI6MSwicCI6IntcInVcIjozMDA1MjA4MixcInZcIjoxLFwidXJsXCI6XCJodHRwOlxcXC9cXFwvd3d3Lmluc3RhZ3JhbS5jb21cXFwvbnViYW5rXCIsXCJpZFwiOlwiY2E4YzZkZWJjNmYyNGVlOGIyZDQ2ZDZhNmYzMzRjYjJcIixcInVybF9pZHNcIjpbXCIzMDJjMTUwZTRlYThiY2E3MzAwNjk2NmFiY2JmYzZkODBlNDYxMGJiXCJdfSJ9" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://mandrillapp.com/track/click/30052082/www.instagram.com?p%3DeyJzIjoiU3JIal9UM2RoVGk0SXAyNWZWeVBHS3hjb01BIiwidiI6MSwicCI6IntcInVcIjozMDA1MjA4MixcInZcIjoxLFwidXJsXCI6XCJodHRwOlxcXC9cXFwvd3d3Lmluc3RhZ3JhbS5jb21cXFwvbnViYW5rXCIsXCJpZFwiOlwiY2E4YzZkZWJjNmYyNGVlOGIyZDQ2ZDZhNmYzMzRjYjJcIixcInVybF9pZHNcIjpbXCIzMDJjMTUwZTRlYThiY2E3MzAwNjk2NmFiY2JmYzZkODBlNDYxMGJiXCJdfSJ9&amp;source=gmail&amp;ust=1551438303305000&amp;usg=AFQjCNGeejiqLiBP4qOA7l8YGbDuQ-obrg">
+                                                                                        <img alt="nuinstagram" height="40" src="https://ci6.googleusercontent.com/proxy/i1kT8xii1ssSuDBgsn9nnsHy_KLHNzEhU3Cn5ZzD53cx-wytJjsvmrS5EkOe-LESF2G56ANzpjB2-W9r8iLT2YIvZtbvRC1_abcBrQ=s0-d-e1-ft#https://nu-emails.s3.amazonaws.com/ico-instagram-grey.png" style="display:block;border-radius:3px;border:0;height:auto;line-height:100%;outline:none;text-decoration:none" width="40" class="CToWUd">
+                                                                                    </a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                                <td style="padding:4px 4px 4px 0;vertical-align:middle;border-collapse:collapse">
+                                                                    <a href="https://mandrillapp.com/track/click/30052082/www.instagram.com?p=eyJzIjoiU3JIal9UM2RoVGk0SXAyNWZWeVBHS3hjb01BIiwidiI6MSwicCI6IntcInVcIjozMDA1MjA4MixcInZcIjoxLFwidXJsXCI6XCJodHRwOlxcXC9cXFwvd3d3Lmluc3RhZ3JhbS5jb21cXFwvbnViYW5rXCIsXCJpZFwiOlwiY2E4YzZkZWJjNmYyNGVlOGIyZDQ2ZDZhNmYzMzRjYjJcIixcInVybF9pZHNcIjpbXCIzMDJjMTUwZTRlYThiY2E3MzAwNjk2NmFiY2JmYzZkODBlNDYxMGJiXCJdfSJ9" style="text-decoration:none;text-align:left;display:block;color:#333333;font-family:Ubuntu,Helvetica,Arial,sans-serif;font-size:13px;line-height:22px;border-radius:3px" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://mandrillapp.com/track/click/30052082/www.instagram.com?p%3DeyJzIjoiU3JIal9UM2RoVGk0SXAyNWZWeVBHS3hjb01BIiwidiI6MSwicCI6IntcInVcIjozMDA1MjA4MixcInZcIjoxLFwidXJsXCI6XCJodHRwOlxcXC9cXFwvd3d3Lmluc3RhZ3JhbS5jb21cXFwvbnViYW5rXCIsXCJpZFwiOlwiY2E4YzZkZWJjNmYyNGVlOGIyZDQ2ZDZhNmYzMzRjYjJcIixcInVybF9pZHNcIjpbXCIzMDJjMTUwZTRlYThiY2E3MzAwNjk2NmFiY2JmYzZkODBlNDYxMGJiXCJdfSJ9&amp;source=gmail&amp;ust=1551438303306000&amp;usg=AFQjCNH5ZMrCLDFYVHYW0cfRX03TbD83lw">
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table role="presentation" cellpadding="0" cellspacing="0" style="float:none;display:inline-table;border-collapse:collapse" align="center" border="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="padding:4px;vertical-align:middle;border-collapse:collapse">
+                                                                    <table role="presentation" cellpadding="0" cellspacing="0" style="background:transparent;border-radius:3px;width:40px;border-collapse:collapse" border="0">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td style="font-size:0px;vertical-align:middle;width:40px;height:40px;border-collapse:collapse">
+                                                                                    <a href="https://mandrillapp.com/track/click/30052082/www.linkedin.com?p=eyJzIjoib2Q3SDl5akdDWXRZMFgwb0dKbUpwTm1QQjNnIiwidiI6MSwicCI6IntcInVcIjozMDA1MjA4MixcInZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3d3dy5saW5rZWRpbi5jb21cXFwvY29tcGFueS1iZXRhXFxcLzM3Njc1MjlcXFwvXCIsXCJpZFwiOlwiY2E4YzZkZWJjNmYyNGVlOGIyZDQ2ZDZhNmYzMzRjYjJcIixcInVybF9pZHNcIjpbXCJhMGZjMDNmMzA5Y2JjYmM4ZWUwMmVjMGE5NGRhZWNiMmI3OWNlMmY0XCJdfSJ9" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://mandrillapp.com/track/click/30052082/www.linkedin.com?p%3DeyJzIjoib2Q3SDl5akdDWXRZMFgwb0dKbUpwTm1QQjNnIiwidiI6MSwicCI6IntcInVcIjozMDA1MjA4MixcInZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3d3dy5saW5rZWRpbi5jb21cXFwvY29tcGFueS1iZXRhXFxcLzM3Njc1MjlcXFwvXCIsXCJpZFwiOlwiY2E4YzZkZWJjNmYyNGVlOGIyZDQ2ZDZhNmYzMzRjYjJcIixcInVybF9pZHNcIjpbXCJhMGZjMDNmMzA5Y2JjYmM4ZWUwMmVjMGE5NGRhZWNiMmI3OWNlMmY0XCJdfSJ9&amp;source=gmail&amp;ust=1551438303306000&amp;usg=AFQjCNGyPFy7z7NXTasuFnnpXZ9GLxByqA">
+                                                                                        <img alt="nulinkedin" height="40" src="https://ci4.googleusercontent.com/proxy/NBrR1NWriKsqV1L1NMwyBId_TwJOHci-kOcrycokMT9iKg5qiTAemtSbOJ4IIef56VxPm1GmH3zAVV9YR_Rfle3RfzrNsV0T6MPa=s0-d-e1-ft#https://nu-emails.s3.amazonaws.com/ico-linkedin-grey.png" style="display:block;border-radius:3px;border:0;height:auto;line-height:100%;outline:none;text-decoration:none" width="40" class="CToWUd">
+                                                                                    </a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                                <td style="padding:4px 4px 4px 0;vertical-align:middle;border-collapse:collapse">
+                                                                    <a href="https://mandrillapp.com/track/click/30052082/www.linkedin.com?p=eyJzIjoib2Q3SDl5akdDWXRZMFgwb0dKbUpwTm1QQjNnIiwidiI6MSwicCI6IntcInVcIjozMDA1MjA4MixcInZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3d3dy5saW5rZWRpbi5jb21cXFwvY29tcGFueS1iZXRhXFxcLzM3Njc1MjlcXFwvXCIsXCJpZFwiOlwiY2E4YzZkZWJjNmYyNGVlOGIyZDQ2ZDZhNmYzMzRjYjJcIixcInVybF9pZHNcIjpbXCJhMGZjMDNmMzA5Y2JjYmM4ZWUwMmVjMGE5NGRhZWNiMmI3OWNlMmY0XCJdfSJ9" style="text-decoration:none;text-align:left;display:block;color:#333333;font-family:Ubuntu,Helvetica,Arial,sans-serif;font-size:13px;line-height:22px;border-radius:3px" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://mandrillapp.com/track/click/30052082/www.linkedin.com?p%3DeyJzIjoib2Q3SDl5akdDWXRZMFgwb0dKbUpwTm1QQjNnIiwidiI6MSwicCI6IntcInVcIjozMDA1MjA4MixcInZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3d3dy5saW5rZWRpbi5jb21cXFwvY29tcGFueS1iZXRhXFxcLzM3Njc1MjlcXFwvXCIsXCJpZFwiOlwiY2E4YzZkZWJjNmYyNGVlOGIyZDQ2ZDZhNmYzMzRjYjJcIixcInVybF9pZHNcIjpbXCJhMGZjMDNmMzA5Y2JjYmM4ZWUwMmVjMGE5NGRhZWNiMmI3OWNlMmY0XCJdfSJ9&amp;source=gmail&amp;ust=1551438303306000&amp;usg=AFQjCNGyPFy7z7NXTasuFnnpXZ9GLxByqA">
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="margin:0px auto;max-width:600px">
+            <table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;border-collapse:collapse" align="center" border="0">
+                <tbody>
+                    <tr>
+                        <td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:20px 0px;padding-top:0px;border-collapse:collapse">
+                            <div class="m_-3796989667682919919mj-column-per-100 m_-3796989667682919919outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%">
+                                <table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0" style="border-collapse:collapse">
+                                    <tbody>
+                                        <tr>
+                                            <td style="word-wrap:break-word;font-size:0px;padding:0px;padding-bottom:0px;border-collapse:collapse" align="center">
+                                                <div style="color:#777;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:1.5;text-align:center">Atendimento 24 horas</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="word-wrap:break-word;font-size:0px;padding:10px 40px 20px 40px;border-collapse:collapse" align="center">
+                                                <div style="color:#777;font-family:sans-serif;font-size:13px;line-height:1.5;text-align:center">
+                                                    Em caso de qualquer dúvida, fique à vontade para responder esse email ou nos contatar no 
+                                                    <a href="http://meajuda@nubank.com.br" style="color:#8c43c5;font-weight:bold" target="_blank" data-saferedirecturl="https://www.google.com/url?q=http://meajuda@nubank.com.br&amp;source=gmail&amp;ust=1551438303306000&amp;usg=AFQjCNFH2h5FAEPhbONgtHmITHoRf-TutA">meajuda@<span class="il">nubank</span>.com.br</a>. 
+                                                    <p style="display:block;margin:13px 0">Para urgências ligue para 0800 591 2117. Atendimento 24 horas, todos os dias.</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="word-wrap:break-word;font-size:0px;padding:0px;padding-bottom:0px;border-collapse:collapse" align="center">
+                                                <div style="color:#777;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:1.5;text-align:center">Ouvidoria</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="word-wrap:break-word;font-size:0px;padding:10px 40px 20px 40px;border-collapse:collapse" align="center">
+                                                <div style="color:#777;font-family:sans-serif;font-size:13px;line-height:1.5;text-align:center">
+                                                    Se você não ficou satisfeito com a solução do nosso time de atendimento, ligue para 0800 887 0463 em dias úteis, das 9h às 18h, horário de São Paulo. <br><br>  
+                                                    <span class="il">Nubank</span> 2019
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <img src="https://ci6.googleusercontent.com/proxy/6hGAX9QCL9kG4XnM53EjB6v5DBx5OP1ZZWOISIi3in3R_CcoSaYWY1qKH4emAfdlk67q-Zd12flIV0o6Fa3CbEWAN6qnrjX-QFKbnByp5KWAfkz-9hBWRKsayaGqpnYj5LZorpZHvFw=s0-d-e1-ft#https://mandrillapp.com/track/open.php?u=30052082&amp;id=ca8c6debc6f24ee8b2d46d6a6f334cb2" height="1" width="1" class="CToWUd">
+</div>
+<div class="yj6qo"></div>
+<div class="adL"></div>
+</div>
 	<table align="center" cellpadding="0" cellspacing="0" height="100%" width="100%" style="background-color: #f2f2f2">
 		<tbody>
 			<tr>
@@ -939,93 +1270,69 @@
                 	<table align="center" cellpadding="0" cellspacing="0" width="550" style="background-color: #FFFFFF">
 						<tbody>
 							<tr>
-								<td align="center" valign="middle" style="padding:20px 0px 30px;background-color: #f2f2f2;">
-									<table cellspacing="0" cellpadding="0" align="center" width="550">
-										<tbody>
-											<tr>
-												<td align="center" valign="middle">
-													<table cellspacing="0" cellpadding="0" align="center" width="550" style="padding: 0 10px">
-														<tbody>
-															<tr>
-																<td align="left" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:12px; color:#333333;">
-																	<span style="display: none;">Confira todos os detalhes.</span>
-																</td>
-																<td align="right" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:12px; color:#333333;">
-																	<a href="http://bitlouc.com/#/os/'. $os->id .'" target="_blank" style="color:#333333">Ver Online</a>&nbsp;
-																	<!--|&nbsp;<a href="http://e.shell.com.br/pub/sf/FormLink?_ri_." target="_blank" style="color:#333333">Descadastre-se</a>-->
-																</td>
-															</tr>
-														</tbody>
-													</table>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</td>
-                    		</tr>
+								'.
+									#Inicio do Email
+									$email->inicio('2', $os->id)
+								.'
                     		<tr>
                         	<td align="center">
                             <table width="440" cellspacing="0" cellpadding="0" border="0">
 								<tbody>
-								<tr>
-									<td align="left" valign="top" style="padding-top: 30px;">
-										<a href="http://bitlouc.com" target="_blank">
-											<img alt="BitLOUC" border="0" src="http://localhost/codephp/php/bitlouc/interface/imagem/bitlouc_logoii.png" style="display:block;border:0;" height="36" width="89">
-										</a>
-									</td> 
-                                </tr>
-                                <tr>
-									<td align="left" valign="middle" style="padding-top: 30px;font-family:Verdana, Helvetica, sans-serif; font-size:20px; color:#3f3f3f; font-weight: bold;line-height: 25px;">
-										INSTANCIA '. $email_status .'.
-									</td>
-                                </tr>
-                                <tr>
-									<td align="left" valign="middle" style="padding-top: 30px;font-family:Verdana, Helvetica, sans-serif; font-size:14px;line-height: 25px; color: #595a5a;">
-										<span style="color: #dd1d21;">Oi, Fabio!</span> Tudo bem? <br><br>
-                                    Deu tudo certo com a sua compra de <strong>R$ 79,03</strong>! <br>
-                                    Aqui embaixo você pode conferir todos os detalhes:
-                                    </td>                                    
-                                </tr>
-
+								<!-- Top -->
+									<tr>
+									'.
+										#top do Email
+										$email->top('2', $os->id, $email_status )
+									.'
+									<tr>
                                 <!-- Bloco de dados -->
                                 <tr>
                                     <td align="center" style="padding-top: 20px;">
                                         <table align="center" cellspacing="0" cellpadding="0" border="0" style="background-color: #f6f6f6;" width="429">
-                                            <tbody><tr>
-                                                <td align="center" style="padding-top: 40px;">
-                                                    <table align="center" cellspacing="0" cellpadding="0" border="0" width="90%">
-                                                        <tbody><tr>
-                                                            <td align="center">
-                                                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                                                    <tbody><tr>
-                                                                        <td align="left" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:17px; color:#595a5a;">Você acumulou:
-                                                                        </td>
-                                                                        <td align="right" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:17px; color:#3e3f3e;font-weight: bold;"> 19 pontos
-                                                                        </td>
-                                                                    </tr> 
-                                                                    <tr>
-                                                                        <td align="left" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:17px; color:#595a5a;">Saldo Atual:
-                                                                        </td>
-                                                                        <td align="right" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:17px; color:#3e3f3e;font-weight: bold;"> 110 pontos
-                                                                        </td>
-                                                                    </tr> 
-                                                                </tbody></table>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="center" height="46" style="line-height: 1px;font-size: 1px;"><img src="https://static.cdn.responsys.net/i5/responsysimages/raizencom/contentlibrary/campaigns/cmp_numero_sem_premio/sem-premio-01/img/linha-branca.jpg" style="display: block;border: none;" width="367" height="3" alt="">
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:12px; color:#595a5a;">
-    Nessa transação foram acumulados 6 números da sorte para participar da promoção 1 Ano Grátis de Shell V-Power.
-                                                            </td>
-                                                        </tr>                                                        
-                                                    </tbody></table>
-                                                </td>
-                                            </tr>
+											<tbody>
+												<tr>
+													<td align="center" style="padding-top: 40px;">
+														<table align="center" cellspacing="0" cellpadding="0" border="0" width="90%">
+															<tbody>
+																<tr>
+																	<td align="center">
+																		<table cellspacing="0" cellpadding="0" border="0" width="100%">
+																			<tbody><tr>
+																				<td align="left" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:17px; color:#595a5a;">
+																					Data:
+																				</td>
+																				<td align="right" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:17px; color:#3e3f3e;font-weight: bold;">
+																				'.date('d/m/Y', strtotime(str_replace('-','/', $os->data))) .'
+																				</td>
+																			</tr> 
+																			<tr>
+																				<td align="left" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:17px; color:#595a5a;">
+																					N° OS:
+																				</td>
+																				<td align="right" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:17px; color:#3e3f3e;font-weight: bold;">
+																					'.$os->filial.'-'.$os->os. ' 
+																				</td>
+																			</tr> 
+																		</tbody></table>
+																	</td>
+																</tr>
+																<tr>
+																	<td align="center" height="46" style="line-height: 1px;font-size: 1px;">
+																		<img src="http://localhost/codephp/php/bitlouc/interface/imagem/linha-branca.jpg" style="display: block;border: none;" width="367" height="3" alt="">
+																	</td>
+																</tr>
+																<tr>
+																	<td align="left" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:12px; color:#595a5a;">
+																		Nessa transação foram acumulados 6 números da sorte para participar da promoção 1 Ano Grátis de Shell V-Power.
+																	</td>
+																</tr>                                                        
+															</tbody>
+														</table>
+													</td>
+												</tr>
                                             <tr>
-                                                <td align="center" height="36" style="line-height: 1px;font-size: 1px;"><img src="https://static.cdn.responsys.net/i5/responsysimages/raizencom/contentlibrary/campaigns/cmp_numero_sem_premio/sem-premio-01/img/divisao.jpg" style="display: block;border: none;" width="429" height="36" alt="">
+												<td align="center" height="36" style="line-height: 1px;font-size: 1px;">
+												<img src="http://localhost/codephp/php/bitlouc/interface/imagem/linha-branca.jpg" style="display: block;border: none;" width="367" height="3" alt="">
                                                 </td>
                                             </tr> 
                                              
@@ -1035,97 +1342,140 @@
                                                         <tbody><tr>
                                                             <td align="center">
                                                                 <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                                                    <tbody><tr>
-                                                                        <td align="left" height="60" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">Posto:
-                                                                        </td>
-                                                                        <td align="right" height="60" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#999999;">Cemopel-Cm Petroleo Ltda.<br>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="left" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">Data:
-                                                                        </td>
-                                                                        <td align="right" style="font-family: arial; font-size: 15px; color:#999999; line-height: 20px; padding: 0 0px 20px 0">
-    
-                                                         16/03/2019 às 21:41 <br><span style="font-size:11px"> (Horário de Brasília)</span>
-                                                     </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="left" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">Combustível:
-                                                                        </td>
-                                                                        <td align="right" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#999999;">Gasolina Comum
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="left" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">Litragem:
-                                                                        </td>
-                                                                        <td align="right" style="font-family: arial; font-size: 15px; color:#999999; line-height: 20px; padding: 0 0px 20px 0">
-                                             18,82 litros
-                                         </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="left" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">Valor do abastecimento:
-                                                                        </td>
-                                                                             <td align="right" style="font-family: arial; font-size: 15px; color:#999999; line-height: 20px; padding: 0 0px 20px 0">
-                                                
-                                             R$ 79,03
-                                         </td>
-                                                                    </tr> 
-                                                                 <tr>
-                                                                        <td align="left" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#676867;font-weight: bold;">VALOR PAGO:
-                                                                        </td>
-                                                                        <td align="right" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;font-weight: bold;">R$ 79,03
-                                                                        </td>
-                                                                    </tr>          
-                                                                </tbody></table>
+																	<tbody>
+																		<tr>
+																			<td align="left" height="60" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																				Loja:
+																			</td>
+																			<td align="right" height="60" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#999999;">
+																				'.$os->loja_nick.'<br>
+																			</td>
+																		</tr>
+																		<tr>
+																			<td align="left" height="30" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																				Local:
+																			</td>
+																			<td align="right" style="font-family: arial; font-size: 15px; color:#999999; line-height: 20px; padding: 0 0px 20px 0">
+																				<span>'.$os->local_tipo .' - '. $os->local_name.' </span><br>
+																				<span style="font-size:11px"> ('.$os->local_municipio .' - '. $os->local_uf. ')</span><br>
+																				<a style="font-size:11px" href="https://maps.google.com/maps?q='.$os->local_lat.'%2C'.$os->local_long .'&z=17&hl=pt-BR" target="_blank"> Como chegar</a><br>
+																			</td>
+																		</tr>
+																		<tr>
+																			<td align="left" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																				Equipamento:
+																			</td>
+																			<td align="right" style="font-family: arial; font-size: 15px; color:#999999; line-height: 20px; padding: 0 0px 20px 0">
+																				<span>'.$txtEquipamento.'</span><br>
+																				<span style="font-size:11px">'.$txtEquip_modelo.'</span><br>
+																				<span style="font-size:11px"> '.$txtEquip_code.'</span>
+																			</td>
+																		</tr>
+																		<tr>
+																			<td align="left" height="20" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																				Categoria:
+																			</td>
+																			<td align="right" height="20" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#999999;">
+																				'.$os->categoria->name.'
+																			</td>
+																		</tr>
+																		<tr>
+																			<td align="left" height="20" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																				Serviço:
+																			</td>
+																			<td align="right" height="20" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#999999;">
+																				'.$os->servico->name.'
+																			</td>
+																		</tr>
+																		<tr>
+																			<td align="left" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																				Solicitante:
+																			</td>
+																			<td align="right" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#999999;">
+																				'.$os->user_user.'
+																			</td>
+																		</tr>
+																		<tr>
+																			<td align="left" height="10" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;" colspan="2">
+																				Designado(s):
+																			</td>
+																		</tr>
+																		<tr>
+																				<td align="left" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;" colspan="2">
+																				'. $comma_separated.'
+																				</td>
+																				
+																		</tr> 
+																		<tr>
+																			<td align="left" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#676867;font-weight: bold;">
+																				VALOR PAGO:
+																			</td>
+																			<td align="right" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;font-weight: bold;">
+																				R$ 79,03
+																			</td>
+																		</tr>          
+																	</tbody>
+																</table>
                                                             </td>
                                                         </tr>
                                                     </tbody></table>
                                                 </td>
                                             </tr>    
                                             <tr>
-                                                <td align="center" height="36" style="line-height: 1px;font-size: 1px;"><img src="https://static.cdn.responsys.net/i5/responsysimages/raizencom/contentlibrary/campaigns/cmp_numero_sem_premio/sem-premio-01/img/divisao.jpg" style="display: block;border: none;" width="429" height="36" alt="">
+												<td align="center" height="36" style="line-height: 1px;font-size: 1px;">
+													<img src="http://localhost/codephp/php/bitlouc/interface/imagem/linha-branca.jpg" style="display: block;border: none;" width="429" height="36" alt="">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td align="center" style="padding-top: 25px;">
                                                     <table align="center" cellspacing="0" cellpadding="0" border="0" width="90%">
-                                                        <tbody><tr>
-                                                            <td align="center">
-                                                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                                                    <tbody><tr>
-                                                                        <td align="left" height="30" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">ID da Transação:
-                                                                        </td>
-                                                                        <td align="right" height="30" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">47366889
-                                                                        </td>
-                                                                    </tr>
-                                                               <tr>
-                                                                        <td align="left" height="30" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">CNPJ da Loja:
-                                                                        </td>
-                                                                        <td align="right" height="30" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">69943686000401
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="left" height="50" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">CPF do Cliente:
-                                                                        </td>
-                                                                        <td align="right" height="50" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">05265139427
-                                                                        </td>
-                                                                    </tr>            
-                                                                </tbody></table>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody></table>
+														<tbody>
+															<tr>
+																<td align="center">
+																	<table cellspacing="0" cellpadding="0" border="0" width="100%">
+																		<tbody>
+																			<tr>
+																				<td align="left" height="30" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																					ID da Transação:
+																				</td>
+																				<td align="right" height="30" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																					47366889
+																				</td>
+																			</tr>
+																			<tr>
+																				<td align="left" height="30" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																					CNPJ da Loja:
+																				</td>
+																				<td align="right" height="30" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																					69943686000401
+																				</td>
+																			</tr>
+																			<tr>
+																				<td align="left" height="50" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																					CPF do Cliente:
+																				</td>
+																				<td align="right" height="50" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																					05265139427
+																				</td>
+																			</tr>            
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+														</tbody>
+													</table>
                                                 </td>
                                             </tr> 
-
-                                        </tbody></table>
-                                    </td>
-                                </tr>
-                                <!-- / Bloco de dados -->
+										</tbody>
+									</table>
+                                </td>
+                            </tr>
+                            <!-- / Bloco de dados -->
 
                                 <tr>
-    <td class="corpo-footer" valign="top" width="100%" style="padding: 35px 35px 40px 45px; color: #404040; font-size: 10px; font-family: arial; line-height: 12px">
-Consulte os dados do cartão e o histórico de transações no Shell Box. Em caso de dúvidas sobre esta transação, entre em contato com o Shell Box na aba "Ajuda", localizada no menu lateral.
-</td>
+									<td class="corpo-footer" valign="top" width="100%" style="padding: 35px 35px 40px 45px; color: #404040; font-size: 10px; font-family: arial; line-height: 12px">
+										Alterado por: '.$_SESSION['loginUser'].'
+									</td>
                                 </tr>
                                 <tr>
                                     <td height="36" style="font-size: 1px;line-height: 1px;">&nbsp;</td>
@@ -1140,7 +1490,8 @@ Consulte os dados do cartão e o histórico de transações no Shell Box. Em cas
         <tr>
             <td align="center">
                 <table align="center" cellspacing="0" cellpadding="0" border="0" width="550" style="background-color: #f8ce0f;">
-                    <tbody><tr>
+					<tbody>
+					<tr>
                         <td align="center" valign="middle"><img src="https://static.cdn.responsys.net/i5/responsysimages/raizencom/contentlibrary/campaigns/cmp_numero_sem_premio/sem-premio-01/img/footer.jpg" width="550" height="144" style="display: block;border: none;" alt="Vá bem. Vá de Shell"></td>
                     </tr>
                     <tr>
