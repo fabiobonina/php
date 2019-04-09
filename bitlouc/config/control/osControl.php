@@ -930,6 +930,54 @@
 				</td>';
 				array_push($txtNotas, $item );
 			}endforeach;
+			foreach ($os->notas as $key => $value): {
+				$item = $value->id;
+				$item = '
+				<tr>
+				<td align="center">
+					<table cellspacing="0" cellpadding="0" border="0" width="100%">
+						<tbody>
+							<tr>
+								<td align="left" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:17px; color:#595a5a;">
+									Data:
+								</td>
+								<td align="right" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:17px; color:#3e3f3e;font-weight: bold;">
+								'.date('d/m/Y', strtotime(str_replace('-','/', $os->data))) .'
+								</td>
+							</tr> 
+							<tr>
+								<td align="left" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:17px; color:#595a5a;">
+									N° OS:
+								</td>
+								<td align="right" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:17px; color:#3e3f3e;font-weight: bold;">
+									'.$os->filial.'-'.$os->os. ' 
+								</td>
+							</tr> 
+						</tbody>
+					</table>
+				</td>
+			</tr>
+				<td colspan="4">
+					<table width="100%">
+						<thead>
+							<tr bgcolor="#DADADA">
+								<td width="7%"><b>Data</b></td>
+								<td width="20%">'. $DateOfRequest = date("d/m/Y H:i:s", strtotime( $value->data )) . '</td>
+								<td width="9%"><b>Usuario</b></td>
+								<td width="40">'.$value->user .'</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="4"><b>Descrição</b>'. $value->descricao . '</td>									
+							</tr>
+						</tbody>
+					</table>
+					<tr><td colspan="4"><hr></td></tr>
+				</td>';
+				array_push($txtNotas, $item );
+			}endforeach;
+
 			
 			//$array = array('lastname', 'email', 'phone');
 			$txtNotas = implode("", $txtNotas);
@@ -1297,23 +1345,25 @@
 																<tr>
 																	<td align="center">
 																		<table cellspacing="0" cellpadding="0" border="0" width="100%">
-																			<tbody><tr>
-																				<td align="left" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:17px; color:#595a5a;">
-																					Data:
-																				</td>
-																				<td align="right" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:17px; color:#3e3f3e;font-weight: bold;">
-																				'.date('d/m/Y', strtotime(str_replace('-','/', $os->data))) .'
-																				</td>
-																			</tr> 
-																			<tr>
-																				<td align="left" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:17px; color:#595a5a;">
-																					N° OS:
-																				</td>
-																				<td align="right" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:17px; color:#3e3f3e;font-weight: bold;">
-																					'.$os->filial.'-'.$os->os. ' 
-																				</td>
-																			</tr> 
-																		</tbody></table>
+																			<tbody>
+																				<tr>
+																					<td align="left" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:17px; color:#595a5a;">
+																						Data:
+																					</td>
+																					<td align="right" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:17px; color:#3e3f3e;font-weight: bold;">
+																					'.date('d/m/Y', strtotime(str_replace('-','/', $os->data))) .'
+																					</td>
+																				</tr> 
+																				<tr>
+																					<td align="left" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:17px; color:#595a5a;">
+																						N° OS:
+																					</td>
+																					<td align="right" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:17px; color:#3e3f3e;font-weight: bold;">
+																						'.$os->filial.'-'.$os->os. ' 
+																					</td>
+																				</tr> 
+																			</tbody>
+																		</table>
 																	</td>
 																</tr>
 																<tr>
@@ -1325,147 +1375,140 @@
 																	<td align="left" valign="middle" style="font-family:Verdana, Helvetica, sans-serif; font-size:12px; color:#595a5a;">
 																		Nessa transação foram acumulados 6 números da sorte para participar da promoção 1 Ano Grátis de Shell V-Power.
 																	</td>
-																</tr>                                                        
+																</tr>
 															</tbody>
 														</table>
 													</td>
 												</tr>
-                                            <tr>
-												<td align="center" height="36" style="line-height: 1px;font-size: 1px;">
-												<img src="http://localhost/codephp/php/bitlouc/interface/imagem/linha-branca.jpg" style="display: block;border: none;" width="367" height="3" alt="">
-                                                </td>
-                                            </tr> 
-                                             
-                                            <tr>
-                                                <td align="center" style="padding-top: 25px;">
-                                                    <table align="center" cellspacing="0" cellpadding="0" border="0" width="90%">
-                                                        <tbody><tr>
-                                                            <td align="center">
-                                                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
-																	<tbody>
-																		<tr>
-																			<td align="left" height="60" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
-																				Loja:
-																			</td>
-																			<td align="right" height="60" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#999999;">
-																				'.$os->loja_nick.'<br>
-																			</td>
-																		</tr>
-																		<tr>
-																			<td align="left" height="30" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
-																				Local:
-																			</td>
-																			<td align="right" style="font-family: arial; font-size: 15px; color:#999999; line-height: 20px; padding: 0 0px 20px 0">
-																				<span>'.$os->local_tipo .' - '. $os->local_name.' </span><br>
-																				<span style="font-size:11px"> ('.$os->local_municipio .' - '. $os->local_uf. ')</span><br>
-																				<a style="font-size:11px" href="https://maps.google.com/maps?q='.$os->local_lat.'%2C'.$os->local_long .'&z=17&hl=pt-BR" target="_blank"> Como chegar</a><br>
-																			</td>
-																		</tr>
-																		<tr>
-																			<td align="left" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
-																				Equipamento:
-																			</td>
-																			<td align="right" style="font-family: arial; font-size: 15px; color:#999999; line-height: 20px; padding: 0 0px 20px 0">
-																				<span>'.$txtEquipamento.'</span><br>
-																				<span style="font-size:11px">'.$txtEquip_modelo.'</span><br>
-																				<span style="font-size:11px"> '.$txtEquip_code.'</span>
-																			</td>
-																		</tr>
-																		<tr>
-																			<td align="left" height="20" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
-																				Categoria:
-																			</td>
-																			<td align="right" height="20" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#999999;">
-																				'.$os->categoria->name.'
-																			</td>
-																		</tr>
-																		<tr>
-																			<td align="left" height="20" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
-																				Serviço:
-																			</td>
-																			<td align="right" height="20" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#999999;">
-																				'.$os->servico->name.'
-																			</td>
-																		</tr>
-																		<tr>
-																			<td align="left" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
-																				Solicitante:
-																			</td>
-																			<td align="right" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#999999;">
-																				'.$os->user_user.'
-																			</td>
-																		</tr>
-																		<tr>
-																			<td align="left" height="10" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;" colspan="2">
-																				Designado(s):
-																			</td>
-																		</tr>
-																		<tr>
-																				<td align="left" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;" colspan="2">
-																				'. $comma_separated.'
-																				</td>
+												<tr>
+													<td align="center" height="36" style="line-height: 1px;font-size: 1px;">
+														<img src="http://localhost/codephp/php/bitlouc/interface/imagem/linha-branca.jpg" style="display: block;border: none;" width="367" height="3" alt="">
+													</td>
+												</tr> 
+												
+												<tr>
+													<td align="center" style="padding-top: 25px;">
+														<table align="center" cellspacing="0" cellpadding="0" border="0" width="90%">
+															<tbody>
+																<tr>
+																	<td align="center">
+																		<table cellspacing="0" cellpadding="0" border="0" width="100%">
+																			<tbody>
+																				<tr>
+																					<td align="left" height="60" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																						Loja:
+																					</td>
+																					<td align="right" height="60" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#999999;">
+																						'.$os->loja_nick.'<br>
+																					</td>
+																				</tr>
+																				<tr>
+																					<td align="left" height="30" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																						Local:
+																					</td>
+																					<td align="right" style="font-family: arial; font-size: 15px; color:#999999; line-height: 20px; padding: 0 0px 20px 0">
+																						<span>'.$os->local_tipo .' - '. $os->local_name.' </span><br>
+																						<span style="font-size:11px"> ('.$os->local_municipio .' - '. $os->local_uf. ')</span><br>
+																						<a style="font-size:11px" href="https://maps.google.com/maps?q='.$os->local_lat.'%2C'.$os->local_long .'&z=17&hl=pt-BR" target="_blank"> Como chegar</a><br>
+																					</td>
+																				</tr>
+																				<tr>
+																					<td align="left" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																						Equipamento:
+																					</td>
+																					<td align="right" style="font-family: arial; font-size: 15px; color:#999999; line-height: 20px; padding: 0 0px 20px 0">
+																						<span>'.$txtEquipamento.'</span><br>
+																						<span style="font-size:11px">'.$txtEquip_modelo.'</span><br>
+																						<span style="font-size:11px"> '.$txtEquip_code.'</span>
+																					</td>
+																				</tr>
+																				<tr>
+																					<td align="left" height="20" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																						Categoria:
+																					</td>
+																					<td align="right" height="20" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#999999;">
+																						'.$os->categoria->name.'
+																					</td>
+																				</tr>
+																				<tr>
+																					<td align="left" height="20" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																						Serviço:
+																					</td>
+																					<td align="right" height="20" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#999999;">
+																						'.$os->servico->name.'
+																					</td>
+																				</tr>
+																				<tr>
+																					<td align="left" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																						Solicitante:
+																					</td>
+																					<td align="right" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#999999;">
+																						'.$os->user_user.'
+																					</td>
+																				</tr>
 																				
-																		</tr> 
-																		<tr>
-																			<td align="left" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#676867;font-weight: bold;">
-																				VALOR PAGO:
-																			</td>
-																			<td align="right" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;font-weight: bold;">
-																				R$ 79,03
-																			</td>
-																		</tr>          
-																	</tbody>
-																</table>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody></table>
-                                                </td>
-                                            </tr>    
-                                            <tr>
-												<td align="center" height="36" style="line-height: 1px;font-size: 1px;">
-													<img src="http://localhost/codephp/php/bitlouc/interface/imagem/linha-branca.jpg" style="display: block;border: none;" width="429" height="36" alt="">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td align="center" style="padding-top: 25px;">
-                                                    <table align="center" cellspacing="0" cellpadding="0" border="0" width="90%">
-														<tbody>
-															<tr>
-																<td align="center">
-																	<table cellspacing="0" cellpadding="0" border="0" width="100%">
-																		<tbody>
-																			<tr>
-																				<td align="left" height="30" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
-																					ID da Transação:
-																				</td>
-																				<td align="right" height="30" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
-																					47366889
-																				</td>
-																			</tr>
-																			<tr>
-																				<td align="left" height="30" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
-																					CNPJ da Loja:
-																				</td>
-																				<td align="right" height="30" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
-																					69943686000401
-																				</td>
-																			</tr>
-																			<tr>
-																				<td align="left" height="50" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
-																					CPF do Cliente:
-																				</td>
-																				<td align="right" height="50" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
-																					05265139427
-																				</td>
-																			</tr>            
-																		</tbody>
-																	</table>
-																</td>
-															</tr>
-														</tbody>
-													</table>
-                                                </td>
-                                            </tr> 
+																				<tr>
+																					<td align="left" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#676867;font-weight: bold;">
+																					Designado(s):
+																					</td>
+																					<td align="right" height="40" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;font-weight: bold;">
+																					'. $comma_separated.'
+																					</td>
+																				</tr>          
+																			</tbody>
+																		</table>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</td>
+												</tr>    
+												<tr>
+													<td align="center" height="36" style="line-height: 1px;font-size: 1px;">
+														<img src="http://localhost/codephp/php/bitlouc/interface/imagem/linha-branca.jpg" style="display: block;border: none;" width="367" height="3" alt="">
+													</td>
+												</tr>
+												'. $txtNotas . '
+												<tr>
+													<td align="center" style="padding-top: 25px;">
+														<table align="center" cellspacing="0" cellpadding="0" border="0" width="90%">
+															<tbody>
+																<tr>
+																	<td align="center">
+																		<table cellspacing="0" cellpadding="0" border="0" width="100%">
+																			<tbody>
+																				<tr>
+																					<td align="left" height="30" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																						ID da Transação:
+																					</td>
+																					<td align="right" height="30" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																						47366889
+																					</td>
+																				</tr>
+																				<tr>
+																					<td align="left" height="30" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																						CNPJ da Loja:
+																					</td>
+																					<td align="right" height="30" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																						69943686000401
+																					</td>
+																				</tr>
+																				<tr>
+																					<td align="left" height="50" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																						CPF do Cliente:
+																					</td>
+																					<td align="right" height="50" valign="top" style="font-family:Verdana, Helvetica, sans-serif; font-size:14px; color:#595a5a;">
+																						05265139427
+																					</td>
+																				</tr>            
+																			</tbody>
+																		</table>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</td>
+												</tr> 				
 										</tbody>
 									</table>
                                 </td>
