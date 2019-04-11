@@ -49,7 +49,6 @@
 			$local_id,
 			$data,
 			$status,
-			$demandas,
 			$id )
 		{
 			$item['error'] = false;

@@ -4,7 +4,7 @@ require_once '_crud.php';
 
 
 
-class CilProgramacao extends Crud{
+class CilindroProg extends Crud{
 	
 	protected $table = 'tb_cil_programacao';
 	private $loja_id;

@@ -70,10 +70,11 @@
 			$item['error'] = false;
 
 			foreach ($demanda as $value){
-				$cil_tipo_id	= $value['cil_tipo']->id;
-				$qtd 			= $value['cil_qtd'];
+				$item = $value['cil_tipo'];
+				//$cil_tipo_id	= $value['cil_tipo']->id;
+				//$qtd 			= $value['cil_qtd'];
 		  
-				$item = $this->publish($cil_tipo_id, $qtd );
+				//$item = $this->publish($cil_tipo_id, $qtd );
 		  
 			  }
 

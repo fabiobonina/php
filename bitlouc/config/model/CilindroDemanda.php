@@ -6,7 +6,7 @@ require_once '_crud.php';
 
 class CilindroDemanda extends Crud{
 	
-	protected $table = 'tb_cil_prog_qtd';
+	protected $table = 'tb_cil_prog_demanda';
 	private $cil_prog_id;
 	private $cil_tipo_id;
 	private $qtd;

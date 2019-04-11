@@ -163,7 +163,7 @@ Vue.component('prog-add', {
       dialog: false,
       loja:{},
       local : {},
-      data: null,
+      dataProg: null,
       demanda: [],
       locais : [],
       progresso: '1',
@@ -226,7 +226,7 @@ Vue.component('prog-add', {
           var postData = {
             loja_id: this.loja.id,
             local_id: this.local.id,
-            data: this.data,
+            data: this.dataProg,
             status: '0',
             demanda: this.demanda,
             id: ''
@@ -249,6 +249,7 @@ Vue.component('prog-add', {
             }
           })
           .catch(function(error) {
+            this.isLoading = false;
             console.log(error);
           });
         }
