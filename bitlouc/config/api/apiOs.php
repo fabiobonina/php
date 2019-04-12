@@ -44,6 +44,7 @@ if($action == 'loja'):
   $res['error'] = false;
 
 endif;
+
 if($action == 'os'):
   $os_id = $_POST['os_id'];
  //$os_id = '130';

@@ -8,7 +8,7 @@
       <v-layout wrap>
         <v-flex>
           <v-select
-            v-model="item.cil_tipo" :items="cilTipos"
+            v-model="cil_tipo" :items="cilTipos"
             item-text="name" item-value="id"
             label="Tipo Cilindro" box
             v-on:keyup.enter="addDemanda()"
@@ -19,7 +19,7 @@
         <v-flex>
           <v-text-field 
             type="number"
-            v-model="item.cil_qtd"
+            v-model="cil_qtd"
             label="Qtd. Cilindros" box
             :error-messages="errors.collect('cil_qtd')"
             item-text="item.cil_qtd"
@@ -107,6 +107,8 @@ Vue.component('demanda-add', {
         cil_qtd: null,
         edit: false
       },
+      cil_tipo: null,
+      cil_qtd: null,
       dtProg: null,
     }
   },
