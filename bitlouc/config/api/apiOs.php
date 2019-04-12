@@ -346,14 +346,14 @@ endif;
 #CADASTRAR
 if($action == 'email'):
   //
-  $os_id = '2469';
+  $os_id = '2159';
   $os_status = 'ESTÁ EM TESTE NO SISTEMA';
-  $res['dados'] = $osControl->osEmailII( $os_id, $os_status);
+  $res['dados'] = $osControl->osEmail( $os_id, $os_status);
   //$res['dados'] = $osControl->osEmail( $os_id );
       
 endif;
 
 
-//header("Content-Type: application/json");
-//echo json_encode($res, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-echo $res['dados'];
+header("Content-Type: application/json");
+echo json_encode($res, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+//echo $res['dados'];
