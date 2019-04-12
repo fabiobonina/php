@@ -69,8 +69,18 @@
 		public function add( $cil_prog_id, $demanda ) {
 			$item['error'] = false;
 
-			foreach ($demanda as $value){
-				$item = $value['cil_tipo'];
+			foreach ($demanda  as $key => $value){
+				echo $value['cil_tipo'];
+				//var_dump($value['cil_tipo']); 
+				//foreach (	$value['cil_tipo'] as $cil_tipo ){
+					//$item = $cil_tipo['id'];
+					echo $cil_tipo->id;
+					//$cil_tipo_id	= $cil_tipoid;
+					//$qtd 			= $value['cil_qtd'];
+			  
+					//$item = $this->publish($cil_tipo_id, $qtd );
+			  
+				//}
 				//$cil_tipo_id	= $value['cil_tipo']->id;
 				//$qtd 			= $value['cil_qtd'];
 		  
