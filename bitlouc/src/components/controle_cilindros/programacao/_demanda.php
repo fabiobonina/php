@@ -19,10 +19,10 @@
         <v-flex>
           <v-text-field 
             type="number"
-            v-model="cil_qtd"
+            v-model="qtd"
             label="Qtd. Cilindros" box
-            :error-messages="errors.collect('cil_qtd')"
-            item-text="item.cil_qtd"
+            :error-messages="errors.collect('qtd')"
+            item-text="qtd"
             data-vv-name="name"
             v-on:keyup.enter="addDemanda()"
           ></v-text-field>
@@ -54,16 +54,16 @@
               <v-flex v-if="todo.edit">
                 <v-text-field 
                   type="number"
-                  v-model="todo.cil_qtd"
+                  v-model="todo.qtd"
                   label="Qtd. Cilindros" box
-                  :error-messages="errors.collect('cil_qtd')"
-                  item-text="todo.cil_qtd"
+                  :error-messages="errors.collect('qtd')"
+                  item-text="todo.qtd"
                   data-vv-name="name"
                   v-on:keyup.enter="addDemanda()"
                 ></v-text-field>
               </v-flex>
               <v-list-tile-content v-else>
-                <v-list-tile-title  v-text="todo.cil_qtd"></v-list-tile-title>
+                <v-list-tile-title  v-text="todo.qtd"></v-list-tile-title>
               </v-list-tile-content>
 
               <v-list-tile-action>
@@ -102,13 +102,9 @@ Vue.component('demanda-add', {
       errorMessage: [],
       successMessage: [],
       isLoading: false,
-      item: {
-        cil_tipo: null,
-        cil_qtd: null,
-        edit: false
-      },
+      item: {},
       cil_tipo: null,
-      cil_qtd: null,
+      qtd: null,
       dtProg: null,
     }
   },
@@ -137,17 +133,23 @@ Vue.component('demanda-add', {
     },
     checkForm:function() {
       this.errorMessage = [];
-      if( !this.item.cil_tipo ) this.errorMessage.push("Tipo de cilindro necessário.");
-      if( !this.item.cil_qtd ) this.errorMessage.push("Qtd. de cilindro necessário.");
+      if( !this.cil_tipo ) this.errorMessage.push("Tipo de cilindro necessário.");
+      if( !this.qtd ) this.errorMessage.push("Qtd. de cilindro necessário.");
       if(!this.errorMessage.length) return true;
       //e.preventDefault();
     },
     addDemanda(){
       if ( this.checkForm() ) {
-          this.isLoading = true
+          this.isLoading = true;
+          this.item['cil_tipo'] = this.cil_tipo;
+          this.item['qtd']      = this.qtd;
+          this.item['edit']     = false;
+          
           this.data.push( this.item );
-          this.item = {};
-          this.isLoading = false
+          this.qtd        = "";
+          this.item       = {};
+          this.cil_tipo   = {};
+          this.isLoading  = false;
           //console.log(this.data);
         }
       

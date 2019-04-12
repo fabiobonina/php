@@ -27,6 +27,7 @@ const EQUIPAMENTOSLOJA   ='./config/api/apiEquipamento.php?action=loja';
 const EQUIPAMENTOSLOCAL  ='./config/api/apiEquipamento.php?action=local';
 
 const CILINDROLIST   ='./config/api/apiCilindros.php?action=read';
+const CALPROGRAMACAOLIST   ='./config/api/api.cilindroProg.php?action=read';
 
 
 
@@ -61,7 +62,6 @@ const actions = {
             console.log(error.statusText);
         }));
       });
-    
   },
   setSearch({ commit }, search) {
     commit("SET_SEARCH", search)
@@ -310,6 +310,22 @@ const actions = {
         if(!response.data.error){
           //console.log(response.data);
           commit("SET_CILINDROS", response.data.cilindros);
+          resolve();
+        } else{
+          console.log(response.data.message);
+        }
+      })
+      .catch((error => {
+          console.log(error.statusText);
+      }));
+    });
+  },
+  fetchCilPrograma({ commit }) {
+    return new Promise((resolve, reject) => {
+      Vue.http.get(CILPROGRAMALIST).then((response) => {
+        if(!response.data.error){
+          //console.log(response.data);
+          commit("SET_CILPROGRMACAO", response.data.cilindros);
           resolve();
         } else{
           console.log(response.data.message);

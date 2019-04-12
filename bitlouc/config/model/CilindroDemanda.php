@@ -220,57 +220,13 @@ class CilindroDemanda extends Crud{
 			return $res;
 		}
 	}
-	public function osLoja( $cil_prog_id ){
+	public function findProg( $cil_prog_id ){
 		try{
 			$sql  = "SELECT * FROM $this->table  WHERE cil_prog_id = :cil_prog_id ";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':cil_prog_id', $cil_prog_id, PDO::PARAM_INT);
 			$stmt->execute();
-			return $stmt->fetch();
-		} catch(PDOException $e) {
-			$res['error']	= true;
-			$res['message'] = $e->getMessage();
-			return $res;
-		}
-	}
-	public function contOsStatusUF( $uf, $status ){
-		try {
-			$sql  = "SELECT COUNT(*) FROM $this->table WHERE uf  = :uf AND status = :status";
-			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':uf', $uf);
-			$stmt->bindParam(':status', $status);
-			$stmt->execute();
-			return $stmt->fetchColumn();
-		} catch(PDOException $e) {
-			$res['error']	= true;
-			$res['message'] = $e->getMessage();
-			return $res;
-		}
-	}
-
-	public function contOsStatusProprietario( $proprietario_id, $status ){
-		try {
-			$sql  = "SELECT COUNT(*) FROM $this->table WHERE proprietario_id  = :proprietario_id AND status = :status";
-			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':proprietario_id', $proprietario_id);
-			$stmt->bindParam(':status', $status);
-			$stmt->execute();
-			return $stmt->fetchColumn();
-		} catch(PDOException $e) {
-			$res['error']	= true;
-			$res['message'] = $e->getMessage();
-			return $res;
-		}
-	}
-
-	public function contOsStatusLoja( $cil_prog_id, $status ){
-		try {
-			$sql  = "SELECT COUNT(*) FROM $this->table WHERE cil_prog_id  = :cil_prog_id AND status = :status";
-			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':cil_prog_id', $cil_prog_id);
-			$stmt->bindParam(':status', $status);
-			$stmt->execute();
-			return $stmt->fetchColumn();
+			return $stmt->fetchAll();
 		} catch(PDOException $e) {
 			$res['error']	= true;
 			$res['message'] = $e->getMessage();

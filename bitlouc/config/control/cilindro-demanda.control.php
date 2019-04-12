@@ -19,13 +19,13 @@
 
 			
 			$local 					= $locais->find( $item->local_id );
-			$item->local_tipo		= $local->tipo;
-			$item->local_name		= $local->name;
-			$item->local_municipio	= $local->municipio;
-			$item->local_uf			= $local->uf;
-			$item->local_lat		= $local->latitude;
-			$item->local_long		= $local->longitude;
-			$item->equipamento		= $equipamentos->find( $item->equipamento_id );
+			//$item->local_tipo		= $local->tipo;
+			//$item->local_name		= $local->name;
+			//$item->local_municipio	= $local->municipio;
+			//$item->local_uf			= $local->uf;
+			//$item->local_lat		= $local->latitude;
+			//$item->local_long		= $local->longitude;
+			//$item->equipamento		= $equipamentos->find( $item->equipamento_id );
 			if($item->equipamento){
 				$fabricante			= $fabricantes->find( $item->equipamento->fabricante_id );
 				$item->equipamento->fabricante_nick		= $fabricante->nick;
@@ -44,13 +44,13 @@
 
 		}
 
-		public function publish( $cil_prog_id, $demanda, $id ) {
+		public function publish( $cil_tipo_id, $qtd, $id, $cil_prog_id ) {
 			$item['error'] 		= false;
 			$cilindroDemandas	= new CilindroDemanda();
 
 			$cilindroDemandas->setCilProg($cil_prog_id);
-			$cilindroDemandas->setCliTipo($demanda->cil_tipo->id);
-			$cilindroDemandas->setQtd($$demanda->cil_qtd);
+			$cilindroDemandas->setCilTipo($cil_tipo_id);
+			$cilindroDemandas->setQtd($qtd);
 
 			if( $id == '' ):
 				# Insert
@@ -66,26 +66,12 @@
 
 		}
 
-		public function add( $cil_prog_id, $demanda ) {
+		public function add( $demanda, $id, $cil_prog_id ) {
 			$item['error'] = false;
 
 			foreach ($demanda  as $key => $value){
-				echo $value['cil_tipo'];
-				//var_dump($value['cil_tipo']); 
-				//foreach (	$value['cil_tipo'] as $cil_tipo ){
-					//$item = $cil_tipo['id'];
-					echo $cil_tipo->id;
-					//$cil_tipo_id	= $cil_tipoid;
-					//$qtd 			= $value['cil_qtd'];
-			  
-					//$item = $this->publish($cil_tipo_id, $qtd );
-			  
-				//}
-				//$cil_tipo_id	= $value['cil_tipo']->id;
-				//$qtd 			= $value['cil_qtd'];
-		  
-				//$item = $this->publish($cil_tipo_id, $qtd );
-		  
+				$cil_tipo = (object) $value['cil_tipo'];
+				$item = $this->publish( $cil_tipo->id, $value['qtd'], $id, $cil_prog_id );
 			  }
 
 			$res = $item;

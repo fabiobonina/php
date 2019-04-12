@@ -6,36 +6,19 @@
 
 		public function matrix( $item ){
 			
-			$oss     		= new Os();
-			$osTecnicos     = new OsTecnicos();
 			$lojas     		= new Loja();
 			$locais     	= new Local();
-			$servicos   	= new Servicos();
-			$categorias 	= new Categorias();
-			$notas      	= new Nota();
-			$equipamentos	= new Equipamento();
-			$fabricantes	= new Fabricantes();
-			$users			= new User();
-
 			
-			$local 					= $locais->find( $item->local_id );
-			$item->local_tipo		= $local->tipo;
-			$item->local_name		= $local->name;
-			$item->local_municipio	= $local->municipio;
-			$item->local_uf			= $local->uf;
-			$item->local_lat		= $local->latitude;
-			$item->local_long		= $local->longitude;
-			$item->equipamento		= $equipamentos->find( $item->equipamento_id );
-			if($item->equipamento){
-				$fabricante			= $fabricantes->find( $item->equipamento->fabricante_id );
-				$item->equipamento->fabricante_nick		= $fabricante->nick;
-			}
-			$user					= $users->find( $item->user_id );
-			$item->user_user		= $user->user;
-			$item->servico			= $servicos->find( $item->servico_id );
-			$item->categoria		= $categorias->find( $item->categoria_id );
-			$item->tecnicos			= $this->listOsTec( $item->id );
-			$item->notas			= $notas->findOs( $item->id );
+			$item->local 					= $locais->find( $item->local_id );
+			$item->loja 					= $lojas->find( $item->loja_id );
+			//$item->local_tipo		= $local->tipo;
+			//$item->local_name		= $local->name;
+			//$item->local_municipio	= $local->municipio;
+			//$item->local_uf			= $local->uf;
+			//$item->local_lat		= $local->latitude;
+			//$item->local_long		= $local->longitude;
+			//$item->equipamento		= $equipamentos->find( $item->equipamento_id );
+			$item->demandas		= $this->listDemanda( $item->id );
 
 			//$oss->ajuste( $item->id, $local->uf );
 			//$osTecnicos->ajuste( $item->id, $item->status );
@@ -85,27 +68,6 @@
 				$item	= $osTecnicos->deleteOs( $os_id );
 			//}
 			$res	= $item;
-			return $res;
-		}
-		public function amarar( $filial, $os, $id ) {
-			$item['error'] = false;
-			$oss	= new Os();
-			
-			$dtOs   = date("Y-m-d H:i:s");
-			
-			$oss->setFilial($filial);
-			$oss->setOs($os);
-			$oss->setDtOs($dtOs);
-			# Amarar
-
-			$item = $oss->amarar($id);
-			
-			if(!$item['error']){
-				$email_status = 'recebeu o numero da OS';
-				$this->osEmail( $id, $email_status );
-			}
-
-			$res = $item;
 			return $res;
 		}
 		
@@ -180,25 +142,18 @@
 			return $res;
 		}
 
-		public function statusII( $status, $os_id ) {
-			$oss	= new Os();
-			//$item['error'] = false;
-
-			$data = date("Y-m-d H:i:s");
-			$oss->setStatus($status);
-			$oss->setDtConcluido($data);
-			$oss->setDtFech($data);
-
-			$item = $oss->statusII($os_id);
-			$email_status = ' atendimento encerrado';
-
-			
-			if(!$item['error']){
-				//$this->osEmail( $os_id, $email_status );
-			}
-
-			$res = $item;
+		public function list(){
+			$cilindroProg	= new CilindroProg();
+			$itens 	= array();
+			foreach($cilindroProg->findAll() as $key => $value): {
+				$item = $value;
+				$item = $this->matrix( $item );
+				$item = (array)  $item;
+				array_push( $itens, $item );
+			}endforeach;
+			$res = $itens;
 			return $res;
+
 		}
 
 		public function listLoja( $loja_id ){
@@ -329,26 +284,24 @@
 
 		}
 		
-		public function listOsTec( $os_id ){
-			$osTecnicos = new OsTecnicos();
-			$mods 		= new Mod();
-			$tecnicos	= new Tecnicos();
-			$user 		= new User();
+		public function listDemanda( $progracao_id ){
+			$cilindroDemandas 	= new CilindroDemanda();
+			$cilTipos			= new CilTipo();
+			
 
-			$arTecnicos = array();
-			foreach($osTecnicos->findOs( $os_id ) as $key => $value): {
-				$arTecnico = (array) $value;
-				$tecId = $value->tecnico_id;
-				$tecItem = $tecnicos->find( $tecId );
-				$userItem = $user->find( $tecItem->user_id );
-				$arTecnico['avatar'] = $userItem->avatar;
+			$arItem = array();
+			foreach($cilindroDemandas->findProg( $progracao_id ) as $key => $value): {
+				
+				$value->cil_tipo = $cilTipos->find( $value->cil_tipo_id );
+				//$arTecnico['avatar'] = $userItem->avatar;
           		#MODS-------------------------------------------------------
-          		$arTecnico['mods'] = $this->listOsTecMod( $os_id, $tecId );
-          		#MODS-------------------------------------------------------
-				array_push($arTecnicos, $arTecnico);
+          		//$arTecnico['mods'] = $this->listOsTecMod( $os_id, $tecId );
+				  #MODS-------------------------------------------------------
+				  //$item = $value;
+				array_push( $arItem, $value );
 			}endforeach;
 			
-			return $arTecnicos;
+			return $arItem;
 		}
 		public function listOsTecMod( $os_id, $tecId ){
 			$mods 			= new Mod();

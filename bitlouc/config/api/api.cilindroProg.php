@@ -63,16 +63,16 @@ if($action == 'publish'):
   $demanda    = $_POST['demanda'];
   $id         = $_POST['id'];
 
-  /*$item = $cilindroProgControl->publish(
+  $item = $cilindroProgControl->publish(
     $loja_id,
     $local_id,
     $data,
     $status,
     $id
-  );*/
-
+  );
+  //$item['id'] = '1';
   if(!$item['error']){
-    $item = $cilindroDemandaControl->add(  '1',  $demanda );
+    $item = $cilindroDemandaControl->add( $demanda, $id, $item['id'] );
   }
   # Insert
   $res = $item;

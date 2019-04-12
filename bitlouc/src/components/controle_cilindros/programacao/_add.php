@@ -233,20 +233,18 @@ Vue.component('prog-add', {
           };
           console.log(postData);
           this.$http.post('./config/api/api.cilindroProg.php?action=publish', postData).then(function(response) {
-            console.log(response);
-            if(response.data.error){
-              this.errorMessage.push(response.data.message);
-              this.isLoading = false;
-            } else{
-              this.successMessage.push(response.data.message);
-              this.$store.dispatch('fetchLocais', this.$route.params._loja).then(() => {
-                console.log("Atulizando dados das localidades!")
-              });
-              this.isLoading = false;
-              setTimeout(() => {
-                this.close();
-              }, 2000);
-            }
+            //console.log(response);
+            if(!response.data.error){
+                this.successMessage.push(response.data.message);
+                this.isLoading = false;
+                setTimeout(() => {
+                  this.$router.push('/programacao/'+response.data.id)
+                  this.$emit('close');
+                }, 2000);
+              } else{
+                this.errorMessage.push(response.data.message);
+                this.isLoading = false;
+              }
           })
           .catch(function(error) {
             this.isLoading = false;
