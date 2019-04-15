@@ -63,12 +63,10 @@
       selectedCategoria: '0',
       search: '',
       headers: [
-        { text: 'Equipamento', align: 'left', value: 'name' },
-        { text: 'Modelo', value: 'modelo' },
-        { text: 'Fabricante', value: 'fabricanteNick' },
-        { text: 'Categoria', value: 'categoria' },
-        { text: 'TAG', value: 'numeracao' },
-        { text: 'Plaqueta Ativo', value: 'plaqueta' },
+        { text: '', sortable: false, align: 'left', value: 'name' },
+        { text: 'Loja', value: 'loja_nick' },
+        { text: 'Local', value: 'local_name' },
+        { text: 'Demanda', value: 'demanda' },
         { text: 'Info', sortable: false, value: 'info' }
       ],
       defaultItem: {

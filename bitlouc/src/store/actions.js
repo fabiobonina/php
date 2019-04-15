@@ -27,7 +27,7 @@ const EQUIPAMENTOSLOJA   ='./config/api/apiEquipamento.php?action=loja';
 const EQUIPAMENTOSLOCAL  ='./config/api/apiEquipamento.php?action=local';
 
 const CILINDROLIST   ='./config/api/apiCilindros.php?action=read';
-const CALPROGRAMACAOLIST   ='./config/api/api.cilindroProg.php?action=read';
+const CILPROGRAMACAOLIST   ='./config/api/api.cilindroProg.php?action=read';
 
 
 
@@ -304,6 +304,7 @@ const actions = {
         }));
     });
   },
+  //CILINCROS
   fetchCilindros({ commit }) {
     return new Promise((resolve, reject) => {
       Vue.http.get(CILINDROLIST).then((response) => {
@@ -320,12 +321,12 @@ const actions = {
       }));
     });
   },
-  fetchCilPrograma({ commit }) {
+  fetchCilProgramacao({ commit }) {
     return new Promise((resolve, reject) => {
-      Vue.http.get(CILPROGRAMALIST).then((response) => {
+      Vue.http.get(CILPROGRAMACAOLIST).then((response) => {
         if(!response.data.error){
           //console.log(response.data);
-          commit("SET_CILPROGRMACAO", response.data.cilindros);
+          commit("SET_CILPROGRMACOES", response.data.cilProgramacoes);
           resolve();
         } else{
           console.log(response.data.message);
@@ -335,6 +336,9 @@ const actions = {
           console.log(error.statusText);
       }));
     });
+  },
+  setCilProgramacoes({ commit }, programacoes) {
+    commit("SET_CILPROGRMACOES", programacoes)
   },
 }
 

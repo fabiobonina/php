@@ -114,7 +114,10 @@ const mutations = {
   },
   SET_CILINDROS(state, cilindros) {
     state.cilindros = cilindros
-  },  
+  },
+  SET_CILPROGRMACOES(state, cilProgramacoes) {
+    state.cilProgramacoes = cilProgramacoes
+  }, 
   SET_CIL_TIPOS(state, cil_tipos) {
     state.cil_tipos = cil_tipos
   }

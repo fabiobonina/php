@@ -1,0 +1,46 @@
+  <script type="text/x-template" id="modal">
+  
+      <div id="modal">
+        <button class="btn" v-on:click="toggle">Open Modal</button>
+        <div class="modalWindow" v-if="opened">
+          <button class="btn" v-on:click="toggle">X</button>
+          <p>Message</p>
+      </div>
+    </div>
+    
+  </script>
+  
+  <script type="text/x-template" id="toolTip">
+  
+      <div id="toolTip">
+        <button class="btn" v-on:click="toggle">Show ToolTip</button>
+        <div class="toolTipWindow" v-if="opened">
+            Message
+          </div>
+      </div>
+    
+  </script>
+<script>
+const toggle = {
+	data() {
+  	return {
+  		opened: false
+  	}
+  },
+  methods: {
+  	toggle: function(){
+    	this.opened = !this.opened;
+    }
+  }
+};
+
+const Modal = {
+	template: '#modal',
+  mixins: [toggle]
+};
+
+const ToolTip = {
+	template: '#toolTip',
+  mixins: [toggle]
+};
+</script>  

@@ -11,7 +11,7 @@
       </v-layout>
     </v-container>
     <section>
-      <programacao :data="cilindros" :local="local" :status="active"></programacao>
+      <programacao :data="cilProgramacoes" :local="local" :status="active"></programacao>
       <bem-add v-if="modalAdd" v-on:close="modalAdd = false" ></bem-add>
     </section>
   </div>
@@ -45,14 +45,17 @@
       };
     },
     created: function() {
+      this.$store.dispatch("fetchCilProgramacao").then(() => {
+        console.log("Buscando Programacao de cilindros!")
+      });
     },
     computed: {
       user()  {
         return store.state.user;
       },
-      cilindros()  {
+      cilProgramacoes()  {
         //return store.getters.getEquipamentoLocal(this.$route.params._local);
-        return store.state.cilindros;
+        return store.state.cilProgramacoes;
       },
       local()  {
         return store.state.local;
@@ -65,3 +68,4 @@
     }
   });
 </script>
+<script src="src/mixins/cilindros.js"></script>

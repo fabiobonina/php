@@ -75,6 +75,7 @@ var router = new VueRouter({
         { path: '', component: PainelCilindros },
         { path: 'cilindros', component: CilindrosIndex },
         { path: 'programacao', component: ProgramacaoIndex },
+        //{ path: 'programacao/:_programacao', component: ProgramacaoId,
         /*{ path: '/cilindros', component: CilindroHome,
           children: [
             { path: '', component: CilindroIndex },
