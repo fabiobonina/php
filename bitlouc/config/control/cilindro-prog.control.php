@@ -10,13 +10,13 @@
 			$locais     	= new Local();
 			
 			$item->local 			= $locais->find( $item->local_id );
-			$item->local_tipo		= $local->tipo;
-			$item->local_name		= $local->name;
-			$item->local_municipio	= $local->municipio;
-			$item->local_uf			= $local->uf;
+			$item->local_tipo		= $item->local->tipo;
+			$item->local_name		= $item->local->name;
+			$item->local_municipio	= $item->local->municipio;
+			$item->local_uf			= $item->local->uf;
 			$item->loja 			= $lojas->find( $item->loja_id );
-			$item->loja_nick		= $loja->nick;
-			$item->loja_name		= $loja->name;
+			$item->loja_nick		= $item->loja->nick;
+			$item->loja_name		= $item->loja->name;
 			//$item->local_uf			= $loja->uf;
 			//$item->local_lat		= $local->latitude;
 			//$item->local_long		= $local->longitude;
@@ -159,7 +159,40 @@
 
 		}
 
-		public function listLoja( $loja_id ){
+		public function show( $cilProgramacao_id ){
+			$cilindroProg	= new CilindroProg();
+			
+			$item = $cilindroProg->find( $cilProgramacao_id );
+
+			if( key($item) == "id" ){
+				$res['error'] = false;
+				$res['os'] = $this->matrix( $item );
+				$res['message'] = 'OK, Dados emcontrado';
+				
+			}else{
+				$res = $item;
+			}
+
+			return $res;
+
+		}
+
+		public function listDemanda( $progracao_id ){
+			$cilindroDemandas 	= new CilindroDemanda();
+			$cilTipos			= new CilTipo();
+			
+
+			$arItem = array();
+			foreach($cilindroDemandas->findProg( $progracao_id ) as $key => $value): {
+				
+				$value->cil_tipo = $cilTipos->find( $value->cil_tipo_id );
+				array_push( $arItem, $value );
+			}endforeach;
+			
+			return $arItem;
+		}
+
+		/*public function listLoja( $loja_id ){
 			$oss	= new Os();
 			$itens 	= array();
 			
@@ -242,23 +275,7 @@
 			return $res;
 
 		}
-		public function findOs( $os_id ){
-			$oss	= new Os();
-			
-			$item = $oss->find( $os_id );
-
-			if( key($item) == "id" ){
-				$res['error'] = false;
-				$res['os'] = $this->matrix( $item );
-				$res['message'] = 'OK, Dados emcontrado';
-				
-			}else{
-				$res = $item;
-			}
-
-			return $res;
-
-		}
+		
 
 		public function contStatusUFProprietario( $loja_id ){
 			$oss	= new Os();
@@ -287,25 +304,7 @@
 
 		}
 		
-		public function listDemanda( $progracao_id ){
-			$cilindroDemandas 	= new CilindroDemanda();
-			$cilTipos			= new CilTipo();
-			
-
-			$arItem = array();
-			foreach($cilindroDemandas->findProg( $progracao_id ) as $key => $value): {
-				
-				$value->cil_tipo = $cilTipos->find( $value->cil_tipo_id );
-				//$arTecnico['avatar'] = $userItem->avatar;
-          		#MODS-------------------------------------------------------
-          		//$arTecnico['mods'] = $this->listOsTecMod( $os_id, $tecId );
-				  #MODS-------------------------------------------------------
-				  //$item = $value;
-				array_push( $arItem, $value );
-			}endforeach;
-			
-			return $arItem;
-		}
+		
 		public function listOsTecMod( $os_id, $tecId ){
 			$mods 			= new Mod();
 			$deslocStatus 	= new DeslocStatus();
@@ -522,6 +521,6 @@
 			}
 			$res['message'] = $arMessage;
 			return $res;
-		}
+		}*/
 		
 	}

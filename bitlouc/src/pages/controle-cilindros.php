@@ -42,6 +42,7 @@
 <?php require_once 'src/components/includes/rodape.php';?>
 <?php require_once 'src/components/controle_cilindros/index.php';?>
 
+<?php require_once 'src/components/controle_cilindros/programacao/show.php';?>
 <?php require_once 'src/components/gerencial/proprietario-top.php';?>
 
 

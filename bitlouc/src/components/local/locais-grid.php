@@ -16,7 +16,7 @@
             <router-link :to="'/loja/' +  props.item.loja_id + '/local/' + props.item.id"> {{ props.item.tipo }} {{ props.item.name }} </router-link>
           </td>
           <td> {{ props.item.regional }} </td>
-          <td>{{ props.item.municipio }}/ {{ props.item.uf }}</td>
+          <td> {{ props.item.municipio }}/ {{ props.item.uf }} </td>
           <td>
             <local-rota :lat="props.item.latitude" :long="props.item.longitude"></local-rota>
           </td>

@@ -117,6 +117,9 @@ const mutations = {
   },
   SET_CILPROGRMACOES(state, cilProgramacoes) {
     state.cilProgramacoes = cilProgramacoes
+  },
+  SET_CILPROGRMACAO(state, cilProgramacao) {
+    state.cilProgramacao = cilProgramacao
   }, 
   SET_CIL_TIPOS(state, cil_tipos) {
     state.cil_tipos = cil_tipos

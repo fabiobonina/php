@@ -10,7 +10,7 @@ $cilindroProgControl    = new CilindroProgControl();
 $cilindroDemandaControl = new CilindroDemandaControl();
 
 $res = array('error' => true);
-$action = 'read';
+$action = 'show';
 
 if(isset($_GET['action'])){
   $action = $_GET['action'];
@@ -24,12 +24,12 @@ if($action == 'read'):
 
 endif;
 
-if($action == 'loja'):
+if($action == 'show'):
 
-  $loja_id = $_POST['loja'];
-  //$loja_id = '1';
-  $item = $cilindroProgControl->listLoja( $loja_id );
-  $res['cilindros'] = $item;
+  //$cilProgramacao_id = $_POST['cilProgramacao_id'];
+  $cilProgramacao_id = '1';
+  $item = $cilindroProgControl->show( $cilProgramacao_id );
+  $res['cilProgramacao'] = $item;
   $res['error'] = false;
 
 endif;

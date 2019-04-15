@@ -15,17 +15,31 @@
       <prog-add :dialog-add="creator" v-on:close="close()"></prog-add>
     </v-toolbar>
     <v-data-table :headers="headers" :items="filteredData" :search="search" class="elevation-1">
-      <template slot="items" slot-scope="props">
-        <td>{{ props.item.name }}</td>
-        <td>{{ props.item.modelo }}</td>
-        <td>{{ props.item.fabricanteName }}</td>
+      <template slot="items" slot-scope="props" :to="'/os/'+ props.item.id" :key="props.item.id">
+        <td>{{ props.item.status }}</td>
+        <td style="padding:0 10px">
+          <!--router-link :to="'/programacao/show/'+ props.item.id" :key="props.item.id">
+            {{ props.item.loja_nick }}  
+          </router-link-->
+          <v-list-tile :key="props.item.id" @click="" :to="'/programacao/show/'+ props.item.id" :key="props.item.id">
+            <v-list-tile-content>
+              <v-list-tile-title> {{ props.item.loja_nick }} </v-list-tile-title>
+              <v-list-tile-sub-title> {{ props.item.loja_nick }} </v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </td>
         <td>
-          <v-chip v-if="props.item.categoriaTag" small  color="green" text-color="white">
-            {{ props.item.categoriaTag }}
+          <v-list-tile :key="props.item.id" @click="" :to="'/programacao/show/'+ props.item.id" :key="props.item.id">
+            <v-list-tile-content>
+              <v-list-tile-title> {{ props.item.local_tipo }} - {{ props.item.local_name }} </v-list-tile-title>
+              <v-list-tile-sub-title> {{ props.item.local_municipio }} /{{ props.item.local_uf }} </v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile></td>
+        <td>
+          <v-chip v-for="categoria in props.item.demandas" :key="categoria.id" small  color="green" text-color="white">
+            {{ categoria.cil_tipo.name }}: {{ categoria.qtd }}
           </v-chip>
         </td>
-        <td class="text-xs-right"> {{ props.item.numeracao }} </td>
-        <td class="text-xs-right"> {{ props.item.plaqueta }} </td>
         <td class="justify-center layout px-0">
           <v-btn @click="modalOs = true; item = props.item" color="deep-orange" dark small fab>
             <v-icon>build</v-icon>

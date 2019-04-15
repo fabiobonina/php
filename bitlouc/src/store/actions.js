@@ -28,6 +28,7 @@ const EQUIPAMENTOSLOCAL  ='./config/api/apiEquipamento.php?action=local';
 
 const CILINDROLIST   ='./config/api/apiCilindros.php?action=read';
 const CILPROGRAMACAOLIST   ='./config/api/api.cilindroProg.php?action=read';
+const CILPROGRAMACAOFIND           ='./config/api/api.cilindroProg.php?action=show';
 
 
 
@@ -339,6 +340,24 @@ const actions = {
   },
   setCilProgramacoes({ commit }, programacoes) {
     commit("SET_CILPROGRMACOES", programacoes)
+  },
+  findCilProgramacao({ commit }, programamcao_id ) {
+    return new Promise((resolve, reject) => {
+      var postData = {
+        programamcao_id: programamcao_id,
+      }
+      Vue.http.post(CILPROGRAMACAOFIND, postData).then((response) => {
+        if(response.data.error){
+          console.log(response.data.message);
+        } else{
+          commit("SET_CILPROGRMACAO", response.data.cilProgramacao);
+          resolve();
+        }
+      })
+      .catch((error => {
+          console.log(error.statusText);
+      }));
+    });
   },
 }
 

@@ -30,6 +30,7 @@ const state = {
   categorias:[],
   cilindros:[],
   cilProgramacoes:[],
+  cilProgramacao:{},
   cil_tipos:[],
   servicos:[],
   tecnicos:[],
