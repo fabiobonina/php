@@ -18,6 +18,7 @@
 </template>
 
 <?php require_once 'src/components/controle_cilindros/programacao/_list.php';?>
+
 <script>
   var ProgramacaoIndex = Vue.extend({
     name: 'programacao-index',
