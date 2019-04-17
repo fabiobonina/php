@@ -1169,7 +1169,7 @@
 																<table align="center" cellspacing="0" cellpadding="0" border="0" width="550" style="background-color: 005483;">
 																	<tbody>
 																		<td align="center" bgcolor="005483" colspan="1" >
-																			<a href="http://bitlouc.com/" target="_blank">
+																			<a href="http://bitlouc.com/#/os/'. $os->id .'" target="_blank">
 																				<img alt="Logo BitLOUC" title="Logo BitLOUC" style="margin-left:5%; float:left; width:128px;height:51px"  height="36" width="89" src="http://bitlouc.com/interface/imagem/bitlouc_logo.png"></img>
 																			</a>
 																		</td>

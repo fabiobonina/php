@@ -58,10 +58,12 @@
 					</tr>
 					<tr>
 						<td align="left" valign="middle" style="padding-top: 30px;font-family:Verdana, Helvetica, sans-serif; font-size:14px;line-height: 25px; color: #595a5a;">
-							<span style="color: #dd1d21;">
-								Instancia
-							</span>
-							<strong> #'.$os_id.'</strong> <br>
+							<a href="http://bitlouc.com/#/os/'. $os_id .'" target="_blank">
+								<span style="color: #dd1d21;">
+									Instância
+								</span>
+								<strong> #'.$os_id.'</strong>
+							</a> <br>
 						</td>                                    
 					</tr>
 					<tr>

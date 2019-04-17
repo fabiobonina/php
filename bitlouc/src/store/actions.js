@@ -26,9 +26,9 @@ const EQUIPAMENTOSLIST   ='./config/api/apiEquipamento.php?action=read';
 const EQUIPAMENTOSLOJA   ='./config/api/apiEquipamento.php?action=loja';
 const EQUIPAMENTOSLOCAL  ='./config/api/apiEquipamento.php?action=local';
 
-const CILINDROLIST   ='./config/api/apiCilindros.php?action=read';
-const CILPROGRAMACAOLIST   ='./config/api/api.cilindroProg.php?action=read';
-const CILPROGRAMACAOFIND           ='./config/api/api.cilindroProg.php?action=show';
+const CILINDROLIST        ='./config/api/apiCilindros.php?action=read';
+const CILPROGRAMACAOLIST  ='./config/api/api.cilindroProg.php?action=read';
+const CILPROGRAMACAOSHOW  ='./config/api/api.cilindroProg.php?action=show';
 
 
 
@@ -346,12 +346,12 @@ const actions = {
       var postData = {
         programamcao_id: programamcao_id,
       }
-      Vue.http.post(CILPROGRAMACAOFIND, postData).then((response) => {
-        if(response.data.error){
-          console.log(response.data.message);
-        } else{
-          commit("SET_CILPROGRMACAO", response.data.cilProgramacao);
+      Vue.http.post(CILPROGRAMACAOSHOW, postData).then((response) => {
+        if(!response.data.error){
+          commit("SET_CILPROGRMACAO", response.data.programacao);
           resolve();
+        } else{
+          console.log(response.data.message);
         }
       })
       .catch((error => {

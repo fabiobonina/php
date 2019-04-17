@@ -15,13 +15,13 @@
       <prog-add :dialog-add="creator" v-on:close="close()"></prog-add>
     </v-toolbar>
     <v-data-table :headers="headers" :items="filteredData" :search="search" class="elevation-1">
-      <template slot="items" slot-scope="props" :to="'/os/'+ props.item.id" :key="props.item.id">
+      <template slot="items" slot-scope="props">
         <td>{{ props.item.status }}</td>
         <td style="padding:0 10px">
           <!--router-link :to="'/programacao/show/'+ props.item.id" :key="props.item.id">
             {{ props.item.loja_nick }}  
           </router-link-->
-          <v-list-tile :key="props.item.id" @click="" :to="'/programacao/show/'+ props.item.id" :key="props.item.id">
+          <v-list-tile :key="props.item.id" @click="" :to="'/controle-cilindros/programacao/show/'+ props.item.id" :key="props.item.id">
             <v-list-tile-content>
               <v-list-tile-title> {{ props.item.loja_nick }} </v-list-tile-title>
               <v-list-tile-sub-title> {{ props.item.loja_nick }} </v-list-tile-sub-title>
@@ -29,7 +29,7 @@
           </v-list-tile>
         </td>
         <td>
-          <v-list-tile :key="props.item.id" @click="" :to="'/programacao/show/'+ props.item.id" :key="props.item.id">
+          <v-list-tile :key="props.item.id" @click="" :to="'/controle-cilindros/programacao/show/'+ props.item.id" :key="props.item.id">
             <v-list-tile-content>
               <v-list-tile-title> {{ props.item.local_tipo }} - {{ props.item.local_name }} </v-list-tile-title>
               <v-list-tile-sub-title> {{ props.item.local_municipio }} /{{ props.item.local_uf }} </v-list-tile-sub-title>

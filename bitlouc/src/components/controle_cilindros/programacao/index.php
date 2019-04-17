@@ -1,4 +1,5 @@
 <template id="programacao-index">
+<v-content>
   <div>
     <v-container fluid class="pa-0">
       <v-layout row wrap>
@@ -15,6 +16,9 @@
       <bem-add v-if="modalAdd" v-on:close="modalAdd = false" ></bem-add>
     </section>
   </div>
+
+  <rodape></rodape>
+  </v-content>
 </template>
 
 <?php require_once 'src/components/controle_cilindros/programacao/_list.php';?>

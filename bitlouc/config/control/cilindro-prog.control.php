@@ -166,7 +166,7 @@
 
 			if( key($item) == "id" ){
 				$res['error'] = false;
-				$res['os'] = $this->matrix( $item );
+				$res['programacao'] = $this->matrix( $item );
 				$res['message'] = 'OK, Dados emcontrado';
 				
 			}else{

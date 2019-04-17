@@ -224,6 +224,20 @@
 			return $res;
 		}
 
+		public function list(){
+			$cilindros	= new Cilindro();
+			$itens 	= array();
+			
+			foreach($cilindros->findAll() as $key => $value): {
+				$item = $value;
+				//$item = $this->matrix( $item );
+				//$item = (array)  $item;
+				array_push( $itens, $item );
+			}endforeach;
+			$res = $itens;
+			return $res;
+
+		}
 		public function listLoja( $loja_id ){
 			$oss	= new Os();
 			$itens 	= array();

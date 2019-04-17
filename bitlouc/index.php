@@ -23,7 +23,7 @@
     
     <link href="dist/vuetify/vuetify.min.css" rel="stylesheet">
     <!-- Vuejs -->
-    <script src="dist/vue/vue.js"></script>
+    <script src="dist/vue/vuejs/vue.js"></script>
     <script src="dist/vue/vuex.js"></script>
     <script src="dist/vue/vue-router.js"></script>
     <script src="dist/vue/vue-resource.js"></script>

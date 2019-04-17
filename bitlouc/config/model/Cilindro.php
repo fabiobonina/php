@@ -4,9 +4,9 @@ require_once '_crud.php';
 
 
 
-class Os extends Crud{
+class Cilindro extends Crud{
 	
-	protected $table = 'tb_os';
+	protected $table = 'tb_cilindro';
 	protected $table2 = 'tb_os_tecnico';
 	private $proprietario_id;
 	private $loja_id;

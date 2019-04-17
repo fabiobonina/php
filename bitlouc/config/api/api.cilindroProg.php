@@ -29,8 +29,8 @@ if($action == 'show'):
   //$cilProgramacao_id = $_POST['cilProgramacao_id'];
   $cilProgramacao_id = '1';
   $item = $cilindroProgControl->show( $cilProgramacao_id );
-  $res['cilProgramacao'] = $item;
-  $res['error'] = false;
+  $res= $item;
+  //$res['error'] = false;
 
 endif;
 
