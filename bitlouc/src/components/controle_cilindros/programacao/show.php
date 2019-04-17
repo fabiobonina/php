@@ -32,6 +32,7 @@
 <script>
 var ProgramacaoShow = Vue.extend({
   template: '#programacao-show',
+  name: 'programacao-show',
   data: function () {
     return {
       unsupportedBrowser: false,
