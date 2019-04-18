@@ -6,7 +6,7 @@
       <v-btn color="primary" dark @click="expand = !expand">
         {{ expand ? 'Close' : 'Keep' }} other rows
       </v-btn>
-      <amarar-cilindro :dialog-add="expand" v-on:close="close()"></amarar-cilindro>
+      <!--amarar-cilindro :dialog-add="expand" v-on:close="close()"></amarar-cilindro-->
     </v-toolbar>
 
     <template>

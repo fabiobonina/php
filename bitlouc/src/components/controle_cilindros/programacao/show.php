@@ -17,10 +17,36 @@
         <v-chip v-for="categoria in programacao.demandas" :key="categoria.id" small color="green" text-color="white">
           {{ categoria }}
         </v-chip>
-        <v-container fluid>
-          <demanda-list :data="programacao.demandas"></demanda-list>
-        </v-container>
+        <v-container fluid class="grid-list-xl pa-0">
+            <v-layout wrap>
+                <template>
+                    <v-flex v-for="(item, index) in programacao.demandas" :key="item.id">
+                        <v-list class="v-list grey lighten-3 pa-0" two-line theme-light>
+                            <v-list-tile   avatar  @click="selecItem(item); modAmaracao = !modAmaracao">
+                                <v-list-tile-avatar>
+                                <v-icon :class="[item.iconClass]">{{ item.cil_tipo.tag }}</v-icon>
+                                </v-list-tile-avatar>
 
+                                <v-list-tile-content>
+                                  <v-list-tile-title>Tipo: {{ item.cil_tipo.name }}</v-list-tile-title>
+                                  <v-list-tile-sub-title>Prog.: {{ item.qtd }}</v-list-tile-sub-title>
+                                </v-list-tile-content>
+
+                                <v-list-tile-action>
+                                <v-btn icon>
+                                    <v-icon>mdi-arrow-right </v-icon>
+                                </v-btn>
+                                </v-list-tile-action>
+                            </v-list-tile>
+                        </v-list>
+                    </v-flex>
+                </template>
+            </v-layout>
+        </v-container>
+        <v-container fluid>
+          <demanda-list></demanda-list>
+        </v-container>
+        <amarar-cilindro :data="_item" :dialog="modAmaracao" v-on:close="close(); update()"></amarar-cilindro>
     <rodape></rodape>
   </v-content>
 </template>
@@ -37,8 +63,9 @@ var ProgramacaoShow = Vue.extend({
     return {
       unsupportedBrowser: false,
       searchQuery: '',
-      modalBemAdd: false,
-      active: '1'
+      modAmaracao: false,
+      active: '1',
+      _item: null
     }
   },
   mounted: function() {
@@ -58,6 +85,14 @@ var ProgramacaoShow = Vue.extend({
       this.$store.dispatch('findCilProgramacao', this.$route.params._programacao ).then(() => {
         console.log("Buscando dados Programacao")
       });
+    },
+    close() {
+      this.item = NULL;
+      this.modAmaracao= !this.modAmaracao;
+      
+    },
+    selecItem: function(item){
+      this._item = item;
     },
   },
 });

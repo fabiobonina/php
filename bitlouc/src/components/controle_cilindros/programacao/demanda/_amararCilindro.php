@@ -1,8 +1,5 @@
 <template id="amarar-cilindro">
   <div>
-    <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="dialog = true" color="pink" fab small dark>
-      <v-icon>mdi-plus</v-icon>
-    </v-btn>
     <v-layout row justify-center>
       <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
         <v-card>
@@ -19,31 +16,24 @@
           <v-card-text>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
           <loader :dialog="isLoading"></loader>
-
-                <v-container grid-list-md>
-                  
-
-                  <v-layout row justify-center>
-                  <small>Demanda</small>
+            <v-container grid-list-md>
+            <v-list-tile @click="">
+                <v-list-tile-content>
+                  <v-list-tile-title>Tipo: {{ data.cil_tipo.name }}</v-list-tile-title>
+                  <v-list-tile-sub-title>Prog.: {{ data.qtd }}</v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-layout row justify-center>
+              
       <v-layout wrap>
         <v-flex>
-          <v-select
-            v-model="cil_tipo" :items="data"
-            item-text="name" item-value="id"
-            label="Tipo Cilindro" box
-            v-on:keyup.enter="addDemanda()"
-            data-vv-name="name" v-validate="'required'" required
-            return-object
-          ></v-select>
-        </v-flex>
-        <v-flex>
           <v-autocomplete
-            v-model="loja"
+            v-model="item"
             :items="cilindros"
             color="blue-grey lighten-2"
-            label="Loja"                              
+            label="Cilindro"                              
             item-text="name"              
-            data-vv-name="loja"
+            data-vv-name="cilindro"
             :filter="cilindroFilter"
             return-object
             v-validate="'required'"
@@ -55,7 +45,7 @@
                 class="chip--select-multi"
                 @input="remove(data.item)"
               >
-                {{ data.item.numero }}
+                {{ data.item.numero }} - {{ data.item.fabricante }}
               </v-chip>
             </template>
             <template slot="item" slot-scope="data" >
@@ -80,7 +70,7 @@
                   
       <template>
         <v-list>
-          <v-list-tile  v-for="(todo, index) in data" :key="item.index" @click="">
+          <v-list-tile  v-for="(todo, index) in cilindro" :key="item.index" @click="">
             <template>
               <v-flex v-if="todo.edit">
                 <v-select
@@ -95,20 +85,7 @@
               <v-list-tile-content v-else>
                 <v-list-tile-title v-text="todo.cil_tipo.name"></v-list-tile-title>
               </v-list-tile-content>
-              <v-flex v-if="todo.edit">
-                <v-text-field 
-                  type="number"
-                  v-model="todo.qtd"
-                  label="Qtd. Cilindros" box
-                  :error-messages="errors.collect('qtd')"
-                  item-text="todo.qtd"
-                  data-vv-name="name"
-                  v-on:keyup.enter="addDemanda()"
-                ></v-text-field>
-              </v-flex>
-              <v-list-tile-content v-else>
-                <v-list-tile-title  v-text="todo.qtd"></v-list-tile-title>
-              </v-list-tile-content>
+
 
               <v-list-tile-action>
                 <v-btn @click="removeDemanda(index)" color="red" fab small dark>
@@ -126,7 +103,7 @@
         </v-list>
       </template>
                     <v-flex>
-                    <demanda-cil :data="demanda" v-on:close="close()"></demanda-cil>
+                    <!--demanda-cil :data="demanda" v-on:close="close()"></demanda-cil-->
                     </v-flex>           
                     
                   </v-layout>
@@ -149,8 +126,7 @@ Vue.component('amarar-cilindro', {
   },
   props: {
     data: {},
-    filterKey: String,
-    dialogAdd: Boolean,
+    dialog: Boolean,
   },
   data() {
     return {
@@ -158,39 +134,11 @@ Vue.component('amarar-cilindro', {
       successMessage: [],
       isLoading: false,
       dialog: false,
-      loja:{},
-      local : {},
-      dataProg: null,
-      demanda: [],
-      locais : [],
-      progresso: '1',
+      cilindro: [],
       isEditing: false,
       item: {},
       cil_tipo: null,
-      qtd: null,
-      dtProg: null,
     };
-  },
-  watch: {
-    'progresso': function (newQuestion, oldQuestion) {
-      // Items have already been loaded
-      if (this.loja.length > 0 && this.progresso == '2') return
-
-      // Items have already been requested
-      if (this.isLoading) return
-      this.updateLocal()
-      this.isLoading = true
-
-    },
-    'loja': function (newQuestion, oldQuestion) {
-      this.updateLocal()
-    },
-    'dialogEdt': function (newQuestion, oldQuestion) {
-      this.dialog = true
-    },
-    dialog (val) {
-      val || this.close()
-    },
   },
   mounted () {
     this.$validator.localize('pt_BR', this.dictionary)
@@ -228,8 +176,8 @@ Vue.component('amarar-cilindro', {
         if (result && this.checkForm()) {
           this.isLoading = true
           var postData = {
-            loja_id: this.loja.id,
-            local_id: this.local.id,
+            programacao_id: this.data.cil_prog_id,
+            demanda_id: this.data.id,
             data: this.dataProg,
             status: '0',
             demanda: this.demanda,
@@ -279,13 +227,15 @@ Vue.component('amarar-cilindro', {
           textTwo.indexOf(searchText) > -1 ||
           textThree.indexOf(searchText) > -1
     },
-    localFilter (item, queryText, itemText) {
-        const textOne = item.municipio.toLowerCase()
-        const textTwo = item.name.toLowerCase()
-        const searchText = queryText.toLowerCase()
-
-        return textOne.indexOf(searchText) > -1 ||
-          textTwo.indexOf(searchText) > -1
+    addDemanda(){
+          this.item['edit']     = false;
+          this.cilindro = this.item;
+        
+          this.item       = {};
+          console.log(this.cilindro);
+    },
+    removeDemanda(index){
+      this.data.splice(index, 1)
     },
     checkForm:function() {
       this.errorMessage = [];

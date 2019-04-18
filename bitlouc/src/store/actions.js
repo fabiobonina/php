@@ -327,7 +327,7 @@ const actions = {
       Vue.http.get(CILPROGRAMACAOLIST).then((response) => {
         if(!response.data.error){
           //console.log(response.data);
-          commit("SET_CILPROGRMACOES", response.data.cilProgramacoes);
+          commit("SET_CILPROGRAMACOES", response.data.cilProgramacoes);
           resolve();
         } else{
           console.log(response.data.message);
