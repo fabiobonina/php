@@ -21,59 +21,14 @@
           <loader :dialog="isLoading"></loader>
 
                 <v-container grid-list-md>
-                  <v-flex>
-                    <v-autocomplete
-                      v-model="loja"
-                      :items="cilindros"
-                      color="blue-grey lighten-2"
-                      label="Loja"                              
-                      item-text="name"              
-                      data-vv-name="loja"
-                      :filter="cilindroFilter"
-                      return-object
-                      v-validate="'required'"
-                      required
-                      >
-                      <template slot="selection" slot-scope="data">
-                        <v-chip :selected="data.selected"
-                          close
-                          class="chip--select-multi"
-                          @input="remove(data.item)"
-                        >
-                          {{ data.item.numero }}
-                        </v-chip>
-                      </template>
-                      <template slot="item" slot-scope="data" >
-                        <template v-if="typeof data.item !== 'object'">
-                          <v-list-tile-content v-text="data.item"></v-list-tile-content>
-                        </template>
-                        <template v-else>
-                          <v-list-tile-content>
-                            <v-list-tile-title>{{data.item.numero }} - {{ data.item.cod_barras }}</v-list-tile-title>
-                            <v-list-tile-sub-title v-html="data.item.fabricante"></v-list-tile-sub-title>
-                          </v-list-tile-content>
-                        </template>
-                      </template>
-                    </v-autocomplete>
-                  </v-flex>
-                    <v-flex>
-                      <v-text-field
-                        type="date"
-                        v-model="dataProg"
-                        label="Data"
-                        :error-messages="errors.collect('dataProg')"
-                        v-validate="'required'"
-                        data-vv-name="dataProg"
-                        item-text="name"
-                        required
-                      ></v-text-field>
-                    </v-flex>
+                  
+
                   <v-layout row justify-center>
                   <small>Demanda</small>
       <v-layout wrap>
         <v-flex>
           <v-select
-            v-model="cil_tipo" :items="cilTipos"
+            v-model="cil_tipo" :items="data"
             item-text="name" item-value="id"
             label="Tipo Cilindro" box
             v-on:keyup.enter="addDemanda()"
@@ -82,15 +37,39 @@
           ></v-select>
         </v-flex>
         <v-flex>
-          <v-text-field 
-            type="number"
-            v-model="qtd"
-            label="Qtd. Cilindros" box
-            :error-messages="errors.collect('qtd')"
-            item-text="qtd"
-            data-vv-name="name"
-            v-on:keyup.enter="addDemanda()"
-          ></v-text-field>
+          <v-autocomplete
+            v-model="loja"
+            :items="cilindros"
+            color="blue-grey lighten-2"
+            label="Loja"                              
+            item-text="name"              
+            data-vv-name="loja"
+            :filter="cilindroFilter"
+            return-object
+            v-validate="'required'"
+            required
+            >
+            <template slot="selection" slot-scope="data">
+              <v-chip :selected="data.selected"
+                close
+                class="chip--select-multi"
+                @input="remove(data.item)"
+              >
+                {{ data.item.numero }}
+              </v-chip>
+            </template>
+            <template slot="item" slot-scope="data" >
+              <template v-if="typeof data.item !== 'object'">
+                <v-list-tile-content v-text="data.item"></v-list-tile-content>
+              </template>
+              <template v-else>
+                <v-list-tile-content>
+                  <v-list-tile-title>{{data.item.numero }} - {{ data.item.cod_barras }}</v-list-tile-title>
+                  <v-list-tile-sub-title v-html="data.item.fabricante"></v-list-tile-sub-title>
+                </v-list-tile-content>
+              </template>
+            </template>
+          </v-autocomplete>
         </v-flex>
         <v-flex>
           <v-btn @click="addDemanda()" color="blue" fab small dark>
@@ -225,9 +204,6 @@ Vue.component('amarar-cilindro', {
       if(this.successMessage.length > 0) return true
       return false
     },
-    lojas() {
-      return store.state.lojas;
-    },
     cilindros(){
       return store.state.cilindros;
     },
@@ -235,7 +211,6 @@ Vue.component('amarar-cilindro', {
   created: function() {
     this.dataT();
     this.updateCilindros();
-    
   },
   methods: {
     updateCilindros() {
@@ -245,13 +220,6 @@ Vue.component('amarar-cilindro', {
       });
       this.$store.dispatch('findCilProgramacao', this.$route.params._programacao ).then(() => {
       console.log("Buscando dados Programacao")
-      });
-    },
-    updateLocal() {
-      this.$store.dispatch('fetchLocalLoja', this.loja.id ).then(() => {
-        //console.log("Buscando dados do local!");
-        this.locais = store.state.locais;
-        this.isLoading = false;
       });
     },
     saveItem: function(){

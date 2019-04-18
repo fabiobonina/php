@@ -26,9 +26,9 @@ endif;
 
 if($action == 'show'):
 
-  //$cilProgramacao_id = $_POST['cilProgramacao_id'];
-  $cilProgramacao_id = '1';
-  $item = $cilindroProgControl->show( $cilProgramacao_id );
+  $programacao_id = $_POST['programacao_id'];
+  //$programacao_id = '1';
+  $item = $cilindroProgControl->show( $programacao_id );
   $res= $item;
   //$res['error'] = false;
 

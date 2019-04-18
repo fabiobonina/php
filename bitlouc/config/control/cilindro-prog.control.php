@@ -163,14 +163,16 @@
 			$cilindroProg	= new CilindroProg();
 			
 			$item = $cilindroProg->find( $cilProgramacao_id );
-
-			if( key($item) == "id" ){
-				$res['error'] = false;
-				$res['programacao'] = $this->matrix( $item );
-				$res['message'] = 'OK, Dados emcontrado';
+			//var_dump($item);
+			if( !$item ){
+				
+				$res['error'] = true;
+				$res['message'] = 'Error, Dados nao encontrado';
 				
 			}else{
-				$res = $item;
+				$res['error'] = false;
+				$res['programacao'] = $this->matrix( $item );
+				$res['message'] = 'OK, Dados encontrado';
 			}
 
 			return $res;

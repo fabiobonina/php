@@ -6,7 +6,7 @@
       <v-btn color="primary" dark @click="expand = !expand">
         {{ expand ? 'Close' : 'Keep' }} other rows
       </v-btn>
-      <amarar-cilindro :dialog-add="creator" v-on:close="close()"></amarar-cilindro>
+      <amarar-cilindro :dialog-add="expand" v-on:close="close()"></amarar-cilindro>
     </v-toolbar>
 
     <template>
@@ -92,6 +92,9 @@
   Vue.component('demanda-list', {
     template: '#demanda-list',
     name: 'demanda-list',
+    props: {
+      data: {},
+    },
     data: function () {
       return {
         expand: false,
@@ -245,9 +248,6 @@
           }
         ]
       }
-    },
-    created () {
-      
     },
     computed: {
       

@@ -339,16 +339,17 @@ const actions = {
     });
   },
   setCilProgramacoes({ commit }, programacoes) {
-    commit("SET_CILPROGRMACOES", programacoes)
+    commit("SET_CILPROGRAMACOES", programacoes)
   },
-  findCilProgramacao({ commit }, programamcao_id ) {
+  findCilProgramacao({ commit }, programacao_id ) {
     return new Promise((resolve, reject) => {
       var postData = {
-        programamcao_id: programamcao_id,
+        programacao_id: programacao_id,
       }
       Vue.http.post(CILPROGRAMACAOSHOW, postData).then((response) => {
+        //console.log(response.data);
         if(!response.data.error){
-          commit("SET_CILPROGRMACAO", response.data.programacao);
+          commit("SET_CILPROGRAMACAO", response.data.programacao);
           resolve();
         } else{
           console.log(response.data.message);

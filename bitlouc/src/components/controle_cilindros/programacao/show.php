@@ -18,7 +18,7 @@
           {{ categoria }}
         </v-chip>
         <v-container fluid>
-          <demanda-list></demanda-list>
+          <demanda-list :data="programacao.demandas"></demanda-list>
         </v-container>
 
     <rodape></rodape>
@@ -45,12 +45,7 @@ var ProgramacaoShow = Vue.extend({
     //this.modalBemAdd = true;
   },
   created: function() {
-    this.$store.dispatch('findCilProgramacao', this.$route.params._programacao ).then(() => {
-      console.log("Buscando dados Programacao")
-    });
-    //this.$store.dispatch('fetchEquipamentoLocal', this.$route.params._local).then(() => {
-      //console.log("Buscando dados do equipamento!")
-    //});
+    this.update();
   },
   computed: {
     programacao()  {
@@ -59,7 +54,11 @@ var ProgramacaoShow = Vue.extend({
     //store.state.lojas // filteredItems
   }, // computed
   methods: {
-
+    update() {
+      this.$store.dispatch('findCilProgramacao', this.$route.params._programacao ).then(() => {
+        console.log("Buscando dados Programacao")
+      });
+    },
   },
 });
 </script>
