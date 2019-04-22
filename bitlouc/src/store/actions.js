@@ -29,6 +29,7 @@ const EQUIPAMENTOSLOCAL  ='./config/api/apiEquipamento.php?action=local';
 const CILINDROLIST        ='./config/api/apiCilindros.php?action=read';
 const CILPROGRAMACAOLIST  ='./config/api/api.cilindroProg.php?action=read';
 const CILPROGRAMACAOSHOW  ='./config/api/api.cilindroProg.php?action=show';
+const CILPROGRAMACAOITEM  ='./config/api/api.cilindroProg.php?action=item';
 
 
 
@@ -338,9 +339,6 @@ const actions = {
       }));
     });
   },
-  setCilProgramacoes({ commit }, programacoes) {
-    commit("SET_CILPROGRAMACOES", programacoes)
-  },
   findCilProgramacao({ commit }, programacao_id ) {
     return new Promise((resolve, reject) => {
       var postData = {
@@ -354,6 +352,28 @@ const actions = {
         } else{
           console.log(response.data.message);
         }
+      })
+      .catch((error => {
+          console.log(error.statusText);
+      }));
+    });
+  },
+  setCilindro({ commit }, cilindro) {
+    commit("SET_CILINDRO", cilindro)
+  },
+  cilindroItens({ commit }, data ) {
+    return new Promise((resolve, reject) => {
+      var postData = data
+      var retorno = [];
+      Vue.http.post(CILPROGRAMACAOITEM, postData).then((response) => {
+        //console.log(response.data);
+        if(!response.data.error){
+          retorno = data.cilindroItem;
+        } else{
+          console.log(response.data.message);
+        }
+        localStorage.setItem("cilindroItem", retorno );
+        resolve();
       })
       .catch((error => {
           console.log(error.statusText);

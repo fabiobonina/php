@@ -3,11 +3,12 @@ header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
 include("_chave.php");
-require_once '../control/cilindro-prog.control.php';
-require_once '../control/cilindro-demanda.control.php';
+require_once '../control/cilProgDemanda.control.php';
+require_once '../control/cilProg.control.php';
 
 $cilindroProgControl    = new CilindroProgControl();
 $cilindroDemandaControl = new CilindroDemandaControl();
+$cilindroItemControl    = new CilindroItemControl();
 
 $res = array('error' => true);
 $action = 'show';
@@ -27,7 +28,7 @@ endif;
 if($action == 'show'):
 
   $programacao_id = $_POST['programacao_id'];
-  //$programacao_id = '1';
+  //$programacao_id = '2';
   $item = $cilindroProgControl->show( $programacao_id );
   $res= $item;
   //$res['error'] = false;
@@ -97,6 +98,28 @@ if($action == 'prog-publish'):
     $demanda,
     $id
   );
+  # Insert
+  $res = $item;
+
+endif;
+
+#PUBLISH
+if($action == 'publish-itens'):
+  $programacao_id = $_POST['programacao_id'];
+  $demanda_id     = $_POST['demanda_id'];
+  $cilindro_id    = $_POST['cilindro_id'];
+  $id             = $_POST['id'];
+
+  $item = $cilindroProgControl->publishItem(
+    $programacao_id,
+    $demanda_id,
+    $cilindro_id,
+    $id
+  );
+  //$item['id'] = '1';
+  if(!$item['error']){
+    $item = $cilindroDemandaControl->add( $demanda, $id, $item['id'] );
+  }
   # Insert
   $res = $item;
 

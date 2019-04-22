@@ -14,9 +14,6 @@
             <v-list-tile-sub-title>Local: {{ programacao.local_tipo }} - {{ programacao.local_name }} </v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-chip v-for="categoria in programacao.demandas" :key="categoria.id" small color="green" text-color="white">
-          {{ categoria }}
-        </v-chip>
         <v-container fluid class="grid-list-xl pa-0">
             <v-layout wrap>
                 <template>
@@ -46,14 +43,15 @@
         <v-container fluid>
           <demanda-list></demanda-list>
         </v-container>
-        <amarar-cilindro :data="_item" :dialog="modAmaracao" v-on:close="close(); update()"></amarar-cilindro>
+        <amarar-cilindro :data="item" :dialog="modAmaracao" v-on:close="close(); update()"></amarar-cilindro>
     <rodape></rodape>
   </v-content>
 </template>
 <?php require_once 'src/components/includes/rodape.php';?>
 
 <?php require_once 'src/components/controle_cilindros/programacao/demanda/_list.php';?>
-<?php require_once 'src/components/local/local-top.php';?>
+<?php require_once 'src/components/controle_cilindros/programacao/demanda/_selectCilindro.php';?>
+<?php require_once 'src/components/controle_cilindros/programacao/demanda/_listCil.php';?>
 
 <script>
 var ProgramacaoShow = Vue.extend({
@@ -65,7 +63,7 @@ var ProgramacaoShow = Vue.extend({
       searchQuery: '',
       modAmaracao: false,
       active: '1',
-      _item: null
+      item: null
     }
   },
   mounted: function() {
@@ -92,7 +90,7 @@ var ProgramacaoShow = Vue.extend({
       
     },
     selecItem: function(item){
-      this._item = item;
+      this.item = item;
     },
   },
 });

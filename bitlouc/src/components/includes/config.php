@@ -15,11 +15,11 @@
     };
   },
   created: function() {
-    this.$store.dispatch("fetchConfig").then(() => {
-      console.log("Buscando dados das Configurações!")
-    });
     this.$store.dispatch("fetchIndex").then(() => {
       console.log("Buscando dados para inicial!")
+    });
+    this.$store.dispatch("fetchConfig").then(() => {
+      console.log("Buscando dados das Configurações!")
     });
   }
 });

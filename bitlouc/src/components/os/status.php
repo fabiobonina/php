@@ -63,7 +63,7 @@ var OsStus = Vue.extend({
     setStatus(item){
       var name = item;
       this.$store.dispatch("setStatus", name );
-    }
+    },
   },
 });
 </script>

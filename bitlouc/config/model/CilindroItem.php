@@ -8,29 +8,29 @@ class CilindroDemanda extends Crud{
 	
 	protected $table = 'tb_cil_prog_demanda';
 	private $programacao_id;
-	private $tipo_id;
-	private $qtd;
+	private $demanda_id;
+	private $cilindro_id;
 
 
-	public function setCilProg($programacao_id){
+	public function setProgramacao($programacao_id){
 		$this->programacao_id = $programacao_id;
 	}
-	public function setCilTipo($tipo_id){
-		$this->tipo_id = $tipo_id;
+	public function setDemanda($demanda_id){
+		$this->demanda_id = $demanda_id;
 	}
-	public function setQtd($qtd){
-		$this->qtd = $qtd;
+	public function setCilindo($cilindro_id){
+		$this->cilindro_id = $cilindro_id;
 	}
 
 	public function insert(){
 		try{
-			$sql  = "INSERT INTO $this->table ( programacao_id, tipo_id, qtd) ";
-			$sql .= "VALUES (:programacao_id, :tipo_id, :qtd)";
+			$sql  = "INSERT INTO $this->table ( programacao_id, demanda_id, cilindro_id) ";
+			$sql .= "VALUES (:programacao_id, :demanda_id, :cilindro_id)";
 			$stmt = DB::prepare($sql);
 			
 			$stmt->bindParam(':programacao_id',	$this->programacao_id);
-			$stmt->bindParam(':tipo_id',	$this->tipo_id);
-			$stmt->bindParam(':qtd',			$this->qtd);
+			$stmt->bindParam(':demanda_id',		$this->demanda_id);
+			$stmt->bindParam(':cilindro_id',	$this->cilindro_id);
 			$stmt->execute();
 			$item_id = DB::getInstance()->lastInsertId();
 
@@ -48,11 +48,11 @@ class CilindroDemanda extends Crud{
 
 	public function update($id){
 		try{
-			$sql  = "UPDATE $this->table SET programacao_id = :programacao_id, tipo_id = :tipo_id, qtd = :qtd WHERE id = :id";
+			$sql  = "UPDATE $this->table SET programacao_id = :programacao_id, demanda_id = :demanda_id, cilindro_id = :cilindro_id WHERE id = :id";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':programacao_id',	$this->programacao_id);
-			$stmt->bindParam(':tipo_id',	$this->tipo_id);
-			$stmt->bindParam(':qtd',			$this->qtd);
+			$stmt->bindParam(':demanda_id',		$this->demanda_id);
+			$stmt->bindParam(':cilindro_id',	$this->cilindro_id);
 			$stmt->bindParam(':id', 			$id);
 			$stmt->execute();
 
@@ -174,11 +174,11 @@ class CilindroDemanda extends Crud{
 		}	
 	}
 	
-	public function ultimaOs( $tipo_id, $categoria_id ){
+	public function ultimaOs( $demanda_id, $categoria_id ){
 		try{
-			$sql  = "SELECT id, tipo_id, categoria_id, MAX(qtd) AS dtUltimo FROM $this->table  WHERE BINARY tipo_id=:tipo_id AND categoria_id=:categoria_id GROUP BY tipo_id=:tipo_id, categoria_id=:categoria_id";
+			$sql  = "SELECT id, demanda_id, categoria_id, MAX(cilindro_id) AS dtUltimo FROM $this->table  WHERE BINARY demanda_id=:demanda_id AND categoria_id=:categoria_id GROUP BY demanda_id=:demanda_id, categoria_id=:categoria_id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':tipo_id', $tipo_id, PDO::PARAM_INT);
+			$stmt->bindParam(':demanda_id', $demanda_id, PDO::PARAM_INT);
 			$stmt->bindParam(':categoria_id', $categoria_id, PDO::PARAM_INT);
 			$stmt->execute();
 			return $stmt->fetch();
@@ -189,11 +189,11 @@ class CilindroDemanda extends Crud{
 		}
 	}
 
-	public function visitadoLocal( $tipo_id ){
+	public function visitadoLocal( $demanda_id ){
 		try{
-			$sql  = "SELECT MAX(qtd) AS dtVisitado FROM $this->table  WHERE BINARY tipo_id=:tipo_id GROUP BY tipo_id=:tipo_id";
+			$sql  = "SELECT MAX(cilindro_id) AS dtVisitado FROM $this->table  WHERE BINARY demanda_id=:demanda_id GROUP BY demanda_id=:demanda_id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':tipo_id', $tipo_id, PDO::PARAM_INT);
+			$stmt->bindParam(':demanda_id', $demanda_id, PDO::PARAM_INT);
 			$stmt->execute();
 			return $stmt->fetch();
 		} catch(PDOException $e) {
@@ -203,14 +203,14 @@ class CilindroDemanda extends Crud{
 		}
 	}
 
-	public function validarOs( $tipo_id, $categoria_id, $equipamento_id, $qtd, $id ){
+	public function validarOs( $demanda_id, $categoria_id, $equipamento_id, $cilindro_id, $id ){
 		try{
-			$sql  = "SELECT * FROM $this->table  WHERE BINARY tipo_id = :tipo_id AND categoria_id = :categoria_id AND  ( equipamento_id = :equipamento_id OR equipamento_id IS NULL ) AND qtd = :qtd AND id  <> :id";
+			$sql  = "SELECT * FROM $this->table  WHERE BINARY demanda_id = :demanda_id AND categoria_id = :categoria_id AND  ( equipamento_id = :equipamento_id OR equipamento_id IS NULL ) AND cilindro_id = :cilindro_id AND id  <> :id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':tipo_id', 		$tipo_id);			
+			$stmt->bindParam(':demanda_id', 		$demanda_id);			
 			$stmt->bindParam(':equipamento_id',	$equipamento_id);
 			$stmt->bindParam(':categoria_id',	$categoria_id);
-			$stmt->bindParam(':qtd',			$qtd);
+			$stmt->bindParam(':cilindro_id',			$cilindro_id);
 			$stmt->bindParam(':id',				$id);
 			$stmt->execute();
 			return $stmt->fetch();
@@ -234,76 +234,8 @@ class CilindroDemanda extends Crud{
 		}
 	}
 
-	public function findIIIProprietario( $proprietario_id  ){
-		try{
-			$sql  = "SELECT * FROM $this->table WHERE proprietario_id  = :proprietario_id AND status < '4' ";
-			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':proprietario_id', $proprietario_id);
-			$stmt->execute();
-			return $stmt->fetchAll();
-		} catch(PDOException $e) {
-			$res['error']	= true;
-			$res['message'] = $e->getMessage();
-			return $res;
-		}
-	}
 
-	public function findIIILoja( $programacao_id ){
-		try{
-			$sql  = "SELECT * FROM $this->table WHERE programacao_id  = :programacao_id AND status < '4' ";
-			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':programacao_id', $programacao_id);
-			$stmt->execute();
-			return $stmt->fetchAll();
-		} catch(PDOException $e) {
-			$res['error']	= true;
-			$res['message'] = $e->getMessage();
-			return $res;
-		}
-	}
 	
-	public function ajuste($id, $uf){
-		try{
-			$sql  = "UPDATE $this->table SET uf = :uf WHERE id = :id";
-			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':uf',	$uf);
-			$stmt->bindParam(':id', $id);
-			$stmt->execute();
-
-			$res['error'] = false;
-			$res['message'] = "OK, OS atualizado com sucesso";
-			return $res;
-		} catch(PDOException $e) {
-			$res['error']	= true;
-			$res['message'] = $e->getMessage();
-			return $res;
-		}
-	}
-	public function findUF( $uf ){
-		try {
-			$sql  = "SELECT COUNT(*) FROM $this->table WHERE uf  = :uf AND status < 4";
-			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':uf', $uf);
-			$stmt->execute();
-			return $stmt->fetchAll();
-		} catch(PDOException $e) {
-			$res['error']	= true;
-			$res['message'] = $e->getMessage();
-			return $res;
-		}
-	}
-	public function findAmarar(){
-		try {
-			$sql  = "SELECT * FROM $this->table WHERE os IS NULL";
-			$stmt = DB::prepare($sql);
-			$stmt->execute();
-			return $stmt->fetchAll();
-		} catch(PDOException $e) {
-			$res['error']	= true;
-			$res['message'] = $e->getMessage();
-			return $res;
-		}
-	}
 	public function findStatus($status){
 		try{
 			$sql  = "SELECT * FROM $this->table WHERE BINARY status=:status ";

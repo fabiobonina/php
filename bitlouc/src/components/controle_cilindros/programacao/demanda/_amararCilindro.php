@@ -17,93 +17,18 @@
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
           <loader :dialog="isLoading"></loader>
             <v-container grid-list-md>
-            <v-list-tile @click="">
-                <v-list-tile-content>
+              <v-list-tile @click="">
+                <v-list-tile-content v-if="data">
                   <v-list-tile-title>Tipo: {{ data.cil_tipo.name }}</v-list-tile-title>
                   <v-list-tile-sub-title>Prog.: {{ data.qtd }}</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
+              <select-cilindro :data="data" :cilindro="item"></select-cilindro>
               <v-layout row justify-center>
-              
-      <v-layout wrap>
-        <v-flex>
-          <v-autocomplete
-            v-model="item"
-            :items="cilindros"
-            color="blue-grey lighten-2"
-            label="Cilindro"                              
-            item-text="name"              
-            data-vv-name="cilindro"
-            :filter="cilindroFilter"
-            return-object
-            v-validate="'required'"
-            required
-            >
-            <template slot="selection" slot-scope="data">
-              <v-chip :selected="data.selected"
-                close
-                class="chip--select-multi"
-                @input="remove(data.item)"
-              >
-                {{ data.item.numero }} - {{ data.item.fabricante }}
-              </v-chip>
-            </template>
-            <template slot="item" slot-scope="data" >
-              <template v-if="typeof data.item !== 'object'">
-                <v-list-tile-content v-text="data.item"></v-list-tile-content>
-              </template>
-              <template v-else>
-                <v-list-tile-content>
-                  <v-list-tile-title>{{data.item.numero }} - {{ data.item.cod_barras }}</v-list-tile-title>
-                  <v-list-tile-sub-title v-html="data.item.fabricante"></v-list-tile-sub-title>
-                </v-list-tile-content>
-              </template>
-            </template>
-          </v-autocomplete>
-        </v-flex>
-        <v-flex>
-          <v-btn @click="addDemanda()" color="blue" fab small dark>
-            <v-icon>add</v-icon>
-          </v-btn>
-        </v-flex>
-      </v-layout>
-                  
-      <template>
-        <v-list>
-          <v-list-tile  v-for="(todo, index) in cilindro" :key="item.index" @click="">
-            <template>
-              <v-flex v-if="todo.edit">
-                <v-select
-                  v-model="todo.cil_tipo" :items="cilTipos"
-                  item-text="name" item-value="id"
-                  label="Tipo Cilindro" box
-                  v-on:keyup.enter="addDemanda()"
-                  data-vv-name="name"
-                  v-validate="'required'" required
-                ></v-select>
-              </v-flex>
-              <v-list-tile-content v-else>
-                <v-list-tile-title v-text="todo.cil_tipo.name"></v-list-tile-title>
-              </v-list-tile-content>
-
-
-              <v-list-tile-action>
-                <v-btn @click="removeDemanda(index)" color="red" fab small dark>
-                  <v-icon>&#10006;</v-icon>
-                </v-btn>
-              </v-list-tile-action>
-              <v-list-tile-action>
-                <v-btn @click="todo.edit = !todo.edit" color="blue" fab small dark>
-                  <v-icon>&#9998;</v-icon>
-                </v-btn>
-              </v-list-tile-action>
-              
-            </template>
-          </v-list-tile>
-        </v-list>
-      </template>
+                
                     <v-flex>
                     <!--demanda-cil :data="demanda" v-on:close="close()"></demanda-cil-->
+                    <list-cilindro :data="cilindro"></list-cilindro>
                     </v-flex>           
                     
                   </v-layout>
@@ -133,11 +58,9 @@ Vue.component('amarar-cilindro', {
       errorMessage: [],
       successMessage: [],
       isLoading: false,
-      dialog: false,
       cilindro: [],
       isEditing: false,
       item: {},
-      cil_tipo: null,
     };
   },
   mounted () {
@@ -151,9 +74,6 @@ Vue.component('amarar-cilindro', {
       if(this.errorMessage.length > 0) return true
       if(this.successMessage.length > 0) return true
       return false
-    },
-    cilindros(){
-      return store.state.cilindros;
     },
   },
   created: function() {
