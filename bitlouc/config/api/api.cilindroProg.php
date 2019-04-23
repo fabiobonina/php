@@ -116,10 +116,6 @@ if($action == 'publish-itens'):
     $cilindro_id,
     $id
   );
-  //$item['id'] = '1';
-  if(!$item['error']){
-    $item = $cilindroDemandaControl->add( $demanda, $id, $item['id'] );
-  }
   # Insert
   $res = $item;
 

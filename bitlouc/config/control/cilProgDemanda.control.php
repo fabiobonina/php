@@ -71,7 +71,7 @@
 
 			foreach ($demanda  as $key => $value){
 				$cil_tipo = (object) $value['cil_tipo'];
-				$item = $this->publish( $cil_tipo->id, $value['qtd'], $id, $cil_prog_id );
+				$item = $this->publishDemanda( $cil_tipo->id, $value['qtd'], $id, $cil_prog_id );
 			  }
 
 			$res = $item;

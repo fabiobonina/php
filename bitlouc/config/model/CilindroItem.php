@@ -4,9 +4,9 @@ require_once '_crud.php';
 
 
 
-class CilindroDemanda extends Crud{
+class CilindroItem extends Crud{
 	
-	protected $table = 'tb_cil_prog_demanda';
+	protected $table = 'tb_cil_prog_item';
 	private $programacao_id;
 	private $demanda_id;
 	private $cilindro_id;
@@ -18,7 +18,7 @@ class CilindroDemanda extends Crud{
 	public function setDemanda($demanda_id){
 		$this->demanda_id = $demanda_id;
 	}
-	public function setCilindo($cilindro_id){
+	public function setCilindro($cilindro_id){
 		$this->cilindro_id = $cilindro_id;
 	}
 

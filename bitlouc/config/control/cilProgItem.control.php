@@ -51,19 +51,19 @@
 			$id
 	  		){
 			$item['error'] 		= false;
-			$cilindroDemandas	= new CilindroDemanda();
+			$cilindroItens	= new CilindroItem();
 
-			$cilindroDemandas->setCilProg($cil_prog_id);
-			$cilindroDemandas->setCilTipo($cil_tipo_id);
-			$cilindroDemandas->setQtd($qtd);
+			$cilindroItens->setProgramacao($programacao_id);
+			$cilindroItens->setDemanda($demanda_id);
+			$cilindroItens->setCilindro($cilindro_id);
 
 			if( $id == '' ):
 				# Insert
-				$item = $cilindroDemandas->insert();
+				$item = $cilindroItens->insert();
 			endif;
 			if( $id > '0' ):
 				# Update
-				$item = $cilindroDemandas->update($id);
+				$item = $cilindroItens->update($id);
 
 			endif;
 
@@ -76,7 +76,7 @@
 
 			foreach ($demanda  as $key => $value){
 				$cil_tipo = (object) $value['cil_tipo'];
-				$item = $this->publish( $cil_tipo->id, $value['qtd'], $id, $cil_prog_id );
+				$item = $this->publishItem( $cil_tipo->id, $value['qtd'], $id, $cil_prog_id );
 			  }
 
 			$res = $item;

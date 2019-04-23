@@ -97,7 +97,7 @@ Vue.component('select-cilindro', {
           var postData = {
             programacao_id: this.data.programacao_id,
             demanda_id:     this.data.id,
-            cilindro:       this.cilindro.id,
+            cilindro_id:    this.cilindro.id,
             id: ''
           };
           console.log(postData);
