@@ -4,41 +4,13 @@
 
 	class CilindroDemandaControl extends CilindroItemControl {
 
-		public function matrixDemanda( $item ){
-			
-			$oss     		= new Os();
-			$osTecnicos     = new OsTecnicos();
-			$lojas     		= new Loja();
-			$locais     	= new Local();
-			$servicos   	= new Servicos();
-			$categorias 	= new Categorias();
-			$notas      	= new Nota();
-			$equipamentos	= new Equipamento();
-			$fabricantes	= new Fabricantes();
-			$users			= new User();
+		public function matrixDemanda( $item, $modelo ){
+			$cilTipos			= new CilTipo();
 
-			
-			$local 					= $locais->find( $item->local_id );
-			//$item->local_tipo		= $local->tipo;
-			//$item->local_name		= $local->name;
-			//$item->local_municipio	= $local->municipio;
-			//$item->local_uf			= $local->uf;
-			//$item->local_lat		= $local->latitude;
-			//$item->local_long		= $local->longitude;
-			//$item->equipamento		= $equipamentos->find( $item->equipamento_id );
-			if($item->equipamento){
-				$fabricante			= $fabricantes->find( $item->equipamento->fabricante_id );
-				$item->equipamento->fabricante_nick		= $fabricante->nick;
+			$value->cil_tipo 	= $cilTipos->find( $value->tipo_id );
+			if($modelo > 1){
+				$item->itens	= $this->itemDemanda( $item->id );
 			}
-			$user					= $users->find( $item->user_id );
-			$item->user_user		= $user->user;
-			$item->servico			= $servicos->find( $item->servico_id );
-			$item->categoria		= $categorias->find( $item->categoria_id );
-			$item->tecnicos			= $this->listOsTec( $item->id );
-			$item->notas			= $notas->findOs( $item->id );
-
-			//$oss->ajuste( $item->id, $local->uf );
-			//$osTecnicos->ajuste( $item->id, $item->status );
 
 			return $item;
 
@@ -91,15 +63,12 @@
 			$res	= $item;
 			return $res;
 		}
-		public function listDemanda( $progracao_id ){
+		public function demandaProg( $progracao_id, $modelo ){
 			$cilindroDemandas 	= new CilindroDemanda();
-			$cilTipos			= new CilTipo();
 			
-
 			$arItem = array();
 			foreach($cilindroDemandas->findProg( $progracao_id ) as $key => $value): {
-				
-				$value->cil_tipo = $cilTipos->find( $value->tipo_id );
+				$value = $this->matrix( $value->tipo_id, $modelo );
 				array_push( $arItem, $value );
 			}endforeach;
 			

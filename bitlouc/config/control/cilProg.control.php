@@ -4,26 +4,22 @@
 
 	class CilindroProgControl extends CilindroDemandaControl {
 
-		public function matrix( $item ){
+		public function matrix( $item, $modelo ){
 			
 			$lojas     		= new Loja();
 			$locais     	= new Local();
 			
+			$item->loja 		= $lojas->find( $item->loja_id );
+			$item->loja_nick	= $item->loja->nick;
+			$item->loja_name	= $item->loja->name;
+
 			$item->local 			= $locais->find( $item->local_id );
 			$item->local_tipo		= $item->local->tipo;
 			$item->local_name		= $item->local->name;
 			$item->local_municipio	= $item->local->municipio;
 			$item->local_uf			= $item->local->uf;
-			$item->loja 			= $lojas->find( $item->loja_id );
-			$item->loja_nick		= $item->loja->nick;
-			$item->loja_name		= $item->loja->name;
-			//$item->local_lat		= $local->latitude;
-			//$item->local_long		= $local->longitude;
-			//$item->equipamento		= $equipamentos->find( $item->equipamento_id );
-			$item->demandas		= $this->listDemanda( $item->id );
 
-			//$oss->ajuste( $item->id, $local->uf );
-			//$osTecnicos->ajuste( $item->id, $item->status );
+			$item->demandas			= $this->demandaProg( $item->id, $modelo );
 
 			return $item;
 
@@ -75,11 +71,13 @@
 
 		public function list(){
 			$cilindroProg	= new CilindroProg();
+			
+			$modelo = '1';
 			$itens 	= array();
 			foreach($cilindroProg->findAll() as $key => $value): {
 				$item = $value;
-				$item = $this->matrix( $item );
-				$item = (array)  $item;
+				$item = $this->matrix( $item, $modelo );
+				//$item = (array)  $item;
 				array_push( $itens, $item );
 			}endforeach;
 			$res = $itens;
@@ -90,16 +88,16 @@
 		public function show( $cilProgramacao_id ){
 			$cilindroProg	= new CilindroProg();
 			
+			$modelo = '2';
 			$item = $cilindroProg->find( $cilProgramacao_id );
 			//var_dump($item);
 			if( !$item ){
-				
 				$res['error'] = true;
 				$res['message'] = 'Error, Dados nao encontrado';
 				
 			}else{
 				$res['error'] = false;
-				$res['programacao'] = $this->matrix( $item );
+				$res['programacao'] = $this->matrix( $item, $modelo );
 				$res['message'] = 'OK, Dados encontrado';
 			}
 

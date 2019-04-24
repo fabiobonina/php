@@ -80,7 +80,7 @@ const actions = {
         //console.log( response); 
         if(response.data.error){
           console.log(response.data.message);
-          if(!response.data.isLoggedIn){
+          if(!response.data.user.isLoggedIn){
             localStorage.removeItem("token");
             localStorage.removeItem("isLoggedIn");
             commit(LOGOUT);

@@ -6,39 +6,9 @@
 
 		public function matrixItem( $item ){
 			
-			$oss     		= new Os();
-			$osTecnicos     = new OsTecnicos();
-			$lojas     		= new Loja();
-			$locais     	= new Local();
-			$servicos   	= new Servicos();
-			$categorias 	= new Categorias();
-			$notas      	= new Nota();
-			$equipamentos	= new Equipamento();
-			$fabricantes	= new Fabricantes();
-			$users			= new User();
-
+			$cilindros	= new Cilindro();
 			
-			$local 					= $locais->find( $item->local_id );
-			//$item->local_tipo		= $local->tipo;
-			//$item->local_name		= $local->name;
-			//$item->local_municipio	= $local->municipio;
-			//$item->local_uf			= $local->uf;
-			//$item->local_lat		= $local->latitude;
-			//$item->local_long		= $local->longitude;
-			//$item->equipamento		= $equipamentos->find( $item->equipamento_id );
-			if($item->equipamento){
-				$fabricante			= $fabricantes->find( $item->equipamento->fabricante_id );
-				$item->equipamento->fabricante_nick		= $fabricante->nick;
-			}
-			$user					= $users->find( $item->user_id );
-			$item->user_user		= $user->user;
-			$item->servico			= $servicos->find( $item->servico_id );
-			$item->categoria		= $categorias->find( $item->categoria_id );
-			$item->tecnicos			= $this->listOsTec( $item->id );
-			$item->notas			= $notas->findOs( $item->id );
-
-			//$oss->ajuste( $item->id, $local->uf );
-			//$osTecnicos->ajuste( $item->id, $item->status );
+			$item->cilindro	= $cilindros->find( $item->cilindro_id );
 
 			return $item;
 
@@ -71,7 +41,20 @@
 
 		}
 
-		public function addItem( $demanda, $id, $cil_prog_id ) {
+		public function itemDemanda( $demanda_id ){
+			$cilindroDemandas 	= new CilindroDemanda();
+			
+			$arItem = array();
+			foreach($cilindroDemandas->findProg( $progracao_id ) as $key => $value): {
+				$item = $this->matrix( $item, $modelo );
+				$value->cil_tipo = $cilTipos->find( $value->tipo_id );
+				array_push( $arItem, $value );
+			}endforeach;
+			
+			return $arItem;
+		}
+
+		/*public function addItem( $demanda, $id, $cil_prog_id ) {
 			$item['error'] = false;
 
 			foreach ($demanda  as $key => $value){
@@ -95,5 +78,5 @@
 			//}
 			$res	= $item;
 			return $res;
-		}
+		}*/
 	}
