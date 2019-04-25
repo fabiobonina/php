@@ -20,19 +20,19 @@
 			$id
 	  		){
 			$item['error'] 		= false;
-			$cilindroItens	= new CilindroItem();
+			$cilindroItems	= new CilindroItem();
 
-			$cilindroItens->setProgramacao($programacao_id);
-			$cilindroItens->setDemanda($demanda_id);
-			$cilindroItens->setCilindro($cilindro_id);
+			$cilindroItems->setProgramacao($programacao_id);
+			$cilindroItems->setDemanda($demanda_id);
+			$cilindroItems->setCilindro($cilindro_id);
 
 			if( $id == '' ):
 				# Insert
-				$item = $cilindroItens->insert();
+				$item = $cilindroItems->insert();
 			endif;
 			if( $id > '0' ):
 				# Update
-				$item = $cilindroItens->update($id);
+				$item = $cilindroItems->update($id);
 
 			endif;
 
@@ -41,10 +41,10 @@
 		}
 
 		public function itemDemanda( $demanda_id ){
-			$cilindroItens 	= new CilindroItem();
+			$cilindroItems 	= new CilindroItem();
 			
 			$arItem = array();
-			foreach($cilindroItens->fetchDemanda( $demanda_id ) as $key => $value): {
+			foreach($cilindroItems->fetchDemanda( $demanda_id ) as $key => $value): {
 				$item = $this->matrixItem( $value );
 				array_push( $arItem, $item );
 			}endforeach;

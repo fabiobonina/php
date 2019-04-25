@@ -9,7 +9,8 @@
 
 			$item->cil_tipo 	= $cilTipos->find( $item->tipo_id );
 			if($modelo > 1){
-				$item->itens	= $this->itemDemanda( $item->id );
+				$item->items	= $this->itemDemanda( $item->id );
+				$item->active	= true;
 			}
 
 			return $item;

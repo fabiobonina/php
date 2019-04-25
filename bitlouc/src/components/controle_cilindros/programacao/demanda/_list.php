@@ -28,8 +28,8 @@
 
         <v-list>
           <v-list-group
-            v-for="item in itemsI"
-            :key="item.title"
+            v-for="item in data"
+            :key="item.id"
             v-model="item.active"
             :prepend-icon="item.action"
             no-action
@@ -37,22 +37,23 @@
             <template v-slot:activator>
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                  <v-list-tile-title>{{ item.cil_tipo.name }}</v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
             </template>
 
             <v-list-tile
               v-for="subItem in item.items"
-              :key="subItem.title"
+              :key="subItem.id"
               @click=""
             >
               <v-list-tile-content>
-                <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+                <v-list-tile-title>{{ subItem.cilindro.numero }} - {{ subItem.cilindro.fabricante }}</v-list-tile-title>
               </v-list-tile-content>
 
               <v-list-tile-action>
-                <v-icon>{{ subItem.action }}</v-icon>
+              {{ subItem.cilindro.cod_barras }}
+                <v-icon @click="testingCode = subItem.cilindro.cod_barras; copyTestingCode()">mdi-content-copy</v-icon>
               </v-list-tile-action>
             </v-list-tile>
           </v-list-group>
@@ -84,6 +85,15 @@
         </v-card>
       </template>
     </v-data-table>
+    <textarea class="textarea" ref="copiar">{{ item }}</textarea>
+    <input type="hidden" id="testing-code" :value="testingCode">
+    <div class="container">
+    <input type="text" v-model="message">
+    <button type="button"
+      v-clipboard:copy="message"
+      v-clipboard:success="onCopy"
+      v-clipboard:error="onError">Copy!</button>
+  </div>
   </div>
 </template>
 
@@ -128,70 +138,6 @@
             protein: 4.3,
             iron: '1%'
           },
-          {
-            name: 'Eclair',
-            calories: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0,
-            iron: '7%'
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-            iron: '8%'
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-            fat: 16.0,
-            carbs: 49,
-            protein: 3.9,
-            iron: '16%'
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-            fat: 0.0,
-            carbs: 94,
-            protein: 0.0,
-            iron: '0%'
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-            fat: 0.2,
-            carbs: 98,
-            protein: 0,
-            iron: '2%'
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-            fat: 3.2,
-            carbs: 87,
-            protein: 6.5,
-            iron: '45%'
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9,
-            iron: '22%'
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7,
-            iron: '6%'
-          }
         ],
         itemsI: [
           {
@@ -211,42 +157,10 @@
               { title: 'Sushi' }
             ]
           },
-          {
-            action: 'school',
-            title: 'Education',
-            items: [
-              { title: 'List Item' }
-            ]
-          },
-          {
-            action: 'directions_run',
-            title: 'Family',
-            items: [
-              { title: 'List Item' }
-            ]
-          },
-          {
-            action: 'healing',
-            title: 'Health',
-            items: [
-              { title: 'List Item' }
-            ]
-          },
-          {
-            action: 'content_cut',
-            title: 'Office',
-            items: [
-              { title: 'List Item' }
-            ]
-          },
-          {
-            action: 'local_offer',
-            title: 'Promotions',
-            items: [
-              { title: 'List Item' }
-            ]
-          }
-        ]
+        ],
+        item: '',
+        testingCode: 'ssas',
+        message: 'Copy These Text',
       }
     },
     computed: {
@@ -256,6 +170,52 @@
       
     },
     methods: {
+      copy(item) {
+        this.item = item
+        var copyTextarea = this.$refs.copiar
+        var copyTextarea = item
+        console.log(copyTextarea);
+        //copyTextarea.setAttribute('type', 'text')    // 不是 hidden 才能複製
+        //item.select()
+        copyTextarea.select()
+        //copyTextarea.select();
+
+        try {
+          var successful = document.execCommand('copy');
+          var msg = successful ? 'sim!' : 'não!';
+          alert('Texto copiado? ' + msg);
+        } catch (err) {
+          alert('Opa, Não conseguimos copiar o texto, é possivel que o seu navegador não tenha suporte, tente usar Crtl+C.');
+        }
+        this.item = '';
+      },
+      copyTestingCode () {
+          //this.testingCode = item
+          
+          let testingCodeToCopy = document.querySelector('#testing-code')
+          
+          console.log(testingCodeToCopy);
+          testingCodeToCopy.setAttribute('type', 'text')    // 不是 hidden 才能複製
+          testingCodeToCopy.select()
+
+          try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+            alert('Testing code was copied ' + msg);
+          } catch (err) {
+            alert('Oops, unable to copy');
+          }
+
+          /* unselect the range */
+          testingCodeToCopy.setAttribute('type', 'hidden')
+          window.getSelection().removeAllRanges()
+        },
+        onCopy: function (e) {
+      alert('You just copied: ' + e.text)
+    },
+    onError: function (e) {
+      alert('Failed to copy texts')
+    }
     }
   })
 </script>

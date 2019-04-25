@@ -14,6 +14,8 @@ const store = new Vuex.Store({
 
 Vue.use(VeeValidate)
 
+Vue.use(VueClipboard)
+
 var App = {}
 
 new Vue({
