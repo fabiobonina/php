@@ -50,7 +50,7 @@ if( !$user['error'] ):
     
     $item   = $proprietarioControl->listProprietario( $acessoProprietario, $acessoNivel, $acessoGrupo, $acessoloja );
 
-    /*if($item['error'] == true ){
+    if($item['error'] == true ){
       $res = $item;
     }else{
       $res['proprietarios'] = $item['dados'];
@@ -75,7 +75,7 @@ if( !$user['error'] ):
       }
       
       $res['error']         = false;
-    }*/
+    }
     
   endif;
 

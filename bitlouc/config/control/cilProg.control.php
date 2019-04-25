@@ -19,7 +19,7 @@
 			$item->local_municipio	= $item->local->municipio;
 			$item->local_uf			= $item->local->uf;
 
-			$item->demandas			= $this->demandaProg( $item->id, $modelo );
+			$item->demandas		= $this->demandaProg( $item->id, $modelo );
 
 			return $item;
 
@@ -77,7 +77,7 @@
 			foreach($cilindroProg->findAll() as $key => $value): {
 				$item = $value;
 				$item = $this->matrix( $item, $modelo );
-				//$item = (array)  $item;
+				$item = (array)  $item;
 				array_push( $itens, $item );
 			}endforeach;
 			$res = $itens;

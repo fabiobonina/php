@@ -7,7 +7,7 @@
 		public function matrixDemanda( $item, $modelo ){
 			$cilTipos			= new CilTipo();
 
-			$value->cil_tipo 	= $cilTipos->find( $value->tipo_id );
+			$item->cil_tipo 	= $cilTipos->find( $item->tipo_id );
 			if($modelo > 1){
 				$item->itens	= $this->itemDemanda( $item->id );
 			}
@@ -68,7 +68,7 @@
 			
 			$arItem = array();
 			foreach($cilindroDemandas->findProg( $progracao_id ) as $key => $value): {
-				$value = $this->matrix( $value->tipo_id, $modelo );
+				$value = $this->matrixDemanda( $value, $modelo );
 				array_push( $arItem, $value );
 			}endforeach;
 			

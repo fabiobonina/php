@@ -66,113 +66,6 @@ class CilindroItem extends Crud{
 		}
 	}
 
-	public function upProcesso($id, $processo){
-		try{
-			$sql  = "UPDATE $this->table SET processo = :processo WHERE id = :id";
-			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':processo',$processo);
-			$stmt->bindParam(':id',$id);
-			$stmt->execute();
-
-			$res['error'] = false;
-			$res['message'] = "OK, salvo com sucesso";
-			return $res;
-
-		} catch(PDOException $e) {
-			$res['error']	= true;
-			$res['message'] = $e->getMessage();
-			return $res;
-		}
-	}
-	public function amarar($id){
-		try{
-			$sql  = "UPDATE $this->table SET filial = :filial, os = :os, dtOs = :dtOs WHERE id = :id";
-			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':filial',$this->filial);
-			$stmt->bindParam(':os',$this->os);
-			$stmt->bindParam(':dtOs',$this->dtOs);
-			$stmt->bindParam(':id', $id);
-			$stmt->execute();
-
-			$res['error'] = false;
-			$res['message'] = "OK, salvo com sucesso";
-			return $res;
-		} catch(PDOException $e) {
-			$res['error']	= true;
-			$res['message'] = $e->getMessage();
-			return $res;
-		}
-	}
-	public function statusI($id){
-		try{
-			$sql  = "UPDATE $this->table SET status = :status WHERE id = :id";
-			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':status', $this->status);
-			$stmt->bindParam(':id', $id);
-			$stmt->execute();
-
-			$res['error'] = false;
-			$res['message'] = "OK, salvo com sucesso";
-			return $res;
-		} catch(PDOException $e) {
-			$res['error']	= true;
-			$res['message'] = $e->getMessage();
-			return $res;
-		}
-	}
-	public function statusII($id){
-		try{
-			$sql  = "UPDATE $this->table SET status = :status WHERE id = :id";
-			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':status', $this->status);
-			$stmt->bindParam(':id', $id);
-			$stmt->execute();
-
-			$res['error'] = false;
-			$res['message'] = "OK, salvo com sucesso";
-			return $res;
-		} catch(PDOException $e) {
-			$res['error']	= true;
-			$res['message'] = $e->getMessage();
-			return $res;
-		}
-	}
-	public function concluir($id){
-		try{
-			$sql  = "UPDATE $this->table SET dtConcluido = :dtConcluido, status = :status WHERE id = :id";
-			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':dtConcluido', $this->dtConcluido);
-			$stmt->bindParam(':status', $this->status);
-			$stmt->bindParam(':id', $id);
-			$stmt->execute();
-
-			$res['error'] = false;
-			$res['message'] = "OK, salvo com sucesso";
-			return $res;
-		} catch(PDOException $e) {
-			$res['error']	= true;
-			$res['message'] = $e->getMessage();
-			return $res;
-		}	
-	}
-	public function fechar($id){
-		try{
-			$sql  = "UPDATE $this->table SET dtFech = :dtFech, status = :status WHERE id = :id ";
-			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':dtFech',	$this->dtFech);
-			$stmt->bindParam(':status',	$this->status);
-			$stmt->bindParam(':id', $id);
-			$stmt->execute();
-
-			$res['error'] = false;
-			$res['message'] = "OK, salvo com sucesso";
-			return $res;
-		} catch(PDOException $e) {
-			$res['error']	= true;
-			$res['message'] = $e->getMessage();
-			return $res;
-		}	
-	}
 	
 	public function ultimaOs( $demanda_id, $categoria_id ){
 		try{
@@ -220,11 +113,11 @@ class CilindroItem extends Crud{
 			return $res;
 		}
 	}
-	public function findProg( $programacao_id ){
+	public function fetchDemanda( $demanda_id ){
 		try{
-			$sql  = "SELECT * FROM $this->table  WHERE programacao_id = :programacao_id ";
+			$sql  = "SELECT * FROM $this->table  WHERE demanda_id = :demanda_id ";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':programacao_id', $programacao_id, PDO::PARAM_INT);
+			$stmt->bindParam(':demanda_id', $demanda_id, PDO::PARAM_INT);
 			$stmt->execute();
 			return $stmt->fetchAll();
 		} catch(PDOException $e) {

@@ -5,7 +5,6 @@
 	class CilindroItemControl extends GlobalControl {
 
 		public function matrixItem( $item ){
-			
 			$cilindros	= new Cilindro();
 			
 			$item->cilindro	= $cilindros->find( $item->cilindro_id );
@@ -42,13 +41,12 @@
 		}
 
 		public function itemDemanda( $demanda_id ){
-			$cilindroDemandas 	= new CilindroDemanda();
+			$cilindroItens 	= new CilindroItem();
 			
 			$arItem = array();
-			foreach($cilindroDemandas->findProg( $progracao_id ) as $key => $value): {
-				$item = $this->matrix( $item, $modelo );
-				$value->cil_tipo = $cilTipos->find( $value->tipo_id );
-				array_push( $arItem, $value );
+			foreach($cilindroItens->fetchDemanda( $demanda_id ) as $key => $value): {
+				$item = $this->matrixItem( $value );
+				array_push( $arItem, $item );
 			}endforeach;
 			
 			return $arItem;
