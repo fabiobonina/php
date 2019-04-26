@@ -53,7 +53,7 @@
 
               <v-list-tile-action>
               {{ subItem.cilindro.cod_barras }}
-                <v-icon @click="testingCode = subItem.cilindro.cod_barras; copyTestingCode()">mdi-content-copy</v-icon>
+                <v-icon @click="item = subItem.cilindro.cod_barras; copy(subItem.cilindro.cod_barras)">mdi-content-copy</v-icon>
               </v-list-tile-action>
             </v-list-tile>
           </v-list-group>
@@ -86,14 +86,7 @@
       </template>
     </v-data-table>
     <textarea class="textarea" ref="copiar">{{ item }}</textarea>
-    <input type="hidden" id="testing-code" :value="testingCode">
-    <div class="container">
-    <input type="text" v-model="message">
-    <button type="button"
-      v-clipboard:copy="message"
-      v-clipboard:success="onCopy"
-      v-clipboard:error="onError">Copy!</button>
-  </div>
+    
   </div>
 </template>
 
@@ -108,6 +101,8 @@
     data: function () {
       return {
         expand: false,
+        inputText: "クリップボードコピーテスト(input)",
+   textareaText: "クリップボードコピーテスト(textarea)",
         headers: [
           {
             text: 'Dessert (100g serving)',
@@ -171,14 +166,22 @@
     },
     methods: {
       copy(item) {
+        //this.$refs.copiar = item
         this.item = item
         var copyTextarea = this.$refs.copiar
-        var copyTextarea = item
-        console.log(copyTextarea);
+        //var copyTextarea = item
+        console.log(this.$refs.copiar);
+        //copyTextarea.setAttribute('type', 'text')    // 不是 hidden 才能複製
+        //item.select()
+        this.copyTextarea.select()
+      },
+      copyII(item) {
+        var copyTextarea = this.$refs.copiar
+        console.log(this.$refs.copiar);
         //copyTextarea.setAttribute('type', 'text')    // 不是 hidden 才能複製
         //item.select()
         copyTextarea.select()
-        //copyTextarea.select();
+        
 
         try {
           var successful = document.execCommand('copy');
@@ -218,6 +221,7 @@
     }
     }
   })
+
 </script>
 
 
