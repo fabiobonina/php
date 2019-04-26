@@ -17,7 +17,7 @@ $exploded2 = multiexplode(array(",","<html><body>","</body></html>","!#!"),$anal
 //var_dump ($exploded2);
 ?>
 
-        <div class="col s12 m2">
+        <div class="col s12 m3">
         <ul class="collection">
         <?php
         foreach ($exploded as $key => $value) {
@@ -33,7 +33,21 @@ $exploded2 = multiexplode(array(",","<html><body>","</body></html>","!#!"),$anal
                 <?php if($value == '1'){?>
                     <img src="img/ligado.png" alt="" class="circle">
                 <?php }?>
-                <span class="title">Rele <?php echo $key; ?></span>
+                <span class="title">
+                <?php 
+                    if($key == '1' ){
+                        echo $name = 'Enchimento';
+                    }elseif( $key == '2' ){
+                        echo $name = 'Deg. Proc.';
+                    }elseif( $key == '3' ){
+                        echo $name = 'Deg. Final';
+                    }else{
+                        echo $name = 'Reseva '.$key; 
+                    }
+                
+                
+                
+                ?></span>
                 <form method="post" action="" class="secondary-content">
                     <input type="hidden" name="id" value="<?php echo $key; ?>">
                     <input type="hidden" name="status" value="<?php echo $value; ?>">

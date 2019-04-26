@@ -13,6 +13,7 @@
     
     <?php require_once 'src/components/includes/config.php';?>
     <?php require_once 'src/components/includes/loader.php';?>
+    <?php require_once 'src/components/includes/_copia.php';?>
     <?php require_once 'src/pages/home.php';?>
     <?php require_once 'src/pages/oss.php';?>
     <?php require_once 'src/pages/os.php';?>

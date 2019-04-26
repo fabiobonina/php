@@ -15,25 +15,15 @@
       <v-card>
         <v-toolbar color="teal" dark>
           <v-toolbar-side-icon></v-toolbar-side-icon>
-
           <v-toolbar-title>Topics</v-toolbar-title>
-
           <v-spacer></v-spacer>
-
           <v-btn icon>
             <v-icon>more_vert</v-icon>
           </v-btn>
-
         </v-toolbar>
 
         <v-list>
-          <v-list-group
-            v-for="item in data"
-            :key="item.id"
-            v-model="item.active"
-            :prepend-icon="item.action"
-            no-action
-          >
+          <v-list-group v-for="item in data" :key="item.id" v-model="item.active" :prepend-icon="item.action" no-action>
             <template v-slot:activator>
               <v-list-tile>
                 <v-list-tile-content>
@@ -42,42 +32,106 @@
               </v-list-tile>
             </template>
 
-            <v-list-tile
-              v-for="subItem in item.items"
-              :key="subItem.id"
-              @click=""
-            >
+            <v-list-tile v-for="subItem in item.items" :key="subItem.id" @click="">
               <v-list-tile-content>
                 <v-list-tile-title>{{ subItem.cilindro.numero }} - {{ subItem.cilindro.fabricante }}</v-list-tile-title>
               </v-list-tile-content>
 
               <v-list-tile-action>
-              {{ subItem.cilindro.cod_barras }}
-                <v-icon @click="item = subItem.cilindro.cod_barras; copy(subItem.cilindro.cod_barras)">mdi-content-copy</v-icon>
+                <div>
+                  {{ subItem.cilindro.cod_barras }}
+                  <copia :data="subItem.cilindro.cod_barras"></copia>
+                </div>
               </v-list-tile-action>
             </v-list-tile>
+            <table style="width:100%" BORDER RULES=rows>
+                <tr>
+                  <th>Firstname</th>
+                  <th>Lastname</th> 
+                  <th>Age</th>
+                </tr>
+                <template v-for="subItem in item.items">
+                  <tr @click="item.active = !item.active">
+                    <td>{{ item.cil_tipo.name }}</td>
+                    <td class="text-xs-right">{{ subItem.cilindro.numero }}</td>
+                    <td>{{ subItem.cilindro.fabricante }}</td>
+                    <td>{{ subItem.cilindro.cod_barras }}</td>
+                    <td class="text-xs-right">
+                      <copia :data="subItem.cilindro.cod_barras"></copia>
+                    </td>
+                    
+                  </tr>
+                  <hr style="width:100%">
+                  <v-divider style="width:100%"></v-divider>
+                </template>
+                <v-divider></v-divider>
+              </table>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th v-for="key in columns"
+                      @click="sortBy(key)"
+                      :class="{ active: sortKey == key }">
+                      {{ key | capitalize }}
+                      <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+                      </span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="entry in filteredHeroes">
+                    <td v-for="key in columns">
+                      {{entry[key]}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            <template v-for="subItem in item.items">
+              <tr @click="item.active = !item.active">
+                <td>{{ item.cil_tipo.name }}</td>
+                <td class="text-xs-right">{{ subItem.cilindro.numero }}</td>
+                <td>{{ subItem.cilindro.fabricante }}</td>
+                <td>{{ subItem.cilindro.cod_barras }}</td>
+                <td class="text-xs-right">
+                  <!--v-btn small color="blue darken-2" dark fab v-clipboard="subItem.cilindro.cod_barras" @success="handleSuccess">
+                    <v-icon>mdi-content-copy</v-icon>
+                  </v-btn-->
+                  <copia :data="subItem.cilindro.cod_barras"></copia>
+                </td>
+                
+              </tr>
+            </template>
           </v-list-group>
         </v-list>
       </v-card>
     </v-flex>
   </v-layout>
 </template>
-
     <v-data-table
       :headers="headers"
-      :items="desserts"
+      :items="data"
       :expand="expand"
       item-key="name"
     >
       <template v-slot:items="props">
+        
+      <template v-for="subItem in props.item.items">
         <tr @click="props.expanded = !props.expanded">
-          <td>{{ props.item.name }}</td>
-          <td class="text-xs-right">{{ props.item.calories }}</td>
-          <td class="text-xs-right">{{ props.item.fat }}</td>
-          <td class="text-xs-right">{{ props.item.carbs }}</td>
-          <td class="text-xs-right">{{ props.item.protein }}</td>
-          <td class="text-xs-right">{{ props.item.iron }}</td>
+          <td>{{ props.item.cil_tipo.name }}</td>
+          <td class="text-xs-right">{{ subItem.cilindro.numero }}</td>
+          <td>{{ subItem.cilindro.fabricante }}</td>
+          <td>{{ subItem.cilindro.cod_barras }}</td>
+          <td class="text-xs-right">
+            <!--v-btn small color="blue darken-2" dark fab v-clipboard="subItem.cilindro.cod_barras" @success="handleSuccess">
+              <v-icon>mdi-content-copy</v-icon>
+            </v-btn-->
+            <copia :data="subItem.cilindro.cod_barras"></copia>
+          </td>
+          
         </tr>
+        </template>
       </template>
       <template v-slot:expand="props">
         <v-card flat>
@@ -85,139 +139,77 @@
         </v-card>
       </template>
     </v-data-table>
-    <textarea class="textarea" ref="copiar">{{ item }}</textarea>
     
   </div>
 </template>
 
 <?php require_once 'src/components/controle_cilindros/programacao/demanda/_amararCilindro.php';?>
 <script>
+  var VueClipboards = window['vue-clipboards'].default;
+
+  Vue.use(VueClipboards);
+
   Vue.component('demanda-list', {
     template: '#demanda-list',
     name: 'demanda-list',
     props: {
       data: {},
+        heroes: Array,
+    columns: Array,
+    filterKey: String
     },
     data: function () {
       return {
         expand: false,
-        inputText: "クリップボードコピーテスト(input)",
-   textareaText: "クリップボードコピーテスト(textarea)",
         headers: [
           {
-            text: 'Dessert (100g serving)',
+            text: 'Tipo',
             align: 'left',
             sortable: false,
             value: 'name'
           },
-          { text: 'Calories', value: 'calories' },
-          { text: 'Fat (g)', value: 'fat' },
-          { text: 'Carbs (g)', value: 'carbs' },
-          { text: 'Protein (g)', value: 'protein' },
-          { text: 'Iron (%)', value: 'iron' }
+          { text: 'N.Serie', value: 'numero' },
+          { text: 'Fabricante', value: 'fabricante' },
+          { text: 'Cod_Barras', value: 'cod_barras' },
+          { text: 'Info', value: 'info' },
         ],
-        desserts: [
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%'
-          },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3,
-            iron: '1%'
-          },
-        ],
-        itemsI: [
-          {
-            action: 'local_activity',
-            title: 'Attractions',
-            items: [
-              { title: 'List Item' }
-            ]
-          },
-          {
-            action: 'restaurant',
-            title: 'Dining',
-            active: true,
-            items: [
-              { title: 'Breakfast & brunch' },
-              { title: 'New American' },
-              { title: 'Sushi' }
-            ]
-          },
-        ],
-        item: '',
-        testingCode: 'ssas',
-        message: 'Copy These Text',
       }
     },
     computed: {
-      
+      filteredHeroes: function () {
+      var sortKey = this.sortKey
+      var filterKey = this.filterKey && this.filterKey.toLowerCase()
+      var order = this.sortOrders[sortKey] || 1
+      var heroes = this.heroes
+      if (filterKey) {
+        heroes = heroes.filter(function (row) {
+          return Object.keys(row).some(function (key) {
+            return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+          })
+        })
+      }
+      if (sortKey) {
+        heroes = heroes.slice().sort(function (a, b) {
+          a = a[sortKey]
+          b = b[sortKey]
+          return (a === b ? 0 : a > b ? 1 : -1) * order
+        })
+      }
+      return heroes
+    },
     },
     filters: {
-      
-    },
+    capitalize: function (str) {
+      return str.charAt(0).toUpperCase() + str.slice(1)
+    }
+  },
     methods: {
-      copy(item) {
-        //this.$refs.copiar = item
-        this.item = item
-        var copyTextarea = this.$refs.copiar
-        //var copyTextarea = item
-        console.log(this.$refs.copiar);
-        //copyTextarea.setAttribute('type', 'text')    // 不是 hidden 才能複製
-        //item.select()
-        this.copyTextarea.select()
+      handleSuccess(e) {
+        console.log('success!', e.text);
       },
-      copyII(item) {
-        var copyTextarea = this.$refs.copiar
-        console.log(this.$refs.copiar);
-        //copyTextarea.setAttribute('type', 'text')    // 不是 hidden 才能複製
-        //item.select()
-        copyTextarea.select()
-        
-
-        try {
-          var successful = document.execCommand('copy');
-          var msg = successful ? 'sim!' : 'não!';
-          alert('Texto copiado? ' + msg);
-        } catch (err) {
-          alert('Opa, Não conseguimos copiar o texto, é possivel que o seu navegador não tenha suporte, tente usar Crtl+C.');
-        }
-        this.item = '';
-      },
-      copyTestingCode () {
-          //this.testingCode = item
-          
-          let testingCodeToCopy = document.querySelector('#testing-code')
-          
-          console.log(testingCodeToCopy);
-          testingCodeToCopy.setAttribute('type', 'text')    // 不是 hidden 才能複製
-          testingCodeToCopy.select()
-
-          try {
-            var successful = document.execCommand('copy');
-            var msg = successful ? 'successful' : 'unsuccessful';
-            alert('Testing code was copied ' + msg);
-          } catch (err) {
-            alert('Oops, unable to copy');
-          }
-
-          /* unselect the range */
-          testingCodeToCopy.setAttribute('type', 'hidden')
-          window.getSelection().removeAllRanges()
-        },
-        onCopy: function (e) {
-      alert('You just copied: ' + e.text)
-    },
-    onError: function (e) {
-      alert('Failed to copy texts')
+      sortBy: function (key) {
+      this.sortKey = key
+      this.sortOrders[key] = this.sortOrders[key] * -1
     }
     }
   })

@@ -66,27 +66,16 @@
         errorMessage: '',
         successMessage: '',
         painel: [
-            { title: 'Programação',
+            
+            { title: 'Reçepcão',
                 subtitle: 'outra coisa',
-                router: '/controle-cilindros/programacao',
-                icon: 'mdi-home',
-                iconClass: 'primary white--text'
-            },
-            { title: 'Cilindros',
-                subtitle: 'outra coisa',
-                router: '/controle-cilindros/cilindros',
+                router: '/controle-cilindros/recepicao',
                 icon: 'mdi-buffer',
                 iconClass: 'grey lighten-1 white--text',
             },
-            { title: 'Cilindros',
+            { title: 'Enchimento',
                 subtitle: 'outra coisa',
-                router: '/controle-cilindros/cilindros',
-                icon: 'mdi-buffer',
-                iconClass: 'grey lighten-1 white--text',
-            },
-            { title: 'Programação',
-                subtitle: 'outra coisa',
-                router: '/controle-cilindros/programacao',
+                router: '/controle-cilindros/enchimento',
                 icon: 'mdi-home',
                 iconClass: 'primary white--text'
             },
@@ -101,7 +90,7 @@
                 router: '/controle-cilindros/cilindros',
                 icon: 'mdi-buffer',
                 iconClass: 'grey lighten-1 white--text',
-            }
+            },
         ],
       };
     },

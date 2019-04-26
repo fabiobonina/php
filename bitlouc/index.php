@@ -48,7 +48,7 @@
     <script src="https://unpkg.com/chart.js@2.7.2/dist/Chart.bundle.js"></script>
     <script src="https://unpkg.com/vue-chartkick@0.5.0"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.6.0/clipboard.min.js"></script>
+    <script src="//unpkg.com/vue-clipboards@1.0.5/dist/vue-clipboards.js"></script>
       
   </head>
     <body>

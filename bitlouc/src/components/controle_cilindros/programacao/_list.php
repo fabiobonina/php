@@ -34,8 +34,9 @@
               <v-list-tile-title> {{ props.item.local_tipo }} - {{ props.item.local_name }} </v-list-tile-title>
               <v-list-tile-sub-title> {{ props.item.local_municipio }} /{{ props.item.local_uf }} </v-list-tile-sub-title>
             </v-list-tile-content>
-          </v-list-tile></td>
-        <td>
+          </v-list-tile>
+          </td>
+          <td>
           <v-chip v-for="categoria in props.item.demandas" :key="categoria.id" small  color="green" text-color="white">
             {{ categoria.cil_tipo.name }}: {{ categoria.qtd }}
           </v-chip>
