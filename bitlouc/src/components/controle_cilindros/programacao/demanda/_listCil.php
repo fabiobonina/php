@@ -5,35 +5,61 @@
       <loader :dialog="isLoading"></loader>
     
       <small>Demanda</small>
-      <v-layout wrap>
-        
+      <v-layout wrap>  
       </v-layout>
-      <template>
-        <v-list>
+            <template>
+              <table style="width:100%" RULES=rows>
+                <tr>
+                  <th>Status</th>
+                  <th>Numerero</th> 
+                  <th>Fabricante</th>
+                  <th>Cod.Barras</th>
+                  <th></th>
+                </tr>
+                <template v-for="subItem in data">
+                  <v-flex v-if="subItem.edit">
+                    <select-cilindro :item="subItem"></select-cilindro>
+                  </v-flex>
+                  <tr v-else class="blue">
+                    <td class="text-xs-center">{{ item.cil_tipo.name }}</td>
+                    <td class="text-xs-center">{{ subItem.cilindro.numero }}</td>
+                    <td class="text-xs-center">{{ subItem.cilindro.fabricante }}</td>
+                    <td class="text-xs-center">{{ subItem.cilindro.cod_barras }}</td>
+                    <td class="text-xs-right">
+                      <!--item-crud :data="subItem" v-on:atualizar="onAtualizar()"></item-crud-->
+                      <v-btn @click="removeDemanda(index)" color="red" fab small dark>
+                        <v-icon>&#10006;</v-icon>
+                      </v-btn>
+                      <v-btn @click="subItem.edit = !subItem.edit" color="blue" fab small dark>
+                        <v-icon>&#9998;</v-icon>
+                      </v-btn>
+                    </td>
+                  </tr>
+                  <v-divider></v-divider>
+                </template>
+              </table>
+
+        <!--v-list>
           <v-list-tile  v-for="(todo, index) in data" :key="item.index" @click="">
             <template>
               <v-flex v-if="todo.edit">
                 <select-cilindro :item="todo"></select-cilindro>
               </v-flex>
-              <v-list-tile-content v-else>
+              <v-list-tile-content >
                 <v-list-tile-title>{{ todo.numero }} - {{ todo.fabricante }}</v-list-tile-title>
               </v-list-tile-content>
 
 
               <v-list-tile-action>
-                <v-btn @click="removeDemanda(index)" color="red" fab small dark>
-                  <v-icon>&#10006;</v-icon>
-                </v-btn>
+                
               </v-list-tile-action>
               <v-list-tile-action>
-                <v-btn @click="todo.edit = !todo.edit" color="blue" fab small dark>
-                  <v-icon>&#9998;</v-icon>
-                </v-btn>
+                
               </v-list-tile-action>
               
             </template>
           </v-list-tile>
-        </v-list>
+        </v-list-->
       </template>
       <!--template>
         <v-list>

@@ -26,10 +26,10 @@ const EQUIPAMENTOSLIST   ='./config/api/apiEquipamento.php?action=read';
 const EQUIPAMENTOSLOJA   ='./config/api/apiEquipamento.php?action=loja';
 const EQUIPAMENTOSLOCAL  ='./config/api/apiEquipamento.php?action=local';
 
-const CILINDROLIST        ='./config/api/apiCilindros.php?action=read';
-const CILPROGRAMACAOLIST  ='./config/api/api.cilindroProg.php?action=read';
-const CILPROGRAMACAOSHOW  ='./config/api/api.cilindroProg.php?action=show';
-const CILPROGRAMACAOITEM  ='./config/api/api.cilindroProg.php?action=item';
+const CILINDROLIST        ='./config/api/controleCilindro/cilindro.api.php?action=read';
+const CILPROGRAMACAOLIST  ='./config/api/controleCilindro/programacao.api.php?action=read';
+const CILPROGRAMACAOSHOW  ='./config/api/controleCilindro/programacao.api.php?action=show';
+const CILPROGRAMACAOITEM  ='./config/api/controleCilindro/programacao.api.php?action=item';
 
 
 

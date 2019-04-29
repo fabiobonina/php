@@ -4,7 +4,7 @@
     session_start();
     //require_once '../model/Usuarios.php';
 
-    require_once '../control/userControl.php';
+    require_once '../../control/geral/userControl.php';
     
     //$usuarios       = new Usuarios();
     $userControl    = new UserControl();
@@ -39,8 +39,5 @@
     }else{
         //header("Location: ../../login.php");exit;
     }
-
-    
-
 
 ?>

@@ -1,5 +1,5 @@
 <?php
-	require_once '_global.php';
+	require_once '../_global.php';
 	require_once '../emailPHP.php';
 
 	class CilindroItemControl extends GlobalControl {
@@ -8,7 +8,7 @@
 			$cilindros	= new Cilindro();
 			
 			$item->cilindro	= $cilindros->find( $item->cilindro_id );
-
+			$item->edit 	= false;
 			return $item;
 
 		}

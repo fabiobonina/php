@@ -29,8 +29,7 @@
                     <v-flex>
                     <!--demanda-cil :data="demanda" v-on:close="close()"></demanda-cil-->
                     <list-cilindro :data="cilindro"></list-cilindro>
-                    </v-flex>           
-                    
+                    </v-flex>
                   </v-layout>
                 </v-container>
           </v-card-text>
@@ -104,7 +103,7 @@ Vue.component('amarar-cilindro', {
             id: ''
           };
           console.log(postData);
-          this.$http.post('./config/api/api.cilindroProg.php?action=publish', postData).then(function(response) {
+          this.$http.post('./config/api/cotroleCilindro/programacao.api.php?action=publish', postData).then(function(response) {
             //console.log(response);
             if(!response.data.error){
                 this.successMessage.push(response.data.message);

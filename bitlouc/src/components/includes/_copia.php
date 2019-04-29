@@ -1,7 +1,8 @@
 <template id="copia">
-    <v-btn small color="blue darken-2" dark fab v-clipboard="data" @success="handleSuccess">
-      <v-icon>mdi-content-copy</v-icon>
-    </v-btn>
+  <v-btn v-clipboard="data" @success="handleSuccess" fab icon dark small color="blue darken-2">
+    <v-icon>mdi-content-copy</v-icon>
+  </v-btn>
+    
 </template>
 
 

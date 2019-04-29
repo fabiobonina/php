@@ -2,9 +2,10 @@
 header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
-include("_chave.php");
-require_once '../control/cilProgDemanda.control.php';
-require_once '../control/cilProg.control.php';
+include("../_chave.php");
+require_once '../../control/controleCilindro/demanda.control.php';
+require_once '../../control/controleCilindro/programacao.control.php';
+require_once '../../control/controleCilindro/item.control.php';
 
 $cilindroProgControl    = new CilindroProgControl();
 $cilindroDemandaControl = new CilindroDemandaControl();

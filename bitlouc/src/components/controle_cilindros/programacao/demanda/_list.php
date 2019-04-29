@@ -3,9 +3,6 @@
     <v-toolbar flat color="white">
       <v-toolbar-title>Expandable Table</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn color="primary" dark @click="expand = !expand">
-        {{ expand ? 'Close' : 'Keep' }} other rows
-      </v-btn>
       <!--amarar-cilindro :dialog-add="expand" v-on:close="close()"></amarar-cilindro-->
     </v-toolbar>
 
@@ -13,14 +10,14 @@
   <v-layout row>
     <v-flex>
       <v-card>
-        <v-toolbar color="teal" dark>
+        <!--v-toolbar color="teal" dark>
           <v-toolbar-side-icon></v-toolbar-side-icon>
           <v-toolbar-title>Topics</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn icon>
             <v-icon>more_vert</v-icon>
           </v-btn>
-        </v-toolbar>
+        </v-toolbar-->
 
         <v-list>
           <v-list-group v-for="item in data" :key="item.id" v-model="item.active" :prepend-icon="item.action" no-action>
@@ -31,85 +28,14 @@
                 </v-list-tile-content>
               </v-list-tile>
             </template>
-
-            <v-list-tile v-for="subItem in item.items" :key="subItem.id" @click="">
-              <v-list-tile-content>
-                <v-list-tile-title>{{ subItem.cilindro.numero }} - {{ subItem.cilindro.fabricante }}</v-list-tile-title>
-              </v-list-tile-content>
-
-              <v-list-tile-action>
-                <div>
-                  {{ subItem.cilindro.cod_barras }}
-                  <copia :data="subItem.cilindro.cod_barras"></copia>
-                </div>
-              </v-list-tile-action>
-            </v-list-tile>
-            <table style="width:100%" BORDER RULES=rows>
-                <tr>
-                  <th>Firstname</th>
-                  <th>Lastname</th> 
-                  <th>Age</th>
-                </tr>
-                <template v-for="subItem in item.items">
-                  <tr @click="item.active = !item.active">
-                    <td>{{ item.cil_tipo.name }}</td>
-                    <td class="text-xs-right">{{ subItem.cilindro.numero }}</td>
-                    <td>{{ subItem.cilindro.fabricante }}</td>
-                    <td>{{ subItem.cilindro.cod_barras }}</td>
-                    <td class="text-xs-right">
-                      <copia :data="subItem.cilindro.cod_barras"></copia>
-                    </td>
-                    
-                  </tr>
-                  <hr style="width:100%">
-                  <v-divider style="width:100%"></v-divider>
-                </template>
-                <v-divider></v-divider>
-              </table>
-
-              <table>
-                <thead>
-                  <tr>
-                    <th v-for="key in columns"
-                      @click="sortBy(key)"
-                      :class="{ active: sortKey == key }">
-                      {{ key | capitalize }}
-                      <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
-                      </span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="entry in filteredHeroes">
-                    <td v-for="key in columns">
-                      {{entry[key]}}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
-            <template v-for="subItem in item.items">
-              <tr @click="item.active = !item.active">
-                <td>{{ item.cil_tipo.name }}</td>
-                <td class="text-xs-right">{{ subItem.cilindro.numero }}</td>
-                <td>{{ subItem.cilindro.fabricante }}</td>
-                <td>{{ subItem.cilindro.cod_barras }}</td>
-                <td class="text-xs-right">
-                  <!--v-btn small color="blue darken-2" dark fab v-clipboard="subItem.cilindro.cod_barras" @success="handleSuccess">
-                    <v-icon>mdi-content-copy</v-icon>
-                  </v-btn-->
-                  <copia :data="subItem.cilindro.cod_barras"></copia>
-                </td>
-                
-              </tr>
-            </template>
+            <list-cilindro :data="item.items" :item="item"></list-cilindro>
           </v-list-group>
         </v-list>
       </v-card>
     </v-flex>
   </v-layout>
 </template>
-    <v-data-table
+    <!--v-data-table
       :headers="headers"
       :items="data"
       :expand="expand"
@@ -124,9 +50,6 @@
           <td>{{ subItem.cilindro.fabricante }}</td>
           <td>{{ subItem.cilindro.cod_barras }}</td>
           <td class="text-xs-right">
-            <!--v-btn small color="blue darken-2" dark fab v-clipboard="subItem.cilindro.cod_barras" @success="handleSuccess">
-              <v-icon>mdi-content-copy</v-icon>
-            </v-btn-->
             <copia :data="subItem.cilindro.cod_barras"></copia>
           </td>
           
@@ -138,12 +61,13 @@
           <v-card-text>Peek-a-boo!</v-card-text>
         </v-card>
       </template>
-    </v-data-table>
+    </v-data-table-->
     
   </div>
 </template>
 
 <?php require_once 'src/components/controle_cilindros/programacao/demanda/_amararCilindro.php';?>
+<?php require_once 'src/components/controle_cilindros/programacao/demanda/_crud.php';?>
 <script>
   var VueClipboards = window['vue-clipboards'].default;
 
@@ -154,9 +78,6 @@
     name: 'demanda-list',
     props: {
       data: {},
-        heroes: Array,
-    columns: Array,
-    filterKey: String
     },
     data: function () {
       return {
@@ -177,41 +98,41 @@
     },
     computed: {
       filteredHeroes: function () {
-      var sortKey = this.sortKey
-      var filterKey = this.filterKey && this.filterKey.toLowerCase()
-      var order = this.sortOrders[sortKey] || 1
-      var heroes = this.heroes
-      if (filterKey) {
-        heroes = heroes.filter(function (row) {
-          return Object.keys(row).some(function (key) {
-            return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+        var sortKey = this.sortKey
+        var filterKey = this.filterKey && this.filterKey.toLowerCase()
+        var order = this.sortOrders[sortKey] || 1
+        var heroes = this.heroes
+        if (filterKey) {
+          heroes = heroes.filter(function (row) {
+            return Object.keys(row).some(function (key) {
+              return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+            })
           })
-        })
-      }
-      if (sortKey) {
-        heroes = heroes.slice().sort(function (a, b) {
-          a = a[sortKey]
-          b = b[sortKey]
-          return (a === b ? 0 : a > b ? 1 : -1) * order
-        })
-      }
-      return heroes
-    },
+        }
+        if (sortKey) {
+          heroes = heroes.slice().sort(function (a, b) {
+            a = a[sortKey]
+            b = b[sortKey]
+            return (a === b ? 0 : a > b ? 1 : -1) * order
+          })
+        }
+        return heroes
+      },
     },
     filters: {
-    capitalize: function (str) {
-      return str.charAt(0).toUpperCase() + str.slice(1)
-    }
-  },
+      capitalize: function (str) {
+        return str.charAt(0).toUpperCase() + str.slice(1)
+      },
+    },
     methods: {
       handleSuccess(e) {
         console.log('success!', e.text);
       },
       sortBy: function (key) {
-      this.sortKey = key
-      this.sortOrders[key] = this.sortOrders[key] * -1
-    }
-    }
+        this.sortKey = key
+        this.sortOrders[key] = this.sortOrders[key] * -1
+      },
+    },
   })
 
 </script>

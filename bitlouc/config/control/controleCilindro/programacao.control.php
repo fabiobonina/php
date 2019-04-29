@@ -1,5 +1,5 @@
 <?php
-	require_once 'cilProgDemanda.control.php';
+	require_once 'demanda.control.php';
 	require_once '../emailPHP.php';
 
 	class CilindroProgControl extends CilindroDemandaControl {
