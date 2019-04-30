@@ -1,6 +1,5 @@
 <?php
-	require_once '../_global.php';
-	require_once '../emailPHP.php';
+	include('../geral/_global.php');
 
 	class CilindroItemControl extends GlobalControl {
 

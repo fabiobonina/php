@@ -4,7 +4,7 @@
     session_start();
     //require_once '../model/Usuarios.php';
 
-    require_once '../../control/geral/userControl.php';
+    require_once '../../control/geral/user.control.php';
     
     //$usuarios       = new Usuarios();
     $userControl    = new UserControl();

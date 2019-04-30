@@ -1,7 +1,6 @@
 <?php
 	require_once '_global.php';
 
-
 	class UserControl extends GlobalControl {
 
 		public function session( $item ){

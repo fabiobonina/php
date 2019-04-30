@@ -1,5 +1,5 @@
 <?php
-	require_once '_global.php';
+	include('../geral/_global.php');
 
 
 	class LojaControl extends GlobalControl {
