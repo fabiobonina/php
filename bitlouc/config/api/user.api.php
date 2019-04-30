@@ -7,7 +7,7 @@ header('Content-Type: text/html; charset=utf-8');
 
 //include("_chave.php");
 
-require_once '../control/userControl.php';
+require_once '../control/user.control.php';
 
 //function __autoload($class_name){
 //  require_once '../model/' . $class_name . '.php';

@@ -1,5 +1,5 @@
 <?php
-	include('../geral/_global.php');
+	include('_global.php');
 	require_once 'loja.control.php';
 
 	class ProprietarioControl extends GlobalControl {

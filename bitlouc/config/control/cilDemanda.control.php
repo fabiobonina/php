@@ -1,6 +1,5 @@
 <?php
 	require_once 'item.control.php';
-	require_once '../emailPHP.php';
 
 	class CilindroDemandaControl extends CilindroItemControl {
 

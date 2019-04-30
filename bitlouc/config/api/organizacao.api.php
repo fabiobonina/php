@@ -2,11 +2,11 @@
 header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
-require_once '../geral/_chave.php';
-require_once '../../control/proprietario/proprietario.control.php';
-require_once '../../control/proprietario/loja.control.php';
-require_once '../../control/atendimento/os.control.php';
-require_once '../../control/atendimento/uf.control.php';
+require_once '_chave.php';
+require_once '../control/organizacao.control.php';
+require_once '../control/loja.control.php';
+require_once '../control/os.control.php';
+require_once '../control/uf.control.php';
 
 $proprietarioControl  = new ProprietarioControl();
 $lojaControl          = new LojaControl();

@@ -5,22 +5,22 @@
 //Todos os postdados são enviados como json
 //True para enviar como dados do formulário
 Vue.http.options.emulateJSON = true;
-const USERLOGOUT     ='./config/api/apiUser.php?action=logout';
-const INDEXLIST     ='./config/api/apiProprietario.php?action=read';
-const CONFIG        ='./config/api/apiConfig.php?action=config';
-const CONFIGPROD    ='./config/api/apiConfig.php?action=prod';
-const CONFIGCILIND  ='./config/api/apiConfig.php?action=cilindro';
+const USERLOGOUT     ='./config/api/geral/user.api.php?action=logout';
+const INDEXLIST     ='./config/api/organizacao/organizacao.api.php?action=read';
+const CONFIG        ='./config/api/geral/config.api.php?action=config';
+const CONFIGPROD    ='./config/api/geral/config.api.php?action=prod';
+const CONFIGCILIND  ='./config/api/geral/config.api.php?action=cilindro';
 
-const BENSLIST      ='./config/api/apiLocal.php?action=read';
-const OSLIST        ='./config/api/apiOs.php?action=read';
-const OSFIND        ='./config/api/apiOs.php?action=os';
-const OSSTATUSFIND  ='./config/api/apiOs.php?action=status';
-const OSAMARARFIND  ='./config/api/apiOs.php?action=semAmaracao';
+const BENSLIST      ='./config/api/organizacao/local.api.php?action=read';
+const OSLIST        ='./config/api/atendimento/os.api.php?action=read';
+const OSFIND        ='./config/api/atendimento/os.api.php?action=os';
+const OSSTATUSFIND  ='./config/api/atendimento/os.api.php?action=status';
+const OSAMARARFIND  ='./config/api/atendimento/os.api.php?action=semAmaracao';
 
-const LOCAISLIST          ='./config/api/apiLocal.php?action=read';
-const LOCAISPROPRIETARIO  ='./config/api/apiLocal.php?action=proprietario';
-const LOCAISLOJA          ='./config/api/apiLocal.php?action=loja';
-const LOCALFIND           ='./config/api/apiLocal.php?action=local';
+const LOCAISLIST          ='./config/api/organizacao/local.api.php?action=read';
+const LOCAISPROPRIETARIO  ='./config/api/organizacao/local.api.php?action=proprietario';
+const LOCAISLOJA          ='./config/api/organizacao/local.api.php?action=loja';
+const LOCALFIND           ='./config/api/organizacao/local.api.php?action=local';
 
 const EQUIPAMENTOSLIST   ='./config/api/apiEquipamento.php?action=read';
 const EQUIPAMENTOSLOJA   ='./config/api/apiEquipamento.php?action=loja';
