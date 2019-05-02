@@ -1,5 +1,5 @@
 <?php
-	include('../geral/_global.php');
+	require_once '_global.php';
 
 	class LocalControl extends GlobalControl {
 

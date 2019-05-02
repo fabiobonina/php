@@ -5,7 +5,7 @@ header('Content-Type: text/html; charset=utf-8');
 require_once '_chave.php';
 require_once '../control/organizacao.control.php';
 require_once '../control/loja.control.php';
-require_once '../control/os.control.php';
+require_once '../control/atOs.control.php';
 require_once '../control/uf.control.php';
 
 $proprietarioControl  = new ProprietarioControl();

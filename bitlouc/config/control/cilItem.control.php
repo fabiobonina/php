@@ -1,10 +1,8 @@
 <?php
-	//include('../geral/_global.php');
 		
-	require_once '../../model/CilindroItem.php';
-	require_once '../geral/global.php';
+	require_once '_global.php';
 
-	class CilindroItemControl {
+	class CilindroItemControl extends GlobalControl{
 
 		public function matrixItem( $item ){
 			$cilindros	= new Cilindro();

@@ -1,12 +1,5 @@
 <?php
-
-require_once '_global.php';
-	//include('../model/Os.php');
-	//include('../model/OsTecnicos.php');
-	//include('../model/Mod.php');
-	//include('../model/Nota.php');
-	//include('../model/DeslocStatus.php');
-
+	require_once '_global.php';
 
 	class OsTecControl extends GlobalControl {
 

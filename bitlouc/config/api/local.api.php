@@ -3,7 +3,7 @@ header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
 require_once '_chave.php';
-require_once '../control/localControl.php';
+require_once '../control/local.control.php';
 
 $localControl     = new LocalControl();
 

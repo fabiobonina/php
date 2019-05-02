@@ -3,9 +3,9 @@ header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
 require_once '_chave.php';
-require_once '../control/proprietarioControl.php';
-require_once '../control/lojaControl.php';
-require_once '../control/osControl.php';
+require_once '../control/organizacao.control.php';
+require_once '../control/loja.control.php';
+require_once '../control/atOs.control.php';
 
 $proprietarioControl  = new ProprietarioControl();
 $lojaControl          = new LojaControl();

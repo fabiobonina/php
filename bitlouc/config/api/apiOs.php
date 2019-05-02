@@ -3,8 +3,8 @@ header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
 require_once '_chave.php';
-require_once '../control/osControl.php';
-require_once '../control/notaControl.php';
+require_once '../control/atOs.control.php';
+require_once '../control/atNota.control.php';
 
 $osControl    = new OsControl();
 $notaControl  = new NotaControl();

@@ -17,9 +17,22 @@
                   <th></th>
                 </tr>
                 <template v-for="subItem in data">
-                  <v-flex v-if="subItem.edit">
-                    <select-cilindro :item="subItem"></select-cilindro>
-                  </v-flex>
+                  <tr v-if="subItem.edit" >
+                    <td v-if="subItem.edit" colspan="4">
+                      <v-flex >
+                        <select-cilindro :data="subItem" :cilindro="subItem.cilindro"></select-cilindro>
+                      </v-flex>
+                    </td>
+                    <td class="text-xs-right">
+                      <!--item-crud :data="subItem" v-on:atualizar="onAtualizar()"></item-crud-->
+                      <v-btn @click="removeDemanda(index)" color="red" fab small dark>
+                        <v-icon>&#10006;</v-icon>
+                      </v-btn>
+                      <v-btn @click="subItem.edit = !subItem.edit" color="blue" fab small dark>
+                        <v-icon>&#9998;</v-icon>
+                      </v-btn>
+                    </td>
+                  </tr>
                   <tr v-else class="blue">
                     <td class="text-xs-center">{{ item.cil_tipo.name }}</td>
                     <td class="text-xs-center">{{ subItem.cilindro.numero }}</td>

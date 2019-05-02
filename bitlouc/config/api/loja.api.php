@@ -4,7 +4,7 @@ header('Content-Type: text/html; charset=utf-8');
 
   require_once '_chave.php';
 
-  require_once '../control/lojaControl.php';
+  require_once '../control/loja.control.php';
 
   $lojaControl  = new LojaControl();
 

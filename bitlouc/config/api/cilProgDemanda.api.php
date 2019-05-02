@@ -2,10 +2,10 @@
 header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
-include("../geral/_chave.php");
-require_once '../../control/controleCilindro/demanda.control.php';
-require_once '../../control/controleCilindro/programacao.control.php';
-require_once '../../control/controleCilindro/item.control.php';
+include("./_chave.php");
+require_once '../control/cilDemanda.control.php';
+require_once '../control/cilProgramacao.control.php';
+require_once '../control/cilItem.control.php';
 
 $cilindroProgControl    = new CilindroProgControl();
 $cilindroDemandaControl = new CilindroDemandaControl();
@@ -26,6 +26,8 @@ if($action == 'read'):
 
 endif;
 
+
+
 if($action == 'show'):
 
   //$programacao_id = $_POST['programacao_id'];
@@ -33,6 +35,15 @@ if($action == 'show'):
   $item = $cilindroProgControl->show( $programacao_id );
   $res= $item;
   //$res['error'] = false;
+
+endif;
+
+if($action == 'itensdemanda'):
+
+  $demanda_id = $_POST['demanda_id'];
+  $item = $cilindroItemControl->listDemanda( $demanda_id );
+  $res['items'] = $item;
+  $res['error'] = false;
 
 endif;
 

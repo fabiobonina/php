@@ -5,31 +5,31 @@
 //Todos os postdados são enviados como json
 //True para enviar como dados do formulário
 Vue.http.options.emulateJSON = true;
-const USERLOGOUT     ='./config/api/geral/user.api.php?action=logout';
-const INDEXLIST     ='./config/api/organizacao/organizacao.api.php?action=read';
-const CONFIG        ='./config/api/geral/config.api.php?action=config';
-const CONFIGPROD    ='./config/api/geral/config.api.php?action=prod';
-const CONFIGCILIND  ='./config/api/geral/config.api.php?action=cilindro';
+const USERLOGOUT     ='./config/api/user.api.php?action=logout';
+const INDEXLIST     ='./config/api/organizacao.api.php?action=read';
+const CONFIG        ='./config/api/config.api.php?action=config';
+const CONFIGPROD    ='./config/api/config.api.php?action=prod';
+const CONFIGCILIND  ='./config/api/config.api.php?action=cilindro';
 
-const BENSLIST      ='./config/api/organizacao/local.api.php?action=read';
-const OSLIST        ='./config/api/atendimento/os.api.php?action=read';
-const OSFIND        ='./config/api/atendimento/os.api.php?action=os';
-const OSSTATUSFIND  ='./config/api/atendimento/os.api.php?action=status';
-const OSAMARARFIND  ='./config/api/atendimento/os.api.php?action=semAmaracao';
+const BENSLIST      ='./config/api/local.api.php?action=read';
+const OSLIST        ='./config/api/os.api.php?action=read';
+const OSFIND        ='./config/api/os.api.php?action=os';
+const OSSTATUSFIND  ='./config/api/os.api.php?action=status';
+const OSAMARARFIND  ='./config/api/os.api.php?action=semAmaracao';
 
-const LOCAISLIST          ='./config/api/organizacao/local.api.php?action=read';
-const LOCAISPROPRIETARIO  ='./config/api/organizacao/local.api.php?action=proprietario';
-const LOCAISLOJA          ='./config/api/organizacao/local.api.php?action=loja';
-const LOCALFIND           ='./config/api/organizacao/local.api.php?action=local';
+const LOCAISLIST          ='./config/api/local.api.php?action=read';
+const LOCAISPROPRIETARIO  ='./config/api/local.api.php?action=proprietario';
+const LOCAISLOJA          ='./config/api/local.api.php?action=loja';
+const LOCALFIND           ='./config/api/local.api.php?action=local';
 
-const EQUIPAMENTOSLIST   ='./config/api/apiEquipamento.php?action=read';
-const EQUIPAMENTOSLOJA   ='./config/api/apiEquipamento.php?action=loja';
-const EQUIPAMENTOSLOCAL  ='./config/api/apiEquipamento.php?action=local';
+const EQUIPAMENTOSLIST   ='./config/api/equipamento.api.php?action=read';
+const EQUIPAMENTOSLOJA   ='./config/api/equipamento.api.php?action=loja';
+const EQUIPAMENTOSLOCAL  ='./config/api/equipamento.api.php?action=local';
 
-const CILINDROLIST        ='./config/api/controleCilindro/cilindro.api.php?action=read';
-const CILPROGRAMACAOLIST  ='./config/api/controleCilindro/programacao.api.php?action=read';
-const CILPROGRAMACAOSHOW  ='./config/api/controleCilindro/programacao.api.php?action=show';
-const CILPROGRAMACAOITEM  ='./config/api/controleCilindro/programacao.api.php?action=item';
+const CILINDROLIST        ='./config/api/cilindro.api.php?action=read';
+const CILPROGRAMACAOLIST  ='./config/api/cilProgramacao.api.php?action=read';
+const CILPROGRAMACAOSHOW  ='./config/api/cilProgramacao.api.php?action=show';
+const CILPROGRAMACAOITEM  ='./config/api/cilProgramacao.api.php?action=item';
 
 
 
@@ -48,7 +48,7 @@ const actions = {
   },
   logout({ commit }) {
       return new Promise((resolve, reject) => {
-        Vue.http.post('./config/api/apiUser.php?action=logout')
+        Vue.http.post('./config/api/user.api.php?action=logout')
         .then(function(response) {
           console.log( response); 
           localStorage.removeItem("token");
@@ -75,7 +75,7 @@ const actions = {
   fetchIndex({ commit }) {
     return new Promise((resolve, reject) => {
       var postData = { token: state.token };
-      Vue.http.post('./config/api/apiProprietario.php?action=read', postData )
+      Vue.http.post('./config/api/organizacao.api.php?action=read', postData )
       .then(function(response) {
         //console.log( response); 
         if(response.data.error){

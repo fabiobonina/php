@@ -3,7 +3,7 @@ header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
 include("_chave.php");
-require_once '../control/equipamentoControl.php';
+require_once '../control/equipamento.control.php';
 
 $equiControl      = new EquipamentoControl();
 

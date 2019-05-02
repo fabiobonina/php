@@ -4,19 +4,8 @@ header('Content-Type: text/html; charset=utf-8');
 
 require_once '_chave.php';
 
-require_once '../control/osControl.php';
-require_once '../control/tecControl.php';
-//require_once '../model/OsTecnicos.php';
-
-
-//$proprietario = new Proprietario();
-//$lojas        = new Loja();
-//$locais       = new Local();
-//$oss          = new Os();
-//$servicos     = new Servicos();
-//$mods         = new Mod();
-//$osTecnicos   = new OsTecnicos();
-//$deslocStatus = new DeslocStatus();
+require_once '../control/atOs.control.php';
+require_once '../control/atTec.control.php';
 
 $tecControl   = new TecControl();
 $osControl      = new OsControl();

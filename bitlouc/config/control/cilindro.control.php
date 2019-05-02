@@ -1,5 +1,5 @@
 <?php
-	require_once '../geral/_global.php';
+	require_once '_global.php';
 	require_once '../emailPHP.php';
 
 	class CilindroControl {

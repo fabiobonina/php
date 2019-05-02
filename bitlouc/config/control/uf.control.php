@@ -1,6 +1,5 @@
 <?php
 	require_once '_global.php';
-	require_once 'lojaControl.php';
 
 	class UFControl extends GlobalControl {
 

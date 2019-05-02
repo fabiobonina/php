@@ -18,7 +18,7 @@ require_once '../model/DeslocTrajetos.php';
 require_once '../model/DeslocStatus.php';
 require_once '../model/UF.php';
 
-require_once '../control/tecControl.php';
+require_once '../control/atTec.control.php';
 
 $tipos          = new Tipos();
 $produtos       = new Produtos();
