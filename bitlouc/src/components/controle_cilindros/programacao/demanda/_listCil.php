@@ -7,120 +7,51 @@
       <small>Demanda</small>
       <v-layout wrap>  
       </v-layout>
-            <template>
-              <table style="width:100%" RULES=rows>
-                <tr>
-                  <th>Status</th>
-                  <th>Numerero</th> 
-                  <th>Fabricante</th>
-                  <th>Cod.Barras</th>
-                  <th></th>
-                </tr>
-                <template v-for="subItem in data">
-                  <tr v-if="subItem.edit" >
-                    <td v-if="subItem.edit" colspan="4">
-                      <v-flex >
-                        <select-cilindro :data="subItem" :cilindro="subItem.cilindro"></select-cilindro>
-                      </v-flex>
-                    </td>
-                    <td class="text-xs-right">
-                      <!--item-crud :data="subItem" v-on:atualizar="onAtualizar()"></item-crud-->
-                      <v-btn @click="removeDemanda(index)" color="red" fab small dark>
-                        <v-icon>&#10006;</v-icon>
-                      </v-btn>
-                      <v-btn @click="subItem.edit = !subItem.edit" color="blue" fab small dark>
-                        <v-icon>&#9998;</v-icon>
-                      </v-btn>
-                    </td>
-                  </tr>
-                  <tr v-else class="blue">
-                    <td class="text-xs-center">{{ item.cil_tipo.name }}</td>
-                    <td class="text-xs-center">{{ subItem.cilindro.numero }}</td>
-                    <td class="text-xs-center">{{ subItem.cilindro.fabricante }}</td>
-                    <td class="text-xs-center">{{ subItem.cilindro.cod_barras }}</td>
-                    <td class="text-xs-right">
-                      <!--item-crud :data="subItem" v-on:atualizar="onAtualizar()"></item-crud-->
-                      <v-btn @click="removeDemanda(index)" color="red" fab small dark>
-                        <v-icon>&#10006;</v-icon>
-                      </v-btn>
-                      <v-btn @click="subItem.edit = !subItem.edit" color="blue" fab small dark>
-                        <v-icon>&#9998;</v-icon>
-                      </v-btn>
-                    </td>
-                  </tr>
-                  <v-divider></v-divider>
-                </template>
-              </table>
-
-        <!--v-list>
-          <v-list-tile  v-for="(todo, index) in data" :key="item.index" @click="">
-            <template>
-              <v-flex v-if="todo.edit">
-                <select-cilindro :item="todo"></select-cilindro>
-              </v-flex>
-              <v-list-tile-content >
-                <v-list-tile-title>{{ todo.numero }} - {{ todo.fabricante }}</v-list-tile-title>
-              </v-list-tile-content>
-
-
-              <v-list-tile-action>
-                
-              </v-list-tile-action>
-              <v-list-tile-action>
-                
-              </v-list-tile-action>
-              
-            </template>
-          </v-list-tile>
-        </v-list-->
-      </template>
-      <!--template>
-        <v-list>
-          <v-list-tile  v-for="(todo, index) in data" :key="item.index" @click="">
-            <template>
-              <v-flex v-if="todo.edit">
-                <v-select
-                  v-model="todo.cil_tipo" :items="cilTipos"
-                  item-text="name" item-value="id"
-                  label="Tipo Cilindro" box
-                  v-on:keyup.enter="addDemanda()"
-                  data-vv-name="name"
-                  v-validate="'required'" required
-                ></v-select>
-              </v-flex>
-              <v-list-tile-content v-else>
-                <v-list-tile-title v-text="todo.cil_tipo.name"></v-list-tile-title>
-              </v-list-tile-content>
-              <v-flex v-if="todo.edit">
-                <v-text-field 
-                  type="number"
-                  v-model="todo.qtd"
-                  label="Qtd. Cilindros" box
-                  :error-messages="errors.collect('qtd')"
-                  item-text="todo.qtd"
-                  data-vv-name="name"
-                  v-on:keyup.enter="addDemanda()"
-                ></v-text-field>
-              </v-flex>
-              <v-list-tile-content v-else>
-                <v-list-tile-title  v-text="todo.qtd"></v-list-tile-title>
-              </v-list-tile-content>
-
-              <v-list-tile-action>
+      <template>
+        <table style="width:100%" RULES=rows>
+          <tr>
+            <th>Status</th>
+            <th>Numerero</th> 
+            <th>Fabricante</th>
+            <th>Cod.Barras</th>
+            <th></th>
+          </tr>
+          <template v-for="subItem in data">
+            <tr v-if="subItem.edit" >
+              <td v-if="subItem.edit" colspan="4">
+                <v-flex >
+                  <select-cilindro :programacao_id="subItem.programacao_id" :demanda_id="subItem.demanda_id" :id="subItem.id" :cilindro="subItem.cilindro"></select-cilindro>
+                </v-flex>
+              </td>
+              <td class="text-xs-right">
+                <!--item-crud :data="subItem" v-on:atualizar="onAtualizar()"></item-crud-->
                 <v-btn @click="removeDemanda(index)" color="red" fab small dark>
                   <v-icon>&#10006;</v-icon>
                 </v-btn>
-              </v-list-tile-action>
-              <v-list-tile-action>
-                <v-btn @click="todo.edit = !todo.edit" color="blue" fab small dark>
+                <v-btn @click="subItem.edit = !subItem.edit" color="blue" fab small dark>
                   <v-icon>&#9998;</v-icon>
                 </v-btn>
-              </v-list-tile-action>
-              
-            </template>
-          </v-list-tile>
-        </v-list>
-      </template-->
+              </td>
+            </tr>
+            <tr v-else class="blue">
+              <td class="text-xs-center">{{ item.cil_tipo.name }}</td>
+              <td class="text-xs-center">{{ subItem.cilindro.numero }}</td>
+              <td class="text-xs-center">{{ subItem.cilindro.fabricante }}</td>
+              <td class="text-xs-center">{{ subItem.cilindro.cod_barras }}</td>
+              <td class="text-xs-right">
+                <!--item-crud :data="subItem" v-on:atualizar="onAtualizar()"></item-crud-->
+                <v-btn @click="removeDemanda(index)" color="red" fab small dark>
+                  <v-icon>&#10006;</v-icon>
+                </v-btn>
+                <v-btn @click="subItem.edit = !subItem.edit" color="blue" fab small dark>
+                  <v-icon>&#9998;</v-icon>
+                </v-btn>
+              </td>
+            </tr>
+            <v-divider></v-divider>
+          </template>
+        </table>
+      </template>
     </v-card-text>
   </v-card>
 </template>

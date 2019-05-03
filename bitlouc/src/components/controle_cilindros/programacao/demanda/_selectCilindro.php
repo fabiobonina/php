@@ -5,8 +5,8 @@
         v-model="cilindro"
         :items="cilindros"
         color="blue-grey lighten-2"
-        label="Cilindro"                              
-        item-text="name"              
+        label="Cilindro"
+        item-text="name"
         data-vv-name="cilindro"
         :filter="filter"
         return-object
@@ -51,8 +51,10 @@ Vue.component('select-cilindro', {
     validator: 'new'
   },
   props: {
-    data: {},
     cilindro: {},
+    demanda_id:'',
+    programacao_id: '',
+    id: '',
   },
   data() {
     return {
@@ -95,13 +97,13 @@ Vue.component('select-cilindro', {
         if ( result ) {
           this.isLoading = true
           var postData = {
-            programacao_id: this.data.programacao_id,
-            demanda_id:     this.data.id,
+            programacao_id: this.programacao_id,
+            demanda_id:     this.demanda_id,
             cilindro_id:    this.cilindro.id,
-            id: ''
+            id: this.id
           };
           console.log(postData);
-          this.$http.post('./config/api/api.cilindroProg.php?action=publish-itens', postData).then(function(response) {
+          this.$http.post('./config/api/cilProgramacao.api.php?action=publish-itens', postData).then(function(response) {
             console.log(response);
             if(!response.data.error){
                 this.successMessage.push(response.data.message);

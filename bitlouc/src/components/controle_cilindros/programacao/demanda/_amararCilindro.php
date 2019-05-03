@@ -23,7 +23,7 @@
                   <v-list-tile-sub-title>Prog.: {{ data.qtd }}</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
-              <select-cilindro :data="data" :cilindro="item"></select-cilindro>
+              <select-cilindro :programacao_id="data.programacao_id" :demanda_id="data.id" :cilindro="item"></select-cilindro>
               <v-layout row justify-center>
                 
                     <v-flex>

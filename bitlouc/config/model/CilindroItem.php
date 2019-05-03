@@ -48,16 +48,14 @@ class CilindroItem extends Crud{
 
 	public function update($id){
 		try{
-			$sql  = "UPDATE $this->table SET programacao_id = :programacao_id, demanda_id = :demanda_id, cilindro_id = :cilindro_id WHERE id = :id";
+			$sql  = "UPDATE $this->table SET cilindro_id = :cilindro_id WHERE id = :id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':programacao_id',	$this->programacao_id);
-			$stmt->bindParam(':demanda_id',		$this->demanda_id);
 			$stmt->bindParam(':cilindro_id',	$this->cilindro_id);
 			$stmt->bindParam(':id', 			$id);
 			$stmt->execute();
 
 			$res['error'] 	= false;
-			$res['message'] = "OK, OS atualizado com sucesso";
+			$res['message'] = "OK, Ação realizada com sucesso";
 			return $res;
 		} catch(PDOException $e) {
 			$res['error']	= true;
