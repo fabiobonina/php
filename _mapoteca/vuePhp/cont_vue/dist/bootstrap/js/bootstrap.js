@@ -213,7 +213,7 @@ if (typeof jQuery === 'undefined') {
       $el[val](data[state] == null ? this.options[state] : data[state])
 
       if (state == 'loadingText') {
-        this.isLoading = true
+        store.commit('isLoading')
         $el.addClass(d).attr(d, d)
       } else if (this.isLoading) {
         this.isLoading = false
