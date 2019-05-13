@@ -339,7 +339,7 @@ const actions = {
       }));
     });
   },
-  findCilProgramacao({ commit }, programacao_id ) {
+  showCilProgramacao({ commit }, programacao_id ) {
     return new Promise((resolve, reject) => {
       var postData = {
         programacao_id: programacao_id,
@@ -348,6 +348,7 @@ const actions = {
         //console.log(response.data);
         if(!response.data.error){
           commit("SET_CILPROGRAMACAO", response.data.programacao);
+          commit("SET_CILITEMS", response.data.items);
           resolve();
         } else{
           console.log(response.data.message);

@@ -2,7 +2,7 @@
   <v-card>
     <v-card-text>
       <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-      <loader :dialog="isLoading"></loader>
+      <loader></loader>
     
       <small>Demanda</small>
       <v-layout wrap>
@@ -101,7 +101,7 @@ Vue.component('demanda-cil', {
     return {
       errorMessage: [],
       successMessage: [],
-      isLoading: false,
+      
       item: {},
       cil_tipo: null,
       qtd: null,
@@ -140,7 +140,7 @@ Vue.component('demanda-cil', {
     },
     addDemanda(){
       if ( this.checkForm() ) {
-          this.isLoading = true;
+          //store.commit('isLoading');
           this.item['cil_tipo'] = this.cil_tipo;
           this.item['qtd']      = this.qtd;
           this.item['edit']     = false;
@@ -149,7 +149,7 @@ Vue.component('demanda-cil', {
           this.qtd        = "";
           this.item       = {};
           this.cil_tipo   = {};
-          this.isLoading  = false;
+          store.commit('isLoading')
           //console.log(this.data);
         }
       

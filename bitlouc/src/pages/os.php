@@ -5,7 +5,7 @@
   <v-content v-if="_os">
     <template>
       <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-      <loader :dialog="isLoading"></loader>
+      <loader></loader>
       <v-card flat height="210px" tile color="grey lighten-2">
         <v-toolbar color="cyan" prominent class="white--text" height="80px">
           <v-btn @click="$router.go(-1)" icon >
@@ -198,7 +198,7 @@ var Os = Vue.extend({
     return {
       errorMessage: [],
       successMessage: [],
-      isLoading: false,
+      
       search: '',
       _item: null,
       deslocAdd: false,
@@ -248,7 +248,7 @@ var Os = Vue.extend({
   }, // computed
   methods: {
     osStatus: function( data ) {
-        this.isLoading = true;
+        //store.commit('isLoading');
         var item = data;
         var postData = { 
           os_id:  this._os.id,
@@ -260,11 +260,11 @@ var Os = Vue.extend({
           console.log(response);
           if(!response.data.error){
             this.successMessage.push(response.data.message);
-            this.isLoading = false;
+            //store.commit('isLoading');
             this.onAtualizar();
           } else{            
             this.errorMessage = response.data.message;
-            this.isLoading = false;
+            //store.commit('isLoading');
           }
         })
         .catch(function(error) {
@@ -274,7 +274,7 @@ var Os = Vue.extend({
     
     modDel: function(data) {
       if(confirm('Deseja realmente deletar ' + data.status.tipo + '?')){
-        this.isLoading = true
+        //store.commit('isLoading')
         var postData = {
           id: data.id
         };
@@ -284,10 +284,10 @@ var Os = Vue.extend({
           //console.log(response);
           if(response.data.error){
             this.errorMessage = response.data.message;
-            this.isLoading = false;
+            //store.commit('isLoading');
           } else{
             this.successMessage.push(response.data.message);
-            this.isLoading = false;
+            //store.commit('isLoading');
             this.onAtualizar();
             setTimeout(() => {
               this.$emit('close');

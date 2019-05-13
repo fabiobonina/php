@@ -10,11 +10,11 @@
                                     <v-card v-content__wrap :to="item.router" class="v-card--hover v-sheet theme--light">
                                         <v-card-title>
                                             <span class="headline">{{ item.title }}</span>
-                                            <div class="spacer"></div>
-                                            <i aria-hidden="true" class="v-icon mdi mdi-format-float-center theme--light" style="font-size: 28px;"></i>
+                                            <v-spacer></v-spacer>
+                                            <v-icon light style="font-size: 28px;">{{ item.icon }}</v-icon>
                                         </v-card-title>
                                         <v-card-text>
-                                            <span class="grey--text">Saida de Cilindros</span><br>
+                                            <span class="grey--text">{{ item.subtitle }}</span><br>
                                         </v-card-text>
                                     </v-card>
                                 </v-flex>
@@ -76,7 +76,7 @@
             { title: 'Enchimento',
                 subtitle: 'outra coisa',
                 router: '/controle-cilindros/enchimento',
-                icon: 'mdi-home',
+                icon: 'mdi-format-float-center',
                 iconClass: 'primary white--text'
             },
             { title: 'Programação',

@@ -17,7 +17,7 @@ Vue.component('desloc-add', {
       km: '',
       date: '',
       dtInicio: '', kmInicio:'', kmFinal:'',  dtDesloc: '', valor: '', tempo: '',
-      isLoading: false,
+      
     };
   },
   
@@ -41,7 +41,7 @@ Vue.component('desloc-add', {
     saveItem: function(){
       this.errorMessage = []
       if(this.checkForm()){
-        this.isLoading = true
+        //store.commit('isLoading')
         if(this.trajeto.categoria == '0'){
           this.valor  = '0';
         }else if( this.trajeto.categoria == '1'){
@@ -66,14 +66,14 @@ Vue.component('desloc-add', {
             console.log(response);
             if(!response.data.error){
               this.successMessage.push(response.data.message);
-              this.isLoading = false;
+              //store.commit('isLoading');
               setTimeout(() => {
                 this.$emit('close');
               }, 2000); 
               
             } else{
               this.errorMessage.push(response.data.message);
-              this.isLoading = false;
+              //store.commit('isLoading');
             }
           })
           .catch(function(error) {

@@ -6,7 +6,7 @@
       </v-card-title>
       <v-card-text>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-          <loader :dialog="isLoading"></loader>
+          <loader></loader>
         <v-form>
           <v-text-field
             v-model="name"
@@ -90,7 +90,7 @@
       return {
         errorMessage: [],
         successMessage: [],
-        isLoading: false,
+        
         e1: true,
         chave: v4(),
         name:'', email:'', emailR:'', user:'', password:null, passwordR:null,
@@ -123,7 +123,7 @@
       registrar: function() {
         this.$validator.validateAll().then((result) => {
           if (result) {
-            this.isLoading = true
+            //store.commit('isLoading')
             var postData = {
               name: this.name,
               user: this.user,

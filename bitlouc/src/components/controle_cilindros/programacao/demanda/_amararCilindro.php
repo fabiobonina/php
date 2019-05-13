@@ -9,13 +9,10 @@
             </v-btn>
             <v-toolbar-title>Criar Programação</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-toolbar-items>
-              <v-btn dark flat @click.native="saveItem()">Salvar</v-btn>
-            </v-toolbar-items>
           </v-toolbar>
           <v-card-text>
-          <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-          <loader :dialog="isLoading"></loader>
+            <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+            <loader></loader>
             <v-container grid-list-md>
               <v-list-tile @click="">
                 <v-list-tile-content v-if="data">
@@ -23,15 +20,13 @@
                   <v-list-tile-sub-title>Prog.: {{ data.qtd }}</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
-              <select-cilindro :programacao_id="data.programacao_id" :demanda_id="data.id" :cilindro="item"></select-cilindro>
-              <v-layout row justify-center>
-                
-                    <v-flex>
-                    <!--demanda-cil :data="demanda" v-on:close="close()"></demanda-cil-->
-                    <list-cilindro :data="cilindro"></list-cilindro>
-                    </v-flex>
-                  </v-layout>
-                </v-container>
+              <select-cilindro :programacao_id="data.programacao_id" :demanda_id="data.id" :cilindro="item" v-on:atualizar="atualizar()"></select-cilindro>
+              <v-layout row justify-center>  
+                <v-flex>
+                  <list-cilindro :item="data"></list-cilindro>
+                </v-flex>
+              </v-layout>
+            </v-container>
           </v-card-text>
         </v-card>
       </v-dialog>
@@ -56,7 +51,7 @@ Vue.component('amarar-cilindro', {
     return {
       errorMessage: [],
       successMessage: [],
-      isLoading: false,
+      
       cilindro: [],
       isEditing: false,
       item: {},
@@ -74,6 +69,9 @@ Vue.component('amarar-cilindro', {
       if(this.successMessage.length > 0) return true
       return false
     },
+    count () {
+			return store.state.isLoading
+		},
   },
   created: function() {
     this.dataT();
@@ -83,53 +81,18 @@ Vue.component('amarar-cilindro', {
     updateCilindros() {
       this.$store.dispatch("fetchCilindros").then(() => {
         this.locais = store.state.locais;
-        this.isLoading = false;
+        //store.commit('isLoading');
       });
-      this.$store.dispatch('findCilProgramacao', this.$route.params._programacao ).then(() => {
-      console.log("Buscando dados Programacao")
-      });
-    },
-    saveItem: function(){
-      this.errorMessage = []
-      this.$validator.validateAll().then((result) => {
-        if (result && this.checkForm()) {
-          this.isLoading = true
-          var postData = {
-            programacao_id: this.data.cil_prog_id,
-            demanda_id: this.data.id,
-            data: this.dataProg,
-            status: '0',
-            demanda: this.demanda,
-            id: ''
-          };
-          console.log(postData);
-          this.$http.post('./config/api/cotroleCilindro/programacao.api.php?action=publish', postData).then(function(response) {
-            //console.log(response);
-            if(!response.data.error){
-                this.successMessage.push(response.data.message);
-                this.isLoading = false;
-                setTimeout(() => {
-                  this.$router.push('/programacao/'+response.data.id)
-                  this.$emit('close');
-                }, 2000);
-              } else{
-                this.errorMessage.push(response.data.message);
-                this.isLoading = false;
-              }
-          })
-          .catch(function(error) {
-            this.isLoading = false;
-            console.log(error);
-          });
-        }
-      });
+      this.atualizar();
     },
     close () {
       this.dialog = false;
       this.$emit('close');
     },
     atualizar: function(){
-      this.$emit('atualizar');
+      this.$store.dispatch('showCilProgramacao', this.$route.params._programacao ).then(() => {
+        console.log("Buscando dados Programacao")
+      });
     },
     remove (item) {
         //const index = this.loja.indexOf(item)

@@ -70,4 +70,7 @@ const getters = {
   getModOsTec: (state) => (os, tecnico) => {
     return state.oss.filter(todo => todo.os === os && todo.tecnico === tecnico)
   },
+  getItemsDemanda: (state) => (demanda_id) => {
+    return state.cilItems.filter(todo => todo.demanda_id == demanda_id)
+  },
 }

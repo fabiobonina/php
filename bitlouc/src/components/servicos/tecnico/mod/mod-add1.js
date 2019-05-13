@@ -78,7 +78,7 @@ Vue.component('mod-add', {
     saveItem: function(){
       //this.errorMessage = []
       if(this.checkDate() && this.validarDate() ){
-        this.isLoading = true
+        //store.commit('isLoading')
         //var obj   = this.tecnicos;
         //var user  = store.state.user;
         //var usert = "7";
@@ -109,10 +109,10 @@ Vue.component('mod-add', {
           //console.log(response);
           if(response.data.error){
             this.errorMessage.push(response.data.message);
-            this.isLoading = false;
+            //store.commit('isLoading');
           } else{
             this.successMessage.push(response.data.message);
-            this.isLoading = false;
+            //store.commit('isLoading');
             this.$store.dispatch('findOs', this.$route.params._os).then(() => {
       console.log("Buscando dados da os")
     });

@@ -16,7 +16,7 @@
         </v-toolbar>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-          <loader :dialog="isLoading"></loader>
+          <loader></loader>
           <v-form>
             <div v-if='data.equipamento'>
               <p>{{ data.equipamento.name }} - {{ data.equipamento.modelo }} <i class="fa fa-qrcode"></i> {{ data.equipamento.numeracao }} <i class="fa fa-fw fa-barcode"></i>{{ data.equipamento.plaqueta }}</p>
@@ -49,7 +49,7 @@ Vue.component('os-del', {
       successMessage: [],
       item:{},
       servico: null, tecnico: null, dataOs: '', ativo: '0',
-      isLoading: false,
+      
       equipamento: null,
       categoria: null
     };
@@ -90,7 +90,7 @@ Vue.component('os-del', {
   methods: {
     deletarItem: function(data) {
       if(confirm('Deseja realmente deletar ' + this.data.local_name +' - '+ this.data.data +'?')){
-        this.isLoading = true
+        //store.commit('isLoading')
         var postData = {
           os_id: this.data.id
         };
@@ -99,10 +99,10 @@ Vue.component('os-del', {
           console.log(response);
           if(response.data.error){
             this.errorMessage.push( response.data.message);
-            this.isLoading = false;
+            //store.commit('isLoading');
           } else{
             this.successMessage.push(response.data.message);
-            this.isLoading = false;
+            //store.commit('isLoading');
             this.atualizacao();
             setTimeout(() => {
               this.$emit('atualizar');

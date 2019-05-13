@@ -18,7 +18,7 @@
           </v-toolbar>
           <v-card-text>
             <message :alerta="temMessage" :success="successMessage" :error="errorMessage"></message>
-            <loader :dialog="isLoading"></loader>
+            <loader></loader>
             <v-stepper v-model="progresso" vertical light>
               <v-stepper-step editable :complete="Number(progresso) > 1" step="1">
                 {{ data.dono.nick }}: {{ data.donoLocal.tipo }} - {{ data.donoLocal.name }}
@@ -248,7 +248,7 @@ Vue.component('equipamento-add', {
     return {
       errorMessage: [],
       successMessage: [],
-      isLoading: false,
+      
       dialog: false,
       donoLocais: [],
       locais : [],
@@ -320,7 +320,7 @@ Vue.component('equipamento-add', {
       this.errorMessage = []
       this.$validator.validateAll().then((result) => {
         if (result) {
-          this.isLoading = true
+          //store.commit('isLoading')
           var postData = {
             produto: this.produto.id,
             tag: this.produto.tag,
@@ -346,13 +346,13 @@ Vue.component('equipamento-add', {
             console.log(response);
             if(response.data.error){
               this.errorMessage.push(response.data.message);
-              this.isLoading = false;
+              //store.commit('isLoading');
             } else{
               this.successMessage.push(response.data.message);
               this.$store.dispatch('fetchLocais', this.$route.params._loja).then(() => {
                 console.log("Atulizando dados das localidades!")
               });
-              this.isLoading = false;
+              //store.commit('isLoading');
               setTimeout(() => {
                 this.close();
               }, 2000);

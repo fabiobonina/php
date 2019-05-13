@@ -18,7 +18,7 @@
           <v-divider></v-divider>
           <v-card-text>
             <message :alerta="temMessage" :success="successMessage" :error="errorMessage"></message>
-            <loader :dialog="isLoading"></loader>
+            <loader></loader>
             <v-container grid-list-md>
               <v-layout wrap>
                 <v-flex xs12 sm6 md6>

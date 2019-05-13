@@ -32,6 +32,8 @@ const state = {
   cilindro:[],
   cilProgramacoes:[],
   cilProgramacao:{},
+  cilDemanda:{},
+  cilItems:{},
   cil_tipos:[],
   servicos:[],
   tecnicos:[],
@@ -48,4 +50,6 @@ const state = {
   search:'',
   status:'0',
   ufs:{},
+  count: 0,
+  loading: false,
 }

@@ -17,7 +17,7 @@
         <v-card-text>
         <span class="headline">{{data.user_nick}}</span>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-          <loader :dialog="isLoading"></loader>
+          <loader></loader>
           <v-container grid-list-md>
             <label class="label">Status</label>
             <v-layout row wrap align-center>

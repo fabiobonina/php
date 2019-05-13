@@ -15,13 +15,15 @@
 Vue.component('loader', {
   name: 'loader',
   template: '#loader',
-  props: {
-    dialog: Boolean
-  },
   data: function () {
     return {
 
     };
+  },
+  computed: {
+    dialog () {
+			return store.state.loading
+		},
   },
 });
 </script>

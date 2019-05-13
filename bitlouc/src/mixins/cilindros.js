@@ -1,7 +1,7 @@
 var getProgramacao = {
     data: function () {
         return {
-            isLoading: false,
+            
             errorMessage: '',
             successMessage: '',
         };
@@ -16,11 +16,11 @@ var getProgramacao = {
     }, // computed
     methods: {
         getProgramacoes(){
-            this.isLoading = true;
+            //store.commit('isLoading');
             this.$http.get('./config/api/api.cilindroProg.php?action=read')
                 .then(function(response) {
                     console.log(response);
-                    this.isLoading = false;
+                    //store.commit('isLoading');
                     if(!response.data.error){
                         this.successMessage.push(response.data.message);
                         this.$store.dispatch("setCilProgramacoes", response.data.cilProgramacoes );
@@ -29,7 +29,7 @@ var getProgramacao = {
                     }
                 })
                 .catch(function(error) {
-                    this.isLoading = false;
+                    //store.commit('isLoading');
                     this.errorMessage.push(error);
                 }
             );

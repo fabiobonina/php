@@ -3,14 +3,11 @@
 
 	class CilindroDemandaControl extends CilindroItemControl {
 
-		public function matrixDemanda( $item, $modelo ){
+		public function matrixDemanda( $item ){
 			$cilTipos			= new CilTipo();
 
 			$item->cil_tipo 	= $cilTipos->find( $item->tipo_id );
-			if($modelo > 1){
-				$item->items	= $this->itemDemanda( $item->id );
-				$item->active	= true;
-			}
+			$item->active	= true;
 
 			return $item;
 
@@ -63,12 +60,12 @@
 			$res	= $item;
 			return $res;
 		}
-		public function demandaProg( $progracao_id, $modelo ){
+		public function demandaProg( $progracao_id ){
 			$cilindroDemandas 	= new CilindroDemanda();
 			
 			$arItem = array();
 			foreach($cilindroDemandas->findProg( $progracao_id ) as $key => $value): {
-				$value = $this->matrixDemanda( $value, $modelo );
+				$value = $this->matrixDemanda( $value );
 				array_push( $arItem, $value );
 			}endforeach;
 			

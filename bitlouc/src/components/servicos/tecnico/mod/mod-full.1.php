@@ -24,7 +24,7 @@
         </v-stepper-header>
 
         <message v-if="temMessage" :success="successMessage" :error="errorMessage"></message>
-        <loader :dialog="isLoading"></loader>
+        <loader></loader>
         <template>
           <!-- status inical -->
           <div class="text-xs-center">

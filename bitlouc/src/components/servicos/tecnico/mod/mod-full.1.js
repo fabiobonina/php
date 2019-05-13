@@ -28,7 +28,7 @@ Vue.component('mod-full', {
       tempo:    '',
       hhValor:  '',
       valor:    '',
-      isLoading: false,
+      
       e1: '0',
       dialog2: false,
       dialogInicial: true
@@ -62,7 +62,7 @@ Vue.component('mod-full', {
   methods: {
     saveItem: function()  {
       this.errorMessage = []
-      this.isLoading = true
+      //store.commit('isLoading')
       if(!this.trajeto){
         this.dtInicio = this.dtServInicio;
       };
@@ -81,7 +81,7 @@ Vue.component('mod-full', {
           console.log(response);
           if(response.data.success){
             this.successMessage.push(response.data.message);
-            this.isLoading = false;
+            //store.commit('isLoading');
             this.$store.dispatch('findOs', this.$route.params._os).then(() => {
       console.log("Buscando dados da os")
     });
@@ -90,7 +90,7 @@ Vue.component('mod-full', {
             }, 2000);
           } else{
             this.errorMessage.push(response.data.message);
-            this.isLoading = false;
+            //store.commit('isLoading');
             console.log(response);
           }
         })

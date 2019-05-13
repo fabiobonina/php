@@ -112,7 +112,7 @@ Vue.component('bem-edt', {
       successMessage: [],
       produto: null, modelo: '', numeracao:'', modelo:'', fabricante: null,
       categoria: null, plaqueta: '', dataFab: '', dataCompra: '', ativo: '',
-      isLoading: false,
+      
       item:{},
     };
   },  
@@ -147,7 +147,7 @@ Vue.component('bem-edt', {
     saveItem: function(){
       this.errorMessage = []
       if(this.checkForm()){
-        this.isLoading = true
+        //store.commit('isLoading')
         var postData = {
           produto: this.produto.id,
           tag: this.produto.tag,
@@ -171,13 +171,13 @@ Vue.component('bem-edt', {
           console.log(response);
           if(response.data.error){
             this.errorMessage.push(response.data.message);
-            this.isLoading = false;
+            //store.commit('isLoading');
           } else{
             this.successMessage.push(response.data.message);
             this.$store.dispatch('fetchLocais', this.$route.params._loja).then(() => {
               console.log("Atulizando dados das localidades!")
             });
-            this.isLoading = false;
+            //store.commit('isLoading');
             setTimeout(() => {
               this.$emit('close');
             }, 2000);  

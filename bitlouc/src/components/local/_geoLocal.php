@@ -39,7 +39,7 @@
           </v-container>
           <small>*indica campo obrigatório</small>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-          <loader :dialog="isLoading"></loader>
+          <loader></loader>
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -86,7 +86,7 @@
           if (result) {
         this.errorMessage = []
         if(this.formValido()){
-          this.isLoading = true
+          //store.commit('isLoading')
           //const data = {'id': this.data.id, 'geolocalizacao': this.geolocalizacao
           //'cadastro': new Date().toJSON() }
           var geoposicao = this.coordenadas .split(",");
@@ -99,7 +99,7 @@
             .then(function(response) {
               if(!response.data.error){
                 this.successMessage.push(response.data.message);
-                this.isLoading = false;
+                //store.commit('isLoading');
                 this.$store.dispatch('fetchLocalLoja', this.data.loja_id).then(() => {
                   console.log("Atualizado locais!")
                 });
@@ -108,7 +108,7 @@
                 }, 2000);  
               } else{                
                 this.errorMessage.push(response.data.message);
-                this.isLoading = false;
+                //store.commit('isLoading');
               }
             })
             .catch(function(error) {

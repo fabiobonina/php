@@ -111,11 +111,11 @@ class CilindroItem extends Crud{
 			return $res;
 		}
 	}
-	public function fetchDemanda( $demanda_id ){
+	public function fetchProg( $programacao_id ){
 		try{
-			$sql  = "SELECT * FROM $this->table  WHERE demanda_id = :demanda_id ";
+			$sql  = "SELECT * FROM $this->table  WHERE programacao_id = :programacao_id ";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':demanda_id', $demanda_id, PDO::PARAM_INT);
+			$stmt->bindParam(':programacao_id', $programacao_id, PDO::PARAM_INT);
 			$stmt->execute();
 			return $stmt->fetchAll();
 		} catch(PDOException $e) {

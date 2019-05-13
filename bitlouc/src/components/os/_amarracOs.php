@@ -19,7 +19,7 @@
         </v-card-title>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-          <loader :dialog="isLoading"></loader>
+          <loader></loader>
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12>
@@ -80,7 +80,7 @@ Vue.component('os-amarrac', {
       title: 'Amarar OS',
       filial: null,
       os: null,
-      isLoading: false,
+      
       filiais: [
         {id:'1', name: 'PE'},
         {id:'3', name: 'CE'},
@@ -104,7 +104,7 @@ Vue.component('os-amarrac', {
     saveItem: function(){
       this.errorMessage = []
       if(this.checkForm()){
-        this.isLoading = true
+        //store.commit('isLoading')
         var postData = {
           id: this.data.id,
           os: this.os,
@@ -115,13 +115,13 @@ Vue.component('os-amarrac', {
             //console.log(response);
             if(!response.data.error){
               this.successMessage.push(response.data.message);
-              this.isLoading = false;
+              //store.commit('isLoading');
               setTimeout(() => {
                 this.$emit('atualizar');
               }, 2000);
             } else{
               this.errorMessage.push(response.data.message);
-              this.isLoading = false;
+              //store.commit('isLoading');
             }
           })
           .catch(function(error) {

@@ -19,7 +19,7 @@
         </v-card-title>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-          <loader :dialog="isLoading"></loader>
+          <loader></loader>
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12>
@@ -118,7 +118,7 @@ Vue.component('os-tec', {
       successMessage: [],
       item:{},
       tecnicos: null,
-      isLoading: false,
+      
       autoUpdate: true,
         friends: ['Sandra Adams', 'Britta Holt'],
         isUpdating: false,
@@ -155,7 +155,7 @@ Vue.component('os-tec', {
       this.errorMessage = []
 
       if(this.checkForm()){
-        this.isLoading = true
+        //store.commit('isLoading')
         var postData = {
           os_id: this.data.id,
           loja_id: this.data.loja_id,
@@ -168,7 +168,7 @@ Vue.component('os-tec', {
             if(!response.data.error){
               this.successMessage.push(response.data.message);
               this.atualizar();
-              this.isLoading = false;
+              //store.commit('isLoading');
               setTimeout(() => {
                 this.errorMessage   = null;
                 this.successMessage = null;
@@ -176,7 +176,7 @@ Vue.component('os-tec', {
               }, 2000);              
             } else{              
               this.errorMessage.push(response.data.message);
-              this.isLoading = false;
+              //store.commit('isLoading');
             }
           })
           .catch(function(error) {
@@ -187,7 +187,7 @@ Vue.component('os-tec', {
     },
     tecDelete: function(item) {
       if(confirm('Deseja realmente remover ' + item.user_nick + '?')){
-        this.isLoading = true
+        //store.commit('isLoading')
         var postData = {
           id: item.id,
           os_id: this.data.id,
@@ -197,7 +197,7 @@ Vue.component('os-tec', {
           //console.log(response);
           if(!response.data.error){
             this.successMessage = response.data.message;
-            this.isLoading = false;
+            //store.commit('isLoading');
             this.atualizar();
             setTimeout(() => {
               //this.$emit('close');
@@ -206,7 +206,7 @@ Vue.component('os-tec', {
             }, 2000);
           } else{
             this.errorMessage.push( response.data.message);
-            this.isLoading = false;
+            //store.commit('isLoading');
           }
         })
         .catch(function(error) {

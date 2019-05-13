@@ -24,7 +24,7 @@
         </v-stepper-header>
 
         <message v-if="temMessage" :success="successMessage" :error="errorMessage"></message>
-        <loader :dialog="isLoading"></loader>
+        <loader></loader>
         <template>
           <!-- tecnicos -->
           <v-autocomplete multiple chips return-object max-height="auto"

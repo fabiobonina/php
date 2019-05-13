@@ -46,7 +46,7 @@
         </v-card-title>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-          <loader :dialog="isLoading"></loader>
+          <loader></loader>
           <v-form>
             <h1 class="headline"> {{  }} </h1>
           </v-form>
@@ -73,7 +73,7 @@ Vue.component('bem-add', {
   data: () => ({
     errorMessage: [],
     successMessage: [],
-    isLoading: false,
+    
     dialog: this.dialogedt,
     desserts: [],
     editedIndex: -1,

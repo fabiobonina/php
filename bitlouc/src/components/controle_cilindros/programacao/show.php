@@ -50,8 +50,8 @@
 <?php require_once 'src/components/includes/rodape.php';?>
 
 <?php require_once 'src/components/controle_cilindros/programacao/demanda/_list.php';?>
-<?php require_once 'src/components/controle_cilindros/programacao/demanda/_selectCilindro.php';?>
-<?php require_once 'src/components/controle_cilindros/programacao/demanda/_listCil.php';?>
+<?php require_once 'src/components/controle_cilindros/programacao/item/_selectCilindro.php';?>
+<?php require_once 'src/components/controle_cilindros/programacao/item/_listCil.php';?>
 
 <script>
 var ProgramacaoShow = Vue.extend({
@@ -80,7 +80,7 @@ var ProgramacaoShow = Vue.extend({
   }, // computed
   methods: {
     update() {
-      this.$store.dispatch('findCilProgramacao', this.$route.params._programacao ).then(() => {
+      this.$store.dispatch('showCilProgramacao', this.$route.params._programacao ).then(() => {
         console.log("Buscando dados Programacao")
       });
     },

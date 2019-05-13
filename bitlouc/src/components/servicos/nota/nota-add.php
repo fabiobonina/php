@@ -19,7 +19,7 @@
         </v-card-title>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-          <loader :dialog="isLoading"></loader>
+          <loader></loader>
           <v-container>
             <v-layout wrap>
               <v-flex xs12>
@@ -74,7 +74,7 @@ Vue.component('nota-add', {
       this.errorMessage = []
 
       if(this.checkForm()){
-        this.isLoading = true
+        //store.commit('isLoading')
         var postData = {
           descricao:  this.descricao,
           os_id:         this.data.id,
@@ -87,11 +87,11 @@ Vue.component('nota-add', {
             console.log(response);
             if(response.data.error){
               this.errorMessage.push(response.data.message);
-              this.isLoading = false;
+              //store.commit('isLoading');
             } else{
               this.successMessage.push(response.data.message);
               this.atualizacao();
-              this.isLoading = false;
+              //store.commit('isLoading');
               setTimeout(() => {
                 this.errorMessage = [];
                 this.successMessage = [];

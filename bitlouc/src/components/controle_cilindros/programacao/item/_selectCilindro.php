@@ -95,7 +95,7 @@ Vue.component('select-cilindro', {
       this.errorMessage = [];
       this.$validator.validateAll().then((result) => {
         if ( result ) {
-          this.isLoading = true
+          //store.commit('isLoading');
           var postData = {
             programacao_id: this.programacao_id,
             demanda_id:     this.demanda_id,
@@ -105,20 +105,20 @@ Vue.component('select-cilindro', {
           console.log(postData);
           this.$http.post('./config/api/cilProgramacao.api.php?action=publish-itens', postData).then(function(response) {
             console.log(response);
+            store.commit('isLoading');
             if(!response.data.error){
                 this.successMessage.push(response.data.message);
-                this.isLoading = false;
+                
                 setTimeout(() => {
-                  this.$router.push('/programacao/'+response.data.id)
-                  this.$emit('close');
+                  //this.$router.push('/programacao/'+response.data.id)
+                  this.$emit('atualizar');
                 }, 2000);
               } else{
                 this.errorMessage.push(response.data.message);
-                this.isLoading = false;
               }
           })
           .catch(function(error) {
-            this.isLoading = false;
+            store.commit('isLoading');
             console.log(error);
           });
         }

@@ -21,7 +21,7 @@ Vue.component('mod-add', {
       tempo:    '',
       hhValor:  '',
       valor:    '',
-      isLoading: false,
+      
     };
   },
   watch: {
@@ -73,7 +73,7 @@ Vue.component('mod-add', {
     saveItem: function(){
       //this.errorMessage = []
       if(this.checkForm() && this.validarKm() && this.validarDate() ){
-        this.isLoading = true
+        //store.commit('isLoading')
         if( this.trajeto.categoria == '1'){
           this.kmInicio  = '0';
           this.kmFinal   = '0';
@@ -100,7 +100,7 @@ Vue.component('mod-add', {
           console.log(response);
           if(!response.data.error){
             this.successMessage.push(response.data.message);
-            this.isLoading = false;
+            //store.commit('isLoading');
             this.$store.dispatch('findOs', this.$route.params._os).then(() => {
               console.log("Buscando dados da os")
             });
@@ -110,7 +110,7 @@ Vue.component('mod-add', {
           } else{
             console.log(response);
             this.errorMessage.push(response.data.message);
-            this.isLoading = false;
+            //store.commit('isLoading');
           }
         })
         .catch(function(error) {

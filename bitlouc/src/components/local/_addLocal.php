@@ -94,7 +94,7 @@
           </v-container>
           <small>*indica campo obrigatório</small>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-          <loader :dialog="isLoading"></loader>
+          <loader></loader>
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -118,7 +118,7 @@
         successMessage: [],
         tipo: '', regional: '', name: '', municipio: '', uf: '', coordenadas:'', ativo: '0',
         item:{},
-        isLoading: false,
+        
         dictionary: {
           attributes: {
             name: 'Nome',
@@ -155,7 +155,7 @@
           if (result) {
             this.errorMessage = []
         if(this.checkForm()){
-          this.isLoading = true
+          //store.commit('isLoading')
           if(!this.coordenadas){
             this.coordenadas = '0.000000,0.000000'
           };
@@ -179,13 +179,13 @@
               //console.log(response);
               if(response.data.error){
                 this.errorMessage.push(response.data.message);
-                this.isLoading = false;
+                //store.commit('isLoading');
               } else{
                 this.successMessage.push(response.data.message);
                 this.$store.dispatch('fetchLocalLoja', this.loja.id).then(() => {
                   console.log("Atulizando dados das localidades!")
                 });
-                this.isLoading = false;
+                //store.commit('isLoading');
                 setTimeout(() => {
                   this.$emit('close');
                 }, 2000);  

@@ -123,8 +123,28 @@ const mutations = {
   },
   SET_CILPROGRAMACAO(state, cilProgramacao) {
     state.cilProgramacao = cilProgramacao
+  },
+  SET_CILDEMANDA(state, cilDemanda) {
+    state.cilDemanda = cilDemanda
+  }, 
+  SET_CILITEMS(state, cilItems) {
+    state.cilItems = cilItems
   }, 
   SET_CIL_TIPOS(state, cil_tipos) {
     state.cil_tipos = cil_tipos
-  }
+  },
+  increment: state => state.count++,
+  decrement: state => state.count--,
+  isLoading: state => state.loading = !state.loading,
+  errorMessage(state, errorMessage) {
+    state.errorMessage = errorMessage
+  },
+  successMessage(state, successMessage) {
+    state.successMessage = successMessage
+  },
+  
+  /*isLoading (state) {
+    state.loading = !state.loading;
+    console.log('Login teste');
+  },*/
 }

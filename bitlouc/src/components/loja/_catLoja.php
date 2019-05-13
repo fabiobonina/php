@@ -71,7 +71,7 @@
             </v-autocomplete>
           </v-form>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-          <loader :dialog="isLoading"></loader>
+          <loader></loader>
         </v-card-text>
         <v-card-actions>
             <v-btn flat @click.stop="$emit('close')">Fechar</v-btn>
@@ -98,7 +98,7 @@ Vue.component('loja-cat', {
     return {
       errorMessage: [],
       successMessage: [],
-      isLoading: false,
+      
       categoria: [],
       ativo:'',
       item:{},
@@ -128,7 +128,7 @@ Vue.component('loja-cat', {
       this.$validator.validateAll().then((result) => {
         if (result) {
           if(this.checkForm()){
-            this.isLoading = true
+            //store.commit('isLoading')
             var postData = {
               categoria: this.categoria,
               loja: this.data.id
@@ -138,10 +138,10 @@ Vue.component('loja-cat', {
               //console.log(response);
               if(response.data.error){
                 this.errorMessage = response.data.message;
-                this.isLoading = false;
+                //store.commit('isLoading');
               } else{
                 this.successMessage.push(response.data.message);
-                this.isLoading = false;
+                //store.commit('isLoading');
                 this.$store.dispatch("fetchIndex").then(() => {
                   console.log("Atualizado lojas!")
                 });
@@ -161,7 +161,7 @@ Vue.component('loja-cat', {
     },
     catDelete: function(data) {
       if(confirm('Deseja realmente deletar ' + data.name + '?')){
-        this.isLoading = true
+        //store.commit('isLoading')
         var postData = {
           id: data.id
         };
@@ -170,10 +170,10 @@ Vue.component('loja-cat', {
           //console.log(response);
           if(response.data.error){
             this.errorMessage = response.data.message;
-            this.isLoading = false;
+            //store.commit('isLoading');
           } else{
             this.successMessage.push(response.data.message);
-            this.isLoading = false;
+            //store.commit('isLoading');
             this.$store.dispatch('fetchIndex').then(() => {
               console.log("Atualizado lojas!")
             });
@@ -190,7 +190,7 @@ Vue.component('loja-cat', {
       }
     },
     catStatus: function(data) {
-      this.isLoading = true
+      //store.commit('isLoading')
       if(data.ativo == 0) this.ativo = '1';
       if(data.ativo == 1) this.ativo = '0';
       var postData = {
@@ -202,10 +202,10 @@ Vue.component('loja-cat', {
         //console.log(response);
         if(response.data.error){
           this.errorMessage = response.data.message;
-          this.isLoading = false;
+          //store.commit('isLoading');
         } else{
           this.successMessage.push(response.data.message);
-          this.isLoading = false;
+          //store.commit('isLoading');
           this.$store.dispatch("fetchIndex").then(() => {
             console.log("Atualizado lojas!")
           });

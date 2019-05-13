@@ -16,7 +16,7 @@
         </v-toolbar>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-          <loader :dialog="isLoading"></loader>
+          <loader></loader>
           <v-container grid-list-md>
             <v-layout wrap>
             <span class="headline">{{ local.tipo }} {{ local.name }}</span>
@@ -90,7 +90,7 @@ Vue.component('os-add', {
       errorMessage: [],
       successMessage: [],
       title: 'Nova Ocorrecia',
-      isLoading: false,
+      
       item:{},
       equipamento_id: null,
       categoria_id: null,
@@ -146,7 +146,7 @@ Vue.component('os-add', {
       this.$validator.validateAll().then((result) => {
         if (result) {
           if(this.checkForm()){
-            this.isLoading = true
+            //store.commit('isLoading')
             var postData = {
               proprietario_id:  this.loja.proprietario_id,
               loja_id:          this.loja.id,
@@ -169,14 +169,14 @@ Vue.component('os-add', {
               if(!response.data.error){
                 this.successMessage.push(response.data.message);
                 this.atualizacao();
-                this.isLoading = false;
+                //store.commit('isLoading');
                 setTimeout(() => {
                   this.$router.push('/os/'+response.data.id)
                   this.$emit('close');
                 }, 2000);
               } else{
                 this.errorMessage.push(response.data.message);
-                this.isLoading = false;
+                //store.commit('isLoading');
               }
             })
             .catch(function(error) {

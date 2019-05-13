@@ -17,7 +17,7 @@
         <v-card-text>
           <span class="headline">{{ data.local_tipo }} - {{ data.local_name }}</span>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-          <loader :dialog="isLoading"></loader>
+          <loader></loader>
           <v-container grid-list-md>
             <!--#INICIO -->
             <v-flex xs12>

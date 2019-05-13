@@ -2,7 +2,7 @@
   <v-card>
     <v-card-text>
       <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-      <loader :dialog="isLoading"></loader>
+      <loader></loader>
     
       <small>Demanda</small>
       <v-layout wrap>  
@@ -16,7 +16,7 @@
             <th>Cod.Barras</th>
             <th></th>
           </tr>
-          <template v-for="subItem in data">
+          <template v-for="subItem in items">
             <tr v-if="subItem.edit" >
               <td v-if="subItem.edit" colspan="4">
                 <v-flex >
@@ -46,6 +46,7 @@
                 <v-btn @click="subItem.edit = !subItem.edit" color="blue" fab small dark>
                   <v-icon>&#9998;</v-icon>
                 </v-btn>
+                <copia :data="subItem.cilindro.cod_barras "></copia>
               </td>
             </tr>
             <v-divider></v-divider>
@@ -65,7 +66,6 @@ Vue.component('list-cilindro', {
     validator: 'new'
   },
   props: {
-    data: Array,
     item: {},
     //filterKey: String,
     //dialogAdd: Boolean,
@@ -74,8 +74,6 @@ Vue.component('list-cilindro', {
     return {
       errorMessage: [],
       successMessage: [],
-      isLoading: false,
-      
       cil_tipo: null,
       qtd: null,
       dtProg: null,
@@ -89,6 +87,9 @@ Vue.component('list-cilindro', {
       if(this.errorMessage.length > 0) return true
       if(this.successMessage.length > 0) return true
       return false
+    },
+    items() {
+      return store.getters.getItemsDemanda(this.item.id);
     },
     cilTipos() {
       return store.state.cil_tipos;
@@ -113,7 +114,7 @@ Vue.component('list-cilindro', {
     },
     addDemanda(){
       if ( this.checkForm() ) {
-          this.isLoading = true;
+          store.commit('isLoading');
           this.item['cil_tipo'] = this.cil_tipo;
           this.item['qtd']      = this.qtd;
           this.item['edit']     = false;
@@ -122,7 +123,7 @@ Vue.component('list-cilindro', {
           this.qtd        = "";
           this.item       = {};
           this.cil_tipo   = {};
-          this.isLoading  = false;
+          store.commit('isLoading')
           //console.log(this.data);
         }
       

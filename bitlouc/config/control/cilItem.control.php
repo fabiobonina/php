@@ -40,11 +40,11 @@
 
 		}
 
-		public function itemDemanda( $demanda_id ){
+		public function itemProg( $demanda_id ){
 			$cilindroItems 	= new CilindroItem();
 			
 			$arItem = array();
-			foreach($cilindroItems->fetchDemanda( $demanda_id ) as $key => $value): {
+			foreach($cilindroItems->fetchProg( $demanda_id ) as $key => $value): {
 				$item = $this->matrixItem( $value );
 				array_push( $arItem, $item );
 			}endforeach;

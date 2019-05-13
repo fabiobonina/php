@@ -68,7 +68,7 @@
             </v-radio-group>
           </v-form>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-          <loader :dialog="isLoading"></loader>
+          <loader></loader>
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -90,7 +90,7 @@ Vue.component('loja-edt', {
     return {
       errorMessage: [],
       successMessage: [],
-      isLoading: false,
+      
       dictionary: {
         attributes: {
           name: 'Nome',
@@ -127,7 +127,7 @@ Vue.component('loja-edt', {
       this.$validator.validateAll().then((result) => {
         if (result) {
       if(this.checkForm()){
-        this.isLoading = true
+        //store.commit('isLoading')
         var postData = {
           proprietario_id: this.data.proprietario_id,
           id: this.data.id,
@@ -142,10 +142,10 @@ Vue.component('loja-edt', {
           console.log(response);
           if(response.data.error){
             this.errorMessage.push(response.data.message);
-            this.isLoading = false;
+            //store.commit('isLoading');
           } else{
             this.successMessage.push(response.data.message);
-            this.isLoading = false;
+            //store.commit('isLoading');
             this.$store.dispatch("fetchIndex").then(() => {
               console.log("Atualizado lojas!")
             });

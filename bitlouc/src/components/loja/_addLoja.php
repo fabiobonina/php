@@ -22,7 +22,7 @@
         </v-card-title>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-          <loader :dialog="isLoading"></loader>
+          <loader></loader>
           <v-form>
             <v-text-field
               v-model="name"
@@ -87,7 +87,7 @@
     return {
       errorMessage: [],
       successMessage: [],
-      isLoading: false,
+      
       dialog: false,
       item:{},
       nick:'', name:'', grupo:'C', seguimento:'', ativo:'0',
@@ -124,7 +124,7 @@
       this.$validator.validateAll().then((result) => {
         if (result) {
           if(this.checkForm()){
-            this.isLoading = true
+            //store.commit('isLoading')
             var postData = {
               id: '',
               nick: this.nick,
@@ -139,10 +139,10 @@
               //console.log(response);
               if(response.data.error){
                 this.errorMessage.push(response.data.message);
-                this.isLoading = false;
+                //store.commit('isLoading');
               } else{
                 this.successMessage.push(response.data.message);
-                this.isLoading = false;
+                //store.commit('isLoading');
                 this.$store.dispatch("fetchIndex").then(() => {
                   console.log("Atualizado lojas!")
                 });

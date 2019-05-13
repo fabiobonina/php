@@ -14,7 +14,7 @@
         </v-toolbar>
         <v-card-text>
           <message :alerta="temMessage" :success="successMessage" :error="errorMessage"></message>
-          <loader :dialog="isLoading"></loader>
+          <loader></loader>
             <template>
               <!-- tecnicos -->
               <v-autocomplete solo multiple chips return-object max-height="auto"

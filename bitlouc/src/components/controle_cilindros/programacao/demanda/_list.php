@@ -28,7 +28,7 @@
                 </v-list-tile-content>
               </v-list-tile>
             </template>
-            <list-cilindro :data="item.items" :item="item"></list-cilindro>
+            <list-cilindro :item="item"></list-cilindro>
           </v-list-group>
         </v-list>
       </v-card>

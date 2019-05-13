@@ -17,7 +17,7 @@ Vue.component('desp-km', {
       date: '',
       dtFinal:'',
       dtInicio: '', kmInicio:'', kmFinal:'',  dtDesloc: '', valor: '', tempo: '',
-      isLoading: false,
+      
     };
   },
   watch: {
@@ -65,7 +65,7 @@ Vue.component('desp-km', {
     saveItem: function(){
       //this.errorMessage = []
       if(this.checkForm() && this.validarKm() && this.validarDate() ){
-        this.isLoading = true
+        //store.commit('isLoading')
         if( this.data.trajeto.categoria == '1'){
           this.data.kmInicio  = '0';
           this.data.kmFinal   = '0';
@@ -93,10 +93,10 @@ Vue.component('desp-km', {
           //console.log(response);
           if(response.data.error){
             this.errorMessage.push(response.data.message);
-            this.isLoading = false;
+            //store.commit('isLoading');
           } else{
             this.successMessage.push(response.data.message);
-            this.isLoading = false;
+            //store.commit('isLoading');
             this.$store.dispatch('findOs', this.$route.params._os).then(() => {
       console.log("Buscando dados da os")
     });

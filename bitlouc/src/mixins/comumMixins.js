@@ -2,7 +2,7 @@
 const comumMixins = {
     data: function () {
         return {
-            isLoading: false,
+            
             errorMessage: '',
             successMessage: '',
         };

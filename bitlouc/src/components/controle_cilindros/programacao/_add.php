@@ -18,7 +18,7 @@
           </v-toolbar>
           <v-card-text>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-          <loader :dialog="isLoading"></loader>
+          <loader></loader>
             <v-stepper v-model="progresso" vertical light>
               <v-stepper-step editable :complete="Number(progresso) > 1" step="1">
                 <div>{{ loja.nick }}</div>
@@ -159,7 +159,7 @@ Vue.component('prog-add', {
     return {
       errorMessage: [],
       successMessage: [],
-      isLoading: false,
+      
       dialog: false,
       loja:{},
       local : {},
@@ -178,7 +178,7 @@ Vue.component('prog-add', {
       // Items have already been requested
       if (this.isLoading) return
       this.updateLocal()
-      this.isLoading = true
+      //store.commit('isLoading')
 
     },
     'loja': function (newQuestion, oldQuestion) {
@@ -215,14 +215,14 @@ Vue.component('prog-add', {
       this.$store.dispatch('fetchLocalLoja', this.loja.id ).then(() => {
         //console.log("Buscando dados do local!");
         this.locais = store.state.locais;
-        this.isLoading = false;
+        //store.commit('isLoading');
       });
     },
     saveItem: function(){
       this.errorMessage = []
       this.$validator.validateAll().then((result) => {
         if (result && this.checkForm()) {
-          this.isLoading = true
+          //store.commit('isLoading')
           var postData = {
             loja_id: this.loja.id,
             local_id: this.local.id,
@@ -236,18 +236,18 @@ Vue.component('prog-add', {
             //console.log(response);
             if(!response.data.error){
                 this.successMessage.push(response.data.message);
-                this.isLoading = false;
+                //store.commit('isLoading');
                 setTimeout(() => {
                   this.$router.push('/programacao/'+response.data.id)
                   this.$emit('close');
                 }, 2000);
               } else{
                 this.errorMessage.push(response.data.message);
-                this.isLoading = false;
+                //store.commit('isLoading');
               }
           })
           .catch(function(error) {
-            this.isLoading = false;
+            //store.commit('isLoading');
             console.log(error);
           });
         }

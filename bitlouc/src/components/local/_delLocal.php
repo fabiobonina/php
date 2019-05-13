@@ -19,7 +19,7 @@
         </v-card-title>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-          <loader :dialog="isLoading"></loader>
+          <loader></loader>
           <v-form>
             <h1 class="headline">{{ data.tipo }}-{{ data.name }}</h1>
             <h2 class="headline">{{ data.municipio }}/ {{ data.uf }}</h2>
@@ -59,7 +59,7 @@
     methods: {
       deletarItem: function() {
         if(confirm('Deseja realmente deletar ' + this.data.tipo+'-'+ this.data.name + '?')){
-          this.isLoading = true
+          //store.commit('isLoading')
           var postData = {
             id: this.data.id
           };
@@ -68,10 +68,10 @@
             //console.log(response);
             if(response.data.error){
               this.errorMessage.push(response.data.message);
-              this.isLoading = false;
+              //store.commit('isLoading');
             } else{
               this.successMessage.push(response.data.message);
-              this.isLoading = false;
+              //store.commit('isLoading');
               this.$store.dispatch('fetchLocalLoja', this.loja.id).then(() => {
                   console.log("Atulizando dados das localidades!")
                 });

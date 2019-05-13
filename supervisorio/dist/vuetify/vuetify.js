@@ -6246,7 +6246,7 @@ __webpack_require__.r(__webpack_exports__);
         },
         onLoad: function onLoad() {
             this.getSrc();
-            this.isLoading = false;
+            store.commit('isLoading');
             this.$emit('load', this.src);
         },
         onError: function onError() {
@@ -16519,7 +16519,7 @@ var VTreeviewNodeProps = {
             isSelected: false,
             isIndeterminate: false,
             isActive: false,
-            isLoading: false,
+            
             hasLoaded: false
         };
     },
@@ -16563,10 +16563,10 @@ var VTreeviewNodeProps = {
                 // TODO: Potential issue with always trying
                 // to load children if response is empty?
                 if (!_this.children || _this.children.length || !_this.loadChildren || _this.hasLoaded) return resolve();
-                _this.isLoading = true;
+                _store.commit('isLoading');
                 resolve(_this.loadChildren(_this.item));
             }).then(function () {
-                _this.isLoading = false;
+                _store.commit('isLoading');
                 _this.hasLoaded = true;
             });
         },

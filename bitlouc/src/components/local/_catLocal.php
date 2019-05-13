@@ -20,7 +20,7 @@
         </v-card-title>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-          <loader :dialog="isLoading"></loader>
+          <loader></loader>
           <v-form>
             <div>
               <v-chip small v-for="item in local.categoria" close @input="catDelete(item)" :key="item.id"
@@ -94,7 +94,7 @@
         title: 'Categoria(s) Local',
         errorMessage: [],
         successMessage: [],
-        isLoading: false,
+        
         categoria: [],
         ativo:'',
         item:{},
@@ -121,7 +121,7 @@
         this.$validator.validateAll().then((result) => {
           if (result) {
         if(this.checkForm()){
-          this.isLoading = true
+          //store.commit('isLoading')
           var postData = {
             categoria: this.categoria,
             local_id: this.data.id
@@ -131,10 +131,10 @@
             //console.log(response);
             if(response.data.error){
               this.errorMessage = response.data.message;
-              this.isLoading = false;
+              //store.commit('isLoading');
             } else{
               this.successMessage.push(response.data.message);
-              this.isLoading = false;
+              //store.commit('isLoading');
               this.$store.dispatch('fetchLocalLoja', this.loja.id).then(() => {
                 console.log("Atulizando dados das localidades!")
               });
@@ -151,7 +151,7 @@
       },
       catDelete: function(data) {
         if(confirm('Deseja realmente deletar ' + data.name + '?')){
-          this.isLoading = true
+          //store.commit('isLoading')
           var postData = {
             id: data.id
           };
@@ -160,10 +160,10 @@
             //console.log(response);
             if(response.data.error){
               this.errorMessage = response.data.message;
-              this.isLoading = false;
+              //store.commit('isLoading');
             } else{
               this.successMessage.push(response.data.message);
-              this.isLoading = false;
+              //store.commit('isLoading');
               this.$store.dispatch('fetchLocalLoja', this.loja.id).then(() => {
                 console.log("Atulizando dados das localidades!")
               });
@@ -178,7 +178,7 @@
         }
       },
       catStatus: function(data) {
-        this.isLoading = true
+        //store.commit('isLoading')
         if(data.ativo == '0') this.ativo = '1';
         if(data.ativo == '1') this.ativo = '0';
         var postData = {
@@ -190,10 +190,10 @@
           //console.log(response);
           if(response.data.error){
             this.errorMessage = response.data.message;
-            this.isLoading = false;
+            //store.commit('isLoading');
           } else{
             this.successMessage.push(response.data.message);
-            this.isLoading = false;
+            //store.commit('isLoading');
             this.$store.dispatch("fetchIndex").then(() => {
               console.log("Atualizado lojas!")
             });

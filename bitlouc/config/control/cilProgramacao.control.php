@@ -17,8 +17,11 @@
 			$item->local_name		= $item->local->name;
 			$item->local_municipio	= $item->local->municipio;
 			$item->local_uf			= $item->local->uf;
-
 			$item->demandas		= $this->demandaProg( $item->id, $modelo );
+			if($modelo > 1){
+				
+			}
+			
 
 			return $item;
 
@@ -71,7 +74,7 @@
 		public function list(){
 			$cilindroProg	= new CilindroProg();
 			
-			$modelo = '1';
+			$modelo = '2';
 			$itens 	= array();
 			foreach($cilindroProg->findAll() as $key => $value): {
 				$item = $value;
@@ -87,7 +90,7 @@
 		public function show( $cilProgramacao_id ){
 			$cilindroProg	= new CilindroProg();
 			
-			$modelo = '2';
+			$modelo = '1';
 			$item = $cilindroProg->find( $cilProgramacao_id );
 			//var_dump($item);
 			if( !$item ){
@@ -97,6 +100,8 @@
 			}else{
 				$res['error'] = false;
 				$res['programacao'] = $this->matrix( $item, $modelo );
+				//$res['demandas'] 	= $this->demandaProg( $item->id, $modelo );
+				$res['items'] 		= $this->itemProg( $item->id, $modelo );
 				$res['message'] = 'OK, Dados encontrado';
 			}
 

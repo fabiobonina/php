@@ -19,7 +19,7 @@
         </v-card-title>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-          <loader :dialog="isLoading"></loader>
+          <loader></loader>
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12>
@@ -100,7 +100,7 @@ Vue.component('os-edt', {
       successMessage: [],
       title: 'Editar Ocorrecia',
       item:{},
-      isLoading: false,
+      
       date: "",
     };
   },
@@ -151,7 +151,7 @@ Vue.component('os-edt', {
       this.errorMessage = []
 
       if(this.checkForm()){
-        this.isLoading = true
+        //store.commit('isLoading')
         var postData = {
           proprietario_id: this.data.proprietario_id,
           loja_id:        this.data.loja_id,
@@ -176,7 +176,7 @@ Vue.component('os-edt', {
               this.$store.dispatch("findOs", this.data.id).then(() => {
                 console.log("Atualizando dados OS!")
               });
-              this.isLoading = false;
+              //store.commit('isLoading');
               setTimeout(() => {
                 this.$emit('atualizar');
               }, 2000);  
@@ -184,7 +184,7 @@ Vue.component('os-edt', {
               
             } else{
               this.errorMessage.push(response.data.message);
-              this.isLoading = false;
+              //store.commit('isLoading');
             }
           })
           .catch(function(error) {
