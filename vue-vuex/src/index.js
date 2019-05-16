@@ -1,9 +1,9 @@
-//import Vue from 'vue';
-//import VeeValidate from 'vee-validate';
+import Vue from 'vue';
+import VeeValidate from 'vee-validate';
 
-//import { store } from './_store';
-//import { router } from './_helpers';
-//import App from './app/App';
+import { store } from './_store';
+import { router } from './_helpers';
+import App from './app/App';
 
 Vue.use(VeeValidate);
 

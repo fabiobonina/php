@@ -35,8 +35,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/node-uuid/1.4.7/uuid.js"></script>
 
     <!-- Google Maps -->
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlfHdTSE_d9zwwYKs5gbL01mHElMLCFgE&libraries=places,geometry"></script>
+    <!--script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlfHdTSE_d9zwwYKs5gbL01mHElMLCFgE&libraries=places,geometry"></script -->
 
     <!-- Chart -->
     <script src="https://unpkg.com/chart.js@2.7.2/dist/Chart.bundle.js"></script>
@@ -78,14 +78,14 @@
 </body>
 </html>
 
-<script src="src/_store/account.module.js"></script>
-<script src="src/_store/alert.module.js"></script>
-<script src="src/_store/users.module.js"></script>
-<script src="src/_store/index.js"></script>
-<script src="src/_helpers/router.js"></script>
+<script src="src/_store/account.module.js" nomodule></script>
+<script src="src/_store/alert.module.js" nomodule></script>
+<script src="src/_store/users.module.js" nomodule></script>
+<script src="src/_store/index.js" nomodule></script>
+<script src="src/_helpers/router.js" nomodule></script>
 
-<script src="src/_services/index.js"></script>
-<script src="src/_services/user.service.js"></script>
-<script src="src/_store/users.module.js"></script>
-<script src="src/index.js"></script>
-<script src="src/app/App.js"></script>
+<script nomodule src="src/_services/index.js"></script>
+<script nomodule src="src/_services/user.service.js"></script>
+<script nomodule src="src/_store/users.module.js"></script>
+<script nomodule src="src/index.js"></script>
+<script nomodule src="src/app/App.js"></script>
