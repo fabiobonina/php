@@ -1,9 +1,9 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import productos from './modules/productos';
-import {getters} from './getters';
-import {mutations} from './mutations';
-Vue.use(Vuex);
+//import Vue from 'vue';
+//import Vuex from '../../dist/vue/vuex.js';
+import productos from './modules/productos.js';
+import {getters} from './getters.js';
+import {mutations} from './mutations.js';
+
 
 export const store = new Vuex.Store({
     state: {

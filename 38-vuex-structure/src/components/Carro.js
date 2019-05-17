@@ -1,3 +1,6 @@
+import {mapState, mapGetters, mapMutations} from 'vuex';
+export default {
+    template: `
 <template>
     <section>
         <h2>Carro de la compra</h2>
@@ -10,13 +13,11 @@
         </ul>
     </section>
 </template>
-<script>
-    import {mapState, mapGetters, mapMutations} from 'vuex';
-    export default {
+`,
+
         computed: {
             ...mapState(['carro']),
             ...mapGetters(['totalCompra']),
         },
         methods: mapMutations(['eliminarProducto'])
     }
-</script>
