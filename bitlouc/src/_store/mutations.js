@@ -111,7 +111,17 @@ const mutations = {
   },
   SET_DESLOC_STATUS(state, deslocStatus) {
     state.deslocStatus = deslocStatus
+  },  
+  increment: state => state.count++,
+  decrement: state => state.count--,
+  isLoading: state => state.loading = !state.loading,
+  errorMessage(state, errorMessage) {
+    state.errorMessage = errorMessage
   },
+  successMessage(state, successMessage) {
+    state.successMessage = successMessage
+  },
+  /*
   SET_CILINDROS(state, cilindros) {
     state.cilindros = cilindros
   },
@@ -141,7 +151,7 @@ const mutations = {
   },
   successMessage(state, successMessage) {
     state.successMessage = successMessage
-  },
+  },*/
   
   /*isLoading (state) {
     state.loading = !state.loading;

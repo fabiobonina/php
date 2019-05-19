@@ -55,6 +55,7 @@
   </div>
 </template>
 <script>
+
   Vue.component('top', {
     name: 'top',
     template: '#top',
@@ -81,12 +82,10 @@
       
     },
     computed: {
-      user() {
-        return store.state.user;
-      },
-      isLoggedIn() {
-        return store.state.isLoggedIn;
-      },
+      ...Vuex.mapState({
+        user: state => state.user,
+        isLoggedIn: state => state.isLoggedIn
+      })
     },
     watch: {
       // sempre que a pergunta mudar, essa função será executada

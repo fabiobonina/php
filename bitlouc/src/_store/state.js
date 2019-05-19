@@ -2,9 +2,6 @@
  * Vue.js with PHP Api
  * @author Fabio Bonina <fabio.bonina@gmail.com>
 */
-//Todos os postdados são enviados como json
-//True para enviar como dados do formulário
-
 
 
 const state = {
@@ -28,13 +25,13 @@ const state = {
   produtos:[],
   fabricantes:[],
   categorias:[],
-  cilindros:[],
+  /*cilindros:[],
   cilindro:[],
   cilProgramacoes:[],
   cilProgramacao:{},
   cilDemanda:{},
   cilItems:{},
-  cil_tipos:[],
+  cil_tipos:[],*/
   servicos:[],
   tecnicos:[],
   nivel: '1',

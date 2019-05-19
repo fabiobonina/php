@@ -21,7 +21,6 @@ Vue.component('todo-item', {
   props: ['user']
 });
 
-
 var router = new VueRouter({
   routes: [
     { path: '/', component: Home,

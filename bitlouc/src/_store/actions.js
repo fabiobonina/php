@@ -306,7 +306,7 @@ const actions = {
         }));
     });
   },
-  //CILINCROS
+  /*/CILINCROS
   fetchCilindros({ commit }) {
     return new Promise((resolve, reject) => {
       Vue.http.get(CILINDROLIST).then((response) => {
@@ -380,7 +380,7 @@ const actions = {
           console.log(error.statusText);
       }));
     });
-  },
+  },*/
 }
 
 

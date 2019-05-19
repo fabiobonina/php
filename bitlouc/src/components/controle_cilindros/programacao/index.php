@@ -24,6 +24,7 @@
 <?php require_once 'src/components/controle_cilindros/programacao/_list.php';?>
 
 <script>
+  
   var ProgramacaoIndex = Vue.extend({
     name: 'programacao-index',
     template: '#programacao-index',
@@ -56,15 +57,19 @@
     },
     computed: {
       user()  {
-        return store.state.user;
+        //return store.state.user;
       },
       cilProgramacoes()  {
         //return store.getters.getEquipamentoLocal(this.$route.params._local);
-        return store.state.cilProgramacoes;
+        //return store.state.cilProgramacoes;
       },
       local()  {
-        return store.state.local;
+        //return mapState([local]);
       },
+      /*...mapState({
+        a: state => state.some.nested.module.a,
+        b: state => state.some.nested.module.b
+      })*/
     },
     methods: {
       
