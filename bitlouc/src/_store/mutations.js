@@ -11,18 +11,7 @@ const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 const LOGOUT = "LOGOUT";
 
 const mutations = {
-  [LOGIN](state) {
-    state.pending = true;
-  },
-  [LOGIN_SUCCESS](state) {
-    state.isLoggedIn = !!localStorage.getItem("token");
-    state.pending = false;
-  },
-  [LOGOUT](state) {
-    state.isLoggedIn = false;
-    state.token = NULL;
-    state.user = "";
-  },
+  
   SET_SEARCH(state, search) {
     state.search = search
   },
@@ -34,14 +23,6 @@ const mutations = {
   },
   SET_USERS(state, users) {
     state.users = users
-  },
-  SET_USER(state, user) {
-    state.user = user
-  },
-  SET_LOGAR(state, creds) {
-    state.user = creds.user
-    state.isLoggedIn = creds.isLoggedIn;
-    state.token = creds.token ;
   },
   SET_LOJA(state, loja) {
     state.loja = loja
@@ -122,27 +103,6 @@ const mutations = {
     state.successMessage = successMessage
   },
   /*
-  SET_CILINDROS(state, cilindros) {
-    state.cilindros = cilindros
-  },
-  SET_CILINDRO(state, cilindro) {
-    state.cilindro = cilindro
-  },
-  SET_CILPROGRAMACOES(state, cilProgramacoes) {
-    state.cilProgramacoes = cilProgramacoes
-  },
-  SET_CILPROGRAMACAO(state, cilProgramacao) {
-    state.cilProgramacao = cilProgramacao
-  },
-  SET_CILDEMANDA(state, cilDemanda) {
-    state.cilDemanda = cilDemanda
-  }, 
-  SET_CILITEMS(state, cilItems) {
-    state.cilItems = cilItems
-  }, 
-  SET_CIL_TIPOS(state, cil_tipos) {
-    state.cil_tipos = cil_tipos
-  },
   increment: state => state.count++,
   decrement: state => state.count--,
   isLoading: state => state.loading = !state.loading,

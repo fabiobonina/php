@@ -44,9 +44,9 @@
 
 </script>
 
-<?php require_once 'src/pages/dashboard.php';?>
+<?php // require_once 'src/system/pages/dashboard.php';?>
 
-<?php require_once 'src/components/includes/top.php';?>
-<?php require_once 'src/components/includes/rodape.php';?>
+<?php require_once 'src/system/components/includes/top.php';?>
+<?php require_once 'src/system/components/includes/rodape.php';?>
 
 

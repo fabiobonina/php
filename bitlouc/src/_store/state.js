@@ -5,9 +5,6 @@
 
 
 const state = {
-  isLoggedIn: !!localStorage.getItem("token"),
-  token: atob(localStorage.getItem("token")),
-  user: {},
   statusBens: [
     { id:'0', name: 'Instalação', ativo: '0', icon: 'done' },
     { id:'1', name: 'Operação', ativo: '1', icon: 'done' },
@@ -20,18 +17,10 @@ const state = {
   locais: [],
   local: {},
   equipamentos: [],
-  users:[],
   tipos:[],
   produtos:[],
   fabricantes:[],
   categorias:[],
-  /*cilindros:[],
-  cilindro:[],
-  cilProgramacoes:[],
-  cilProgramacao:{},
-  cilDemanda:{},
-  cilItems:{},
-  cil_tipos:[],*/
   servicos:[],
   tecnicos:[],
   nivel: '1',

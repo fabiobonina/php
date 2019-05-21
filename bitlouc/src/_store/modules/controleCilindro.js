@@ -114,7 +114,9 @@ const controleCilindro = {
         },
     },
     getters: {
-
+        getItemsDemanda: (state) => (demanda_id) => {
+            return state.cilItems.filter(todo => todo.demanda_id == demanda_id)
+        },
     }
 }
 

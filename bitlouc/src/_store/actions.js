@@ -71,7 +71,6 @@ const actions = {
   setStatus({ commit }, status) {
     commit("SET_STATUS", status)
   },
-  
   fetchIndex({ commit }) {
     return new Promise((resolve, reject) => {
       var postData = { token: state.token };
