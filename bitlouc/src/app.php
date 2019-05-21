@@ -11,18 +11,19 @@
       <div><h2>Pagina não encontrado: 404</h2></div>
     </template>
     
-    <?php require_once 'src/components/includes/config.php';?>
-    <?php require_once 'src/components/includes/loader.php';?>
-    <?php require_once 'src/components/includes/_copia.php';?>
-    <?php require_once 'src/pages/home.php';?>
-    <?php require_once 'src/pages/oss.php';?>
+    <?php require_once 'src/system/home.php';?>
+    <?php require_once 'src/controlecilindro/pages/controle-cilindros.php';?>
+    <?php require_once 'src/atendimento/pages/oss.php';?>
+    <?php require_once 'src/organizacao/pages/gerencial.php';?>
+    
+    <?php require_once 'src/system/components/includes/config.php';?>
+    <?php require_once 'src/system/components/includes/loader.php';?>
+    <?php require_once 'src/system/components/includes/_copia.php';?>
     <?php require_once 'src/pages/os.php';?>
     <?php require_once 'src/pages/lojas.php';?>
     <?php require_once 'src/pages/loja.php';?>
     <?php require_once 'src/pages/local.php';?>
-    <?php require_once 'src/pages/gerencial.php';?>
     <?php require_once 'src/pages/os-gerencial.php';?>
-    <?php require_once 'src/pages/controle-cilindros.php';?>
 
     <?php require_once 'src/components/includes/message.php';?>
 </div>
