@@ -53,8 +53,8 @@
         <rodape></rodape>
     </v-content>
 </template>
-<?php require_once 'src/components/controle_cilindros/cilindro/index.php';?>
-<?php require_once 'src/components/controle_cilindros/programacao/index.php';?>
+<?php //require_once 'src/controle_cilindro/components/cilindro/index.php';?>
+<?php //require_once 'src/controle_cilindro/components/programacao/index.php';?>
 <script>
     var PainelCilindros = Vue.extend({
     template: '#painel-cilindros',

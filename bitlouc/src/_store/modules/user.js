@@ -1,4 +1,8 @@
-const controleCilindro = {
+const LOGIN = "LOGIN";
+const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+const LOGOUT = "LOGOUT";
+
+const user = {
 
     state: {
         isLoggedIn: !!localStorage.getItem("token"),
@@ -9,16 +13,19 @@ const controleCilindro = {
 
     mutations: {
         [LOGIN](state) {
-            state.pending = true;
+            state.loading = true;
         },
-        [LOGIN_SUCCESS](state) {
+        [LOGIN_SUCCESS](state, creds) {
+            localStorage.setItem("token", btoa( creds.token ));
             state.isLoggedIn = !!localStorage.getItem("token");
-            state.pending = false;
+            state.user = creds.user
+            state.token = creds.token ;
+            state.loading = false;
         },
         [LOGOUT](state) {
             state.isLoggedIn = false;
             state.token = NULL;
-            state.user = "";
+            state.user = {};
         },
         SET_USER(state, user) {
             state.user = user
@@ -31,35 +38,58 @@ const controleCilindro = {
     },
 
     actions: {
+        login({ state, commit, rootState }, creds) {
+            return new Promise(resolve => {
+                //commit("SET_LOGAR", creds);
+                commit(LOGIN_SUCCESS, creds);
+                resolve();
+            });
+        },
+        logout({ commit }) {
+            return new Promise((resolve, reject) => {
+                Vue.http.post('./config/api/user.api.php?action=logout')
+                .then(function(response) {
+                    console.log( response); 
+                    commit(LOGOUT); 
+                    commit("SET_USER", {} );
+                    commit("SET_PROPRIETARIO", {});
+                    commit("SET_LOJAS", []);
+                    commit("SET_OSS", []);
+                    commit("SET_OSUF", []);
+                    commit(LOGOUT);
+                })
+                .catch((error => {
+                    console.log(error.statusText);
+                }));
+            });
+        },
         isLoggedIn({ commit }) {
             return new Promise((resolve, reject) => {
-              var postData = { token: state.token };
-              Vue.http.post('./config/api/organizacao.api.php?action=read', postData )
-              .then(function(response) {
-                //console.log( response); 
-                if(response.data.error){
-                  console.log(response.data.message);
-                  if(!response.data.user.isLoggedIn){
-                    localStorage.removeItem("token");
-                    localStorage.removeItem("isLoggedIn");
-                    commit(LOGOUT);
-                  }
-                } else{
-                  commit("SET_USER", response.data.user);
-                  resolve();
-                }
-              })
-              .catch((error => {
-                  console.log(error.statusText);
-              }));
+                var postData = { token: state.token };
+                Vue.http.post('./config/api/user.api.php?action=isLoggedIn', postData )
+                .then(function(response) {
+                    console.log( response); 
+                    if(response.data.error){
+                        console.log(response.data.message);
+                        if(!response.data.user.isLoggedIn){
+                            commit(LOGOUT);
+                        }
+                    } else{
+                        commit("SET_LOGAR", response.data.user);                        
+                    }
+                    resolve();
+                })
+                .catch((error => {
+                    console.log(error.statusText);
+                }));
             });
         },
     },
 
     getters: {
         isLoggedIn: state => state.isLoggedIn,
-        getUser: state => state.user,
-        getUsers: state => state.users,
+        user:       state => state.user,
+        users:      state => state.users,
     }
 }
 

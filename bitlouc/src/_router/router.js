@@ -23,7 +23,8 @@ Vue.component('todo-item', {
 
 var router = new VueRouter({
   routes: [
-    { path: '/', component: Home,
+    { path: '/', component: System, name:'system'},
+    /*{ path: '/', component: System,
       children: [
         { path: '', component: Dashboard },
       ]
@@ -75,13 +76,8 @@ var router = new VueRouter({
         { path: 'cilindros', component: CilindrosIndex },
         { path: 'programacao', component: ProgramacaoIndex },
         { path: 'programacao/show/:_programacao', component: ProgramacaoShow },
-        /*{ path: '/cilindros', component: CilindroHome,
-          children: [
-            { path: '', component: CilindroIndex },
-          ]
-        },*/
       ] 
-    },
+    },*/
     {path: '*', component: NaoEncontrado},
   ]
 });

@@ -16,28 +16,26 @@
         $token = $_POST['token'];
     }
     
-    if( isset($_SESSION['loginUser']) && isset($_SESSION['loginNivel']) ){
+    if( isset($_SESSION['user_user']) && isset($_SESSION['user_nivel']) ){
         $user = array();
-        $user['id']             = $_SESSION['loginId'];
-        $user['name']           = $_SESSION['loginName'];
-        $user['email']          = $_SESSION['loginEmail'];
-        $user['user']           = $_SESSION['loginUser'];
-        $user['uf']             = $_SESSION['loginUf'];
-        $user['token']          = $_SESSION['loginToken'];
-        $user['avatar']         = $_SESSION['loginAvatar'];
-        $user['proprietario']   = $_SESSION['loginProprietario'];
-        $user['grupo']          = $_SESSION['loginGrupo'];
-        $user['loja']           = $_SESSION['loginLoja'];
-        $user['nivel']          = $_SESSION['loginNivel'];
-        $user['data']           = $_SESSION['loginDtCadastro'];
+        $user['id']             = $_SESSION['user_id'];
+        $user['name']           = $_SESSION['user_name'];
+        $user['email']          = $_SESSION['user_email'];
+        $user['user']           = $_SESSION['user_user'];
+        $user['uf']             = $_SESSION['user_uf'];
+        $user['token']          = $_SESSION['user_token'];
+        $user['avatar']         = $_SESSION['user_avatar'];
+        $user['proprietario']   = $_SESSION['user_proprietario'];
+        $user['grupo']          = $_SESSION['user_grupo'];
+        $user['loja']           = $_SESSION['user_loja'];
+        $user['nivel']          = $_SESSION['user_nivel'];
+        $user['data']           = $_SESSION['user_dtCadastro'];
 		$user['isLoggedIn']     = true;
         $user['error']          = false;
 
     }elseif( isset($token) ){
         $user = $userControl->isLoggedIn( $token );
         $user = $user;
-    }else{
-        //header("Location: ../../login.php");exit;
     }
 
 ?>

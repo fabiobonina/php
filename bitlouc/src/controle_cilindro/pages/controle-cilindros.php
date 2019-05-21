@@ -1,11 +1,7 @@
 <template id="controle-cilindros">
   <div>
-    <top></top>
-    <!--oss-top></oss-top-->
-    
-        <router-view></router-view>
-    
-    
+    <top></top>    
+    <router-view></router-view>    
   </div>
 </template>
 
@@ -13,10 +9,9 @@
   var ControleCilindros = Vue.extend({
     template: '#controle-cilindros',
     data: function () {
-        return {
-            errorMessage: '',
-            successMessage: '',
-        };
+      return {
+
+      };
     },
     created() {
       this.$store.dispatch("fetchCilindros").then(() => {
@@ -24,9 +19,9 @@
       });
     },
     computed: {
-        osLojas() {
-            return store.state.osLojas;
-        },
+      osLojas() {
+          //return store.state.osLojas;
+      },
     },
     methods: {
         
@@ -35,8 +30,6 @@
 
 </script>
 
-<?php require_once 'src/components/includes/top.php';?>
-<?php require_once 'src/components/includes/rodape.php';?>
 <?php require_once 'src/components/controle_cilindros/index.php';?>
 <?php require_once 'src/components/controle_cilindros/programacao/show.php';?>
 <?php require_once 'src/components/gerencial/proprietario-top.php';?>

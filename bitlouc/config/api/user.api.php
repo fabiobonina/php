@@ -9,15 +9,10 @@ header('Content-Type: text/html; charset=utf-8');
 
 require_once '../control/user.control.php';
 
-//function __autoload($class_name){
-//  require_once '../model/' . $class_name . '.php';
-//}
-
-//$globalControl  = new GlobalControl();
 $userControl    = new UserControl();
 
 $res = array('error' => true);
-$arDados = array();
+
 $arErros = array();
 $action = 'logout';
 
@@ -38,6 +33,14 @@ if($action == 'logar'):
   }
 endif;
 
+if($action == 'logar'):
+  if(isset($_POST['email'], $_POST["password"] ) ){
+  
+    $email= $_POST["email"];
+    $senha= $_POST["password"];
+    $res = $userControl->logar( $email, $senha );
+  }
+endif;
 
 #REGISTRAR
 if($action == 'registrar'):
@@ -110,6 +113,12 @@ if($action == 'registrar'):
 
 endif;
 
+if($action == 'isLoggedIn'):
+  
+  $token = $_POST['token'];
+  $res = $userControl->isLoggedIn( $token );
+
+endif;
 
 //$res['dados'] = $arDados;
 header("Content-Type: application/json");

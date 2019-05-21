@@ -15,7 +15,7 @@
           </v-list-tile>
         </v-list>
       </v-toolbar>
-      <v-list>
+      <v-list v-if="user">
         <v-list-tile v-for="item in home" :key="item.title" :to="item.router" @click="" append>
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
@@ -45,13 +45,12 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn href="#/" flat>Home </v-btn>
-        <v-btn v-if="user.nivel > 2" href="#/projetos"  flat>Projetos</v-btn>
+        <v-btn v-if="user && user.nivel > 2" href="#/projetos"  flat>Projetos</v-btn>
         <logout></logout>
       </v-toolbar-items>
     </v-toolbar>
           
     <user v-if="modalUser" v-on:close="modalUser = false"></user>
-    <is-login v-if="isLoggedIn !== true" v-on:atualizar="atualizar()"></is-login> 
   </div>
 </template>
 <script>
@@ -82,10 +81,8 @@
       
     },
     computed: {
-      ...Vuex.mapState({
-        user: state => state.user,
-        isLoggedIn: state => state.isLoggedIn
-      })
+      ...Vuex.mapGetters(["isLoggedIn"] ),
+      ...Vuex.mapGetters(["user"]),
     },
     watch: {
       // sempre que a pergunta mudar, essa função será executada
@@ -99,16 +96,10 @@
         this.logout;
         //this.$emit('close');
       },
-      
       ...Vuex.mapActions({logout: "logout"}),
     }
   });
 
-
-
-
 </script>
 
-<?php require_once 'src/components/user/user.php';?>
-<?php require_once 'src/components/includes/isLogin.php';?>
-<?php require_once 'src/components/includes/logout.php';?>
+

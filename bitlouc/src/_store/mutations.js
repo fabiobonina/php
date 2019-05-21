@@ -5,11 +5,6 @@
 //Todos os postdados são enviados como json
 //True para enviar como dados do formulário
 
-
-const LOGIN = "LOGIN";
-const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-const LOGOUT = "LOGOUT";
-
 const mutations = {
   
   SET_SEARCH(state, search) {

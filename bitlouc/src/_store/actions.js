@@ -34,37 +34,6 @@ const CILPROGRAMACAOITEM  ='./config/api/cilProgramacao.api.php?action=item';
 
 
 const actions = {
-  login({ state, commit, rootState }, creds) {
-    commit(LOGIN); // show spinner
-    return new Promise(resolve => {
-      setTimeout(() => {
-        localStorage.setItem("token", btoa( creds.token ));
-        localStorage.setItem("isLoggedIn", btoa( creds.isLoggedIn ));
-        commit("SET_LOGAR", creds);
-        commit(LOGIN_SUCCESS);
-        resolve();
-      }, 1000);
-    });
-  },
-  logout({ commit }) {
-      return new Promise((resolve, reject) => {
-        Vue.http.post('./config/api/user.api.php?action=logout')
-        .then(function(response) {
-          console.log( response); 
-          localStorage.removeItem("token");
-          localStorage.removeItem("isLoggedIn");
-          commit("SET_USER", {} );
-          commit("SET_PROPRIETARIO", {});
-          commit("SET_LOJAS", []);
-          commit("SET_OSS", []);
-          commit("SET_OSUF", []);
-          commit(LOGOUT);
-        })
-        .catch((error => {
-            console.log(error.statusText);
-        }));
-      });
-  },
   setSearch({ commit }, search) {
     commit("SET_SEARCH", search)
   },

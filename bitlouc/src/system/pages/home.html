@@ -1,0 +1,33 @@
+<template id="home">
+  <div>
+    <painel-home></painel-home>
+  </div>
+</template>
+
+<script>
+var Home = Vue.extend({
+  name: 'home',
+  template: '#home',
+  props: {
+
+  },
+  data: function () {
+    return {
+      errorMessage: '',
+      successMessage: '',
+      searchQuery: '',
+      gridColumns: ['displayName', 'name']
+    };
+  },
+  created: function() {
+  },
+  computed: {
+  },
+  methods: {
+  }
+});
+
+</script>
+
+
+

@@ -1,0 +1,24 @@
+<template id="validation">
+  <div>
+    
+  </div>
+</template>
+
+<script>
+  Vue.component('validation', {
+  name: 'validation',
+  template: '#validation',
+  data: function () {
+    return {
+      errorMessage: '',
+      successMessage: '',
+    };
+  },
+  created: function() {
+    this.$store.dispatch("isLoggedIn").then(() => {
+      console.log("Validar user!")
+    });
+  }
+});
+
+</script>

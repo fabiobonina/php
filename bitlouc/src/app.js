@@ -11,6 +11,7 @@ const store = new Vuex.Store({
   modules: {
     moduloA: productos,
     moduloB: controleCilindro,
+    moduloC: user,
   }
 })
 
