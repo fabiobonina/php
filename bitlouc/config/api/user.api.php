@@ -15,10 +15,10 @@ $res = array('error' => true);
 
 $arErros = array();
 
-$action = 'logout';
+$action = 'logar';
 
-$res['user'] =  $user;
-$res['error'] = $user['error'];
+//$res['user'] =  $user;
+//$res['error'] = $user['error'];
 
 if(isset($_GET['action'])){
   $action = $_GET['action'];
@@ -29,12 +29,13 @@ if($action == 'logout'){
 }
 
 if($action == 'logar'):
-  if(isset($_POST['email'], $_POST["password"] ) ){
+  //if(isset($_POST['email'], $_POST["password"] ) ){
   
-    $email= $_POST["email"];
-    $senha= $_POST["password"];
-    $userControl->logar( $email, $senha );
-  }
+    $email= 'fabio.bonina@gruposabara.com';//$_POST["email"];
+    $senha= '123abc';//$_POST["password"];
+    $res = $userControl->logar( $email, $senha );
+    //$res['messagem'] = $item;
+  //}
 endif;
 
 #REGISTRAR

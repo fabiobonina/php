@@ -24,9 +24,28 @@ Vue.component('todo-item', {
 var router = new VueRouter({
   //mode: 'history',
   routes: [
-    { path: '/', component: HomePage },
     { path: '/login', component: LoginPage },
     { path: '/register', component: RegisterPage },
+    { path: '/', component: HomePage,
+      children: [
+        { path: '', component: Home },
+      ]
+    },
+    { path: '/organizacao', component: Organizacao,
+      children: [
+        { path: '', component: OrganPage },
+        { path: 'lojas', component: LojasPage },
+        { path: 'locais', component: LocaisPage },
+      ]
+    },
+    /*{ path: '/lojas', component: Lojas, name: 'lojas' },
+    { path: '/loja/:_loja', component: Loja,
+      children: [
+        { path: '', component: LocaisIndex },
+        { path: 'oss', component: LojaOss },
+        //{ path: 'bens', component: LojaBens },
+      ]
+    },
     //{ path: '/', component: System, name:'system'},
     /*{ path: '/', component: System,
       children: [
@@ -87,11 +106,12 @@ var router = new VueRouter({
 });
 router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
-  const publicPages = ['/login', '/register'];
-  const authRequired = !publicPages.includes(to.path);
-  const loggedIn = localStorage.getItem('user');
-
-  if (authRequired && !loggedIn) {
+  const publicPages   = ['/login', '/register'];
+  const authRequired  = !publicPages.includes(to.path);
+  const loggedIn      = localStorage.getItem('user');
+  const isLoggedIn    = !!localStorage.getItem('token');
+  //console.log(isLoggedIn)
+  if (authRequired && !loggedIn && !isLoggedIn) {
     return next('/login');
   }
 

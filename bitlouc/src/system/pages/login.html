@@ -1,44 +1,4 @@
 <template id="login-page">
-  <!--v-card class="elevation-12">
-    <v-toolbar card ustify-center>
-      <img src="interface/imagem/bitlouc_logoii.png" height="60px" width="150px">
-    </v-toolbar>
-
-    <v-card-title>
-      Faça login para iniciar sua sessão
-    </v-card-title>
-    <v-card-text>
-      
-      <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-      <v-form>
-        <v-text-field
-          v-model="email"
-          label="E-mail"
-          :error-messages="errors.collect('email')"
-          v-validate="'required|email'"
-          data-vv-name="email"
-          required
-        ></v-text-field>
-        <v-text-field
-          label="Senha"
-          v-model="password"
-          v-validate="'required|min:6'"
-          data-vv-name="password"
-          :error-messages="errors.collect('password')"
-          :append-icon="e1 ? 'visibility' : 'visibility_off'"
-          :append-icon-cb="() => (e1 = !e1)"
-          type="password"
-          required
-        ></v-text-field>
-      </v-form>
-    </v-card-text>
-    <v-card-actions>
-      Não tem uma conta? <a @click.stop="$emit('close')">Crie uma!</a>
-      <v-spacer></v-spacer>
-      <v-btn color="primary" @click.stop="logar()">Entrar</v-btn>
-    </v-card-actions>
-  </v-card-->
-
       <v-content>
         <v-container fluid fill-height>
           <v-layout align-center justify-center>
@@ -71,9 +31,9 @@
                       v-validate="'required|min:6'"
                       data-vv-name="password"
                       :error-messages="errors.collect('password')"
-                      :append-icon="e1 ? 'visibility' : 'visibility_off'"
-                      :append-icon-cb="() => (e1 = !e1)"
-                      type="password"
+                      :append-icon="e1 ? 'visibility_off' : 'visibility'"
+                      @click:append="() => (e1 = !e1)"
+                      :type="e1 ? 'password' : 'text'"
                       required
                     ></v-text-field>
                   </v-form>
@@ -105,7 +65,8 @@ var LoginPage = Vue.extend({
       errorMessage: [],
       successMessage: [],
       e1: true,
-      email:'', password:'',
+      email:'',
+      password:'',
       dictionary: {
         attributes: {
           email: 'E-mail'
@@ -138,6 +99,7 @@ var LoginPage = Vue.extend({
           };
           
           this.$http.post('./config/api/user.api.php?action=logar', postData).then(function(response) {
+            console.log(response);
             if(response.data.error){
               this.errorMessage.push(response.data.message);
               this.isLoading = false;
@@ -146,7 +108,7 @@ var LoginPage = Vue.extend({
               //this.$store.dispatch('setUser', response.data.dados);
               setTimeout(() => {
                 if(response.data.isLoggedIn){
-                localStorage.setItem("isLoggedIn", btoa( response.data.isLoggedIn ))
+                //localStorage.setItem("isLoggedIn", btoa( response.data.isLoggedIn ))
                 this.$store.dispatch("login", {
                     isLoggedIn: response.data.isLoggedIn,
                     token: response.data.token,

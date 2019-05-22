@@ -4,6 +4,7 @@
         <v-app id="inspire">          
           <!--is-login></is-login-->
           <configuracao></configuracao>
+          <loader></loader>
           <router-view></router-view>
         </v-app>
       </main>

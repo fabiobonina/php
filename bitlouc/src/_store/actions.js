@@ -42,10 +42,8 @@ const actions = {
   },
   fetchIndex({ commit }) {
     return new Promise((resolve, reject) => {
-      var postData = { token: state.token };
-      Vue.http.post('./config/api/organizacao.api.php?action=read', postData )
+      Vue.http.post('./config/api/organizacao.api.php?action=read')
       .then(function(response) {
-        //console.log( response); 
         if(response.data.error){
           console.log(response.data.message);
           if(!response.data.user.isLoggedIn){

@@ -10,7 +10,7 @@
     </div>
 </template>
 <?php // require_once 'src/system/pages/dashboard.html';?>
-<?php require_once 'src/system/components/home.html';?>
+<?php require_once 'src/system/components/painel.html';?>
 <?php require_once 'src/system/components/top.html';?>
 <?php require_once 'src/system/components/rodape.html';?>
 
@@ -20,6 +20,7 @@
 
 <?php require_once 'src/system/components/login/isLogin.html';?>
 <?php require_once 'src/system/components/login/logout.html';?>
+<?php require_once 'src/system/pages/home.html';?>
 <?php require_once 'src/system/pages/login.html';?>
 <?php require_once 'src/system/pages/registrar.html';?>
 

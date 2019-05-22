@@ -1,6 +1,7 @@
 
 const getters = {
   //getSearch: state => state.tipoDeslocamentos,
+  loading: state => state.loading,
   getSearch: state => state.search,
   getStatus: state => state.status,
   getProprietario: state => state.proprietario,

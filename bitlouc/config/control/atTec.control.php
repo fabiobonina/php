@@ -87,7 +87,7 @@
 			$tecnicos	= new Tecnicos();
 			$itens 		= array();
 			
-			foreach($tecnicos->findProprietario( $_SESSION['loginProprietario'] ) as $key => $value) : if( $value->ativo == '0' ) {
+			foreach($tecnicos->findProprietario( $_SESSION['user_proprietario'] ) as $key => $value) : if( $value->ativo == '0' ) {
 				$item = $value;
 				$item = $this->matrix( $item );
 				$item = (array) $item;

@@ -37,7 +37,7 @@
 			$usuarios 	= new User();
 			$item		= $usuarios->isLoggedIn( $chave );
 			if( !$item['error']){
-				$item = $this->matrix( $item );				
+				$this->matrix( $item );				
 			}
 			return $item;
 
@@ -49,14 +49,14 @@
 			$item 		= $usuarios->findEmail( $email, $password );
 
 			if( !$item['error'] ){
-				$item = $this->matrix( $item );
+				$this->matrix( $item );
 			}
 
 			return $item;
 		}
 
 		public function logout(){
-			session_start();
+			//session_start();
 			session_destroy();
 		}
 

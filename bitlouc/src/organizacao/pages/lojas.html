@@ -1,14 +1,21 @@
-<template id="lojas-plus">
+<template id="lojas-page">
   <div>
-    <grid-lojas :data="lojas"></grid-lojas>
+    <top></top>
+    <v-content>
+      <v-container fluid>        
+        <grid-lojas :data="lojas"></grid-lojas>
+      </v-container>
+    </v-content>
+    <rodape></rodape>
   </div>
 </template>
 
-<?php require_once 'src/components/loja/lojas-grid.php';?>
+
 
 <script>
-  var LojasPlus = Vue.extend({
-    template: '#lojas-plus',
+  var LojasPage = Vue.extend({
+    template: '#lojas-page',
+    name: 'lojas-page',
     data: function () {
       return {
         errorMessage: '',
@@ -30,21 +37,20 @@
         return store.state.osProprietario;
       },
       lojas() {
-        //return store.getters.getLojaAtivo();
-        return store.state.lojas;
+        return store.getters.getLojaAtivo();
+        //return store.state.lojas;
       },
     },
     methods: {
       onAtualizar: function(){
-        this.$store.dispatch('fetchLocais', this.$route.params._loja).then(() => {
-          console.log("Buscando dados das locais!")
+        this.$store.dispatch('fetchLojas').then(() => {
+          console.log("Dados das lojas!")
         });
       }
     }
   });
-  
-</script>
 
+</script>
 
 
 

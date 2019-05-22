@@ -1,6 +1,6 @@
 <template id="home">
   <div>
-    <painel-home></painel-home>
+    <painel :data"painel"></painel>
   </div>
 </template>
 
@@ -16,7 +16,29 @@ var Home = Vue.extend({
       errorMessage: '',
       successMessage: '',
       searchQuery: '',
-      gridColumns: ['displayName', 'name']
+      painel: [            
+        {   title: 'Ordem de Serviço',
+            subtitle: 'Controle dos atendimentos',
+            router: '/oss',
+            icon: 'mdi-format-float-center',
+            iconClass: 'grey lighten-1 white--text',
+            nivel: '1',
+        },
+        {   title: 'Controle Cilindros',
+            subtitle: 'Programação de Cilindros',
+            router: '/controle-cilindros',
+            icon: 'mdi-format-float-center',
+            iconClass: 'primary white--text',
+            nivel: '1',
+        },
+        {   title: 'Orgranização',
+            subtitle: 'Dados loja e localidades',
+            router: '/orgranizacao',
+            icon: 'mdi-format-float-center',
+            iconClass: 'primary white--text',
+            nivel: '1',
+        },
+      ],
     };
   },
   created: function() {

@@ -54,9 +54,8 @@
       //this.modalLocalAdd = true;
     },
     computed: {
-      user()  {
-        return store.state.user;
-      },
+      ...Vuex.mapGetters(["isLoggedIn"] ),
+      ...Vuex.mapGetters(["user"]),
     }, // computed
     methods: {
     },
