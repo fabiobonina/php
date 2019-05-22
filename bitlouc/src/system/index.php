@@ -1,4 +1,4 @@
-<template id="system">
+<template id="home-page">
     <div>
         <top></top>
         <v-content>
@@ -20,8 +20,8 @@
 
 <?php require_once 'src/system/components/login/isLogin.html';?>
 <?php require_once 'src/system/components/login/logout.html';?>
-<?php require_once 'src/system/components/login/login.html';?>
-<?php require_once 'src/system/components/login/registrar.html';?>
+<?php require_once 'src/system/pages/login.html';?>
+<?php require_once 'src/system/pages/registrar.html';?>
 
 <?php require_once 'src/system/components/includes/config.html';?>
 <?php require_once 'src/system/components/includes/_loader.html';?>
@@ -38,8 +38,8 @@
 <?php //require_once 'src/components/os/osStatusTec.html';?>
 
 <script>
-  var System = Vue.extend({
-    template: '#system',
+  var HomePage = Vue.extend({
+    template: '#home-page',
     data: function () {
       return {
   

@@ -22,8 +22,12 @@ Vue.component('todo-item', {
 });
 
 var router = new VueRouter({
+  //mode: 'history',
   routes: [
-    { path: '/', component: System, name:'system'},
+    { path: '/', component: HomePage },
+    { path: '/login', component: LoginPage },
+    { path: '/register', component: RegisterPage },
+    //{ path: '/', component: System, name:'system'},
     /*{ path: '/', component: System,
       children: [
         { path: '', component: Dashboard },
@@ -81,4 +85,16 @@ var router = new VueRouter({
     {path: '*', component: NaoEncontrado},
   ]
 });
+router.beforeEach((to, from, next) => {
+  // redirect to login page if not logged in and trying to access a restricted page
+  const publicPages = ['/login', '/register'];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem('user');
+
+  if (authRequired && !loggedIn) {
+    return next('/login');
+  }
+
+  next();
+})
 

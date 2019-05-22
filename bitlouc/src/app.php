@@ -2,7 +2,7 @@
     <div>
       <main id="app">
         <v-app id="inspire">          
-          <is-login></is-login>
+          <!--is-login></is-login-->
           <configuracao></configuracao>
           <router-view></router-view>
         </v-app>

@@ -6,7 +6,7 @@ header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/html; charset=utf-8');
 
 //include("_chave.php");
-
+require_once '_chave.php';
 require_once '../control/user.control.php';
 
 $userControl    = new UserControl();
@@ -14,7 +14,11 @@ $userControl    = new UserControl();
 $res = array('error' => true);
 
 $arErros = array();
+
 $action = 'logout';
+
+$res['user'] =  $user;
+$res['error'] = $user['error'];
 
 if(isset($_GET['action'])){
   $action = $_GET['action'];
@@ -29,16 +33,7 @@ if($action == 'logar'):
   
     $email= $_POST["email"];
     $senha= $_POST["password"];
-    $res = $userControl->logar( $email, $senha );
-  }
-endif;
-
-if($action == 'logar'):
-  if(isset($_POST['email'], $_POST["password"] ) ){
-  
-    $email= $_POST["email"];
-    $senha= $_POST["password"];
-    $res = $userControl->logar( $email, $senha );
+    $userControl->logar( $email, $senha );
   }
 endif;
 
@@ -116,7 +111,7 @@ endif;
 if($action == 'isLoggedIn'):
   
   $token = $_POST['token'];
-  $res = $userControl->isLoggedIn( $token );
+  $userControl->isLoggedIn( $token );
 
 endif;
 

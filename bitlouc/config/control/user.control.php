@@ -47,6 +47,7 @@
 			$usuarios   = new User();
 			$password 	= md5($senha);
 			$item 		= $usuarios->findEmail( $email, $password );
+
 			if( !$item['error'] ){
 				$item = $this->matrix( $item );
 			}
