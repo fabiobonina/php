@@ -17,8 +17,10 @@
 <?php require_once 'src/organizacao/components/loja/lojas-grid.html';?>
 <?php require_once 'src/organizacao/components/loja/_addLoja.html';?>
 <?php require_once 'src/organizacao/components/loja/_crudLoja.html';?>
+<?php require_once 'src/organizacao/components/loja/_edtLoja.html';?>
 <?php require_once 'src/organizacao/components/loja/_delLoja.html';?>
 <?php require_once 'src/organizacao/components/loja/_catLoja.html';?>
+
 <?php //require_once 'src/components/gerencial/proprietario-top.php';?>
 <?php //require_once 'src/components/loja/lojas-plus.php';?>
 <?php //require_once 'src/components/local/locais-plus.php';?>

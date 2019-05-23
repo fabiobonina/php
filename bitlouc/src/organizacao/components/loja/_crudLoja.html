@@ -48,9 +48,7 @@ Vue.component('loja-crud', {
     }
   },
   computed: {
-    user()  {
-      return store.state.user;
-    },
+    ...Vuex.mapGetters(["user"] ),
   },
   methods: {  
   }

@@ -18,7 +18,7 @@
           </v-toolbar-items>
         </v-toolbar>
         <v-card-title>
-          <span class="headline">{{ proprietario.nick }}</span>
+          <span class="headline">{{ organizacao.nick }}</span>
         </v-card-title>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
@@ -106,18 +106,10 @@
     this.$validator.localize('pt_BR', this.dictionary)
   },
   computed: {
-    user()  {
-      return store.state.user;
-    },
-    proprietario() {
-      return store.state.proprietario;
-    },
-    seguimentos() {
-      return store.state.seguimentos;
-    },
-    grupos() {
-      return store.state.grupos;
-    },
+    ...Vuex.mapGetters(["user"] ),
+    ...Vuex.mapGetters(["organizacao"] ),
+    ...Vuex.mapGetters(["seguimentos"] ),
+    ...Vuex.mapGetters(["grupos"] ),
   },
   methods: {
     saveItem: function() {
@@ -135,7 +127,7 @@
               ativo: this.ativo
             };
             //console.log(postData);
-            this.$http.post('./config/api/apiLoja.php?action=publish', postData).then(function(response) {
+            this.$http.post('./config/api/loja.api.php?action=publish', postData).then(function(response) {
               //console.log(response);
               if(response.data.error){
                 this.errorMessage.push(response.data.message);

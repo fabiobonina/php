@@ -15,7 +15,7 @@
           </v-toolbar-items>
         </v-toolbar>
         <v-card-title color="primary">
-          <span class="headline">{{ proprietario.nick }} - Deletar Loja</span>
+          <span class="headline">{{ organizacao.nick }} - Deletar Loja</span>
         </v-card-title>
         <v-card-text>
           <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
@@ -53,9 +53,7 @@ Vue.component('loja-del', {
       if(this.successMessage.length > 0) return true
       return false
     },
-    proprietario() {
-      return store.state.proprietario;
-    },
+    ...Vuex.mapGetters(["organizacao"] ),
   },
   methods: {
     deletarItem: function() {
@@ -65,7 +63,7 @@ Vue.component('loja-del', {
           id: this.data.id
         };
         //console.log(postData);
-        this.$http.post('./config/api/apiLoja.php?action=deletar', postData).then(function(response) {
+        this.$http.post('./config/api/loja.api.php?action=deletar', postData).then(function(response) {
           //console.log(response);
           if(response.data.error){
             this.errorMessage.push(response.data.message);

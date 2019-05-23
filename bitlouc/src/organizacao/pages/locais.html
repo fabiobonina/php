@@ -1,13 +1,10 @@
 <template id="locais-page">
   <div>
-    <top></top>
-    <v-content>
       <loja-top></loja-top>      
       <v-container fluid>
         <grid-local :data="locais"></grid-local>
       </v-container>
-    </v-content>
-    <rodape></rodape>
+
   </div>
 </template>
 
@@ -30,10 +27,7 @@
     this.onAtualizar()
   },
   computed: {
-
-    locais()  {
-      return store.state.locais;
-    },
+    ...Vuex.mapGetters(["locais"] ),
   },
   methods: {
     onAtualizar: function(){

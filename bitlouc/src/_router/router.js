@@ -34,7 +34,13 @@ var router = new VueRouter({
     { path: '/organizacao', component: Organizacao,
       children: [
         { path: '', component: OrganPage },
-        { path: 'lojas', component: LojasPage },
+        { path: 'lojas', component: LojasPage,
+          children: [
+            { path: '', component: LocaisIndex },
+            { path: 'oss', component: LojaOss },
+            //{ path: 'bens', component: LojaBens },
+          ]
+        },
         { path: 'locais', component: LocaisPage },
       ]
     },

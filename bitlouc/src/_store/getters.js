@@ -2,26 +2,31 @@
 const getters = {
   //getSearch: state => state.tipoDeslocamentos,
   loading: state => state.loading,
+
+  grupos: state => state.grupos,
+  seguimentos: state => state.seguimentos,
+  tipos: state => state.tipos,
+  produtos: state => state.produtos,
+  fabricantes: state => state.fabricantes,
+  categorias: state => state.categorias,
+  servicos: state => state.servicos,
+
   getSearch: state => state.search,
-  getStatus: state => state.status,
-  getProprietario: state => state.proprietario,
-  getLojas: state => state.lojas,
-  getLocais: state => state.locais,
-  getLocal: state => state.local,
-  getEquipamentos: state => state.equipamentos,
-  getTipos: state => state.tipos,
-  getProdutos: state => state.produtos,
-  getFabricantes: state => state.fabricantes,
-  getCategorias: state => state.categorias,
-  getServicos: state => state.servicos,
-  getTecnicos: state => state.tecnicos,
-  getOss: state => state.oss,
-  getOs: state => state.os,
-  getOcorrencias: state => state.ocorrencias,
+  status: state => state.status,
+
+  organizacao: state => state.proprietario,
+  lojas: state => state.lojas,
+  locais: state => state.locais,
+  local: state => state.local,
+  equipamentos: state => state.equipamentos,
+  tecnicos: state => state.tecnicos,
+  oss: state => state.oss,
+  os: state => state.os,
+  ocorrencias: state => state.ocorrencias,
   getTodoById: state => (id) => {
     return state.lojas.filter(loja => loja.id === id)
   },
-  getLojaId: (state) => (id) => {
+  lojaId: (state) => (id) => {
     return state.lojas.find(todo => todo.id == id)
     //return state.lojas.filter(loja => loja.id === id)
   },
