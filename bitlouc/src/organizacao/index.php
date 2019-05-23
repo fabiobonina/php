@@ -11,9 +11,11 @@
 </template>
 <?php // require_once 'src/system/pages/dashboard.html';?>
 <?php require_once 'src/organizacao/pages/home.html';?>
-<?php require_once 'src/organizacao/pages/lojas.html';?>
+
 <?php require_once 'src/organizacao/pages/locais.html';?>
 
+<?php require_once 'src/organizacao/pages/lojas.html';?>
+<?php require_once 'src/organizacao/pages/loja.html';?>
 <?php require_once 'src/organizacao/components/loja/lojas-grid.html';?>
 <?php require_once 'src/organizacao/components/loja/_addLoja.html';?>
 <?php require_once 'src/organizacao/components/loja/_crudLoja.html';?>

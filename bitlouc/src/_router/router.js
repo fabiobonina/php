@@ -36,7 +36,14 @@ var router = new VueRouter({
         { path: '', component: OrganPage },
         { path: 'lojas', component: LojasPage,
           children: [
-            { path: '', component: LocaisIndex },
+            { path: '', component: lojas },
+            { path: 'show/:_loja', component: LojaShow,
+              children: [
+                { path: '', component: LocaisIndex },
+                { path: 'oss', component: LojaOss },
+                //{ path: 'bens', component: LojaBens },
+              ]
+            },
             { path: 'oss', component: LojaOss },
             //{ path: 'bens', component: LojaBens },
           ]

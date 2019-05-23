@@ -1,21 +1,19 @@
-<template id="loja">
+<template id="loja-show">
   <div>
 
-    <top></top>
     <v-content>
       <loja-top></loja-top>
       <v-container fluid>
         <router-view></router-view>
       </v-container>
     </v-content>
-    <rodape></rodape>
 
   </div>
 </template>
 
 <script>
-  var Loja = Vue.extend({
-    template: '#loja',
+  var LojaShow = Vue.extend({
+    template: '#loja-show',
     data: function () {
         return {
             errorMessage: '',
@@ -50,17 +48,15 @@
   });
 </script>
 
-<?php require_once 'src/components/includes/top.php';?>
-<?php require_once 'src/components/includes/rodape.php';?>
 
-<?php require_once 'src/components/loja/loja-top.php';?>
-<?php require_once 'src/components/loja/_addLoja.php';?>
-<?php require_once 'src/components/loja/_edtLoja.php';?>
-<?php require_once 'src/components/loja/_delLoja.php';?>
-<?php require_once 'src/components/loja/_catLoja.php';?>
+<?php require_once 'src/organizacao/components/loja/loja-top.html';?>
+<?php require_once 'src/organizacao/components/loja/_addLoja.html';?>
+<?php require_once 'src/organizacao/components/loja/_edtLoja.html';?>
+<?php require_once 'src/organizacao/components/loja/_delLoja.html';?>
+<?php require_once 'src/organizacao/components/loja/_catLoja.html';?>
 
-<?php require_once 'src/components/loja/loja-oss.php';?>
-<?php require_once 'src/components/local/locais-index.php';?>
-<?php require_once 'src/components/os/localOss.php';?>
+<?php require_once 'src/organizacao/components/loja/loja-oss.html';?>
+<?php require_once 'src/organizacao/components/local/locais-index.html';?>
+<?php //require_once 'src/organizacao/components/os/localOss.html';?>
 
 
