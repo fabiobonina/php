@@ -1,0 +1,43 @@
+<template id="local-painel">
+    <div>
+        <v-content>
+              <router-view></router-view>
+        </v-content>
+    </div>
+</template>
+
+
+<?php 
+require_once 'src/organizacao/local/pages/local.html';
+require_once 'src/organizacao/local/pages/locais.html';
+require_once 'src/organizacao/local/pages/locais-index.html';
+
+require_once 'src/organizacao/local/components/locais-grid.html';
+require_once 'src/organizacao/local/components/local-top.html';
+require_once 'src/organizacao/local/components/_rotaLocal.html';
+
+require_once 'src/organizacao/local/components/_crudLocal.html';
+require_once 'src/organizacao/local/components/_addLocal.html';
+
+require_once 'src/organizacao/local/components/_geoLocal.html';
+?>
+
+<script>
+  var LocalPainel = Vue.extend({
+    template: '#local-painel',
+    data: function () {
+      return {
+  
+      };
+    },
+    created() {
+
+    },
+    computed: {
+
+    },
+    methods: {
+    }
+  });
+
+</script>

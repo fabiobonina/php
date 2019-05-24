@@ -67,7 +67,7 @@ const user = {
         },
         isLoggedIn({ commit }) {
             return new Promise((resolve, reject) => {
-                var postData = { token: state.token };
+                var postData = { token: localStorage.getItem('token') };
                 Vue.http.post('./config/api/user.api.php?action=isLoggedIn', postData )
                 .then(function(response) {
                     console.log( response); 
@@ -77,7 +77,8 @@ const user = {
                             commit(LOGOUT);
                         }
                     } else{
-                        commit("SET_LOGAR", response.data.user);                        
+                        commit(LOGIN);
+                        commit(LOGIN_SUCCESS, creds);
                     }
                     resolve();
                 })

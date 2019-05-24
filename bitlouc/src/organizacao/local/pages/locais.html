@@ -1,0 +1,38 @@
+<template id="locais-page">
+  <div>
+      <loja-top></loja-top>      
+      <v-container fluid>
+        <grid-local :data="locais"></grid-local>
+      </v-container>
+
+  </div>
+</template>
+
+
+<script>
+  var LocaisPage = Vue.extend({
+  name: 'locais-page',
+  template: '#locais-page',
+  props: {
+  },
+  data: function () {
+    return {
+      errorMessage: '',
+      successMessage: '',
+    };
+  },
+  created: function() {
+    this.onAtualizar()
+  },
+  computed: {
+    ...Vuex.mapGetters(["locais"] ),
+  },
+  methods: {
+    onAtualizar: function(){
+      this.$store.dispatch('fetchLocal' ).then(() => {
+        console.log("Buscando locais")
+      });
+    }
+  }
+});
+</script>

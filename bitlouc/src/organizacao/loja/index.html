@@ -1,0 +1,45 @@
+<template id="local-painel">
+    <div>
+        <v-content>
+              <router-view></router-view>
+        </v-content>
+    </div>
+</template>
+
+
+<?php require_once 'src/organizacao/loja/pages/loja.html';?>
+<?php require_once 'src/organizacao/loja/pages/lojas.html';?>
+<?php require_once 'src/organizacao/loja/pages/loja-oss.html';?>
+
+<?php require_once 'src/organizacao/loja/components/loja-top.html';?>
+
+
+<?php require_once 'src/organizacao/loja/components/lojas-grid.html';?>
+<?php require_once 'src/organizacao/loja/components/_addLoja.html';?>
+<?php require_once 'src/organizacao/loja/components/_crudLoja.html';?>
+<?php require_once 'src/organizacao/loja/components/_edtLoja.html';?>
+<?php require_once 'src/organizacao/loja/components/_delLoja.html';?>
+<?php require_once 'src/organizacao/loja/components/_catLoja.html';?>
+
+
+
+<script>
+  var LojaPainel = Vue.extend({
+    template: '#local-painel',
+    name: 'local-painel',
+    data: function () {
+      return {
+  
+      };
+    },
+    created() {
+
+    },
+    computed: {
+
+    },
+    methods: {
+    }
+  });
+
+</script>
