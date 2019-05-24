@@ -11,7 +11,7 @@ var getProgramacao = {
     },
     computed: {
         programacoes() {
-            return store.state.cilProgramacao;
+            return this.$store.state.cilProgramacao;
         }
     }, // computed
     methods: {

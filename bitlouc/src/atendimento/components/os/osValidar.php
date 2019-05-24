@@ -26,7 +26,7 @@ var OsValidar = Vue.extend({
   },
   computed: {
     oss() {
-      return store.state.oss;
+      return this.$store.state.oss;
     },
   }, // computed
   methods: {

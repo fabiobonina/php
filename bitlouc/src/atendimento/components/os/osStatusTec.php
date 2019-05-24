@@ -34,7 +34,7 @@ Vue.component('os-statustec', {
   },
   computed: {
     user()  {
-      return store.state.user;
+      return this.$store.state.user;
     },
     osStatusTec()  {
       function Comparator(a, b) {

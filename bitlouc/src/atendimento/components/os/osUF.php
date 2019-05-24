@@ -10,7 +10,7 @@
           <v-spacer></v-spacer>
         </v-toolbar>
           <v-list two-line subheader>
-          <v-list-tile key="OSs" :to="'/loja/' + osLoja.id +'/oss'" avatar @click="">
+          <v-list-tile key="OSs" :to="'/organizacao/loja/' + osLoja.id +'/oss'" avatar @click="">
             <v-list-tile-avatar>
               <v-icon class="">build</v-icon>
             </v-list-tile-avatar>
@@ -46,7 +46,7 @@ var OsUF = Vue.extend({
     },
     computed: {
       ossUF() {
-        return store.getters.getLojaId(this.$route.params._loja);
+        return this.$store.getters.getLojaId(this.$route.params._loja);
       },
     },
     methods: {

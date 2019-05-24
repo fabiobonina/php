@@ -71,12 +71,12 @@ var OsUF = Vue.extend({
     },
     computed: {
       oss() {
-          return store.state.osUf;
+          return this.$store.state.osUf;
       },
       status: {
       // getter
         get: function () {
-          return store.state.status;
+          return this.$store.state.status;
         },
         // setter
         set: function (newValue) {

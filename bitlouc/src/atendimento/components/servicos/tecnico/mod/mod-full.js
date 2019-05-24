@@ -66,10 +66,10 @@ Vue.component('mod-full', {
       return false
     },
     _os()  {
-      return store.getters.getOsId(this.$route.params._os);
+      return this.$store.getters.getOsId(this.$route.params._os);
     },
     deslocTrajetos() {
-      return store.state.deslocTrajetos;
+      return this.$store.state.deslocTrajetos;
     },
     deslocStatus: function() {
       //var filterKey = this.processo

@@ -55,7 +55,7 @@ Vue.component('passagem', {
       return false
     },
     deslocTrajetos() {
-      return store.state.deslocTrajetos;
+      return this.$store.state.deslocTrajetos;
     },
     deslocStatus: function () {
       return data = store.state.deslocStatus;

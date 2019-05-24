@@ -75,13 +75,13 @@ var TecOs = Vue.extend({
   },
   computed: {
     loja()  {
-      return store.getters.getLojaId(this.$route.params._loja);
+      return this.$store.getters.getLojaId(this.$route.params._loja);
     },
     user()  {
-      return store.state.user;
+      return this.$store.state.user;
     },
     tecnicos() {
-      return store.state.tecnicos;
+      return this.$store.state.tecnicos;
     },
     oss()  {
       var obj     = store.state.oss;

@@ -49,13 +49,13 @@ var Bens = Vue.extend({
   },
   computed: {
     user()  {
-      return store.state.user;
+      return this.$store.state.user;
     },
     local()  {
-      return store.getters.getLocalId(this.$route.params._local);
+      return this.$store.getters.getLocalId(this.$route.params._local);
     },
     bens()  {
-      return store.getters.getBensLocal(this.$route.params._local);
+      return this.$store.getters.getBensLocal(this.$route.params._local);
     },
   },
   methods: {

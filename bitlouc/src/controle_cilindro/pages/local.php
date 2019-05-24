@@ -40,7 +40,7 @@ var Local = Vue.extend({
   },
   computed: {
     loja()  {
-      return store.getters.getLojaId(this.$route.params._loja);
+      return this.$store.getters.getLojaId(this.$route.params._loja);
     },
     //store.state.lojas // filteredItems
   }, // computed

@@ -161,7 +161,7 @@ Vue.component('os-grid', {
   },
   computed: {
     user()  {
-      return store.state.user;
+      return this.$store.state.user;
     },
     filteredData2: function () {
       var filterKey = 0

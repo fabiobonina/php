@@ -46,18 +46,18 @@ var UFList = Vue.extend({
     },
     computed: {
       user()  {
-        return store.state.user;
+        return this.$store.state.user;
       },
       _uf()  {
-        return store.getters.getUF(this.$route.params._uf);
+        return this.$store.getters.getUF(this.$route.params._uf);
       },
       oss()  {
-        return store.getters.getOssUF(this.$route.params._uf);
+        return this.$store.getters.getOssUF(this.$route.params._uf);
       },
       status: {
       // getter
         get: function () {
-          return store.state.status;
+          return this.$store.state.status;
         },
         // setter
         set: function (newValue) {

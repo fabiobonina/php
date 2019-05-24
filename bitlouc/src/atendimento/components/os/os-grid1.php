@@ -11,7 +11,7 @@
         <template slot="items" slot-scope="props">
           <td> {{props.item.lojaNick}}
             <v-list>
-              <v-list-tile :to="'/loja/' +  props.item.loja + '/local/' + props.item.id" :key="props.item.id" @click="" append activator slot>
+              <v-list-tile :to="'/organizacao/loja/' +  props.item.loja + '/local/' + props.item.id" :key="props.item.id" @click="" append activator slot>
               <v-list-tile-content>
                 <v-list-tile-title> {{ props.item.tipo }} {{ props.item.name }} </v-list-tile-title>
                 <v-list-tile-sub-title class="text--primary">Regional: {{ props.item.regional }} </v-list-tile-sub-title>
@@ -144,7 +144,7 @@ Vue.component('os-grid', {
   },
   computed: {
     user()  {
-      return store.state.user;
+      return this.$store.state.user;
     },
     filteredData2: function () {
       var filterKey = 0

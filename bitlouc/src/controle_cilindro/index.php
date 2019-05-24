@@ -99,7 +99,7 @@
     },
     computed: {
       locais()  {
-        return store.getters.getLocalLoja(this.$route.params._loja);
+        return this.$store.getters.getLocalLoja(this.$route.params._loja);
       },
     },
     methods: {

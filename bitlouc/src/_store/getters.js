@@ -26,7 +26,7 @@ const getters = {
   getTodoById: state => (id) => {
     return state.lojas.filter(loja => loja.id === id)
   },
-  lojaId: (state) => (id) => {
+  getLojaId: (state) => (id) => {
     return state.lojas.find(todo => todo.id == id)
     //return state.lojas.filter(loja => loja.id === id)
   },

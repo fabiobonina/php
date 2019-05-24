@@ -38,7 +38,7 @@
             <template v-for="(item, index) in filteredData">
               <v-list-tile append v-on:click.native="" activator slot>
                 <v-list-tile-content dense>
-                  <router-link :to="'/loja/' +  item.loja + '/local/' + item.id">
+                  <router-link :to="'/organizacao/loja/' +  item.loja + '/local/' + item.id">
                     <v-list-tile-title :key="item.id"> {{item.tipo}} - {{item.name}} </v-list-tile-title>
                     <v-list-tile-sub-title class="text--primary">  {{item.municipio}} /{{item.uf}} </v-list-tile-sub-title>
                   </router-link>
@@ -90,7 +90,7 @@
     },
     computed: {
       user()  {
-        return store.state.user;
+        return this.$store.state.user;
       },
       filteredData() {
         const filter = this.configs.search && this.configs.search.toLowerCase(); 

@@ -196,7 +196,7 @@ Vue.component('prog-add', {
   },
   computed: {
     user()  {
-      return store.state.user;
+      return this.$store.state.user;
     },
     temMessage () {
       if(this.errorMessage.length > 0) return true
@@ -204,7 +204,7 @@ Vue.component('prog-add', {
       return false
     },
     lojas() {
-      return store.state.lojas;
+      return this.$store.state.lojas;
     },
   },
   created: function() {

@@ -89,10 +89,10 @@ Vue.component('list-cilindro', {
       return false
     },
     items() {
-      return store.getters.getItemsDemanda(this.item.id);
+      return this.$store.getters.getItemsDemanda(this.item.id);
     },
     cilTipos() {
-      return store.state.cil_tipos;
+      return this.$store.state.cil_tipos;
     },
   },
   created: function() {

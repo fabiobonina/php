@@ -237,13 +237,13 @@ var Os = Vue.extend({
   },
   computed: {
     //loja()  {
-      //return store.getters.getOsId(this.$route.params._loja);
+      //return this.$store.getters.getOsId(this.$route.params._loja);
     //},
     _os()  {
-      return store.state.os;
+      return this.$store.state.os;
     },
     user()  {
-      return store.state.user;
+      return this.$store.state.user;
     },
   }, // computed
   methods: {

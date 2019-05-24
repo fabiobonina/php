@@ -140,13 +140,13 @@
         return false
       },
       loja()  {
-        return store.getters.getLojaId(this.$route.params._loja);
+        return this.$store.getters.getLojaId(this.$route.params._loja);
       },
       tipos() {
-        return store.state.tipos;
+        return this.$store.state.tipos;
       },
       categorias() {
-        return store.state.categorias;
+        return this.$store.state.categorias;
       },
     },
     methods: {
@@ -174,7 +174,7 @@
             ativo: this.ativo
           };
           //console.log(postData);
-          this.$http.post('./config/api/apiLocal.php?action=publish', postData)
+          this.$http.post('./config/api/local.api.php?action=publish', postData)
             .then(function(response) {
               //console.log(response);
               if(response.data.error){

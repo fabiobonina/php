@@ -42,15 +42,15 @@ var OsStus = Vue.extend({
   },
   computed: {
     user()  {
-      return store.state.user;
+      return this.$store.state.user;
     },
     oss()  {
-      return store.state.oss;
+      return this.$store.state.oss;
     },
     status: {
       // getter
       get: function () {
-        return store.state.status;
+        return this.$store.state.status;
       },
       // setter
       set: function (newValue) {

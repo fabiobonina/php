@@ -34,21 +34,23 @@ var router = new VueRouter({
     { path: '/organizacao', component: Organizacao,
       children: [
         { path: '', component: OrganPage },
-        { path: 'lojas', component: LojasPage,
+        { path: 'loja', component: LojasPage},
+        { path: 'loja/:_loja', component: LojaShow,
           children: [
-            { path: '', component: lojas },
-            { path: 'show/:_loja', component: LojaShow,
-              children: [
-                { path: '', component: LocaisIndex },
-                { path: 'oss', component: LojaOss },
-                //{ path: 'bens', component: LojaBens },
-              ]
-            },
+            { path: '', component: LocaisIndex },
             { path: 'oss', component: LojaOss },
             //{ path: 'bens', component: LojaBens },
           ]
         },
-        { path: 'locais', component: LocaisPage },
+        { path: 'oss', component: LojaOss },
+        //{ path: 'bens', component: LojaBens },
+        { path: 'local', component: LocaisPage },
+      ]
+    },
+    { path: '/organizacao/loja/:_loja/local/:_local', component: Local,
+      children: [
+        { path: '', component: EquipamentosLocal },
+        { path: 'oss', component: LocalOss },
       ]
     },
     /*{ path: '/lojas', component: Lojas, name: 'lojas' },

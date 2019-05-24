@@ -70,7 +70,7 @@ Vue.component('nota-edt', {
       return false
     },
     _os()  {
-      return store.state.os;
+      return this.$store.state.os;
     },
   },
   methods: {

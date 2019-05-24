@@ -123,19 +123,19 @@ Vue.component('bem-edt', {
       return false
     },
     loja()  {
-      return store.getters.getLojaId(this.$route.params._loja);
+      return this.$store.getters.getLojaId(this.$route.params._loja);
     },
     local()  {
-      return store.getters.getLocalId(this.$route.params._local);
+      return this.$store.getters.getLocalId(this.$route.params._local);
     },
     produtos() {
-      return store.state.produtos;
+      return this.$store.state.produtos;
     },
     fabricantes() {
-      return store.state.fabricantes;
+      return this.$store.state.fabricantes;
     },
     categorias() {
-      return store.state.categorias;
+      return this.$store.state.categorias;
     },
   },
   created: function() {

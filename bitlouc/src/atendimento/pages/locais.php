@@ -36,7 +36,7 @@
   computed: {
 
     locais()  {
-      return store.state.locais;
+      return this.$store.state.locais;
     },
   },
   methods: {

@@ -118,7 +118,7 @@ Vue.component('demanda-cil', {
       return false
     },
     cilTipos() {
-      return store.state.cil_tipos;
+      return this.$store.state.cil_tipos;
     },
   },
   created: function() {

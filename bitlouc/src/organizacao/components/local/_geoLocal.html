@@ -77,7 +77,7 @@
         return false
       },
       local()  {
-        return store.state.local;
+        return this.$store.state.local;
       },
     },
     methods: {
@@ -95,7 +95,7 @@
             latitude: geoposicao[0],
             longitude: geoposicao[1]
           };        
-          this.$http.post('./config/api/apiLocal.php?action=coordenadas', postData)
+          this.$http.post('./config/api/local.api.php?action=coordenadas', postData)
             .then(function(response) {
               if(!response.data.error){
                 this.successMessage.push(response.data.message);

@@ -33,10 +33,10 @@ var LocalOss = Vue.extend({
   },
   computed: {
     loja()  {
-      return store.getters.getLojaId(this.$route.params._loja);
+      return this.$store.getters.getLojaId(this.$route.params._loja);
     },
     oss()  {
-      return store.getters.getOssLocal(this.$route.params._local);
+      return this.$store.getters.getOssLocal(this.$route.params._local);
     },
   }, // computed
   methods: {

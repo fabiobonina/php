@@ -57,11 +57,11 @@
     },
     computed: {
       user()  {
-        //return store.state.user;
+        //return this.$store.state.user;
       },
       cilProgramacoes()  {
-        //return store.getters.getEquipamentoLocal(this.$route.params._local);
-        //return store.state.cilProgramacoes;
+        //return this.$store.getters.getEquipamentoLocal(this.$route.params._local);
+        //return this.$store.state.cilProgramacoes;
       },
       local()  {
         //return mapState([local]);

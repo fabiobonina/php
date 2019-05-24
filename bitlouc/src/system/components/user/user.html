@@ -55,7 +55,9 @@
     },
     computed: {
       ...Vuex.mapGetters(["isLoggedIn"] ),
-      ...Vuex.mapGetters(["user"]),
+      user() {
+        return this.$store.state.user;
+      },
     }, // computed
     methods: {
     },

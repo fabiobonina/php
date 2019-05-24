@@ -107,13 +107,13 @@
         return false
       },
       loja()  {
-        return store.getters.getLojaId(this.data.loja_id);
+        return this.$store.getters.getLojaId(this.data.loja_id);
       },
       local()  {
-        return store.getters.getLocalId(this.data.id);
+        return this.$store.getters.getLocalId(this.data.id);
       },
       categorias() {
-        return store.state.categorias;
+        return this.$store.state.categorias;
       },
     },
     methods: {
@@ -127,7 +127,7 @@
             local_id: this.data.id
           };
           //console.log(postData);
-          this.$http.post('./config/api/apiLocal.php?action=catCadastrar', postData).then(function(response) {
+          this.$http.post('./config/api/local.api.php?action=catCadastrar', postData).then(function(response) {
             //console.log(response);
             if(response.data.error){
               this.errorMessage = response.data.message;
@@ -156,7 +156,7 @@
             id: data.id
           };
           //console.log(postData);
-          this.$http.post('./config/api/apiLocal.php?action=catDelete', postData).then(function(response) {
+          this.$http.post('./config/api/local.api.php?action=catDelete', postData).then(function(response) {
             //console.log(response);
             if(response.data.error){
               this.errorMessage = response.data.message;
@@ -186,7 +186,7 @@
           id: data.id
         };
         //console.log(postData);
-        this.$http.post('./config/api/apiLocal.php?action=catStatus', postData).then(function(response) {
+        this.$http.post('./config/api/local.api.php?action=catStatus', postData).then(function(response) {
           //console.log(response);
           if(response.data.error){
             this.errorMessage = response.data.message;

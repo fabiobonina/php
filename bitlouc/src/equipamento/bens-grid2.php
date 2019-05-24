@@ -77,7 +77,7 @@
     },
     computed: {
       user()  {
-        return store.state.user;
+        return this.$store.state.user;
       },
       filteredData() {
         var status = this.status;

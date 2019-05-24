@@ -275,7 +275,7 @@ Vue.component('bem-add', {
   },
   computed: {
     user()  {
-      return store.state.user;
+      return this.$store.state.user;
     },
     temMessage () {
       if(this.errorMessage.length > 0) return true
@@ -283,19 +283,19 @@ Vue.component('bem-add', {
       return false
     },
     lojas() {
-      return store.state.lojas;
+      return this.$store.state.lojas;
     },
     produtos() {
-      return store.state.produtos;
+      return this.$store.state.produtos;
     },
     fabricantes() {
-      return store.state.fabricantes;
+      return this.$store.state.fabricantes;
     },
     categorias() {
-      return store.state.categorias;
+      return this.$store.state.categorias;
     },
     statusBens() {
-      return store.state.statusBens;
+      return this.$store.state.statusBens;
     },
   },
   created: function() {

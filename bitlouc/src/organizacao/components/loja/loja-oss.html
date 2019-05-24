@@ -30,10 +30,10 @@ var LojaOss = Vue.extend({
   },
   computed: {
     loja()  {
-      return store.getters.getLojaId(this.$route.params._loja);
+      return this.$store.getLojaId(this.$route.params._loja);
     },
     oss()  {
-      return store.getters.getOssLoja(this.$route.params._loja);
+      return this.$store.getters.getOssLoja(this.$route.params._loja);
     },
   }, // computed
   methods: {

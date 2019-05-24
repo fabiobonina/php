@@ -15,7 +15,7 @@
         <template slot="items" slot-scope="props">
           <td>
             <v-list>
-              <v-list-tile :to="'/organizacao/lojas/show/' + props.item.id" :key="props.item.id" @click="" append activator slot>
+              <v-list-tile :to="'/organizacao/loja/' + props.item.id" :key="props.item.id" @click="" append activator slot>
               <v-list-tile-content>
                 <v-list-tile-title> {{ props.item.nick }} </v-list-tile-title>
                 <v-list-tile-sub-title class="text--primary"> {{ props.item.name }} </v-list-tile-sub-title>
@@ -68,7 +68,7 @@
     },
     computed: {
       user()  {
-        return store.state.user;
+        return this.$store.state.user;
       },
     },
     methods: {

@@ -74,7 +74,7 @@ var ProgramacaoShow = Vue.extend({
   },
   computed: {
     programacao()  {
-      return store.state.cilProgramacao;
+      return this.$store.state.cilProgramacao;
     },
     //store.state.lojas // filteredItems
   }, // computed

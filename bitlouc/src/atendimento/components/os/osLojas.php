@@ -10,7 +10,7 @@
           <v-spacer></v-spacer>
         </v-toolbar>
           <v-list two-line subheader>
-          <v-list-tile key="OSs" :to="'/loja/' + osLoja.id +'/oss'" avatar @click="">
+          <v-list-tile key="OSs" :to="'/organizacao/loja/' + osLoja.id +'/oss'" avatar @click="">
             <v-list-tile-avatar>
               <v-icon class="">build</v-icon>
             </v-list-tile-avatar>
@@ -46,7 +46,7 @@ var OsLojas = Vue.extend({
     },
     computed: {
         osLojas() {
-            return store.state.osLojas;
+            return this.$store.state.osLojas;
         },
     },
     methods: {

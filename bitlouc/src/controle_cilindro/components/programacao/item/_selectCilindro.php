@@ -66,7 +66,7 @@ Vue.component('select-cilindro', {
   },
   computed: {
     user()  {
-      return store.state.user;
+      return this.$store.state.user;
     },
     temMessage () {
       if(this.errorMessage.length > 0) return true
@@ -74,10 +74,10 @@ Vue.component('select-cilindro', {
       return false
     },
     cilindros(){
-      return store.state.cilindros;
+      return this.$store.state.cilindros;
     },
     cilProgramacao(){
-      return store.state.cilProgramacao;
+      return this.$store.state.cilProgramacao;
     }
   },
   methods: {

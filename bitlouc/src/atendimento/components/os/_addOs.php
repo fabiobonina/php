@@ -108,16 +108,16 @@ Vue.component('os-add', {
       return false
     },
     loja()  {
-      return store.getters.getLojaId(this.$route.params._loja);
+      return this.$store.getters.getLojaId(this.$route.params._loja);
     },
     servicos() {
-      return store.state.servicos;
+      return this.$store.state.servicos;
     },
     tecnicos() {
-      return store.state.tecnicos;
+      return this.$store.state.tecnicos;
     },
     categorias() {
-      return store.state.categorias;
+      return this.$store.state.categorias;
     },
     filterServ: function () {
       var vm = this;

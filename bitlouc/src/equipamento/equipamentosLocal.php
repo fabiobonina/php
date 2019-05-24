@@ -49,14 +49,14 @@
     },
     computed: {
       user()  {
-        return store.state.user;
+        return this.$store.state.user;
       },
       equipamentos()  {
-        return store.getters.getEquipamentoLocal(this.$route.params._local);
-        //return store.state.equipamentos;
+        return this.$store.getters.getEquipamentoLocal(this.$route.params._local);
+        //return this.$store.state.equipamentos;
       },
       local()  {
-        return store.state.local;
+        return this.$store.state.local;
       },
     },
     methods: {

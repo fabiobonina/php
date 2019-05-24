@@ -61,7 +61,7 @@ Vue.component('bem-crud', {
   },
   computed: {
     user()  {
-      return store.state.user;
+      return this.$store.state.user;
     },
   },
   methods: {  

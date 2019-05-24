@@ -66,7 +66,7 @@ Vue.component('nota-add', {
       return false
     },
     _os()  {
-      return store.state.os;
+      return this.$store.state.os;
     },
   },
   methods: {

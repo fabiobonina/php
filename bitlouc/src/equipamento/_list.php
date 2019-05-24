@@ -92,7 +92,7 @@
     },
     computed: {
       user()  {
-        return store.state.user;
+        return this.$store.state.user;
       },
       filteredData2() {
         var status = this.status;

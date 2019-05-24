@@ -136,13 +136,13 @@ Vue.component('os-tec', {
       return false
     },
     loja() {
-      return store.getters.getLojaId(this.data.id);
+      return this.$store.getters.getLojaId(this.data.id);
     },
     _tecnicos() {
-      return store.state.tecnicos;
+      return this.$store.state.tecnicos;
     },
     _os() {
-      return store.getters.getOsId(this.data.id);
+      return this.$store.getters.getOsId(this.data.id);
     },
   },
   created: function() {

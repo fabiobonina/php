@@ -2,9 +2,7 @@
     <div>
         <top></top>
         <v-content>
-            <v-container fluid>
               <router-view></router-view>
-            </v-container>
         </v-content>
         <rodape></rodape>
     </div>

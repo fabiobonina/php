@@ -33,17 +33,17 @@
     },
     computed: {
       user()  {
-        return store.state.user;
+        return this.$store.state.user;
       },
       proprietario() {
-        return store.state.proprietario;
+        return this.$store.state.proprietario;
       },
       osProprietario() {
-        return store.state.osProprietario;
+        return this.$store.state.osProprietario;
       },
       lojas() {
-        return store.getters.getLojaAtivo();
-        //return store.state.lojas;
+        return this.$store.getters.getLojaAtivo();
+        //return this.$store.state.lojas;
       },
     },
     methods: {

@@ -114,16 +114,16 @@ Vue.component('os-edt', {
       return false
     },
     loja()  {
-      return store.getters.getLojaId(this.$route.params._loja);
+      return this.$store.getters.getLojaId(this.$route.params._loja);
     },
     local()  {
-      return store.getters.getLocalId(this.$route.params._local);
+      return this.$store.getters.getLocalId(this.$route.params._local);
     },
     servicos() {
-      return store.state.servicos;
+      return this.$store.state.servicos;
     },
     categorias() {
-      return store.state.categorias;
+      return this.$store.state.categorias;
     },
     filterServ: function () {
       var vm = this;

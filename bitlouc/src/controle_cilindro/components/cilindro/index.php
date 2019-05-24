@@ -49,14 +49,14 @@
     },
     computed: {
       user()  {
-        return store.state.user;
+        return this.$store.state.user;
       },
       cilindros()  {
-        //return store.getters.getEquipamentoLocal(this.$route.params._local);
-        return store.state.cilindros;
+        //return this.$store.getters.getEquipamentoLocal(this.$route.params._local);
+        return this.$store.state.cilindros;
       },
       local()  {
-        return store.state.local;
+        return this.$store.state.local;
       },
     },
     methods: {

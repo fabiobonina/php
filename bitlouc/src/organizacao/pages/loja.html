@@ -1,8 +1,8 @@
 <template id="loja-show">
+    
   <div>
-
-    <v-content>
       <loja-top></loja-top>
+    <v-content>
       <v-container fluid>
         <router-view></router-view>
       </v-container>
@@ -39,7 +39,7 @@
     },
     computed: {
       loja(){
-        return store.getters.getLojaId(this.$route.params._loja);
+        return this.$store.getters.lojaId(this.$route.params._loja);
       },
     },
     methods: {
