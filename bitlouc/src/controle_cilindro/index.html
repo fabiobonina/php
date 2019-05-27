@@ -1,33 +1,14 @@
 <template id="painel-cilindros">
+
+
     <v-content>
-        <template>
-            <v-content wrap>
-                <div class="container page" id="components-categories">
-                    <section class="mb-5">
-                        <div class="container pa-0 grid-list-xl fluid">
-                            <div class="layout wrap">
-                                <v-flex v-for="item in painel" flex xs12 sm6 md4 d-flex>
-                                    <v-card v-content__wrap :to="item.router" class="v-card--hover v-sheet theme--light">
-                                        <v-card-title>
-                                            <span class="headline">{{ item.title }}</span>
-                                            <v-spacer></v-spacer>
-                                            <v-icon light style="font-size: 28px;">{{ item.icon }}</v-icon>
-                                        </v-card-title>
-                                        <v-card-text>
-                                            <span class="grey--text">{{ item.subtitle }}</span><br>
-                                        </v-card-text>
-                                    </v-card>
-                                </v-flex>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </v-content>
-        </template>
+            
+        <painel :data="painel"></painel>
+
         <v-container fluid class="grid-list-xl pa-0">
             <v-layout wrap>
                 <template>
-                    <v-flex v-for="(item, index) in painel">
+                    <v-flex v-for="(item, index) in painel" :key="index">
                         <v-list class="v-list grey lighten-3 pa-0" two-line theme-light>
                             <v-list-tile  :key="item.title" avatar  @click=""  :to="item.router">
                                 <v-list-tile-avatar>
@@ -53,10 +34,7 @@
         <rodape></rodape>
     </v-content>
 </template>
-<?php 
-require_once 'src/controle_cilindro/components/cilindro/index.html';
-require_once 'src/controle_cilindro/components/programacao/index.html';
-?>
+
 <script>
     var PainelCilindros = Vue.extend({
     template: '#painel-cilindros',

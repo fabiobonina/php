@@ -1,23 +1,22 @@
 var getProgramacao = {
     data: function () {
         return {
-            
             errorMessage: '',
             successMessage: '',
         };
     },
     created: function() {
-        this.getProgramacoes();
+        //this.getProgramacoes();
     },
     computed: {
-        programacoes() {
+        /*programacoes() {
             return this.$store.state.cilProgramacao;
-        }
+        }*/
     }, // computed
     methods: {
         getProgramacoes(){
             //store.commit('isLoading');
-            this.$http.get('./config/api/api.cilindroProg.php?action=read')
+            this.$http.get('./config/api/cilProgramacao.api.php?action=read')
                 .then(function(response) {
                     console.log(response);
                     //store.commit('isLoading');

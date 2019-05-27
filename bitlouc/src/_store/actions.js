@@ -8,7 +8,6 @@ Vue.http.options.emulateJSON = true;
 const INDEXLIST     ='./config/api/organizacao.api.php?action=read';
 const CONFIG        ='./config/api/config.api.php?action=config';
 const CONFIGPROD    ='./config/api/config.api.php?action=prod';
-const CONFIGCILIND  ='./config/api/config.api.php?action=cilindro';
 
 const OSLIST        ='./config/api/os.api.php?action=read';
 const OSFIND        ='./config/api/os.api.php?action=os';
@@ -25,11 +24,6 @@ const BENSLIST           ='./config/api/local.api.php?action=read';
 const EQUIPAMENTOSLIST   ='./config/api/equipamento.api.php?action=read';
 const EQUIPAMENTOSLOJA   ='./config/api/equipamento.api.php?action=loja';
 const EQUIPAMENTOSLOCAL  ='./config/api/equipamento.api.php?action=local';
-
-const CILINDROLIST        ='./config/api/cilindro.api.php?action=read';
-const CILPROGRAMACAOLIST  ='./config/api/cilProgramacao.api.php?action=read';
-const CILPROGRAMACAOSHOW  ='./config/api/cilProgramacao.api.php?action=show';
-const CILPROGRAMACAOITEM  ='./config/api/cilProgramacao.api.php?action=item';
 
 
 

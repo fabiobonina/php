@@ -19,9 +19,7 @@
       });
     },
     computed: {
-      osLojas() {
-          //return this.$store.state.osLojas;
-      },
+
     },
     methods: {
         
@@ -30,9 +28,15 @@
 
 </script>
 
-<?php require_once 'src/components/controle_cilindros/index.php';?>
-<?php require_once 'src/components/controle_cilindros/programacao/show.php';?>
-<?php require_once 'src/components/gerencial/proprietario-top.php';?>
+<?php 
+
+
+require_once 'src/controle_cilindro/index.html';
+require_once 'src/controle_cilindro/cilindro/index.html';
+require_once 'src/controle_cilindro/programacao/pages/index.html';
+require_once 'src/controle_cilindro/programacao/pages/show.html';
+
+?>
 
 
 

@@ -1,5 +1,4 @@
-<template id="programacao-page">
-<v-content v-if="">
+<template id="cilindros-page">
   <div>
     <v-container fluid class="pa-0">
       <v-layout row wrap>
@@ -12,38 +11,17 @@
       </v-layout>
     </v-container>
     <section>
-      <programacao :data="cilProgramacoes" :local="local" :status="active"></programacao>
+      <bens-grid :data="cilindros" :local="local" :status="active"></bens-grid>
       <bem-add v-if="modalAdd" v-on:close="modalAdd = false" ></bem-add>
     </section>
   </div>
-
-  <rodape></rodape>
-  </v-content>
 </template>
 
-<?php
 
-  require_once 'src/controle_cilindro/programacao/components/_list.html';
-  require_once 'src/controle_cilindro/programacao/components/_add.html';
-  require_once 'src/controle_cilindro/programacao/components/_crud.html';
-
-  require_once 'src/controle_cilindro/programacao/demanda/_demanda.html';
-  require_once 'src/controle_cilindro/programacao/demanda/_amararCilindro.html';
-  require_once 'src/controle_cilindro/programacao/demanda/_demandaCil.html';
-  require_once 'src/controle_cilindro/programacao/demanda/_list.html';
-
-  require_once 'src/controle_cilindro/programacao/item/_selectCilindro.html';
-  require_once 'src/controle_cilindro/programacao/item/_listCil.html';
-
-?>
-
-<script src="src/controle_cilindro/mixins/cilindros.js"></script>
 <script>
-  
-  var ProgramacaoPage = Vue.extend({
-    name: 'programacao-page',
-    template: '#programacao-page',
-    //mixins: [getProgramacao],
+  var CilindrosPage = Vue.extend({
+    name: 'cilindros-page',
+    template: '#cilindros-page',
     props: {
       proprietario: String,
       nivel: String,
@@ -67,19 +45,17 @@
       };
     },
     created: function() {
-      this.$store.dispatch("listCilProgramacao").then(() => {
-        console.log("Buscando Programacao de cilindros!")
-      });
     },
     computed: {
       user()  {
-        return this.$store.getters.user;
+        return this.$store.state.user;
       },
-      cilProgramacoes()  {
-        return this.$store.state.cilProgramacoes;
+      cilindros()  {
+        //return this.$store.getters.getEquipamentoLocal(this.$route.params._local);
+        return this.$store.state.cilindros;
       },
       local()  {
-        //return mapState([local]);
+        return this.$store.state.local;
       },
     },
     methods: {

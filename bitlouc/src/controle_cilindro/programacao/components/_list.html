@@ -1,31 +1,46 @@
-<template id="cilindros">
-  <div>
+<template id="programacao">
+  <div v-if="data">
     <div>
       <label><input type="radio" v-model="selectedCategoria" value="0">All </label>&nbsp;&nbsp;&nbsp;
       <label v-for=" categoria in local.categoria" :key="categoria.id"><input type="radio" v-model="selectedCategoria" v-bind:value="categoria.id">{{ categoria.name }} &nbsp;&nbsp;&nbsp;</label>
     </div>
     <v-toolbar flat color="white">
-      <v-toolbar-title>Equipamentos</v-toolbar-title>
+      <v-toolbar-title>Programação</v-toolbar-title>
       <v-divider class="mx-2" inset vertical></v-divider>
       <v-spacer></v-spacer>
       <v-text-field  v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
       <v-btn @click="modalOs = true" color="deep-orange" dark small fab>
         <v-icon>build</v-icon>
       </v-btn>
-      <!--equipamento-add :dialog-edt="editItem" :dialog-del="deleteItem" :data="item" v-on:close="close()"></equipamento-add-->
+      <prog-add :dialog-add="creator" v-on:close="close()"></prog-add>
     </v-toolbar>
     <v-data-table :headers="headers" :items="filteredData" :search="search" class="elevation-1">
       <template slot="items" slot-scope="props">
-        <td>{{ props.item.name }}</td>
-        <td>{{ props.item.modelo }}</td>
-        <td>{{ props.item.fabricanteName }}</td>
+        <td>{{ props.item.status }}</td>
+        <td style="padding:0 10px">
+          <!--router-link :to="'/programacao/show/'+ props.item.id" :key="props.item.id">
+            {{ props.item.loja_nick }}  
+          </router-link-->
+          <v-list-tile :key="props.item.id" @click="" :to="'/controle-cilindros/programacao/show/'+ props.item.id" :key="props.item.id">
+            <v-list-tile-content>
+              <v-list-tile-title> {{ props.item.loja_nick }} </v-list-tile-title>
+              <v-list-tile-sub-title> {{ props.item.loja_nick }} </v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </td>
         <td>
-          <v-chip v-if="props.item.categoriaTag" small  color="green" text-color="white">
-            {{ props.item.categoriaTag }}
+          <v-list-tile :key="props.item.id" @click="" :to="'/controle-cilindros/programacao/show/'+ props.item.id" :key="props.item.id">
+            <v-list-tile-content>
+              <v-list-tile-title> {{ props.item.local_tipo }} - {{ props.item.local_name }} </v-list-tile-title>
+              <v-list-tile-sub-title> {{ props.item.local_municipio }} /{{ props.item.local_uf }} </v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          </td>
+          <td>
+          <v-chip v-for="categoria in props.item.demandas" :key="categoria.id" small  color="green" text-color="white">
+            {{ categoria.cil_tipo.name }}: {{ categoria.qtd }}
           </v-chip>
         </td>
-        <td class="text-xs-right"> {{ props.item.numeracao }} </td>
-        <td class="text-xs-right"> {{ props.item.plaqueta }} </td>
         <td class="justify-center layout px-0">
           <v-btn @click="modalOs = true; item = props.item" color="deep-orange" dark small fab>
             <v-icon>build</v-icon>
@@ -38,16 +53,13 @@
         Sua busca por "{{ search }}" não encontrou resultados.
       </v-alert>
     </v-data-table>
-    <os-add v-if="modalOs" v-on:close="modalOs = false" :dialog="modalOs" :data="item" :local="local"></os-add>
+    <creator v-if="modalOs" v-on:close="modalOs = false" :dialog="modalOs" :data="item" :local="local"></creator>
   </div>
 </template>
 
-<?php require_once 'src/components/controle_cilindros/cilindro/_add.php';?>
-<?php require_once 'src/components/controle_cilindros/cilindro/_crudBem.php';?>
-
 <script>
-  Vue.component('cilindros', {
-    template: '#cilindros',
+  Vue.component('programacao', {
+    template: '#programacao',
     props: {
       data: Array,
       local: Object,
@@ -57,17 +69,16 @@
     data: () => ({
       item: null,
       deleteItem: false,
+      creator: true,
       editItem: false,
       modalOs: false,
       selectedCategoria: '0',
       search: '',
       headers: [
-        { text: 'Equipamento', align: 'left', value: 'name' },
-        { text: 'Modelo', value: 'modelo' },
-        { text: 'Fabricante', value: 'fabricanteNick' },
-        { text: 'Categoria', value: 'categoria' },
-        { text: 'TAG', value: 'numeracao' },
-        { text: 'Plaqueta Ativo', value: 'plaqueta' },
+        { text: '', sortable: false, align: 'left', value: 'name' },
+        { text: 'Loja', value: 'loja_nick' },
+        { text: 'Local', value: 'local_name' },
+        { text: 'Demanda', value: 'demanda' },
         { text: 'Info', sortable: false, value: 'info' }
       ],
       defaultItem: {
@@ -91,7 +102,7 @@
     },
     computed: {
       user()  {
-        return this.$store.state.user;
+        return this.$store.getters.user;
       },
       filteredData2() {
         var status = this.status;

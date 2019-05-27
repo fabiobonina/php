@@ -1,3 +1,10 @@
+
+const CONFIGCILIND          ='./config/api/config.api.php?action=cilindro';
+const CILINDROLIST          ='./config/api/cilindro.api.php?action=read';
+const CILPROGRAMACAOLIST    ='./config/api/cilProgramacao.api.php?action=read';
+const CILPROGRAMACAOSHOW    ='./config/api/cilProgramacao.api.php?action=show';
+const CILPROGRAMACAOITEM    ='./config/api/cilProgramacao.api.php?action=item';
+
 const controleCilindro = {
     
     state: {
@@ -39,8 +46,8 @@ const controleCilindro = {
         //CILINCROS
         fetchCilindros({ commit }) {
             return new Promise((resolve, reject) => {
-            Vue.http.get('./config/api/cilindro.api.php?action=read').then((response) => {
-                console.log(response.data);
+            Vue.http.get(CILINDROLIST).then((response) => {
+                //console.log(response.data);
                 if(!response.data.error){
                 //console.log(response.data);
                 commit("SET_CILINDROS", response.data.cilindros);
@@ -54,9 +61,9 @@ const controleCilindro = {
             }));
             });
         },
-        fetchCilProgramacao({ commit }) {
+        listCilProgramacao({ commit }) {
             return new Promise((resolve, reject) => {
-            Vue.http.get('./config/api/cilProgramacao.api.php?action=read').then((response) => {
+            Vue.http.get( CILPROGRAMACAOLIST ).then((response) => {
                 if(!response.data.error){
                 //console.log(response.data);
                 commit("SET_CILPROGRAMACOES", response.data.cilProgramacoes);
@@ -75,7 +82,7 @@ const controleCilindro = {
             var postData = {
                 programacao_id: programacao_id,
             }
-            Vue.http.post('./config/api/cilProgramacao.api.php?action=show', postData).then((response) => {
+            Vue.http.post( CILPROGRAMACAOSHOW , postData).then((response) => {
                 //console.log(response.data);
                 if(!response.data.error){
                 commit("SET_CILPROGRAMACAO", response.data.programacao);
@@ -97,7 +104,7 @@ const controleCilindro = {
             return new Promise((resolve, reject) => {
             var postData = data
             var retorno = [];
-            Vue.http.post('./config/api/cilProgramacao.api.php?action=item', postData).then((response) => {
+            Vue.http.post( CILPROGRAMACAOITEM , postData).then((response) => {
                 //console.log(response.data);
                 if(!response.data.error){
                 retorno = data.cilindroItem;
