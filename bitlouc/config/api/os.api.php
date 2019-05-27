@@ -11,7 +11,7 @@ $notaControl  = new NotaControl();
 $mods 			  = new Mod();
 
 $res = array('error' => true);
-$action = 'email';
+$action = 'status';
  
 
 //$res['user'] = $user;
@@ -62,8 +62,8 @@ if($action == 'semAmaracao'):
 endif;
 
 if($action == 'status'):
-  $status = $_POST['status'];
-  //$status = '6';
+  //$status = $_POST['status'];
+  $status = '6';
   $item = $osControl->findStatus( $status );
   $res['oss']   = $item;
   $res['error'] = false;

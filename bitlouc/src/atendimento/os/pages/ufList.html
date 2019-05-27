@@ -45,9 +45,7 @@
     created() {
     },
     computed: {
-      user()  {
-        return this.$store.state.user;
-      },
+      ...Vuex.mapGetters(["user"] ),
       _uf()  {
         return this.$store.getters.getUF(this.$route.params._uf);
       },

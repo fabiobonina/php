@@ -7,21 +7,21 @@
         <rodape></rodape>
     </div>
 </template>
-<?php // require_once 'src/system/pages/dashboard.html';?>
-<?php require_once 'src/organizacao/organizacao/pages/home.html';?>
-<?php require_once 'src/organizacao/loja/index.html';?>
-<?php require_once 'src/organizacao/local/index.html';?>
+<?php 
+//require_once 'src/system/pages/dashboard.html';
+require_once 'src/organizacao/organizacao/pages/home.html';
+require_once 'src/organizacao/loja/index.html';
+require_once 'src/organizacao/local/index.html';
 
 
+require_once 'src/organizacao/organizacao/components/organizacao-top.html';
+//require_once 'src/components/loja/lojas-plus.php';
+//require_once 'src/components/local/locais-plus.php';
+//require_once 'src/components/os/ossPlus.php';
 
-
-<?php //require_once 'src/components/gerencial/proprietario-top.php';?>
-<?php //require_once 'src/components/loja/lojas-plus.php';?>
-<?php //require_once 'src/components/local/locais-plus.php';?>
-<?php //require_once 'src/components/os/ossPlus.php';?>
-
-<?php //require_once 'src/components/os/maps.html';?>
-<?php //require_once 'src/components/os/osStatusTec.html';?>
+//require_once 'src/components/os/maps.html';
+//require_once 'src/components/os/osStatusTec.html';
+?>
 
 <script>
   var Organizacao = Vue.extend({

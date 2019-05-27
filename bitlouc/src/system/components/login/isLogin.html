@@ -1,18 +1,5 @@
 <template id="is-login">
-  <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-
-
-        <v-content>
-          <v-container fluid fill-height>
-            <v-layout align-center justify-center>
-              <v-flex xs12 sm8 md4>  
-                <login  v-if="!novo" v-on:close="novo = true" v-on:atualizar="atualizar()"></login>
-                <register v-else v-on:close="novo = false"></register>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-content>
-  </v-dialog>
+  
 </template>
 <script>
 
@@ -21,11 +8,8 @@ Vue.component('is-login', {
     template: '#is-login',
     data: function () {
       return {
-        drawer: null,
         errorMessage: '',
         successMessage: '',
-        novo: false,
-        dialog: !this.isLoggedIn,
       };
     },
     created() {
@@ -34,18 +18,8 @@ Vue.component('is-login', {
       });
     },
     computed: {
-      ...Vuex.mapGetters(["isLoggedIn"] ),
-      ...Vuex.mapGetters(["user"] ),
-    },
-    watch: {
-      // sempre que a pergunta mudar, essa função será executada
     },
     methods: {
-      atualizar(){
-        this.$router.push(this.$route.path);
-        this.isLoading = true;
-        this.dialog = false;
-      }
     }
   });
 </script>

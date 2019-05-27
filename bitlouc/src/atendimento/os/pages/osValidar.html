@@ -16,15 +16,14 @@ var OsValidar = Vue.extend({
     };
   },
   created: function() {
-    this.$store.dispatch('findOsStatus', '5' ).then(() => {
-        console.log("Buscando dados da os")
-    });
+    this.onAtualizar()
     this.$store.dispatch("setStatus", '' );
   },
   mounted: function() {
     //this.modalLocalAdd = true;
   },
   computed: {
+    ...Vuex.mapGetters(["user"] ),
     oss() {
       return this.$store.state.oss;
     },

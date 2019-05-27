@@ -1,4 +1,7 @@
 Vue.http.options.emulateJSON = true;
+const USERVALIDAR    ='./config/api/user.api.php?action=isLoggedIn';
+const USERLOGAR      ='./config/api/user.api.php?action=logar';
+const USERLOGOUT     ='./config/api/user.api.php?action=logout';
 const LOGIN = "LOGIN";
 const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 const LOGOUT = "LOGOUT";
@@ -39,6 +42,51 @@ const user = {
     },
 
     actions: {
+        isLoggedInQ({ commit }) {
+            return new Promise((resolve, reject) => {
+                var postData = { token: localStorage.getItem('token') };
+                Vue.http.post(USERVALIDAR, postData)
+                .then(function(response) {
+                    //console.log(response);
+                    if(response.data.error){
+                        commit(LOGOUT);
+                        router.push('/login');
+                    } else{
+                        if(response.data.isLoggedIn){
+                            commit(LOGIN_SUCCESS, response.data);
+                        }
+                    }
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+
+            });
+        },
+        isLoggedIn({ commit }) {
+            return new Promise((resolve, reject) => {                
+                var postData = { token: localStorage.getItem('token') };
+                Vue.http.post(USERVALIDAR, postData)
+                .then(function(response) {
+                    if(response.data.error){
+                    console.log(response.data.message);
+                    if(!response.data.user.isLoggedIn){
+                        localStorage.removeItem("token");
+                        localStorage.removeItem("isLoggedIn");
+                        commit(LOGOUT);
+                    }
+                    } else{
+                        if(response.data.isLoggedIn){
+                            commit(LOGIN_SUCCESS, response.data);
+                        }
+                    resolve();
+                    }
+                })
+                .catch((error => {
+                    console.log(error.statusText);
+                }));
+            });
+        },
         login({ state, commit, rootState }, creds) {
             return new Promise(resolve => {
                 commit(LOGIN);
@@ -65,11 +113,11 @@ const user = {
                 }));
             });
         },
-        isLoggedIn({ commit }) {
+        /*isLoggedIn({ commit }) {
             return new Promise((resolve, reject) => {
                 var postData = { token: localStorage.getItem('token') };
                 Vue.http.post('./config/api/user.api.php?action=isLoggedIn', postData )
-                .then(function(response) {
+                .then((response) => {
                     console.log( response); 
                     if(response.data.error){
                         console.log(response.data.message);
@@ -86,7 +134,7 @@ const user = {
                     console.log(error.statusText);
                 }));
             });
-        },
+        },*/
     },
 
     getters: {

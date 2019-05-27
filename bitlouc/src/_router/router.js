@@ -53,6 +53,33 @@ var router = new VueRouter({
         { path: 'oss', component: LocalOss },
       ]
     },
+    { path: '/atendimento', component: AtendimentoPainel},
+    { path: '/atendimento/oss', component: Oss,
+      children: [
+        { path: '', component: OsUF },
+        { path: 'uf/:_uf', component: UFList },
+        { path: 'os-status', component: OsStus },
+        { path: 'os-tec', component: TecOs },
+        //{ path: 'show/:_os', component: Os, name: 'os'},
+      ]  
+    },
+    { path: '/atendimento/show/:_os', component: Os, name: 'os'},
+    { path: '/atendimento/os-gerencial', component: OsGerencial,
+      children: [
+        { path: '', component: OsAmarar },
+        { path: 'fechar', component: OsFechar },
+        { path: 'validar', component: OsValidar },
+        //{ path: 'bens', component: LojaBens },
+      ]
+    },
+    { path: '/controle-cilindros', component: ControleCilindros,
+      children: [
+        { path: '', component: PainelCilindros },
+        { path: 'cilindros', component: CilindrosIndex },
+        { path: 'programacao', component: ProgramacaoIndex },
+        { path: 'programacao/show/:_programacao', component: ProgramacaoShow },
+      ] 
+    },
     /*{ path: '/lojas', component: Lojas, name: 'lojas' },
     { path: '/loja/:_loja', component: Loja,
       children: [
@@ -67,14 +94,7 @@ var router = new VueRouter({
         { path: '', component: Dashboard },
       ]
     },
-    { path: '/oss', component: Oss,
-      children: [
-        { path: '', component: OsUF },
-        { path: 'uf/:_uf', component: UFList },
-        { path: 'os-status', component: OsStus },
-        { path: 'os-tec', component: TecOs },
-      ] 
-    },
+    
     { path: '/os/:_os', component: Os, name: 'os'},
     { path: '/lojas', component: Lojas, name: 'lojas' },
     { path: '/loja/:_loja', component: Loja,
@@ -106,15 +126,6 @@ var router = new VueRouter({
         { path: '', component: EquipamentosLocal },
         { path: 'oss', component: LocalOss },
       ]
-    },
-    { path: '/controle-cilindros', component: ControleCilindros,
-      children: [
-        
-        { path: '', component: PainelCilindros },
-        { path: 'cilindros', component: CilindrosIndex },
-        { path: 'programacao', component: ProgramacaoIndex },
-        { path: 'programacao/show/:_programacao', component: ProgramacaoShow },
-      ] 
     },*/
     {path: '*', component: NaoEncontrado},
   ]

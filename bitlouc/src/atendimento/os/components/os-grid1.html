@@ -143,9 +143,7 @@ Vue.component('os-grid', {
     }
   },
   computed: {
-    user()  {
-      return this.$store.state.user;
-    },
+    ...Vuex.mapGetters(["user"] ),
     filteredData2: function () {
       var filterKey = 0
       var data = this.data

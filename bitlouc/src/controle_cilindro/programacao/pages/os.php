@@ -255,7 +255,7 @@ var Os = Vue.extend({
           status: item
         };
         console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=osStatus', postData)
+        this.$http.post('./config/api/os.api.php?action=osStatus', postData)
         .then(function(response) {
           console.log(response);
           if(!response.data.error){
@@ -279,7 +279,7 @@ var Os = Vue.extend({
           id: data.id
         };
         //console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=modDel', postData)
+        this.$http.post('./config/api/os.api.php?action=modDel', postData)
         .then(function(response) {
           //console.log(response);
           if(response.data.error){

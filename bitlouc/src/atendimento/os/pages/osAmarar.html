@@ -16,10 +16,8 @@ var OsAmarar = Vue.extend({
     };
   },
   created: function() {
-    this.$store.dispatch('findOsSemAmaracao').then(() => {
-        console.log("Buscando dados da os sem amaracao")
-    });
-    this.$store.dispatch("setStatus", '' );    
+    this.onAtualizar();
+    this.$store.dispatch("setStatus", '' );
   },
   mounted: function() {
     //this.modalLocalAdd = true;
@@ -32,7 +30,7 @@ var OsAmarar = Vue.extend({
   methods: {
     onAtualizar: function(){
       this.$store.dispatch('findOsSemAmaracao').then(() => {
-        console.log("Buscando dados da os")
+        console.log("Buscando OSs sem amaracao")
       });
     },
 

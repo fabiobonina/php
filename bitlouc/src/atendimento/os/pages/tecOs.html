@@ -70,22 +70,20 @@ var TecOs = Vue.extend({
   },
   mounted: function() {
     //this.modalLocalAdd = true;
-    //this.tec = store.state.user;
+    //this.tec = this.$store.state.user;
     //this.tecnico();
   },
   computed: {
     loja()  {
       return this.$store.getters.getLojaId(this.$route.params._loja);
     },
-    user()  {
-      return this.$store.state.user;
-    },
+    ...Vuex.mapGetters(["user"] ),
     tecnicos() {
       return this.$store.state.tecnicos;
     },
-    oss()  {
-      var obj     = store.state.oss;
-      var user    = store.state.user;
+    oss()  {      
+      var obj     = this.$store.state.oss;
+      var user    = this.$store.getters.user;
       var user_id  = null;
       if(this.tecnico){
         user_id = this.tecnico.user_id;

@@ -73,7 +73,7 @@
 					</tr>
 					<tr>
 						<td class="corpo-footer" align="right" valign="top" width="100%" style="padding: 20px 0px 1px 1px; color: #404040; font-size: 10px; font-family: arial; line-height: 1px">
-							Alterado por: '.$_SESSION['loginUser'].'
+							Alterado por: '.$_SESSION['user_user'].'
 						</td>
 					</tr>
 					
@@ -113,7 +113,7 @@
 					</tr>
 					<tr>
 						<td class="corpo-footer" valign="top" width="100%" style="padding: 35px 35px 40px 45px; color: #404040; font-size: 10px; font-family: arial; line-height: 12px">
-							Alterado por: '.$_SESSION['loginUser'].'
+							Alterado por: '.$_SESSION['user_user'].'
 						</td>
 					</tr>
 				';

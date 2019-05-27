@@ -60,9 +60,7 @@ Vue.component('os-crud', {
     }
   },
   computed: {
-    user()  {
-      return this.$store.state.user;
-    },
+    ...Vuex.mapGetters(["user"] ),
   },
   methods: {
     close(){

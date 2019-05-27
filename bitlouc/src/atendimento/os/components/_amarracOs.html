@@ -110,7 +110,7 @@ Vue.component('os-amarrac', {
           os: this.os,
           filial: this.filial.id
         };        
-        this.$http.post('./config/api/apiOs.php?action=osAmarar', postData)
+        this.$http.post('./config/api/os.api.php?action=osAmarar', postData)
           .then(function(response) {
             //console.log(response);
             if(!response.data.error){

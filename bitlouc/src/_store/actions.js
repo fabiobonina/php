@@ -5,13 +5,11 @@
 //Todos os postdados são enviados como json
 //True para enviar como dados do formulário
 Vue.http.options.emulateJSON = true;
-const USERLOGOUT     ='./config/api/user.api.php?action=logout';
 const INDEXLIST     ='./config/api/organizacao.api.php?action=read';
 const CONFIG        ='./config/api/config.api.php?action=config';
 const CONFIGPROD    ='./config/api/config.api.php?action=prod';
 const CONFIGCILIND  ='./config/api/config.api.php?action=cilindro';
 
-const BENSLIST      ='./config/api/local.api.php?action=read';
 const OSLIST        ='./config/api/os.api.php?action=read';
 const OSFIND        ='./config/api/os.api.php?action=os';
 const OSSTATUSFIND  ='./config/api/os.api.php?action=status';
@@ -22,6 +20,8 @@ const LOCAISPROPRIETARIO  ='./config/api/local.api.php?action=proprietario';
 const LOCAISLOJA          ='./config/api/local.api.php?action=loja';
 const LOCALFIND           ='./config/api/local.api.php?action=local';
 
+
+const BENSLIST           ='./config/api/local.api.php?action=read';
 const EQUIPAMENTOSLIST   ='./config/api/equipamento.api.php?action=read';
 const EQUIPAMENTOSLOJA   ='./config/api/equipamento.api.php?action=loja';
 const EQUIPAMENTOSLOCAL  ='./config/api/equipamento.api.php?action=local';
@@ -42,7 +42,7 @@ const actions = {
   },
   fetchIndex({ commit }) {
     return new Promise((resolve, reject) => {
-      Vue.http.post('./config/api/organizacao.api.php?action=read')
+      Vue.http.get('./config/api/organizacao.api.php?action=read')
       .then(function(response) {
         if(response.data.error){
           console.log(response.data.message);
@@ -110,34 +110,40 @@ const actions = {
   },
   findOsStatus({ commit }, status ) {
     return new Promise((resolve, reject) => {
+      state.loading = true;
       var postData = {
         status: status,
       }
       Vue.http.post(OSSTATUSFIND, postData).then((response) => {
+        state.loading = false;
         if(response.data.error){
           console.log(response.data.message);
         } else{          
           commit("SET_OSS", response.data.oss);
-          resolve();
-        }  
+        }
+        resolve();
       })
       .catch((error => {
-          console.log(error.statusText);
+        state.loading = false;
+          console.log(error);
       }));
     });
   },
   findOsSemAmaracao({ commit } ) {
     return new Promise((resolve, reject) => {
+      state.loading = true;
       Vue.http.get(OSAMARARFIND).then((response) => {
         //console.log(response.data);
         if(response.data.error){
           console.log(response.data.message);
         } else{          
           commit("SET_OSS", response.data.oss);
+          state.loading = false;
           resolve();
         } 
       })
       .catch((error => {
+          state.loading = false;
           console.log(error.statusText);
       }));
     });

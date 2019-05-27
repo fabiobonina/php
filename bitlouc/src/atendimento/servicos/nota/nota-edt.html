@@ -85,7 +85,7 @@ Vue.component('nota-edt', {
           os_id: this._os.id
         };
         //console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=publishNota', postData)
+        this.$http.post('./config/api/os.api.php?action=publishNota', postData)
           .then(function(response) {
             console.log(response);
             if(response.data.error){

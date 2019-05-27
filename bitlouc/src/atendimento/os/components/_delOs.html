@@ -95,7 +95,7 @@ Vue.component('os-del', {
           os_id: this.data.id
         };
         console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=osDel', postData).then(function(response) {
+        this.$http.post('./config/api/os.api.php?action=osDel', postData).then(function(response) {
           console.log(response);
           if(response.data.error){
             this.errorMessage.push( response.data.message);

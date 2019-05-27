@@ -86,7 +86,7 @@
 			$oss->setDtUltimoMan($dtUltimo);
 			$oss->setDtCadastro($dtCadastro);
 			$oss->setAtivo($ativo);
-			$oss->setUser( $_SESSION['loginId']);
+			$oss->setUser( $_SESSION['user_id']);
 
 			if(	$etapaI ){
 				$item['error']   = true;
@@ -633,8 +633,8 @@
 			$txtNotas	 	= array();
 			
 			#autor
-			$autor['email'] 		= $_SESSION['loginEmail'] ;
-			$autor['user_nick'] 	= $_SESSION['loginUser'] ;
+			$autor['email'] 		= $_SESSION['user_email'] ;
+			$autor['user_nick'] 	= $_SESSION['user_user'] ;
 			array_push($txtEmails, $autor );
 			#solicitante
 			$solicitante	= $users->findSimples( $os->user_id );
@@ -821,7 +821,7 @@
 														</tr-->
 														<tr valign="top">
 															<td colspan="4">
-																Alterado por: '.$_SESSION['loginUser'].'
+																Alterado por: '.$_SESSION['user_user'].'
 															</td>
 														</tr>
 													</tbody>
@@ -872,8 +872,8 @@
 			$txtNotas	 	= array();
 			
 			#autor
-			$autor['email'] 		= $_SESSION['loginEmail'] ;
-			$autor['user_nick'] 	= $_SESSION['loginUser'] ;
+			$autor['email'] 		= $_SESSION['user_email'] ;
+			$autor['user_nick'] 	= $_SESSION['user_user'] ;
 			array_push($txtEmails, $autor );
 			#solicitante
 			$solicitante	= $users->findSimples( $os->user_id );

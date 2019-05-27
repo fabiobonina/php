@@ -11,7 +11,7 @@
       </v-layout>
     </v-container>
     <section>
-      <bens-grid :data="equipamentos" :local="local" :status="active"></bens-grid>
+      <equipamento-list :data="equipamentos" :local="local" :status="active"></equipamento-list>
       <bem-add v-if="modalAdd" v-on:close="modalAdd = false" ></bem-add>
     </section>
   </div>
@@ -46,9 +46,7 @@
     created: function() {
     },
     computed: {
-      user()  {
-        return this.$store.state.user;
-      },
+      ...Vuex.mapGetters(["user"] ),
       equipamentos()  {
         return this.$store.getters.getEquipamentoLocal(this.$route.params._local);
         //return this.$store.state.equipamentos;

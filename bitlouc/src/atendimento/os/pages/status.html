@@ -41,9 +41,7 @@ var OsStus = Vue.extend({
     //this.modalLocalAdd = true;
   },
   computed: {
-    user()  {
-      return this.$store.state.user;
-    },
+    ...Vuex.mapGetters(["user"] ),
     oss()  {
       return this.$store.state.oss;
     },

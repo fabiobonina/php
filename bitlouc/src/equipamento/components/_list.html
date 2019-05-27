@@ -1,4 +1,4 @@
-<template id="equipamentos-grid">
+<template id="equipamento-list">
   <div>
     <div>
       <label><input type="radio" v-model="selectedCategoria" value="0">All </label>&nbsp;&nbsp;&nbsp;
@@ -43,8 +43,8 @@
 </template>
 
 <script>
-  Vue.component('equipamentos-grid', {
-    template: '#equipamentos-grid',
+  Vue.component('equipamento-list', {
+    template: '#equipamento-list',
     props: {
       data: Array,
       local: Object,

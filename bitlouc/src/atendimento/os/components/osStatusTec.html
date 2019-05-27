@@ -33,21 +33,19 @@ Vue.component('os-statustec', {
     //this.modalLocalAdd = true;
   },
   computed: {
-    user()  {
-      return this.$store.state.user;
-    },
+    ...Vuex.mapGetters(["user"] ),
     osStatusTec()  {
       function Comparator(a, b) {
         if (a[1] > b[1]) return -1;
         if (a[1] < b[1]) return 1;
         return 0;
       }
-      var oss   = store.state.oss;
+      var oss   = this.$store.state.oss;
       oss = oss.filter(function (row) {
         return Number(row.status) <= 3;
       });
       this.ossAbertas = oss.length;
-      var tecnicos  = store.state.tecnicos;
+      var tecnicos  = this.$store.state.tecnicos;
       var value = [];
       for (var user of tecnicos) {
         var count = 0;

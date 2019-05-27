@@ -1,7 +1,7 @@
 <template id="painel-cilindros">
     <v-content>
         <template>
-            <div class="v-content__wrap">
+            <v-content wrap>
                 <div class="container page" id="components-categories">
                     <section class="mb-5">
                         <div class="container pa-0 grid-list-xl fluid">
@@ -22,7 +22,7 @@
                         </div>
                     </section>
                 </div>
-            </div>
+            </v-content>
         </template>
         <v-container fluid class="grid-list-xl pa-0">
             <v-layout wrap>
@@ -53,8 +53,10 @@
         <rodape></rodape>
     </v-content>
 </template>
-<?php //require_once 'src/controle_cilindro/components/cilindro/index.php';?>
-<?php //require_once 'src/controle_cilindro/components/programacao/index.php';?>
+<?php 
+require_once 'src/controle_cilindro/components/cilindro/index.html';
+require_once 'src/controle_cilindro/components/programacao/index.html';
+?>
 <script>
     var PainelCilindros = Vue.extend({
     template: '#painel-cilindros',

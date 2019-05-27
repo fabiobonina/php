@@ -1,11 +1,10 @@
 
 <template id="os">
-  <div>
+  <div v-if="_os">
   <top></top>
   <v-content v-if="_os">
     <template>
       <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-      <loader></loader>
       <v-card flat height="210px" tile color="grey lighten-2">
         <v-toolbar color="cyan" prominent class="white--text" height="80px">
           <v-btn @click="$router.go(-1)" icon >
@@ -178,7 +177,7 @@
           </v-container>
         </v-flex>
       </div>
-      <div>
+      <div v-if="_os">
         <mod-add v-if="modAdd && _os.status < 4" v-on:close="modAdd = false; onAtualizar()" :dialog="modAdd" :data="_item"></mod-add>
         <mod-edt v-if="modEdt && _os.status < 4" v-on:close="modEdt = false; onAtualizar()" :dialog="modEdt" :data="_item"></mod-edt>
         <nota-add v-if="notaAdd && _os.status < 4" v-on:close="notaAdd = false; onAtualizar()" :dialog="notaAdd" :data="_os"></nota-add>
@@ -186,8 +185,8 @@
         <desloc-add v-if="deslocAdd && _os.status < 4" v-on:close="deslocAdd = false; onAtualizar()" :dialog="deslocAdd" :data="_os"></desloc-add>
       </div>
 
-      </v-container>
-    </v-content>
+    </v-container>
+  </v-content>
   </div>
 </template>
 <script>
@@ -224,27 +223,19 @@ var Os = Vue.extend({
     };
   },
   created: function() {
-    this.$store.dispatch('findOs', this.$route.params._os).then(() => {
-      console.log("Buscando dados da os")
-    });
     this.$store.dispatch("fetchConfig").then(() => {
       console.log("Buscando dados das Configurações!")
     });
-    
+    this.onAtualizar();
   },
   mounted: function() {
     //this.modalDeslocAdd = true;
   },
   computed: {
-    //loja()  {
-      //return this.$store.getters.getOsId(this.$route.params._loja);
-    //},
     _os()  {
       return this.$store.state.os;
     },
-    user()  {
-      return this.$store.state.user;
-    },
+    ...Vuex.mapGetters(["user"] ),
   }, // computed
   methods: {
     osStatus: function( data ) {
@@ -255,7 +246,7 @@ var Os = Vue.extend({
           status: item
         };
         console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=osStatus', postData)
+        this.$http.post('./config/api/os.api.php?action=osStatus', postData)
         .then(function(response) {
           console.log(response);
           if(!response.data.error){
@@ -279,7 +270,7 @@ var Os = Vue.extend({
           id: data.id
         };
         //console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=modDel', postData)
+        this.$http.post('./config/api/os.api.php?action=modDel', postData)
         .then(function(response) {
           //console.log(response);
           if(response.data.error){
@@ -354,18 +345,3 @@ var Os = Vue.extend({
 
 </script>
 
-<?php require_once 'src/components/includes/top.php';?>
-<?php require_once 'src/components/includes/rodape.php';?>
-<?php require_once 'src/components/servicos/nota/nota-add.php';?>
-<?php require_once 'src/components/servicos/nota/nota-edt.php';?>
-<?php require_once 'src/components/servicos/tecnico/deslocamento/desloc-add.php';?>
-<?php require_once 'src/components/servicos/tecnico/mod/mod-add.php';?>
-<?php require_once 'src/components/servicos/tecnico/mod/mod-edt.php';?>
-<?php require_once 'src/components/servicos/tecnico/mod/mod-full.php';?>
-<?php require_once 'src/components/servicos/tecnico/tecnico.php';?>
-<?php require_once 'src/components/servicos/despesa/_km.php';?>
-<?php require_once 'src/components/servicos/despesa/despesa.php';?>
-
-<?php require_once 'src/components/os/_crudOs.php';?>
-
-<?php require_once 'src/components/os/_progresso.php';?>

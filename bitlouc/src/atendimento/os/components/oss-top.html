@@ -44,9 +44,9 @@
         errorMessage: '',
         successMessage: '',
         router: [
-          { title: 'Amarrar', router: '/os-gerencial', icon: 'trending_up' },
-          { title: 'Fechar', router: '/os-gerencial/fechar', icon: 'store' },
-          { title: 'Validar', router: '/os-gerencial/validar', icon: 'person' },
+          { title: 'Amarrar', router: '/atendimento/os-gerencial', icon: 'trending_up' },
+          { title: 'Fechar', router: '/atendimento/os-gerencial/fechar', icon: 'store' },
+          { title: 'Validar', router: '/atendimento/os-gerencial/validar', icon: 'person' },
         ],
         model: 'tab-2',
       };
@@ -55,9 +55,7 @@
 
     },
     computed: {
-      user() {
-        return this.$store.state.user;
-      },
+      ...Vuex.mapGetters(["user"] ),
       proprietario() {
         return this.$store.state.proprietario;
       },

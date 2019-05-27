@@ -168,7 +168,7 @@ Vue.component('os-edt', {
         };
         //var formData = this.toFormData(postData);
         //console.log(postData);
-        this.$http.post('./config/api/apiOs.php?action=publish', postData)
+        this.$http.post('./config/api/os.api.php?action=publish', postData)
           .then(function(response) {
             //console.log(response);
             if(!response.data.error){

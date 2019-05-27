@@ -75,15 +75,13 @@
   </div>
 </template>
 
-<?php require_once 'src/components/os/_crudOs.php';?>
-<?php require_once 'src/components/local/_rotaLocal.php';?>
 
 <script>
   Vue.component('os-grid', {
     template: '#os-grid',
     props: {
       data: Array,
-    status: String,
+      status: String,
     },
     data: function () {
       return {
@@ -125,9 +123,7 @@
       }
     },
     computed: {
-      user()  {
-        return this.$store.state.user;
-      },
+      ...Vuex.mapGetters(["user"] ),
       filteredData2: function () {
       var filterKey = 0
       var data = this.data
