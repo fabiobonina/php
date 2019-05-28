@@ -17,7 +17,6 @@ const controleCilindro = {
         cil_tipos:[],
     },
     mutations: {
-        anadirProducto: (state, producto) => state.productos.unshift(producto),
         SET_CILINDROS: (state, cilindros) => state.cilindros = cilindros,
         SET_CILINDRO: (state, cilindro) => state.cilindro = cilindro,
         SET_CILPROGRAMACOES: (state, cilProgramacoes) =>  state.cilProgramacoes = cilProgramacoes,
@@ -124,6 +123,7 @@ const controleCilindro = {
         getItemsDemanda: (state) => (demanda_id) => {
             return state.cilItems.filter(todo => todo.demanda_id == demanda_id)
         },
+        cilProgamacoes:      state => state.cilProgamacoes,
     }
 }
 

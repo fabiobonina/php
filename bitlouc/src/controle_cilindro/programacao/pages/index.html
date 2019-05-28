@@ -1,5 +1,5 @@
 <template id="programacao-page">
-<v-content v-if="">
+<v-content >
   <div>
     <v-container fluid class="pa-0">
       <v-layout row wrap>
@@ -37,7 +37,7 @@
 
 ?>
 
-<script src="src/controle_cilindro/mixins/cilindros.js"></script>
+<!-- script src="src/controle_cilindro/mixins/cilindros.js"></script-->
 <script>
   
   var ProgramacaoPage = Vue.extend({
@@ -76,7 +76,7 @@
         return this.$store.getters.user;
       },
       cilProgramacoes()  {
-        return this.$store.state.cilProgramacoes;
+        return this.$store.getters.cilProgramacoes;
       },
       local()  {
         //return mapState([local]);

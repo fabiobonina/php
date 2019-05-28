@@ -46,7 +46,6 @@
         errorMessage: '',
         successMessage: '',
         painel: [
-            
             { title: 'Reçepcão',
                 subtitle: 'outra coisa',
                 router: '/controle-cilindros/recepicao',
@@ -79,7 +78,7 @@
     },
     computed: {
       locais()  {
-        return this.$store.getters.getLocalLoja(this.$route.params._loja);
+        //return this.$store.getters.getLocalLoja(this.$route.params._loja);
       },
     },
     methods: {

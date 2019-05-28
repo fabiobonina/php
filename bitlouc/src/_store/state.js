@@ -18,7 +18,6 @@ const state = {
   local: {},
   equipamentos: [],
   tipos:[],
-  produtos:[],
   fabricantes:[],
   categorias:[],
   servicos:[],

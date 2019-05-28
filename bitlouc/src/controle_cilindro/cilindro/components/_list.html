@@ -1,4 +1,4 @@
-<template id="cilindros">
+<template id="cilindro-list">
   <div>
     <div>
       <label><input type="radio" v-model="selectedCategoria" value="0">All </label>&nbsp;&nbsp;&nbsp;
@@ -43,8 +43,8 @@
 </template>
 
 <script>
-  Vue.component('cilindros', {
-    template: '#cilindros',
+  Vue.component('cilindro-list', {
+    template: '#cilindro-list',
     props: {
       data: Array,
       local: Object,
