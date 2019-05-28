@@ -1,10 +1,10 @@
 Vue.http.options.emulateJSON = true;
-const USERVALIDAR    ='./config/api/user.api.php?action=isLoggedIn';
-const USERLOGAR      ='./config/api/user.api.php?action=logar';
-const USERLOGOUT     ='./config/api/user.api.php?action=logout';
-const LOGIN = "LOGIN";
+const USERVALIDAR   ='./config/api/user.api.php?action=isLoggedIn';
+const USERLOGAR     ='./config/api/user.api.php?action=logar';
+const USERLOGOUT    ='./config/api/user.api.php?action=logout';
+const LOGIN         = "LOGIN";
 const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-const LOGOUT = "LOGOUT";
+const LOGOUT        = "LOGOUT";
 
 const usuario = JSON.parse(localStorage.getItem('user'));
 //console.log(usuario.user)
@@ -69,18 +69,15 @@ const user = {
                 Vue.http.post(USERVALIDAR, postData)
                 .then(function(response) {
                     if(response.data.error){
-                    console.log(response.data.message);
-                    if(!response.data.user.isLoggedIn){
-                        localStorage.removeItem("token");
-                        localStorage.removeItem("isLoggedIn");
-                        commit(LOGOUT);
-                    }
-                    } else{
-                        if(response.data.isLoggedIn){
+                        if(!response.data.user.isLoggedIn){
+                            localStorage.removeItem("token");
+                            localStorage.removeItem("isLoggedIn");
+                            commit(LOGOUT);
+                        }else{
                             commit(LOGIN_SUCCESS, response.data);
                         }
-                    resolve();
                     }
+                    resolve();
                 })
                 .catch((error => {
                     console.log(error.statusText);
@@ -113,28 +110,6 @@ const user = {
                 }));
             });
         },
-        /*isLoggedIn({ commit }) {
-            return new Promise((resolve, reject) => {
-                var postData = { token: localStorage.getItem('token') };
-                Vue.http.post('./config/api/user.api.php?action=isLoggedIn', postData )
-                .then((response) => {
-                    console.log( response); 
-                    if(response.data.error){
-                        console.log(response.data.message);
-                        if(!response.data.user.isLoggedIn){
-                            commit(LOGOUT);
-                        }
-                    } else{
-                        commit(LOGIN);
-                        commit(LOGIN_SUCCESS, creds);
-                    }
-                    resolve();
-                })
-                .catch((error => {
-                    console.log(error.statusText);
-                }));
-            });
-        },*/
     },
 
     getters: {

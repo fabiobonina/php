@@ -60,7 +60,7 @@ Vue.component('amarar-cilindro', {
   },
   computed: {
     user()  {
-      return this.$store.state.user;
+      return this.$store.getters.user;
     },
     temMessage () {
       if(this.errorMessage.length > 0) return true
@@ -78,7 +78,7 @@ Vue.component('amarar-cilindro', {
   methods: {
     updateCilindros() {
       this.$store.dispatch("fetchCilindros").then(() => {
-        this.locais = store.state.locais;
+        this.locais =this.$store.state.locais;
         //store.commit('isLoading');
       });
       this.atualizar();

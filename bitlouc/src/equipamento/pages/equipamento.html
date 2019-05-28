@@ -49,7 +49,7 @@ var Equipamentos = Vue.extend({
   },
   computed: {
     user()  {
-      return this.$store.state.user;
+      return this.$store.getters.user;
     },
     local()  {
       return this.$store.getters.getLocalId(this.$route.params._local);

@@ -275,7 +275,7 @@ Vue.component('bem-add', {
   },
   computed: {
     user()  {
-      return this.$store.state.user;
+      return this.$store.getters.user;
     },
     temMessage () {
       if(this.errorMessage.length > 0) return true

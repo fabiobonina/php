@@ -122,7 +122,7 @@
             },
             filteredData: function () {
             var filterKey = this.search && this.search.toLowerCase()
-            var data = store.state.locais
+            var data =this.$store.statelocais
             if (filterKey) {
                 data = data.filter(function (row) {
                 return Object.keys(row).some(function (key) {

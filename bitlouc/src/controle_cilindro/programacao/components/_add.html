@@ -195,7 +195,7 @@ Vue.component('prog-add', {
   },
   computed: {
     user()  {
-      return this.$store.state.user;
+      return this.$store.getters.user;
     },
     temMessage () {
       if(this.errorMessage.length > 0) return true
@@ -213,7 +213,7 @@ Vue.component('prog-add', {
     updateLocal() {
       this.$store.dispatch('fetchLocalLoja', this.loja.id ).then(() => {
         //console.log("Buscando dados do local!");
-        this.locais = store.state.locais;
+        this.locais =this.$store.state.locais;
         //store.commit('isLoading');
       });
     },

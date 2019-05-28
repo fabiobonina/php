@@ -21,7 +21,7 @@ if(isset($_GET['action'])){
 if($action == 'read'):
 
   $item = $cilindroProgControl->list();
-  $res['cilProgramacoes'] = $item;
+  $res['programacoes'] = $item;
   $res['error'] = false;
 
 endif;

@@ -142,7 +142,7 @@ Vue.component('bens-grid', {
   },
   computed: {
     user()  {
-      return this.$store.state.user;
+      return this.$store.getters.user;
     },
     filteredData() {
       var status = this.status;

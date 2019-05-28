@@ -117,9 +117,10 @@ Vue.component('demanda-add', {
       if(this.successMessage.length > 0) return true
       return false
     },
-    cilTipos() {
-      return this.$store.state.cil_tipos;
+    cilTiposs() {
+      return this.$store.state.cilTipos;
     },
+    ...Vuex.mapGetters(["cilTipos"] ),
   },
   created: function() {
     this.$store.dispatch('fetchCilTipos').then(() => {

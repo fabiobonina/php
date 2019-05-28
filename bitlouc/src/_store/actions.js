@@ -44,6 +44,7 @@ const actions = {
             localStorage.removeItem("token");
             localStorage.removeItem("isLoggedIn");
             commit(LOGOUT);
+            resolve();
           }
         } else{
           commit("SET_USER", response.data.user);
@@ -248,22 +249,6 @@ const actions = {
             console.log(response.data.message);
           } else{
             commit("SET_PRODUTOS", response.data.produtos);
-            resolve();
-          }
-        })
-        .catch((error => {
-            console.log(error);
-        }));
-    });
-  },
-  fetchCilTipos({ commit }) {
-    return new Promise((resolve, reject) => {
-        Vue.http.get(CONFIGCILIND)
-        .then((response) => {
-          if(response.data.error){
-            console.log(response.data.message);
-          } else{
-            commit("SET_CIL_TIPOS", response.data.cil_tipos);
             resolve();
           }
         })

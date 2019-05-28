@@ -24,7 +24,7 @@
         return this.$store.state.lojas;
       },
       user() {
-        return this.$store.state.user;
+        return this.$store.getters.user;
       },
       ...Vuex.mapGetters(["lojas"] ),
     },

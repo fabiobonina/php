@@ -12,7 +12,7 @@
       </v-layout>
     </v-container>
     <section>
-      <programacao :data="cilProgramacoes" :local="local" :status="active"></programacao>
+      <prog-list :data="programacoes" :local="local" :status="active"></prog-list>
       <bem-add v-if="modalAdd" v-on:close="modalAdd = false" ></bem-add>
     </section>
   </div>
@@ -27,7 +27,7 @@
   require_once 'src/controle_cilindro/programacao/components/_add.html';
   require_once 'src/controle_cilindro/programacao/components/_crud.html';
 
-  require_once 'src/controle_cilindro/programacao/demanda/_demanda.html';
+  require_once 'src/controle_cilindro/programacao/demanda/_addDemanda.html';
   require_once 'src/controle_cilindro/programacao/demanda/_amararCilindro.html';
   require_once 'src/controle_cilindro/programacao/demanda/_demandaCil.html';
   require_once 'src/controle_cilindro/programacao/demanda/_list.html';
@@ -43,7 +43,6 @@
   var ProgramacaoPage = Vue.extend({
     name: 'programacao-page',
     template: '#programacao-page',
-    //mixins: [getProgramacao],
     props: {
       proprietario: String,
       nivel: String,
@@ -67,7 +66,7 @@
       };
     },
     created: function() {
-      this.$store.dispatch("listCilProgramacao").then(() => {
+      this.$store.dispatch("listProgramacao").then(() => {
         console.log("Buscando Programacao de cilindros!")
       });
     },
@@ -75,8 +74,8 @@
       user()  {
         return this.$store.getters.user;
       },
-      cilProgramacoes()  {
-        return this.$store.getters.cilProgramacoes;
+      programacoes()  {
+        return JSON.parse(localStorage.getItem('programacoes'));//this.$store.state.programacoes;
       },
       local()  {
         //return mapState([local]);

@@ -88,7 +88,7 @@
     },
     computed: {
       user()  {
-        return this.$store.state.user;
+        return this.$store.getters.user;
       },
       filteredData2() {
         var status = this.status;

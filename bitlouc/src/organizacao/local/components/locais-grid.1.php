@@ -90,7 +90,7 @@
     },
     computed: {
       user()  {
-        return this.$store.state.user;
+        return this.$store.getters.user;
       },
       filteredData() {
         const filter = this.configs.search && this.configs.search.toLowerCase(); 

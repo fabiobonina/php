@@ -116,7 +116,7 @@
             },
             filteredData: function () {
             var filterKey = this.search && this.search.toLowerCase()
-            var data = store.state.oss
+            var data =this.$store.stateoss
             if (filterKey) {
                 data = data.filter(function (row) {
                 return Object.keys(row).some(function (key) {

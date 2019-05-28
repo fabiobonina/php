@@ -1,8 +1,8 @@
-<template id="programacao">
-  <div v-if="data">
+<template id="prog-list">
+  <div>
     <div>
       <label><input type="radio" v-model="selectedCategoria" value="0">All </label>&nbsp;&nbsp;&nbsp;
-      <label v-for=" categoria in local.categoria" :key="categoria.id"><input type="radio" v-model="selectedCategoria" v-bind:value="categoria.id">{{ categoria.name }} &nbsp;&nbsp;&nbsp;</label>
+      <!--label v-for=" categoria in local.categoria" :key="categoria.id"><input type="radio" v-model="selectedCategoria" v-bind:value="categoria.id">{{ categoria.name }} &nbsp;&nbsp;&nbsp;</label-->
     </div>
     <v-toolbar flat color="white">
       <v-toolbar-title>Programação</v-toolbar-title>
@@ -58,8 +58,8 @@
 </template>
 
 <script>
-  Vue.component('programacao', {
-    template: '#programacao',
+  Vue.component('prog-list', {
+    template: '#prog-list',
     props: {
       data: Array,
       status: String,
@@ -103,7 +103,7 @@
       user()  {
         return this.$store.getters.user;
       },
-      filteredData2() {
+      /*filteredData2() {
         var status = this.status;
         var filter = this.search && this.search.toLowerCase();
         var list   = this.data;
@@ -122,7 +122,7 @@
           list = list.filter(function (row) {
             return Number(row.status) <= 1;
           });
-        }*/
+        }
         
         if (filter) {
           list = list.filter(function (row) {
@@ -132,7 +132,7 @@
           })
         }
         return list;
-      },
+      },*/
       filteredData: function () {
         var filterKey = this.search && this.search.toLowerCase()
         var data = this.data
