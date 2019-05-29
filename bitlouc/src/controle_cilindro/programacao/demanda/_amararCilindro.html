@@ -19,7 +19,7 @@
                   <v-list-tile-sub-title>Prog.: {{ data.qtd }}</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
-              <add-item :programacao_id="data.programacao_id" :demanda_id="data.id" :cilindro="item" v-on:atualizar="atualizar()"></add-item>
+              <add-item :programacao_id="data.programacao_id" :demanda_id="data.id" :cilindro="item" :capacidade="data.cil_tipo.capacidade" v-on:atualizar="atualizar()"></add-item>
               <v-layout row justify-center>  
                 <v-flex>
                   <list-item :item="data"></list-item>

@@ -1,67 +1,18 @@
 <template id="demanda-list">
 <div>
-    <v-toolbar flat color="white">
-      <v-toolbar-title>Expandable Table</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <!--amarar-cilindro :dialog-add="expand" v-on:close="close()"></amarar-cilindro-->
-    </v-toolbar>
 
-    <template>
-  <v-layout row>
-    <v-flex>
-      <v-card>
-        <!--v-toolbar color="teal" dark>
-          <v-toolbar-side-icon></v-toolbar-side-icon>
-          <v-toolbar-title>Topics</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-btn icon>
-            <v-icon>more_vert</v-icon>
-          </v-btn>
-        </v-toolbar-->
-
-        <v-list>
-          <v-list-group v-for="item in data" :key="item.id" v-model="item.active" :prepend-icon="item.action" no-action>
-            <template v-slot:activator>
-              <v-list-tile>
-                <v-list-tile-content>
-                  <v-list-tile-title>{{ item.cil_tipo.name }}</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
+      <template>
+        <v-expansion-panel v-for="item in data" :key="item.id" :value="0" >
+          <v-expansion-panel-content >
+            <template v-slot:header>
+              <div>{{ item.cil_tipo.name }}</div>
             </template>
-            <list-item :item="item"></list-item>
-          </v-list-group>
-        </v-list>
-      </v-card>
-    </v-flex>
-  </v-layout>
-</template>
-    <!--v-data-table
-      :headers="headers"
-      :items="data"
-      :expand="expand"
-      item-key="name"
-    >
-      <template v-slot:items="props">
-        
-      <template v-for="subItem in props.item.items">
-        <tr @click="props.expanded = !props.expanded">
-          <td>{{ props.item.cil_tipo.name }}</td>
-          <td class="text-xs-right">{{ subItem.cilindro.numero }}</td>
-          <td>{{ subItem.cilindro.fabricante }}</td>
-          <td>{{ subItem.cilindro.cod_barras }}</td>
-          <td class="text-xs-right">
-            <copia :data="subItem.cilindro.cod_barras"></copia>
-          </td>
-          
-        </tr>
-        </template>
+            <v-card>
+              <list-item :item="item"></list-item>
+            </v-card>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
       </template>
-      <template v-slot:expand="props">
-        <v-card flat>
-          <v-card-text>Peek-a-boo!</v-card-text>
-        </v-card>
-      </template>
-    </v-data-table-->
     
   </div>
 </template>
@@ -79,7 +30,7 @@
     },
     data: function () {
       return {
-        expand: false,
+        expand: true,
         headers: [
           {
             text: 'Tipo',

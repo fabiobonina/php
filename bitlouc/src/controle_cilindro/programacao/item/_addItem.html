@@ -53,14 +53,14 @@ Vue.component('add-item', {
   props: {
     item: {},
     demanda_id:'',
+    capacidade: '',
     programacao_id: '',
-    id: '',
+    item_id: '',
   },
   data() {
     return {
       errorMessage: [],
       successMessage: [],
-      
       teste: "",
       cilindro: this.item,
     };
@@ -78,7 +78,8 @@ Vue.component('add-item', {
       return false
     },
     cilindros(){
-      return this.$store.getters.cilindros;
+      //return this.$store.getters.cilindros;
+      return this.$store.getters.cilindroCapacidade(this.capacidade);
     },
     programacao(){
       return this.$store.getters.programacao;
@@ -100,19 +101,22 @@ Vue.component('add-item', {
       this.$validator.validateAll().then((result) => {
         if ( result ) {
           this.$store.commit('isLoading');
+          var id = "";
+          if (typeof this.item_id !== "undefined") {
+              id = this.item_id;
+          }
           var postData = {
             programacao_id: this.programacao_id,
             demanda_id:     this.demanda_id,
             cilindro_id:    this.cilindro.id,
-            id: this.id
+            id:             id
           };
           console.log(postData);
-          this.$http.post('./config/api/cilProgramacao.api.php?action=publish-itens', postData).then(function(response) {
+          this.$http.post('./config/api/cilProgDemanda.api.php?action=publish-itens', postData).then(function(response) {
             console.log(response);
             this.$store.commit('isLoading');
             if(!response.data.error){
                 this.successMessage.push(response.data.message);
-                
                 setTimeout(() => {
                   //this.$router.push('/programacao/'+response.data.id)
                   this.$emit('atualizar');
@@ -120,6 +124,8 @@ Vue.component('add-item', {
               } else{
                 this.errorMessage.push(response.data.message);
               }
+              this.cilindro = {};
+              this.$store.commit('isLoading');
           })
           .catch(function(error) {
             this.$store.commit('isLoading');
@@ -129,7 +135,7 @@ Vue.component('add-item', {
       });
     },
     remove () {
-        this.item = {}
+        this.cilindro = {}
     },
   },
 });

@@ -13,40 +13,43 @@
             <th>Status</th>
             <th>Numerero</th> 
             <th>Fabricante</th>
+            <th>Loja</th>
+            <th>Validade</th>
+            <th>Capacidade</th>
             <th>Cod.Barras</th>
             <th></th>
           </tr>
           <template v-for="subItem in items">
             <tr v-if="subItem.edit" >
-              <td v-if="subItem.edit" colspan="4">
+              <td v-if="subItem.edit" colspan="7">
                 <v-flex >
-                  <add-item :programacao_id="subItem.programacao_id" :demanda_id="subItem.demanda_id" :id="subItem.id" :item="subItem.cilindro"></add-item>
+                  <add-item :programacao_id="subItem.programacao_id" :demanda_id="subItem.demanda_id" :item_id="subItem.id" :item="subItem.cilindro" :capacidade="item.cil_tipo.capacidade"></add-item>
                 </v-flex>
               </td>
               <td class="text-xs-right">
                 <!--item-crud :data="subItem" v-on:atualizar="onAtualizar()"></item-crud-->
-                <v-btn @click="removeDemanda(index)" color="red" fab small dark>
-                  <v-icon>&#10006;</v-icon>
-                </v-btn>
                 <v-btn @click="subItem.edit = !subItem.edit" color="blue" fab small dark>
                   <v-icon>&#9998;</v-icon>
                 </v-btn>
               </td>
             </tr>
-            <tr v-else class="blue">
+            <tr v-else class="blue lighten-5">
               <td class="text-xs-center">{{ item.cil_tipo.name }}</td>
               <td class="text-xs-center">{{ subItem.cilindro.numero }}</td>
               <td class="text-xs-center">{{ subItem.cilindro.fabricante }}</td>
+              <td class="text-xs-center">{{ subItem.cilindro.loja_nick }}</td>
+              <td class="text-xs-center">{{ subItem.cilindro.dt_validade }}</td>
+              <td class="text-xs-center">{{ subItem.cilindro.capacidade }}</td>
               <td class="text-xs-center">{{ subItem.cilindro.cod_barras }}</td>
               <td class="text-xs-right">
                 <!--item-crud :data="subItem" v-on:atualizar="onAtualizar()"></item-crud-->
-                <v-btn @click="removeDemanda(index)" color="red" fab small dark>
-                  <v-icon>&#10006;</v-icon>
-                </v-btn>
+                <copia :data="subItem.cilindro.cod_barras "></copia>
                 <v-btn @click="subItem.edit = !subItem.edit" color="blue" fab small dark>
                   <v-icon>&#9998;</v-icon>
                 </v-btn>
-                <copia :data="subItem.cilindro.cod_barras "></copia>
+                <v-btn @click="removeDemanda(index)" color="red" fab small dark>
+                  <v-icon>&#10006;</v-icon>
+                </v-btn>
               </td>
             </tr>
             <v-divider></v-divider>

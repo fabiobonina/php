@@ -122,7 +122,7 @@ if($action == 'publish-itens'):
   $cilindro_id    = $_POST['cilindro_id'];
   $id             = $_POST['id'];
 
-  $item = $cilindroProgControl->publishItem(
+  $item = $cilindroItemControl->publishItem(
     $programacao_id,
     $demanda_id,
     $cilindro_id,

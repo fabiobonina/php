@@ -133,6 +133,9 @@ const controleCilindro = {
     },
     getters: {
         cilindros:    state => state.cilindros,
+        cilindroCapacidade: (state) => (capacidade) => {
+            return state.cilindros.filter(todo => todo.capacidade == capacidade)
+        },
         itemsDemanda: (state) => (demanda_id) => {
             return state.cilItems.filter(todo => todo.demanda_id == demanda_id)
         },

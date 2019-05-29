@@ -36,7 +36,7 @@ class CilindroItem extends Crud{
 
 			$res['id'] = $item_id;
 			$res['error'] = false;
-			$res['message'] = "OK, Ação realizada com sucesso";
+			$res['message'] = "OK, Item salvo com sucesso";
 			return $res;
 		} catch(PDOException $e) {
 			$res['error']	= true;
@@ -55,7 +55,7 @@ class CilindroItem extends Crud{
 			$stmt->execute();
 
 			$res['error'] 	= false;
-			$res['message'] = "OK, Ação realizada com sucesso";
+			$res['message'] = "OK, Item atualizado com sucesso";
 			return $res;
 		} catch(PDOException $e) {
 			$res['error']	= true;
