@@ -1,4 +1,4 @@
-<template id="select-cilindro">
+<template id="add-item">
   <v-layout row justify-center>
     <v-flex>
       <v-autocomplete
@@ -44,21 +44,25 @@
 </template>
 
 <script>
-Vue.component('select-cilindro', {
-  name: 'select-cilindro',
-  template: '#select-cilindro',
+Vue.component('add-item', {
+  name: 'add-item',
+  template: '#add-item',
   $_veeValidate: {
     validator: 'new'
   },
   props: {
-    cilindro: {},
+    item: {},
     demanda_id:'',
     programacao_id: '',
     id: '',
   },
   data() {
     return {
+      errorMessage: [],
+      successMessage: [],
+      
       teste: "",
+      cilindro: this.item,
     };
   },
   mounted () {
@@ -74,10 +78,10 @@ Vue.component('select-cilindro', {
       return false
     },
     cilindros(){
-      return this.$store.state.cilindros;
+      return this.$store.getters.cilindros;
     },
-    cilProgramacao(){
-      return this.$store.state.cilProgramacao;
+    programacao(){
+      return this.$store.getters.programacao;
     }
   },
   methods: {
@@ -95,7 +99,7 @@ Vue.component('select-cilindro', {
       this.errorMessage = [];
       this.$validator.validateAll().then((result) => {
         if ( result ) {
-          //store.commit('isLoading');
+          this.$store.commit('isLoading');
           var postData = {
             programacao_id: this.programacao_id,
             demanda_id:     this.demanda_id,
@@ -105,7 +109,7 @@ Vue.component('select-cilindro', {
           console.log(postData);
           this.$http.post('./config/api/cilProgramacao.api.php?action=publish-itens', postData).then(function(response) {
             console.log(response);
-            store.commit('isLoading');
+            this.$store.commit('isLoading');
             if(!response.data.error){
                 this.successMessage.push(response.data.message);
                 
@@ -118,7 +122,7 @@ Vue.component('select-cilindro', {
               }
           })
           .catch(function(error) {
-            store.commit('isLoading');
+            this.$store.commit('isLoading');
             console.log(error);
           });
         }

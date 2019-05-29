@@ -30,15 +30,18 @@ const controleCilindro = {
             return new Promise((resolve, reject) => {
                 Vue.http.get(CILCONFIG)
                 .then((response) => {
+                    state.loading = true;
                     //console.log(response.data);
                     if(response.data.error){
                         console.log(response.data.message);
                     } else{
                         commit("SET_CILTIPOS", response.data.cilTipos);
                     }
+                    state.loading = false;
                     resolve();
                 })
                 .catch((error => {
+                    state.loading = false;
                     console.log(error);
                 }));
             });
@@ -47,15 +50,18 @@ const controleCilindro = {
         fetchCilindros({ commit }) {
             return new Promise((resolve, reject) => {
                 Vue.http.get(CILINDROLIST).then((response) => {
+                    state.loading = true;
                     //console.log(response.data);
                     if(!response.data.error){
                         commit("SET_CILINDROS", response.data.cilindros);
                     } else{
                         console.log(response.data.message);
                     }
+                    state.loading = false;
                     resolve();
                 })
                 .catch((error => {
+                    state.loading = false;
                     console.log(error.statusText);
                 }));
             });
@@ -63,6 +69,7 @@ const controleCilindro = {
         listProgramacao({ commit }) {
             return new Promise((resolve, reject) => {
                 Vue.http.get( CILPROGRAMACAOLIST ).then((response) => {
+                    state.loading = true;
                     if(!response.data.error){
                         //console.log(response.data);
                         commit("SET_PROGRAMACOES", response.data.programacoes);
@@ -70,15 +77,18 @@ const controleCilindro = {
                     } else{
                         console.log(response.data.message);
                     }
+                    state.loading = false;
                     resolve();
                 })
                 .catch((error => {
+                    state.loading = false;
                     console.log(error.statusText);
                 }));
             });
         },
         showProgramacao({ commit }, programacao_id ) {
             return new Promise((resolve, reject) => {
+                state.loading = true;
                 var postData = { programacao_id: programacao_id, }
                 Vue.http.post( CILPROGRAMACAOSHOW , postData).then((response) => {
                     //console.log(response.data);
@@ -88,18 +98,18 @@ const controleCilindro = {
                     } else{
                         console.log(response.data.message);
                     }
+                    state.loading = false;
                     resolve();
                 })
                 .catch((error => {
+                    state.loading = false;
                     console.log(error.statusText);
                 }));
             });
         },
-        setCilindro({ commit }, cilindro) {
-            commit("SET_CILINDRO", cilindro)
-        },
         cilindroItens({ commit }, data ) {
             return new Promise((resolve, reject) => {
+                state.loading = true;
                 var postData = data
                 var retorno = [];
                 Vue.http.post( CILPROGRAMACAOITEM , postData).then((response) => {
@@ -110,18 +120,23 @@ const controleCilindro = {
                         console.log(response.data.message);
                     }
                     localStorage.setItem("cilindroItem", retorno );
+                    state.loading = false;
                     resolve();
                 })
                 .catch((error => {
+                    state.loading = false;
                     console.log(error.statusText);
                 }));
             });
         },
+        
     },
     getters: {
-        getItemsDemanda: (state) => (demanda_id) => {
+        cilindros:    state => state.cilindros,
+        itemsDemanda: (state) => (demanda_id) => {
             return state.cilItems.filter(todo => todo.demanda_id == demanda_id)
         },
+        programacao:    state => state.programacao,
         getProgramacoes: state => state.programacoes,
         cilTipos:           state =>    state.cilTipos,
     }

@@ -1,5 +1,5 @@
 <template id="amarar-cilindro">
-  <div>
+  <div v-if="data">
     <v-layout row justify-center>
       <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
         <v-card>
@@ -12,7 +12,6 @@
           </v-toolbar>
           <v-card-text>
             <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-            <loader></loader>
             <v-container grid-list-md>
               <v-list-tile @click="">
                 <v-list-tile-content v-if="data">
@@ -20,10 +19,10 @@
                   <v-list-tile-sub-title>Prog.: {{ data.qtd }}</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
-              <select-cilindro :programacao_id="data.programacao_id" :demanda_id="data.id" :cilindro="item" v-on:atualizar="atualizar()"></select-cilindro>
+              <add-item :programacao_id="data.programacao_id" :demanda_id="data.id" :cilindro="item" v-on:atualizar="atualizar()"></add-item>
               <v-layout row justify-center>  
                 <v-flex>
-                  <list-cilindro :item="data"></list-cilindro>
+                  <list-item :item="data"></list-item>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -49,7 +48,7 @@ Vue.component('amarar-cilindro', {
     return {
       errorMessage: [],
       successMessage: [],
-      
+      cilindros: [],
       cilindro: [],
       isEditing: false,
       item: {},
@@ -67,9 +66,6 @@ Vue.component('amarar-cilindro', {
       if(this.successMessage.length > 0) return true
       return false
     },
-    count () {
-			return this.$store.state.isLoading
-		},
   },
   created: function() {
     this.dataT();
@@ -78,7 +74,7 @@ Vue.component('amarar-cilindro', {
   methods: {
     updateCilindros() {
       this.$store.dispatch("fetchCilindros").then(() => {
-        this.locais =this.$store.state.locais;
+        this.cilindros = this.$store.getters.cilindros;
         //store.commit('isLoading');
       });
       this.atualizar();
@@ -88,7 +84,7 @@ Vue.component('amarar-cilindro', {
       this.$emit('close');
     },
     atualizar: function(){
-      this.$store.dispatch('showCilProgramacao', this.$route.params._programacao ).then(() => {
+      this.$store.dispatch('showProgramacao', this.$route.params._programacao ).then(() => {
         console.log("Buscando dados Programacao")
       });
     },

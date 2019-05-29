@@ -1,4 +1,4 @@
-<template id="list-cilindro">
+<template id="list-item">
   <v-card>
     <v-card-text>
       <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
@@ -20,7 +20,7 @@
             <tr v-if="subItem.edit" >
               <td v-if="subItem.edit" colspan="4">
                 <v-flex >
-                  <select-cilindro :programacao_id="subItem.programacao_id" :demanda_id="subItem.demanda_id" :id="subItem.id" :cilindro="subItem.cilindro"></select-cilindro>
+                  <add-item :programacao_id="subItem.programacao_id" :demanda_id="subItem.demanda_id" :id="subItem.id" :item="subItem.cilindro"></add-item>
                 </v-flex>
               </td>
               <td class="text-xs-right">
@@ -59,9 +59,9 @@
 
 
 <script>
-Vue.component('list-cilindro', {
-  name: 'list-cilindro',
-  template: '#list-cilindro',
+Vue.component('list-item', {
+  name: 'list-item',
+  template: '#list-item',
   $_veeValidate: {
     validator: 'new'
   },
@@ -89,7 +89,7 @@ Vue.component('list-cilindro', {
       return false
     },
     items() {
-      return this.$store.getters.getItemsDemanda(this.item.id);
+      return this.$store.getters.itemsDemanda(this.item.id);
     },
     cilTipos() {
       return this.$store.state.cil_tipos;

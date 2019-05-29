@@ -69,13 +69,13 @@ var ProgramacaoShow = Vue.extend({
   },
   computed: {
     programacao()  {
-      return this.$store.state.cilProgramacao;
+      return this.$store.getters.programacao;
     },
     //store.state.lojas // filteredItems
   }, // computed
   methods: {
     update() {
-      this.$store.dispatch('showCilProgramacao', this.$route.params._programacao ).then(() => {
+      this.$store.dispatch('showProgramacao', this.$route.params._programacao ).then(() => {
         console.log("Buscando dados Programacao")
       });
     },
