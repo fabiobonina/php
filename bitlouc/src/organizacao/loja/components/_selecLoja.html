@@ -1,0 +1,132 @@
+<template id="loja-selec">
+  <div>
+      
+                <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+
+                  <v-autocomplete
+                    :value="value"
+                    @input="$emit('input', $event)"
+                    :items="lojas"
+                    color="blue-grey lighten-2"
+                    label="Loja"                              
+                    item-text="name"              
+                    data-vv-name="value"
+                    :filter="lojaFilter"
+                    return-object
+                    v-validate="'required'"
+                    required
+                    >
+                    <template slot="selection" slot-scope="data">
+                      <v-chip :selected="data.selected"
+                        close
+                        class="chip--select-multi"
+                        @input="remove(data.item)"
+                      >
+                        {{ data.item.nick }}
+                      </v-chip>
+                    </template>
+                    <template slot="item" slot-scope="data" >
+                      <template v-if="typeof data.item !== 'object'">
+                        <v-list-tile-content v-text="data.item"></v-list-tile-content>
+                      </template>
+                      <template v-else>
+                        <v-list-tile-content>
+                          <v-list-tile-title v-html="data.item.nick"></v-list-tile-title>
+                          <v-list-tile-sub-title v-html="data.item.name"></v-list-tile-sub-title>
+                        </v-list-tile-content>
+                      </template>
+                    </template>
+                  </v-autocomplete>
+
+      
+  </div>
+</template>
+
+
+<script>
+Vue.component('loja-selec', {
+  name: 'loja-selec',
+  template: '#loja-selec',
+  $_veeValidate: {
+    validator: 'new'
+  },
+  props: {
+    value: {}
+  },
+  data() {
+    return {
+      errorMessage: [],
+      successMessage: [],
+      loja:{},
+    };
+  },
+  watch: {
+
+  },
+  mounted () {
+    this.$validator.localize('pt_BR', this.dictionary)
+  },
+  computed: {
+    user()  {
+      return this.$store.getters.user;
+    },
+    temMessage () {
+      if(this.errorMessage.length > 0) return true
+      if(this.successMessage.length > 0) return true
+      return false
+    },
+    lojas() {
+      return this.$store.state.lojas;
+    },
+  },
+  created: function() {
+
+  },
+  methods: {
+    close () {
+      this.dialog = false;
+      this.$emit('close');
+    },
+    atualizar: function(){
+      this.$emit('atualizar');
+    },
+    remove (item) {
+        //const index = this.loja.indexOf(item)
+        //if (index >= 0) this.loja.splice(index, 1)
+        this.loja = null
+    },
+    lojaFilter (item, queryText, itemText) {
+        const textOne = item.nick.toLowerCase()
+        const textTwo = item.name.toLowerCase()
+        const searchText = queryText.toLowerCase()
+
+        return textOne.indexOf(searchText) > -1 ||
+          textTwo.indexOf(searchText) > -1
+    },
+    localFilter (item, queryText, itemText) {
+        const textOne = item.municipio.toLowerCase()
+        const textTwo = item.name.toLowerCase()
+        const searchText = queryText.toLowerCase()
+
+        return textOne.indexOf(searchText) > -1 ||
+          textTwo.indexOf(searchText) > -1
+    },
+    checkForm:function() {
+      this.errorMessage = [];
+      if( !this.loja ) this.errorMessage.push("Loja necessário.");
+      if( !this.local ) this.errorMessage.push("Local necessário.");
+      if( !this.demanda ) this.errorMessage.push("Demanda necessário.");
+      if(!this.errorMessage.length) return true;
+      //e.preventDefault();
+    },
+    dataT() {
+      var datetime = new Date().toLocaleString();
+      var res = datetime.split(" ");
+      var date = res[0].split("/");
+      var time = res[1].slice(0, -3);
+      var dtTime = date[2] + "-" + date[1] + "-" + date[0];
+      this.dataProg = dtTime;
+    },
+  },
+});
+</script>

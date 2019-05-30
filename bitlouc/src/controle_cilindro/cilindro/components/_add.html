@@ -25,9 +25,11 @@
                 <small>Loja</small>
               </v-stepper-step>
               <v-stepper-content step="1">
-
+                
                 <v-flex>
-                  <v-autocomplete
+                    <p>{{ loja }}</p>
+                    <loja-selec v-model="loja"></loja-selec>
+                  <!--v-autocomplete
                     v-model="loja"
                     :items="lojas"
                     color="blue-grey lighten-2"
@@ -59,7 +61,7 @@
                         </v-list-tile-content>
                       </template>
                     </template>
-                  </v-autocomplete>
+                  </v-autocomplete-->
                 </v-flex>
 
               </v-stepper-content>
