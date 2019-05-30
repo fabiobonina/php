@@ -12,7 +12,7 @@
       <v-btn @click="modalOs = true" color="deep-orange" dark small fab>
         <v-icon>build</v-icon>
       </v-btn>
-      <!--equipamento-add :dialog-edt="editItem" :dialog-del="deleteItem" :data="item" v-on:close="close()"></equipamento-add-->
+      <cilindro-add :dialog-edt="editItem" :dialog-del="deleteItem" :data="item" v-on:close="close()"></cilindro-add>
     </v-toolbar>
     <v-data-table :headers="headers" :items="filteredData" :search="search" class="elevation-1">
       <template slot="items" slot-scope="props">
@@ -59,12 +59,10 @@
       selectedCategoria: '0',
       search: '',
       headers: [
-        { text: 'Equipamento', align: 'left', value: 'name' },
-        { text: 'Modelo', value: 'modelo' },
-        { text: 'Fabricante', value: 'fabricanteNick' },
-        { text: 'Categoria', value: 'categoria' },
-        { text: 'TAG', value: 'numeracao' },
-        { text: 'Plaqueta Ativo', value: 'plaqueta' },
+        { text: 'N.Serie', align: 'left', value: 'numero' },
+        { text: 'Fabricante', value: 'fabricante_nick' },
+        { text: 'Dt.Vilidade', value: 'dt_vilidade' },
+        { text: 'Capacidade', value: 'capacidade' },
         { text: 'Info', sortable: false, value: 'info' }
       ],
       defaultItem: {
