@@ -145,6 +145,7 @@ const actions = {
   },
   findLocal({ commit }, local_id ) {
     return new Promise((resolve, reject) => {
+      state.loading = true
       var postData = {
         local_id: local_id,
       }
@@ -153,17 +154,21 @@ const actions = {
           console.log(response.data.message);
         } else{
           commit("SET_LOCAL", response.data.local);
-          resolve();
+          
         }
+        state.loading = false
+        resolve();
       })
       .catch((error => {
+          state.loading = false
           console.log(error.statusText);
       }));
     });
   },
-  fetchLocal({ commit }, loja_id) {
+  fetchLocal({ commit }) {
     return new Promise((resolve, reject) => {
       //console.log(postData);
+      state.loading = true
       Vue.http.get(LOCAISLIST)
         .then((response) => {
           //console.log(response.data);
@@ -173,16 +178,21 @@ const actions = {
             //console.log(response.data);
             commit("SET_LOCAIS", response.data.locais);
             //commit("SET_BENS", response.data.bens);
-            resolve();
+            
           }
+          state.loading = false
+          resolve();
         })
         .catch((error => {
             console.log(error);
+            state.loading = false
         }));
     });
   },
   fetchLocalLoja({ commit }, loja_id) {
     return new Promise((resolve, reject) => {
+      
+      state.loading = true
       var postData = {
         loja: loja_id,
       }
@@ -196,11 +206,14 @@ const actions = {
             //console.log(response.data);
             commit("SET_LOCAIS", response.data.locais);
             //commit("SET_BENS", response.data.bens);
-            resolve();
           }
+          
+          resolve();
+          state.loading = false
         })
         .catch((error => {
             console.log(error);
+          state.loading = false
         }));
     });
   },

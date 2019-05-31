@@ -27,41 +27,7 @@
               <v-stepper-content step="1">
                 
                 <v-flex>
-                    <p>{{ loja }}</p>
                     <loja-selec v-model="loja"></loja-selec>
-                  <!--v-autocomplete
-                    v-model="loja"
-                    :items="lojas"
-                    color="blue-grey lighten-2"
-                    label="Loja"                              
-                    item-text="name"              
-                    data-vv-name="loja"
-                    :filter="lojaFilter"
-                    return-object
-                    v-validate="'required'"
-                    required
-                    >
-                    <template slot="selection" slot-scope="data">
-                      <v-chip :selected="data.selected"
-                        close
-                        class="chip--select-multi"
-                        @input="remove(data.item)"
-                      >
-                        {{ data.item.nick }}
-                      </v-chip>
-                    </template>
-                    <template slot="item" slot-scope="data" >
-                      <template v-if="typeof data.item !== 'object'">
-                        <v-list-tile-content v-text="data.item"></v-list-tile-content>
-                      </template>
-                      <template v-else>
-                        <v-list-tile-content>
-                          <v-list-tile-title v-html="data.item.nick"></v-list-tile-title>
-                          <v-list-tile-sub-title v-html="data.item.name"></v-list-tile-sub-title>
-                        </v-list-tile-content>
-                      </template>
-                    </template>
-                  </v-autocomplete-->
                 </v-flex>
 
               </v-stepper-content>
@@ -70,45 +36,9 @@
                 <small>Local</small>
               </v-stepper-step>
               <v-stepper-content step="2">
-                <v-container grid-list-md>
-                  <v-layout wrap>
-                    <v-flex>
-                  <v-autocomplete
-                    v-model="local"
-                    :items="locais"
-                    color="blue-grey lighten-2"
-                    label="Local"                              
-                    item-text="name"
-                    data-vv-name="local"
-                    :filter="localFilter"
-                    return-object
-                    v-validate="'required'"
-                    required
-                    >
-                    <template slot="selection" slot-scope="data">
-                      <v-chip :selected="data.selected"
-                        close
-                        class="chip--select-multi"
-                        @input="local = ''"
-                      >
-                        {{ data.item.name }}
-                      </v-chip>
-                    </template>
-                    <template slot="item" slot-scope="data" >
-                      <template v-if="typeof data.item !== 'object'">
-                        <v-list-tile-content v-text="data.item"></v-list-tile-content>
-                      </template>
-                      <template v-else>
-                        <v-list-tile-content>
-                          <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
-                          <v-list-tile-sub-title v-html=" `${data.item.municipio } ${data.item.uf}`"></v-list-tile-sub-title>
-                        </v-list-tile-content>
-                      </template>
-                    </template>
-                  </v-autocomplete>
-                </v-flex>
-                  </v-layout>
-                </v-container>
+                  <v-flex>
+                    <local-selec v-model="local" :loja_id="loja.id"></local-selec>
+                  </v-flex>
               </v-stepper-content>
               <v-stepper-step editable :complete="Number(progresso) > 3" step="3">
                 <small>Demanda</small>
@@ -172,19 +102,6 @@ Vue.component('cilindro-add', {
     };
   },
   watch: {
-    'progresso': function (newQuestion, oldQuestion) {
-      // Items have already been loaded
-      if (this.loja.length > 0 && this.progresso == '2') return
-
-      // Items have already been requested
-      if (this.isLoading) return
-      this.updateLocal()
-      //store.commit('isLoading')
-
-    },
-    'loja': function (newQuestion, oldQuestion) {
-      this.updateLocal()
-    },
     'dialogEdt': function (newQuestion, oldQuestion) {
       this.dialog = true
     },
@@ -212,13 +129,6 @@ Vue.component('cilindro-add', {
     this.dataT();
   },
   methods: {
-    updateLocal() {
-      this.$store.dispatch('fetchLocalLoja', this.loja.id ).then(() => {
-        //console.log("Buscando dados do local!");
-        this.locais =this.$store.state.locais;
-        //store.commit('isLoading');
-      });
-    },
     saveItem: function(){
       this.errorMessage = []
       this.$validator.validateAll().then((result) => {
