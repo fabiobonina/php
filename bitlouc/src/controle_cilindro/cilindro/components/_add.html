@@ -17,19 +17,17 @@
             </v-toolbar-items>
           </v-toolbar>
           <v-card-text>
-          <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-          <loader></loader>
+            <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+
             <v-stepper v-model="progresso" vertical light>
               <v-stepper-step editable :complete="Number(progresso) > 1" step="1">
                 <div>{{ loja.nick }}</div>
                 <small>Loja</small>
               </v-stepper-step>
               <v-stepper-content step="1">
-                
                 <v-flex>
                     <loja-selec v-model="loja"></loja-selec>
                 </v-flex>
-
               </v-stepper-content>
               <v-stepper-step editable :complete="Number(progresso) > 2" step="2">
                 <div>{{ local.name }}</div>
