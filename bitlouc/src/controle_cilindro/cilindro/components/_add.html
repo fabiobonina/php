@@ -39,30 +39,79 @@
                   </v-flex>
               </v-stepper-content>
               <v-stepper-step editable :complete="Number(progresso) > 3" step="3">
-                <small>Demanda</small>
+                <small>Dados do Cilindro</small>
               </v-stepper-step>
               <v-stepper-content step="3">
                 <v-container grid-list-md>
-                    <v-flex>
+                  <v-flex>
+                    <cil-fabric-selec v-model="fabricante" ></cil-fabric-selec>
+                  </v-flex>
+                  <v-flex>
+                    <v-text-field
+                      type="text"
+                      v-model="nSerie"
+                      label="Numero Serie"
+                      :error-messages="errors.collect('nSerie')"
+                      v-validate="'required'"
+                      data-vv-name="nSerie"
+                      item-text="name"
+                      required
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex>
+                    <cil-capac-selec v-model="capacidade" ></cil-capac-selec>
+                  </v-flex>
+                  <v-flex>
+                    <v-text-field
+                      type="date"
+                      v-model="dtFab"
+                      label="Data Fabricação"
+                      :error-messages="errors.collect('dtFab')"
+                      v-validate="'required'"
+                      data-vv-name="dtFab"
+                      item-text="name"
+                      required
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex>
+                    <v-text-field
+                      type="number"
+                      v-model="taraInicial"
+                      label="Tara Inicial"
+                      :error-messages="errors.collect('taraInicial')"
+                      v-validate="'required'"
+                      data-vv-name="taraInicial"
+                      item-text="name"
+                      required
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex>
                       <v-text-field
                         type="date"
-                        v-model="dataProg"
-                        label="Data"
-                        :error-messages="errors.collect('dataProg')"
+                        v-model="dtVal"
+                        label="Data Validade"
+                        :error-messages="errors.collect('dtVal')"
                         v-validate="'required'"
-                        data-vv-name="dataProg"
+                        data-vv-name="dtVal"
                         item-text="name"
                         required
                       ></v-text-field>
                     </v-flex>
-                  <v-layout row justify-center>
                     <v-flex>
-                    <demanda-add :data="demanda" v-on:close="close()"></demanda-add>
-                    </v-flex>           
-                    
-                  </v-layout>
+                      <v-text-field
+                        type="text"
+                        v-model="taraAtual"
+                        label="Tara Atual"
+                        :error-messages="errors.collect('taraAtual')"
+                        v-validate="'required'"
+                        data-vv-name="taraAtual"
+                        item-text="name"
+                        required
+                      ></v-text-field>
+                    </v-flex>
                 </v-container>
               </v-stepper-content>
+              
             </v-stepper>
           </v-card-text>
         </v-card>
@@ -87,16 +136,20 @@ Vue.component('cilindro-add', {
   data() {
     return {
       errorMessage: [],
-      successMessage: [],
-      
+      successMessage: [], 
       dialog: false,
-      loja:{},
-      local : {},
-      dataProg: null,
-      demanda: [],
-      locais : [],
       progresso: '1',
       isEditing: false,
+      
+      loja:{},
+      local : {},
+      nSerie: '',
+      fabricante: '',
+      capacidade: null,
+      dtFab: '',
+      dtVal: '',
+      taraInicial: '',
+      taraAtual: '',
     };
   },
   watch: {
@@ -118,9 +171,6 @@ Vue.component('cilindro-add', {
       if(this.errorMessage.length > 0) return true
       if(this.successMessage.length > 0) return true
       return false
-    },
-    lojas() {
-      return this.$store.state.lojas;
     },
   },
   created: function() {

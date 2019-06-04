@@ -1,0 +1,59 @@
+<template id="cil-capac-selec">
+  <div>
+      
+    <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+    <v-select
+      :value="value"
+      @input="$emit('input', $event)"
+      :items="capacidades"
+      label="capacidade"
+      :error-messages="errors.collect('capacidade')"
+      v-validate="'required'"
+      data-vv-name="capacidade"
+      item-text="name"
+      item-value="capacidade"
+      required
+    ></v-select>
+
+  </div>
+</template>
+
+<script>
+Vue.component('cil-capac-selec', {
+  name: 'cil-capac-selec',
+  template: '#cil-capac-selec',
+  $_veeValidate: {
+    validator: 'new'
+  },
+  props: {
+    value: {},
+  },
+  data() {
+    return {
+      errorMessage: [],
+      successMessage: [],
+    };
+  },
+  watch: {
+
+  },
+  mounted () {
+    this.$validator.localize('pt_BR', this.dictionary)
+  },
+  computed: {
+    capacidades() {
+      return this.$store.getters.cilTipos;
+    },
+    temMessage () {
+      if(this.errorMessage.length > 0) return true
+      if(this.successMessage.length > 0) return true
+      return false
+    },
+  },
+  methods: {
+    remove (item) {
+        this.value = ''
+    },
+  },
+});
+</script>

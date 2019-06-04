@@ -13,9 +13,9 @@
 
       };
     },
-    created() {
-      this.$store.dispatch("fetchCilindros").then(() => {
-        console.log("Buscando cadastro de cilindros!")
+    created: function() {
+      this.$store.dispatch('fetchCilConfig').then(() => {
+        console.log("carregando config cilindros")
       });
     },
     computed: {
@@ -35,6 +35,8 @@ require_once 'src/controle_cilindro/index.html';
 require_once 'src/controle_cilindro/cilindro/index.html';
 require_once 'src/controle_cilindro/programacao/pages/index.html';
 require_once 'src/controle_cilindro/programacao/pages/show.html';
+
+require_once 'src/controle_cilindro/config/index.html';
 
 ?>
 

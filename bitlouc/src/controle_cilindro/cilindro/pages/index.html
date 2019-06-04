@@ -1,20 +1,23 @@
 <template id="cilindros-page">
-  <div>
-    <v-container fluid class="pa-0">
-      <v-layout row wrap>
-        <v-btn-toggle v-if="user.nivel > 1 && user.grupo == 'P'"  v-model="active">
-          <v-btn flat  v-for="n in itens" v-on:click="active = n.ativo " :value="n.ativo" :key="n.id">
-            <v-icon>{{ n.icon }}</v-icon>
-            <span>{{ n.name }}</span>
-          </v-btn>
-        </v-btn-toggle>
-      </v-layout>
-    </v-container>
-    <section>
-      <cilindro-list :data="cilindros" :local="local" :status="active"></cilindro-list>
-      <bem-add v-if="modalAdd" v-on:close="modalAdd = false" ></bem-add>
-    </section>
-  </div>
+  <v-content >
+    <div>
+      <v-container fluid class="pa-0">
+        <v-layout row wrap>
+          <v-btn-toggle v-if="user.nivel > 1 && user.grupo == 'P'"  v-model="active">
+            <v-btn flat  v-for="n in itens" v-on:click="active = n.ativo " :value="n.ativo" :key="n.id">
+              <v-icon>{{ n.icon }}</v-icon>
+              <span>{{ n.name }}</span>
+            </v-btn>
+          </v-btn-toggle>
+        </v-layout>
+      </v-container>
+      <section>
+        <cilindro-list :data="cilindros" :status="active"></cilindro-list>
+        <bem-add v-if="modalAdd" v-on:close="modalAdd = false" ></bem-add>
+      </section>
+    </div>
+    <rodape></rodape>
+  </v-content>
 </template>
 
 
@@ -51,10 +54,7 @@
         return this.$store.getters.user;
       },
       cilindros()  {
-        return this.$store.state.cilindros;
-      },
-      local()  {
-        return this.$store.state.local;
+        return this.$store.getters.cilindros;
       },
     },
     methods: {

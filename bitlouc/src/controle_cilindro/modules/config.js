@@ -1,11 +1,11 @@
 
-const CILCONFIG ='./config/api/CilConfig.api.php?action=read';
+const CILCONFIG ='./config/api/cilConfig.api.php?action=read';
 
 const cilConfig = {
     
     state: {
         cilTipos: [],
-        cilFabricante: [
+        cilFabricantes: [
             'CBC',
             'CILBRAS',
             'GIFEL',
@@ -17,7 +17,7 @@ const cilConfig = {
         SET_CILTIPOS:   (state, cilTipos)   => state.cilTipos   = cilTipos,
     },
     actions: {
-        fetchCilTipos({ commit }) {
+        fetchCilConfig({ commit }) {
             return new Promise((resolve, reject) => {
                 Vue.http.get(CILCONFIG)
                 .then((response) => {
@@ -41,7 +41,7 @@ const cilConfig = {
     },
     getters: {
         cilTipos:           state =>    state.cilTipos,
-        cilFabricante:      state =>    state.cilFabricante,
+        cilFabricantes:      state =>    state.cilFabricantes,
     }
 }
 

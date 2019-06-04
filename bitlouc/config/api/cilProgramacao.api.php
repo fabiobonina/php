@@ -28,8 +28,8 @@ endif;
 
 if($action == 'show'):
 
-  //$programacao_id = $_POST['programacao_id'];
-  $programacao_id = '3';
+  $programacao_id = $_POST['programacao_id'];
+  //$programacao_id = '3';
   $item = $cilindroProgControl->show( $programacao_id );
   $res= $item;
   //$res['error'] = false;

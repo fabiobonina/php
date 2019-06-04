@@ -38,6 +38,9 @@
 <script src="src/controle_cilindro/modules/config.js"></script>
 <script src="src/controle_cilindro/modules/programacao.js"></script>
 
+
+<script src="https://unpkg.com/vue-bootstrap4-table@1.0.3/dist/vue-bootstrap4-table.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="src/_router/router.js"></script>
 
 <script type="module" src="src/app.js"></script>

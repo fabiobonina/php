@@ -10,13 +10,13 @@
       <template>
         <table style="width:100%" RULES=rows>
           <tr>
-            <th>Status</th>
-            <th>Numerero</th> 
-            <th>Fabricante</th>
-            <th>Loja</th>
-            <th>Validade</th>
-            <th>Capacidade</th>
-            <th>Cod.Barras</th>
+            <th class="text-xs-center">Status</th>
+            <th class="text-xs-center">Numerero</th> 
+            <th class="text-xs-center">Fabricante</th>
+            <th class="text-xs-center">Loja</th>
+            <th class="text-xs-center">Validade</th>
+            <th class="text-xs-center">Capacidade</th>
+            <th class="text-xs-center">Cod.Barras</th>
             <th></th>
           </tr>
           <template v-for="subItem in items">
@@ -99,7 +99,7 @@ Vue.component('list-item', {
     },
   },
   created: function() {
-    this.$store.dispatch('fetchCilTipos').then(() => {
+    this.$store.dispatch('fetchCilConfig').then(() => {
       console.log("carregando tipos de cilindros")
     });
   },
