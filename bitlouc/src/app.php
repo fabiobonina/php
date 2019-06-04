@@ -32,12 +32,11 @@
 <script src="src/_store/getters.js"></script>
 <script src="src/_store/mutations.js"></script>
 <script src="src/_store/state.js"></script>
-<script src="src/_store/modules/productos.js"></script>
 
 <script src="src/system/modules/user.js"></script>
-<script src="src/controleCilindro/modules/controleCilindro.js"></script>
-<script src="src/controleCilindro/modules/controleCilindro.js"></script>
-<script src="src/controleCilindro/modules/controleCilindro.js"></script>
+<script src="src/controle_cilindro/modules/cilindro.js"></script>
+<script src="src/controle_cilindro/modules/config.js"></script>
+<script src="src/controle_cilindro/modules/programacao.js"></script>
 
 <script src="src/_router/router.js"></script>
 

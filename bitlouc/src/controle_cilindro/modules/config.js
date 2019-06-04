@@ -1,7 +1,7 @@
 
 const CILCONFIG ='./config/api/CilConfig.api.php?action=read';
 
-const controleCilindro = {
+const cilConfig = {
     
     state: {
         cilTipos: [],

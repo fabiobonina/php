@@ -1,7 +1,7 @@
 
 const CILINDROLIST  ='./config/api/cilindro.api.php?action=read';
 
-const controleCilindro = {
+const cilindro = {
     
     state: {
         cilindros: [],

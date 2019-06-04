@@ -1,78 +1,24 @@
 
-const CILCONFIG             ='./config/api/CilConfig.api.php?action=read';
-const CILINDROLIST          ='./config/api/cilindro.api.php?action=read';
 const CILPROGRAMACAOLIST    ='./config/api/cilProgramacao.api.php?action=read';
 const CILPROGRAMACAOSHOW    ='./config/api/cilProgramacao.api.php?action=show';
 const CILPROGRAMACAOITEM    ='./config/api/cilProgramacao.api.php?action=item';
 
-const controleCilindro = {
+const programacao = {
     
     state: {
-        cilindros: [],
-        cilindro: {},
         programacoes: [],
         programacao: {},
         cilDemanda: {},
         cilItems: {},
-        cilTipos: [],
-        cilFabricante: [
-            'CBC',
-            'CILBRAS',
-            'GIFEL',
-            'GBC',
-            'MAT SA',
-        ],
     },
     mutations: {
-        SET_CILINDROS:      (state, cilindros)      => state.cilindros      = cilindros,
-        SET_CILINDRO:       (state, cilindro)       => state.cilindro       = cilindro,
         SET_PROGRAMACOES:   (state, programacoes)   => state.programacoes   = programacoes,
         SET_PROGRAMACAO:    (state, programacao)    => state.programacao    = programacao,
         SET_CILDEMANDA:     (state, cilDemanda)     => state.cilDemanda     = cilDemanda, 
-        SET_CILITEMS:       (state, cilItems)       => state.cilItems       = cilItems, 
-        SET_CILTIPOS:       (state, cilTipos)       => state.cilTipos       = cilTipos,
+        SET_CILITEMS:       (state, cilItems)       => state.cilItems       = cilItems,
     },
     actions: {
-        fetchCilTipos({ commit }) {
-            return new Promise((resolve, reject) => {
-                Vue.http.get(CILCONFIG)
-                .then((response) => {
-                    state.loading = true;
-                    //console.log(response.data);
-                    if(response.data.error){
-                        console.log(response.data.message);
-                    } else{
-                        commit("SET_CILTIPOS", response.data.cilTipos);
-                    }
-                    state.loading = false;
-                    resolve();
-                })
-                .catch((error => {
-                    state.loading = false;
-                    console.log(error);
-                }));
-            });
-        },
-        //CILINCROS
-        fetchCilindros({ commit }) {
-            return new Promise((resolve, reject) => {
-                Vue.http.get(CILINDROLIST).then((response) => {
-                    state.loading = true;
-                    //console.log(response.data);
-                    if(!response.data.error){
-                        commit("SET_CILINDROS", response.data.cilindros);
-                    } else{
-                        console.log(response.data.message);
-                    }
-                    state.loading = false;
-                    resolve();
-                })
-                .catch((error => {
-                    state.loading = false;
-                    console.log(error.statusText);
-                }));
-            });
-        },
+        
         listProgramacao({ commit }) {
             return new Promise((resolve, reject) => {
                 Vue.http.get( CILPROGRAMACAOLIST ).then((response) => {
@@ -139,17 +85,11 @@ const controleCilindro = {
         
     },
     getters: {
-        cilindros:    state => state.cilindros,
-        cilindroCapacidade: (state) => (capacidade) => {
-            return state.cilindros.filter(todo => todo.capacidade == capacidade)
-        },
         itemsDemanda: (state) => (demanda_id) => {
             return state.cilItems.filter(todo => todo.demanda_id == demanda_id)
         },
         programacao:        state =>    state.programacao,
         getProgramacoes:    state =>    state.programacoes,
-        cilTipos:           state =>    state.cilTipos,
-        cilFabricante:      state =>    state.cilFabricante,
     }
 }
 
