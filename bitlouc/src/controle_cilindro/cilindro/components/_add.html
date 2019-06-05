@@ -43,58 +43,64 @@
               </v-stepper-step>
               <v-stepper-content step="3">
                 <v-container grid-list-md>
-                  <v-flex>
+                    <v-layout row wrap>
+                      <v-flex>
                     <cil-fabric-selec v-model="fabricante" ></cil-fabric-selec>
-                  </v-flex>
-                  <v-flex>
-                    <v-text-field
-                      type="text"
-                      v-model="nSerie"
-                      label="Numero Serie"
-                      :error-messages="errors.collect('nSerie')"
-                      v-validate="'required'"
-                      data-vv-name="nSerie"
-                      item-text="name"
-                      required
-                    ></v-text-field>
-                  </v-flex>
-                  <v-flex>
-                    <cil-capac-selec v-model="capacidade" ></cil-capac-selec>
-                  </v-flex>
+                    </v-flex>
+                    <v-flex>
+                      <v-text-field
+                        type="text"
+                        v-model="nSerie"
+                        label="Numero Serie"
+                        :error-messages="errors.collect('nSerie')"
+                        v-validate="'required'"
+                        data-vv-name="nSerie"
+                        item-text="name"
+                        required
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex>
+                      <cil-capac-selec v-model="capacidade" ></cil-capac-selec>
+                    </v-flex>
+                    </v-layout>
                   
-      <v-layout row wrap>
-                  <v-flex  xs11 sm5>
-                    <date-add v-model="dtFab" label="Data Fabricação" ></date-add>
-                  </v-flex>
-                  <v-flex  xs11 sm5>
-                    <date-add v-model="dtVal" label="Data Validade" ></date-add>
-                  </v-flex>
                   
-                </v-layout>
-                  <v-flex>
-                    <v-text-field
-                      type="number"
-                      v-model="taraInicial"
-                      label="Tara Inicial"
-                      :error-messages="errors.collect('taraInicial')"
-                      v-validate="'required'"
-                      data-vv-name="taraInicial"
-                      item-text="name"
-                      required
-                    ></v-text-field>
-                  </v-flex>
-                  <v-flex>
-                    <v-text-field
-                      type="text"
-                      v-model="taraAtual"
-                      label="Tara Atual"
-                      :error-messages="errors.collect('taraAtual')"
-                      v-validate="'required'"
-                      data-vv-name="taraAtual"
-                      item-text="name"
-                      required
-                    ></v-text-field>
-                  </v-flex>
+                  <v-layout row wrap>
+                    <v-flex  xs11 sm5>
+                      <date-add :value.sync="dtFab" label="Data Fabricação" ></date-add>
+                    </v-flex>
+                    <v-flex>
+                        <v-text-field
+                          type="number"
+                          v-model="taraInicial"
+                          label="Tara Inicial"
+                          :error-messages="errors.collect('taraInicial')"
+                          v-validate="'required'"
+                          data-vv-name="taraInicial"
+                          item-text="name"
+                          required
+                        ></v-text-field>
+                      </v-flex>
+                    
+                  </v-layout>
+                  <v-layout row wrap>
+                    <v-flex  xs11 sm5>
+                        <date-add :value.sync="dtVal" label="Data Validade" ></date-add>
+                      </v-flex>
+                    <v-flex>
+                      <v-text-field
+                        type="text"
+                        v-model="taraAtual"
+                        label="Tara Atual"
+                        :error-messages="errors.collect('taraAtual')"
+                        v-validate="'required'"
+                        data-vv-name="taraAtual"
+                        item-text="name"
+                        required
+                      ></v-text-field>
+                    </v-flex>
+                  </v-layout>
+                  
                 </v-container>
               </v-stepper-content>
             </v-stepper>
@@ -166,17 +172,27 @@ Vue.component('cilindro-add', {
       this.errorMessage = []
       this.$validator.validateAll().then((result) => {
         if (result && this.checkForm()) {
-          //store.commit('isLoading')
           var postData = {
-            loja_id: this.loja.id,
-            local_id: this.local.id,
-            data: this.dataProg,
+            data:         this.dataProg,
+            loja:         this.loja,
+            local :       this.local,
+            nSerie:       this.nSerie,
+            fabricante:   this.fabricante,
+            capacidade:   this.capacidade,
+            dtFab:        this.dtFab,
+            dtVal:        this.dtVal,
+            taraInicial:  this.taraInicial,
+            taraAtual:    this.taraAtual,
             status: '0',
-            demanda: this.demanda,
             id: ''
           };
-          console.log(postData);
-          this.$http.post('./config/api/api.cilindroProg.php?action=publish', postData).then(function(response) {
+          this.$store.dispatch('publishCilindro', postData ).then(() => {
+            //console.log("Buscando dados Programacao")
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+          /*this.$http.post('./config/api/api.cilindroProg.php?action=publish', postData).then(function(response) {
             //console.log(response);
             if(!response.data.error){
                 this.successMessage.push(response.data.message);
@@ -193,7 +209,7 @@ Vue.component('cilindro-add', {
           .catch(function(error) {
             //store.commit('isLoading');
             console.log(error);
-          });
+          });*/
         }
       });
     },
@@ -208,22 +224,6 @@ Vue.component('cilindro-add', {
         //const index = this.loja.indexOf(item)
         //if (index >= 0) this.loja.splice(index, 1)
         this.loja = null
-    },
-    lojaFilter (item, queryText, itemText) {
-        const textOne = item.nick.toLowerCase()
-        const textTwo = item.name.toLowerCase()
-        const searchText = queryText.toLowerCase()
-
-        return textOne.indexOf(searchText) > -1 ||
-          textTwo.indexOf(searchText) > -1
-    },
-    localFilter (item, queryText, itemText) {
-        const textOne = item.municipio.toLowerCase()
-        const textTwo = item.name.toLowerCase()
-        const searchText = queryText.toLowerCase()
-
-        return textOne.indexOf(searchText) > -1 ||
-          textTwo.indexOf(searchText) > -1
     },
     checkForm:function() {
       this.errorMessage = [];

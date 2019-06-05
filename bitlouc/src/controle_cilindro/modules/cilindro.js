@@ -1,5 +1,6 @@
 
-const CILINDROLIST  ='./config/api/cilindro.api.php?action=read';
+const CILINDROLIST      ='./config/api/cilindro.api.php?action=read';
+const CILINDROPUBLISH   ='./config/api/cilindro.api.php?action=publish';
 
 const cilindro = {
     
@@ -19,6 +20,26 @@ const cilindro = {
                     //console.log(response.data);
                     if(!response.data.error){
                         commit("SET_CILINDROS", response.data.cilindros);
+                    } else{
+                        console.log(response.data.message);
+                    }
+                    state.loading = false;
+                    resolve();
+                })
+                .catch((error => {
+                    state.loading = false;
+                    console.log(error.statusText);
+                }));
+            });
+        },
+        publishCilindro({ commit }, postData ) {
+            return new Promise((resolve, reject) => {
+                state.loading = true;
+                Vue.http.post( CILINDROPUBLISH , postData).then((response) => {
+                    console.log(response.data);
+                    if(!response.data.error){
+                        commit("SET_PROGRAMACAO", response.data.programacao);
+                        commit("SET_CILITEMS", response.data.items);
                     } else{
                         console.log(response.data.message);
                     }

@@ -6,32 +6,55 @@ require_once '_crud.php';
 
 class Cilindro extends Crud{
 	
-	protected $table = 'tb_cilindro';
-	protected $table2 = 'tb_os_tecnico';
-	private $proprietario_id;
+	protected $table = 'tb_cilindro';	
+	
+	private $numero;
+	private $fabricante;
+	private $capacidade;
+	private $dt_fabric;
+	private $tara_inicial;
+	private $dt_validade;
+	private $tara_atual;
+	private $condenado;
+	
+	private $grupo;
 	private $loja_id;
 	private $loja_nick;
 	private $local_id;
-	private $equipamento_id;
-	private $categoria_id;
-	private $servico_id;
-	private $tecnicos;
-	private $data;
-	private $dtCadastro;
-	private $filial;
-	private $os;
-	private $dtUltimoMan;
-	private $dtOS;
-	private $dtFech;
-	private $dtConcluido;
-	private $estado;
-	private $processo;
+	private $proprietario_id;
+	
+	private $cod_barras;
+	private $dt_cadastro;
 	private $status;
 	private $ativo;
 
 
-	public function setProprietario($proprietario_id){
-		$this->proprietario_id = $proprietario_id;
+	public function setNumero($numero){
+		$this->numero = $numero;
+	}
+	public function setFabricante($fabricante){
+		$this->fabricante = $fabricante;
+	}
+	public function setCapacidade($capacidade){
+		$this->capacidade = $capacidade;
+	}
+	public function setDtFabric($dt_fabric){
+		$this->dt_fabric = $dt_fabric;
+	}
+	public function setTaraInicial($tara_inicial){
+		$this->tara_inicial = $tara_inicial;
+	}
+	public function setDtValidade($dt_validade){
+		$this->dt_validade = $dt_validade;
+	}
+	public function setTaraAtual($tara_atual){
+		$this->tara_atual = $tara_atual;
+	}
+	public function setCondenado($condenado){
+		$this->condenado = $condenado;
+	}
+	public function setGrupo($grupo){
+		$this->grupo = $grupo;
 	}
 	public function setLoja($loja_id){
 		$this->loja_id = $loja_id;
@@ -42,50 +65,17 @@ class Cilindro extends Crud{
 	public function setLocal($local_id){
 		$this->local_id = $local_id;
 	}
-	public function setUf($uf){
-		$this->uf = $uf;
+	public function setProprietario($proprietario_id){
+		$this->proprietario_id = $proprietario_id;
 	}
-	public function setEquipamento($equipamento_id){
-		$this->equipamento_id = $equipamento_id;
+	public function setCodBarras($cod_barras){
+		$this->cod_barras = $cod_barras;
 	}
-	public function setCategoria($categoria_id){
-		$this->categoria_id = $categoria_id;
-	}
-	public function setServico($servico_id){
-		$this->servico_id = $servico_id;
-	}
-	public function setData($data){
-		$this->data = $data;
-	}
-	public function setDtUltimoMan($dtUltimoMan){
-		$this->dtUltimoMan = $dtUltimoMan;
-	}
-	public function setDtCadastro($dtCadastro){
-		$this->dtCadastro = $dtCadastro;
-	}
-	public function setFilial($filial){
-		$this->filial = $filial;
-	}
-	public function setOs($os){
-		$this->os = $os;
-	}
-	public function setDtOs($dtOs){
-		$this->dtOs = $dtOs;
-	}
-	public function setDtFech($dtFech){
-		$this->dtFech = $dtFech;
-	}
-	public function setDtConcluido($dtConcluido){
-		$this->dtConcluido = $dtConcluido;
-	}
-	public function setProcesso($processo){
-		$this->processo = $processo;
+	public function setDtCadastro($dt_cadastro){
+		$this->dt_cadastro = $dt_cadastro;
 	}
 	public function setStatus($status){
 		$this->status = $status;
-	}
-	public function setUser($user_id){
-		$this->user_id = $user_id;
 	}
 	public function setAtivo($ativo){
 		$this->ativo = $ativo;

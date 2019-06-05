@@ -1,48 +1,39 @@
 <template id="date-add">
   <div>
-      
-    <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-    <template>
-      <v-layout row wrap>
-        <v-flex>
-          <v-menu
-            ref="menu"
-            v-model="menu"
-            :close-on-content-click="false"
-            :nudge-right="40"
-            :return-value.sync="date"
-            lazy
-            transition="scale-transition"
-            offset-y
-            full-width
-            max-width="290px"
-            min-width="290px"
-          >
-            <template v-slot:activator="{ on }">
-              <v-text-field
-                v-model="date"
-                :label="label"
-                prepend-icon="event"
-                readonly
-                v-on="on"
-              ></v-text-field>
-            </template>
-            <v-date-picker
+        <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+        <v-menu
+          ref="menu"
+          v-model="menu"
+          :close-on-content-click="false"
+          :nudge-right="40"
+          :return-value.sync="date"
+          lazy
+          transition="scale-transition"
+          offset-y
+          full-width
+          max-width="290px"
+          min-width="290px"
+        >
+          <template v-slot:activator="{ on }">
+            <v-text-field
               v-model="date"
-              type="month"
-              no-title
-              scrollable
-            >
-              <v-spacer></v-spacer>
-              <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-              <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-            </v-date-picker>
-          </v-menu>
-        </v-flex>
-        <v-spacer></v-spacer>
-        
-      </v-layout>
-    </template>
+              :label="label"
+              prepend-icon="event"
+              readonly
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            v-model="date"
+            type="month"
+            no-title
+            scrollable
+          >
+            <v-spacer></v-spacer>
+            <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
+            <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+          </v-date-picker>
+        </v-menu>
   </div>
 </template>
 

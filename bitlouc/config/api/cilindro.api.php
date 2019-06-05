@@ -75,8 +75,8 @@ endif;
 #CADASTRAR
 if($action == 'publish'):
 
-  $loja_id    = $_POST['loja_id'];
-  $local_id   = $_POST['local_id'];
+  $loja    = $_POST['loja'];
+  $local   = $_POST['local'];
   $data       = $_POST['data'];
   $status     = $_POST['status'];
   $demanda    = $_POST['demanda'];
