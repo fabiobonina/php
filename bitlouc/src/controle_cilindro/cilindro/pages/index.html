@@ -48,6 +48,9 @@
       };
     },
     created: function() {
+      this.$store.dispatch("fetchCilindros").then(() => {
+        console.log("Buscando cadastro de cilindros!")
+      });
     },
     computed: {
       user()  {
