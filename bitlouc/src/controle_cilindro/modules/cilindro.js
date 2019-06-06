@@ -38,8 +38,7 @@ const cilindro = {
                 Vue.http.post( CILINDROPUBLISH , postData).then((response) => {
                     console.log(response.data);
                     if(!response.data.error){
-                        commit("SET_PROGRAMACAO", response.data.programacao);
-                        commit("SET_CILITEMS", response.data.items);
+                        fetchCilindros();
                     } else{
                         console.log(response.data.message);
                     }

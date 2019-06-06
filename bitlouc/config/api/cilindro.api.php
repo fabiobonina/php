@@ -75,30 +75,40 @@ endif;
 #CADASTRAR
 if($action == 'publish'):
 
-  $loja    = $_POST['loja'];
-  $local   = $_POST['local'];
-  $data       = $_POST['data'];
-  $status     = $_POST['status'];
-  $demanda    = $_POST['demanda'];
-  $id         = $_POST['id'];
+  $loja         = $_POST['loja'];
+  $local        = $_POST['local'];
+  $numero       = $_POST['numero'];
+  $fabricante   = $_POST['fabricante'];
+  $capacidade   = $_POST['capacidade'];
+  $condenado    = $_POST['condenado'];
+  $dt_fabric    = $_POST['dt_fabric'];
+  $dt_validade  = $_POST['dt_validade'];
+  $tara_inicial = $_POST['tara_inicial'];
+  $tara_atual   = $_POST['tara_atual'];
+  $status       = $_POST['status'];
+  $ativo        = $_POST['ativo'];
+  $id           = $_POST['id'];
 
-  $item = $cilindroControl->prog_publish(
-    $loja_id,
-    $local_id,
-    $data,
+  $item = $cilindroControl->publish(
+    $loja,
+    $local,
+    $numero,
+    $fabricante,
+    $capacidade,
+    $condenado,
+    $dt_fabric,
+    $dt_validade,
+    $tara_inicial,
+    $tara_atual,
     $status,
-    $demanda,
-    $id
+    $ativo,
+    $id,
   );
   # Insert
   $res = $item;
 
 endif;
 
-#ATUALIZAR
-if(isset($_POST['atualizar'])):
-
-endif;
 
 header("Content-Type: application/json");
 echo json_encode($res);

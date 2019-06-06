@@ -50,11 +50,11 @@
                     <v-flex>
                       <v-text-field
                         type="text"
-                        v-model="nSerie"
+                        v-model="numero"
                         label="Numero Serie"
-                        :error-messages="errors.collect('nSerie')"
+                        :error-messages="errors.collect('numero')"
                         v-validate="'required'"
-                        data-vv-name="nSerie"
+                        data-vv-name="numero"
                         item-text="name"
                         required
                       ></v-text-field>
@@ -67,16 +67,16 @@
                   
                   <v-layout row wrap>
                     <v-flex  xs11 sm5>
-                      <date-add :value.sync="dtFab" label="Data Fabricação" ></date-add>
+                      <date-add :value.sync="dt_fabric" label="Data Fabricação" ></date-add>
                     </v-flex>
                     <v-flex>
                         <v-text-field
                           type="number"
-                          v-model="taraInicial"
+                          v-model="tara_inicial"
                           label="Tara Inicial"
-                          :error-messages="errors.collect('taraInicial')"
+                          :error-messages="errors.collect('tara_inicial')"
                           v-validate="'required'"
-                          data-vv-name="taraInicial"
+                          data-vv-name="tara_inicial"
                           item-text="name"
                           required
                         ></v-text-field>
@@ -85,16 +85,16 @@
                   </v-layout>
                   <v-layout row wrap>
                     <v-flex  xs11 sm5>
-                        <date-add :value.sync="dtVal" label="Data Validade" ></date-add>
+                        <date-add :value.sync="dt_validade" label="Data Validade" ></date-add>
                       </v-flex>
                     <v-flex>
                       <v-text-field
                         type="text"
-                        v-model="taraAtual"
+                        v-model="tara_atual"
                         label="Tara Atual"
-                        :error-messages="errors.collect('taraAtual')"
+                        :error-messages="errors.collect('tara_atual')"
                         v-validate="'required'"
-                        data-vv-name="taraAtual"
+                        data-vv-name="tara_atual"
                         item-text="name"
                         required
                       ></v-text-field>
@@ -134,13 +134,13 @@ Vue.component('cilindro-add', {
       
       loja:{},
       local : {},
-      nSerie: '',
+      numero: '',
       fabricante: '',
       capacidade: null,
-      dtFab: '',
-      dtVal: '',
-      taraInicial: '',
-      taraAtual: '',
+      dt_fabric: '',
+      dt_validade: '',
+      tara_inicial: '',
+      tara_atual: '',
     };
   },
   watch: {
@@ -173,21 +173,24 @@ Vue.component('cilindro-add', {
       this.$validator.validateAll().then((result) => {
         if (result && this.checkForm()) {
           var postData = {
-            data:         this.dataProg,
             loja:         this.loja,
             local :       this.local,
-            nSerie:       this.nSerie,
+            numero:       this.numero,
             fabricante:   this.fabricante,
             capacidade:   this.capacidade,
-            dtFab:        this.dtFab,
-            dtVal:        this.dtVal,
-            taraInicial:  this.taraInicial,
-            taraAtual:    this.taraAtual,
-            status: '0',
-            id: ''
+            dt_fabric:    this.dt_fabric,
+            dt_validade:  this.dt_validade,
+            tara_inicial: this.tara_inicial,
+            tara_atual:   this.tara_atual,
+            condenado:    '0',
+            status:       '0',
+            ativo:        '0',
+            id:           '',
           };
           this.$store.dispatch('publishCilindro', postData ).then(() => {
-            //console.log("Buscando dados Programacao")
+            setTimeout(() => {
+              this.dialog = false;
+            }, 2000);
           })
           .catch(function(error) {
             console.log(error);
@@ -228,8 +231,6 @@ Vue.component('cilindro-add', {
     checkForm:function() {
       this.errorMessage = [];
       if( !this.loja ) this.errorMessage.push("Loja necessário.");
-      if( !this.local ) this.errorMessage.push("Local necessário.");
-      if( !this.demanda ) this.errorMessage.push("Demanda necessário.");
       if(!this.errorMessage.length) return true;
       //e.preventDefault();
     },

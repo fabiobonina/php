@@ -1,16 +1,1 @@
-<?php
-$senha ='982231629';
-echo $password = md5($senha);
-
-$data ='2018-01-22 21:01:00';
-
-=SE(01="";
-    SOMASES(DESLOC(ESTRUTURA[[#Tudo];[Localidade]];0;CORRESP(02;ESTRUTURA[[#Cabeçalhos];[UNIDADE OP.]:[Custo Montagem]];0)
-        +(SE(ÉNÚM(03);0;1)));
-        DESLOC(ESTRUTURA[[#Tudo];[Localidade]];0;CORRESP(02;ESTRUTURA[[#Cabeçalhos];[UNIDADE OP.]:[Custo Montagem]];0));03;ESTRUTURA[[#Tudo];[Localidade]];"="&"";ESTRUTURA[[#Tudo];[Filtro]];04);
-        SOMASES(DESLOC(ESTRUTURA[[#Tudo];[Localidade]];0;CORRESP(02;ESTRUTURA[[#Cabeçalhos];[UNIDADE OP.]:[Custo Montagem]];0)+(SE(ÉNÚM(03);0;1)));DESLOC(ESTRUTURA[[#Tudo];[Localidade]];0;CORRESP(02;ESTRUTURA[[#Cabeçalhos];[UNIDADE OP.]:[Custo Montagem]];0));03;ESTRUTURA[[#Tudo];[Localidade]];01;ESTRUTURA[[#Tudo];[Filtro]];04))
-=SE(01="";
-    SOMASES(DESLOC(ESTRUTURA[[#Tudo];[Localidade]];0;CORRESP(02;ESTRUTURA[[#Cabeçalhos];[UNIDADE OP.]:[Custo Montagem]];0)
-        +(SE(ÉNÚM(03);0;1)));
-        DESLOC(ESTRUTURA[[#Tudo];[Localidade]];0;CORRESP(02;ESTRUTURA[[#Cabeçalhos];[UNIDADE OP.]:[Custo Montagem]];0));03;ESTRUTURA[[#Tudo];[Localidade]];"="&"";ESTRUTURA[[#Tudo];[Filtro]];04);
-        SOMASES(DESLOC(ESTRUTURA[[#Tudo];[Localidade]];0;CORRESP(02;ESTRUTURA[[#Cabeçalhos];[UNIDADE OP.]:[Custo Montagem]];0)+(SE(ÉNÚM(03);0;1)));DESLOC(ESTRUTURA[[#Tudo];[Localidade]];0;CORRESP(02;ESTRUTURA[[#Cabeçalhos];[UNIDADE OP.]:[Custo Montagem]];0));03;ESTRUTURA[[#Tudo];[Localidade]];01;ESTRUTURA[[#Tudo];[Filtro]];04))
+numero = :numero, fabricante = :fabricante, capacidade = :capacidade, dt_fabric = :dt_fabric, tara_inicial = :tara_inicial, dt_validade = :dt_validade, tara_atual = :tara_atual, condenado = :condenado, grupo = :grupo, loja_id = :loja_id, loja_nick = :loja_nick, local_id = :local_id, proprietario_id = :proprietario_id, cod_barras = :cod_barras, dt_cadastro = :dt_cadastro, dt_revisado = :dt_revisado, ativo = :ativo, status = :status, 
