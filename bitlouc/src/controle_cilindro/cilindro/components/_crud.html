@@ -1,4 +1,4 @@
-<template id="bem-crud">
+<template id="cilindro-crud">
   <div>
     <v-btn @click="modalOs = true" color="deep-orange" dark small fab>
       <v-icon>build</v-icon>
@@ -31,17 +31,15 @@
       </v-list>
     </v-menu>
     <div>
-      <os-add v-if="modalOs" v-on:close="modalOs = false" :dialog="modalOs" :data="data"></os-add>
-      <bem-edt v-if="modalEdt" v-on:close="modalEdt = false" :dialog="modalEdt" :data="data"></bem-edt>
-      <bem-del v-if="modalDel" v-on:close="modalDel = false" :dialog="modalDel" :data="data"></bem-del>
-      <bem-cat v-if="modalCat" v-on:close="modalCat = false" :dialog="modalCat" :data="data"></bem-cat>
+      <cilindro-edt v-if="modalEdt" v-on:close="modalEdt = false" :dialog="modalEdt" :data="data"></cilindro-edt>
+      <cilindro-del v-if="modalDel" v-on:close="modalDel = false" :dialog="modalDel" :data="data"></cilindro-del>
     </div>
   </div>
 </template>
 
 <script>
-Vue.component('bem-crud', {
-  template: '#bem-crud',
+Vue.component('cilindro-crud', {
+  template: '#cilindro-crud',
   props: {
     data: Object
   },

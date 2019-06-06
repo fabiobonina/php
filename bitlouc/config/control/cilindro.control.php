@@ -2,11 +2,11 @@
 	require_once '_global.php';
 	require_once '../emailPHP.php';
 
-	class CilindroControl {
+	class CilindroControl extends GlobalControl{
 
 		public function matrix( $item ){
 			
-			$oss     		= new Os();
+			$oss     		= new Cilindro();
 			$osTecnicos     = new OsTecnicos();
 			$lojas     		= new Loja();
 			$locais     	= new Local();
@@ -46,7 +46,7 @@
 
 		public function publish(
 			$loja,
-			$local,
+			$local_id,
 			$numero,
 			$fabricante,
 			$capacidade,
@@ -57,69 +57,71 @@
 			$tara_atual,
 			$status,
 			$ativo,
-			$id ){
+			$id )
+		{
 			
 			$item['error'] = false;
 			$cilindros	= new Cilindro();
 
-			$etapaI = $cilindros->validar( $loja['id'], $numero, $fabricante, $capacidade, $dt_fabric, $id );
+			$etapaI = $cilindros->validar( $numero, $fabricante, $capacidade['capacidade'], $dt_fabric, $id );
 			$dtUltimo   = '';
-			/*$osUltimoMan = $cilindros->ultimaOs( $local->id, $categoria_id );
+			/*$osUltimoMan = $cilindros->ultimaOs( $local_id->id, $categoria_id );
 			if(isset($osUltimoMan->dtUltimo) ){
 				$dtUltimo = $osUltimoMan->dtUltimo;
 			}*/
+			$data = date("Y-m-d");
+			$cod_barras = $this->codigoBarras($numero, $loja['grupo'], $capacidade['name'], $dt_fabric);
 
 			$cilindros->setNumero($numero);
 			$cilindros->setFabricante($fabricante);
-			$cilindros->setCapacidade($capacidade);
+			$cilindros->setCapacidade($capacidade['capacidade']);
 			$cilindros->setDtFabric($dt_fabric);
-			$cilindros->setTaraInicial($tara_inicial);
 			$cilindros->setDtValidade($dt_validade);
+			$cilindros->setTaraInicial($tara_inicial);
 			$cilindros->setTaraAtual($tara_atual);
 			$cilindros->setCondenado($condenado);
 			$cilindros->setGrupo($loja['grupo']);
 			$cilindros->setProprietario($loja['proprietario_id']);
 			$cilindros->setLoja($loja['id']);
 			$cilindros->setLojaNick($loja['nick']);
-			$cilindros->setLocal($local['id']);
+			$cilindros->setLocal($local_id);
 			$cilindros->setCodBarras($cod_barras);
-			$cilindros->setDtCadastro($dt_cadastro);
-			$cilindros->setDtRevisado($dt_revisado);
+			$cilindros->setDtCadastro($data);
+			$cilindros->setDtRevisado($data);
 			$cilindros->setStatus($status);
 			$cilindros->setAtivo($ativo);
-
 			if(	$etapaI ){
 				$item['error']   = true;
 				$item['message'] = 'Error, Cilindro já existe!';
 				
 			}else{
 				if( $id == '' ):
-				# Insert
-				$item = $cilindros->insert();
+					# Insert
+					$item = $cilindros->insert();
 
-				if(!$item['error']){
-					//$email_status = 'nova no sistema';
-					//$this->osEmail( $item['id'], $email_status );
-				}
-			endif;
-			if( $id > '0' ):
-				# Update
-				$item = $cilindros->update($id);
+					if(!$item['error']){
+						//$email_status = 'nova no sistema';
+						//$this->osEmail( $item['id'], $email_status );
+					}
+				endif;
+				if( $id > '0' ):
+					# Update
+					$item = $cilindros->update($id);
 
-				if(!$item['error']){
-					//$email_status = 'teve uma alteração';
-					//$this->osEmail( $id, $email_status );
-				}
-			endif;
+					if(!$item['error']){
+						//$email_status = 'teve uma alteração';
+						//$this->osEmail( $id, $email_status );
+					}
+				endif;
 			}
 
-			$res = "teste";//$item;
+			$res = $item;
 			return $res;
 
 		}
 		public function delete( $os_id ){
 
-			$oss 			= new Os();
+			$oss 			= new Cilindro();
 			$osTecnicos		= new OsTecnicos();
 			//$item 	= $this->anexoLoja( $os_id );
 			//if( !$item['error'] ){
@@ -130,30 +132,25 @@
 			$res	= $item;
 			return $res;
 		}
-		public function amarar( $filial, $os, $id ) {
+		public function codigoBarras( $numero, $grupo, $capacidade, $dt_fabric ) {
 			$item['error'] = false;
-			$oss	= new Os();
 			
-			$dtOs   = date("Y-m-d H:i:s");
+			$newNumero = $this->limpar_texto($numero);
+			$newDate = date("dmY", strtotime($dt_fabric));
 			
-			$oss->setFilial($filial);
-			$oss->setOs($os);
-			$oss->setDtOs($dtOs);
-			# Amarar
-
-			$item = $oss->amarar($id);
-			
-			if(!$item['error']){
-				$email_status = 'recebeu o numero da OS';
-				$this->osEmail( $id, $email_status );
+			if($grupo == 'P'){
+				$newGrupo = 'B';
+			}else{
+				$newGrupo = 'C';
 			}
 
-			$res = $item;
-			return $res;
+			$cod_barras = $newNumero.$newGrupo.$capacidade.$newDate;
+
+			return $cod_barras;
 		}
 		
 		public function status( $status, $os_id ) {
-			$oss	= new Os();
+			$oss	= new Cilindro();
 			//$item['error'] = false;
 
 			$data = date("Y-m-d H:i:s");
@@ -224,7 +221,7 @@
 		}
 
 		public function statusII( $status, $os_id ) {
-			$oss	= new Os();
+			$oss	= new Cilindro();
 			//$item['error'] = false;
 
 			$data = date("Y-m-d H:i:s");
@@ -243,7 +240,6 @@
 			$res = $item;
 			return $res;
 		}
-
 		public function list(){
 			$cilindros	= new Cilindro();
 			$itens 	= array();
@@ -259,7 +255,7 @@
 
 		}
 		public function listLoja( $loja_id ){
-			$oss	= new Os();
+			$oss	= new Cilindro();
 			$itens 	= array();
 			
 			foreach($oss->findLoja( $loja_id ) as $key => $value): {
@@ -274,7 +270,7 @@
 		}
 
 		public function listProprietario( $proprietario_id ){
-			$oss	= new Os();
+			$oss	= new Cilindro();
 			$itens 	= array();
 			
 			foreach($oss->findProprietario( $proprietario_id ) as $key => $value): {
@@ -289,7 +285,7 @@
 		}
 
 		public function listIIIProprietario( $proprietario_id ){
-			$oss	= new Os();
+			$oss	= new Cilindro();
 			$itens 	= array();
 			
 			foreach($oss->findIIIProprietario( $proprietario_id ) as $key => $value): {
@@ -303,7 +299,7 @@
 		}
 
 		public function listIIILoja( $loja_id ){
-			$oss	= new Os();
+			$oss	= new Cilindro();
 			$itens 	= array();
 			
 			foreach($oss->findIIILoja( $loja_id ) as $key => $value): {
@@ -316,7 +312,7 @@
 
 		}
 		public function findAmarar(){
-			$oss	= new Os();
+			$oss	= new Cilindro();
 			$itens 	= array();
 			
 			foreach($oss->findAmarar() as $key => $value): {
@@ -329,7 +325,7 @@
 
 		}
 		public function findStatus( $status ){
-			$oss	= new Os();
+			$oss	= new Cilindro();
 			$itens 	= array();
 			
 			foreach($oss->findStatus( $status ) as $key => $value): {
@@ -342,7 +338,7 @@
 
 		}
 		public function findOs( $os_id ){
-			$oss	= new Os();
+			$oss	= new Cilindro();
 			
 			$item = $oss->find( $os_id );
 
@@ -360,7 +356,7 @@
 		}
 
 		public function contStatusUFProprietario( $loja_id ){
-			$oss	= new Os();
+			$oss	= new Cilindro();
 			$itens 	= array();
 			
 			foreach($oss->findIIILoja( $loja_id ) as $key => $value): {
@@ -372,126 +368,6 @@
 			return $res;
 
 		}
-		public function listTec( $user_id, $uf ){
-			$osTecnicos	= new OsTecnicos();
-			$itens 	= array();
-			
-			foreach($osTecnicos->findUserUF( $user_id, $uf) as $key => $value): {
-				$item = $value;
-				$item = (array) $this->matrix( $item );
-				array_push( $itens, $item );
-			}endforeach;
-			$res = $itens;
-			return $res;
-
-		}
-		
-		public function listOsTec( $os_id ){
-			$osTecnicos = new OsTecnicos();
-			$mods 		= new Mod();
-			$tecnicos	= new Tecnicos();
-			$user 		= new User();
-
-			$arTecnicos = array();
-			foreach($osTecnicos->findOs( $os_id ) as $key => $value): {
-				$arTecnico = (array) $value;
-				$tecId = $value->tecnico_id;
-				$tecItem = $tecnicos->find( $tecId );
-				$userItem = $user->find( $tecItem->user_id );
-				$arTecnico['avatar'] = $userItem->avatar;
-          		#MODS-------------------------------------------------------
-          		$arTecnico['mods'] = $this->listOsTecMod( $os_id, $tecId );
-          		#MODS-------------------------------------------------------
-				array_push($arTecnicos, $arTecnico);
-			}endforeach;
-			
-			return $arTecnicos;
-		}
-		public function listOsTecMod( $os_id, $tecId ){
-			$mods 			= new Mod();
-			$deslocStatus 	= new DeslocStatus();
-			$deslocTrajetos = new DeslocTrajetos();
-			$osTecnicos 	= new OsTecnicos();
-			#MODS--------------------------------------------------------------------------------------------
-			$arMods = array();
-			foreach($mods->findOsTec( $os_id, $tecId ) as $key => $value):{
-				$arItem =(array) $value;
-				$arItem['tecnico']	= $osTecnicos->findTecOs($tecId, $os_id);
-				$arItem['status'] 	= $deslocStatus->find($value->status);
-				$arItem['trajeto'] 	= $deslocTrajetos->find($value->trajeto);
-				array_push($arMods, $arItem);
-			}endforeach;
-			return  $arMods;
-			#MODS--------------------------------------------------------------------------------------------
-			
-		}
-		public function listOsTecModValidacao( $os_id, $tecId, $tecHh, $statusId, $trajetoId, $tipoValor, $date, $kmFinal, $valor ){
-			$mods = new Mod();
-			$res['error'] = false;
-			$arMessage = array();
-			$ativo = '0';
-				#MODS.................................
-				$data = $mods->findOsTecAtiv( $os_id, $tecId, $ativo );
-				if( count($data) > '1' ){
-					$res['error'] 	= true;
-					$res['message'] ='Error, Mais de 1 trajeto aberto!';
-					return $res;
-				}elseif( count($data) == '0' ){
-					$res['error'] = false;
-					$res['data'] = '0';
-					return $res;
-				}else{
-					$value   		= $data['0'];
-					$res['modId']	= $value->id;
-					$dtInicio 		= $value->dtInicio;
-					$kmInicio 		= $value->kmInicio;
-					# validar Status
-					if( $statusId > $value->status ){
-						$res['statusNivel'] 	= '2';
-					}elseif( $statusId == $value->status ){
-						$res['statusNivel'] 	= '1';
-					}else{
-						$res['error'] = false;
-						array_push($arMessage, 'Error, Status inferior ao Status inicial');
-					}
-					# validar data
-					$tempo = $this->dtDiff($dtInicio, $date);
-					if( isset($tempo['error']) && $tempo['error'] == true ){
-						$res['error'] =  $tempo['error'];
-						array_push($arMessage, $tempo['message']);
-					}else{
-						$res['tempo'] 	= $tempo;
-						$res['hhValor'] 	= $this->somarHhValor($tempo, $tecHh );
-					}	
-					# validar TipoTrajeto
-					if( $value->trajeto != $trajetoId){
-						$res['error'] = false;
-						array_push($arMessage, 'Error, Tipo de trajeto é diferente do inicial');
-					}else{
-						# validar KM
-						if( $trajetoId == '1'){
-							$valor = $this->somarValorKm($kmInicio, $kmFinal, $tipoValor);
-							if( isset($valor['error']) && $valor['error'] == true ){
-								$res['error'] =  $valor['error'];
-								array_push($arMessage, $valor['message']);
-							}else{
-								$res['valor'] = $valor;
-							}
-						}elseif( $trajetoId == '2'){
-							$res['valor'] = $value->valor + $valor;
-						}else{
-							$res['valor'] = '0';
-						}
-					}
-				}
-
-				$res['message'] = $arMessage;
-				$res['data'] 	= '1';
-				return $res;
-				
-		}
-
-		
 
 		
 	}

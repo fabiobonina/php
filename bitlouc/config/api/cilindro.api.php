@@ -76,7 +76,7 @@ endif;
 if($action == 'publish'):
 
   $loja         = $_POST['loja'];
-  $local        = $_POST['local'];
+  $local_id     = $_POST['local_id'];
   $numero       = $_POST['numero'];
   $fabricante   = $_POST['fabricante'];
   $capacidade   = $_POST['capacidade'];
@@ -91,7 +91,7 @@ if($action == 'publish'):
 
   $item = $cilindroControl->publish(
     $loja,
-    $local,
+    $local_id,
     $numero,
     $fabricante,
     $capacidade,
@@ -102,7 +102,7 @@ if($action == 'publish'):
     $tara_atual,
     $status,
     $ativo,
-    $id,
+    $id
   );
   # Insert
   $res = $item;

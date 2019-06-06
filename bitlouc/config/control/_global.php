@@ -75,6 +75,9 @@
 		function removerEspaco(&$value){ 
 			$value = trim($value); 
 		}
+		function limpar_texto($str){ 
+			return preg_replace("/[^0-9]/", "", $str); 
+		}
 		function porcentagem( $itemI, $itemII){ 
 			if($itemI > 0){
 				$porcentagem = round(($itemII/$itemI)*100, 1);

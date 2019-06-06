@@ -17,95 +17,10 @@
             </v-toolbar-items>
           </v-toolbar>
           <v-card-text>
-            <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-
-            <v-stepper v-model="progresso" vertical light>
-              <v-stepper-step editable :complete="Number(progresso) > 1" step="1">
-                <div>{{ loja.nick }}</div>
-                <small>Loja</small>
-              </v-stepper-step>
-              <v-stepper-content step="1">
-                <v-flex>
-                    <loja-selec v-model="loja"></loja-selec>
-                </v-flex>
-              </v-stepper-content>
-              <v-stepper-step editable :complete="Number(progresso) > 2" step="2">
-                <div>{{ local.name }}</div>
-                <small>Local</small>
-              </v-stepper-step>
-              <v-stepper-content step="2">
-                  <v-flex>
-                    <local-selec v-model="local" :loja_id="loja.id"></local-selec>
-                  </v-flex>
-              </v-stepper-content>
-              <v-stepper-step editable :complete="Number(progresso) > 3" step="3">
-                <small>Dados do Cilindro</small>
-              </v-stepper-step>
-              <v-stepper-content step="3">
-                <v-container grid-list-md>
-                    <v-layout row wrap>
-                      <v-flex>
-                    <cil-fabric-selec v-model="fabricante" ></cil-fabric-selec>
-                    </v-flex>
-                    <v-flex>
-                      <v-text-field
-                        type="text"
-                        v-model="numero"
-                        label="Numero Serie"
-                        :error-messages="errors.collect('numero')"
-                        v-validate="'required'"
-                        data-vv-name="numero"
-                        item-text="name"
-                        required
-                      ></v-text-field>
-                    </v-flex>
-                    <v-flex>
-                      <cil-capac-selec v-model="capacidade" ></cil-capac-selec>
-                    </v-flex>
-                    </v-layout>
-                  
-                  
-                  <v-layout row wrap>
-                    <v-flex  xs11 sm5>
-                      <date-add :value.sync="dt_fabric" label="Data Fabricação" ></date-add>
-                    </v-flex>
-                    <v-flex>
-                        <v-text-field
-                          type="number"
-                          v-model="tara_inicial"
-                          label="Tara Inicial"
-                          :error-messages="errors.collect('tara_inicial')"
-                          v-validate="'required'"
-                          data-vv-name="tara_inicial"
-                          item-text="name"
-                          required
-                        ></v-text-field>
-                      </v-flex>
-                    
-                  </v-layout>
-                  <v-layout row wrap>
-                    <v-flex  xs11 sm5>
-                        <date-add :value.sync="dt_validade" label="Data Validade" ></date-add>
-                      </v-flex>
-                    <v-flex>
-                      <v-text-field
-                        type="text"
-                        v-model="tara_atual"
-                        label="Tara Atual"
-                        :error-messages="errors.collect('tara_atual')"
-                        v-validate="'required'"
-                        data-vv-name="tara_atual"
-                        item-text="name"
-                        required
-                      ></v-text-field>
-                    </v-flex>
-                  </v-layout>
-                  
-                </v-container>
-              </v-stepper-content>
-            </v-stepper>
+              <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+              <cilindro-publish :value.sync="defaultItem" ></cilindro-publish>
           </v-card-text>
-        </v-card>
+        </v-card-->
       </v-dialog>
     </v-layout>
   </div>
@@ -131,25 +46,25 @@ Vue.component('cilindro-add', {
       dialog: false,
       progresso: '1',
       isEditing: false,
+      defaultItem: {
+        loja:{},
+        local : {},
+        numero: '',
+        fabricante: '',
+        capacidade: {},
+        dt_fabric: '',
+        dt_validade: '',
+        tara_inicial: '',
+        tara_atual: '',
+        condenado:    '0',
+        status:       '0',
+        ativo:        '0',
+      },
       
-      loja:{},
-      local : {},
-      numero: '',
-      fabricante: '',
-      capacidade: null,
-      dt_fabric: '',
-      dt_validade: '',
-      tara_inicial: '',
-      tara_atual: '',
     };
   },
   watch: {
-    'dialogEdt': function (newQuestion, oldQuestion) {
-      this.dialog = true
-    },
-    dialog (val) {
-      val || this.close()
-    },
+
   },
   mounted () {
     this.$validator.localize('pt_BR', this.dictionary)
@@ -165,7 +80,6 @@ Vue.component('cilindro-add', {
     },
   },
   created: function() {
-    this.dataT();
   },
   methods: {
     saveItem: function(){
@@ -174,23 +88,22 @@ Vue.component('cilindro-add', {
         if (result && this.checkForm()) {
           var postData = {
             loja:         this.loja,
-            local :       this.local,
-            numero:       this.numero,
+            local_id :    this.local.id,
+            numero:       this.numero.toUpperCase(),
             fabricante:   this.fabricante,
             capacidade:   this.capacidade,
-            dt_fabric:    this.dt_fabric,
-            dt_validade:  this.dt_validade,
+            dt_fabric:    this.dt_fabric+'-01',
+            dt_validade:  this.dt_validade+'-01',
             tara_inicial: this.tara_inicial,
             tara_atual:   this.tara_atual,
             condenado:    '0',
             status:       '0',
             ativo:        '0',
-            id:           '',
+            id:           ''
           };
+          console.log(postData);
           this.$store.dispatch('publishCilindro', postData ).then(() => {
-            setTimeout(() => {
-              this.dialog = false;
-            }, 2000);
+            this.atualizar();
           })
           .catch(function(error) {
             console.log(error);
@@ -221,7 +134,10 @@ Vue.component('cilindro-add', {
       this.$emit('close');
     },
     atualizar: function(){
-      this.$emit('atualizar');
+      setTimeout(() => {
+        this.dialog = false;
+        this.$emit('atualizar');
+      }, 2000);
     },
     remove (item) {
         //const index = this.loja.indexOf(item)
@@ -233,14 +149,6 @@ Vue.component('cilindro-add', {
       if( !this.loja ) this.errorMessage.push("Loja necessário.");
       if(!this.errorMessage.length) return true;
       //e.preventDefault();
-    },
-    dataT() {
-      var datetime = new Date().toLocaleString();
-      var res = datetime.split(" ");
-      var date = res[0].split("/");
-      var time = res[1].slice(0, -3);
-      var dtTime = date[2] + "-" + date[1] + "-" + date[0];
-      this.dataProg = dtTime;
     },
   },
 });

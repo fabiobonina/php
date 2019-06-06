@@ -112,10 +112,18 @@
         { text: 'Info', sortable: false, value: 'info' }
       ],
       defaultItem: {
-        produto: null, name: null, modelo: '',
-        fabricante: null, categoria: null, plaqueta: '', dataFab: '', dataCompra: '', ativo: '0',
-        dono: null, donoLocal: null,
-        loja: null, local: null, status: '0',
+        loja:         {},
+        local:        {},
+        numero:       '',
+        fabricante:   '',
+        capacidade:   {},
+        dt_fabric:    '',
+        dt_validade:  '',
+        tara_inicial: '',
+        tara_atual:   '',
+        condenado:    '0',
+        status:       '0',
+        ativo:        '0',
       },
       configs: {
         orderBy: { name: 'Nome', state: 'name' },
@@ -135,36 +143,6 @@
     computed: {
       user()  {
         return this.$store.getters.user;
-      },
-      filteredData2() {
-        var status = this.status;
-        var filter = this.search && this.search.toLowerCase();
-        var list   = this.data;
-        var categoria = this.selectedCategoria;
-        //_.filter(list, repo => repo.status.indexOf(filter) >= 0);
-        if(categoria !== "0") {
-          list = list.filter(function(row) {
-            return Number(row.categoria_id) === Number(categoria);
-          });
-        }
-        /*if(status){
-          list = list.filter(function (row) {
-            return Number(row.status) === Number(status);
-          });
-        }else{
-          list = list.filter(function (row) {
-            return Number(row.status) <= 1;
-          });
-        }*/
-        
-        if (filter) {
-          list = list.filter(function (row) {
-            return Object.keys(row).some(function (key) {
-              return String(row[key]).toLowerCase().indexOf(filter) > -1
-            })
-          })
-        }
-        return list;
       },
       filteredData: function () {
         var filterKey = this.search && this.search.toLowerCase()

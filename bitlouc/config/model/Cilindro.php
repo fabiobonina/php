@@ -40,11 +40,11 @@ class Cilindro extends Crud{
 	public function setDtFabric($dt_fabric){
 		$this->dt_fabric = $dt_fabric;
 	}
-	public function setTaraInicial($tara_inicial){
-		$this->tara_inicial = $tara_inicial;
-	}
 	public function setDtValidade($dt_validade){
 		$this->dt_validade = $dt_validade;
+	}
+	public function setTaraInicial($tara_inicial){
+		$this->tara_inicial = $tara_inicial;
 	}
 	public function setTaraAtual($tara_atual){
 		$this->tara_atual = $tara_atual;
@@ -85,32 +85,32 @@ class Cilindro extends Crud{
 
 	public function insert(){
 		try{
-			$sql  = "INSERT INTO $this->table ( numero, fabricante, capacidade, dt_fabric, tara_inicial, dt_validade, tara_atual, condenado, grupo, loja_id, loja_nick, local_id, proprietario_id, cod_barras, dt_cadastro, dt_revisado, ativo, status) ";
-			$sql .= "VALUES (:numero, :fabricante, :capacidade, :dt_fabric, tara_inicial, :dt_validade, :tara_atual, :condenado, :grupo, :loja_id, :loja_nick, :local_id, :proprietario_id, :cod_barras, :dt_cadastro, :dt_revisado, :ativo, :status)";
+			$sql  = "INSERT INTO $this->table ( numero, fabricante, capacidade, dt_fabric, dt_validade, tara_inicial, tara_atual, condenado, grupo, loja_id, loja_nick, local_id, proprietario_id, cod_barras, dt_cadastro, dt_revisado, ativo, status) ";
+			$sql .= "VALUES (:numero, :fabricante, :capacidade, :dt_fabric, :dt_validade, :tara_inicial, :tara_atual, :condenado, :grupo, :loja_id, :loja_nick, :local_id, :proprietario_id, :cod_barras, :dt_cadastro, :dt_revisado, :ativo, :status)";
 			$stmt = DB::prepare($sql);
 			
 			$stmt->bindParam(':numero',				$this->numero);
-			$stmt->bindParam(':fabrcante',			$this->fabrcante);
+			$stmt->bindParam(':fabricante',			$this->fabricante);
 			$stmt->bindParam(':capacidade',			$this->capacidade);
 			$stmt->bindParam(':dt_fabric',			$this->dt_fabric);
-			$stmt->bindParam(':tara_inicial',		$this->tara_inicial);
 			$stmt->bindParam(':dt_validade',		$this->dt_validade);
+			$stmt->bindParam(':tara_inicial',		$this->tara_inicial);
 			$stmt->bindParam(':tara_atual',			$this->tara_atual);
 			$stmt->bindParam(':condenado',			$this->condenado);
 			$stmt->bindParam(':grupo',				$this->grupo);
-			$stmt->bindParam(':proprietario_id',	$this->proprietario_id);
-			$stmt->bindParam(':loja_id',			$this->loja_id);
+			$stmt->bindParam(':proprietario_id',	$this->proprietario_id, PDO::PARAM_INT);
+			$stmt->bindParam(':loja_id',			$this->loja_id, PDO::PARAM_INT);
 			$stmt->bindParam(':loja_nick',			$this->loja_nick);
-			$stmt->bindParam(':local_id',			$this->local_id);
-			$stmt->bindParam(':cod_barros',			$this->cod_barros);
+			$stmt->bindParam(':local_id',			$this->local_id, PDO::PARAM_INT);
+			$stmt->bindParam(':cod_barras',			$this->cod_barras);
 			$stmt->bindParam(':dt_cadastro',		$this->dt_cadastro);
 			$stmt->bindParam(':dt_revisado',		$this->dt_revisado);
 			$stmt->bindParam(':status',				$this->status);
 			$stmt->bindParam(':ativo',				$this->ativo);
 			$stmt->execute();
-			$osId = DB::getInstance()->lastInsertId();
+			$item_id = DB::getInstance()->lastInsertId();
 
-			$res['id'] = $osId;
+			$res['id'] = $item_id;
 			$res['error'] = false;
 			$res['message'] = "OK, Dados salvo com sucesso";
 			return $res;
@@ -242,14 +242,13 @@ class Cilindro extends Crud{
 		}
 	}
 
-	public function validar( $loja_id, $numero, $fabricante, $capaciade, $dt_fabric, $id ){
+	public function validar( $numero, $fabricante, $capacidade, $dt_fabric, $id ){
 		try{
-			$sql  = "SELECT * FROM $this->table  WHERE BINARY loja_id = :loja_id AND numero = :numero AND  fabricante = :fabricante AND capacidade = :capacidade AND dt_fabric = :dt_fabric AND id  <> :id";
+			$sql  = "SELECT * FROM $this->table  WHERE BINARY numero = :numero AND  fabricante = :fabricante AND capacidade = :capacidade AND dt_fabric = :dt_fabric AND id  <> :id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':loja_id', 	$loja_id);
 			$stmt->bindParam(':numero',		$numero);
 			$stmt->bindParam(':fabricante',	$fabricante);
-			$stmt->bindParam(':capaciade',	$capaciade);
+			$stmt->bindParam(':capacidade',	$capacidade);
 			$stmt->bindParam(':dt_fabric',	$dt_fabric);
 			$stmt->bindParam(':id',			$id);
 			$stmt->execute();

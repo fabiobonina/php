@@ -1,1 +1,14 @@
-numero = :numero, fabricante = :fabricante, capacidade = :capacidade, dt_fabric = :dt_fabric, tara_inicial = :tara_inicial, dt_validade = :dt_validade, tara_atual = :tara_atual, condenado = :condenado, grupo = :grupo, loja_id = :loja_id, loja_nick = :loja_nick, local_id = :local_id, proprietario_id = :proprietario_id, cod_barras = :cod_barras, dt_cadastro = :dt_cadastro, dt_revisado = :dt_revisado, ativo = :ativo, status = :status, 
+<?php
+function limpar_texto($str){ 
+  return preg_replace("/[^0-9]/", "", $str); 
+}
+// Exemplo de Utilização
+
+$origDate = "2019-01-15";
+ 
+$newDate = date("dmY", strtotime($origDate));
+echo $newDate.$origDate;
+echo limpar_texto( $newDate );
+
+// vai retornar 1456
+?>
