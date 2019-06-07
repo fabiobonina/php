@@ -1,23 +1,10 @@
 <template id="cilindro-crud">
   <div>
-    <v-btn @click="modalOs = true" color="deep-orange" dark small fab>
-      <v-icon>build</v-icon>
-    </v-btn>
     <v-menu v-if="user.nivel > 2 && user.grupo == 'P'" bottom @click="">
       <v-btn slot="activator" small color="blue darken-2" dark fab>
         <v-icon>mdi-information-variant</v-icon>
       </v-btn>
       <v-list>
-        <v-list-tile @click="modalOs = true">
-          <v-list-tile-title>
-            <v-icon>build</v-icon>OS
-          </v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile @click="modalCat = true">
-          <v-list-tile-title>
-            <v-icon>mdi-tag</v-icon></span>Categoria
-          </v-list-tile-title>
-        </v-list-tile>
         <v-list-tile @click="modalEdt = true">
           <v-list-tile-title>
             <v-icon>mdi-pencil</v-icon>Editar
@@ -31,8 +18,8 @@
       </v-list>
     </v-menu>
     <div>
-      <cilindro-edt v-if="modalEdt" v-on:close="modalEdt = false" :dialog="modalEdt" :data="data"></cilindro-edt>
-      <cilindro-del v-if="modalDel" v-on:close="modalDel = false" :dialog="modalDel" :data="data"></cilindro-del>
+      <cilindro-edt v-if="modalEdt" v-on:close="modalEdt = false" :data="data"></cilindro-edt>
+      <cilindro-del v-if="modalDel" v-on:close="modalDel = false" :data="data"></cilindro-del>
     </div>
   </div>
 </template>
@@ -49,8 +36,6 @@ Vue.component('cilindro-crud', {
       hover: false,
       modalEdt: false,
       modalDel: false,
-      modalCat: false,
-      modalOs: false,
     }
   },
   computed: {

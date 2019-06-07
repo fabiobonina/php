@@ -1,8 +1,5 @@
 <template id="cilindro-edt">
   <div>
-    <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="dialog = true" color="pink" fab small dark>
-      <v-icon>mdi-plus</v-icon>
-    </v-btn>
     <v-layout row justify-center>
       <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
         <v-card>
@@ -10,7 +7,7 @@
             <v-btn icon dark @click="dialog = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>
-            <v-toolbar-title>Novo Cilindro</v-toolbar-title>
+            <v-toolbar-title>{{ title }}</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items>
               <v-btn dark flat @click.native="saveItem()">Salvar</v-btn>
@@ -36,35 +33,21 @@ Vue.component('cilindro-edt', {
   },
   props: {
     data: {},
-    filterKey: String,
-    dialogAdd: Boolean,
   },
   data() {
     return {
+      title: 'Editar Cilindro',
+      dialog: true,
       errorMessage: [],
-      successMessage: [], 
-      dialog: false,
+      successMessage: [],
       progresso: '1',
-      isEditing: false,
-      defaultItem: {
-        loja:{},
-        local : {},
-        numero: '',
-        fabricante: '',
-        capacidade: {},
-        dt_fabric: '',
-        dt_validade: '',
-        tara_inicial: '',
-        tara_atual: '',
-        condenado:    '0',
-        status:       '0',
-        ativo:        '0',
-      },
-      
+      defaultItem = this.data,
     };
   },
   watch: {
-
+    'value': function (newQuestion, oldQuestion) {
+      this.retorno()
+    },
   },
   mounted () {
     this.$validator.localize('pt_BR', this.dictionary)
@@ -86,21 +69,7 @@ Vue.component('cilindro-edt', {
       this.errorMessage = []
       this.$validator.validateAll().then((result) => {
         if (result && this.checkForm()) {
-          var postData = {
-            loja:         this.loja,
-            local_id :    this.local.id,
-            numero:       this.numero.toUpperCase(),
-            fabricante:   this.fabricante,
-            capacidade:   this.capacidade,
-            dt_fabric:    this.dt_fabric+'-01',
-            dt_validade:  this.dt_validade+'-01',
-            tara_inicial: this.tara_inicial,
-            tara_atual:   this.tara_atual,
-            condenado:    '0',
-            status:       '0',
-            ativo:        '0',
-            id:           ''
-          };
+          var postData = this.defaultItem;
           console.log(postData);
           this.$store.dispatch('publishCilindro', postData ).then(() => {
             this.atualizar();
@@ -139,11 +108,9 @@ Vue.component('cilindro-edt', {
         this.$emit('atualizar');
       }, 2000);
     },
-    remove (item) {
-        //const index = this.loja.indexOf(item)
-        //if (index >= 0) this.loja.splice(index, 1)
-        this.loja = null
-    },
+    retorno () {
+      this.$emit('update:value', this.date)
+    },  
     checkForm:function() {
       this.errorMessage = [];
       if( !this.loja ) this.errorMessage.push("Loja necessário.");

@@ -13,9 +13,9 @@
       <div><h2>Pagina não encontrado: 404</h2></div>
     </template>
     
-    <?php require_once 'src/system/index.php';?>
+    <?php require_once 'src/system/index.html';?>
     <?php require_once 'src/atendimento/index.html';?>
-    <?php require_once 'src/organizacao/index.php';?>
+    <?php require_once 'src/organizacao/index.html';?>
     <?php require_once 'src/equipamento/index.html';?>
     <?php require_once 'src/controle_cilindro/controle-cilindros.html';?>
     

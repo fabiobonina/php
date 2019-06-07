@@ -68,11 +68,11 @@ class CilTipo extends Crud{
 		
 	}
 
-	public function findAtiv($Cod){
+	public function findCapacidade($capacidade){
 		try{
-		$sql  = "SELECT * FROM $this->table WHERE id = :id";
+		$sql  = "SELECT * FROM $this->table WHERE capacidade = :capacidade";
 		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':id', $Cod, PDO::PARAM_INT);
+		$stmt->bindParam(':capacidade', $capacidade);
 		$stmt->execute();
 		return $stmt->fetch();
 		} catch(PDOException $e) {

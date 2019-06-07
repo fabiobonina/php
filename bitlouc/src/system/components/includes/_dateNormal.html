@@ -1,4 +1,4 @@
-<template id="date-add">
+<template id="date-normal">
   <div>
         <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
         <v-menu
@@ -38,9 +38,9 @@
 </template>
 
 <script>
-Vue.component('date-add', {
-  name: 'date-add',
-  template: '#date-add',
+Vue.component('date-normal', {
+  name: 'date-normal',
+  template: '#date-normal',
   $_veeValidate: {
     validator: 'new'
   },
