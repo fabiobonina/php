@@ -13,7 +13,7 @@
     </v-toolbar>
     <v-data-table :headers="headers" :items="filteredData" :search="search" class="elevation-1">
       <template slot="items" slot-scope="props">
-        <td>{{ props.item.numero }}</td>
+        <td>{{ props.item.serie }}</td>
         <td>{{ props.item.fabricante }}</td>
         <td>{{ props.item.capacidade_id }} kg</td>
         <td class="text-xs-right"> {{ props.item.dt_fabric }} </td>

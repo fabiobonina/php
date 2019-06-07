@@ -35,8 +35,10 @@ const cilindro = {
         publishCilindro({ commit }, postData ) {
             return new Promise((resolve, reject) => {
                 state.loading = true;
+                console.log(postData);
                 Vue.http.post( CILINDROPUBLISH , postData).then((response) => {
-                    //console.log(response.data);
+                    console.log(response.data);
+                    console.log(response.data.message);
                     if(!response.data.error){
                         //commit(fetchCilindros());
                     } else{

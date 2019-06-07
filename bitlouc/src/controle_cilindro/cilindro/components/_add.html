@@ -34,6 +34,7 @@ Vue.component('cilindro-add', {
   $_veeValidate: {
     validator: 'new'
   },
+  mixins: [mixCilindro],
   props: {
     data: {},
     filterKey: String,
@@ -43,24 +44,7 @@ Vue.component('cilindro-add', {
     return {
       errorMessage: [],
       successMessage: [], 
-      dialog: false,
-      progresso: '1',
-      isEditing: false,
-      defaultItem: {
-        loja:{},
-        local : {},
-        numero: '',
-        fabricante: '',
-        capacidade: {},
-        dt_fabric: '',
-        dt_validade: '',
-        tara_inicial: '',
-        tara_atual: '',
-        condenado:    '0',
-        status:       '0',
-        ativo:        '0',
-      },
-      
+      dialog: false,      
     };
   },
   watch: {
@@ -82,53 +66,6 @@ Vue.component('cilindro-add', {
   created: function() {
   },
   methods: {
-    saveItem: function(){
-      this.errorMessage = []
-      this.$validator.validateAll().then((result) => {
-        if (result && this.checkForm()) {
-          var postData = {
-            loja:         this.loja,
-            local_id :    this.local.id,
-            numero:       this.numero.toUpperCase(),
-            fabricante:   this.fabricante,
-            capacidade:   this.capacidade,
-            dt_fabric:    this.dt_fabric+'-01',
-            dt_validade:  this.dt_validade+'-01',
-            tara_inicial: this.tara_inicial,
-            tara_atual:   this.tara_atual,
-            condenado:    '0',
-            status:       '0',
-            ativo:        '0',
-            id:           ''
-          };
-          console.log(postData);
-          this.$store.dispatch('publishCilindro', postData ).then(() => {
-            this.atualizar();
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
-          /*this.$http.post('./config/api/api.cilindroProg.php?action=publish', postData).then(function(response) {
-            //console.log(response);
-            if(!response.data.error){
-                this.successMessage.push(response.data.message);
-                //store.commit('isLoading');
-                setTimeout(() => {
-                  this.$router.push('/programacao/'+response.data.id)
-                  this.$emit('close');
-                }, 2000);
-              } else{
-                this.errorMessage.push(response.data.message);
-                //store.commit('isLoading');
-              }
-          })
-          .catch(function(error) {
-            //store.commit('isLoading');
-            console.log(error);
-          });*/
-        }
-      });
-    },
     close () {
       this.dialog = false;
       this.$emit('close');
@@ -143,12 +80,6 @@ Vue.component('cilindro-add', {
         //const index = this.loja.indexOf(item)
         //if (index >= 0) this.loja.splice(index, 1)
         this.loja = null
-    },
-    checkForm:function() {
-      this.errorMessage = [];
-      if( !this.loja ) this.errorMessage.push("Loja necessário.");
-      if(!this.errorMessage.length) return true;
-      //e.preventDefault();
     },
   },
 });

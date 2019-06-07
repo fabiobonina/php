@@ -77,7 +77,7 @@ if($action == 'publish'):
 
   $loja         = $_POST['loja'];
   $local_id     = $_POST['local_id'];
-  $numero       = $_POST['numero'];
+  $serie        = $_POST['serie'];
   $fabricante   = $_POST['fabricante'];
   $capacidade   = $_POST['capacidade'];
   $condenado    = $_POST['condenado'];
@@ -92,7 +92,7 @@ if($action == 'publish'):
   $item = $cilindroControl->publish(
     $loja,
     $local_id,
-    $numero,
+    $serie,
     $fabricante,
     $capacidade,
     $condenado,

@@ -31,11 +31,11 @@
             <v-flex>
               <v-text-field
                 type="text"
-                v-model="value.numero"
-                label="Numero Serie"
-                :error-messages="errors.collect('value.numero')"
+                v-model="value.serie"
+                label="N.Serie"
+                :error-messages="errors.collect('value.serie')"
                 v-validate="'required'"
-                data-vv-name="value.numero"
+                data-vv-name="value.serie"
                 item-text="name"
                 required
               ></v-text-field>
@@ -131,17 +131,6 @@ Vue.component('cilindro-publish', {
         this.dialog = false;
         this.$emit('atualizar');
       }, 2000);
-    },
-    checkForm:function() {
-      this.errorMessage = [];
-      if( !this.value.loja )          this.errorMessage.push("Loja necessário.");
-      if( !this.value.fabricante )    this.errorMessage.push("Fabricante necessário.");
-      if( !this.value.capacidade )    this.errorMessage.push("Capacidade necessário.");
-      if( !this.value.numero )        this.errorMessage.push("Numero necessário.");
-      if( !this.value.dt_fabric )     this.errorMessage.push("Dt. Fabricação necessário.");
-      if( !this.value.tara_inicial )  this.errorMessage.push("Tara inicial necessário.");
-      if(!this.errorMessage.length)   return true;
-      //e.preventDefault();
     },
   },
 });

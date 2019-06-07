@@ -15,7 +15,7 @@
           </v-toolbar>
           <v-card-text>
               <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-              <cilindro-publish :value.sync="defaultItem" ></cilindro-publish>
+              <cilindro-publish v-model="defaultItem" ></cilindro-publish>
           </v-card-text>
         </v-card-->
       </v-dialog>
@@ -31,6 +31,7 @@ Vue.component('cilindro-edt', {
   $_veeValidate: {
     validator: 'new'
   },
+  mixins: [mixCilindro],
   props: {
     data: {},
   },
@@ -41,13 +42,10 @@ Vue.component('cilindro-edt', {
       errorMessage: [],
       successMessage: [],
       progresso: '1',
-      defaultItem = this.data,
+      defaultItem: this.data,
     };
   },
   watch: {
-    'value': function (newQuestion, oldQuestion) {
-      this.retorno()
-    },
   },
   mounted () {
     this.$validator.localize('pt_BR', this.dictionary)
@@ -98,24 +96,8 @@ Vue.component('cilindro-edt', {
         }
       });
     },
-    close () {
-      this.dialog = false;
-      this.$emit('close');
-    },
-    atualizar: function(){
-      setTimeout(() => {
-        this.dialog = false;
-        this.$emit('atualizar');
-      }, 2000);
-    },
     retorno () {
-      this.$emit('update:value', this.date)
-    },  
-    checkForm:function() {
-      this.errorMessage = [];
-      if( !this.loja ) this.errorMessage.push("Loja necessário.");
-      if(!this.errorMessage.length) return true;
-      //e.preventDefault();
+      //this.$emit('update:value', this.date)
     },
   },
 });

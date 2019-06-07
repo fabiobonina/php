@@ -6,7 +6,7 @@ class Cilindro extends Crud{
 	
 	protected $table = 'tb_cilindro';	
 	
-	private $numero;
+	private $serie;
 	private $fabricante;
 	private $capacidade;
 	private $dt_fabric;
@@ -28,8 +28,8 @@ class Cilindro extends Crud{
 	private $ativo;
 
 
-	public function setNumero($numero){
-		$this->numero = $numero;
+	public function setSerie($serie){
+		$this->serie = $serie;
 	}
 	public function setFabricante($fabricante){
 		$this->fabricante = $fabricante;
@@ -85,11 +85,11 @@ class Cilindro extends Crud{
 
 	public function insert(){
 		try{
-			$sql  = "INSERT INTO $this->table ( numero, fabricante, capacidade, dt_fabric, dt_validade, tara_inicial, tara_atual, condenado, grupo, loja_id, loja_nick, local_id, proprietario_id, cod_barras, dt_cadastro, dt_revisado, ativo, status) ";
-			$sql .= "VALUES (:numero, :fabricante, :capacidade, :dt_fabric, :dt_validade, :tara_inicial, :tara_atual, :condenado, :grupo, :loja_id, :loja_nick, :local_id, :proprietario_id, :cod_barras, :dt_cadastro, :dt_revisado, :ativo, :status)";
+			$sql  = "INSERT INTO $this->table ( serie, fabricante, capacidade, dt_fabric, dt_validade, tara_inicial, tara_atual, condenado, grupo, loja_id, loja_nick, local_id, proprietario_id, cod_barras, dt_cadastro, dt_revisado, ativo, status) ";
+			$sql .= "VALUES (:serie, :fabricante, :capacidade, :dt_fabric, :dt_validade, :tara_inicial, :tara_atual, :condenado, :grupo, :loja_id, :loja_nick, :local_id, :proprietario_id, :cod_barras, :dt_cadastro, :dt_revisado, :ativo, :status)";
 			$stmt = DB::prepare($sql);
 			
-			$stmt->bindParam(':numero',				$this->numero);
+			$stmt->bindParam(':serie',				$this->serie);
 			$stmt->bindParam(':fabricante',			$this->fabricante);
 			$stmt->bindParam(':capacidade',			$this->capacidade);
 			$stmt->bindParam(':dt_fabric',			$this->dt_fabric);
@@ -124,12 +124,12 @@ class Cilindro extends Crud{
 
 	public function update($id){
 		try{
-			$sql  = "UPDATE $this->table SET numero = :numero, fabricante = :fabricante, capacidade = :capacidade, ";
+			$sql  = "UPDATE $this->table SET serie = :serie, fabricante = :fabricante, capacidade = :capacidade, ";
 			$sql .= " dt_fabric = :dt_fabric, tara_inicial = :tara_inicial, dt_validade = :dt_validade, tara_atual = :tara_atual, condenado = :condenado,"; 
 			$sql .= " grupo = :grupo, loja_id = :loja_id, loja_nick = :loja_nick, local_id = :local_id, proprietario_id = :proprietario_id, ";
 			$sql .= " cod_barras = :cod_barras, dt_cadastro = :dt_cadastro, dt_revisado = :dt_revisado, ativo = :ativo, status = :status  WHERE id = :id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':numero',				$this->numero);
+			$stmt->bindParam(':serie',				$this->serie);
 			$stmt->bindParam(':fabrcante',			$this->fabrcante);
 			$stmt->bindParam(':capacidade',			$this->capacidade);
 			$stmt->bindParam(':dt_fabric',			$this->dt_fabric);
@@ -242,11 +242,11 @@ class Cilindro extends Crud{
 		}
 	}
 
-	public function validar( $numero, $fabricante, $capacidade, $dt_fabric, $id ){
+	public function validar( $serie, $fabricante, $capacidade, $dt_fabric, $id ){
 		try{
-			$sql  = "SELECT * FROM $this->table  WHERE BINARY numero = :numero AND  fabricante = :fabricante AND capacidade = :capacidade AND dt_fabric = :dt_fabric AND id  <> :id";
+			$sql  = "SELECT * FROM $this->table  WHERE BINARY serie = :serie AND  fabricante = :fabricante AND capacidade = :capacidade AND dt_fabric = :dt_fabric AND id  <> :id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':numero',		$numero);
+			$stmt->bindParam(':serie',		$serie);
 			$stmt->bindParam(':fabricante',	$fabricante);
 			$stmt->bindParam(':capacidade',	$capacidade);
 			$stmt->bindParam(':dt_fabric',	$dt_fabric);

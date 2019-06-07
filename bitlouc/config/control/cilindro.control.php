@@ -23,7 +23,7 @@
 		public function publish(
 			$loja,
 			$local_id,
-			$numero,
+			$serie,
 			$fabricante,
 			$capacidade,
 			$condenado,
@@ -39,16 +39,16 @@
 			$item['error'] = false;
 			$cilindros	= new Cilindro();
 
-			$etapaI = $cilindros->validar( $numero, $fabricante, $capacidade['capacidade'], $dt_fabric, $id );
+			$etapaI = $cilindros->validar( $serie, $fabricante, $capacidade['capacidade'], $dt_fabric, $id );
 			$dtUltimo   = '';
 			/*$osUltimoMan = $cilindros->ultimaOs( $local_id->id, $categoria_id );
 			if(isset($osUltimoMan->dtUltimo) ){
 				$dtUltimo = $osUltimoMan->dtUltimo;
 			}*/
 			$data = date("Y-m-d");
-			$cod_barras = $this->codigoBarras($numero, $loja['grupo'], $capacidade['name'], $dt_fabric);
+			$cod_barras = $this->codigoBarras($serie, $loja['grupo'], $capacidade['name'], $dt_fabric);
 
-			$cilindros->setNumero($numero);
+			$cilindros->setSerie($serie);
 			$cilindros->setFabricante($fabricante);
 			$cilindros->setCapacidade($capacidade['capacidade']);
 			$cilindros->setDtFabric($dt_fabric);
@@ -108,10 +108,10 @@
 			$res	= $item;
 			return $res;
 		}
-		public function codigoBarras( $numero, $grupo, $capacidade, $dt_fabric ) {
+		public function codigoBarras( $serie, $grupo, $capacidade, $dt_fabric ) {
 			$item['error'] = false;
 			
-			$newNumero = $this->limpar_texto($numero);
+			$newNumero = $this->limpar_texto($serie);
 			$newDate = date("dmY", strtotime($dt_fabric));
 			
 			if($grupo == 'P'){

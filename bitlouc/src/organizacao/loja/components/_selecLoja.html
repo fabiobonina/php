@@ -93,7 +93,7 @@ Vue.component('loja-selec', {
     remove (item) {
         //const index = this.loja.indexOf(item)
         //if (index >= 0) this.loja.splice(index, 1)
-        this.loja = null
+        this.value = null
     },
     lojaFilter (item, queryText, itemText) {
         const textOne = item.nick.toLowerCase()
