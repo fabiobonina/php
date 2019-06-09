@@ -6,6 +6,7 @@ var mixCilindro = {
           defaultItem: {
             loja:{},
             local : {},
+            local_id : '',
             serie: '',
             fabricante: '',
             capacidade: {},
@@ -28,53 +29,50 @@ var mixCilindro = {
       }*/
   }, // computed
   methods: {
-    /*getProgramacoes(){
-        //store.commit('isLoading');
-        this.$http.get('./config/api/cilProgramacao.api.php?action=read')
-            .then(function(response) {
-                console.log(response);
-                //store.commit('isLoading');
-                if(!response.data.error){
-                    this.successMessage.push(response.data.message);
-                    this.$store.dispatch("setCilProgramacoes", response.data.cilProgramacoes );
-                } else{
-                    this.errorMessage.push(response.data.message);                        
-                }
-            })
-            .catch(function(error) {
-                //store.commit('isLoading');
-                this.errorMessage.push(error);
-            }
-        );
-    },*/
     saveItem: function(){
       this.errorMessage = []
       this.$validator.validateAll().then((result) => {
         if (result && this.checkForm()) {
-          var postData = this.defaultItem;
-          //console.log(postData);
+          this.errorMessage = [];
+          var postData = {
+            loja:         this.defaultItem.loja,
+            serie:        this.defaultItem.serie.toUpperCase(),
+            local_id:    this.validarLocal( this.defaultItem.local ),
+            fabricante:   this.defaultItem.fabricante,
+            capacidade:   this.defaultItem.capacidade,
+            dt_fabric:    this.validarData( this.defaultItem.dt_fabric ),
+            dt_validade:  this.validarData( this.defaultItem.dt_validade ),
+            tara_inicial: this.defaultItem.tara_inicial,
+            tara_atual:   this.defaultItem.tara_atual,
+            condenado:    this.defaultItem.condenado,
+            status:       this.defaultItem.status,
+            ativo:        this.defaultItem.ativo,
+            id:           this.defaultItem.id
+          };
+          //this.publishItem(this.defaultItem);
           this.$store.dispatch('publishCilindro', postData ).then(() => {
+            this.successMessage.push(response.data.message);
             this.atualizar();
           })
           .catch(function(error) {
             console.log(error);
           });
-          /*this.$http.post('./config/api/api.cilindroProg.php?action=publish', postData).then(function(response) {
-            //console.log(response);
+          /*this.$http.post('./config/api/cilindro.api.php?action=publish', postData).then(function(response) {
+            console.log(response);
             if(!response.data.error){
                 this.successMessage.push(response.data.message);
-                //store.commit('isLoading');
+                store.commit('isLoading');
                 setTimeout(() => {
                   this.$router.push('/programacao/'+response.data.id)
                   this.$emit('close');
                 }, 2000);
               } else{
                 this.errorMessage.push(response.data.message);
-                //store.commit('isLoading');
+                store.commit('isLoading');
               }
           })
           .catch(function(error) {
-            //store.commit('isLoading');
+            store.commit('isLoading');
             console.log(error);
           });*/
         }
@@ -89,6 +87,16 @@ var mixCilindro = {
         this.dialog = false;
         this.$emit('atualizar');
       }, 2000);
+    },
+    validarData(item){
+      if(item.length == 7 ) return item+'-01';
+    },
+    validarLocal(local){
+      if(!local ){
+        return this.defaultItem.local_id = '';
+      }else{
+        return this.defaultItem.local_id = local.id;
+      } 
     },
     checkForm:function() {
       this.errorMessage = [];

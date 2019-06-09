@@ -80,6 +80,7 @@ var router = new VueRouter({
         { path: 'programacao/show/:_programacao', component: ProgramacaoShow },
       ] 
     },
+    { path: '/os/:_os', component: OsVersao, name: 'os-versao'},
     /*{ path: '/lojas', component: Lojas, name: 'lojas' },
     { path: '/loja/:_loja', component: Loja,
       children: [
@@ -142,5 +143,5 @@ router.beforeEach((to, from, next) => {
   }
 
   next();
-})
+});
 

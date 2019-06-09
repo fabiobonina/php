@@ -87,7 +87,17 @@ if($action == 'publish'):
   $tara_atual   = $_POST['tara_atual'];
   $status       = $_POST['status'];
   $ativo        = $_POST['ativo'];
-  $id           = $_POST['id'];
+  
+  if (is_numeric( $_POST['local_id'] )) {
+    $local_id = $_POST['local_id'];
+  } else {
+    $local_id = '';
+  }
+  if (is_numeric( $_POST['id'] )) {
+    $id = $_POST['id'];
+  } else {
+    $id = '';
+  }
 
   $item = $cilindroControl->publish(
     $loja,
