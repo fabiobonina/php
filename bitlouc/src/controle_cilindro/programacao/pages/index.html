@@ -13,7 +13,7 @@
     </v-container>
     <section>
       <prog-list :data="programacoes" :local="local" :status="active"></prog-list>
-      <bem-add v-if="modalAdd" v-on:close="modalAdd = false" ></bem-add>
+      
     </section>
   </div>
 
@@ -26,6 +26,7 @@
   require_once 'src/controle_cilindro/programacao/components/_list.html';
   require_once 'src/controle_cilindro/programacao/components/_add.html';
   require_once 'src/controle_cilindro/programacao/components/_crud.html';
+  require_once 'src/controle_cilindro/programacao/components/_publish.html';
 
   require_once 'src/controle_cilindro/programacao/demanda/_addDemanda.html';
   require_once 'src/controle_cilindro/programacao/demanda/_amararCilindro.html';
@@ -37,7 +38,8 @@
 
 ?>
 
-<!-- script src="src/controle_cilindro/mixins/cilindros.js"></script-->
+<script src="src/controle_cilindro/mixins/mixProgramacao.js"></script>
+
 <script>
   
   var ProgramacaoPage = Vue.extend({

@@ -17,123 +17,9 @@
             </v-toolbar-items>
           </v-toolbar>
           <v-card-text>
-          <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-          <loader></loader>
-            <v-stepper v-model="progresso" vertical light>
-              <v-stepper-step editable :complete="Number(progresso) > 1" step="1">
-                <div>{{ loja.nick }}</div>
-                <small>Loja</small>
-              </v-stepper-step>
-              <v-stepper-content step="1">
-
-                <v-flex>
-                  <v-autocomplete
-                    v-model="loja"
-                    :items="lojas"
-                    color="blue-grey lighten-2"
-                    label="Loja"                              
-                    item-text="name"              
-                    data-vv-name="loja"
-                    :filter="lojaFilter"
-                    return-object
-                    v-validate="'required'"
-                    required
-                    >
-                    <template slot="selection" slot-scope="data">
-                      <v-chip :selected="data.selected"
-                        close
-                        class="chip--select-multi"
-                        @input="remove(data.item)"
-                      >
-                        {{ data.item.nick }}
-                      </v-chip>
-                    </template>
-                    <template slot="item" slot-scope="data" >
-                      <template v-if="typeof data.item !== 'object'">
-                        <v-list-tile-content v-text="data.item"></v-list-tile-content>
-                      </template>
-                      <template v-else>
-                        <v-list-tile-content>
-                          <v-list-tile-title v-html="data.item.nick"></v-list-tile-title>
-                          <v-list-tile-sub-title v-html="data.item.name"></v-list-tile-sub-title>
-                        </v-list-tile-content>
-                      </template>
-                    </template>
-                  </v-autocomplete>
-                </v-flex>
-
-              </v-stepper-content>
-              <v-stepper-step editable :complete="Number(progresso) > 2" step="2">
-                <div>{{ local.name }}</div>
-                <small>Local</small>
-              </v-stepper-step>
-              <v-stepper-content step="2">
-                <v-container grid-list-md>
-                  <v-layout wrap>
-                    <v-flex>
-                  <v-autocomplete
-                    v-model="local"
-                    :items="locais"
-                    color="blue-grey lighten-2"
-                    label="Local"                              
-                    item-text="name"
-                    data-vv-name="local"
-                    :filter="localFilter"
-                    return-object
-                    v-validate="'required'"
-                    required
-                    >
-                    <template slot="selection" slot-scope="data">
-                      <v-chip :selected="data.selected"
-                        close
-                        class="chip--select-multi"
-                        @input="local = ''"
-                      >
-                        {{ data.item.name }}
-                      </v-chip>
-                    </template>
-                    <template slot="item" slot-scope="data" >
-                      <template v-if="typeof data.item !== 'object'">
-                        <v-list-tile-content v-text="data.item"></v-list-tile-content>
-                      </template>
-                      <template v-else>
-                        <v-list-tile-content>
-                          <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
-                          <v-list-tile-sub-title v-html=" `${data.item.municipio } ${data.item.uf}`"></v-list-tile-sub-title>
-                        </v-list-tile-content>
-                      </template>
-                    </template>
-                  </v-autocomplete>
-                </v-flex>
-                  </v-layout>
-                </v-container>
-              </v-stepper-content>
-              <v-stepper-step editable :complete="Number(progresso) > 3" step="3">
-                <small>Demanda</small>
-              </v-stepper-step>
-              <v-stepper-content step="3">
-                <v-container grid-list-md>
-                    <v-flex>
-                      <v-text-field
-                        type="date"
-                        v-model="dataProg"
-                        label="Data"
-                        :error-messages="errors.collect('dataProg')"
-                        v-validate="'required'"
-                        data-vv-name="dataProg"
-                        item-text="name"
-                        required
-                      ></v-text-field>
-                    </v-flex>
-                  <v-layout row justify-center>
-                    <v-flex>
-                    <demanda-add :data="demanda" v-on:close="close()"></demanda-add>
-                    </v-flex>           
-                    
-                  </v-layout>
-                </v-container>
-              </v-stepper-content>
-            </v-stepper>
+            <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+            <loader></loader>
+            <programacao-publish :value.sync="defaultItem" ></programacao-publish>  
           </v-card-text>
         </v-card>
       </v-dialog>
@@ -149,6 +35,7 @@ Vue.component('prog-add', {
   $_veeValidate: {
     validator: 'new'
   },
+  mixins: [mixProgramacao],
   props: {
     data: {},
     filterKey: String,
@@ -158,15 +45,14 @@ Vue.component('prog-add', {
     return {
       errorMessage: [],
       successMessage: [],
-      
       dialog: false,
-      loja:{},
-      local : {},
-      dataProg: null,
-      demanda: [],
-      locais : [],
       progresso: '1',
-      isEditing: false,
+
+      loja:{},
+            local : {},
+            dt_programacao: new Date().toISOString().substr(0, 10),
+            demanda: [],
+      
     };
   },
   watch: {

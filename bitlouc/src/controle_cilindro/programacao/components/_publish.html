@@ -1,0 +1,88 @@
+<template id="programacao-publish">
+  <div>
+    <v-stepper v-model="progresso" vertical light>
+      <v-stepper-step editable :complete="Number(progresso) > 1" step="1">
+        <div>{{ value.loja.nick }}</div>
+        <small>Loja</small>
+      </v-stepper-step>
+      <v-stepper-content step="1">
+        <v-flex>
+            <loja-selec v-model="value.loja"></loja-selec>
+        </v-flex>
+      </v-stepper-content>
+      <v-stepper-step editable :complete="Number(progresso) > 2" step="2">
+        <div>{{ value.local.name }}</div>
+        <small>Local</small>
+      </v-stepper-step>
+      <v-stepper-content step="2">
+        <v-flex>
+          <local-selec v-model="value.local" :loja_id="value.loja.id"></local-selec>
+        </v-flex>
+      </v-stepper-content>
+      <v-stepper-step editable :complete="Number(progresso) > 3" step="3">
+        <small>Demanda</small>
+      </v-stepper-step>
+      <v-stepper-content step="3">
+        <v-container grid-list-md>
+          <v-flex>
+            <date-normal :value.sync="value.dt_programacao" label="DtProgramacao"></date-normal>
+          </v-flex>
+          <v-layout row justify-center>
+            <v-flex>
+              <demanda-add v-model="value.demanda" v-on:close="close()"></demanda-add>
+            </v-flex>            
+          </v-layout>
+        </v-container>
+      </v-stepper-content>
+    </v-stepper>
+  </div>
+</template>
+
+
+<script>
+Vue.component('programacao-publish', {
+  name: 'programacao-publish',
+  template: '#programacao-publish',
+  $_veeValidate: {
+    validator: 'new'
+  },
+  props: {
+    value: {},
+    data: {},
+  },
+  data() {
+    return {
+      errorMessage: [],
+      successMessage: [], 
+      progresso: '1',
+      
+    };
+  },
+  watch: {
+
+  },
+  mounted () {
+    this.$validator.localize('pt_BR', this.dictionary)
+  },
+  computed: {
+    user()  {
+      return this.$store.getters.user;
+    },
+    temMessage () {
+      if(this.errorMessage.length > 0) return true
+      if(this.successMessage.length > 0) return true
+      return false
+    },
+  },
+  created: function() {
+  },
+  methods: {
+    atualizar: function(){
+      setTimeout(() => {
+        this.dialog = false;
+        this.$emit('atualizar');
+      }, 2000);
+    },
+  },
+});
+</script>

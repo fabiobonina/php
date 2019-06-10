@@ -4,19 +4,20 @@ var mixCilindro = {
           errorMessage: [],
           successMessage: [],
           defaultItem: {
-            loja:{},
-            local : {},
-            local_id : '',
-            serie: '',
-            fabricante: '',
-            capacidade: {},
-            dt_fabric: '',
-            dt_validade: '',
+            loja:         {},
+            local:        {},
+            local_id:     '',
+            serie:        '',
+            fabricante:   '',
+            capacidade:   {},
+            dt_fabric:    '',
+            dt_validade:  '',
             tara_inicial: '',
-            tara_atual: '',
+            tara_atual:   '',
             condenado:    '0',
             status:       '0',
             ativo:        '0',
+            id:           '',
           },
       };
   },
@@ -30,7 +31,7 @@ var mixCilindro = {
   }, // computed
   methods: {
     saveItem: function(){
-      this.errorMessage = []
+      this.errorMessage = [];
       this.$validator.validateAll().then((result) => {
         if (result && this.checkForm()) {
           this.errorMessage = [];

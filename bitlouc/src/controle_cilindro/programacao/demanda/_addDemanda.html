@@ -7,20 +7,22 @@
       <small>Demanda</small>
       <v-layout wrap>
         <v-flex>
-          <v-select
+          
+          <cil-capac-selec v-model="capacidade" v-on:keyup.enter="addDemanda()"></cil-capac-selec>
+          <!-- v-select
             v-model="cil_tipo" :items="cilTipos"
             item-text="name" item-value="id"
             label="Tipo Cilindro" box
             v-on:keyup.enter="addDemanda()"
             data-vv-name="name" v-validate="'required'" required
             return-object
-          ></v-select>
+          ></v-select-->
         </v-flex>
         <v-flex>
           <v-text-field 
             type="number"
             v-model="qtd"
-            label="Qtd. Cilindros" box
+            label="Qtd. Cilindros"
             :error-messages="errors.collect('qtd')"
             item-text="qtd"
             data-vv-name="name"
@@ -93,7 +95,7 @@ Vue.component('demanda-add', {
     validator: 'new'
   },
   props: {
-    data: Array,
+    value: Array,
     //filterKey: String,
     //dialogAdd: Boolean,
   },
@@ -103,9 +105,8 @@ Vue.component('demanda-add', {
       successMessage: [],
       
       item: {},
-      cil_tipo: null,
+      capacidade: null,
       qtd: null,
-      dtProg: null,
     }
   },
   mounted () {
@@ -117,20 +118,19 @@ Vue.component('demanda-add', {
       if(this.successMessage.length > 0) return true
       return false
     },
-    cilTiposs() {
-      return this.$store.state.cilTipos;
+    cilTipos() {
+      return this.$store.getters.cilTipos;
     },
-    ...Vuex.mapGetters(["cilTipos"] ),
   },
   created: function() {
-    this.$store.dispatch('fetchCilTipos').then(() => {
+    this.$store.dispatch('fetchCilConfig').then(() => {
       console.log("carregando tipos de cilindros")
     });
   },
   methods: {
     remove (item) {
-        const index = this.data.indexOf(item)
-        if (index >= 0) this.data.splice(index, 1)
+        const index = this.value.indexOf(item)
+        if (index >= 0) this.value.splice(index, 1)
     },
     checkForm:function() {
       this.errorMessage = [];
@@ -146,7 +146,7 @@ Vue.component('demanda-add', {
           this.item['qtd']      = this.qtd;
           this.item['edit']     = false;
           
-          this.data.push( this.item );
+          this.value.push( this.item );
           this.qtd        = "";
           this.item       = {};
           this.cil_tipo   = {};
@@ -156,7 +156,7 @@ Vue.component('demanda-add', {
       
     },
     removeDemanda(index){
-      this.data.splice(index, 1)
+      this.value.splice(index, 1)
     },
   },
 });

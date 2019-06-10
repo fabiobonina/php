@@ -118,11 +118,11 @@ Vue.component('demanda-cil', {
       return false
     },
     cilTipos() {
-      return this.$store.state.cil_tipos;
+      return this.$store.getters.cilTipos;
     },
   },
   created: function() {
-    this.$store.dispatch('fetchCilTipos').then(() => {
+    this.$store.dispatch('fetchCilConfig').then(() => {
       console.log("carregando tipos de cilindros")
     });
   },
