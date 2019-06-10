@@ -38,7 +38,7 @@
 			$locais	= new Local();
 			$itens 	= array();
 			
-			foreach($locais->findProprietario( $_SESSION['loginProprietario'] ) as $key => $value): {
+			foreach($locais->findProprietario( $_SESSION['user_proprietario'] ) as $key => $value): {
 				$item = $value;
 				$item = $this->matrix( $item );
 				$item = (array)  $item;

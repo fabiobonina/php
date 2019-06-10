@@ -53,6 +53,14 @@ var router = new VueRouter({
         { path: 'oss', component: LocalOss },
       ]
     },
+    { path: '/organizacao/gerencial', component: Gerencial,
+      children: [
+        { path: '', component: LojasPlus },
+        { path: 'locais', component: LocaisPlus },
+        //{ path: 'oss', component: OssPlus },
+        //{ path: 'bens', component: LojaBens },
+      ]
+    },
     { path: '/atendimento', component: AtendimentoPainel},
     { path: '/atendimento/oss', component: Oss,
       children: [
@@ -106,7 +114,7 @@ var router = new VueRouter({
       ]
     },
     
-    { path: '/gerencial', component: Gerencial,
+    { path: '/organozacao/gerencial', component: Gerencial,
       children: [
         { path: '', component: LojasPlus },
         { path: 'locais', component: LocaisPlus },
