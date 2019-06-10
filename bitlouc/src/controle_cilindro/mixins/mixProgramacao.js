@@ -8,6 +8,8 @@ var mixProgramacao = {
             local : {},
             dt_programacao: new Date().toISOString().substr(0, 10),
             demanda: [],
+            status: '0',
+            id: '',
           },
       };
   },
@@ -26,38 +28,39 @@ var mixProgramacao = {
         if (result && this.checkForm()) {
           this.errorMessage = [];
           var postData = {
-            loja:           this.defaultItem.loja,
-            local:          this.defaultItem.local,
-            dt_programcao:  this.defaultItem.dt_programacao,
+            loja_id:        this.defaultItem.loja.id,
+            local_id:       this.defaultItem.local.id,
+            dt_programacao:  this.defaultItem.dt_programacao,
+            status:         this.defaultItem.status,
             demanda:        this.defaultItem.demanda,
             id:             this.defaultItem.id
           };
           //this.publishItem(this.defaultItem);
-          this.$store.dispatch('publishCilindro', postData ).then(() => {
+          /*this.$store.dispatch('publishCilindro', postData ).then(() => {
             this.successMessage.push(response.data.message);
             this.atualizar();
           })
           .catch(function(error) {
             console.log(error);
-          });
-          /*this.$http.post('./config/api/cilindro.api.php?action=publish', postData).then(function(response) {
-            console.log(response);
+          });*/
+          //console.log(postData);
+          this.$http.post('./config/api/cilProgramacao.api.php?action=publish', postData).then(function(response) {
+            //console.log(response);
+            this.$store.commit('isLoading');
             if(!response.data.error){
-                this.successMessage.push(response.data.message);
-                store.commit('isLoading');
+                this.successMessage.push(response.data.message);                
                 setTimeout(() => {
-                  this.$router.push('/programacao/'+response.data.id)
+                  this.$router.push('/controle-cilindros/programacao/show/'+response.data.id)
                   this.$emit('close');
                 }, 2000);
               } else{
                 this.errorMessage.push(response.data.message);
-                store.commit('isLoading');
               }
           })
           .catch(function(error) {
-            store.commit('isLoading');
+            this.$store.commit('isLoading');
             console.log(error);
-          });*/
+          });
         }
       });
     },

@@ -4830,7 +4830,7 @@ CREATE TABLE `tb_cil_programacao` (
   `id` int(11) NOT NULL,
   `loja_id` int(11) NOT NULL,
   `local_id` int(11) NOT NULL,
-  `data` date NOT NULL,
+  `dt_programacao` date NOT NULL,
   `status` enum('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -4863,10 +4863,10 @@ CREATE TABLE `tb_cil_prog_item` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_cil_tipo`
+-- Estrutura da tabela `tb_cil_capacidade`
 --
 
-CREATE TABLE `tb_cil_tipo` (
+CREATE TABLE `tb_cil_capacidade` (
   `id` int(11) NOT NULL,
   `name` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `capacidade` int(11) NOT NULL,
@@ -4874,10 +4874,10 @@ CREATE TABLE `tb_cil_tipo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Extraindo dados da tabela `tb_cil_tipo`
+-- Extraindo dados da tabela `tb_cil_capacidade`
 --
 
-INSERT INTO `tb_cil_tipo` (`id`, `name`, `capacidade`, `tag`) VALUES
+INSERT INTO `tb_cil_capacidade` (`id`, `name`, `capacidade`, `tag`) VALUES
 (1, '0050', 50, 'P'),
 (2, '0068', 68, 'P'),
 (3, '0900', 900, 'G'),
@@ -4912,9 +4912,9 @@ ALTER TABLE `tb_cil_prog_item`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tb_cil_tipo`
+-- Indexes for table `tb_cil_capacidade`
 --
-ALTER TABLE `tb_cil_tipo`
+ALTER TABLE `tb_cil_capacidade`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -4946,9 +4946,9 @@ ALTER TABLE `tb_cil_prog_item`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `tb_cil_tipo`
+-- AUTO_INCREMENT for table `tb_cil_capacidade`
 --
-ALTER TABLE `tb_cil_tipo`
+ALTER TABLE `tb_cil_capacidade`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 

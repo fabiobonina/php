@@ -6,19 +6,19 @@
 		public function matrixDemanda( $item ){
 			$cilTipos			= new CilTipo();
 
-			$item->cil_tipo 	= $cilTipos->find( $item->tipo_id );
+			$item->cil_tipo 	= $cilTipos->find( $item->capacidade_id );
 			$item->active	= true;
 
 			return $item;
 
 		}
 
-		public function publishDemanda( $tipo_id, $qtd, $id, $cil_prog_id ) {
+		public function publishDemanda( $programacao_id, $capacidade_id, $qtd, $id ) {
 			$item['error'] 		= false;
 			$cilindroDemandas	= new CilindroDemanda();
 
-			$cilindroDemandas->setCilProg($cil_prog_id);
-			$cilindroDemandas->setCilTipo($tipo_id);
+			$cilindroDemandas->setProgramacao($programacao_id);
+			$cilindroDemandas->setCapacidade($capacidade_id);
 			$cilindroDemandas->setQtd($qtd);
 
 			if( $id == '' ):
@@ -35,12 +35,12 @@
 
 		}
 
-		public function addDemanda( $demanda, $id, $cil_prog_id ) {
+		public function addDemanda( $demanda, $programacao_id ) {
 			$item['error'] = false;
 
 			foreach ($demanda  as $key => $value){
-				$cil_tipo = (object) $value['cil_tipo'];
-				$item = $this->publishDemanda( $cil_tipo->id, $value['qtd'], $id, $cil_prog_id );
+				$capacidade = (object) $value['capacidade'];
+				$item = $this->publishDemanda( $programacao_id, $capacidade->id, $value['qtd'], $value['id'] );
 			  }
 
 			$res = $item;

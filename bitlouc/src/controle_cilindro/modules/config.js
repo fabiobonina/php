@@ -40,8 +40,8 @@ const cilConfig = {
     
     },
     getters: {
-        cilTipos:           state =>    state.cilTipos,
-        cilFabricantes:      state =>    state.cilFabricantes,
+        cilTipos:       state =>    state.cilTipos,
+        cilFabricantes: state =>    state.cilFabricantes,
     }
 }
 

@@ -1,8 +1,5 @@
-<template id="prog-add">
+<template id="programacao-edt">
   <div>
-    <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="dialog = true" color="pink" fab small dark>
-      <v-icon>mdi-plus</v-icon>
-    </v-btn>
     <v-layout row justify-center>
       <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
         <v-card>
@@ -29,9 +26,9 @@
 
 
 <script>
-Vue.component('prog-add', {
-  name: 'prog-add',
-  template: '#prog-add',
+Vue.component('programacao-edt', {
+  name: 'programacao-edt',
+  template: '#programacao-edt',
   $_veeValidate: {
     validator: 'new'
   },
@@ -45,9 +42,10 @@ Vue.component('prog-add', {
     return {
       errorMessage: [],
       successMessage: [],
-      dialog: false,
+      dialog: true,
       progresso: '1',
       
+      defaultItem: this.data,      
     };
   },
   watch: {

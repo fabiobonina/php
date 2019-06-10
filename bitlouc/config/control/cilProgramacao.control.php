@@ -17,7 +17,7 @@
 			$item->local_name		= $item->local->name;
 			$item->local_municipio	= $item->local->municipio;
 			$item->local_uf			= $item->local->uf;
-			$item->demandas		= $this->demandaProg( $item->id, $modelo );
+			$item->demanda			= $this->demandaProg( $item->id, $modelo );
 			if($modelo > 1){
 				
 			}
@@ -30,7 +30,7 @@
 		public function publish(
 			$loja_id,
 			$local_id,
-			$data,
+			$dt_programacao,
 			$status,
 			$id )
 		{
@@ -39,7 +39,7 @@
 
 			$cilindroProg->setLoja($loja_id);
 			$cilindroProg->setLocal($local_id);
-			$cilindroProg->setData($data);
+			$cilindroProg->setDtProgramacao($dt_programacao);
 			$cilindroProg->setStatus($status);
 
 			if( $id == '' ):

@@ -58,23 +58,23 @@ endif;
 
 #PUBLISH
 if($action == 'publish'):
-  $loja_id    = $_POST['loja_id'];
-  $local_id   = $_POST['local_id'];
-  $data       = $_POST['data'];
-  $status     = $_POST['status'];
-  $demanda    = $_POST['demanda'];
-  $id         = $_POST['id'];
+  $loja_id        = $_POST['loja_id'];
+  $local_id       = $_POST['local_id'];
+  $dt_programacao = $_POST['dt_programacao'];
+  $status         = $_POST['status'];
+  $demanda        = $_POST['demanda'];
+  $id             = $_POST['id'];
 
   $item = $cilindroProgControl->publish(
     $loja_id,
     $local_id,
-    $data,
+    $dt_programacao,
     $status,
     $id
   );
   //$item['id'] = '1';
   if(!$item['error']){
-    $item = $cilindroDemandaControl->add( $demanda, $id, $item['id'] );
+    $item = $cilindroDemandaControl->addDemanda( $demanda, $item['id'] );
   }
   # Insert
   $res = $item;

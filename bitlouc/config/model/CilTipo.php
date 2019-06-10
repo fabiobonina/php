@@ -6,7 +6,7 @@ class CilTipo extends Crud{
 	
 
 	
-	protected $table = 'tb_cil_tipo';
+	protected $table = 'tb_cil_capacidade';
 	private $cliente;
 	private $localida;
 	private $plaqueta;

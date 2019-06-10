@@ -38,7 +38,7 @@ var mixCilindro = {
           var postData = {
             loja:         this.defaultItem.loja,
             serie:        this.defaultItem.serie.toUpperCase(),
-            local_id:    this.validarLocal( this.defaultItem.local ),
+            local_id:     this.validarLocal( this.defaultItem.local ),
             fabricante:   this.defaultItem.fabricante,
             capacidade:   this.defaultItem.capacidade,
             dt_fabric:    this.validarData( this.defaultItem.dt_fabric ),

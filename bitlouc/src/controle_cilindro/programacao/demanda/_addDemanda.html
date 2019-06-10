@@ -9,14 +9,6 @@
         <v-flex>
           
           <cil-capac-selec v-model="capacidade" v-on:keyup.enter="addDemanda()"></cil-capac-selec>
-          <!-- v-select
-            v-model="cil_tipo" :items="cilTipos"
-            item-text="name" item-value="id"
-            label="Tipo Cilindro" box
-            v-on:keyup.enter="addDemanda()"
-            data-vv-name="name" v-validate="'required'" required
-            return-object
-          ></v-select-->
         </v-flex>
         <v-flex>
           <v-text-field 
@@ -38,26 +30,19 @@
                   
       <template>
         <v-list>
-          <v-list-tile  v-for="(todo, index) in data" :key="item.index" @click="">
+          <v-list-tile  v-for="(todo, index) in value" :key="item.index" @click="">
             <template>
               <v-flex v-if="todo.edit">
-                <v-select
-                  v-model="todo.cil_tipo" :items="cilTipos"
-                  item-text="name" item-value="id"
-                  label="Tipo Cilindro" box
-                  v-on:keyup.enter="addDemanda()"
-                  data-vv-name="name"
-                  v-validate="'required'" required
-                ></v-select>
+                <cil-capac-selec v-model="todo.capacidade" v-on:keyup.enter="addDemanda()"></cil-capac-selec>
               </v-flex>
               <v-list-tile-content v-else>
-                <v-list-tile-title v-text="todo.cil_tipo.name"></v-list-tile-title>
+                <v-list-tile-title v-text="todo.capacidade.name"></v-list-tile-title>
               </v-list-tile-content>
               <v-flex v-if="todo.edit">
                 <v-text-field 
                   type="number"
                   v-model="todo.qtd"
-                  label="Qtd. Cilindros" box
+                  label="Qtd. Cilindros"
                   :error-messages="errors.collect('qtd')"
                   item-text="todo.qtd"
                   data-vv-name="name"
@@ -107,6 +92,7 @@ Vue.component('demanda-add', {
       item: {},
       capacidade: null,
       qtd: null,
+      id: '',
     }
   },
   mounted () {
@@ -117,9 +103,6 @@ Vue.component('demanda-add', {
       if(this.errorMessage.length > 0) return true
       if(this.successMessage.length > 0) return true
       return false
-    },
-    cilTipos() {
-      return this.$store.getters.cilTipos;
     },
   },
   created: function() {
@@ -134,23 +117,25 @@ Vue.component('demanda-add', {
     },
     checkForm:function() {
       this.errorMessage = [];
-      if( !this.cil_tipo ) this.errorMessage.push("Tipo de cilindro necessário.");
+      if( !this.capacidade ) this.errorMessage.push("Tipo de cilindro necessário.");
       if( !this.qtd ) this.errorMessage.push("Qtd. de cilindro necessário.");
       if(!this.errorMessage.length) return true;
       //e.preventDefault();
     },
     addDemanda(){
       if ( this.checkForm() ) {
-          //store.commit('isLoading');
-          this.item['cil_tipo'] = this.cil_tipo;
-          this.item['qtd']      = this.qtd;
-          this.item['edit']     = false;
+          this.$store.commit('isLoading');
+          this.item['capacidade'] = this.capacidade;
+          this.item['qtd']        = this.qtd;
+          this.item['id']         = this.id;
+          this.item['edit']       = false;
           
           this.value.push( this.item );
           this.qtd        = "";
           this.item       = {};
-          this.cil_tipo   = {};
-          store.commit('isLoading')
+          this.capacidade   = {};
+          this.id = '';
+          this.$store.commit('isLoading');
           //console.log(this.data);
         }
       

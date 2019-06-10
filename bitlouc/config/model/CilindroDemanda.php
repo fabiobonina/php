@@ -8,15 +8,15 @@ class CilindroDemanda extends Crud{
 	
 	protected $table = 'tb_cil_prog_demanda';
 	private $programacao_id;
-	private $tipo_id;
+	private $capacidade_id;
 	private $qtd;
 
 
-	public function setCilProg($programacao_id){
+	public function setProgramacao($programacao_id){
 		$this->programacao_id = $programacao_id;
 	}
-	public function setCilTipo($tipo_id){
-		$this->tipo_id = $tipo_id;
+	public function setCapacidade($capacidade_id){
+		$this->capacidade_id = $capacidade_id;
 	}
 	public function setQtd($qtd){
 		$this->qtd = $qtd;
@@ -24,12 +24,12 @@ class CilindroDemanda extends Crud{
 
 	public function insert(){
 		try{
-			$sql  = "INSERT INTO $this->table ( programacao_id, tipo_id, qtd) ";
-			$sql .= "VALUES (:programacao_id, :tipo_id, :qtd)";
+			$sql  = "INSERT INTO $this->table ( programacao_id, capacidade_id, qtd) ";
+			$sql .= "VALUES (:programacao_id, :capacidade_id, :qtd)";
 			$stmt = DB::prepare($sql);
 			
 			$stmt->bindParam(':programacao_id',	$this->programacao_id);
-			$stmt->bindParam(':tipo_id',	$this->tipo_id);
+			$stmt->bindParam(':capacidade_id',	$this->capacidade_id);
 			$stmt->bindParam(':qtd',			$this->qtd);
 			$stmt->execute();
 			$item_id = DB::getInstance()->lastInsertId();
@@ -48,10 +48,10 @@ class CilindroDemanda extends Crud{
 
 	public function update($id){
 		try{
-			$sql  = "UPDATE $this->table SET programacao_id = :programacao_id, tipo_id = :tipo_id, qtd = :qtd WHERE id = :id";
+			$sql  = "UPDATE $this->table SET programacao_id = :programacao_id, capacidade_id = :capacidade_id, qtd = :qtd WHERE id = :id";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':programacao_id',	$this->programacao_id);
-			$stmt->bindParam(':tipo_id',	$this->tipo_id);
+			$stmt->bindParam(':capacidade_id',	$this->capacidade_id);
 			$stmt->bindParam(':qtd',			$this->qtd);
 			$stmt->bindParam(':id', 			$id);
 			$stmt->execute();
@@ -174,11 +174,11 @@ class CilindroDemanda extends Crud{
 		}	
 	}
 	
-	public function ultimaOs( $tipo_id, $categoria_id ){
+	public function ultimaOs( $capacidade_id, $categoria_id ){
 		try{
-			$sql  = "SELECT id, tipo_id, categoria_id, MAX(qtd) AS dtUltimo FROM $this->table  WHERE BINARY tipo_id=:tipo_id AND categoria_id=:categoria_id GROUP BY tipo_id=:tipo_id, categoria_id=:categoria_id";
+			$sql  = "SELECT id, capacidade_id, categoria_id, MAX(qtd) AS dtUltimo FROM $this->table  WHERE BINARY capacidade_id=:capacidade_id AND categoria_id=:categoria_id GROUP BY capacidade_id=:capacidade_id, categoria_id=:categoria_id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':tipo_id', $tipo_id, PDO::PARAM_INT);
+			$stmt->bindParam(':capacidade_id', $capacidade_id, PDO::PARAM_INT);
 			$stmt->bindParam(':categoria_id', $categoria_id, PDO::PARAM_INT);
 			$stmt->execute();
 			return $stmt->fetch();
@@ -189,11 +189,11 @@ class CilindroDemanda extends Crud{
 		}
 	}
 
-	public function visitadoLocal( $tipo_id ){
+	public function visitadoLocal( $capacidade_id ){
 		try{
-			$sql  = "SELECT MAX(qtd) AS dtVisitado FROM $this->table  WHERE BINARY tipo_id=:tipo_id GROUP BY tipo_id=:tipo_id";
+			$sql  = "SELECT MAX(qtd) AS dtVisitado FROM $this->table  WHERE BINARY capacidade_id=:capacidade_id GROUP BY capacidade_id=:capacidade_id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':tipo_id', $tipo_id, PDO::PARAM_INT);
+			$stmt->bindParam(':capacidade_id', $capacidade_id, PDO::PARAM_INT);
 			$stmt->execute();
 			return $stmt->fetch();
 		} catch(PDOException $e) {
@@ -203,11 +203,11 @@ class CilindroDemanda extends Crud{
 		}
 	}
 
-	public function validarOs( $tipo_id, $categoria_id, $equipamento_id, $qtd, $id ){
+	public function validarOs( $capacidade_id, $categoria_id, $equipamento_id, $qtd, $id ){
 		try{
-			$sql  = "SELECT * FROM $this->table  WHERE BINARY tipo_id = :tipo_id AND categoria_id = :categoria_id AND  ( equipamento_id = :equipamento_id OR equipamento_id IS NULL ) AND qtd = :qtd AND id  <> :id";
+			$sql  = "SELECT * FROM $this->table  WHERE BINARY capacidade_id = :capacidade_id AND categoria_id = :categoria_id AND  ( equipamento_id = :equipamento_id OR equipamento_id IS NULL ) AND qtd = :qtd AND id  <> :id";
 			$stmt = DB::prepare($sql);
-			$stmt->bindParam(':tipo_id', 		$tipo_id);			
+			$stmt->bindParam(':capacidade_id', 		$capacidade_id);			
 			$stmt->bindParam(':equipamento_id',	$equipamento_id);
 			$stmt->bindParam(':categoria_id',	$categoria_id);
 			$stmt->bindParam(':qtd',			$qtd);

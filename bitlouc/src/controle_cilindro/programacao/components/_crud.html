@@ -18,8 +18,7 @@
       </v-list>
     </v-menu>
     <div>
-      <cilindro-edt v-if="modalEdt" v-on:close="modalEdt = false" :data="data"></cilindro-edt>
-      <cilindro-del v-if="modalDel" v-on:close="modalDel = false" :data="data"></cilindro-del>
+      <programacao-edt v-if="modalEdt" v-on:close="modalEdt = false" :data="data"></programacao-edt>
     </div>
   </div>
 </template>
@@ -43,7 +42,35 @@ Vue.component('programacao-crud', {
       return this.$store.getters.user;
     },
   },
-  methods: {  
+  methods: {
+    deletarItem: function() {
+      if(confirm('Deseja realmente deletar ' + this.data.loja.nick+'-'+ this.data.local.name + '?')){
+        //store.commit('isLoading')
+        var postData = {
+          id: this.data.id
+        };
+        //console.log(postData);
+        this.$http.post('./config/api/cilProgramacao.api.php?action=deletar', postData).then(function(response) {
+          //console.log(response);
+          if(response.data.error){
+            this.errorMessage.push(response.data.message);
+            //store.commit('isLoading');
+          } else{
+            this.successMessage.push(response.data.message);
+            //store.commit('isLoading');
+            /*this.$store.dispatch('fetchLocalLoja', this.loja.id).then(() => {
+              console.log("Atulizando dados das localidades!")
+            });
+            setTimeout(() => {
+              this.$emit('close');
+            }, 2000);*/
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      }
+    }
   }
 });
 </script>

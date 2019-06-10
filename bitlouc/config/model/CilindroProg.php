@@ -9,7 +9,7 @@ class CilindroProg extends Crud{
 	protected $table = 'tb_cil_programacao';
 	private $loja_id;
 	private $local_id;
-	private $data;
+	private $dt_programacao;
 	private $status;
 
 
@@ -19,8 +19,8 @@ class CilindroProg extends Crud{
 	public function setLocal($local_id){
 		$this->local_id = $local_id;
 	}
-	public function setData($data){
-		$this->data = $data;
+	public function setDtProgramacao($dt_programacao){
+		$this->dt_programacao = $dt_programacao;
 	}
 	public function setStatus($status){
 		$this->status = $status;
@@ -31,13 +31,13 @@ class CilindroProg extends Crud{
 
 	public function insert(){
 		try{
-			$sql  = "INSERT INTO $this->table ( loja_id, local_id, data) ";
-			$sql .= "VALUES (:loja_id, :local_id, :data)";
+			$sql  = "INSERT INTO $this->table ( loja_id, local_id, dt_programacao) ";
+			$sql .= "VALUES (:loja_id, :local_id, :dt_programacao)";
 			$stmt = DB::prepare($sql);
 			
-			$stmt->bindParam(':loja_id',			$this->loja_id);
-			$stmt->bindParam(':local_id',			$this->local_id);
-			$stmt->bindParam(':data',				$this->data);
+			$stmt->bindParam(':loja_id',		$this->loja_id);
+			$stmt->bindParam(':local_id',		$this->local_id);
+			$stmt->bindParam(':dt_programacao',	$this->dt_programacao);
 			$stmt->execute();
 			$item_id = DB::getInstance()->lastInsertId();
 
@@ -55,12 +55,12 @@ class CilindroProg extends Crud{
 
 	public function update($id){
 		try{
-			$sql  = "UPDATE $this->table SET loja_id = :loja_id, local_id = :local_id, data = :data, ativo = :ativo WHERE id = :id";
+			$sql  = "UPDATE $this->table SET loja_id = :loja_id, local_id = :local_id, dt_programacao = :dt_programacao, status = :status WHERE id = :id";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':loja_id',		$this->loja_id);
 			$stmt->bindParam(':local_id',		$this->local_id);
-			$stmt->bindParam(':data',			$this->data);
-			$stmt->bindParam(':ativo',			$this->ativo);
+			$stmt->bindParam(':dt_programacao',	$this->dt_programacao);
+			$stmt->bindParam(':status',			$this->status);
 			$stmt->bindParam(':id', 			$id);
 			$stmt->execute();
 
@@ -184,7 +184,7 @@ class CilindroProg extends Crud{
 
 	public function visitadoLocal( $local_id ){
 		try{
-			$sql  = "SELECT MAX(data) AS dtVisitado FROM $this->table  WHERE BINARY local_id=:local_id GROUP BY local_id=:local_id";
+			$sql  = "SELECT MAX(dt_programacao) AS dtVisitado FROM $this->table  WHERE BINARY local_id=:local_id GROUP BY local_id=:local_id";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':local_id', $local_id, PDO::PARAM_INT);
 			$stmt->execute();
@@ -196,14 +196,14 @@ class CilindroProg extends Crud{
 		}
 	}
 
-	public function validarOs( $local_id, $categoria_id, $equipamento_id, $data, $id ){
+	public function validarOs( $local_id, $categoria_id, $equipamento_id, $dt_programacao, $id ){
 		try{
-			$sql  = "SELECT * FROM $this->table  WHERE BINARY local_id = :local_id AND categoria_id = :categoria_id AND  ( equipamento_id = :equipamento_id OR equipamento_id IS NULL ) AND data = :data AND id  <> :id";
+			$sql  = "SELECT * FROM $this->table  WHERE BINARY local_id = :local_id AND categoria_id = :categoria_id AND  ( equipamento_id = :equipamento_id OR equipamento_id IS NULL ) AND dt_programacao = :dt_programacao AND id  <> :id";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':local_id', 		$local_id);			
 			$stmt->bindParam(':equipamento_id',	$equipamento_id);
 			$stmt->bindParam(':categoria_id',	$categoria_id);
-			$stmt->bindParam(':data',			$data);
+			$stmt->bindParam(':dt_programacao',			$dt_programacao);
 			$stmt->bindParam(':id',				$id);
 			$stmt->execute();
 			return $stmt->fetch();
