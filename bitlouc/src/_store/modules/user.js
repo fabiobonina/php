@@ -19,13 +19,13 @@ const user = {
 
     mutations: {
         [LOGIN](state) {
-            state.loading = true;
+            commit('loading_ativo');
         },
         [LOGIN_SUCCESS](state, creds) {
             localStorage.setItem('token', creds.token );
             localStorage.setItem('user',  JSON.stringify(creds.user) );
             state.isLoggedIn = !!localStorage.getItem('token');
-            state.loading = false;
+            commit('loading_inativo');
             state.user = creds.user;
             state.token = creds.token ;
         },

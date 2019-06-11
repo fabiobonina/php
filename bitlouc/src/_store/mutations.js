@@ -91,6 +91,8 @@ const mutations = {
   increment: state => state.count++,
   decrement: state => state.count--,
   isLoading: state => state.loading = !state.loading,
+  loading_ativo:    state => state.loading = true,
+  loading_inativo:  state => state.loading = false,
   errorMessage(state, errorMessage) {
     state.errorMessage = errorMessage
   },

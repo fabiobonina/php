@@ -16,25 +16,26 @@ const cilindro = {
         fetchCilindros({ commit }) {
             return new Promise((resolve, reject) => {
                 Vue.http.get(CILINDROLIST).then((response) => {
-                    state.loading = true;
+                    commit('loading_ativo');
                     //console.log(response.data);
                     if(!response.data.error){
                         commit("SET_CILINDROS", response.data.cilindros);
                     } else{
                         console.log(response.data.message);
                     }
-                    state.loading = false;
+                    commit('loading_inativo');
                     resolve();
                 })
                 .catch((error => {
-                    state.loading = false;
+                    commit('loading_inativo');
                     console.log(error.statusText);
                 }));
             });
         },
         publishCilindro({ commit }, postData ) {
             return new Promise((resolve, reject) => {
-                state.loading = true;
+                //commit('loading_ativo');
+                commit('loading_ativo');
                 //console.log(postData);
                 Vue.http.post( CILINDROPUBLISH , postData).then((response) => {
                     //console.log(response);
@@ -45,11 +46,11 @@ const cilindro = {
                         console.log(response.data.message);
                     }                    
                     console.log(response.data.message);
-                    state.loading = false;
+                    commit('loading_inativo');
                     resolve();
                 })
                 .catch((error => {
-                    state.loading = false;
+                    commit('loading_inativo');
                     console.log(error.statusText);
                 }));
             });
@@ -59,7 +60,7 @@ const cilindro = {
     getters: {
         cilindros:    state => state.cilindros,
         cilindroCapacidade: (state) => (capacidade) => {
-            return state.cilindros.filter(todo => todo.capacidade == capacidade)
+            return state.cilindros.filter(todo => todo.capacidade_id == capacidade)
         },
     }
 }

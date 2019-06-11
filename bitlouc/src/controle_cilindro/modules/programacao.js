@@ -22,7 +22,7 @@ const programacao = {
         listProgramacao({ commit }) {
             return new Promise((resolve, reject) => {
                 Vue.http.get( CILPROGRAMACAOLIST ).then((response) => {
-                    state.loading = true;
+                    commit('loading_ativo');
                     if(!response.data.error){
                         //console.log(response.data);
                         commit("SET_PROGRAMACOES", response.data.programacoes);
@@ -30,18 +30,18 @@ const programacao = {
                     } else{
                         console.log(response.data.message);
                     }
-                    state.loading = false;
+                    commit('loading_inativo');
                     resolve();
                 })
                 .catch((error => {
-                    state.loading = false;
+                    commit('loading_inativo');
                     console.log(error.statusText);
                 }));
             });
         },
         showProgramacao({ commit }, programacao_id ) {
             return new Promise((resolve, reject) => {
-                state.loading = true;
+                commit('loading_ativo');
                 var postData = { programacao_id: programacao_id, }
                 Vue.http.post( CILPROGRAMACAOSHOW , postData).then((response) => {
                     //console.log(response.data);
@@ -51,18 +51,18 @@ const programacao = {
                     } else{
                         console.log(response.data.message);
                     }
-                    state.loading = false;
+                    commit('loading_inativo');
                     resolve();
                 })
                 .catch((error => {
-                    state.loading = false;
+                    commit('loading_inativo');
                     console.log(error.statusText);
                 }));
             });
         },
         cilindroItens({ commit }, data ) {
             return new Promise((resolve, reject) => {
-                state.loading = true;
+                commit('loading_ativo');
                 var postData = data
                 var retorno = [];
                 Vue.http.post( CILPROGRAMACAOITEM , postData).then((response) => {
@@ -73,11 +73,11 @@ const programacao = {
                         console.log(response.data.message);
                     }
                     localStorage.setItem("cilindroItem", retorno );
-                    state.loading = false;
+                    commit('loading_inativo');
                     resolve();
                 })
                 .catch((error => {
-                    state.loading = false;
+                    commit('loading_inativo');
                     console.log(error.statusText);
                 }));
             });

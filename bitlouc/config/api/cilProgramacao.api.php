@@ -104,23 +104,6 @@ if($action == 'prog-publish'):
 
 endif;
 
-#PUBLISH
-if($action == 'publish-itens'):
-  $programacao_id = $_POST['programacao_id'];
-  $demanda_id     = $_POST['demanda_id'];
-  $cilindro_id    = $_POST['cilindro_id'];
-  $id             = $_POST['id'];
-
-  $item = $cilindroProgControl->publishItem(
-    $programacao_id,
-    $demanda_id,
-    $cilindro_id,
-    $id
-  );
-  # Insert
-  $res = $item;
-
-endif;
 
 #ATUALIZAR
 if(isset($_POST['atualizar'])):

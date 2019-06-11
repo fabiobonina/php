@@ -39,7 +39,13 @@
 			return $item;
 
 		}
-
+		public function deleteItem( $item_id ){
+			$cilindroItems	= new CilindroItem();
+			$item	= $cilindroItems->delete( $item_id );
+			
+			$res	= $item;
+			return $res;
+		}
 		public function itemProg( $demanda_id ){
 			$cilindroItems 	= new CilindroItem();
 			
@@ -64,15 +70,15 @@
 			return $res;
 
 		}
-		public function deleteItem( $os_id ){
+		public function deleteItem( $item_id ){
 
 			$oss 			= new Os();
 			$osTecnicos		= new OsTecnicos();
-			//$item 	= $this->anexoLoja( $os_id );
+			//$item 	= $this->anexoLoja( $item_id );
 			//if( !$item['error'] ){
 				//echo 'delete';
-				$item	= $oss->delete( $os_id );
-				$item	= $osTecnicos->deleteOs( $os_id );
+				$item	= $oss->delete( $item_id );
+				$item	= $osTecnicos->deleteOs( $item_id );
 			//}
 			$res	= $item;
 			return $res;

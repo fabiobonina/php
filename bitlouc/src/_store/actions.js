@@ -105,12 +105,12 @@ const actions = {
   },
   findOsStatus({ commit }, status ) {
     return new Promise((resolve, reject) => {
-      state.loading = true;
+      commit('loading_ativo');
       var postData = {
         status: status,
       }
       Vue.http.post(OSSTATUSFIND, postData).then((response) => {
-        state.loading = false;
+        commit('loading_inativo');
         if(response.data.error){
           console.log(response.data.message);
         } else{          
@@ -119,33 +119,33 @@ const actions = {
         resolve();
       })
       .catch((error => {
-        state.loading = false;
+        commit('loading_inativo');
           console.log(error);
       }));
     });
   },
   findOsSemAmaracao({ commit } ) {
     return new Promise((resolve, reject) => {
-      state.loading = true;
+      commit('loading_ativo');
       Vue.http.get(OSAMARARFIND).then((response) => {
         //console.log(response.data);
         if(response.data.error){
           console.log(response.data.message);
         } else{          
           commit("SET_OSS", response.data.oss);
-          state.loading = false;
+          commit('loading_inativo');
           resolve();
         } 
       })
       .catch((error => {
-          state.loading = false;
+          commit('loading_inativo');
           console.log(error.statusText);
       }));
     });
   },
   findLocal({ commit }, local_id ) {
     return new Promise((resolve, reject) => {
-      state.loading = true
+      commit(loading_ativo)
       var postData = {
         local_id: local_id,
       }
@@ -156,11 +156,11 @@ const actions = {
           commit("SET_LOCAL", response.data.local);
           
         }
-        state.loading = false
+        commit(loading_inativo)
         resolve();
       })
       .catch((error => {
-          state.loading = false
+          commit(loading_inativo)
           console.log(error.statusText);
       }));
     });
@@ -168,7 +168,7 @@ const actions = {
   fetchLocal({ commit }) {
     return new Promise((resolve, reject) => {
       //console.log(postData);
-      state.loading = true
+      commit(loading_ativo)
       Vue.http.get(LOCAISLIST)
         .then((response) => {
           //console.log(response.data);
@@ -180,19 +180,19 @@ const actions = {
             //commit("SET_BENS", response.data.bens);
             
           }
-          state.loading = false
+          commit(loading_inativo)
           resolve();
         })
         .catch((error => {
             console.log(error);
-            state.loading = false
+            commit(loading_inativo)
         }));
     });
   },
   fetchLocalLoja({ commit }, loja_id) {
     return new Promise((resolve, reject) => {
       
-      state.loading = true
+      commit(loading_ativo)
       var postData = {
         loja: loja_id,
       }
@@ -209,11 +209,11 @@ const actions = {
           }
           
           resolve();
-          state.loading = false
+          commit(loading_inativo)
         })
         .catch((error => {
             console.log(error);
-          state.loading = false
+          commit(loading_inativo)
         }));
     });
   },

@@ -41,9 +41,9 @@
             </v-layout>
         </v-container>
         <v-container fluid>
-          <demanda-list :data="programacao.demanda" ></demanda-list>
+          <demanda-list :data="programacao.demanda" v-on:atualizar="update()"></demanda-list>
         </v-container>
-        <amarar-cilindro :data="item" :dialog="modAmaracao" v-on:close="close(); update()"></amarar-cilindro>
+        <amarar-cilindro v-if="modAmaracao" :data="item" v-on:close="close(); update()"></amarar-cilindro>
     <rodape></rodape>
   </v-content>
 </template>

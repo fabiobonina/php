@@ -124,8 +124,6 @@ class CilindroItem extends Crud{
 			return $res;
 		}
 	}
-
-
 	
 	public function findStatus($status){
 		try{

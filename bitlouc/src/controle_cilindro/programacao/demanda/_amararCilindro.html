@@ -1,5 +1,5 @@
 <template id="amarar-cilindro">
-  <div v-if="data">
+  <div>
     <v-layout row justify-center>
       <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
         <v-card>
@@ -7,10 +7,10 @@
             <v-btn icon dark @click="dialog = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>
-            <v-toolbar-title>Criar Programação</v-toolbar-title>
+            <v-toolbar-title>Amarar Cilindros</v-toolbar-title>
             <v-spacer></v-spacer>
           </v-toolbar>
-          <v-card-text>
+          <v-card-text v-if="data">
             <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
             <v-container grid-list-md>
               <v-list-tile @click="">
@@ -19,10 +19,10 @@
                   <v-list-tile-sub-title>Prog.: {{ data.qtd }}</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
-              <add-item :programacao_id="data.programacao_id" :demanda_id="data.id" :cilindro="item" :capacidade="data.capacidade.capacidade" v-on:atualizar="atualizar()"></add-item>
+              <add-item :value.sync="item" :programacao_id="data.programacao_id" :demanda_id="data.id" :capacidade="data.capacidade.capacidade" v-on:atualizar="atualizar()"></add-item>
               <v-layout row justify-center>  
-                <v-flex>
-                  <list-item :item="data"></list-item>
+                  <v-flex>
+                  <list-item :item="data" v-on:atualizar="atualizar()"></list-item>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -42,15 +42,13 @@ Vue.component('amarar-cilindro', {
   },
   props: {
     data: {},
-    dialog: Boolean,
   },
   data() {
     return {
       errorMessage: [],
       successMessage: [],
-      cilindros: [],
       cilindro: [],
-      isEditing: false,
+      dialog: true,
       item: {},
     };
   },
@@ -66,16 +64,20 @@ Vue.component('amarar-cilindro', {
       if(this.successMessage.length > 0) return true
       return false
     },
+    cilindros () {
+      return this.$store.getters.cilindros;
+    },
   },
   created: function() {
     this.dataT();
     this.updateCilindros();
   },
   methods: {
+    
     updateCilindros() {
       this.$store.dispatch("fetchCilindros").then(() => {
-        this.cilindros = this.$store.getters.cilindros;
-        //store.commit('isLoading');
+        //this.cilindros = this.$store.getters.cilindros;
+        console.log('Carregando cilindros');
       });
       this.atualizar();
     },

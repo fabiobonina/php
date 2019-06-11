@@ -1,39 +1,7 @@
 <template id="add-item">
   <v-layout row justify-center>
     <v-flex>
-      <v-autocomplete
-        v-model="cilindro"
-        :items="cilindros"
-        color="blue-grey lighten-2"
-        label="Cilindro"
-        item-text="name"
-        data-vv-name="cilindro"
-        :filter="filter"
-        return-object
-        v-validate="'required'"
-        required
-        >
-        <template slot="selection" slot-scope="data">
-          <v-chip :selected="data.selected"
-            close
-            class="chip--select-multi"
-            @input="remove(data.item)"
-          >
-            {{data.item.numero }} - {{ data.item.capacidade }}Kg | {{data.item.dt_validade }}
-          </v-chip>
-        </template>
-        <template slot="item" slot-scope="data" >
-          <template v-if="typeof data.item !== 'object'">
-            <v-list-tile-content v-text="data.item"></v-list-tile-content>
-          </template>
-          <template v-else>
-            <v-list-tile-content>
-              <v-list-tile-title>{{data.item.numero }} - {{ data.item.capacidade }}Kg | {{data.item.dt_validade }} </v-list-tile-title>
-              <v-list-tile-sub-title> {{ data.item.fabricante }} | {{ data.item.loja_nick }}</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </template>
-        </template>
-      </v-autocomplete>
+        <cilindro-selec v-model="cilindro" :capacidade="capacidade"></cilindro-selec>
     </v-flex>
     <v-flex>
       <v-btn @click="saveItem()" color="blue" fab small dark>
@@ -51,7 +19,7 @@ Vue.component('add-item', {
     validator: 'new'
   },
   props: {
-    item: {},
+    value: {},
     demanda_id:'',
     capacidade: '',
     programacao_id: '',
@@ -62,7 +30,7 @@ Vue.component('add-item', {
       errorMessage: [],
       successMessage: [],
       teste: "",
-      cilindro: this.item,
+      cilindro: this.value,
     };
   },
   mounted () {
@@ -76,10 +44,6 @@ Vue.component('add-item', {
       if(this.errorMessage.length > 0) return true
       if(this.successMessage.length > 0) return true
       return false
-    },
-    cilindros(){
-      //return this.$store.getters.cilindros;
-      return this.$store.getters.cilindroCapacidade(this.capacidade);
     },
     programacao(){
       return this.$store.getters.programacao;
@@ -114,7 +78,7 @@ Vue.component('add-item', {
           console.log(postData);
           this.$http.post('./config/api/cilProgDemanda.api.php?action=publish-itens', postData).then(function(response) {
             console.log(response);
-            this.$store.commit('isLoading');
+            this.$store.commit('loading_ativo');
             if(!response.data.error){
                 this.successMessage.push(response.data.message);
                 setTimeout(() => {
@@ -125,10 +89,10 @@ Vue.component('add-item', {
                 this.errorMessage.push(response.data.message);
               }
               this.cilindro = {};
-              this.$store.commit('isLoading');
+              this.$store.commit('loading_inativo');
           })
           .catch(function(error) {
-            this.$store.commit('isLoading');
+            this.$store.commit('loading_inativo');
             console.log(error);
           });
         }

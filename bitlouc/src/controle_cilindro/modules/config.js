@@ -21,18 +21,18 @@ const cilConfig = {
             return new Promise((resolve, reject) => {
                 Vue.http.get(CILCONFIG)
                 .then((response) => {
-                    state.loading = true;
+                    commit('loading_ativo');
                     //console.log(response.data);
                     if(response.data.error){
                         console.log(response.data.message);
                     } else{
                         commit("SET_CILTIPOS", response.data.cilTipos);
                     }
-                    state.loading = false;
+                    commit('loading_inativo');
                     resolve();
                 })
                 .catch((error => {
-                    state.loading = false;
+                    commit('loading_inativo');
                     console.log(error);
                 }));
             });

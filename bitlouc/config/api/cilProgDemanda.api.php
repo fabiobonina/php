@@ -133,6 +133,16 @@ if($action == 'publish-itens'):
 
 endif;
 
+#PUBLISH
+if($action == 'delete-itens'):
+  $id             = $_POST['id'];
+
+  $item = $cilindroProgControl->deleteItem( $id );
+  # Insert
+  $res = $item;
+
+endif;
+
 #ATUALIZAR
 if(isset($_POST['atualizar'])):
 

@@ -6,12 +6,12 @@
     <v-autocomplete
     :value="value"
     @input="$emit('input', $event)"
-    :items="cilindro"
+    :items="cilindros"
     color="blue-grey lighten-2"
     label="Cilindro"                              
     item-text="name"
-    data-vv-name="cilindro"
-    :filter="cilindroFilter"
+    data-vv-name="value"
+    :filter="filter"
     return-object
     v-validate="'required'"
     required
@@ -20,9 +20,9 @@
       <v-chip :selected="data.selected"
         close
         class="chip--select-multi"
-        @input="value = null"
+        @input="value = {}"
       >
-        {{ data.item.name }}
+        {{data.item.serie }} {{ data.item.fabricante }} - {{ data.item.capacidade_id }}Kg | {{data.item.dt_validade }}
       </v-chip>
     </template>
     <template slot="item" slot-scope="data" >
@@ -31,8 +31,8 @@
       </template>
       <template v-else>
         <v-list-tile-content>
-          <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
-          <v-list-tile-sub-title v-html=" `${data.item.municipio } ${data.item.uf}`"></v-list-tile-sub-title>
+          <v-list-tile-title>{{data.item.serie }} {{ data.item.fabricante }} - {{ data.item.capacidade_id }}Kg | {{data.item.dt_validade }} </v-list-tile-title>
+          <v-list-tile-sub-title> {{ data.item.dt_fabric }} | {{ data.item.loja_nick }}</v-list-tile-sub-title>
         </v-list-tile-content>
       </template>
     </template>
@@ -52,13 +52,12 @@ Vue.component('cilindro-selec', {
   },
   props: {
     value: {},
-    capacidade_id: "",
+    capacidade: "",
   },
   data() {
     return {
       errorMessage: [],
       successMessage: [],
-      locais: [],
     };
   },
   watch: {
@@ -77,8 +76,8 @@ Vue.component('cilindro-selec', {
       return false
     },
     cilindros(){
-      //return this.$store.getters.cilindros;
-      return this.$store.getters.cilindroCapacidade(this.capacidade_id);
+      if(!this.capacidade) return this.$store.getters.cilindros
+      if(this.capacidade) return this.$store.getters.cilindroCapacidade(this.capacidade)
     },
   },
   watch: {
@@ -98,24 +97,17 @@ Vue.component('cilindro-selec', {
         //if (index >= 0) this.loja.splice(index, 1)
         this.value = {}
     },
-    cilindroFilter (item, queryText, itemText) {
-      const textOne = item.numero.toLowerCase()
-      const textTwo = item.cod_barras.toLowerCase()
-      const textThree = item.loja_nick.toLowerCase()
-      const searchText = queryText.toLowerCase()
+    filter (item, queryText, itemText) {
+        const textOne = item.serie.toLowerCase()
+        const textTwo = item.cod_barras.toLowerCase()
+        const textThree = item.loja_nick.toLowerCase()
+        const searchText = queryText.toLowerCase()
 
-      return textOne.indexOf(searchText) > -1 ||
-        textTwo.indexOf(searchText) > -1 ||
-        textThree.indexOf(searchText) > -1
+        return textOne.indexOf(searchText) > -1 ||
+          textTwo.indexOf(searchText) > -1 ||
+          textThree.indexOf(searchText) > -1
     },
     
-    updateLocal() {
-      this.$store.dispatch('fetchLocalLoja', this.capacidade_id ).then(() => {
-        //console.log("Buscando dados do local!");
-        this.locais =this.$store.state.locais;
-        //store.commit('isLoading');
-      });
-    },
     checkForm:function() {
       this.errorMessage = [];
       if( !this.local ) this.errorMessage.push("Local necessário.");
