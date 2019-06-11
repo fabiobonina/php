@@ -4843,7 +4843,7 @@ CREATE TABLE `tb_cil_programacao` (
 CREATE TABLE `tb_cil_prog_demanda` (
   `id` int(11) NOT NULL,
   `programacao_id` int(11) NOT NULL,
-  `tipo_id` int(11) NOT NULL,
+  `capacidade_id` int(11) NOT NULL,
   `qtd` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

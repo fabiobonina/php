@@ -5,7 +5,7 @@
         <v-expansion-panel v-for="item in data" :key="item.id" :value="0" >
           <v-expansion-panel-content >
             <template v-slot:header>
-              <div>{{ item.cil_tipo.name }}</div>
+              <div>{{ item.capacidade.name }}</div>
             </template>
             <v-card>
               <list-item :item="item"></list-item>

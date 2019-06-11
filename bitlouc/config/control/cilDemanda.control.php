@@ -6,7 +6,7 @@
 		public function matrixDemanda( $item ){
 			$cilTipos			= new CilTipo();
 
-			$item->cil_tipo 	= $cilTipos->find( $item->capacidade_id );
+			$item->capacidade 	= $cilTipos->find( $item->capacidade_id );
 			$item->active	= true;
 
 			return $item;
@@ -60,11 +60,11 @@
 			$res	= $item;
 			return $res;
 		}
-		public function demandaProg( $progracao_id ){
+		public function demandaProg( $programacao_id ){
 			$cilindroDemandas 	= new CilindroDemanda();
 			
 			$arItem = array();
-			foreach($cilindroDemandas->findProg( $progracao_id ) as $key => $value): {
+			foreach($cilindroDemandas->findProg( $programacao_id ) as $key => $value): {
 				$value = $this->matrixDemanda( $value );
 				array_push( $arItem, $value );
 			}endforeach;

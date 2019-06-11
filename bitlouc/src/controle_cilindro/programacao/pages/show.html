@@ -17,15 +17,15 @@
         <v-container fluid class="grid-list-xl pa-0">
             <v-layout wrap>
                 <template>
-                    <v-flex v-for="(item, index) in programacao.demandas" :key="item.id">
+                    <v-flex v-for="(item, index) in programacao.demanda" :key="item.id">
                         <v-list class="v-list grey lighten-3 pa-0" two-line theme-light>
                             <v-list-tile   avatar  @click="selecItem(item); modAmaracao = !modAmaracao">
                                 <v-list-tile-avatar>
-                                <v-icon :class="[item.iconClass]">{{ item.cil_tipo.tag }}</v-icon>
+                                <v-icon :class="[item.iconClass]">{{ item.capacidade.tag }}</v-icon>
                                 </v-list-tile-avatar>
 
                                 <v-list-tile-content>
-                                  <v-list-tile-title>Tipo: {{ item.cil_tipo.name }}</v-list-tile-title>
+                                  <v-list-tile-title>Tipo: {{ item.capacidade.name }}</v-list-tile-title>
                                   <v-list-tile-sub-title>Prog.: {{ item.qtd }}</v-list-tile-sub-title>
                                 </v-list-tile-content>
 
@@ -41,7 +41,7 @@
             </v-layout>
         </v-container>
         <v-container fluid>
-          <demanda-list :data="programacao.demandas" ></demanda-list>
+          <demanda-list :data="programacao.demanda" ></demanda-list>
         </v-container>
         <amarar-cilindro :data="item" :dialog="modAmaracao" v-on:close="close(); update()"></amarar-cilindro>
     <rodape></rodape>

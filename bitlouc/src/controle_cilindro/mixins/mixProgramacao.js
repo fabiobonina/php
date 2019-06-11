@@ -24,6 +24,7 @@ var mixProgramacao = {
   methods: {
     saveItem: function(){
       this.errorMessage = []
+      this.$store.commit('isLoading');
       this.$validator.validateAll().then((result) => {
         if (result && this.checkForm()) {
           this.errorMessage = [];

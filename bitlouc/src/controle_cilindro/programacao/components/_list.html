@@ -34,8 +34,8 @@
           </v-list-tile>
           </td>
           <td>
-          <v-chip v-for="categoria in props.item.demandas" :key="categoria.id" small  color="green" text-color="white">
-            {{ categoria.cil_tipo.name }}: {{ categoria.qtd }}
+          <v-chip v-for="categoria in props.item.demanda" :key="categoria.id" small  color="green" text-color="white">
+            {{ categoria.capacidade.name }}: {{ categoria.qtd }}
           </v-chip>
         </td>
         <td class="justify-center layout px-0">

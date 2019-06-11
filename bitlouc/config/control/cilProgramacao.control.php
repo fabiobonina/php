@@ -17,7 +17,7 @@
 			$item->local_name		= $item->local->name;
 			$item->local_municipio	= $item->local->municipio;
 			$item->local_uf			= $item->local->uf;
-			$item->demanda			= $this->demandaProg( $item->id, $modelo );
+			$item->demanda			= $this->demandaProg( $item->id);
 			if($modelo > 1){
 				
 			}
@@ -87,11 +87,11 @@
 
 		}
 
-		public function show( $cilProgramacao_id ){
+		public function show( $programacao_id ){
 			$cilindroProg	= new CilindroProg();
 			
 			$modelo = '1';
-			$item = $cilindroProg->find( $cilProgramacao_id );
+			$item = $cilindroProg->find( $programacao_id );
 			//var_dump($item);
 			if( !$item ){
 				$res['error'] = true;
