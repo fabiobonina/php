@@ -9,11 +9,6 @@ const INDEXLIST     ='./config/api/organizacao.api.php?action=read';
 const CONFIG        ='./config/api/config.api.php?action=config';
 const CONFIGPROD    ='./config/api/config.api.php?action=prod';
 
-const OSLIST        ='./config/api/os.api.php?action=read';
-const OSFIND        ='./config/api/os.api.php?action=os';
-const OSSTATUSFIND  ='./config/api/os.api.php?action=status';
-const OSAMARARFIND  ='./config/api/os.api.php?action=semAmaracao';
-
 const LOCAISLIST          ='./config/api/local.api.php?action=read';
 const LOCAISPROPRIETARIO  ='./config/api/local.api.php?action=proprietario';
 const LOCAISLOJA          ='./config/api/local.api.php?action=loja';
@@ -85,64 +80,7 @@ const actions = {
       }));
     });
   },
-  findOs({ commit }, os_id ) {
-    return new Promise((resolve, reject) => {
-      var postData = {
-        os_id: os_id,
-      }
-      Vue.http.post(OSFIND, postData).then((response) => {
-        if(response.data.error){
-          console.log(response.data.message);
-        } else{
-          commit("SET_OS", response.data.os);
-          resolve();
-        }
-      })
-      .catch((error => {
-          console.log(error.statusText);
-      }));
-    });
-  },
-  findOsStatus({ commit }, status ) {
-    return new Promise((resolve, reject) => {
-      commit('loading_ativo');
-      var postData = {
-        status: status,
-      }
-      Vue.http.post(OSSTATUSFIND, postData).then((response) => {
-        commit('loading_inativo');
-        if(response.data.error){
-          console.log(response.data.message);
-        } else{          
-          commit("SET_OSS", response.data.oss);
-        }
-        resolve();
-      })
-      .catch((error => {
-        commit('loading_inativo');
-          console.log(error);
-      }));
-    });
-  },
-  findOsSemAmaracao({ commit } ) {
-    return new Promise((resolve, reject) => {
-      commit('loading_ativo');
-      Vue.http.get(OSAMARARFIND).then((response) => {
-        //console.log(response.data);
-        if(response.data.error){
-          console.log(response.data.message);
-        } else{          
-          commit("SET_OSS", response.data.oss);
-          commit('loading_inativo');
-          resolve();
-        } 
-      })
-      .catch((error => {
-          commit('loading_inativo');
-          console.log(error.statusText);
-      }));
-    });
-  },
+  
   findLocal({ commit }, local_id ) {
     return new Promise((resolve, reject) => {
       commit(loading_ativo)
@@ -270,81 +208,6 @@ const actions = {
         }));
     });
   },
-  /*/CILINCROS
-  fetchCilindros({ commit }) {
-    return new Promise((resolve, reject) => {
-      Vue.http.get(CILINDROLIST).then((response) => {
-        if(!response.data.error){
-          //console.log(response.data);
-          commit("SET_CILINDROS", response.data.cilindros);
-          resolve();
-        } else{
-          console.log(response.data.message);
-        }
-      })
-      .catch((error => {
-          console.log(error.statusText);
-      }));
-    });
-  },
-  fetchCilProgramacao({ commit }) {
-    return new Promise((resolve, reject) => {
-      Vue.http.get(CILPROGRAMACAOLIST).then((response) => {
-        if(!response.data.error){
-          //console.log(response.data);
-          commit("SET_CILPROGRAMACOES", response.data.cilProgramacoes);
-          resolve();
-        } else{
-          console.log(response.data.message);
-        }
-      })
-      .catch((error => {
-          console.log(error.statusText);
-      }));
-    });
-  },
-  showCilProgramacao({ commit }, programacao_id ) {
-    return new Promise((resolve, reject) => {
-      var postData = {
-        programacao_id: programacao_id,
-      }
-      Vue.http.post(CILPROGRAMACAOSHOW, postData).then((response) => {
-        //console.log(response.data);
-        if(!response.data.error){
-          commit("SET_CILPROGRAMACAO", response.data.programacao);
-          commit("SET_CILITEMS", response.data.items);
-          resolve();
-        } else{
-          console.log(response.data.message);
-        }
-      })
-      .catch((error => {
-          console.log(error.statusText);
-      }));
-    });
-  },
-  setCilindro({ commit }, cilindro) {
-    commit("SET_CILINDRO", cilindro)
-  },
-  cilindroItens({ commit }, data ) {
-    return new Promise((resolve, reject) => {
-      var postData = data
-      var retorno = [];
-      Vue.http.post(CILPROGRAMACAOITEM, postData).then((response) => {
-        //console.log(response.data);
-        if(!response.data.error){
-          retorno = data.cilindroItem;
-        } else{
-          console.log(response.data.message);
-        }
-        localStorage.setItem("cilindroItem", retorno );
-        resolve();
-      })
-      .catch((error => {
-          console.log(error.statusText);
-      }));
-    });
-  },*/
 }
 
 

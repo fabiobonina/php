@@ -19,13 +19,12 @@ const user = {
 
     mutations: {
         [LOGIN](state) {
-            commit('loading_ativo');
+            
         },
         [LOGIN_SUCCESS](state, creds) {
             localStorage.setItem('token', creds.token );
             localStorage.setItem('user',  JSON.stringify(creds.user) );
             state.isLoggedIn = !!localStorage.getItem('token');
-            commit('loading_inativo');
             state.user = creds.user;
             state.token = creds.token ;
         },
@@ -37,7 +36,7 @@ const user = {
             state.user = {};
         },
         SET_USER(state, user) {
-            state.user = user
+            state.user = user;
         },
     },
 
@@ -68,6 +67,7 @@ const user = {
                 var postData = { token: localStorage.getItem('token') };
                 Vue.http.post(USERVALIDAR, postData)
                 .then(function(response) {
+                    //console.log(response.data);
                     if(response.data.error){
                         if(!response.data.user.isLoggedIn){
                             localStorage.removeItem("token");
@@ -79,15 +79,16 @@ const user = {
                     }
                     resolve();
                 })
-                .catch((error => {
+                .catch( function(error) {
                     console.log(error.statusText);
-                }));
+                });
             });
         },
         login({ state, commit, rootState }, creds) {
             return new Promise(resolve => {
-                commit(LOGIN);
+                commit('loading_ativo');
                 commit(LOGIN_SUCCESS, creds);
+                commit('loading_inativo');
                 router.push('/');
                 resolve();
             });
@@ -96,7 +97,7 @@ const user = {
             return new Promise((resolve, reject) => {
                 Vue.http.post('./config/api/user.api.php?action=logout')
                 .then(function(response) {
-                    console.log( response); 
+                    //console.log( response); 
                     commit(LOGOUT); 
                     commit("SET_USER", {} );
                     commit("SET_PROPRIETARIO", {});
@@ -105,9 +106,9 @@ const user = {
                     commit("SET_OSUF", []);
                     router.push('/login');
                 })
-                .catch((error => {
+                .catch( function(error) {
                     console.log(error.statusText);
-                }));
+                });
             });
         },
     },

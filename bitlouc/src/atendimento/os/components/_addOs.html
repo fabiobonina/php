@@ -141,7 +141,7 @@ Vue.component('os-add', {
     this.addCategoria();
   },
   methods: {
-    saveItem: function(){
+    saveItem: function() {
       this.errorMessage = []
       this.$validator.validateAll().then((result) => {
         if (result) {

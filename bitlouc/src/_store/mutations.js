@@ -58,21 +58,6 @@ const mutations = {
   SET_NIVEL(state, nivel){
     state.nivel = nivel
   },
-  SET_OS(state, os) {
-    state.os = os
-  },
-  SET_OSS(state, oss) {
-    state.oss = oss
-  },
-  SET_OSLOJAS(state, osLojas) {
-    state.osLojas = osLojas
-  },
-  SET_OCORRENCIAS(state, ocorrencias) {
-    state.ocorrencias = ocorrencias
-  },
-  SET_OSUF(state, osUf) {
-    state.osUf = osUf
-  },
   SET_MODS(state, mods) {
     state.mods = mods
   },
