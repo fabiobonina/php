@@ -34,6 +34,9 @@
 <script src="src/_store/state.js"></script>
 
 <script src="src/system/modules/user.js"></script>
+
+<script src="src/atendimento/modules/os.js"></script>
+
 <script src="src/controle_cilindro/modules/cilindro.js"></script>
 <script src="src/controle_cilindro/modules/config.js"></script>
 <script src="src/controle_cilindro/modules/programacao.js"></script>

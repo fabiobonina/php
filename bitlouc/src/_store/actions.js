@@ -83,7 +83,7 @@ const actions = {
   
   findLocal({ commit }, local_id ) {
     return new Promise((resolve, reject) => {
-      commit(loading_ativo)
+      commit('loading_ativo');
       var postData = {
         local_id: local_id,
       }
@@ -94,11 +94,11 @@ const actions = {
           commit("SET_LOCAL", response.data.local);
           
         }
-        commit(loading_inativo)
+        commit('loading_inativo');
         resolve();
       })
       .catch((error => {
-          commit(loading_inativo)
+          commit('loading_inativo');
           console.log(error.statusText);
       }));
     });
@@ -106,7 +106,7 @@ const actions = {
   fetchLocal({ commit }) {
     return new Promise((resolve, reject) => {
       //console.log(postData);
-      commit(loading_ativo)
+      commit('loading_ativo');
       Vue.http.get(LOCAISLIST)
         .then((response) => {
           //console.log(response.data);
@@ -118,19 +118,19 @@ const actions = {
             //commit("SET_BENS", response.data.bens);
             
           }
-          commit(loading_inativo)
+          commit('loading_inativo');
           resolve();
         })
         .catch((error => {
             console.log(error);
-            commit(loading_inativo)
+            commit('loading_inativo');
         }));
     });
   },
   fetchLocalLoja({ commit }, loja_id) {
     return new Promise((resolve, reject) => {
       
-      commit(loading_ativo)
+      commit('loading_ativo');
       var postData = {
         loja: loja_id,
       }
@@ -147,16 +147,17 @@ const actions = {
           }
           
           resolve();
-          commit(loading_inativo)
+          commit('loading_inativo');
         })
         .catch((error => {
             console.log(error);
-          commit(loading_inativo)
+          commit('loading_inativo');
         }));
     });
   },
   fetchEquipamentoLocal({ commit }, local) {
     return new Promise((resolve, reject) => {
+      commit('loading_ativo');
       var postData = { local: local }
       //console.log(postData);
       Vue.http.post(EQUIPAMENTOSLOCAL,postData).then((response) => {
@@ -164,12 +165,13 @@ const actions = {
         if(response.data.error){
           console.log(response.data.message);
         } else{
-          commit("SET_EQUIPAMENTOS", response.data.equipamentos);
-          resolve();
+          commit("SET_EQUIPAMENTOS", response.data.equipamentos); 
         }
+        resolve();
       }).catch((error => {
           console.log(error);
       }));
+      commit('loading_inativo');
     });
   },
   fetchLojaUnder({ commit }, loja) {

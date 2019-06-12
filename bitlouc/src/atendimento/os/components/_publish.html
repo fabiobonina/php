@@ -1,4 +1,4 @@
-<template id="cilindro-publish">
+<template id="os-publish">
   <div>
     <v-stepper v-model="progresso" vertical light>
       <v-stepper-step editable :complete="Number(progresso) > 1" step="1">
@@ -20,109 +20,25 @@
         </v-flex>
       </v-stepper-content>
       <v-stepper-step editable :complete="Number(progresso) > 3" step="3">
-        <small>Dados do Cilindro</small>
+        <small>Dados do Serviço</small>
       </v-stepper-step>
       <v-stepper-content step="3">
         <v-container grid-list-md>
+          <v-flex>
+            <equipamento-selec v-model="value.equipamento" :local_id="value.local.id"></equipamento-selec>
+          </v-flex>
+          <v-flex>
+            <categoria-selec v-if="!value.equipamento" v-model="value.categoria"></categoria-selec>
+          </v-flex>
           <v-layout row wrap>
             <v-flex>
-              <cil-fabric-selec v-model="value.fabricante" ></cil-fabric-selec>
+              <servico-selec v-model="value.servico"></servico-selec>
             </v-flex>
             <v-flex>
-              <v-text-field
-                type="text"
-                v-model="value.serie"
-                label="N.Serie"
-                :error-messages="errors.collect('value.serie')"
-                v-validate="'required'"
-                data-vv-name="value.serie"
-                item-text="name"
-                required
-              ></v-text-field>
-            </v-flex>
-            <v-flex>
-              <cil-capac-selec v-model="value.capacidade" ></cil-capac-selec>
+              <date-normal :value.sync="value.dataOs" label="DtOs"></date-normal>
             </v-flex>
           </v-layout>
-        
-          <v-layout row wrap>
-            <v-flex  xs11 sm5>
-              <date-curta :value.sync="value.dt_fabric" label="Data Fabricação" ></date-curta>
-            </v-flex>
-            <v-flex>
-              <v-text-field
-                type="number"
-                v-model="value.tara_inicial"
-                label="Tara Inicial"
-                :error-messages="errors.collect('value.tara_inicial')"
-                v-validate="'required'"
-                data-vv-name="value.tara_inicial"
-                item-text="name"
-                required
-              ></v-text-field>
-            </v-flex>
-          </v-layout>
-          
-          <v-layout row wrap>
-            <v-flex  xs11 sm5>
-                <date-curta :value.sync="value.dt_validade" label="Data Validade" ></date-curta>
-              </v-flex>
-            <v-flex>
-              <v-text-field
-                type="text"
-                v-model="value.tara_atual"
-                label="Tara Atual"
-                :error-messages="errors.collect('value.tara_atual')"
-                v-validate="'required'"
-                data-vv-name="value.tara_atual"
-                item-text="name"
-                required
-              ></v-text-field>
-            </v-flex>
-            <div v-if="data">
-              <p>{{ data.name }} - {{ data.modelo }}, Code: {{ data.numeracao }}, Ativo: {{ data.plaqueta }}</p>
-            </div>
-            <div v-else>
-              <v-autocomplete
-                :items="categorias"
-                v-model="categoria_id"
-                item-text="name"
-                label="Cagetoria"
-                :error-messages="errors.collect('categoria_id')"
-                v-validate="'required'"
-                data-vv-name="categoria_id"
-                item-value="id"
-                required
-              ></v-autocomplete>
-            </div>
-          </v-flex>
-          <v-flex xs12 sm6 md5>
-            <v-text-field
-              type="date"
-              v-model="dataOs"
-              label="Data"
-              :error-messages="errors.collect('dataOs')"
-              v-validate="'required'"
-              data-vv-name="dataOs"
-              item-text="name"
-              required
-            ></v-text-field>
-          </v-flex>
-          <v-flex xs12 sm6 md7>
-            <v-autocomplete
-              :items="servicos"
-              v-model="servico_id"
-              item-text="name"
-              label="Serviços"
-              :error-messages="errors.collect('servico_id')"
-              v-validate="'required'"
-              data-vv-name="servico_id"
-              item-value="id"
-              required
-            ></v-autocomplete>
-          </v-flex>
-          </v-layout>
-          
+          <tecnicos-selec v-model="value.tecnicos"></tecnicos-selec>
         </v-container>
       </v-stepper-content>
     </v-stepper>
@@ -131,9 +47,9 @@
 
 
 <script>
-Vue.component('cilindro-publish', {
-  name: 'cilindro-publish',
-  template: '#cilindro-publish',
+Vue.component('os-publish', {
+  name: 'os-publish',
+  template: '#os-publish',
   $_veeValidate: {
     validator: 'new'
   },

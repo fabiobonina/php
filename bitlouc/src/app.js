@@ -10,9 +10,10 @@ const store = new Vuex.Store({
   mutations: mutations,
   modules: {
     a: user,
-    b: cilindro,
-    c: programacao,
-    d: cilConfig,
+    b: os,
+    c: cilindro,
+    d: programacao,
+    e: cilConfig,
   }
 })
 
@@ -20,6 +21,7 @@ store.state.a
 store.state.b
 store.state.c
 store.state.d
+store.state.e
 
 Vue.use(VeeValidate)
 

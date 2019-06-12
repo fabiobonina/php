@@ -1,4 +1,4 @@
-<template id="atend-grid">
+<template id="os-list">
   <div>
     <v-card>
       <v-card-title>
@@ -6,9 +6,7 @@
         <v-divider class="mx-2" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <v-text-field  v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
-        <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="modalAdd=true" color="pink" fab small dark>
-          <v-icon>add</v-icon>
-        </v-btn>
+        <os-add v-if="user.nivel > 2 && user.grupo == 'P'" v-on:close="close()"></os-add>
       </v-card-title>
       <v-data-table :headers="headers" :items="filteredData" :pagination.sync="pagination">
         <template slot="items" slot-scope="props">
@@ -82,8 +80,8 @@
 </template>
 
 <script>
-  Vue.component('atend-grid', {
-    template: '#atend-grid',
+  Vue.component('os-list', {
+    template: '#os-list',
     props: {
       data: Array,
       status: String,

@@ -1,4 +1,4 @@
-<template id="local-selec">
+<template id="equipamento-selec">
   <div>
       
     <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
@@ -6,11 +6,11 @@
     <v-autocomplete
     :value="value"
     @input="$emit('input', $event)"
-    :items="locais"
+    :items="equipamentos"
     color="blue-grey lighten-2"
-    label="Local"                              
+    label="Equipamento"                              
     item-text="name"
-    data-vv-name="local"
+    data-vv-name="equipamento"
     :filter="filter"
     return-object
     v-validate="'required'"
@@ -20,7 +20,7 @@
       <v-chip :selected="data.selected"
         close
         class="chip--select-multi"
-        @input="value = null"
+        @input="remove()"
       >
         {{ data.item.name }}
       </v-chip>
@@ -32,7 +32,8 @@
       <template v-else>
         <v-list-tile-content>
           <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
-          <v-list-tile-sub-title v-html=" `${data.item.municipio } ${data.item.uf}`"></v-list-tile-sub-title>
+          <v-list-tile-sub-title v-html=" `${ data.item.tag } - ${ data.item.modelo }`"></v-list-tile-sub-title>
+          <v-list-tile-sub-title v-html=" `${ data.item.numeracao } - ${ data.item.plaqueta }`"></v-list-tile-sub-title>
         </v-list-tile-content>
       </template>
     </template>
@@ -44,21 +45,21 @@
 
 
 <script>
-Vue.component('local-selec', {
-  name: 'local-selec',
-  template: '#local-selec',
+Vue.component('equipamento-selec', {
+  name: 'equipamento-selec',
+  template: '#equipamento-selec',
   $_veeValidate: {
     validator: 'new'
   },
   props: {
-    value: {},
-    loja_id: "",
+    value: null,
+    local_id: "",
   },
   data() {
     return {
       errorMessage: [],
       successMessage: [],
-      locais: [],
+      equipamentos: [],
     };
   },
   watch: {
@@ -78,7 +79,7 @@ Vue.component('local-selec', {
     },
   },
   watch: {
-    'loja_id': function (newQuestion, oldQuestion) {
+    'local_id': function (newQuestion, oldQuestion) {
       this.updateLocal()
     },
   },
@@ -89,23 +90,32 @@ Vue.component('local-selec', {
     atualizar: function(){
       this.$emit('atualizar');
     },
-    remove (item) {
+    remove () {
         //const index = this.loja.indexOf(item)
         //if (index >= 0) this.loja.splice(index, 1)
-        this.value = {}
+        this.value = null
+        
+        //event.target.value = null;
+        //this.$emit('value', null)
     },
     filter (item, queryText, itemText) {
-        const textOne = item.municipio.toLowerCase()
-        const textTwo = item.name.toLowerCase()
+        const textOne   = item.name.toLowerCase()
+        const textTwo   = item.modelo.toLowerCase()
+        const textThree = item.numeracao.toLowerCase()
+        const textFour  = item.plaqueta.toLowerCase()
+        const textFive  = item.tag.toLowerCase()
         const searchText = queryText.toLowerCase()
 
         return textOne.indexOf(searchText) > -1 ||
-          textTwo.indexOf(searchText) > -1
+          textTwo.indexOf(searchText)   > -1 ||
+          textThree.indexOf(searchText) > -1 ||
+          textFour.indexOf(searchText)  > -1 ||
+          textFive.indexOf(searchText)  > -1
     },
     updateLocal() {
-      this.$store.dispatch('fetchLocalLoja', this.loja_id ).then(() => {
-        //console.log("Buscando dados do local!");
-        this.locais =this.$store.getters.locais;
+      this.$store.dispatch('fetchEquipamentoLocal', this.local_id ).then(() => {
+        //console.log("Buscando dados do equipamento!");
+        this.equipamentos =this.$store.getters.equipamentos;
         //store.commit('isLoading');
       });
     },

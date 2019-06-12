@@ -7,18 +7,18 @@ const OSAMARARFIND  ='./config/api/os.api.php?action=semAmaracao';
 const os = {
     
     state: {
-        cilindros: [],
-        cilindro: {},
+      os:{},
+      oss:[],
+      osLojas:[],
+      ocorrencias:[],
+      osUf:[],
     },
-    mutations: {
-        
-  SET_OS:   (state, os)     => state.os     = os,
-  SET_OSS:  (state, oss)    => state.oss    = oss,
-  SET_OSLOJAS: (state, osLojas) => state.osLojas = osLojas,
-  SET_OCORRENCIAS: (state, ocorrencias) => state.ocorrencias = ocorrencias,
-  SET_OSUF: (state, osUf) => state.osUf = osUf,
-        SET_CILINDROS:  (state, cilindros)  => state.cilindros  = cilindros,
-        SET_CILINDRO:   (state, cilindro)   => state.cilindro   = cilindro,
+    mutations: {        
+      SET_OS:   (state, os)     => state.os     = os,
+      SET_OSS:  (state, oss)    => state.oss    = oss,
+      SET_OSLOJAS: (state, osLojas) => state.osLojas = osLojas,
+      SET_OCORRENCIAS: (state, ocorrencias) => state.ocorrencias = ocorrencias,
+      SET_OSUF: (state, osUf) => state.osUf = osUf,
     },
     actions: {
         findOs({ commit }, os_id ) {
@@ -124,9 +124,29 @@ const os = {
         
     },
     getters: {
-        cilindros:    state => state.cilindros,
-        cilindroCapacidade: (state) => (capacidade) => {
-            return state.cilindros.filter(todo => todo.capacidade_id == capacidade)
-        },
+      oss: state => state.oss,
+      os: state => state.os,
+      ocorrencias: state => state.ocorrencias,
+      getOssLoja: (state) => (loja) => {
+        return state.oss.filter(todo => todo.loja_id === loja)
+      },
+      getOssLocal: (state) => (local) => {
+        return state.oss.filter(todo => todo.local.id === local)
+      },
+      getOssUF: (state) => (uf) => {
+        return state.oss.filter(todo => todo.uf == uf)
+      },
+      getUF: (state) => (id) => {
+        return state.osUf.find(todo => todo.id == id)
+      },
+      getOssStatus: (state) => (status) => {
+        return state.oss.filter(todo => todo.status === status)
+      },
+      getOsId: (state) => (id) => {
+        return state.oss.find(todo => todo.id === id)
+      },
+      getModOsTec: (state) => (os, tecnico) => {
+        return state.oss.filter(todo => todo.os === os && todo.tecnico === tecnico)
+      },
     }
 }

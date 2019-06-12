@@ -1,6 +1,6 @@
 
-<template id="os">
-  <div v-if="_os">
+<template id="os-show">
+  <div>
   <top></top>
   <v-content v-if="_os">
     <template>
@@ -191,8 +191,8 @@
 </template>
 <script>
 Vue.http.options.emulateJSON = true;
-var Os = Vue.extend({
-  template: '#os',
+var OsShow = Vue.extend({
+  template: '#os-show',
   data: function () {
     return {
       errorMessage: [],
@@ -233,7 +233,7 @@ var Os = Vue.extend({
   },
   computed: {
     _os()  {
-      return this.$store.state.os;
+      return this.$store.getters.os;
     },
     ...Vuex.mapGetters(["user"] ),
   }, // computed

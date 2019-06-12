@@ -10,7 +10,7 @@
             <v-btn icon dark @click="dialog = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>
-            <v-toolbar-title>Novo Cilindro</v-toolbar-title>
+            <v-toolbar-title> {{ title }} </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items>
               <v-btn dark flat @click.native="saveItem()">Salvar</v-btn>
@@ -38,13 +38,13 @@ Vue.component('os-add', {
   props: {
     data: {},
     filterKey: String,
-    dialogAdd: Boolean,
   },
   data() {
     return {
       errorMessage: [],
       successMessage: [], 
       dialog: false,
+      title: 'Nova Ordem de Serviço',
     };
   },
   watch: {
@@ -75,11 +75,6 @@ Vue.component('os-add', {
         this.dialog = false;
         this.$emit('atualizar');
       }, 2000);
-    },
-    remove (item) {
-        //const index = this.loja.indexOf(item)
-        //if (index >= 0) this.loja.splice(index, 1)
-        this.loja = null
     },
   },
 });

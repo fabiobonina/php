@@ -71,7 +71,7 @@ var router = new VueRouter({
         //{ path: 'show/:_os', component: Os, name: 'os'},
       ]  
     },
-    { path: '/atendimento/show/:_os', component: Os, name: 'os'},
+    { path: '/atendimento/show/:_os', component: OsShow, name: 'os'},
     { path: '/atendimento/os-gerencial', component: OsGerencial,
       children: [
         { path: '', component: OsAmarar },

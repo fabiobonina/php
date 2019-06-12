@@ -13,7 +13,7 @@
     </v-container>
     <section>
       <div>
-        <atend-grid :data="oss" :status="status"></atend-grid>
+        <os-list :data="oss" :status="status"></os-list>
       </div>
     </section>
   </div>
@@ -43,12 +43,12 @@ var OsStus = Vue.extend({
   computed: {
     ...Vuex.mapGetters(["user"] ),
     oss()  {
-      return this.$store.state.oss;
+      return this.$store.getters.oss;
     },
     status: {
       // getter
       get: function () {
-        return this.$store.state.status;
+        return this.$store.getters.status;
       },
       // setter
       set: function (newValue) {

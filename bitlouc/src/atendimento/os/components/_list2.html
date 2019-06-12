@@ -1,4 +1,4 @@
-<template id="os-grid">
+<template id="os-list">
   <div>
     <v-card>
       <v-card-title>
@@ -9,6 +9,7 @@
         <v-btn v-if="user.nivel > 2 && user.grupo == 'P'"  @click="modalAdd=true" color="pink" fab small dark>
           <v-icon>add</v-icon>
         </v-btn>
+        <os-add v-on:close="close()"></os-add>
       </v-card-title>
       <v-data-table :headers="headers" :items="filteredData" :pagination.sync="pagination">
         <template slot="items" slot-scope="props">
@@ -77,8 +78,8 @@
 
 
 <script>
-  Vue.component('os-grid', {
-    template: '#os-grid',
+  Vue.component('os-list', {
+    template: '#os-list',
     props: {
       data: Array,
       status: String,
