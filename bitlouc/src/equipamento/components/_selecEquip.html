@@ -96,7 +96,7 @@ Vue.component('equipamento-selec', {
         this.value = null
         
         //event.target.value = null;
-        //this.$emit('value', null)
+        this.$emit('remove')
     },
     filter (item, queryText, itemText) {
         const textOne   = item.name.toLowerCase()

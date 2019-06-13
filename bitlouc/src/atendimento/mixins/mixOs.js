@@ -9,10 +9,8 @@ var mixOs = {
             equipamento:  null,
             categoria:    {},
             servico:      {},
-            tecnicos:      [],
-            local_id:     '',
-            data:         '',
-            dt_cadastro:  '',
+            tecnicos:     [],
+            dataOs:       '',
             status:       '0',
             ativo:        '0',
             id:           '',
@@ -112,11 +110,11 @@ var mixOs = {
     checkForm:function() {
       this.errorMessage = [];
       if( !this.defaultItem.loja )          this.errorMessage.push("Loja é necessário.");
-      if( !this.defaultItem.local )    this.errorMessage.push("Fabricante é necessário.");
+      if( !this.defaultItem.local )         this.errorMessage.push("Fabricante é necessário.");
       if( !this.defaultItem.equipamento && !this.defaultItem.capacidade )    this.errorMessage.push("Equip. ou Capacidade é necessário.");
-      if( !this.defaultItem.servico )         this.errorMessage.push("Serviço é necessário.");
-      if( !this.defaultItem.dt_fabric )     this.errorMessage.push("Dt.Fabricação é necessário.");
-      if( !this.defaultItem.tara_inicial )  this.errorMessage.push("Tara Inicial é necessário.");
+      if( !this.defaultItem.servico )       this.errorMessage.push("Serviço é necessário.");
+      if( !this.defaultItem.tecnicos )      this.errorMessage.push("Tecnico(s) é necessário.");
+      if( !this.defaultItem.dataOs )        this.errorMessage.push("DataOS é necessário.");
       if(!this.errorMessage.length)   return true;
       //e.preventDefault();
     },

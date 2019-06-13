@@ -90,6 +90,9 @@ Vue.component('os-publish', {
         this.$emit('atualizar');
       }, 2000);
     },
+    remove: function(){
+        this.value.equipamento = null;
+    },
   },
 });
 </script>
