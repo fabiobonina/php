@@ -71,7 +71,7 @@ Vue.component('loja-selec', {
       return false
     },
     lojas() {
-      return this.$store.state.lojas;
+      return this.$store.getters.lojas;
     },
   },
   created: function() {

@@ -95,7 +95,7 @@ Vue.component('list-item', {
       return this.$store.getters.itemsDemanda(this.item.id);
     },
     cilTipos() {
-      return this.$store.state.cil_tipos;
+      return this.$store.getters.cil_tipos;
     },
   },
   created: function() {

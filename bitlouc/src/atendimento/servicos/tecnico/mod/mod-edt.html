@@ -188,10 +188,10 @@ Vue.component('mod-edt', {
       return false
     },
     deslocTrajetos() {
-      return this.$store.state.deslocTrajetos;
+      return this.$store.getters.deslocTrajetos;
     },
     deslocStatus: function () {
-      return this.$store.state.deslocStatus;
+      return this.$store.getters.deslocStatus;
     }
   },
   methods: {

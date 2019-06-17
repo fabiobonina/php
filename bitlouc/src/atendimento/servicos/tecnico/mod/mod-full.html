@@ -537,11 +537,11 @@ Vue.component('mod-full', {
       return this.$store.getters.getOsId(this.$route.params._os);
     },
     deslocTrajetos() {
-      return this.$store.state.deslocTrajetos;
+      return this.$store.getters.deslocTrajetos;
     },
     deslocStatus: function() {
       //var filterKey = this.processo
-      return this.$store.state.deslocStatus;
+      return this.$store.getters.deslocStatus;
     }
   },
   methods: {

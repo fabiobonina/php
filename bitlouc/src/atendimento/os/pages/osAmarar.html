@@ -1,7 +1,7 @@
 
 <template id="os-amarar">
   <div>
-    <atend-grid :data="oss" :status="status" v-on:atualizar="onAtualizar()"></atend-grid>
+    <os-list :data="oss" :status="status" v-on:atualizar="onAtualizar()"></os-list>
   </div>
 </template>
 
@@ -24,7 +24,7 @@ var OsAmarar = Vue.extend({
   },
   computed: {
     oss() {
-      return this.$store.state.oss;
+      return this.$store.getters.oss;
     },
   }, // computed
   methods: {

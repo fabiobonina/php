@@ -46,7 +46,7 @@
             </template>
           </v-autocomplete>
         </v-flex>
-        <atend-grid :data="oss" :status="status"></atend-grid>
+        <os-list :data="oss" :status="status"></os-list>
       </div>
     </section>
   </div>
@@ -79,10 +79,10 @@ var TecOs = Vue.extend({
     },
     ...Vuex.mapGetters(["user"] ),
     tecnicos() {
-      return this.$store.state.tecnicos;
+      return this.$store.getters.tecnicos;
     },
     oss()  {      
-      var obj     = this.$store.state.oss;
+      var obj     = this.$store.getters.oss;
       var user    = this.$store.getters.user;
       var user_id  = null;
       if(this.tecnico){

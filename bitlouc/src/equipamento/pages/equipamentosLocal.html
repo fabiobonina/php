@@ -49,10 +49,10 @@
       ...Vuex.mapGetters(["user"] ),
       equipamentos()  {
         return this.$store.getters.getEquipamentoLocal(this.$route.params._local);
-        //return this.$store.state.equipamentos;
+        //return this.$store.getters.equipamentos;
       },
       local()  {
-        return this.$store.state.local;
+        return this.$store.getters.local;
       },
     },
     methods: {

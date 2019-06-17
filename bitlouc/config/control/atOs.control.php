@@ -46,46 +46,43 @@
 		}
 
 		public function publish(
-			$proprietario_id,
-			$loja_id,
-			$loja_nick,
-			$local_id,
-			$uf,
+			$loja,
+			$local,
 			$equipamento_id,
 			$categoria_id,
 			$servico_id,
 			$data,
-			$dtCadastro,
-			$ativo,
 			$id)
 		{
 			$item['error'] = false;
 			$oss	= new Os();
 
+			
+			$dtCadastro = date("Y-m-d");
+
 			if( $loja_id == '38' ){
 				$etapaI = false;
 			}else{
-				$etapaI = $oss->validarOs( $local_id, $categoria_id, $equipamento_id, $data, $id );
+				$etapaI = $oss->validarOs( $local['id'], $categoria_id, $equipamento_id, $data, $id );
 			}
 			
 			$dtUltimo   = '';
-			$osUltimoMan = $oss->ultimaOs( $local_id, $categoria_id );
+			$osUltimoMan = $oss->ultimaOs( $local['id'], $categoria_id );
 			if(isset($osUltimoMan->dtUltimo) ){
 				$dtUltimo = $osUltimoMan->dtUltimo;
 			}
 
-			$oss->setProprietario($proprietario_id);
-			$oss->setLoja($loja_id);
-			$oss->setLojaNick($loja_nick);
-			$oss->setLocal($local_id);
-			$oss->setUf($uf);
+			$oss->setProprietario($loja['proprietario_id']);
+			$oss->setLoja($loja['id']);
+			$oss->setLojaNick($loja['nick']);
+			$oss->setLocal($local['local_id']);
+			$oss->setUf($local['uf']);
 			$oss->setEquipamento($equipamento_id);
 			$oss->setCategoria($categoria_id);
 			$oss->setServico($servico_id);
 			$oss->setData($data);
 			$oss->setDtUltimoMan($dtUltimo);
 			$oss->setDtCadastro($dtCadastro);
-			$oss->setAtivo($ativo);
 			$oss->setUser( $_SESSION['user_id']);
 
 			if(	$etapaI ){
@@ -100,7 +97,7 @@
 
 					if(!$item['error']){
 						$email_status = 'Novo atendimento';
-						$this->osEmail( $item['id'], $email_status );
+						//$this->osEmail( $item['id'], $email_status );
 					}
 				endif;
 				if( $id > '0' ):
@@ -109,7 +106,7 @@
 
 					if(!$item['error']){
 						$email_status = 'Atendimento alterado';
-						$this->osEmail( $id, $email_status );
+						//$this->osEmail( $id, $email_status );
 					}
 				endif;
 				
@@ -120,6 +117,7 @@
 			$res = $item;
 			return $res;
 		}
+		
 		public function delete( $os_id ){
 
 			$oss 			= new Os();

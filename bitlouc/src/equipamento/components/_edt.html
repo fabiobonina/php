@@ -129,13 +129,13 @@ Vue.component('bem-edt', {
       return this.$store.getters.getLocalId(this.$route.params._local);
     },
     produtos() {
-      return this.$store.state.produtos;
+      return this.$store.getters.produtos;
     },
     fabricantes() {
-      return this.$store.state.fabricantes;
+      return this.$store.getters.fabricantes;
     },
     categorias() {
-      return this.$store.state.categorias;
+      return this.$store.getters.categorias;
     },
   },
   created: function() {

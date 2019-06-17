@@ -283,19 +283,19 @@ Vue.component('bem-add', {
       return false
     },
     lojas() {
-      return this.$store.state.lojas;
+      return this.$store.getters.lojas;
     },
     produtos() {
-      return this.$store.state.produtos;
+      return this.$store.getters.produtos;
     },
     fabricantes() {
-      return this.$store.state.fabricantes;
+      return this.$store.getters.fabricantes;
     },
     categorias() {
-      return this.$store.state.categorias;
+      return this.$store.getters.categorias;
     },
     statusBens() {
-      return this.$store.state.statusBens;
+      return this.$store.getters.statusBens;
     },
   },
   created: function() {

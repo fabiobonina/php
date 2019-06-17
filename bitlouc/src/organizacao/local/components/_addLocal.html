@@ -143,10 +143,10 @@
         return this.$store.getters.getLojaId(this.$route.params._loja);
       },
       tipos() {
-        return this.$store.state.tipos;
+        return this.$store.getters.tipos;
       },
       categorias() {
-        return this.$store.state.categorias;
+        return this.$store.getters.categorias;
       },
     },
     methods: {

@@ -1,4 +1,4 @@
-<template id="cilindro-edt">
+<template id="os-edt">
   <div>
     <v-layout row justify-center>
       <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
@@ -15,7 +15,7 @@
           </v-toolbar>
           <v-card-text>
               <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
-              <cilindro-publish v-model="defaultItem" ></cilindro-publish>
+              <os-publish v-model="defaultItem" ></os-publish>
           </v-card-text>
         </v-card-->
       </v-dialog>
@@ -25,9 +25,9 @@
 
 
 <script>
-Vue.component('cilindro-edt', {
-  name: 'cilindro-edt',
-  template: '#cilindro-edt',
+Vue.component('os-edt', {
+  name: 'os-edt',
+  template: '#os-edt',
   $_veeValidate: {
     validator: 'new'
   },

@@ -22,7 +22,7 @@
       </v-toolbar>
     </v-card>
         
-      <atend-grid :data="oss" :status="status" v-on:atualizar="atualizar()"></atend-grid>
+      <os-list :data="oss" :status="status" v-on:atualizar="atualizar()"></os-list>
   </div>      
 </template>
 <script>
@@ -55,7 +55,7 @@
       status: {
       // getter
         get: function () {
-          return this.$store.state.status;
+          return this.$store.getters.status;
         },
         // setter
         set: function (newValue) {

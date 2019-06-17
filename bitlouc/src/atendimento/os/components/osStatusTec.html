@@ -40,12 +40,12 @@ Vue.component('os-statustec', {
         if (a[1] < b[1]) return 1;
         return 0;
       }
-      var oss   = this.$store.state.oss;
+      var oss   = this.$store.getters.oss;
       oss = oss.filter(function (row) {
         return Number(row.status) <= 3;
       });
       this.ossAbertas = oss.length;
-      var tecnicos  = this.$store.state.tecnicos;
+      var tecnicos  = this.$store.getters.tecnicos;
       var value = [];
       for (var user of tecnicos) {
         var count = 0;

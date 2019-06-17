@@ -70,7 +70,7 @@ Vue.component('nota-edt', {
       return false
     },
     _os()  {
-      return this.$store.state.os;
+      return this.$store.getters.os;
     },
   },
   methods: {
@@ -105,7 +105,7 @@ Vue.component('nota-edt', {
           .catch(function(error) {
             console.log(error);
           });
-          //this.$store.state.create(data)
+          //this.$store.getters.create(data)
       }
     },
     checkForm:function(e) {

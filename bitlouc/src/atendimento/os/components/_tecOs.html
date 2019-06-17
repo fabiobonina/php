@@ -139,7 +139,7 @@ Vue.component('os-tec', {
       return this.$store.getters.getLojaId(this.data.id);
     },
     _tecnicos() {
-      return this.$store.state.tecnicos;
+      return this.$store.getters.tecnicos;
     },
     _os() {
       return this.$store.getters.getOsId(this.data.id);
@@ -182,7 +182,7 @@ Vue.component('os-tec', {
           .catch(function(error) {
             console.log(error);
           });
-          //this.$store.state.create(data)
+          //this.$store.getters.create(data)
       }
     },
     tecDelete: function(item) {

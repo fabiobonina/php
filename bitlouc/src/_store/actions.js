@@ -14,13 +14,10 @@ const LOCAISPROPRIETARIO  ='./config/api/local.api.php?action=proprietario';
 const LOCAISLOJA          ='./config/api/local.api.php?action=loja';
 const LOCALFIND           ='./config/api/local.api.php?action=local';
 
-
 const BENSLIST           ='./config/api/local.api.php?action=read';
 const EQUIPAMENTOSLIST   ='./config/api/equipamento.api.php?action=read';
 const EQUIPAMENTOSLOJA   ='./config/api/equipamento.api.php?action=loja';
 const EQUIPAMENTOSLOCAL  ='./config/api/equipamento.api.php?action=local';
-
-
 
 const actions = {
   setSearch({ commit }, search) {
@@ -50,9 +47,9 @@ const actions = {
           resolve();
         }
       })
-      .catch((error => {
+      .catch( function(error) {
           console.log(error.statusText);
-      }));
+      });
     });
   },
   fetchConfig({ commit }) {
@@ -75,12 +72,11 @@ const actions = {
           console.log(response.data.message);
         }
       })
-      .catch((error => {
+      .catch( function(error) {
           console.log(error.statusText);
-      }));
+      });
     });
   },
-  
   findLocal({ commit }, local_id ) {
     return new Promise((resolve, reject) => {
       commit('loading_ativo');
@@ -97,10 +93,10 @@ const actions = {
         commit('loading_inativo');
         resolve();
       })
-      .catch((error => {
+      .catch( function(error) {
           commit('loading_inativo');
           console.log(error.statusText);
-      }));
+      });
     });
   },
   fetchLocal({ commit }) {
@@ -121,10 +117,10 @@ const actions = {
           commit('loading_inativo');
           resolve();
         })
-        .catch((error => {
+        .catch( function(error) {
             console.log(error);
             commit('loading_inativo');
-        }));
+        });
     });
   },
   fetchLocalLoja({ commit }, loja_id) {
@@ -149,10 +145,10 @@ const actions = {
           resolve();
           commit('loading_inativo');
         })
-        .catch((error => {
+        .catch( function(error) {
             console.log(error);
           commit('loading_inativo');
-        }));
+        });
     });
   },
   fetchEquipamentoLocal({ commit }, local) {
@@ -168,9 +164,9 @@ const actions = {
           commit("SET_EQUIPAMENTOS", response.data.equipamentos); 
         }
         resolve();
-      }).catch((error => {
+      }).catch( function(error) {
           console.log(error);
-      }));
+      });
       commit('loading_inativo');
     });
   },
@@ -189,27 +185,28 @@ const actions = {
             resolve();
           }
         })
-        .catch((error => {
+        .catch( function(error) {
             console.log(error);
-        }));
+        });
     });
   },
-  fetchProdutos({ commit }) {
+  /*fetchProdutos({ commit }) {
     return new Promise((resolve, reject) => {
+      commit('loading_ativo');
         Vue.http.get(CONFIGPROD)
-        .then((response) => {
+        .then(function(response) {
           if(response.data.error){
             console.log(response.data.message);
           } else{
             commit("SET_PRODUTOS", response.data.produtos);
-            resolve();
           }
+          commit('loading_inativo');
+          resolve();
         })
-        .catch((error => {
-            console.log(error);
-        }));
+        .catch( function(error) {
+          commit('loading_inativo');
+          console.log(error);
+        });
     });
-  },
-}
-
-
+  },*/
+};

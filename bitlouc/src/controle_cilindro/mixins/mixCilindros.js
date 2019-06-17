@@ -26,7 +26,7 @@ var mixCilindro = {
   },
   computed: {
       /*programacoes() {
-          return this.$store.state.cilProgramacao;
+          return this.$store.getters.cilProgramacao;
       }*/
   }, // computed
   methods: {
@@ -58,24 +58,6 @@ var mixCilindro = {
           .catch(function(error) {
             console.log(error);
           });
-          /*this.$http.post('./config/api/cilindro.api.php?action=publish', postData).then(function(response) {
-            console.log(response);
-            if(!response.data.error){
-                this.successMessage.push(response.data.message);
-                store.commit('isLoading');
-                setTimeout(() => {
-                  this.$router.push('/programacao/'+response.data.id)
-                  this.$emit('close');
-                }, 2000);
-              } else{
-                this.errorMessage.push(response.data.message);
-                store.commit('isLoading');
-              }
-          })
-          .catch(function(error) {
-            store.commit('isLoading');
-            console.log(error);
-          });*/
         }
       });
     },

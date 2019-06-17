@@ -18,7 +18,7 @@ var mixItem = {
   },
   computed: {
       /*programacoes() {
-          return this.$store.state.cilProgramacao;
+          return this.$store.getters.cilProgramacao;
       }*/
   }, // computed
   methods: {

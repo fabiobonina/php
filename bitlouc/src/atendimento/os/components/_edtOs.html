@@ -120,10 +120,10 @@ Vue.component('os-edt', {
       return this.$store.getters.getLocalId(this.$route.params._local);
     },
     servicos() {
-      return this.$store.state.servicos;
+      return this.$store.getters.servicos;
     },
     categorias() {
-      return this.$store.state.categorias;
+      return this.$store.getters.categorias;
     },
     filterServ: function () {
       var vm = this;
@@ -190,7 +190,7 @@ Vue.component('os-edt', {
           .catch(function(error) {
             console.log(error);
           });
-          //this.$store.state.create(data)
+          //this.$store.getters.create(data)
       }
     },
     checkForm:function(e) {

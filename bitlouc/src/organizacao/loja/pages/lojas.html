@@ -21,7 +21,7 @@
     },
     computed: {
       lojas() {
-        return this.$store.state.lojas;
+        return this.$store.getters.lojas;
       },
       user() {
         return this.$store.getters.user;

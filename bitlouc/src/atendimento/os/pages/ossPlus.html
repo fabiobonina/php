@@ -2,7 +2,7 @@
 <template id="oss-plus">
   <div>
     <oss-top></oss-top>
-    <atend-grid :data="oss" :status="status"></atend-grid>
+    <os-list :data="oss" :status="status"></os-list>
   </div>
 </template>
 
@@ -24,7 +24,7 @@ var OssPlus = Vue.extend({
   },
   computed: {
     oss() {
-      return this.$store.state.oss;
+      return this.$store.getters.oss;
     },
   }, // computed
   methods: {

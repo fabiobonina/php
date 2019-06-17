@@ -78,7 +78,7 @@
         return this.$store.getters.user;
       },
       programacoes()  {
-        return JSON.parse(localStorage.getItem('programacoes'));//this.$store.state.programacoes;
+        return JSON.parse(localStorage.getItem('programacoes'));//this.$store.getters.programacoes;
       },
       local()  {
         //return mapState([local]);

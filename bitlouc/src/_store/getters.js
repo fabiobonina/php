@@ -8,9 +8,11 @@ const getters = {
   tipos: state => state.tipos,
   produtos: state => state.produtos,
   fabricantes: state => state.fabricantes,
-  categorias: state => state.categorias,
   servicos: state => state.servicos,
-
+  categorias: state => state.categorias,
+  categoriaId: (state) => (id) => {
+    return state.categorias.find(todo => todo.id === id)
+  },
   getSearch: state => state.search,
   status: state => state.status,
 
@@ -43,13 +45,13 @@ const getters = {
     return state.locais.filter(todo => todo.loja_id === loja)
   },
   getLocalLojaSingle: (state) => (loja) => {
-    state.locais.filter(todo => todo.ativo === '0')
-    return state.locais.find(todo => todo.loja_id === loja)
+    state.locais.filter(todo => todo.ativo === '0');
+    return state.locais.find(todo => todo.loja_id === loja);
   },
 
   
   equipamentos: state => state.equipamentos,
   getEquipamentoLocal: (state) => (local) => {
-    return state.equipamentos.filter(todo => todo.local_id === local)
-  },
-}
+    return state.equipamentos.filter(todo => todo.local_id === local);
+  }
+};

@@ -131,7 +131,7 @@
         return this.$store.getters.getLojaId(this.data.loja_id);
       },
       tipos() {
-        return this.$store.state.tipos;
+        return this.$store.getters.tipos;
       },
     },
     methods: {
@@ -179,7 +179,7 @@
             .catch(function(error) {
               console.log(error);
             });
-            //this.$store.state.create(data)
+            //this.$store.getters.create(data)
         }}
       });
       },

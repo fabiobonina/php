@@ -64,13 +64,13 @@ Vue.component('os-del', {
       return this.$store.getters.getLojaId(this.$route.params._loja);
     },
     servicos() {
-      return this.$store.state.servicos;
+      return this.$store.getters.servicos;
     },
     tecnicos() {
-      return this.$store.state.tecnicos;
+      return this.$store.getters.tecnicos;
     },
     categorias() {
-      return this.$store.state.categorias;
+      return this.$store.getters.categorias;
     },
     filterServ: function () {
       var vm = this;

@@ -25,7 +25,7 @@
     },
     computed: {
         osLojas() {
-            return this.$store.state.osLojas;
+            return this.$store.getters.osLojas;
         },
     },
     methods: {

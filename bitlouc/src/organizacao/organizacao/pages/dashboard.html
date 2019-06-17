@@ -32,7 +32,7 @@ var Dashboard = Vue.extend({
   },
   computed: {
     dados() {
-      return this.$store.state.lojas;
+      return this.$store.getters.lojas;
     },
   },
   methods: {

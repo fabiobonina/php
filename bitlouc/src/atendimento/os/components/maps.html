@@ -112,7 +112,7 @@
         },
         computed: {
             locais()  {
-            return this.$store.state.locais;
+            return this.$store.getters.locais;
             },
             filteredData: function () {
             var filterKey = this.search && this.search.toLowerCase()

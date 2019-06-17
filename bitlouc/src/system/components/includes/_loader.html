@@ -22,7 +22,7 @@ Vue.component('loader', {
   },
   computed: {
     dialog () {
-			return this.$store.state.loading
+			return this.$store.getters.loading
     },
     ...Vuex.mapGetters(["loading"]),
   },

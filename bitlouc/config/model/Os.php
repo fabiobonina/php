@@ -93,8 +93,8 @@ class Os extends Crud{
 
 	public function insert(){
 		try{
-			$sql  = "INSERT INTO $this->table ( proprietario_id, loja_id, loja_nick, local_id, uf, equipamento_id, servico_id, categoria_id, data, dtUltimoMan, dtCadastro, user_id, ativo) ";
-			$sql .= "VALUES (:proprietario_id, :loja_id, :loja_nick, :local_id, :uf, :equipamento_id, :servico_id, :categoria_id, :data, :dtUltimoMan, :dtCadastro, :user_id, :ativo)";
+			$sql  = "INSERT INTO $this->table ( proprietario_id, loja_id, loja_nick, local_id, uf, equipamento_id, servico_id, categoria_id, data, dtUltimoMan, dtCadastro, user_id ) ";
+			$sql .= "VALUES (:proprietario_id, :loja_id, :loja_nick, :local_id, :uf, :equipamento_id, :servico_id, :categoria_id, :data, :dtUltimoMan, :dtCadastro, :user_id)";
 			$stmt = DB::prepare($sql);
 			
 			$stmt->bindParam(':proprietario_id',	$this->proprietario_id);
@@ -109,7 +109,6 @@ class Os extends Crud{
 			$stmt->bindParam(':dtUltimoMan',		$this->dtUltimoMan);
 			$stmt->bindParam(':dtCadastro',			$this->dtCadastro);
 			$stmt->bindParam(':user_id',			$this->user_id);
-			$stmt->bindParam(':ativo',				$this->ativo);
 			$stmt->execute();
 			$osId = DB::getInstance()->lastInsertId();
 
@@ -127,7 +126,7 @@ class Os extends Crud{
 
 	public function update($id){
 		try{
-			$sql  = "UPDATE $this->table SET loja_id = :loja_id, loja_nick = :loja_nick, local_id = :local_id, uf = :uf, equipamento_id = :equipamento_id, servico_id = :servico_id, categoria_id = :categoria_id, data = :data, ativo = :ativo WHERE id = :id";
+			$sql  = "UPDATE $this->table SET loja_id = :loja_id, loja_nick = :loja_nick, local_id = :local_id, uf = :uf, equipamento_id = :equipamento_id, servico_id = :servico_id, categoria_id = :categoria_id, data = :data WHERE id = :id";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':loja_id',		$this->loja_id);
 			$stmt->bindParam(':loja_nick',		$this->loja_nick);
@@ -137,10 +136,10 @@ class Os extends Crud{
 			$stmt->bindParam(':servico_id',		$this->servico_id);
 			$stmt->bindParam(':categoria_id',	$this->categoria_id);
 			$stmt->bindParam(':data',			$this->data);
-			$stmt->bindParam(':ativo',			$this->ativo);
 			$stmt->bindParam(':id', 			$id);
 			$stmt->execute();
 
+			$res['id'] = $id;
 			$res['error'] 	= false;
 			$res['message'] = "OK, OS atualizado com sucesso";
 			return $res;

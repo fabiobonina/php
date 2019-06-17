@@ -1,7 +1,7 @@
 
 <template id="os-validar">
   <div>
-    <atend-grid :data="oss" :status="status" v-on:atualizar="onAtualizar()"></atend-grid>
+    <os-list :data="oss" :status="status" v-on:atualizar="onAtualizar()"></os-list>
   </div>
 </template>
 
@@ -25,7 +25,7 @@ var OsValidar = Vue.extend({
   computed: {
     ...Vuex.mapGetters(["user"] ),
     oss() {
-      return this.$store.state.oss;
+      return this.$store.getters.oss;
     },
   }, // computed
   methods: {

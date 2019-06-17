@@ -5,22 +5,22 @@
         <v-btn @click="$router.go(-1)" icon>
           <v-icon>arrow_back</v-icon>
         </v-btn>
-        <v-toolbar-title> {{ proprietario.nick  }}</v-toolbar-title>
+        <v-toolbar-title> {{ organizacao.nick  }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <div class="text-xs-center">
           <v-badge>
             <v-icon slot="badge" dark small>location_city</v-icon>
-            <span>Local: {{ proprietario.locaisQt }}</span>
+            <span>Local: {{ organizacao.locaisQt }}</span>
           </v-badge>
           &nbsp;&nbsp;
           <v-badge color="green">
             <v-icon slot="badge" dark small>place</v-icon>
-            <span>{{ proprietario.locaisGeoStatus }}% ({{ proprietario.locaisGeoQt }})</span>
+            <span>{{ organizacao.locaisGeoStatus }}% ({{ organizacao.locaisGeoQt }})</span>
           </v-badge>
           &nbsp;&nbsp;
           <v-badge color="blue">
             <v-icon slot="badge" dark small>place</v-icon>
-            <span>OS: {{ proprietario.osQt }}</span>
+            <span>OS: {{ organizacao.osQt }}</span>
           </v-badge>
           &nbsp;
         </div>
@@ -55,15 +55,14 @@
 
     },
     computed: {
-      ...Vuex.mapGetters(["user"] ),
-      proprietario() {
-        return this.$store.state.proprietario;
+      user() {
+        return this.$store.getters.user;
       },
-      osProprietario() {
-        return this.$store.state.osProprietario;
+      organizacao() {
+        return this.$store.getters.organizacao;
       },
       lojas() {
-        return this.$store.state.lojas;
+        return this.$store.getters.lojas;
       }
     },
     methods: {

@@ -126,7 +126,7 @@
     computed: {
       ...Vuex.mapGetters(["user"] ),
       filteredData: function () {
-        var status = this.$store.state.status;
+        var status = this.$store.getters.status;
         var filterKey = this.search && this.search.toLowerCase()
         var data = this.data
         if(status){
