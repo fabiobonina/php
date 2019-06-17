@@ -1,0 +1,67 @@
+<template id="atendimento-painel">
+    <div>
+        <top></top>
+        <v-content>
+                <painel :data="painel"></painel>
+            <v-container fluid>
+                <os-statustec></os-statustec>
+            </v-container>
+        </v-content>
+    </div>
+  </template>
+  
+  
+<script src="src/atendimento/mixins/mixOs.js"></script>
+  <script>
+  var AtendimentoPainel = Vue.extend({
+    name: 'atendimento-painel',
+    template: '#atendimento-painel',
+    props: {
+  
+    },
+    data: function () {
+      return {
+        errorMessage: '',
+        successMessage: '',
+        searchQuery: '',
+        painel: [            
+          {   title: 'OSs',
+              subtitle: 'Controle de OSs',
+              router: 'atendimento/oss',
+              icon: 'mdi-format-float-center',
+              iconClass: 'grey lighten-1 white--text',
+              nivel: '1',
+          },
+          {   title: 'OSs Gerencial',
+              subtitle: 'Gerenciamento das OSs',
+              router: 'atendimento/os-gerencial',
+              icon: 'mdi-format-float-center',
+              iconClass: 'primary white--text',
+              nivel: '3',
+          },
+        ],
+      };
+    },
+    created: function() {
+    },
+    computed: {
+    },
+    methods: {
+    }
+  });
+  
+  </script>
+  
+  
+  
+  
+<?php 
+require_once 'src/atendimento/os/index.html';
+require_once 'src/atendimento/os/components/osStatusTec.html';
+
+require_once 'src/atendimento/servicos/index.html';
+require_once 'src/atendimento/servicos/tecnico/_selecTec.html';
+
+
+
+?>

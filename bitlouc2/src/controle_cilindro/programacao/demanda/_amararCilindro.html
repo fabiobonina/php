@@ -1,0 +1,136 @@
+<template id="amarar-cilindro">
+  <div>
+    <v-layout row justify-center>
+      <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+        <v-card>
+          <v-toolbar dark color="primary">
+            <v-btn icon dark @click="dialog = false">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+            <v-toolbar-title>Amarar Cilindros</v-toolbar-title>
+            <v-spacer></v-spacer>
+          </v-toolbar>
+          <v-card-text v-if="data">
+            <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+            <v-container grid-list-md>
+              <v-list-tile @click="">
+                <v-list-tile-content v-if="data">
+                  <v-list-tile-title>Tipo: {{ data.capacidade.name }}</v-list-tile-title>
+                  <v-list-tile-sub-title>Prog.: {{ data.qtd }}</v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <add-item :value.sync="item" :programacao_id="data.programacao_id" :demanda_id="data.id" :capacidade="data.capacidade.capacidade" v-on:atualizar="atualizar()"></add-item>
+              <v-layout row justify-center>  
+                  <v-flex>
+                  <list-item :item="data" v-on:atualizar="atualizar()"></list-item>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+    </v-layout>
+  </div>
+</template>
+
+<script>
+Vue.component('amarar-cilindro', {
+  name: 'amarar-cilindro',
+  template: '#amarar-cilindro',
+  $_veeValidate: {
+    validator: 'new'
+  },
+  props: {
+    data: {},
+  },
+  data() {
+    return {
+      errorMessage: [],
+      successMessage: [],
+      cilindro: [],
+      dialog: true,
+      item: {},
+    };
+  },
+  mounted () {
+    this.$validator.localize('pt_BR', this.dictionary)
+  },
+  computed: {
+    user()  {
+      return this.$store.getters.user;
+    },
+    temMessage () {
+      if(this.errorMessage.length > 0) return true
+      if(this.successMessage.length > 0) return true
+      return false
+    },
+    cilindros () {
+      return this.$store.getters.cilindros;
+    },
+  },
+  created: function() {
+    this.dataT();
+    this.updateCilindros();
+  },
+  methods: {
+    
+    updateCilindros() {
+      this.$store.dispatch("fetchCilindros").then(() => {
+        //this.cilindros = this.$store.getters.cilindros;
+        console.log('Carregando cilindros');
+      });
+      this.atualizar();
+    },
+    close () {
+      this.dialog = false;
+      this.$emit('close');
+    },
+    atualizar: function(){
+      this.$store.dispatch('showProgramacao', this.$route.params._programacao ).then(() => {
+        console.log("Buscando dados Programacao")
+      });
+    },
+    remove (item) {
+        //const index = this.loja.indexOf(item)
+        //if (index >= 0) this.loja.splice(index, 1)
+        this.loja = null
+    },
+    cilindroFilter (item, queryText, itemText) {
+        const textOne = item.numero.toLowerCase()
+        const textTwo = item.cod_barras.toLowerCase()
+        const textThree = item.loja_nick.toLowerCase()
+        const searchText = queryText.toLowerCase()
+
+        return textOne.indexOf(searchText) > -1 ||
+          textTwo.indexOf(searchText) > -1 ||
+          textThree.indexOf(searchText) > -1
+    },
+    addDemanda(){
+          this.item['edit']     = false;
+          this.cilindro = this.item;
+        
+          this.item       = {};
+          console.log(this.cilindro);
+    },
+    removeDemanda(index){
+      this.data.splice(index, 1)
+    },
+    checkForm:function() {
+      this.errorMessage = [];
+      if( !this.loja ) this.errorMessage.push("Loja necessário.");
+      if( !this.local ) this.errorMessage.push("Local necessário.");
+      if( !this.demanda ) this.errorMessage.push("Demanda necessário.");
+      if(!this.errorMessage.length) return true;
+      //e.preventDefault();
+    },
+    dataT() {
+      var datetime = new Date().toLocaleString();
+      var res = datetime.split(" ");
+      var date = res[0].split("/");
+      var time = res[1].slice(0, -3);
+      var dtTime = date[2] + "-" + date[1] + "-" + date[0];
+      this.dataProg = dtTime;
+    },
+  },
+});
+</script>

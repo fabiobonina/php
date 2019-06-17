@@ -1,0 +1,25 @@
+<template id="is-login">
+  
+</template>
+<script>
+
+Vue.component('is-login', {
+    name: 'is-login',
+    template: '#is-login',
+    data: function () {
+      return {
+        errorMessage: '',
+        successMessage: '',
+      };
+    },
+    created() {
+      this.$store.dispatch("isLoggedIn").then(() => {
+        console.log("validar user!")
+      });
+    },
+    computed: {
+    },
+    methods: {
+    }
+  });
+</script>

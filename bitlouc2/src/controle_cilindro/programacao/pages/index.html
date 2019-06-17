@@ -1,0 +1,93 @@
+<template id="programacao-page">
+<v-content >
+  <div>
+    <v-container fluid class="pa-0">
+      <v-layout row wrap>
+        <v-btn-toggle v-if="user.nivel > 1 && user.grupo == 'P'"  v-model="active">
+          <v-btn flat  v-for="n in itens" v-on:click="active = n.ativo " :value="n.ativo" :key="n.id">
+            <v-icon>{{ n.icon }}</v-icon>
+            <span>{{ n.name }}</span>
+          </v-btn>
+        </v-btn-toggle>
+      </v-layout>
+    </v-container>
+    <section>
+      <prog-list :data="programacoes" :local="local" :status="active"></prog-list>
+      
+    </section>
+  </div>
+
+  <rodape></rodape>
+  </v-content>
+</template>
+
+<?php
+
+  require_once 'src/controle_cilindro/programacao/components/_list.html';
+  require_once 'src/controle_cilindro/programacao/components/_add.html';
+  require_once 'src/controle_cilindro/programacao/components/_crud.html';
+  require_once 'src/controle_cilindro/programacao/components/_edt.html';
+  require_once 'src/controle_cilindro/programacao/components/_publish.html';
+
+  require_once 'src/controle_cilindro/programacao/demanda/_addDemanda.html';
+  require_once 'src/controle_cilindro/programacao/demanda/_amararCilindro.html';
+  require_once 'src/controle_cilindro/programacao/demanda/_demandaCil.html';
+  require_once 'src/controle_cilindro/programacao/demanda/_list.html';
+
+  require_once 'src/controle_cilindro/programacao/item/_addItem.html';
+  require_once 'src/controle_cilindro/programacao/item/_listItem.html';
+
+?>
+
+<script src="src/controle_cilindro/mixins/mixProgramacao.js"></script>
+
+<script>
+  
+  var ProgramacaoPage = Vue.extend({
+    name: 'programacao-page',
+    template: '#programacao-page',
+    props: {
+      proprietario: String,
+      nivel: String,
+      grupo: String
+    },
+    data: function () {
+      return {
+        errorMessage: '',
+        successMessage: '',
+        search: '',
+        modalAdd: false,
+        modalOs: false,
+        active: '1',
+        modalItem: null,
+        itens: [
+          { id:1, name: 'Operação', ativo: '1', icon: 'done' },
+          { id:2, name: 'Instalação', ativo: '0', icon: 'done' },
+          { id:3, name: 'Ocioso', ativo: '2', icon: 'done' },
+        ],
+        
+      };
+    },
+    created: function() {
+      this.$store.dispatch("listProgramacao").then(() => {
+        console.log("Buscando Programacao de cilindros!")
+      });
+    },
+    computed: {
+      user()  {
+        return this.$store.getters.user;
+      },
+      programacoes()  {
+        return JSON.parse(localStorage.getItem('programacoes'));//this.$store.state.programacoes;
+      },
+      local()  {
+        //return mapState([local]);
+      },
+    },
+    methods: {
+      
+      // Bu metot http post ile formdan alınan verileri apiye iletir
+      // Apiden dönen cevap users dizisine push edilir
+    }
+  });
+</script>

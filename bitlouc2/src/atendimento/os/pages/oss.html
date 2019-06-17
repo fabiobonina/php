@@ -1,0 +1,41 @@
+
+<template id="oss">
+  <div>
+    <top></top>
+    <v-content>
+      <v-tabs v-model="active" color="blue" dark slider-color="yellow">
+        <v-tab v-for="n in router" :key="n.title" :to="{path: n.router}" ripple> {{ n.title }} </v-tab>     
+      </v-tabs>
+      <router-view></router-view>
+    </v-content>
+    <rodape></rodape>
+  </div>    
+</template>
+<script>
+  var Oss = Vue.extend({
+    template: '#oss',
+    data: function () {
+        return {
+            errorMessage: '',
+            successMessage: '',
+            active: '0',
+            router: [
+                { title: 'UF', router: '/atendimento/oss', icon: 'store' },
+                { title: 'OS Status', router: '/atendimento/oss/os-status', icon: 'trending_up' },
+                { title: 'Minhas OS', router: '/atendimento/oss/os-tec', icon: 'person' },
+            ],
+        };
+    },
+    created() {
+    },
+    computed: {
+    },
+    methods: {
+        
+    }
+});
+
+</script>
+
+
+<!-- /components os -->

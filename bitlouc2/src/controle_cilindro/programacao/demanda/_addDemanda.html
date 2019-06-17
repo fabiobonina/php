@@ -1,0 +1,149 @@
+<template id="demanda-add">
+  <v-card>
+    <v-card-text>
+      <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+      <loader></loader>
+    
+      <small>Demanda</small>
+      <v-layout wrap>
+        <v-flex>
+          
+          <cil-capac-selec v-model="capacidade" v-on:keyup.enter="addDemanda()"></cil-capac-selec>
+        </v-flex>
+        <v-flex>
+          <v-text-field 
+            type="number"
+            v-model="qtd"
+            label="Qtd. Cilindros"
+            :error-messages="errors.collect('qtd')"
+            item-text="qtd"
+            data-vv-name="name"
+            v-on:keyup.enter="addDemanda()"
+          ></v-text-field>
+        </v-flex>
+        <v-flex>
+          <v-btn @click="addDemanda()" color="blue" fab small dark>
+            <v-icon>add</v-icon>
+          </v-btn>
+        </v-flex>
+      </v-layout>
+                  
+      <template>
+        <v-list>
+          <v-list-tile  v-for="(todo, index) in value" :key="item.index" @click="">
+            <template>
+              <v-flex v-if="todo.edit">
+                <cil-capac-selec v-model="todo.capacidade" v-on:keyup.enter="addDemanda()"></cil-capac-selec>
+              </v-flex>
+              <v-list-tile-content v-else>
+                <v-list-tile-title v-text="todo.capacidade.name"></v-list-tile-title>
+              </v-list-tile-content>
+              <v-flex v-if="todo.edit">
+                <v-text-field 
+                  type="number"
+                  v-model="todo.qtd"
+                  label="Qtd. Cilindros"
+                  :error-messages="errors.collect('qtd')"
+                  item-text="todo.qtd"
+                  data-vv-name="name"
+                  v-on:keyup.enter="addDemanda()"
+                ></v-text-field>
+              </v-flex>
+              <v-list-tile-content v-else>
+                <v-list-tile-title  v-text="todo.qtd"></v-list-tile-title>
+              </v-list-tile-content>
+
+              <v-list-tile-action>
+                <v-btn @click="removeDemanda(index)" color="red" fab small dark>
+                  <v-icon>&#10006;</v-icon>
+                </v-btn>
+              </v-list-tile-action>
+              <v-list-tile-action>
+                <v-btn @click="todo.edit = !todo.edit" color="blue" fab small dark>
+                  <v-icon>&#9998;</v-icon>
+                </v-btn>
+              </v-list-tile-action>
+              
+            </template>
+          </v-list-tile>
+        </v-list>
+      </template>
+    </v-card-text>
+  </v-card>
+</template>
+
+<script>
+Vue.component('demanda-add', {
+  name: 'demanda-add',
+  template: '#demanda-add',
+  $_veeValidate: {
+    validator: 'new'
+  },
+  props: {
+    value: Array,
+    //filterKey: String,
+    //dialogAdd: Boolean,
+  },
+  data() {
+    return {
+      errorMessage: [],
+      successMessage: [],
+      
+      item: {},
+      capacidade: null,
+      qtd: null,
+      id: '',
+    }
+  },
+  mounted () {
+    this.$validator.localize('pt_BR', this.dictionary)
+  },
+  computed: {
+    temMessage () {
+      if(this.errorMessage.length > 0) return true
+      if(this.successMessage.length > 0) return true
+      return false
+    },
+  },
+  created: function() {
+    this.$store.dispatch('fetchCilConfig').then(() => {
+      console.log("carregando tipos de cilindros")
+    });
+  },
+  methods: {
+    remove (item) {
+        const index = this.value.indexOf(item)
+        if (index >= 0) this.value.splice(index, 1)
+    },
+    checkForm:function() {
+      this.errorMessage = [];
+      if( !this.capacidade ) this.errorMessage.push("Tipo de cilindro necessário.");
+      if( !this.qtd ) this.errorMessage.push("Qtd. de cilindro necessário.");
+      if(!this.errorMessage.length) return true;
+      //e.preventDefault();
+    },
+    addDemanda(){
+      if ( this.checkForm() ) {
+          this.$store.commit('isLoading');
+          this.item['capacidade'] = this.capacidade;
+          this.item['qtd']        = this.qtd;
+          this.item['id']         = this.id;
+          this.item['edit']       = false;
+          
+          this.value.push( this.item );
+          this.qtd        = "";
+          this.item       = {};
+          this.capacidade   = {};
+          this.id = '';
+          this.$store.commit('isLoading');
+          //console.log(this.data);
+        }
+      
+    },
+    removeDemanda(index){
+      this.value.splice(index, 1)
+    },
+  },
+});
+
+</script>

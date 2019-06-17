@@ -1,0 +1,170 @@
+<template id="list-item">
+  <v-card>
+    <v-card-text>
+      <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+      <loader></loader>
+    
+      <small>Demanda</small>
+      <v-layout wrap>  
+      </v-layout>
+      <template>
+        <table style="width:100%" RULES=rows>
+          <tr>
+            <th class="text-xs-center">Status</th>
+            <th class="text-xs-center">Numerero</th> 
+            <th class="text-xs-center">Fabricante</th>
+            <th class="text-xs-center">Loja</th>
+            <th class="text-xs-center">Validade</th>
+            <th class="text-xs-center">Capacidade</th>
+            <th class="text-xs-center">Cod.Barras</th>
+            <th></th>
+          </tr>
+          <template v-for="subItem in items">
+            <tr v-if="subItem.edit" >
+              <td v-if="subItem.edit" colspan="7">
+                <v-flex >
+                  <add-item :programacao_id="subItem.programacao_id" :demanda_id="subItem.demanda_id" :item_id="subItem.id" :item="subItem.cilindro" :capacidade="item.capacidade.capacidade" v-on:atualizar="atualizar()></add-item>
+                </v-flex>
+              </td>
+              <td class="text-xs-right">
+                <!--item-crud :data="subItem" v-on:atualizar="onAtualizar()"></item-crud-->
+                <v-btn @click="subItem.edit = !subItem.edit" color="blue" fab small dark>
+                  <v-icon>&#9998;</v-icon>
+                </v-btn>
+              </td>
+            </tr>
+            <tr v-else class="blue lighten-5">
+              <td class="text-xs-center">{{ item.capacidade.name }}</td>
+              <td class="text-xs-center">{{ subItem.cilindro.serie }}</td>
+              <td class="text-xs-center">{{ subItem.cilindro.fabricante }}</td>
+              <td class="text-xs-center">{{ subItem.cilindro.loja_nick }}</td>
+              <td class="text-xs-center">{{ subItem.cilindro.dt_validade }}</td>
+              <td class="text-xs-center">{{ subItem.cilindro.capacidade }}</td>
+              <td class="text-xs-center">{{ subItem.cilindro.cod_barras }}</td>
+              <td class="text-xs-right">
+                <!--item-crud :data="subItem" v-on:atualizar="onAtualizar()"></item-crud-->
+                <copia :data="subItem.cilindro.cod_barras "></copia>
+                <v-btn @click="subItem.edit = !subItem.edit" color="blue" fab small dark>
+                  <v-icon>&#9998;</v-icon>
+                </v-btn>
+                <v-btn @click="deletarItem(subItem)" color="red" fab small dark>
+                  <v-icon>&#10006;</v-icon>
+                </v-btn>
+              </td>
+            </tr>
+            <v-divider></v-divider>
+          </template>
+        </table>
+      </template>
+    </v-card-text>
+  </v-card>
+</template>
+
+
+<script>
+Vue.component('list-item', {
+  name: 'list-item',
+  template: '#list-item',
+  $_veeValidate: {
+    validator: 'new'
+  },
+  props: {
+    item: {},
+    //filterKey: String,
+    //dialogAdd: Boolean,
+  },
+  data() {
+    return {
+      errorMessage: [],
+      successMessage: [],
+      capacidade: null,
+      qtd: null,
+      dtProg: null,
+    }
+  },
+  mounted () {
+    this.$validator.localize('pt_BR', this.dictionary)
+  },
+  computed: {
+    temMessage () {
+      if(this.errorMessage.length > 0) return true
+      if(this.successMessage.length > 0) return true
+      return false
+    },
+    items() {
+      return this.$store.getters.itemsDemanda(this.item.id);
+    },
+    cilTipos() {
+      return this.$store.state.cil_tipos;
+    },
+  },
+  created: function() {
+    this.$store.dispatch('fetchCilConfig').then(() => {
+      console.log("carregando tipos de cilindros")
+    });
+  },
+  methods: {
+    remove (item) {
+        const index = this.data.indexOf(item)
+        if (index >= 0) this.data.splice(index, 1)
+    },
+    checkForm:function() {
+      this.errorMessage = [];
+      if( !this.capacidade ) this.errorMessage.push("Tipo de cilindro necessário.");
+      if( !this.qtd ) this.errorMessage.push("Qtd. de cilindro necessário.");
+      if(!this.errorMessage.length) return true;
+      //e.preventDefault();
+    },
+    addDemanda(){
+      if ( this.checkForm() ) {
+          store.commit('isLoading');
+          this.item['capacidade'] = this.capacidade;
+          this.item['qtd']      = this.qtd;
+          this.item['edit']     = false;
+          
+          this.data.push( this.item );
+          this.qtd        = "";
+          this.item       = {};
+          this.capacidade   = {};
+          store.commit('isLoading')
+          //console.log(this.data);
+        }
+      
+    },
+    deletarItem: function(item) {
+      
+      var dados = item;
+      console.log(dados);
+      if(confirm('Deseja realmente deletar ' + dados.cilindro.serie + '?')){
+        this.$store.commit('loading_ativo')
+        var postData = {
+          id: dados.id
+        };
+        //console.log(postData);
+        this.$http.post('./config/api/cilProgDemanda.api.php?action=delete-itens', postData).then(function(response) {
+          //console.log(response);
+          if(response.data.error){
+            this.errorMessage.push(response.data.message);
+          } else{
+            this.successMessage.push(response.data.message);
+            this.atualizar();
+            setTimeout(() => {
+              //this.$emit('atualizar');
+            }, 2000);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      }
+      this.$store.commit('loading_inativo')
+    },
+    atualizar: function(){
+      this.$store.dispatch('showProgramacao', this.$route.params._programacao ).then(() => {
+        console.log("Buscando dados Programacao")
+      });
+    },
+  },
+});
+
+</script>

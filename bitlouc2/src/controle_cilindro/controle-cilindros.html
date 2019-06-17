@@ -1,0 +1,44 @@
+<template id="controle-cilindros">
+  <div>
+    <top></top>    
+    <router-view></router-view>    
+  </div>
+</template>
+
+<script>
+  var ControleCilindros = Vue.extend({
+    template: '#controle-cilindros',
+    data: function () {
+      return {
+
+      };
+    },
+    created: function() {
+      this.$store.dispatch('fetchCilConfig').then(() => {
+        console.log("carregando config cilindros")
+      });
+    },
+    computed: {
+
+    },
+    methods: {
+        
+    }
+  });
+
+</script>
+
+<?php 
+
+
+require_once 'src/controle_cilindro/index.html';
+require_once 'src/controle_cilindro/cilindro/index.html';
+require_once 'src/controle_cilindro/programacao/pages/index.html';
+require_once 'src/controle_cilindro/programacao/pages/show.html';
+
+require_once 'src/controle_cilindro/config/index.html';
+
+?>
+
+
+

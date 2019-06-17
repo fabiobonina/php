@@ -1,0 +1,55 @@
+<template id="home">
+  <div>
+    <painel :data="painel"></painel>
+  </div>
+</template>
+
+<script>
+var Home = Vue.extend({
+  name: 'home',
+  template: '#home',
+  props: {
+
+  },
+  data: function () {
+    return {
+      errorMessage: '',
+      successMessage: '',
+      searchQuery: '',
+      painel: [            
+        {   title: 'Atendimento',
+            subtitle: 'Controle dos atendimentos',
+            router: '/atendimento',
+            icon: 'mdi-format-float-center',
+            iconClass: 'grey lighten-1 white--text',
+            nivel: '1',
+        },
+        {   title: 'Controle Cilindros',
+            subtitle: 'Programação de Cilindros',
+            router: '/controle-cilindros',
+            icon: 'mdi-format-float-center',
+            iconClass: 'primary white--text',
+            nivel: '1',
+        },
+        {   title: 'Organização',
+            subtitle: 'Dados loja e localidades',
+            router: '/organizacao',
+            icon: 'mdi-format-float-center',
+            iconClass: 'primary white--text',
+            nivel: '1',
+        },
+      ],
+    };
+  },
+  created: function() {
+  },
+  computed: {
+  },
+  methods: {
+  }
+});
+
+</script>
+
+
+

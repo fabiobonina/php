@@ -1,0 +1,231 @@
+<template id="register-page">
+  <!--v-card class="elevation-12">
+    <v-toolbar card ustify-center>
+      <img src="interface/imagem/bitlouc_logoii.png" height="60px" width="150px">
+    </v-toolbar>
+
+    <v-card-title>
+      Faça login para iniciar sua sessão
+    </v-card-title>
+    <v-card-text>
+      
+      <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+      <v-form>
+        <v-text-field
+          v-model="email"
+          label="E-mail"
+          :error-messages="errors.collect('email')"
+          v-validate="'required|email'"
+          data-vv-name="email"
+          required
+        ></v-text-field>
+        <v-text-field
+          label="Senha"
+          v-model="password"
+          v-validate="'required|min:6'"
+          data-vv-name="password"
+          :error-messages="errors.collect('password')"
+          :append-icon="e1 ? 'visibility' : 'visibility_off'"
+          :append-icon-cb="() => (e1 = !e1)"
+          type="password"
+          required
+        ></v-text-field>
+      </v-form>
+    </v-card-text>
+    <v-card-actions>
+      Não tem uma conta? <a @click.stop="$emit('close')">Crie uma!</a>
+      <v-spacer></v-spacer>
+      <v-btn color="primary" @click.stop="logar()">Entrar</v-btn>
+    </v-card-actions>
+  </v-card-->
+
+      <v-content>
+        <v-container fluid fill-height>
+          <v-layout align-center justify-center>
+            <v-flex xs12 sm8 md4>
+              <v-card class="elevation-12">               
+                <v-toolbar card ustify-center>
+                  <img src="interface/imagem/bitlouc_logoii.png" height="60px" width="150px">
+                </v-toolbar>
+                <v-card-title>
+                  Registre-se
+                </v-card-title>
+                <v-card-text>
+                  <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+                  <loader></loader>
+                  <v-form>
+                    <v-text-field
+                      v-model="name"
+                      label="Nome completo"
+                      :counter="50"
+                      :error-messages="errors.collect('name')"
+                      v-validate="'required|max:50'"
+                      data-vv-name="name"
+                      required
+                    ></v-text-field>
+                    <v-text-field
+                      v-model="user"
+                      label="Usuario"
+                      :counter="20"
+                      :error-messages="errors.collect('user')"
+                      v-validate="'required|max:20'"
+                      data-vv-name="user"
+                      required
+                    ></v-text-field>
+                    <v-text-field
+                      v-model="email"
+                      label="E-mail"
+                      :error-messages="errors.collect('email')"
+                      v-validate="'required|email'"
+                      data-vv-name="email"
+                      required
+                    ></v-text-field>
+                    <!--v-text-field
+                      v-model="emailR"
+                      label="E-mail Confime"
+                      :error-messages="errors.collect('emailR')"
+                      v-validate="'required|email|confirmed:email'"
+                      data-vv-name="emailR"
+                      required
+                    ></v-text-field-->
+                    <v-text-field
+                      label="Senha"
+                      v-model="password"
+                      v-validate="'required|min:6'"
+                      data-vv-name="password"
+                      :error-messages="errors.collect('password')"
+                      :append-icon="e1 ? 'visibility' : 'visibility_off'"
+                      :append-icon-cb="() => (e1 = !e1)"
+                      :type="e1 ? 'password' : 'text'"
+                      required
+                    ></v-text-field>
+                    <!--v-text-field
+                      name="input-10-1"
+                      label="Senha confime"
+                      v-model="passwordR"
+                      v-validate="'required|confirmed:password'"
+                      :error-messages="errors.collect('passwordR')"
+                      :append-icon="e1 ? 'visibility' : 'visibility_off'"
+                      :append-icon-cb="() => (e1 = !e1)"
+                      :type="e1 ? 'password' : 'text'"
+                      data-vv-name="passwordR"
+                      required
+                    ></v-text-field-->
+                  </v-form>
+                </v-card-text>
+                <v-card-actions>
+                  Já tem uma conta? <router-link to="/logar" class="btn btn-link">Logar!</router-link>
+                  <v-spacer></v-spacer>
+                  <v-btn color="primary" @click.stop="registrar()">Register</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-content>
+
+</template>
+
+<script>
+Vue.use(VeeValidate)
+var RegisterPage = Vue.extend({
+  template: '#register-page',
+  name: 'register-page',
+  $_veeValidate: {
+    validator: 'new'
+  },
+    data: function () {
+      return {
+        errorMessage: [],
+        successMessage: [],
+        
+        e1: true,
+        chave: v4(),
+        name:'', email:'', emailR:'', user:'', password:null, passwordR:null,
+        dictionary: {
+          attributes: {
+            email: 'E-mail',
+            emailR: 'E-mail Confime',
+            password: 'Senha',
+            passwordR: 'Senha Confime'
+            // custom attributes
+          },
+          custom: {
+
+          }
+        }
+      }
+    },
+    mounted () {
+      this.$validator.localize('pt_BR', this.dictionary)
+    },
+    computed: {
+      temMessage () {
+        if(this.errorMessage.length > 0) return true
+        if(this.successMessage.length > 0) return true
+        return false
+      },
+    },
+    methods: {
+
+      registrar: function() {
+        this.$validator.validateAll().then((result) => {
+          if (result) {
+            //store.commit('isLoading')
+            var postData = {
+              name: this.name,
+              user: this.user,
+              email: this.email,
+              password: this.password,
+              chave: this.chave
+            };
+            //console.log(postData);
+            this.$http.post('./config/api/user.api.php?action=registrar', postData)
+              .then(function(response) {
+              console.log(response);
+              if(response.data.error){
+                this.errorMessage.push(response.data.message);
+                this.isLoading = response.data.dados.isLoggedIn;
+              } else{
+                this.successMessage.push(response.data.message);
+                this.isLoading = response.data.message;
+                setTimeout(() => {
+                  this.$emit('close');
+                }, 2000);
+              }
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+
+          }
+        });
+      },
+      checkForm:function(e) {
+        this.errorMessage = [];
+        if(!this.name) this.errorMessage.push("Nome necessário.");
+        if(!this.user) this.errorMessage.push("Usuario necessário.");
+        if(!this.email) {
+          this.errorMessage.push("Email necessário.");
+        } else if(!this.validEmail(this.email)) {
+          this.errorMessage.push("Email válido necessário.");
+        } else if(this.email !== this.emailR) {
+          this.errorMessage.push("Email não é igual a confirmação.");
+        }
+        if(!this.password) {
+          this.errorMessage.push("Password necessário.");
+        } else if(this.password !== this.passwordR) {
+          this.errorMessage.push("Password não é igual a confirmação.");        
+        }
+        if(!this.errorMessage.length) return true;
+        e.preventDefault();
+      },
+      validEmail:function(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+      }
+    }
+  });
+
+
+</script>

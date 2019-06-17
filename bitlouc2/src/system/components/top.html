@@ -1,0 +1,105 @@
+<template id="top">
+  <div>
+    <v-navigation-drawer :mini-variant="miniVariant" fixed   v-model="drawer"  app>
+      <v-toolbar flat class="transparent">
+        <v-list v-if="user" class="pa-0">
+          <v-list-tile avatar>
+            <v-list-tile-avatar>
+              <img :src="user.avatar" >
+            </v-list-tile-avatar>
+            <v-list-tile-content>
+              <v-list-tile-title>
+                <a v-on:click="modalUser = true"> {{ user.user }} </a>
+              </v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-toolbar>
+      <v-list v-if="user">
+        <v-list-tile v-for="item in home" :key="item.title" :to="item.router" @click="" append>
+          <v-list-tile-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+        </v-list-tile>        
+        <v-list-group v-if="user.nivel > 2 && user.grupo == 'P'" prepend-icon="settings_applications" value="true" >
+          <v-list-tile slot="activator">
+            <v-list-tile-title>GERENCIAL</v-list-tile-title>
+          </v-list-tile>
+          <v-list-tile v-for="item in items" :key="item.title" :to="item.router" @click="">
+            <v-list-tile-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title >{{ item.title }}</v-list-tile-title>
+          </v-list-tile>
+        </v-list-group>
+      </v-list>
+    </v-navigation-drawer>
+    <v-toolbar color="blue darken-3" dark fixed app>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-btn icon @click.stop="miniVariant = !miniVariant">
+        <v-icon v-html="miniVariant ? 'mdi-chevron-right' : 'mdi-chevron-left'"></v-icon>
+      </v-btn>
+      <a href="#/" class="d-flex ml-3 router-link-active"><img src="dist/img/bit-louc.png" height="36px" width="36px"></a>
+      <v-toolbar-title><b>Bit</b>LOUC </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn href="#/" flat>Home </v-btn>
+        <v-btn v-if="user && user.nivel > 2" href="#/projetos"  flat>Projetos</v-btn>
+        <logout></logout>
+      </v-toolbar-items>
+    </v-toolbar>
+          
+    <user v-if="modalUser" v-on:close="modalUser = false"></user>
+  </div>
+</template>
+<script>
+
+  Vue.component('top', {
+    name: 'top',
+    template: '#top',
+    data: function () {
+      return {
+        drawer: null,
+        miniVariant: false,
+        errorMessage: '',
+        successMessage: '',
+        modalUser: false,
+        home: [
+          { title: 'Home',    router: '/',      icon: 'mdi-home' },
+          { title: 'Lojas',   router: '/organizacao/loja', icon: 'mdi-store' },
+          { title: 'OSs',     router: '/atendimento/oss',   icon: 'mdi-wrench' },
+        ],
+        items: [
+          { title: 'Gerencial', router: '/organizacao/gerencial', icon: 'mdi-view-dashboard' },
+          { title: 'OS',        router: '/atendimento/os-gerencial', icon: 'mdi-view-dashboard' },
+          { title: 'Config',    router: '/config', icon: 'mdi-settings' }
+        ],
+      };
+    },
+    created: function() {
+      
+    },
+    computed: {
+      ...Vuex.mapGetters(["isLoggedIn"] ),
+      ...Vuex.mapGetters(["user"] ),
+    },
+    watch: {
+      // sempre que a pergunta mudar, essa função será executada
+    },
+    methods: {
+      atualizar: function (){
+        this.modalUser = false;
+        //this.dialog = false;
+      },
+      logout(){
+        this.logout;
+        //this.$emit('close');
+      },
+      ...Vuex.mapActions({logout: "logout"}),
+    }
+  });
+
+</script>
+
+

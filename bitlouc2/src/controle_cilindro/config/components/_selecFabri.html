@@ -1,0 +1,57 @@
+<template id="cil-fabric-selec">
+  <div>
+      
+    <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+    <v-select
+      :value="value"
+      @input="$emit('input', $event)"
+      :items="fabricantes"
+      label="Fabricante"
+      :error-messages="errors.collect('fabricante')"
+      v-validate="'required'"
+      data-vv-name="fabricante"
+      required
+    ></v-select>
+
+  </div>
+</template>
+
+<script>
+Vue.component('cil-fabric-selec', {
+  name: 'cil-fabric-selec',
+  template: '#cil-fabric-selec',
+  $_veeValidate: {
+    validator: 'new'
+  },
+  props: {
+    value: {},
+  },
+  data() {
+    return {
+      errorMessage: [],
+      successMessage: [],
+    };
+  },
+  watch: {
+
+  },
+  mounted () {
+    this.$validator.localize('pt_BR', this.dictionary)
+  },
+  computed: {
+    fabricantes() {
+      return this.$store.getters.cilFabricantes;
+    },
+    temMessage () {
+      if(this.errorMessage.length > 0) return true
+      if(this.successMessage.length > 0) return true
+      return false
+    },
+  },
+  methods: {
+    remove (item) {
+        this.value = ''
+    },
+  },
+});
+</script>

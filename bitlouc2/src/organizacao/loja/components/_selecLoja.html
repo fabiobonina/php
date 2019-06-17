@@ -1,0 +1,101 @@
+<template id="loja-selec">
+  <div>  
+    <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+    <v-autocomplete
+      :value="value"
+      @input="$emit('input', $event)"
+      :items="lojas"
+      color="blue-grey lighten-2"
+      label="Loja"                              
+      item-text="name"              
+      data-vv-name="value"
+      :filter="filter"
+      return-object
+      v-validate="'required'"
+      required
+      >
+      <template slot="selection" slot-scope="data">
+        <v-chip :selected="data.selected"
+          close
+          class="chip--select-multi"
+          @input="value = null"
+        >
+          {{ data.item.nick }}
+        </v-chip>
+      </template>
+      <template slot="item" slot-scope="data" >
+        <template v-if="typeof data.item !== 'object'">
+          <v-list-tile-content v-text="data.item"></v-list-tile-content>
+        </template>
+        <template v-else>
+          <v-list-tile-content>
+            <v-list-tile-title v-html="data.item.nick"></v-list-tile-title>
+            <v-list-tile-sub-title v-html="data.item.name"></v-list-tile-sub-title>
+          </v-list-tile-content>
+        </template>
+      </template>
+    </v-autocomplete>
+  </div>
+</template>
+
+<script>
+Vue.component('loja-selec', {
+  name: 'loja-selec',
+  template: '#loja-selec',
+  $_veeValidate: {
+    validator: 'new'
+  },
+  props: {
+    value: {},
+  },
+  data() {
+    return {
+      errorMessage: [],
+      successMessage: [],
+      loja:{},
+    };
+  },
+  watch: {
+
+  },
+  mounted () {
+    this.$validator.localize('pt_BR', this.dictionary)
+  },
+  computed: {
+    user()  {
+      return this.$store.getters.user;
+    },
+    temMessage () {
+      if(this.errorMessage.length > 0) return true
+      if(this.successMessage.length > 0) return true
+      return false
+    },
+    lojas() {
+      return this.$store.state.lojas;
+    },
+  },
+  created: function() {
+
+  },
+  methods: {
+    close () {
+      this.dialog = false;
+      this.$emit('close');
+    },
+    atualizar: function(){
+      this.$emit('atualizar');
+    },
+    remove (item) {
+        this.value = null
+    },
+    filter (item, queryText, itemText) {
+        const textOne = item.nick.toLowerCase()
+        const textTwo = item.name.toLowerCase()
+        const searchText = queryText.toLowerCase()
+
+        return textOne.indexOf(searchText) > -1 ||
+          textTwo.indexOf(searchText) > -1
+    },
+  },
+});
+</script>
