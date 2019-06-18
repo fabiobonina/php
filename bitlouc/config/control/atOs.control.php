@@ -60,7 +60,7 @@
 			
 			$dtCadastro = date("Y-m-d");
 
-			if( $loja_id == '38' ){
+			if( $loja['id'] == '38' ){
 				$etapaI = false;
 			}else{
 				$etapaI = $oss->validarOs( $local['id'], $categoria_id, $equipamento_id, $data, $id );
@@ -75,7 +75,7 @@
 			$oss->setProprietario($loja['proprietario_id']);
 			$oss->setLoja($loja['id']);
 			$oss->setLojaNick($loja['nick']);
-			$oss->setLocal($local['local_id']);
+			$oss->setLocal($local['id']);
 			$oss->setUf($local['uf']);
 			$oss->setEquipamento($equipamento_id);
 			$oss->setCategoria($categoria_id);

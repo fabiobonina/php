@@ -163,7 +163,7 @@
 				$cont1++;
 				$tecId = $value['id'];
 				$userTec = $value['user_id'];
-				$userNickTec = $value['userNick'];
+				$userNickTec = $value['user_nick'];
 				$hhTec = $value['hh'];
 
 				$validar = $osTecnicos->findTecOs( $tecId, $os_id );

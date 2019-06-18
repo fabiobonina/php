@@ -36,6 +36,7 @@ var mixOs = {
             categoria_id:     this.defaultItem.categoria.id,
             servico_id:       this.defaultItem.servico.id,
             data:             this.defaultItem.dataOs,
+            tecnicos:         this.defaultItem.tecnicos,
             id:               this.defaultItem.id
           };
           //this.publishItem(this.defaultItem);
