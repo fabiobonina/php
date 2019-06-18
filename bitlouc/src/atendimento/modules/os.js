@@ -3,6 +3,7 @@ const OSLIST        ='./config/api/os.api.php?action=read';
 const OSFIND        ='./config/api/os.api.php?action=os';
 const OSSTATUSFIND  ='./config/api/os.api.php?action=status';
 const OSAMARARFIND  ='./config/api/os.api.php?action=semAmaracao';
+const OSPUBLISH  ='./config/api/os.api.php?action=publish';
 
 const os = {
     

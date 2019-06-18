@@ -7,7 +7,10 @@
       </v-stepper-step>
       <v-stepper-content step="1">
         <v-flex>
-            <loja-selec v-model="value.loja"></loja-selec>
+            <loja-selec v-model="value.loja" 
+            v-validate="'required'"
+            data-vv-name="value.loja"
+            required></loja-selec>
         </v-flex>
       </v-stepper-content>
       <v-stepper-step editable :complete="Number(progresso) > 2" step="2">
