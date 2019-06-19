@@ -9,7 +9,7 @@ require_once '../control/atNota.control.php';
 
 $osControl    = new OsControl();
 $tecControl   = new TecControl();
-$tecControl   = new NotaControl();
+$notaControl  = new NotaControl();
 $mods 			  = new Mod();
 
 $res = array('error' => true);
@@ -92,13 +92,13 @@ if($action == 'publish'):
     $id
   );
   if(!$item['error']){
-    $item =  $tecControl->insertOsTec( $tecnicos, $item['id'] , $loja['id'] );
-    if( !$item['error'] ){
+    $itemI =  $tecControl->insertOsTec( $tecnicos, $item['id'] , $loja['id'] );
+    if( !$itemI['error'] ){
       //$os_status = 'foi designados o(s) tecnico(s)';
       //$osControl->osEmail( $os_id, $os_status);
     }
   }
-  $res = $tiem;
+  $res = $item;
 endif;
 
 #OS-AMARAR

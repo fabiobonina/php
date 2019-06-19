@@ -41,11 +41,13 @@ var mixOs = {
           };
           //this.publishItem(this.defaultItem);
           this.$store.dispatch('publishOs', postData ).then( function(response) {
-            this.successMessage.push(response.data.message);
+            console.log(response);
+            this.successMessage.push(response);
             this.atualizar();
           })
           .catch(function(error) {
             console.log(error);
+            this.errorMessage.push(error);
           });
           /*this.$http.post('./config/api/cilindro.api.php?action=publish', postData).then(function(response) {
             console.log(response);

@@ -72,11 +72,17 @@ const os = {
           commit('loading_ativo');
           console.log(postData);
           Vue.http.post( OSPUBLISH , postData).then( function(response) {
-            console.log(response);
-            if(response.data.error) console.log(response.data.message);
+            
+            if(response.data.error) console.log();
             else console.log(response.data.message); 
             commit('loading_inativo');
-            resolve();
+            
+            if (!response.data.error) {
+              resolve(response.data.message);
+            }
+            else {
+              reject(response.data.message);
+            }
           })
           .catch( function(error) {
             commit('loading_inativo');
