@@ -10,7 +10,7 @@ var mixOs = {
             categoria:    {},
             servico:      {},
             tecnicos:     [],
-            dataOs:       '',
+            data:         '',
             id:           '',
           },
       };
@@ -35,38 +35,21 @@ var mixOs = {
             equipamento_id:   this.validarEquipamento (this.defaultItem.equipamento),
             categoria_id:     this.defaultItem.categoria.id,
             servico_id:       this.defaultItem.servico.id,
-            data:             this.defaultItem.dataOs,
-            tecnicos:         this.defaultItem.tecnicos,
+            data:             this.defaultItem.data,
+            tecnicos:         this.validarTecnico(),
             id:               this.defaultItem.id
           };
           //this.publishItem(this.defaultItem);
           this.$store.dispatch('publishOs', postData ).then( function(response) {
             console.log(response);
-            this.successMessage.push(response);
-            this.atualizar();
+            
+            if(!response.error){
+              this.atualizar();
+            }
           })
           .catch(function(error) {
             console.log(error);
-            this.errorMessage.push(error);
           });
-          /*this.$http.post('./config/api/cilindro.api.php?action=publish', postData).then(function(response) {
-            console.log(response);
-            if(!response.data.error){
-                this.successMessage.push(response.data.message);
-                store.commit('isLoading');
-                setTimeout(() => {
-                  this.$router.push('/programacao/'+response.data.id)
-                  this.$emit('close');
-                }, 2000);
-              } else{
-                this.errorMessage.push(response.data.message);
-                store.commit('isLoading');
-              }
-          })
-          .catch(function(error) {
-            store.commit('isLoading');
-            console.log(error);
-          });*/
         }
       });
     },
@@ -74,7 +57,7 @@ var mixOs = {
       this.dialog = false;
       this.$emit('close');
     },
-    atualizar: function(){
+    atualizar (){
       setTimeout(() => {
         this.dialog = false;
         this.$emit('atualizar');
@@ -88,15 +71,23 @@ var mixOs = {
         return this.defaultItem.equipamento_id = '';
       }
     },
+    validarTecnico (){
+      var tecnico = null;
+      if( this.defaultItem.id ) {
+        return tecnico;
+      } else  {
+        return this.defaultItem.tecnicos;
+      }
+    },
     checkForm:function() {
       this.errorMessage = [];
-      if( !this.defaultItem.loja.id )          this.errorMessage.push("Loja é necessário.");
-      if( !this.defaultItem.local.id )         this.errorMessage.push("Fabricante é necessário.");
-      if( !this.defaultItem.equipamento && !this.defaultItem.capacidade )    this.errorMessage.push("Equip. ou Capacidade é necessário.");
-      if( !this.defaultItem.servico.id )       this.errorMessage.push("Serviço é necessário.");
-      if( !this.defaultItem.tecnicos )      this.errorMessage.push("Tecnico(s) é necessário.");
-      if( !this.defaultItem.dataOs )        this.errorMessage.push("DataOS é necessário.");
-      if(!this.errorMessage.length)   return true;
+      if( !this.defaultItem.loja.id )      this.$store.dispatch('errorMessage', 'Loja é necessário.');
+      if( !this.defaultItem.local.id )     this.$store.dispatch('errorMessage', 'Fabricante é necessário.');
+      if( !this.defaultItem.equipamento && !this.defaultItem.categoria )    this.$store.dispatch('errorMessage', 'Equip. ou Categoria é necessário.');
+      if( !this.defaultItem.servico.id )   this.$store.dispatch('errorMessage', 'Serviço é necessário.');
+      if( !this.defaultItem.tecnicos )     this.$store.dispatch('errorMessage', 'Tecnico(s) é necessário.');
+      if( !this.defaultItem.data )       this.$store.dispatch('errorMessage', 'DataOS é necessário.');
+      if(!this.$store.getters.errorMessage.length)   return true;
       //e.preventDefault();
     },
   },

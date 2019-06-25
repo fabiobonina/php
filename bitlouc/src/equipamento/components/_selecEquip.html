@@ -1,7 +1,7 @@
 <template id="equipamento-selec">
   <div>
       
-    <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+    <message ></message>
 
     <v-autocomplete
     :value="value"
@@ -80,11 +80,11 @@ Vue.component('equipamento-selec', {
   },
   watch: {
     'local_id': function (newQuestion, oldQuestion) {
-      this.updateLocal()
+      this.updateEquip()
     },
   },
   created: function() {
-
+    this.updateEquip()
   },
   methods: {
     atualizar: function(){
@@ -112,7 +112,7 @@ Vue.component('equipamento-selec', {
           textFour.indexOf(searchText)  > -1 ||
           textFive.indexOf(searchText)  > -1
     },
-    updateLocal() {
+    updateEquip() {
       this.$store.dispatch('fetchEquipamentoLocal', this.local_id ).then(() => {
         //console.log("Buscando dados do equipamento!");
         this.equipamentos =this.$store.getters.equipamentos;

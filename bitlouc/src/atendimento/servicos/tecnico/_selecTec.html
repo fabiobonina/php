@@ -1,20 +1,20 @@
-<template id="tecnicos-selec">
+<template id="tecnico-selec">
   <div>
       
-    <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+    <message ></message>
     
     <v-autocomplete
       :value="value"
       @input="$emit('input', $event)"
       :items="tecnicos"
+      solo
       chips
       color="blue-grey lighten-2"
-      label="Tecnico(s)"                              
+      label="Tecnico"                              
       item-text="name"              
       data-vv-name="tecnicos"
       :filter="filter"
       return-object
-      multiple
       >
       <template slot="selection" slot-scope="data">
         <v-chip
@@ -50,9 +50,9 @@
 
 
 <script>
-Vue.component('tecnicos-selec', {
-  name: 'tecnicos-selec',
-  template: '#tecnicos-selec',
+Vue.component('tecnico-selec', {
+  name: 'tecnico-selec',
+  template: '#tecnico-selec',
   $_veeValidate: {
     validator: 'new'
   },

@@ -9,7 +9,7 @@
     </v-card-title>
     <v-card-text>
       
-      <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+      <message ></message>
       <v-form>
         <v-text-field
           v-model="email"
@@ -51,7 +51,7 @@
                   Registre-se
                 </v-card-title>
                 <v-card-text>
-                  <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+                  <message ></message>
                   <loader></loader>
                   <v-form>
                     <v-text-field

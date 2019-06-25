@@ -14,14 +14,16 @@
     Vue.component('message', {
         name: 'message',
         template: '#message',
+        props: {
+            error: Array,
+            success: Array,
+            alerta: Boolean
+        },
         data() {
             return {
                 snackbar: false,
                 snackbar1: false,
                 timeout: 9000,
-                
-                error: [],
-                success: [],
             };
         },
         watch: {
@@ -34,27 +36,21 @@
         },
         computed: {
             temErros () {
-                if(this.$store.getters.errorMessage.length > 0) {
-                    this.error = this.$store.getters.errorMessage;
-                    return true
-                }
+                if(this.error.length > 0) return true
                 return false
             },
             temMessage () {
-                if(this.$store.getters.successMessage.length > 0) {
-                    this.success =  this.$store.getters.successMessage;
-                    return true
-                }
+                if(this.success.length > 0) return true
                 return false
             },
         },
         methods: {
             close () {
-                this.$store.dispatch("apagarMessage");
+                this.$emit('close');
             },
             time () {
                 setTimeout(() => {
-                    this.$store.dispatch("apagarMessage");
+                    this.$emit('close');
                 }, 8000);
             },
         },

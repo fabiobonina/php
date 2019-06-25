@@ -38,10 +38,10 @@
               <servico-selec v-model="value.servico"></servico-selec>
             </v-flex>
             <v-flex>
-              <date-normal :value.sync="value.dataOs" label="DtOs"></date-normal>
+              <date-normal :value.sync="value.data" label="DtOs"></date-normal>
             </v-flex>
           </v-layout>
-          <tecnicos-selec v-model="value.tecnicos"></tecnicos-selec>
+          <tecnicos-selec v-if="!value.id" v-model="value.tecnicos"></tecnicos-selec>
         </v-container>
       </v-stepper-content>
     </v-stepper>

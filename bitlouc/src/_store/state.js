@@ -32,4 +32,6 @@ const state = {
   ufs:{},
   count: 0,
   loading: false,
+  errorMessage: [],
+  successMessage: [],
 }

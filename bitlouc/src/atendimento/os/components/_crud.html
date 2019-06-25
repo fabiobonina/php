@@ -18,8 +18,8 @@
       </v-list>
     </v-menu>
     <div>
-      <cilindro-edt v-if="modalEdt" v-on:close="modalEdt = false" :data="data"></cilindro-edt>
-      <cilindro-del v-if="modalDel" v-on:close="modalDel = false" :data="data"></cilindro-del>
+      <cilindro-edt v-if="modalEdt" v-on:close="modalEdt = false" :data="data" v-on:atualizar="atualizar()"></cilindro-edt>
+      <cilindro-del v-if="modalDel" v-on:close="modalDel = false" :data="data" v-on:atualizar="atualizar()"></cilindro-del>
     </div>
   </div>
 </template>
@@ -36,6 +36,10 @@ Vue.component('cilindro-crud', {
       hover: false,
       modalEdt: false,
       modalDel: false,
+      modalTec: false,
+      modalOs:  false,
+      modalGeo: false,
+
     }
   },
   computed: {
@@ -43,7 +47,15 @@ Vue.component('cilindro-crud', {
       return this.$store.getters.user;
     },
   },
-  methods: {  
+  methods: {
+    atualizar(){
+      this.modalGeo = false;
+      this.modalTec = false;
+      this.modalEdt = false;
+      this.modalDel = false;
+      this.modalOs  = false;
+      this.$emit('atualizar');
+    }
   }
 });
 </script>

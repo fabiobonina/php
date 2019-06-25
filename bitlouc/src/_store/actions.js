@@ -26,6 +26,15 @@ const actions = {
   setStatus({ commit }, status) {
     commit("SET_STATUS", status)
   },
+  errorMessage({ commit }, errorMessage) {
+    commit("errorMessage", errorMessage)
+  },
+  successMessage({ commit }, successMessage) {
+    commit("successMessage", successMessage)
+  },
+  apagarMessage({ commit }) {
+    commit("apagarMessage");
+  },
   fetchIndex({ commit }) {
     return new Promise((resolve, reject) => {
       Vue.http.get('./config/api/organizacao.api.php?action=read')

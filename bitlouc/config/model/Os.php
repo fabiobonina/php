@@ -139,7 +139,6 @@ class Os extends Crud{
 			$stmt->bindParam(':id', 			$id);
 			$stmt->execute();
 
-			$res['id'] = $id;
 			$res['error'] 	= false;
 			$res['message'] = "OK, OS atualizado com sucesso";
 			return $res;

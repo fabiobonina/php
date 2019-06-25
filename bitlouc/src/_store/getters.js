@@ -2,6 +2,9 @@
 const getters = {
   //getSearch: state => state.tipoDeslocamentos,
   loading: state => state.loading,
+  
+  errorMessage: state => state.errorMessage,
+  successMessage: state => state.successMessage,
 
   grupos: state => state.grupos,
   seguimentos: state => state.seguimentos,
@@ -49,7 +52,6 @@ const getters = {
     return state.locais.find(todo => todo.loja_id === loja);
   },
 
-  
   equipamentos: state => state.equipamentos,
   getEquipamentoLocal: (state) => (local) => {
     return state.equipamentos.filter(todo => todo.local_id === local);

@@ -72,17 +72,18 @@ const os = {
           commit('loading_ativo');
           console.log(postData);
           Vue.http.post( OSPUBLISH , postData).then( function(response) {
-            
-            if(response.data.error) console.log();
-            else console.log(response.data.message); 
+            console.log(response);
             commit('loading_inativo');
             
-            if (!response.data.error) {
-              resolve(response.data.message);
-            }
-            else {
-              reject(response.data.message);
-            }
+            if(response.data.error) commit('errorMessage', response.data.message);
+            else commit('successMessage', response.data.message);
+            
+            if(response.data.id){
+              console.log(response.data.id);
+              router.push('/atendimento/show/'+response.data.id);
+            } 
+            resolve(response.data);
+          
           })
           .catch( function(error) {
             commit('loading_inativo');

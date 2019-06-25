@@ -1,7 +1,7 @@
 <template id="local-selec">
   <div>
       
-    <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+    <message ></message>
 
     <v-autocomplete
     :value="value"
@@ -71,6 +71,14 @@ Vue.component('local-selec', {
     user()  {
       return this.$store.getters.user;
     },
+    locaiss()  {
+      //this.$store.dispatch('fetchLocalLoja', this.loja_id ).then(() => {
+        //console.log("Buscando dados do local!");
+        return this.$store.getters.locais;
+        //store.commit('isLoading');
+      //});
+      return this.$store.getters.user;
+    },
     temMessage () {
       if(this.errorMessage.length > 0) return true
       if(this.successMessage.length > 0) return true
@@ -83,7 +91,7 @@ Vue.component('local-selec', {
     },
   },
   created: function() {
-
+    this.updateLocal();
   },
   methods: {
     atualizar: function(){
@@ -104,7 +112,7 @@ Vue.component('local-selec', {
     },
     updateLocal() {
       this.$store.dispatch('fetchLocalLoja', this.loja_id ).then(() => {
-        //console.log("Buscando dados do local!");
+        console.log("Buscando dados do locais!");
         this.locais =this.$store.getters.locais;
         //store.commit('isLoading');
       });

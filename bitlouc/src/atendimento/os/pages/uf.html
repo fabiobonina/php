@@ -10,7 +10,7 @@
               <v-spacer></v-spacer>
             </v-toolbar>
             <v-list two-line subheader>
-              <v-list-tile class="orange lighten-5" :to="'/oss/uf/' + ocorrencia.id" avatar @click="status = '0'" key="OSs">
+              <v-list-tile class="orange lighten-5" :to="'/atendimento/oss/uf/' + ocorrencia.id" avatar @click="status = '0'" key="OSs">
                 <v-list-tile-avatar>
                   <v-icon color="orange">mdi-exclamation</v-icon>
                 </v-list-tile-avatar>
@@ -21,7 +21,7 @@
                   {{ ocorrencia.ocorrenciaI }}
                 </v-list-tile-action>
               </v-list-tile>
-              <v-list-tile class="green lighten-5" :to="'/oss/uf/' + ocorrencia.id" avatar @click="status = '1'">
+              <v-list-tile class="green lighten-5" :to="'/atendimento/oss/uf/' + ocorrencia.id" avatar @click="status = '1'">
                 <v-list-tile-avatar>
                   <v-icon color="green">mdi-loading mdi-spin</v-icon>
                 </v-list-tile-avatar>
@@ -32,7 +32,7 @@
                   {{ ocorrencia.ocorrenciaII }}
                 </v-list-tile-action>
               </v-list-tile>
-              <v-list-tile class="cyan lighten-5" :to="'/oss/uf/' + ocorrencia.id" avatar @click="status = '2'">
+              <v-list-tile class="cyan lighten-5" :to="'/atendimento/oss/uf/' + ocorrencia.id" avatar @click="status = '2'">
                 <v-list-tile-avatar>
                   <v-icon color="cyan">mdi-check</v-icon>
                 </v-list-tile-avatar>

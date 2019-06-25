@@ -11,7 +11,7 @@
             <v-spacer></v-spacer>
           </v-toolbar>
           <v-card-text v-if="data">
-            <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+            <message ></message>
             <v-container grid-list-md>
               <v-list-tile @click="">
                 <v-list-tile-content v-if="data">

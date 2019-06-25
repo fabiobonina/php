@@ -17,7 +17,6 @@
             </v-toolbar-items>
           </v-toolbar>
           <v-card-text>
-              <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
               <os-publish :value.sync="defaultItem" ></os-publish>
           </v-card-text>
         </v-card-->
@@ -41,8 +40,6 @@ Vue.component('os-add', {
   },
   data() {
     return {
-      errorMessage: [],
-      successMessage: [], 
       dialog: false,
       title: 'Nova Ordem de Serviço',
     };
@@ -57,11 +54,6 @@ Vue.component('os-add', {
     user()  {
       return this.$store.getters.user;
     },
-    temMessage () {
-      if(this.errorMessage.length > 0) return true
-      if(this.successMessage.length > 0) return true
-      return false
-    },
   },
   created: function() {
   },
@@ -70,12 +62,7 @@ Vue.component('os-add', {
       this.dialog = false;
       this.$emit('close');
     },
-    atualizar: function(){
-      setTimeout(() => {
-        this.dialog = false;
-        this.$emit('atualizar');
-      }, 2000);
-    },
+    
   },
 });
 </script>

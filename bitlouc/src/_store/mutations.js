@@ -34,6 +34,10 @@ const mutations = {
   isLoading: state => state.loading = !state.loading,
   loading_ativo:    state => state.loading = true,
   loading_inativo:  state => state.loading = false,
-  errorMessage: (state, errorMessage) =>   state.errorMessage = errorMessage,
-  successMessage: (state, successMessage) =>   state.successMessage = successMessage,
-}
+  errorMessage: (state, errorMessage) =>   state.errorMessage.push( errorMessage ),
+  successMessage: (state, successMessage) =>   state.successMessage.push( successMessage ),
+  apagarMessage ( state ) {
+    state.errorMessage = [];
+    state.successMessage = [];
+  },
+};

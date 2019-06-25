@@ -91,7 +91,7 @@ if($action == 'publish'):
     $data,
     $id
   );
-  if(!$item['error']){
+  if(!$item['error'] && $id == ''){
     $itemI =  $tecControl->insertOsTec( $tecnicos, $item['id'] , $loja['id'] );
     if( !$itemI['error'] ){
       //$os_status = 'foi designados o(s) tecnico(s)';

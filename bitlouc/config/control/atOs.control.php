@@ -18,14 +18,14 @@
 			$fabricantes	= new Fabricantes();
 			$users			= new User();
 
-			
-			$local 					= $locais->find( $item->local_id );
-			$item->local_tipo		= $local->tipo;
-			$item->local_name		= $local->name;
-			$item->local_municipio	= $local->municipio;
-			$item->local_uf			= $local->uf;
-			$item->local_lat		= $local->latitude;
-			$item->local_long		= $local->longitude;
+			$item->loja 			= $lojas->find( $item->loja_id );
+			$item->local 			= $locais->find( $item->local_id );
+			$item->local_tipo		= $item->local->tipo;
+			$item->local_name		= $item->local->name;
+			$item->local_municipio	= $item->local->municipio;
+			$item->local_uf			= $item->local->uf;
+			$item->local_lat		= $item->local->latitude;
+			$item->local_long		= $item->local->longitude;
 			$item->equipamento		= $equipamentos->find( $item->equipamento_id );
 			if($item->equipamento){
 				$fabricante			= $fabricantes->find( $item->equipamento->fabricante_id );

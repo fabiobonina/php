@@ -1,27 +1,32 @@
-<template id="loja-selec">
-  <div>  
+<template id="tecnicos-selec">
+  <div>
+      
     <message ></message>
+    
     <v-autocomplete
       :value="value"
       @input="$emit('input', $event)"
-      :items="lojas"
+      :items="tecnicos"
+      chips
       color="blue-grey lighten-2"
-      label="Loja"                              
+      label="Tecnico(s)"                              
       item-text="name"              
-      data-vv-name="value"
+      data-vv-name="tecnicos"
       :filter="filter"
       return-object
-      v-validate="'required'"
-      solo
-      required
+      multiple
       >
       <template slot="selection" slot-scope="data">
-        <v-chip :selected="data.selected"
+        <v-chip
+          :selected="data.selected"
           close
           class="chip--select-multi"
-          @input="value = null"
+          @input="remove()"
         >
-          {{ data.item.nick }}
+          <v-avatar>
+            <img :src="data.item.avatar">
+          </v-avatar>
+          {{ data.item.user_nick }}
         </v-chip>
       </template>
       <template slot="item" slot-scope="data" >
@@ -29,31 +34,36 @@
           <v-list-tile-content v-text="data.item"></v-list-tile-content>
         </template>
         <template v-else>
+          <v-list-tile-avatar>
+            <img :src="data.item.avatar">
+          </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title v-html="data.item.nick"></v-list-tile-title>
-            <v-list-tile-sub-title v-html="data.item.name"></v-list-tile-sub-title>
+            <v-list-tile-title v-html="data.item.user_nick"></v-list-tile-title>
+            <v-list-tile-sub-title v-html="data.item.email"></v-list-tile-sub-title>
           </v-list-tile-content>
         </template>
       </template>
     </v-autocomplete>
+      
   </div>
 </template>
 
+
 <script>
-Vue.component('loja-selec', {
-  name: 'loja-selec',
-  template: '#loja-selec',
+Vue.component('tecnicos-selec', {
+  name: 'tecnicos-selec',
+  template: '#tecnicos-selec',
   $_veeValidate: {
     validator: 'new'
   },
   props: {
     value: {},
+    local_id: "",
   },
   data() {
     return {
       errorMessage: [],
       successMessage: [],
-      loja:{},
     };
   },
   watch: {
@@ -71,31 +81,33 @@ Vue.component('loja-selec', {
       if(this.successMessage.length > 0) return true
       return false
     },
-    lojas() {
-      return this.$store.getters.lojas;
+    tecnicos() {
+      return this.$store.getters.tecnicos;
     },
+  },
+  watch: {
+
   },
   created: function() {
 
   },
   methods: {
-    close () {
-      this.dialog = false;
-      this.$emit('close');
-    },
     atualizar: function(){
       this.$emit('atualizar');
     },
-    remove (item) {
-        this.value = null
+    remove () {
+        //const index = this.loja.indexOf(item)
+        //if (index >= 0) this.loja.splice(index, 1)
+        event.target.value = null;
+        this.$emit('value', event.target.value)
     },
     filter (item, queryText, itemText) {
-        const textOne = item.nick.toLowerCase()
-        const textTwo = item.name.toLowerCase()
+        const textOne   = item.user_nick.toLowerCase()
+        const textTwo   = item.email.toLowerCase()
         const searchText = queryText.toLowerCase()
 
         return textOne.indexOf(searchText) > -1 ||
-          textTwo.indexOf(searchText) > -1
+          textTwo.indexOf(searchText)   > -1 
     },
   },
 });

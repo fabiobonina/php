@@ -1,51 +1,21 @@
 
 <template id="tec-os">
   <div>
+      <v-container grid-list-md>
+          <v-layout row wrap>
+              <v-flex>
+                <tecnico-selec v-model="tecnico"></tecnico-selec>
+              </v-flex>
+              <v-flex>
+                <loja-selec v-model="loja"></loja-selec>
+              </v-flex>
+              <v-flex>
+              </v-flex>
+          </v-layout>
+        </v-container>
     <section class="container">
-
+      
       <div>
-        <v-flex xs6 v-if="user.nivel > 2 && user.grupo == 'P'" small >
-          <v-autocomplete
-            v-model="tecnico"
-            :items="tecnicos"
-            solo
-            chips
-            color="blue-grey lighten-2"
-            label="Tecnico(s)"                              
-            item-text="name"              
-            data-vv-name="tecnicos"
-            :filter="customFilter"
-            return-object
-          >
-            <template slot="selection" slot-scope="data">
-              <v-chip
-                :selected="data.selected"
-                close
-                class="chip--select-multi"
-                @input="remove(data.item)"
-              >
-                <v-avatar>
-                  <img :src="data.item.avatar">
-                </v-avatar>
-                {{ data.item.user_nick }}
-              </v-chip>
-            </template>
-            <template slot="item" slot-scope="data" >
-              <template v-if="typeof data.item !== 'object'">
-                <v-list-tile-content v-text="data.item"></v-list-tile-content>
-              </template>
-              <template v-else>
-                <v-list-tile-avatar>
-                  <img :src="data.item.avatar">
-                </v-list-tile-avatar>
-                <v-list-tile-content>
-                  <v-list-tile-title v-html="data.item.user_nick"></v-list-tile-title>
-                  <v-list-tile-sub-title v-html="data.item.email"></v-list-tile-sub-title>
-                </v-list-tile-content>
-              </template>
-            </template>
-          </v-autocomplete>
-        </v-flex>
         <os-list :data="oss" :status="status"></os-list>
       </div>
     </section>
@@ -61,6 +31,7 @@ var TecOs = Vue.extend({
       successMessage: '',
       value:[],
       tecnico: null,
+      loja: null,
       status: null,
     };
   },
@@ -74,42 +45,39 @@ var TecOs = Vue.extend({
     //this.tecnico();
   },
   computed: {
-    loja()  {
-      return this.$store.getters.getLojaId(this.$route.params._loja);
-    },
-    ...Vuex.mapGetters(["user"] ),
-    tecnicos() {
-      return this.$store.getters.tecnicos;
+    user() {
+      return this.$store.getters.user;
     },
     oss()  {      
-      var obj     = this.$store.getters.oss;
-      var user    = this.$store.getters.user;
-      var user_id  = null;
-      if(this.tecnico){
+      var items    = this.$store.getters.oss;
+      //var user     = this.$store.getters.user;
+      //var user_id  = null;
+      /*if(this.tecnico){
         user_id = this.tecnico.user_id;
       }else{
         user_id = user.id;
-      }
-      var usert = "4";
-      var value = [];
-      for (var entry of obj) {
-        //console.log(entry);
-        for (var tec of entry.tecnicos) {
-          //value.push( entry);
-          if(user_id == tec.user_id) {
-            //console.log(entry);
-            value.push( entry);
+      }*/
+      
+      if (this.tecnico) {
+        //return value.filter(todo => todo.loja_id === this.loja.id);
+        var value = [];
+        for (var entry of items) {
+          //console.log(entry);
+          for (var tec of entry.tecnicos) {
+            //value.push( entry);
+            if(tec.user_id == this.tecnico.user_id) {
+              //console.log(entry);
+              value.push( entry);
+            }
           }
         }
-        
+        return items = value;
       }
-
-      return value;
-      //for (let [key, value] of iterable) {
-        //console.log(value);
-        //this.value.push( value);
-      //}
-      //return data;
+      if (this.loja) {
+        return items.filter(todo => todo.loja_id === this.loja.id);
+      }
+      
+      return items;
     },
     filteredData() {
       /*const filter = this.configs.search && this.configs.search.toLowerCase(); 

@@ -8,66 +8,81 @@
         <v-text-field  v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
         <os-add v-if="user.nivel > 2 && user.grupo == 'P'" v-on:close="close()"></os-add>
       </v-card-title>
-      <v-data-table :headers="headers" :items="filteredData" :pagination.sync="pagination">
-        <template slot="items" slot-scope="props">
-          <td style="padding:0 10px">
-            <router-link :to="'/atendimento/show/'+ props.item.id" :key="props.item.id">
-              <v-list-tile-sub-title> {{ props.item.loja_nick }} </v-list-tile-sub-title>
-            </router-link>
-          </td>
-          <td style="padding:0 10px">
-            <router-link :to="'/atendimento/show/'+ props.item.id" :key="props.item.id">
-              <v-list-tile-title> {{props.item.local_tipo}} {{props.item.local_name}}</v-list-tile-title>
-              <v-list-tile-sub-title>{{props.item.local_municipio}}-{{props.item.uf}}</v-list-tile-sub-title>
-            </router-link>
-          </td>
-          <td style="padding:0 10px">
-            <v-list-tile-content>
-              <v-list-tile-title> {{ props.item.data }}</v-list-tile-title>
-              <v-list-tile-sub-title class="text--primary"> {{props.item.servico.name}}</v-list-tile-sub-title>
-              <v-chip small color="indigo" text-color="white">
-                OS: {{ props.item.filial}}-{{ props.item.os}}
-              </v-chip> 
-            </v-list-tile-content>
-          </td>
-          <td style="padding:0 10px">
-            <v-list-tile-content>
-                {{ props.item.filial}}-{{ props.item.os}}
-            </v-list-tile-content>
-          </td>
-          <td style="padding:0 10px">
-            <router-link :to="$route.path + props.item.id" :key="props.item.id">
+      <v-data-table :headers="headers" :items="filteredData" :pagination.sync="pagination" :expand="expand" item-key="id">
+        <template v-slot:items="props">
+          <tr @click="props.expanded = !props.expanded">
+            <td>
+              <router-link :to="'/atendimento/show/'+ props.item.id" :key="props.item.id"> Ver </router-link>
+            </td>
+            <td> {{ props.item.data }} </td>
+            <td> {{ props.item.loja_nick }} </td>
+            <td>
+              <v-list-tile-title> {{props.item.local_tipo}} {{props.item.local_name}} </v-list-tile-title>
+              <v-list-tile-sub-title> {{props.item.local_municipio}}-{{props.item.uf}} </v-list-tile-sub-title>
+            </td>
+            <td style="padding:0 10px">
+              <v-list-tile-content>
+                <v-chip small color="indigo" text-color="white">
+                  OS: {{ props.item.filial}}-{{ props.item.os}}
+                </v-chip> 
+                {{props.item.servico.name}}
+              </v-list-tile-content>
+            </td>
+            
+            <td style="padding:0 10px">
               <v-list-tile-title> {{ props.item.categoria.name }} </v-list-tile-title>
-              <v-list-tile-sub-title v-if="props.item.bem">{{props.item.bem.name}} {{props.item.bem.modelo}}  &nbsp; #{{props.item.bem.fabricante}}
+              <v-list-tile-sub-title v-if="props.item.equipamento">
                 <v-chip small color="green" text-color="white">
                   <v-avatar class="green darken-4">
                     <v-icon small>mdi-qrcode</v-icon>
                   </v-avatar>
-                  {{ props.item.bem.numeracao }}
+                  {{ props.item.equipamento.numeracao }}
                 </v-chip>
                 <v-chip small color="orange" text-color="white">
                   <v-avatar class="orange darken-4">
                     <v-icon small>mdi-barcode</v-icon>
                   </v-avatar>
-                  {{props.item.bem.plaqueta}}
+                  {{props.item.equipamento.plaqueta}}
                 </v-chip>
               </v-list-tile-sub-title>
-            </router-link>
-            <div>
-              <v-chip small v-for="tecnico in props.item.tecnicos" :key="tecnico.id">
-                <v-avatar small>
+            </td>
+            <td style="padding:0 10px">
+                <v-avatar v-for="tecnico in props.item.tecnicos" :key="tecnico.id" size="30">
                   <img :src="tecnico.avatar" alt="trevor">
                 </v-avatar>
-                {{tecnico.user_nick}}
-              </v-chip>
-            </div>
-          </td>
-
-          <td>
-            <os-crud :data="props.item" v-on:atualizar="atualizar()"></os-crud>
-          </td>
-          <td class="text-xs-right"> {{ props.item.id }} </td>
-          
+            </td>
+            <td>
+              <os-crud :data="props.item" v-on:atualizar="atualizar()"></os-crud>
+            </td>
+            <td class="text-xs-right"> {{ props.item.id }} </td>
+          </tr>
+        </template>
+        <template v-slot:expand="props">
+          <v-card flat>
+            <v-card-text>
+              <v-list-tile-sub-title v-if="props.item.equipamento">{{props.item.equipamento.name}} {{props.item.equipamento.modelo}}  &nbsp; #{{props.item.equipamento.fabricante}}
+                <v-chip small color="green" text-color="white">
+                  <v-avatar class="green darken-4">
+                    <v-icon small>mdi-qrcode</v-icon>
+                  </v-avatar>
+                  {{ props.item.equipamento.numeracao }}
+                </v-chip>
+                <v-chip small color="orange" text-color="white">
+                  <v-avatar class="orange darken-4">
+                    <v-icon small>mdi-barcode</v-icon>
+                  </v-avatar>
+                  {{props.item.equipamento.plaqueta}}
+                </v-chip>
+              </v-list-tile-sub-title>
+              <div>
+                <v-chip small v-for="tecnico in props.item.tecnicos" :key="tecnico.id">
+                  <v-avatar small>
+                    <img :src="tecnico.avatar" alt="trevor">
+                  </v-avatar>
+                  {{tecnico.user_nick}}
+                </v-chip>
+              </div></v-card-text>
+          </v-card>
         </template>
         <v-alert slot="no-results" :value="true" color="error" icon="warning">
           Your search for "{{ search }}" found no results.
@@ -87,18 +102,21 @@
       status: String,
     },
     data: function () {
-      return {
+      return {        
+        expand: false,
         modalAdd: false,
         search: '',
         pagination: {
           sortBy: 'data'
         },
         headers: [
+          { text: '', align: 'left', value: '', sortable: false, },
+          { text: 'Data', align: 'center', value: 'data' },
           { text: 'Loja', align: 'left', value: 'loja_name' },
           { text: 'Local', align: 'left', value: 'local_name' },
-          { text: 'Data', align: 'center', value: 'data' },
-          { text: 'OS', align: 'center', value: 'os' },
-          { text: 'Categoria', align: 'center', value: 'categoria' },
+          { text: 'OS', align: 'left', value: 'os' },
+          { text: 'Categoria', align: 'left', value: 'categoria' },
+          { text: 'Tecnico(s)', align: 'left', value: 'tecnicos' },
           { text: 'Info', sortable: false, value: 'info' },
           { text: 'ID', value: 'id' },          
         ],
@@ -129,9 +147,27 @@
         var status = this.$store.getters.status;
         var filterKey = this.search && this.search.toLowerCase()
         var data = this.data
+        var uf;
+        var tecnico;
+        var loja;
         if(status){
           data = data.filter(function (row) {
             return Number(row.status) === Number(status);
+          });
+        }
+        if(uf){
+          data = data.filter(function (row) {
+            return Number(row.uf) === Number(uf);
+          });
+        }
+        if(tecnico){
+          data = data.filter(function (row) {
+            return Number(row.uf) === Number(uf);
+          });
+        }
+        if(loja){
+          data = data.filter(function (row) {
+            return Number(row.loja) === Number(loja);
           });
         }
         if (filterKey) {

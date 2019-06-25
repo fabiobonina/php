@@ -1,7 +1,7 @@
 <template id="categoria-selec">
   <div>
       
-    <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+    <message ></message>
     <v-select
       :value="value"
       @input="$emit('input', $event)"

@@ -4,7 +4,7 @@
   <top></top>
   <v-content v-if="_os">
     <template>
-      <message :success="successMessage" :error="errorMessage" v-on:close="errorMessage = []; successMessage = []"></message>
+      <message ></message>
       <v-card flat height="210px" tile color="grey lighten-2">
         <v-toolbar color="cyan" prominent class="white--text" height="80px">
           <v-btn @click="$router.go(-1)" icon >
