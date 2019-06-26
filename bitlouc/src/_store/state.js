@@ -29,7 +29,7 @@ const state = {
   seguimentos:[],
   search:'',
   status:'0',
-  ufs:{},
+  ufs: [],
   count: 0,
   loading: false,
   errorMessage: [],

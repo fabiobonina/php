@@ -1,0 +1,60 @@
+<template id="uf-selec">
+  <div>
+      
+    <message ></message>
+    <v-select
+      :value="value"
+      @input="$emit('input', $event)"
+      :items="ufs"
+      label="UF"
+      :error-messages="errors.collect('servico')"
+      v-validate="'required'"
+      data-vv-name="uf"
+      item-text="name"
+      return-object
+      required
+      solo
+    ></v-select>
+
+  </div>
+</template>
+
+<script>
+Vue.component('uf-selec', {
+  name: 'uf-selec',
+  template: '#uf-selec',
+  $_veeValidate: {
+    validator: 'new'
+  },
+  props: {
+    value: {},
+  },
+  data() {
+    return {
+      errorMessage: [],
+      successMessage: [],
+    };
+  },
+  watch: {
+
+  },
+  mounted () {
+    this.$validator.localize('pt_BR', this.dictionary)
+  },
+  computed: {
+    ufs() {
+      return this.$store.getters.ufs;
+    },
+    temMessage () {
+      if(this.errorMessage.length > 0) return true
+      if(this.successMessage.length > 0) return true
+      return false
+    },
+  },
+  methods: {
+    remove (item) {
+        this.value = ''
+    },
+  },
+});
+</script>

@@ -19,6 +19,8 @@ const getters = {
   getSearch: state => state.search,
   status: state => state.status,
 
+  ufs: state => state.ufs,
+
   organizacao: state => state.proprietario,
   
   tecnicos: state => state.tecnicos,

@@ -10,6 +10,7 @@
                 <loja-selec v-model="loja"></loja-selec>
               </v-flex>
               <v-flex>
+                <uf-selec v-model="uf"></uf-selec>
               </v-flex>
           </v-layout>
         </v-container>
@@ -32,6 +33,7 @@ var TecOs = Vue.extend({
       value:[],
       tecnico: null,
       loja: null,
+      uf: null,
       status: null,
     };
   },
@@ -75,6 +77,9 @@ var TecOs = Vue.extend({
       }
       if (this.loja) {
         return items.filter(todo => todo.loja_id === this.loja.id);
+      }
+      if (this.uf) {
+        return items.filter(todo => todo.uf === this.uf.id);
       }
       
       return items;
